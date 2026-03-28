@@ -303,9 +303,91 @@ python3 /Users/xueshuai/.openclaw/workspace/skills/ui-ux-pro-max/cli/assets/scri
 - 专业、简洁、清晰
 - 字体：Poppins（标题）+ Open Sans（正文）
 - 配色：中性灰 + 链接蓝
-- 响应式：375px、768px、1024px、1440px
 - 深色模式支持
 - 无障碍设计（焦点状态、键盘导航）
+
+### 📱 响应式设计（CRITICAL - 强制执行）
+
+**必须支持的断点：**
+```css
+/* 手机 - 竖屏 */
+@media (max-width: 640px) { }  /* 320px - 640px */
+
+/* 手机 - 横屏 / 小平板 */
+@media (min-width: 641px) and (max-width: 768px) { }
+
+/* 平板 */
+@media (min-width: 769px) and (max-width: 1024px) { }
+
+/* 桌面 */
+@media (min-width: 1025px) { }
+```
+
+**Tailwind 响应式工具类：**
+```jsx
+<div className="
+  grid 
+  grid-cols-1      /* 手机：单列 */
+  md:grid-cols-2   /* 平板：双列 */
+  lg:grid-cols-3   /* 桌面：三列 */
+  gap-4
+">
+```
+
+**响应式检查清单（每个页面必须验证）：**
+- [ ] **iPhone SE (375px)** - 最小手机
+- [ ] **iPhone 14/15 (390px)** - 主流手机
+- [ ] **iPhone Plus (428px)** - 大屏手机
+- [ ] **iPad (768px)** - 平板竖屏
+- [ ] **iPad Pro (1024px)** - 平板横屏
+- [ ] **Desktop (1440px)** - 桌面
+- [ ] **Large Desktop (1920px)** - 大屏
+
+**移动端优先原则：**
+1. **先写移动端样式**（默认）
+2. **用 `md:` `lg:` 添加桌面增强**
+3. **不要使用 `max-width` 媒体查询**（除非特殊需求）
+
+**触摸友好设计：**
+- 按钮/链接最小点击区域：**44x44px**
+- 字体大小：正文最小 **16px**（移动端）
+- 标题：**20px+**（移动端）
+- 行间距：**1.5-1.75**
+- 段落间距：**1.5rem+**
+
+**移动端导航：**
+- 使用汉堡菜单（< 768px）
+- 底部导航栏（可选，类似 App）
+- 搜索框折叠或简化
+
+**图片响应式：**
+```jsx
+<img 
+  src="/image.jpg"
+  alt="描述"
+  className="w-full h-auto"  // 宽度 100%，高度自适应
+  loading="lazy"             // 懒加载
+/>
+```
+
+**表格响应式：**
+- 移动端使用横向滚动
+- 或转换为卡片布局
+- 不要压缩表格导致无法阅读
+
+**代码块响应式：**
+```css
+pre {
+  max-width: 100%;
+  overflow-x: auto;  /* 横向滚动 */
+}
+```
+
+**性能优化：**
+- 图片使用 WebP 格式
+- 响应式图片（`srcset`）
+- 懒加载（`loading="lazy"`）
+- 移动端减少动画
 
 ### 页面体验
 
@@ -314,6 +396,7 @@ python3 /Users/xueshuai/.openclaw/workspace/skills/ui-ux-pro-max/cli/assets/scri
 - 题目阅读体验优先（字号、行距、留白）
 - 代码高亮清晰
 - 图片懒加载
+- **移动端 FPS > 60**（丝滑体验）
 
 ---
 

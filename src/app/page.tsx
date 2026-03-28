@@ -50,27 +50,30 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 text-center">
-        <h1 className="text-5xl font-bold text-gray-900 mb-4">
+      <section className="container mx-auto px-4 py-12 sm:py-16 text-center">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
           AI 面试题大全
         </h1>
-        <p className="text-xl text-gray-600 mb-8">
-          混合分类体系 · 岗位学习路径 · 技术专区 · 持续更新
+        <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8">
+          <span className="hidden sm:inline">混合分类体系 · 岗位学习路径 · 技术专区 · 持续更新</span>
+          <span className="sm:hidden">技术分类 · 岗位路径 · 技术专区</span>
         </p>
 
         {/* 搜索框 */}
-        <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-8">
-          <div className="flex gap-4">
+        <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="搜索题目、关键词、标签..."
-              className="flex-1 px-6 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+              className="flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base sm:text-lg min-h-[48px] sm:min-h-[56px]"
+              aria-label="搜索题目"
             />
             <button
               type="submit"
-              className="px-8 py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold"
+              className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition font-semibold min-h-[48px] sm:min-h-[56px]"
+              aria-label="提交搜索"
             >
               搜索
             </button>
@@ -78,16 +81,16 @@ export default function Home() {
         </form>
 
         {/* 快捷入口 */}
-        <div className="flex justify-center gap-4 flex-wrap">
+        <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
           <Link
             href="/search"
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 sm:px-6 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm sm:text-base min-h-[44px]"
           >
             🔍 浏览所有题目
           </Link>
           <Link
             href="/roadmaps"
-            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+            className="px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-sm sm:text-base min-h-[44px]"
           >
             📚 学习路径
           </Link>
@@ -96,10 +99,10 @@ export default function Home() {
 
       {/* 技术分类 */}
       <section className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
           按技术分类学习
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {CATEGORIES.map((cat) => (
             <CategoryCard key={cat.id} {...cat} />
           ))}
@@ -107,15 +110,15 @@ export default function Home() {
       </section>
 
       {/* 岗位学习 */}
-      <section className="bg-gradient-to-r from-blue-50 to-purple-50 py-12">
+      <section className="bg-gradient-to-r from-blue-50 to-purple-50 py-10 sm:py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
             按岗位学习
           </h2>
-          <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+          <p className="text-gray-600 text-center mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0 text-sm sm:text-base">
             根据你的目标岗位，选择对应的学习路径和题目集合
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {ROLES.map((role) => (
               <RoleCard key={role.id} {...role} />
             ))}
@@ -125,13 +128,13 @@ export default function Home() {
 
       {/* 技术专区 */}
       <section className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
           技术专区
         </h2>
-        <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-center mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0 text-sm sm:text-base">
           聚焦特定技术领域，深入学习和实践
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {ZONES.map((zone) => (
             <ZoneCard key={zone.id} {...zone} />
           ))}
@@ -139,12 +142,12 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-gray-50 py-10 sm:py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
             为什么选择我们
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <Feature
               icon="📚"
               title="混合分类体系"
@@ -165,13 +168,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 text-center text-gray-500 border-t border-gray-200">
-        <p>© 2026 AI 面试题大全 | Built with Next.js & Vercel</p>
-        <p className="text-sm mt-2">
+      <footer className="container mx-auto px-4 py-6 sm:py-8 text-center text-gray-500 border-t border-gray-200">
+        <p className="text-sm sm:text-base">© 2026 AI 面试题大全 | Built with Next.js & Vercel</p>
+        <p className="text-xs sm:text-sm mt-2 flex flex-wrap justify-center gap-2">
           <Link href="/about" className="hover:underline">关于</Link>
-          {" | "}
+          <span>|</span>
           <Link href="/docs" className="hover:underline">文档</Link>
-          {" | "}
+          <span>|</span>
           <a href="https://github.com/xueshuai/ai-interview-questions" className="hover:underline" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
@@ -197,12 +200,12 @@ function CategoryCard({
   return (
     <Link
       href={href}
-      className="block p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
+      className="block p-4 sm:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100 min-h-[160px] sm:min-h-[180px]"
     >
-      <div className="text-3xl mb-3">{icon}</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{name}</h3>
-      <p className="text-gray-600 mb-3">{description}</p>
-      <span className="text-sm text-blue-600 font-medium">
+      <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">{icon}</div>
+      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{name}</h3>
+      <p className="text-sm sm:text-base text-gray-600 mb-3 line-clamp-2">{description}</p>
+      <span className="text-xs sm:text-sm text-blue-600 font-medium">
         浏览题目 →
       </span>
     </Link>
@@ -225,17 +228,17 @@ function RoleCard({
   return (
     <Link
       href={href}
-      className="block p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
+      className="block p-4 sm:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
     >
-      <div className="flex items-center gap-3 mb-3">
-        <div className="text-3xl">{icon}</div>
-        <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
+      <div className="flex items-start sm:items-center gap-2 sm:gap-3 mb-2 sm:mb-3 flex-col sm:flex-row">
+        <div className="text-2xl sm:text-3xl flex-shrink-0">{icon}</div>
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{name}</h3>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1 sm:gap-2">
         {subRoles.map((sub) => (
           <span
             key={sub}
-            className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded"
+            className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded min-h-[28px]"
           >
             {sub}
           </span>
@@ -261,17 +264,17 @@ function ZoneCard({
   return (
     <Link
       href={href}
-      className="block p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
+      className="block p-4 sm:p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
     >
-      <div className="flex items-center gap-3 mb-3">
-        <div className="text-3xl">{icon}</div>
-        <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
+      <div className="flex items-start sm:items-center gap-2 sm:gap-3 mb-2 sm:mb-3 flex-col sm:flex-row">
+        <div className="text-2xl sm:text-3xl flex-shrink-0">{icon}</div>
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{name}</h3>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1 sm:gap-2">
         {topics.map((topic) => (
           <span
             key={topic}
-            className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded"
+            className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded min-h-[28px]"
           >
             {topic}
           </span>
@@ -291,10 +294,10 @@ function Feature({
   description: string;
 }) {
   return (
-    <div className="text-center">
-      <div className="text-4xl mb-4">{icon}</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+    <div className="text-center px-4">
+      <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{icon}</div>
+      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">{title}</h3>
+      <p className="text-sm sm:text-base text-gray-600">{description}</p>
     </div>
   );
 }
