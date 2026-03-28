@@ -101,3 +101,21 @@ a:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
+
+/* Mobile responsive TOC */
+@media (max-width: 1024px) {
+  .toc-mobile {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Code block line height */
+pre code {
+  line-height: 1.6 !important;
+}

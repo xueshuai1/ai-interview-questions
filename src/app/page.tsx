@@ -240,23 +240,29 @@ export default function Home() {
             <div className="inline-flex bg-[#F1F5F9] rounded-xl p-1.5 shadow-sm">
               <button
                 onClick={() => setActiveTrack("non-ai")}
-                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] ${
+                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] relative ${
                   activeTrack === "non-ai"
                     ? "bg-[#2563EB] text-white shadow-md"
                     : "text-[#64748B] hover:bg-[#E2E8F0]"
                 }`}
               >
                 我想学 AI 提升 <span className="hidden sm:inline font-normal opacity-90">（7 个岗位）</span>
+                {activeTrack === "non-ai" && (
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white/50 rounded-full"></span>
+                )}
               </button>
               <button
                 onClick={() => setActiveTrack("ai-pro")}
-                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] ${
+                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] relative ${
                   activeTrack === "ai-pro"
                     ? "bg-[#475569] text-white shadow-md"
                     : "text-[#64748B] hover:bg-[#E2E8F0]"
                 }`}
               >
                 AI 专业深入 <span className="hidden sm:inline font-normal opacity-90">（4 个岗位）</span>
+                {activeTrack === "ai-pro" && (
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white/50 rounded-full"></span>
+                )}
               </button>
             </div>
           </div>
@@ -327,15 +333,15 @@ export default function Home() {
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center text-[#94A3B8] border-t border-[#E2E8F0]">
         <p className="text-sm">© 2026 AI 学习与面试大全 | Built with Next.js & Vercel</p>
-        <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm">
+        <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
           <Link href="/knowledge" className="text-[#64748B] hover:text-[#2563EB] transition-colors">
             知识库
           </Link>
-          <span className="text-[#E2E8F0]">|</span>
+          <span className="text-[#CBD5E1]">|</span>
           <Link href="/interview" className="text-[#64748B] hover:text-[#2563EB] transition-colors">
             面试题库
           </Link>
-          <span className="text-[#E2E8F0]">|</span>
+          <span className="text-[#CBD5E1]">|</span>
           <a href="https://github.com/xueshuai1/ai-interview-questions" className="text-[#64748B] hover:text-[#2563EB] transition-colors" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>

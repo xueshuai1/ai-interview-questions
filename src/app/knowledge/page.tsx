@@ -179,8 +179,8 @@ export default function KnowledgePage() {
       {/* 主要内容 */}
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* 左侧：筛选器 */}
-          <div className="lg:col-span-1 space-y-6">
+          {/* 左侧：筛选器 - 移动端隐藏，桌面端显示 */}
+          <div className="lg:col-span-1 space-y-6 hidden lg:block">
             {/* 难度筛选 */}
             <div className="bg-white rounded-xl border border-gray-200 p-5">
               <h2 className="text-lg font-semibold text-gray-900 mb-3">按难度筛选</h2>
@@ -217,6 +217,54 @@ export default function KnowledgePage() {
               <h2 className="text-lg font-semibold text-gray-900 mb-3">🏷️ 标签筛选</h2>
               <TagFilter onFilterChange={setTagFilters} compact />
             </div>
+          </div>
+          
+          {/* 移动端筛选按钮 */}
+          <div className="lg:hidden mb-4">
+            <details className="bg-white rounded-xl border border-gray-200">
+              <summary className="px-5 py-3 cursor-pointer font-semibold text-gray-700 flex items-center justify-between">
+                <span>🔍 筛选条件</span>
+                <span className="text-gray-400">▼</span>
+              </summary>
+              <div className="p-5 border-t border-gray-200 space-y-6">
+                {/* 难度筛选 */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3">按难度筛选</h3>
+                  <div className="space-y-2">
+                    <button
+                      onClick={() => setSelectedDifficulty(null)}
+                      className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                        selectedDifficulty === null
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                      }`}
+                    >
+                      全部
+                    </button>
+                    {DIFFICULTIES.map((diff) => (
+                      <button
+                        key={diff.level}
+                        onClick={() => setSelectedDifficulty(diff.level)}
+                        className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                          selectedDifficulty === diff.level
+                            ? "bg-blue-500 text-white"
+                            : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                        }`}
+                      >
+                        <span className="font-semibold">{diff.label}</span>
+                        <span className="ml-2 text-sm opacity-80">{diff.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* 标签筛选 */}
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3">🏷️ 标签筛选</h3>
+                  <TagFilter onFilterChange={setTagFilters} compact />
+                </div>
+              </div>
+            </details>
           </div>
 
           {/* 右侧：内容 */}
@@ -338,7 +386,12 @@ function ArticleCard({ article }: { article: typeof SAMPLE_ARTICLES[0] }) {
       <div className="flex items-center text-xs text-gray-500">
         <span>⏱️ {article.readTime}</span>
         <span className="mx-2">·</span>
-        <span className="text-blue-600 font-medium">阅读全文 →</span>
+        <span className="text-blue-600 font-medium flex items-center gap-1">
+          阅读全文 
+          <svg className="w-[14px] h-[14px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
       </div>
     </Link>
   );

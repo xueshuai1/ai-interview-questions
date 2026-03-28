@@ -272,7 +272,7 @@ export default function RoadmapsPage() {
                       key={step.order}
                       className="flex gap-4 p-4 bg-[#F8FAFC] rounded-xl"
                     >
-                      <div className="flex-shrink-0 w-8 h-8 bg-[#2563EB] text-white rounded-full flex items-center justify-center font-semibold">
+                      <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] text-white rounded-full flex items-center justify-center font-semibold shadow-sm">
                         {step.order}
                       </div>
                       <div className="flex-1">

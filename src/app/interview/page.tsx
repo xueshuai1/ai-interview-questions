@@ -162,7 +162,7 @@ export default function InterviewPage() {
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* 左侧：筛选器 */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-6 max-w-md lg:max-w-none">
             {/* 搜索框 */}
             <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
               <h2 className="text-lg font-semibold text-[#1E293B] mb-3">🔍 搜索题目</h2>

@@ -15,10 +15,11 @@ export default function TagCloud({ tagCounts = {}, limit, group = "all" }: TagCl
   const getTagSize = (count: number, maxCount: number) => {
     if (maxCount === 0) return "text-sm";
     const ratio = count / maxCount;
-    if (ratio > 0.8) return "text-xl font-bold";
-    if (ratio > 0.6) return "text-lg font-semibold";
-    if (ratio > 0.4) return "text-base font-medium";
-    return "text-sm";
+    if (ratio > 0.8) return "text-[24px] font-bold";
+    if (ratio > 0.6) return "text-[20px] font-semibold";
+    if (ratio > 0.4) return "text-[18px] font-medium";
+    if (ratio > 0.2) return "text-[16px]";
+    return "text-[14px]";
   };
 
   const renderTechTags = () => {
