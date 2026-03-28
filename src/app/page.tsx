@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 // 分类数据
 const CATEGORIES = [
@@ -15,14 +16,21 @@ const CATEGORIES = [
   { id: "Coding", name: "编程算法", icon: "💻", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
 
-// 岗位角色数据
-const ROLES = [
-  { id: "frontend", name: "前端开发", icon: "🎨", href: "/roles/frontend", subRoles: ["AI 应用开发", "前端工程化+AI", "智能 UI/UX"] },
-  { id: "backend", name: "后端开发", icon: "⚙️", href: "/roles/backend", subRoles: ["模型服务化", "API 设计", "系统架构"] },
-  { id: "fullstack", name: "全栈开发", icon: "🚀", href: "/roles/fullstack", subRoles: ["前端 + 后端+AI 集成", "快速原型开发", "独立项目开发"] },
-  { id: "algorithm", name: "算法工程师", icon: "🔬", href: "/roles/algorithm", subRoles: ["模型原理与优化", "训练与调参", "论文解读"] },
-  { id: "test-ops", name: "测试/运维工程师", icon: "🛠️", href: "/roles/test-ops", subRoles: ["AI 系统测试", "MLOps", "部署与监控"] },
+// 非 AI 岗位（学习 AI 提升竞争力）
+const NON_AI_ROLES = [
+  { id: "frontend", name: "前端开发", icon: "🎨", href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI/UX", "Copilot 提效"] },
+  { id: "backend", name: "后端开发", icon: "⚙️", href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
+  { id: "fullstack", name: "全栈开发", icon: "🚀", href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
   { id: "product", name: "产品经理", icon: "📋", href: "/roles/product", subRoles: ["AI 产品设计", "场景分析", "商业化"] },
+  { id: "devops", name: "运维/DevOps", icon: "🛠️", href: "/roles/devops", subRoles: ["MLOps", "模型部署", "监控运维"] },
+];
+
+// AI 专业岗位（深入 AI 技术）
+const AI_PRO_ROLES = [
+  { id: "algorithm", name: "算法工程师", icon: "🔬", href: "/roles/algorithm", subRoles: ["机器学习", "深度学习"] },
+  { id: "llm-engineer", name: "大模型工程师", icon: "🤖", href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent"] },
+  { id: "cv-engineer", name: "CV 工程师", icon: "👁️", href: "/roles/cv-engineer", subRoles: ["图像分类", "目标检测", "图像生成"] },
+  { id: "nlp-engineer", name: "NLP 工程师", icon: "📝", href: "/roles/nlp-engineer", subRoles: ["文本理解", "文本生成", "语言模型"] },
 ];
 
 // 技术专区数据
@@ -34,7 +42,11 @@ const ZONES = [
   { id: "frontier", name: "前沿技术", icon: "🚀", href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
 ];
 
+type TrackType = "non-ai" | "ai-pro";
+
 export default function Home() {
+  const [activeTrack, setActiveTrack] = useState<TrackType>("non-ai");
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section */}
@@ -88,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 岗位学习 */}
+      {/* 双岗位分类体系 - Tab 切换 */}
       <section className="bg-gradient-to-r from-blue-50 to-purple-50 py-10 sm:py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 text-center">
@@ -97,10 +109,53 @@ export default function Home() {
           <p className="text-gray-600 text-center mb-6 sm:mb-8 max-w-2xl mx-auto px-4 sm:px-0 text-sm sm:text-base">
             根据你的目标岗位，选择对应的学习路径和题目集合
           </p>
+
+          {/* Tab 切换 */}
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex bg-white rounded-xl p-1 shadow-sm border border-gray-200">
+              <button
+                onClick={() => setActiveTrack("non-ai")}
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition ${
+                  activeTrack === "non-ai"
+                    ? "bg-blue-500 text-white shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                📚 我想学 AI 提升
+              </button>
+              <button
+                onClick={() => setActiveTrack("ai-pro")}
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition ${
+                  activeTrack === "ai-pro"
+                    ? "bg-purple-500 text-white shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                🤖 AI 专业深入
+              </button>
+            </div>
+          </div>
+
+          {/* 岗位列表 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {ROLES.map((role) => (
-              <RoleCard key={role.id} {...role} />
-            ))}
+            {activeTrack === "non-ai" ? (
+              NON_AI_ROLES.map((role) => (
+                <RoleCard key={role.id} {...role} />
+              ))
+            ) : (
+              AI_PRO_ROLES.map((role) => (
+                <RoleCard key={role.id} {...role} />
+              ))
+            )}
+          </div>
+
+          {/* Track 描述 */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-500">
+              {activeTrack === "non-ai"
+                ? "适合传统开发/产品/运维人员，学习 AI 提升竞争力"
+                : "适合 AI 从业者，深入学习 AI 技术"}
+            </p>
           </div>
         </div>
       </section>
@@ -129,8 +184,8 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
             <Feature
               icon="📚"
-              title="混合分类体系"
-              description="技术分类 + 岗位角色 + 技术专区，三维定位学习方向"
+              title="双岗位分类体系"
+              description="非 AI 岗位学 AI + AI 专业深入，满足不同人群需求"
             />
             <Feature
               icon="✨"
