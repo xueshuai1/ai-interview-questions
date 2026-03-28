@@ -16,19 +16,19 @@ const CATEGORIES = [
   { id: "Coding", name: "编程算法", icon: "💻", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
 
-// 非 AI 岗位（学习 AI 提升竞争力）
+// 非 AI 岗位（6 个）- 学习 AI 提升竞争力
 const NON_AI_ROLES = [
-  { id: "frontend", name: "前端开发", icon: "🎨", href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI", "Copilot 提效"] },
-  { id: "backend", name: "后端开发", icon: "⚙️", href: "/roles/backend", subRoles: ["模型服务化", "API 设计", "系统架构"] },
+  { id: "frontend", name: "前端开发", icon: "🎨", href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI/UX", "Copilot 提效"] },
+  { id: "backend", name: "后端开发", icon: "⚙️", href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
   { id: "fullstack", name: "全栈开发", icon: "🚀", href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
-  { id: "mobile", name: "移动端开发", icon: "📱", href: "/roles/mobile", subRoles: ["iOS/Android/跨平台 + AI 集成"] },
+  { id: "mobile", name: "移动端开发", icon: "📱", href: "/roles/mobile", subRoles: ["iOS + AI", "Android + AI", "跨平台 + AI"] },
   { id: "test", name: "测试工程师", icon: "✅", href: "/roles/test", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
   { id: "data", name: "数据开发", icon: "📊", href: "/roles/data", subRoles: ["数据工程", "数据 pipeline", "特征工程"] },
 ];
 
-// AI 专业岗位（深入 AI 技术）
+// AI 专业岗位（2 个）- 深入 AI 技术
 const AI_PRO_ROLES = [
-  { id: "algorithm", name: "算法工程师", icon: "🔬", href: "/roles/algorithm", subRoles: ["机器学习", "深度学习", "CV", "NLP", "大模型"] },
+  { id: "algorithm", name: "算法工程师", icon: "🔬", href: "/roles/algorithm", subRoles: ["机器学习", "深度学习", "CV", "NLP"] },
   { id: "product", name: "产品经理", icon: "📋", href: "/roles/product", subRoles: ["AI 产品设计", "场景分析", "商业化"] },
 ];
 
@@ -120,7 +120,7 @@ export default function Home() {
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
               >
-                📚 我想学 AI 提升
+                📚 我想学 AI 提升 <span className="hidden sm:inline">（6 个岗位）</span>
               </button>
               <button
                 onClick={() => setActiveTrack("ai-pro")}
@@ -130,7 +130,7 @@ export default function Home() {
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
               >
-                🤖 AI 专业深入
+                🤖 AI 专业深入 <span className="hidden sm:inline">（2 个岗位）</span>
               </button>
             </div>
           </div>
@@ -152,8 +152,8 @@ export default function Home() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-500">
               {activeTrack === "non-ai"
-                ? "适合传统开发/产品/运维人员，学习 AI 提升竞争力"
-                : "适合 AI 从业者，深入学习 AI 技术"}
+                ? "适合传统开发/测试/数据人员，学习 AI 提升竞争力"
+                : "适合 AI 算法和产品经理，深入学习 AI 技术"}
             </p>
           </div>
         </div>
@@ -174,6 +174,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features */}
+      <section className="bg-gray-50 py-10 sm:py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
+            为什么选择我们
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
+            <Feature
+              icon="📚"
+              title="8 岗位分类体系"
+              description="6 个非 AI 岗位 + 2 个 AI 专业岗位，全面覆盖技术角色"
+            />
+            <Feature
+              icon="✨"
+              title="持续更新"
+              description="自动收集最新 AI 知识和面试真题，紧跟前沿技术"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="container mx-auto px-4 py-6 sm:py-8 text-center text-gray-500 border-t border-gray-200">
         <p className="text-sm sm:text-base">© 2026 AI 学习与面试大全 | Built with Next.js & Vercel</p>
@@ -182,7 +203,7 @@ export default function Home() {
           <span>|</span>
           <Link href="/docs" className="hover:underline">文档</Link>
           <span>|</span>
-          <a href="https://github.com/xueshuai/ai-interview-questions" className="hover:underline" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/xueshuai1/ai-interview-questions" className="hover:underline" target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
         </p>
