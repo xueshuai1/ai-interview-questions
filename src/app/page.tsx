@@ -55,8 +55,8 @@ export default function Home() {
           AI 学习与面试大全
         </h1>
         <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8">
-          <span className="hidden sm:inline">AI 知识库 · 系统化学习 · 面试准备 · 持续更新</span>
-          <span className="sm:hidden">AI 知识库 · 系统学习 · 面试准备</span>
+          <span className="hidden sm:inline">专注 AI 领域的知识库和面试准备</span>
+          <span className="sm:hidden">专注 AI 领域 · 面试准备</span>
         </p>
 
         {/* 搜索框 */}
