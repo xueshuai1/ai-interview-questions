@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import tagsData from "@/content/meta/tags.json";
+import tagsData from "../../content/meta/tags.json";
 
 interface TagCloudProps {
   tagCounts?: Record<string, number>;

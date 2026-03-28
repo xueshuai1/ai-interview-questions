@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import TagFilter from "@/components/TagFilter";
+import Tag from "@/components/Tag";
 
 // Lucide 风格 SVG 图标组件
 function BriefcaseIcon({ className }: { className?: string }) {
@@ -9,63 +11,6 @@ function BriefcaseIcon({ className }: { className?: string }) {
     <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-    </svg>
-  );
-}
-
-function CpuIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="4" y="4" width="16" height="16" rx="2" />
-      <rect x="9" y="9" width="6" height="6" />
-      <path d="M15 2v2" /><path d="M15 20v2" /><path d="M2 15h2" /><path d="M2 9h2" /><path d="M20 15h2" /><path d="M20 9h2" /><path d="M9 2v2" /><path d="M9 20v2" />
-    </svg>
-  );
-}
-
-function BrainIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
-      <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
-    </svg>
-  );
-}
-
-function CodeIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="16 18 22 12 16 6" />
-      <polyline points="8 6 2 12 8 18" />
-    </svg>
-  );
-}
-
-function LayersIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
-      <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
-      <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
-    </svg>
-  );
-}
-
-function ZapIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-  );
-}
-
-function UsersIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
   );
 }
@@ -90,48 +35,76 @@ function ArrowRightIcon({ className }: { className?: string }) {
 
 // 分类数据
 const CATEGORIES = [
-  { id: "ML", name: "机器学习基础", icon: CpuIcon, href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
-  { id: "DL", name: "深度学习", icon: BrainIcon, href: "/categories/DL", description: "神经网络、CNN、RNN、Transformer" },
-  { id: "NLP", name: "自然语言处理", icon: BookIcon, href: "/categories/NLP", description: "词向量、语言模型、文本生成" },
-  { id: "CV", name: "计算机视觉", icon: LayersIcon, href: "/categories/CV", description: "图像分类、目标检测、分割" },
-  { id: "LLM", name: "大语言模型", icon: ZapIcon, href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
-  { id: "RecSys", name: "推荐系统", icon: UsersIcon, href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
-  { id: "RL", name: "强化学习", icon: CodeIcon, href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
-  { id: "System", name: "系统设计", icon: LayersIcon, href: "/categories/System", description: "ML 系统设计、架构设计" },
-  { id: "Coding", name: "编程算法", icon: CodeIcon, href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
+  { id: "ML", name: "机器学习基础", href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
+  { id: "DL", name: "深度学习", href: "/categories/DL", description: "神经网络、CNN、RNN、Transformer" },
+  { id: "NLP", name: "自然语言处理", href: "/categories/NLP", description: "词向量、语言模型、文本生成" },
+  { id: "CV", name: "计算机视觉", href: "/categories/CV", description: "图像分类、目标检测、分割" },
+  { id: "LLM", name: "大语言模型", href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
+  { id: "RecSys", name: "推荐系统", href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
+  { id: "RL", name: "强化学习", href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
+  { id: "System", name: "系统设计", href: "/categories/System", description: "ML 系统设计、架构设计" },
+  { id: "Coding", name: "编程算法", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
 
 // 岗位数据
 const ROLES = [
-  { id: "frontend", name: "前端开发", icon: CodeIcon, href: "/roles/frontend" },
-  { id: "backend", name: "后端开发", icon: CpuIcon, href: "/roles/backend" },
-  { id: "fullstack", name: "全栈开发", icon: ZapIcon, href: "/roles/fullstack" },
-  { id: "mobile", name: "移动端开发", icon: CodeIcon, href: "/roles/mobile" },
-  { id: "test-engineer", name: "测试工程师", icon: BriefcaseIcon, href: "/roles/test-engineer" },
-  { id: "data-engineer", name: "数据开发", icon: LayersIcon, href: "/roles/data-engineer" },
-  { id: "algorithm", name: "算法工程师", icon: BrainIcon, href: "/roles/algorithm" },
-  { id: "product", name: "产品经理", icon: BriefcaseIcon, href: "/roles/product" },
+  { id: "frontend", name: "前端开发", href: "/roles/frontend" },
+  { id: "backend", name: "后端开发", href: "/roles/backend" },
+  { id: "fullstack", name: "全栈开发", href: "/roles/fullstack" },
+  { id: "mobile", name: "移动端开发", href: "/roles/mobile" },
+  { id: "test-engineer", name: "测试工程师", href: "/roles/test-engineer" },
+  { id: "data-engineer", name: "数据开发", href: "/roles/data-engineer" },
+  { id: "algorithm", name: "算法工程师", href: "/roles/algorithm" },
+  { id: "product", name: "产品经理", href: "/roles/product" },
 ];
 
 // 示例题目
 const FEATURED_QUESTIONS = [
-  { id: "q-001", title: "什么是过拟合？如何防止过拟合？", category: "ML", difficulty: "⭐⭐", role: "algorithm" },
-  { id: "q-002", title: "解释 Transformer 的自注意力机制", category: "DL", difficulty: "⭐⭐⭐", role: "algorithm" },
-  { id: "q-003", title: "什么是 Prompt Engineering？", category: "LLM", difficulty: "⭐", role: "frontend" },
-  { id: "q-004", title: "设计一个模型推理 API", category: "System", difficulty: "⭐⭐⭐", role: "backend" },
-  { id: "q-005", title: "解释 RAG 的工作原理", category: "LLM", difficulty: "⭐⭐", role: "fullstack" },
-  { id: "q-006", title: "如何实现智能表单验证？", category: "Coding", difficulty: "⭐⭐", role: "frontend" },
+  { id: "q-001", title: "什么是过拟合？如何防止过拟合？", category: "ML", difficulty: "⭐⭐", role: "algorithm", tags: ["ML", "2", "interview", "algorithm"] },
+  { id: "q-002", title: "解释 Transformer 的自注意力机制", category: "DL", difficulty: "⭐⭐⭐", role: "algorithm", tags: ["DL", "Transformer", "3", "interview", "bigtech"] },
+  { id: "q-003", title: "什么是 Prompt Engineering？", category: "LLM", difficulty: "⭐", role: "frontend", tags: ["LLM", "1", "frontend", "interview"] },
+  { id: "q-004", title: "设计一个模型推理 API", category: "System", difficulty: "⭐⭐⭐", role: "backend", tags: ["System", "LLM", "3", "backend", "bigtech"] },
+  { id: "q-005", title: "解释 RAG 的工作原理", category: "LLM", difficulty: "⭐⭐", role: "fullstack", tags: ["LLM", "RAG", "2", "backend", "interview"] },
+  { id: "q-006", title: "如何实现智能表单验证？", category: "Coding", difficulty: "⭐⭐", role: "frontend", tags: ["Coding", "2", "frontend", "exam"] },
+  { id: "q-007", title: "Agent 架构设计要点", category: "LLM", difficulty: "⭐⭐⭐", role: "backend", tags: ["LLM", "Agent", "3", "backend", "opensource"] },
+  { id: "q-008", title: "BERT 和 GPT 的区别", category: "NLP", difficulty: "⭐⭐⭐", role: "algorithm", tags: ["NLP", "Transformer", "3", "interview", "bigtech"] },
 ];
+
+interface TagFilters {
+  techDomains: string[];
+  difficulties: string[];
+  scenarios: string[];
+}
 
 export default function InterviewPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [tagFilters, setTagFilters] = useState<TagFilters>({
+    techDomains: [],
+    difficulties: [],
+    scenarios: [],
+  });
 
   const filteredQuestions = FEATURED_QUESTIONS.filter((q) => {
     if (selectedCategory && q.category !== selectedCategory) return false;
     if (selectedRole && q.role !== selectedRole) return false;
     if (searchQuery && !q.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    
+    // 标签筛选
+    if (tagFilters.techDomains.length > 0) {
+      const hasTechTag = tagFilters.techDomains.some(tag => q.tags.includes(tag));
+      if (!hasTechTag) return false;
+    }
+    if (tagFilters.difficulties.length > 0) {
+      const hasDiffTag = tagFilters.difficulties.some(tag => q.tags.includes(tag));
+      if (!hasDiffTag) return false;
+    }
+    if (tagFilters.scenarios.length > 0) {
+      const hasScenarioTag = tagFilters.scenarios.some(tag => q.tags.includes(tag));
+      if (!hasScenarioTag) return false;
+    }
+    
     return true;
   });
 
@@ -153,13 +126,21 @@ export default function InterviewPage() {
       {/* Header */}
       <header className="bg-white border-b border-[#E2E8F0]">
         <div className="container mx-auto px-4 py-6">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[#64748B] hover:text-[#2563EB] transition-colors mb-4"
-          >
-            ← 返回首页
-          </Link>
           <div className="flex items-center gap-4 mb-4">
+            <Link
+              href="/"
+              className="text-[#64748B] hover:text-[#2563EB] transition-colors"
+            >
+              ← 返回首页
+            </Link>
+            <Link
+              href="/tags"
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              🏷️ 标签系统
+            </Link>
+          </div>
+          <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-[#F1F5F9] rounded-xl flex items-center justify-center">
               <BriefcaseIcon className="w-8 h-8 text-[#475569]" />
             </div>
@@ -171,120 +152,147 @@ export default function InterviewPage() {
         </div>
       </header>
 
-      {/* 搜索框 */}
-      <section className="container mx-auto px-4 py-6">
-        <div className="max-w-2xl mx-auto">
-          <input
-            type="text"
-            placeholder="搜索题目..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 border border-[#E2E8F0] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2563EB] focus:border-transparent"
-          />
-        </div>
-      </section>
+      {/* 主要内容 */}
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* 左侧：筛选器 */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* 搜索框 */}
+            <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-3">🔍 搜索题目</h2>
+              <input
+                type="text"
+                placeholder="输入关键词..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+              />
+            </div>
 
-      {/* 分类筛选 */}
-      <section className="container mx-auto px-4 py-6">
-        <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按技术分类筛选</h2>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setSelectedCategory(null)}
-            className={`px-4 py-2 rounded-lg border transition ${
-              selectedCategory === null
-                ? "bg-[#2563EB] text-white border-[#2563EB]"
-                : "bg-white text-[#64748B] border-[#E2E8F0] hover:bg-[#F1F5F9]"
-            }`}
-          >
-            全部
-          </button>
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-lg border transition ${
-                selectedCategory === cat.id
-                  ? "bg-[#2563EB] text-white border-[#2563EB]"
-                  : "bg-white text-[#64748B] border-[#E2E8F0] hover:bg-[#F1F5F9]"
-              }`}
-            >
-              {cat.name}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* 岗位筛选 */}
-      <section className="container mx-auto px-4 py-6">
-        <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按岗位筛选</h2>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setSelectedRole(null)}
-            className={`px-4 py-2 rounded-lg border transition ${
-              selectedRole === null
-                ? "bg-[#475569] text-white border-[#475569]"
-                : "bg-white text-[#64748B] border-[#E2E8F0] hover:bg-[#F1F5F9]"
-            }`}
-          >
-            全部
-          </button>
-          {ROLES.map((role) => (
-            <button
-              key={role.id}
-              onClick={() => setSelectedRole(role.id)}
-              className={`px-4 py-2 rounded-lg border transition ${
-                selectedRole === role.id
-                  ? "bg-[#475569] text-white border-[#475569]"
-                  : "bg-white text-[#64748B] border-[#E2E8F0] hover:bg-[#F1F5F9]"
-              }`}
-            >
-              {role.name}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* 题目列表 */}
-      <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold text-[#1E293B] mb-6">
-          {filteredQuestions.length > 0 ? "精选题目" : "暂无匹配题目"}
-        </h2>
-        
-        {filteredQuestions.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center">
-            <p className="text-[#64748B]">暂无匹配的题目，请尝试其他筛选条件</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredQuestions.map((q) => (
-              <div
-                key={q.id}
-                className="bg-white rounded-xl border border-[#E2E8F0] p-5 hover:shadow-md transition-shadow cursor-pointer"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <span className="px-2 py-1 bg-[#F1F5F9] text-[#475569] text-xs rounded font-medium">
-                    {q.id}
-                  </span>
-                  <span className="text-sm">{q.difficulty}</span>
-                </div>
-                <h3 className="text-lg font-semibold text-[#1E293B] mb-3">{q.title}</h3>
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-[#DBEAFE] text-[#1E40AF] text-xs rounded">
-                    {q.category}
-                  </span>
-                  <span className="px-2 py-1 bg-[#DCFCE7] text-[#166534] text-xs rounded">
-                    {ROLES.find((r) => r.id === q.role)?.name || q.role}
-                  </span>
-                </div>
+            {/* 分类筛选 */}
+            <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按技术分类</h2>
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                    selectedCategory === null
+                      ? "bg-[#2563EB] text-white"
+                      : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
+                  }`}
+                >
+                  全部
+                </button>
+                {CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                      selectedCategory === cat.id
+                        ? "bg-[#2563EB] text-white"
+                        : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-      </section>
+            </div>
 
-      {/* 快速入口 */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+            {/* 岗位筛选 */}
+            <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按岗位筛选</h2>
+              <div className="space-y-2">
+                <button
+                  onClick={() => setSelectedRole(null)}
+                  className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                    selectedRole === null
+                      ? "bg-[#475569] text-white"
+                      : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
+                  }`}
+                >
+                  全部
+                </button>
+                {ROLES.map((role) => (
+                  <button
+                    key={role.id}
+                    onClick={() => setSelectedRole(role.id)}
+                    className={`w-full text-left px-3 py-2 rounded-lg transition ${
+                      selectedRole === role.id
+                        ? "bg-[#475569] text-white"
+                        : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
+                    }`}
+                  >
+                    {role.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* 标签筛选 */}
+            <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
+              <h2 className="text-lg font-semibold text-[#1E293B] mb-3">🏷️ 标签筛选</h2>
+              <TagFilter onFilterChange={setTagFilters} compact />
+            </div>
+          </div>
+
+          {/* 右侧：题目列表 */}
+          <div className="lg:col-span-3">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-[#1E293B]">
+                {filteredQuestions.length > 0 ? "精选题目" : "暂无匹配题目"}
+              </h2>
+              <span className="text-sm text-[#64748B]">
+                共 {filteredQuestions.length} 道
+              </span>
+            </div>
+            
+            {filteredQuestions.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] p-12 text-center">
+                <p className="text-[#64748B]">暂无匹配的题目，请尝试其他筛选条件</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredQuestions.map((q) => (
+                  <div
+                    key={q.id}
+                    className="bg-white rounded-xl border border-[#E2E8F0] p-5 hover:shadow-md transition-shadow cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <span className="px-2 py-1 bg-[#F1F5F9] text-[#475569] text-xs rounded font-medium">
+                        {q.id}
+                      </span>
+                      <span className="text-sm">{q.difficulty}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-[#1E293B] mb-3">{q.title}</h3>
+                    
+                    {/* 标签展示 */}
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {q.tags.slice(0, 4).map((tag) => (
+                        <Tag key={tag} id={tag} name={`#${tag}`} size="sm" group="tech" />
+                      ))}
+                      {q.tags.length > 4 && (
+                        <span className="text-xs text-gray-500 px-1">+{q.tags.length - 4}</span>
+                      )}
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 bg-[#DBEAFE] text-[#1E40AF] text-xs rounded">
+                        {q.category}
+                      </span>
+                      <span className="px-2 py-1 bg-[#DCFCE7] text-[#166534] text-xs rounded">
+                        {ROLES.find((r) => r.id === q.role)?.name || q.role}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 快速入口 */}
+        <section className="mt-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
           <h2 className="text-xl font-bold text-[#1E293B] mb-4">📚 还没有准备好？</h2>
           <p className="text-[#64748B] mb-6">
             先系统学习基础知识，再来挑战面试题目吧！
@@ -305,8 +313,8 @@ export default function InterviewPage() {
               <ArrowRightIcon className="w-5 h-5" />
             </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center text-[#94A3B8] border-t border-[#E2E8F0] mt-12">

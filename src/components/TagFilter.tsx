@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Tag from "./Tag";
-import tagsData from "@/content/meta/tags.json";
+import tagsData from "../../content/meta/tags.json";
 
 interface TagFilterProps {
   onFilterChange?: (filters: TagFilters) => void;

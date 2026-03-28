@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import tagsData from "@/content/meta/tags.json";
+import tagsData from "../../../../content/meta/tags.json";
 
 export default function TagDetailPage() {
   const params = useParams();
