@@ -47,6 +47,24 @@ export default function Home() {
           <span className="sm:hidden">专注 AI 领域 · 面试准备</span>
         </p>
 
+        {/* 双轨入口 - 知识库 | 面试题 */}
+        <div className="flex justify-center gap-4 sm:gap-6 mb-8 sm:mb-10 flex-wrap">
+          <Link
+            href="/knowledge"
+            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition shadow-md hover:shadow-lg text-base sm:text-lg min-h-[56px] flex items-center gap-2"
+          >
+            📚 知识库
+            <span className="text-xs sm:text-sm opacity-80 group-hover:opacity-100">系统化学习</span>
+          </Link>
+          <Link
+            href="/interview"
+            className="group px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl hover:from-purple-600 hover:to-purple-700 transition shadow-md hover:shadow-lg text-base sm:text-lg min-h-[56px] flex items-center gap-2"
+          >
+            💼 面试题库
+            <span className="text-xs sm:text-sm opacity-80 group-hover:opacity-100">面试准备</span>
+          </Link>
+        </div>
+
         {/* 快捷入口 */}
         <div className="flex justify-center gap-3 sm:gap-4 flex-wrap">
           <Link
