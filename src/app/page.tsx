@@ -174,27 +174,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="bg-gray-50 py-10 sm:py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">
-            为什么选择我们
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
-            <Feature
-              icon="📚"
-              title="双岗位分类体系"
-              description="非 AI 岗位学 AI + AI 专业深入，满足不同人群需求"
-            />
-            <Feature
-              icon="✨"
-              title="持续更新"
-              description="自动收集最新 AI 知识和面试真题，紧跟前沿技术"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="container mx-auto px-4 py-6 sm:py-8 text-center text-gray-500 border-t border-gray-200">
         <p className="text-sm sm:text-base">© 2026 AI 学习与面试大全 | Built with Next.js & Vercel</p>
