@@ -73,6 +73,16 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
+/* Button active states */
+button:active, a:active {
+  transform: scale(0.98);
+}
+
+/* Enhanced link hover states */
+a:hover {
+  text-decoration: none;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

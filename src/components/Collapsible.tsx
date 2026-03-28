@@ -48,11 +48,15 @@ export default function Collapsible({
             ▼
           </span>
         </button>
-        {isOpen && (
+        <div 
+          className={`overflow-hidden transition-all duration-200 ease-in-out ${
+            isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
           <div className="px-5 py-4 border-t border-gray-100 bg-white">
             {children}
           </div>
-        )}
+        </div>
       </div>
     );
   }
@@ -69,11 +73,15 @@ export default function Collapsible({
           ▼
         </span>
       </button>
-      {isOpen && (
+      <div 
+        className={`overflow-hidden transition-all duration-200 ease-in-out ${
+          isOpen ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
         <div className="px-4 py-4 border-t border-gray-200">
           {children}
         </div>
-      )}
+      </div>
     </div>
   );
 }

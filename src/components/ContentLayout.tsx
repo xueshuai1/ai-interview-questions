@@ -48,7 +48,7 @@ export default function ContentLayout({
             <div className="flex items-center gap-2 text-sm text-gray-600">
               {breadcrumbs.map((crumb, index) => (
                 <div key={index} className="flex items-center gap-2">
-                  {index > 0 && <span className="text-gray-400">/</span>}
+                  {index > 0 && <span className="text-gray-500">/</span>}
                   {crumb.href ? (
                     <a href={crumb.href} className="hover:text-blue-600 transition-colors">
                       {crumb.label}

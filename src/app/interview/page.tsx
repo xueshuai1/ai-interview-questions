@@ -168,10 +168,10 @@ export default function InterviewPage() {
               <h2 className="text-lg font-semibold text-[#1E293B] mb-3">🔍 搜索题目</h2>
               <input
                 type="text"
-                placeholder="输入关键词..."
+                placeholder="输入关键词搜索..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+                className="w-full px-4 py-2 border border-[#E2E8F0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB] text-[#1E293B] placeholder-[#64748B]"
               />
             </div>
 

@@ -101,6 +101,7 @@ interface TagFilters {
 export default function KnowledgePage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const [tagFilters, setTagFilters] = useState<TagFilters>({
     techDomains: [],
     difficulties: [],
@@ -110,6 +111,15 @@ export default function KnowledgePage() {
   const filteredArticles = SAMPLE_ARTICLES.filter((article) => {
     if (selectedDifficulty && article.difficulty !== selectedDifficulty) return false;
     if (selectedCategory && article.category !== selectedCategory) return false;
+    
+    // 搜索过滤
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      const matchTitle = article.title.toLowerCase().includes(query);
+      const matchDesc = article.description.toLowerCase().includes(query);
+      const matchTags = article.tags.some(tag => tag.toLowerCase().includes(query));
+      if (!matchTitle && !matchDesc && !matchTags) return false;
+    }
     
     // 标签筛选
     if (tagFilters.techDomains.length > 0) {
@@ -144,9 +154,25 @@ export default function KnowledgePage() {
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
             📚 知识库
           </h1>
-          <p className="text-gray-600 text-base sm:text-lg">
+          <p className="text-gray-600 text-base sm:text-lg mb-6">
             系统化学习 AI 知识，按难度分级，从入门到精通
           </p>
+          
+          {/* 搜索框 */}
+          <div className="max-w-2xl">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="搜索文章标题、描述或标签..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-3 pl-12 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-gray-700"
+              />
+              <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+          </div>
         </div>
       </header>
 

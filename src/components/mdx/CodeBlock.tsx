@@ -7,26 +7,29 @@ interface CodeBlockProps {
   children: string;
   title?: string;
   collapsible?: boolean;
+  copy?: boolean;
 }
 
 export default function CodeBlock({ 
   language, 
   children, 
   title,
-  collapsible = false 
+  collapsible = false,
+  copy = true
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(collapsible);
 
   const handleCopy = async () => {
+    if (!copy) return;
     await navigator.clipboard.writeText(children);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const codeContent = (
-    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono leading-[1.6]">
-      <code className="language-{language}">{children}</code>
+    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono leading-relaxed">
+      <code className={`language-${language}`}>{children}</code>
     </pre>
   );
 
@@ -52,12 +55,14 @@ export default function CodeBlock({
         {!isCollapsed && (
           <div className="relative">
             {codeContent}
-            <button
-              onClick={handleCopy}
-              className="absolute top-2 right-2 px-3 py-1.5 bg-white/90 hover:bg-white text-gray-700 text-xs rounded-md border border-gray-200 transition-all"
-            >
-              {copied ? "✅ 已复制" : "📋 复制"}
-            </button>
+            {copy && (
+              <button
+                onClick={handleCopy}
+                className="absolute top-2 right-2 px-3 py-1.5 bg-white/90 hover:bg-white text-gray-700 text-xs rounded-md border border-gray-200 transition-all"
+              >
+                {copied ? "✅ 已复制" : "📋 复制"}
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -78,12 +83,14 @@ export default function CodeBlock({
       )}
       <div className="relative">
         {codeContent}
-        <button
-          onClick={handleCopy}
-          className="absolute top-2 right-2 px-3 py-1.5 bg-white/90 hover:bg-white text-gray-700 text-xs rounded-md border border-gray-200 transition-all"
-        >
-          {copied ? "✅ 已复制" : "📋 复制"}
-        </button>
+        {copy && (
+          <button
+            onClick={handleCopy}
+            className="absolute top-2 right-2 px-3 py-1.5 bg-white/90 hover:bg-white text-gray-700 text-xs rounded-md border border-gray-200 transition-all"
+          >
+            {copied ? "✅ 已复制" : "📋 复制"}
+          </button>
+        )}
       </div>
     </div>
   );
