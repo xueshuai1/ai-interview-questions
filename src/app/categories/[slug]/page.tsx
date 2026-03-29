@@ -99,11 +99,46 @@ const SAMPLE_QUESTIONS: Record<string, Array<{ id: string; title: string; diffic
     { id: "ml-001", title: "什么是过拟合？如何防止过拟合？", difficulty: "⭐⭐", tags: ["基础", "模型评估"] },
     { id: "ml-002", title: "解释一下偏差 - 方差权衡", difficulty: "⭐⭐", tags: ["基础", "理论"] },
     { id: "ml-003", title: "SVM 的原理是什么？", difficulty: "⭐⭐⭐", tags: ["算法", "分类"] },
+    { id: "ml-004", title: "逻辑回归和线性回归的区别", difficulty: "⭐⭐", tags: ["回归", "分类"] },
+    { id: "ml-005", title: "决策树如何剪枝？", difficulty: "⭐⭐⭐", tags: ["决策树", "优化"] },
+  ],
+  DL: [
+    { id: "dl-001", title: "解释 Transformer 的自注意力机制", difficulty: "⭐⭐⭐", tags: ["Transformer", "Attention"] },
+    { id: "dl-002", title: "CNN 中的卷积层和池化层作用", difficulty: "⭐⭐", tags: ["CNN", "基础"] },
+    { id: "dl-003", title: "什么是反向传播算法？", difficulty: "⭐⭐⭐", tags: ["神经网络", "优化"] },
+  ],
+  NLP: [
+    { id: "nlp-001", title: "Word2Vec 的 CBOW 和 Skip-gram 区别", difficulty: "⭐⭐⭐", tags: ["Word2Vec", "词向量"] },
+    { id: "nlp-002", title: "BERT 的输入输出是什么？", difficulty: "⭐⭐", tags: ["BERT", "Transformer"] },
+    { id: "nlp-003", title: "什么是命名实体识别（NER）？", difficulty: "⭐⭐", tags: ["NER", "应用"] },
+  ],
+  CV: [
+    { id: "cv-001", title: "解释 YOLO 目标检测原理", difficulty: "⭐⭐⭐", tags: ["YOLO", "目标检测"] },
+    { id: "cv-002", title: "图像分割有哪些方法？", difficulty: "⭐⭐", tags: ["分割", "基础"] },
+    { id: "cv-003", title: "ResNet 的残差块为什么有效？", difficulty: "⭐⭐⭐", tags: ["ResNet", "深度学习"] },
   ],
   LLM: [
     { id: "llm-001", title: "什么是 Prompt Engineering？", difficulty: "⭐", tags: ["基础", "应用"] },
     { id: "llm-002", title: "解释 RAG 的工作原理", difficulty: "⭐⭐", tags: ["架构", "检索"] },
     { id: "llm-003", title: "Fine-tuning vs Prompt Engineering 的区别", difficulty: "⭐⭐", tags: ["对比", "实践"] },
+    { id: "llm-004", title: "什么是 LoRA 微调？", difficulty: "⭐⭐⭐", tags: ["Fine-tuning", "LoRA"] },
+    { id: "llm-005", title: "解释 Transformer 的 Self-Attention 机制", difficulty: "⭐⭐⭐", tags: ["Transformer", "Attention"] },
+  ],
+  RecSys: [
+    { id: "rec-001", title: "协同过滤推荐算法原理", difficulty: "⭐⭐", tags: ["协同过滤", "推荐"] },
+    { id: "rec-002", title: "什么是召回和排序？", difficulty: "⭐⭐", tags: ["召回", "排序"] },
+  ],
+  RL: [
+    { id: "rl-001", title: "解释 Q-Learning 算法", difficulty: "⭐⭐⭐", tags: ["强化学习", "Q-Learning"] },
+    { id: "rl-002", title: "什么是 Policy Gradient？", difficulty: "⭐⭐⭐", tags: ["策略梯度", "强化学习"] },
+  ],
+  System: [
+    { id: "sys-001", title: "如何设计一个模型推理 API？", difficulty: "⭐⭐⭐", tags: ["系统设计", "API"] },
+    { id: "sys-002", title: "模型部署有哪些方式？", difficulty: "⭐⭐", tags: ["部署", "工程化"] },
+  ],
+  Coding: [
+    { id: "code-001", title: "实现快速排序算法", difficulty: "⭐⭐", tags: ["排序", "算法"] },
+    { id: "code-002", title: "反转二叉树", difficulty: "⭐⭐", tags: ["树", "递归"] },
   ],
 };
 
