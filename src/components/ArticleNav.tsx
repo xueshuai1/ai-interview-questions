@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface Article {
   id: string;
@@ -11,13 +12,37 @@ interface Article {
 }
 
 interface ArticleNavProps {
-  prev: Article | null;
-  next: Article | null;
   category: string;
+  articleId: string;
 }
 
-export default function ArticleNav({ prev, next, category }: ArticleNavProps) {
-  if (!prev && !next) return null;
+export default function ArticleNav({ category, articleId }: ArticleNavProps) {
+  const [prev, setPrev] = useState<Article | null>(null);
+  const [next, setNext] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // 从 API 获取相邻文章
+    fetch(`/api/knowledge/index?category=${category}&articleId=${articleId}`)
+      .then(res => res.json())
+      .then(data => {
+        setPrev(data.prev);
+        setNext(data.next);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to load article nav:', err);
+        setLoading(false);
+      });
+  }, [category, articleId]);
+
+  if (loading) {
+    return null;
+  }
+
+  if (!prev && !next) {
+    return null;
+  }
 
   return (
     <div className="grid md:grid-cols-2 gap-4 mt-8 pt-8 border-t border-gray-200">
@@ -62,8 +87,8 @@ export default function ArticleNav({ prev, next, category }: ArticleNavProps) {
           <div className="flex items-center justify-end gap-3 text-xs text-gray-500">
             <span>⏱️ {next.estimatedTime}</span>
             <span className="flex items-center gap-1">
-              {next.keyPoints.slice(0, 2).join(" · ")}
               <span>📝</span>
+              {next.keyPoints.slice(0, 2).join(" · ")}
             </span>
           </div>
         </Link>

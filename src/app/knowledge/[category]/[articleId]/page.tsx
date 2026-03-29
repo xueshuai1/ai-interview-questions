@@ -9,8 +9,6 @@ import Callout from "@/components/Callout";
 import Collapsible from "@/components/Collapsible";
 import ArticleNav from "@/components/ArticleNav";
 import ProgressPanel from "@/components/ProgressPanel";
-import { getAdjacentArticles } from "@/lib/articleIndex";
-import { markArticleRead, getProgressForArticle } from "@/lib/learningProgress";
 
 interface Article {
   id: string;
@@ -28,22 +26,99 @@ export default function KnowledgeArticlePage() {
   const [adjacentArticles, setAdjacentArticles] = useState<{ prev: Article | null; next: Article | null }>({ prev: null, next: null });
   const [articleProgress, setArticleProgress] = useState<number>(0);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // 加载相邻文章
-    const { prev, next } = getAdjacentArticles(category, articleId);
-    setAdjacentArticles({ prev, next });
+    async function loadAdjacentArticles() {
+      try {
+        const response = await fetch(`/api/knowledge/index?category=${category}&articleId=${articleId}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAdjacentArticles({ prev: data.prev, next: data.next });
+        }
+      } catch (error) {
+        console.error('Failed to load adjacent articles:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    loadAdjacentArticles();
     
     // 加载学习进度
-    const progress = getProgressForArticle(category, articleId);
-    if (progress) {
-      setArticleProgress(progress.progress);
-      setIsCompleted(progress.completed);
+    const stored = localStorage.getItem('ai-interview-learning-progress');
+    if (stored) {
+      try {
+        const data = JSON.parse(stored);
+        const progress = data[category]?.[articleId];
+        if (progress) {
+          setArticleProgress(progress.progress);
+          setIsCompleted(progress.completed);
+        }
+      } catch (error) {
+        console.error('Failed to load progress:', error);
+      }
     }
   }, [category, articleId]);
 
   const handleMarkAsRead = () => {
-    const data = markArticleRead(category, articleId, 1);
+    // 更新学习进度
+    const stored = localStorage.getItem('ai-interview-learning-progress');
+    let data: any = { stats: { totalArticles: 0, completedArticles: 0, learningStreak: 0 } };
+    
+    if (stored) {
+      try {
+        data = JSON.parse(stored);
+      } catch (error) {
+        console.error('Failed to parse progress:', error);
+      }
+    }
+    
+    if (!data[category]) {
+      data[category] = {};
+    }
+    
+    const today = new Date().toISOString().split('T')[0];
+    data[category][articleId] = {
+      completed: true,
+      completedAt: today,
+      progress: 1,
+      lastReadAt: today,
+    };
+    
+    // 更新统计
+    let totalArticles = 0;
+    let completedArticles = 0;
+    
+    Object.keys(data).forEach((key: string) => {
+      if (key === 'stats') return;
+      const categoryData = data[key];
+      totalArticles += Object.keys(categoryData).length;
+      completedArticles += Object.values(categoryData).filter((p: any) => p.completed).length;
+    });
+    
+    // 计算学习连续天数
+    const lastDate = data.stats.lastStudyDate;
+    if (lastDate !== today) {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      
+      if (lastDate === yesterdayStr) {
+        data.stats.learningStreak += 1;
+      } else if (lastDate !== today) {
+        data.stats.learningStreak = 1;
+      }
+      
+      data.stats.lastStudyDate = today;
+    }
+    
+    data.stats.totalArticles = totalArticles;
+    data.stats.completedArticles = completedArticles;
+    
+    localStorage.setItem('ai-interview-learning-progress', JSON.stringify(data));
+    
     setArticleProgress(1);
     setIsCompleted(true);
   };
