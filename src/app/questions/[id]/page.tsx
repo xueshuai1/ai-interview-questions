@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import CodeBlock from "@/components/CodeBlock";
 import Callout from "@/components/Callout";
 import Collapsible from "@/components/Collapsible";
@@ -130,10 +132,11 @@ export default function QuestionDetailPage() {
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <article className="bg-white rounded-2xl border border-[#E2E8F0] p-8 shadow-sm">
-            <div 
-              className="prose prose-lg max-w-none"
-              dangerouslySetInnerHTML={{ __html: question.content.replace(/\n/g, '<br/>') }}
-            />
+            <div className="prose prose-lg max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {question.content}
+              </ReactMarkdown>
+            </div>
           </article>
 
           {/* 导航 */}

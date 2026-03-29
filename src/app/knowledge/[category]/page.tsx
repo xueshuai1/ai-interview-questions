@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // Lucide 风格 SVG 图标组件
 function BookIcon({ className }: { className?: string }) {
@@ -91,22 +92,47 @@ const CATEGORIES: Record<string, { name: string; description: string; icon: Reac
   System: { name: "AI 工程化", description: "模型部署、MLOps、系统设计", icon: LayersIcon, iconChar: "⚙️" },
 };
 
-// 示例文章数据
-const SAMPLE_ARTICLES: Record<string, Array<{ id: string; title: string; difficulty: number; description: string; readTime: string }>> = {
-  ML: [
-    { id: "ml-001", title: "什么是机器学习？", difficulty: 1, description: "机器学习的基础概念和核心思想", readTime: "5 分钟" },
-    { id: "ml-002", title: "监督学习详解", difficulty: 2, description: "分类、回归等监督学习方法", readTime: "10 分钟" },
-  ],
-  LLM: [
-    { id: "llm-001", title: "Prompt Engineering 入门", difficulty: 1, description: "学习如何编写有效的 Prompt", readTime: "8 分钟" },
-    { id: "llm-002", title: "RAG 实战指南", difficulty: 2, description: "检索增强生成的实现方法", readTime: "12 分钟" },
-  ],
-};
+interface Article {
+  id: string;
+  title: string;
+  summary: string;
+  keyPoints: string[];
+  estimatedTime: string;
+  order: number;
+  difficulty?: number;
+}
 
 export default function KnowledgeCategoryPage() {
   const params = useParams();
   const categorySlug = params.category as string;
   const category = CATEGORIES[categorySlug];
+
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadArticles() {
+      try {
+        const response = await fetch(`/api/knowledge/${categorySlug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setArticles(data.articles || []);
+        } else {
+          setError('加载失败');
+        }
+      } catch (err) {
+        console.error('Failed to load articles:', err);
+        setError('加载失败');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (categorySlug) {
+      loadArticles();
+    }
+  }, [categorySlug]);
 
   if (!category) {
     return (
@@ -122,7 +148,6 @@ export default function KnowledgeCategoryPage() {
   }
 
   const Icon = category.icon;
-  const articles = SAMPLE_ARTICLES[categorySlug] || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
@@ -168,7 +193,28 @@ export default function KnowledgeCategoryPage() {
           {articles.length > 0 ? "学习文章" : "敬请期待"}
         </h2>
         
-        {articles.length === 0 ? (
+        {loading ? (
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">加载文章中...</p>
+          </div>
+        ) : error ? (
+          <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
+            <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+              ❌
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-3">
+              加载失败
+            </h3>
+            <p className="text-gray-600 mb-6">{error}</p>
+            <Link
+              href="/knowledge"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all"
+            >
+              返回知识库
+            </Link>
+          </div>
+        ) : articles.length === 0 ? (
           <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center">
             <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
               📚
@@ -188,29 +234,35 @@ export default function KnowledgeCategoryPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => (
-              <Link
-                key={article.id}
-                href={`/knowledge/${categorySlug}/${article.id}`}
-                className="block p-5 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded font-medium">
-                    {categorySlug}
-                  </span>
-                  <span className="text-sm">
-                    {"⭐".repeat(article.difficulty)}
-                  </span>
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{article.title}</h3>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{article.description}</p>
-                <div className="flex items-center text-xs text-gray-500">
-                  <span>⏱️ {article.readTime}</span>
-                  <span className="mx-2">·</span>
-                  <span className="text-blue-600 font-medium">阅读全文 →</span>
-                </div>
-              </Link>
-            ))}
+            {articles.map((article) => {
+              // 从文件名中提取难度（⭐数量）
+              const difficultyMatch = article.id.match(/(⭐+)/);
+              const difficulty = difficultyMatch ? difficultyMatch[1].length : 0;
+              
+              return (
+                <Link
+                  key={article.id}
+                  href={`/knowledge/${categorySlug}/${encodeURIComponent(article.id)}`}
+                  className="block p-5 bg-white rounded-xl shadow-sm hover:shadow-md transition border border-gray-100"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded font-medium">
+                      {categorySlug}
+                    </span>
+                    <span className="text-sm">
+                      {"⭐".repeat(difficulty)}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{article.title}</h3>
+                  <p className="text-sm text-gray-600 mb-3 line-clamp-2">{article.summary}</p>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <span>⏱️ {article.estimatedTime || '5 分钟'}</span>
+                    <span className="mx-2">·</span>
+                    <span className="text-blue-600 font-medium">阅读全文 →</span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
       </main>

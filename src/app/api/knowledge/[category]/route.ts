@@ -51,20 +51,36 @@ function loadCategoryArticles(category: string): Article[] {
 
 function getArticle(category: string, articleId: string): Article | null {
   const articles = loadCategoryArticles(category);
-  const decodedId = decodeURIComponent(articleId);
+  
+  // Next.js 路由参数已经自动解码，所以直接使用
+  const targetId = articleId;
   
   return articles.find(a => {
-    if (a.id === decodedId) return true;
-    if (decodeURIComponent(a.id) === decodedId) return true;
+    // 精确匹配
+    if (a.id === targetId) return true;
+    // 尝试解码后匹配（处理 URL 编码的情况）
+    try {
+      if (decodeURIComponent(targetId) === a.id) return true;
+    } catch (e) {
+      // 忽略解码错误
+    }
     return false;
   }) || null;
 }
 
 function getAdjacentArticles(category: string, articleId: string) {
   const articles = loadCategoryArticles(category);
-  const decodedId = decodeURIComponent(articleId);
+  const targetId = articleId;
   
-  const currentIndex = articles.findIndex(a => a.id === decodedId || decodeURIComponent(a.id) === decodedId);
+  const currentIndex = articles.findIndex(a => {
+    if (a.id === targetId) return true;
+    try {
+      if (decodeURIComponent(targetId) === a.id) return true;
+    } catch (e) {
+      // 忽略解码错误
+    }
+    return false;
+  });
   
   if (currentIndex === -1) {
     return { prev: null, next: null };
