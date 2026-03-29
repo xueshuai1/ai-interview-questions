@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // 确保 data 目录在构建时被包含到 serverless 函数中
+  experimental: {
+    outputFileTracingIncludes: {
+      '/api/questions': ['./data/**/*'],
+      '/api/knowledge': ['./data/**/*'],
+    },
+  },
 };
 
 export default nextConfig;
