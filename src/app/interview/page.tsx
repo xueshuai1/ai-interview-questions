@@ -46,7 +46,7 @@ const CATEGORIES = [
   { id: "RecSys", name: "推荐系统", href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
   { id: "RL", name: "强化学习", href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
   { id: "System", name: "系统设计", href: "/categories/System", description: "ML 系统设计、架构设计" },
-  { id: "Coding", name: "编程算法", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
+  { id: "Design", name: "UI/UX 设计", href: "/categories/Design", description: "交互设计、视觉设计、设计系统" },
 ];
 
 // 岗位数据

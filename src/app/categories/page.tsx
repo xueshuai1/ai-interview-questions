@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CpuIcon, BrainIcon, BookIcon, LayersIcon, ZapIcon, UsersIcon, CodeIcon } from "@/components/Icons";
+import { CpuIcon, BrainIcon, BookIcon, LayersIcon, ZapIcon, UsersIcon, CodeIcon, PaletteIcon } from "@/components/Icons";
 
 const CATEGORIES = [
   { id: "ML", name: "机器学习基础", href: "/categories/ML", description: "监督学习、无监督学习、模型评估", icon: CpuIcon, count: 15 },
@@ -12,7 +12,7 @@ const CATEGORIES = [
   { id: "RecSys", name: "推荐系统", href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习", icon: UsersIcon, count: 9 },
   { id: "RL", name: "强化学习", href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient", icon: CodeIcon, count: 7 },
   { id: "System", name: "系统设计", href: "/categories/System", description: "ML 系统设计、架构设计", icon: LayersIcon, count: 14 },
-  { id: "Coding", name: "编程算法", href: "/categories/Coding", description: "LeetCode、数据结构、算法", icon: CodeIcon, count: 20 },
+  { id: "Design", name: "UI/UX 设计", href: "/categories/Design", description: "交互设计、视觉设计、设计系统", icon: PaletteIcon, count: 0 },
 ];
 
 export default function CategoriesPage() {
