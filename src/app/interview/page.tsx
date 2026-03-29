@@ -45,7 +45,7 @@ interface Question {
   collectedAt: string;
 }
 
-// 分类数据
+// 7 大技术分类
 const CATEGORIES = [
   { id: "ML", name: "机器学习基础", href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
   { id: "DL", name: "深度学习", href: "/categories/DL", description: "神经网络、CNN、RNN、Transformer" },
@@ -54,57 +54,12 @@ const CATEGORIES = [
   { id: "LLM", name: "大语言模型", href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
   { id: "RecSys", name: "推荐系统", href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
   { id: "RL", name: "强化学习", href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
-  { id: "System", name: "系统设计", href: "/categories/System", description: "ML 系统设计、架构设计" },
-  { id: "Coding", name: "编程算法", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
-
-// 岗位映射（根据标签推断）
-const ROLE_KEYWORDS: Record<string, string[]> = {
-  "algorithm": ["algorithm", "bigtech", "interview"],
-  "frontend": ["frontend", "exam"],
-  "backend": ["backend"],
-  "fullstack": ["fullstack"],
-  "ml-engineer": ["ml"],
-};
-
-function inferRole(tags: string[]): string {
-  for (const [role, keywords] of Object.entries(ROLE_KEYWORDS)) {
-    if (tags.some(tag => keywords.includes(tag.toLowerCase()))) {
-      return role;
-    }
-  }
-  return "algorithm"; // 默认
-}
-
-// 岗位数据
-const AI_ROLES = [
-  { id: "algorithm", name: "算法工程师", href: "/roles/algorithm" },
-  { id: "llm-engineer", name: "大模型工程师", href: "/roles/llm-engineer" },
-  { id: "cv-engineer", name: "CV 工程师", href: "/roles/cv-engineer" },
-  { id: "nlp-engineer", name: "NLP 工程师", href: "/roles/nlp-engineer" },
-  { id: "recsys-engineer", name: "推荐算法工程师", href: "/roles/recsys-engineer" },
-  { id: "ml-engineer", name: "ML 工程师", href: "/roles/ml-engineer" },
-];
-
-const NON_AI_ROLES = [
-  { id: "frontend", name: "前端开发", href: "/roles/frontend" },
-  { id: "backend", name: "后端开发", href: "/roles/backend" },
-  { id: "fullstack", name: "全栈开发", href: "/roles/fullstack" },
-  { id: "mobile", name: "移动端开发", href: "/roles/mobile" },
-  { id: "test-engineer", name: "测试工程师", href: "/roles/test-engineer" },
-  { id: "data-engineer", name: "数据开发", href: "/roles/data-engineer" },
-  { id: "designer", name: "设计师", href: "/roles/designer" },
-  { id: "product", name: "产品经理", href: "/roles/product" },
-  { id: "devops", name: "运维/DevOps", href: "/roles/devops" },
-];
-
-const ROLES = [...AI_ROLES, ...NON_AI_ROLES];
 
 export default function InterviewPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -113,7 +68,6 @@ export default function InterviewPage() {
         const response = await fetch('/api/questions');
         if (response.ok) {
           const data = await response.json();
-          // API 返回结构：{ success: true, data: { questions: [...], pagination: {...}, facets: {...} } }
           setQuestions(data.data?.questions || data.questions || []);
         }
       } catch (error) {
@@ -128,10 +82,6 @@ export default function InterviewPage() {
 
   const filteredQuestions = questions.filter((q) => {
     if (selectedCategory && q.category !== selectedCategory) return false;
-    if (selectedRole) {
-      const role = inferRole(q.tags);
-      if (role !== selectedRole) return false;
-    }
     if (searchQuery && !q.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
@@ -202,7 +152,7 @@ export default function InterviewPage() {
               />
             </div>
 
-            {/* 分类筛选 */}
+            {/* 分类筛选 - 7 大领域 */}
             <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
               <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按技术分类</h2>
               <div className="space-y-2">
@@ -229,63 +179,6 @@ export default function InterviewPage() {
                     {cat.name}
                   </button>
                 ))}
-              </div>
-            </div>
-
-            {/* 岗位筛选 */}
-            <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
-              <h2 className="text-lg font-semibold text-[#1E293B] mb-3">按岗位筛选</h2>
-              <div className="space-y-4">
-                <button
-                  onClick={() => setSelectedRole(null)}
-                  className={`w-full px-3 py-2 rounded-lg transition ${
-                    selectedRole === null
-                      ? "bg-[#2563EB] text-white"
-                      : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
-                  }`}
-                >
-                  全部岗位
-                </button>
-                
-                {/* AI 类岗位 */}
-                <div>
-                  <h3 className="text-xs font-semibold text-purple-600 mb-2 uppercase tracking-wider">AI 类岗位</h3>
-                  <div className="space-y-1">
-                    {AI_ROLES.map((role) => (
-                      <button
-                        key={role.id}
-                        onClick={() => setSelectedRole(role.id)}
-                        className={`w-full text-left px-3 py-1.5 rounded-md text-sm transition ${
-                          selectedRole === role.id
-                            ? "bg-[#9333EA] text-white"
-                            : "bg-[#F3E8FF] text-purple-700 hover:bg-[#E9D5FF]"
-                        }`}
-                      >
-                        {role.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* 非 AI 类岗位 */}
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wider">非 AI 类岗位</h3>
-                  <div className="space-y-1">
-                    {NON_AI_ROLES.map((role) => (
-                      <button
-                        key={role.id}
-                        onClick={() => setSelectedRole(role.id)}
-                        className={`w-full text-left px-3 py-1.5 rounded-md text-sm transition ${
-                          selectedRole === role.id
-                            ? "bg-[#475569] text-white"
-                            : "bg-[#F1F5F9] text-[#64748B] hover:bg-[#E2E8F0]"
-                        }`}
-                      >
-                        {role.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </div>
             </div>
           </div>

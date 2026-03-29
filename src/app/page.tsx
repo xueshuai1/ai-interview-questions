@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { BriefcaseIcon, BookIcon, ArrowRightIcon, CpuIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, ZapIcon, ServerIcon, TargetIcon, SparklesIcon, NetworkIcon, ChartIcon, PenToolIcon, RocketIcon, ShieldIcon, CheckCircleIcon } from "@/components/Icons";
+import { BookIcon, ArrowRightIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, ServerIcon, TargetIcon, SparklesIcon, NetworkIcon, ChartIcon } from "@/components/Icons";
 
 // Lucide 风格 SVG 图标组件
 function MapIcon({ className }: { className?: string }) {
@@ -15,56 +14,18 @@ function MapIcon({ className }: { className?: string }) {
   );
 }
 
-// 分类数据
+// 7 大技术领域
 const CATEGORIES = [
   { id: "ML", name: "机器学习基础", icon: ChartIcon, href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
   { id: "DL", name: "深度学习", icon: BrainIcon, href: "/categories/DL", description: "神经网络、CNN、RNN、Transformer" },
-  { id: "NLP", name: "自然语言处理", icon: BookIcon, href: "/categories/NLP", description: "词向量、语言模型、文本生成" },
+  { id: "NLP", name: "自然语言处理", icon: LayersIcon, href: "/categories/NLP", description: "词向量、语言模型、文本生成" },
   { id: "CV", name: "计算机视觉", icon: TargetIcon, href: "/categories/CV", description: "图像分类、目标检测、分割" },
   { id: "LLM", name: "大语言模型", icon: SparklesIcon, href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
   { id: "RecSys", name: "推荐系统", icon: UsersIcon, href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
   { id: "RL", name: "强化学习", icon: NetworkIcon, href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
-  { id: "System", name: "系统设计", icon: ServerIcon, href: "/categories/System", description: "ML 系统设计、架构设计" },
-  { id: "Coding", name: "编程算法", icon: CodeIcon, href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
-
-// 非 AI 岗位（9 个）- 学习 AI 提升竞争力
-const NON_AI_ROLES = [
-  { id: "frontend", name: "前端开发", icon: CodeIcon, href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI/UX", "Copilot 提效"] },
-  { id: "backend", name: "后端开发", icon: ServerIcon, href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
-  { id: "fullstack", name: "全栈开发", icon: NetworkIcon, href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
-  { id: "mobile", name: "移动端开发", icon: RocketIcon, href: "/roles/mobile", subRoles: ["iOS + AI", "Android + AI", "跨平台 + AI"] },
-  { id: "test-engineer", name: "测试工程师", icon: ShieldIcon, href: "/roles/test-engineer", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
-  { id: "data-engineer", name: "数据开发", icon: ChartIcon, href: "/roles/data-engineer", subRoles: ["数据工程", "数据 pipeline", "特征工程"] },
-  { id: "designer", name: "设计师", icon: PenToolIcon, href: "/roles/designer", subRoles: ["AI 设计工具", "智能界面", "UX 优化"] },
-  { id: "product", name: "产品经理", icon: BriefcaseIcon, href: "/roles/product", subRoles: ["AI 产品设计", "场景分析", "商业化"] },
-  { id: "devops", name: "运维/DevOps", icon: CpuIcon, href: "/roles/devops", subRoles: ["模型部署", "MLOps", "自动化运维"] },
-];
-
-// AI 专业岗位（6 个）- 深入 AI 技术
-const AI_PRO_ROLES = [
-  { id: "algorithm", name: "算法工程师", icon: BrainIcon, href: "/roles/algorithm", subRoles: ["机器学习", "深度学习"] },
-  { id: "llm-engineer", name: "大模型工程师", icon: SparklesIcon, href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent", "Fine-tuning"] },
-  { id: "cv-engineer", name: "CV 工程师", icon: TargetIcon, href: "/roles/cv-engineer", subRoles: ["图像分类", "目标检测", "图像生成"] },
-  { id: "nlp-engineer", name: "NLP 工程师", icon: BookIcon, href: "/roles/nlp-engineer", subRoles: ["文本理解", "文本生成", "语言模型"] },
-  { id: "recsys-engineer", name: "推荐算法工程师", icon: UsersIcon, href: "/roles/recsys-engineer", subRoles: ["召回排序", "协同过滤", "深度学习推荐"] },
-  { id: "ml-engineer", name: "ML 工程师", icon: CheckCircleIcon, href: "/roles/ml-engineer", subRoles: ["模型训练", "特征工程", "模型优化"] },
-];
-
-// 技术专区数据
-const ZONES = [
-  { id: "openclaw", name: "OpenClaw 专区", icon: ZapIcon, href: "/zones/openclaw", topics: ["OpenClaw 技术", "技能开发", "节点控制"] },
-  { id: "agent-dev", name: "Agent 开发", icon: NetworkIcon, href: "/zones/agent-dev", topics: ["子 Agent", "多 Agent 协作"] },
-  { id: "methodology", name: "开发方法论", icon: BookIcon, href: "/zones/methodology", topics: ["SDD", "TDD", "ATDD", "OMO"] },
-  { id: "toolchain", name: "工具链", icon: CodeIcon, href: "/zones/toolchain", topics: ["OpenCode", "Cursor", "Windsurf"] },
-  { id: "frontier", name: "前沿技术", icon: RocketIcon, href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
-];
-
-type TrackType = "non-ai" | "ai-pro";
 
 export default function Home() {
-  const [activeTrack, setActiveTrack] = useState<TrackType>("non-ai");
-
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
       {/* Google Fonts */}
@@ -103,7 +64,7 @@ export default function Home() {
             href="/interview"
             className="group px-8 py-4 bg-[#475569] text-white rounded-xl hover:bg-[#334155] transition-all duration-200 shadow-md hover:shadow-lg text-lg min-h-[56px] flex items-center gap-3 cursor-pointer"
           >
-            <BriefcaseIcon className="w-6 h-6" />
+            <BookIcon className="w-6 h-6" />
             面试题库
             <span className="text-sm opacity-90 font-normal">面试准备</span>
           </Link>
@@ -123,10 +84,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 技术分类 */}
+      {/* 技术分类 - 7 大领域 */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B] mb-4 text-center">
-          按技术分类
+          技术分类
         </h2>
         <p className="text-[#64748B] text-center mb-12 max-w-2xl mx-auto text-lg">
           涵盖 AI 核心领域，从基础到进阶
@@ -138,84 +99,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 双岗位分类体系 - Tab 切换 */}
+      {/* 知识库推荐 */}
       <section className="bg-white py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B] mb-4 text-center">
-            按岗位学习
+            知识库推荐
           </h2>
           <p className="text-[#64748B] text-center mb-10 max-w-2xl mx-auto text-lg">
-            根据你的目标岗位，选择对应的学习路径和题目集合
+            系统性学习 AI 技术，从基础到进阶
           </p>
-
-          {/* Tab 切换 */}
-          <div className="flex justify-center mb-10">
-            <div className="inline-flex bg-[#F1F5F9] rounded-xl p-1.5 shadow-sm">
-              <button
-                onClick={() => setActiveTrack("non-ai")}
-                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] relative ${
-                  activeTrack === "non-ai"
-                    ? "bg-[#2563EB] text-white shadow-md"
-                    : "text-[#64748B] hover:bg-[#E2E8F0]"
-                }`}
-              >
-                我想学 AI 提升 <span className="hidden sm:inline font-normal opacity-90">（7 个岗位）</span>
-                {activeTrack === "non-ai" && (
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white/50 rounded-full"></span>
-                )}
-              </button>
-              <button
-                onClick={() => setActiveTrack("ai-pro")}
-                className={`px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 cursor-pointer min-h-[48px] relative ${
-                  activeTrack === "ai-pro"
-                    ? "bg-[#475569] text-white shadow-md"
-                    : "text-[#64748B] hover:bg-[#E2E8F0]"
-                }`}
-              >
-                AI 专业深入 <span className="hidden sm:inline font-normal opacity-90">（4 个岗位）</span>
-                {activeTrack === "ai-pro" && (
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-white/50 rounded-full"></span>
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* 岗位列表 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {activeTrack === "non-ai" ? (
-              NON_AI_ROLES.map((role) => (
-                <RoleCard key={role.id} {...role} />
-              ))
-            ) : (
-              AI_PRO_ROLES.map((role) => (
-                <RoleCard key={role.id} {...role} />
-              ))
-            )}
-          </div>
-
-          {/* Track 描述 */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-[#94A3B8]">
-              {activeTrack === "non-ai"
-                ? "适合传统开发/测试/数据/产品人员，学习 AI 提升竞争力"
-                : "适合 AI 算法工程师，深入学习 AI 技术"}
-            </p>
+            <KnowledgeCard
+              title="LLM 核心知识"
+              description="Transformer、Attention、Fine-tuning、RAG、Agent 等核心技术"
+              href="/knowledge/LLM"
+              tags={["Transformer", "RAG", "Agent", "Fine-tuning"]}
+            />
+            <KnowledgeCard
+              title="机器学习基础"
+              description="监督学习、无监督学习、模型评估、特征工程"
+              href="/knowledge/ML"
+              tags={["监督学习", "模型评估", "特征工程"]}
+            />
+            <KnowledgeCard
+              title="深度学习"
+              description="神经网络、CNN、RNN、注意力机制、优化方法"
+              href="/knowledge/DL"
+              tags={["CNN", "RNN", "注意力机制"]}
+            />
           </div>
         </div>
       </section>
 
-      {/* 技术专区 */}
+      {/* 面试题推荐 */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B] mb-4 text-center">
-          技术专区
+          面试题推荐
         </h2>
-        <p className="text-[#64748B] text-center mb-12 max-w-2xl mx-auto text-lg">
-          聚焦特定技术领域，深入学习和实践
+        <p className="text-[#64748B] text-center mb-10 max-w-2xl mx-auto text-lg">
+          精选高频面试题，助你轻松应对技术面试
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {ZONES.map((zone) => (
-            <ZoneCard key={zone.id} {...zone} />
-          ))}
+          <QuestionCard
+            title="LLM 高频面试题"
+            description="Self-Attention、RoPE、Flash Attention、量化优化等"
+            href="/interview?category=LLM"
+            tags={["Attention", "位置编码", "推理优化"]}
+          />
+          <QuestionCard
+            title="机器学习基础题"
+            description="过拟合、正则化、交叉验证、模型选择等经典问题"
+            href="/interview?category=ML"
+            tags={["过拟合", "正则化", "模型评估"]}
+          />
+          <QuestionCard
+            title="强化学习核心题"
+            description="MDP、Q-Learning、Policy Gradient、Actor-Critic"
+            href="/interview?category=RL"
+            tags={["MDP", "Q-Learning", "Policy Gradient"]}
+          />
         </div>
       </section>
 
@@ -260,44 +202,38 @@ function CategoryCard({
       <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{name}</h3>
       <p className="text-[#64748B] mb-4 leading-relaxed">{description}</p>
       <span className="text-sm text-[#2563EB] font-medium flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
-        浏览题目
+        浏览内容
         <ArrowRightIcon className="w-4 h-4" />
       </span>
     </Link>
   );
 }
 
-function RoleCard({
-  id,
-  name,
-  icon: Icon,
+function KnowledgeCard({
+  title,
+  description,
   href,
-  subRoles,
+  tags,
 }: {
-  id: string;
-  name: string;
-  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
   href: string;
-  subRoles: string[];
+  tags: string[];
 }) {
   return (
     <Link
       href={href}
-      className="group block p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-[#E2E8F0] hover:border-[#475569]/20 cursor-pointer"
+      className="group block p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-[#E2E8F0] hover:border-[#2563EB]/20 cursor-pointer"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 bg-[#F1F5F9] rounded-xl flex items-center justify-center group-hover:bg-[#475569]/10 transition-colors duration-300">
-          <Icon className="w-6 h-6 text-[#475569] group-hover:text-[#475569] transition-colors duration-300" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#1E293B]">{name}</h3>
-      </div>
+      <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{title}</h3>
+      <p className="text-[#64748B] mb-4 leading-relaxed">{description}</p>
       <div className="flex flex-wrap gap-2">
-        {subRoles.map((sub) => (
+        {tags.map((tag) => (
           <span
-            key={sub}
-            className="px-3 py-1.5 bg-[#DCFCE7] text-[#166534] text-sm rounded-lg font-medium"
+            key={tag}
+            className="px-3 py-1.5 bg-[#F3E8FF] text-[#7E22CE] text-sm rounded-lg font-medium"
           >
-            {sub}
+            {tag}
           </span>
         ))}
       </div>
@@ -305,37 +241,31 @@ function RoleCard({
   );
 }
 
-function ZoneCard({
-  id,
-  name,
-  icon: Icon,
+function QuestionCard({
+  title,
+  description,
   href,
-  topics,
+  tags,
 }: {
-  id: string;
-  name: string;
-  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
   href: string;
-  topics: string[];
+  tags: string[];
 }) {
   return (
     <Link
       href={href}
-      className="group block p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-[#E2E8F0] hover:border-[#2563EB]/20 cursor-pointer"
+      className="group block p-6 bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-[#E2E8F0] hover:border-[#475569]/20 cursor-pointer"
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 bg-[#F1F5F9] rounded-xl flex items-center justify-center group-hover:bg-[#2563EB]/10 transition-colors duration-300">
-          <Icon className="w-6 h-6 text-[#475569] group-hover:text-[#2563EB] transition-colors duration-300" />
-        </div>
-        <h3 className="text-xl font-semibold text-[#1E293B]">{name}</h3>
-      </div>
+      <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{title}</h3>
+      <p className="text-[#64748B] mb-4 leading-relaxed">{description}</p>
       <div className="flex flex-wrap gap-2">
-        {topics.map((topic) => (
+        {tags.map((tag) => (
           <span
-            key={topic}
-            className="px-3 py-1.5 bg-[#F3E8FF] text-[#7E22CE] text-sm rounded-lg font-medium"
+            key={tag}
+            className="px-3 py-1.5 bg-[#DCFCE7] text-[#166534] text-sm rounded-lg font-medium"
           >
-            {topic}
+            {tag}
           </span>
         ))}
       </div>
