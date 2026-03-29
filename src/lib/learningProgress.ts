@@ -10,7 +10,12 @@ interface CategoryProgress {
 }
 
 interface LearningProgressData {
-  [category: string]: CategoryProgress;
+  [category: string]: CategoryProgress | {
+    totalArticles: number;
+    completedArticles: number;
+    learningStreak: number;
+    lastStudyDate?: string;
+  };
   stats: {
     totalArticles: number;
     completedArticles: number;
@@ -67,14 +72,14 @@ export function markArticleRead(
 ): LearningProgressData {
   const data = loadProgress();
   
-  if (!data[category]) {
+  if (!data[category] || !(category in data && category !== 'stats')) {
     data[category] = {};
   }
   
   const today = new Date().toISOString().split('T')[0];
   
   // 更新文章进度
-  data[category][articleId] = {
+  (data[category] as CategoryProgress)[articleId] = {
     completed: progress >= 1,
     completedAt: progress >= 1 ? today : undefined,
     progress,
@@ -127,7 +132,8 @@ export function getProgressForArticle(
   articleId: string
 ): ArticleProgress | null {
   const data = loadProgress();
-  return data[category]?.[articleId] || null;
+  const categoryData = data[category] as CategoryProgress | undefined;
+  return categoryData?.[articleId] || null;
 }
 
 export function getProgressSummary() {

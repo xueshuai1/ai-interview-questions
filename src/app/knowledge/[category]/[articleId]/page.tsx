@@ -390,11 +390,7 @@ class Transformer(nn.Module):
       </Callout>
 
       {/* 上一篇/下一篇导航 */}
-      <ArticleNav 
-        prev={adjacentArticles.prev} 
-        next={adjacentArticles.next} 
-        category={category} 
-      />
+      <ArticleNav category={category} articleId={articleId} />
 
       {/* 下一步 */}
       <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
