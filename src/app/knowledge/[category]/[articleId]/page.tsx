@@ -2,69 +2,123 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import ContentLayout from "@/components/ContentLayout";
 import CodeBlock from "@/components/CodeBlock";
 import Callout from "@/components/Callout";
 import Collapsible from "@/components/Collapsible";
+import ArticleNav from "@/components/ArticleNav";
+import ProgressPanel from "@/components/ProgressPanel";
+import { getAdjacentArticles } from "@/lib/articleIndex";
+import { markArticleRead, getProgressForArticle } from "@/lib/learningProgress";
+
+interface Article {
+  id: string;
+  title: string;
+  summary: string;
+  keyPoints: string[];
+  estimatedTime: string;
+}
 
 export default function KnowledgeArticlePage() {
   const params = useParams();
   const category = params.category as string;
   const articleId = params.articleId as string;
+  
+  const [adjacentArticles, setAdjacentArticles] = useState<{ prev: Article | null; next: Article | null }>({ prev: null, next: null });
+  const [articleProgress, setArticleProgress] = useState<number>(0);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  useEffect(() => {
+    // 加载相邻文章
+    const { prev, next } = getAdjacentArticles(category, articleId);
+    setAdjacentArticles({ prev, next });
+    
+    // 加载学习进度
+    const progress = getProgressForArticle(category, articleId);
+    if (progress) {
+      setArticleProgress(progress.progress);
+      setIsCompleted(progress.completed);
+    }
+  }, [category, articleId]);
+
+  const handleMarkAsRead = () => {
+    const data = markArticleRead(category, articleId, 1);
+    setArticleProgress(1);
+    setIsCompleted(true);
+  };
 
   const sidebarContent = (
     <div className="sticky top-6 space-y-4">
-      {/* 学习进度卡片 - 缩小尺寸 */}
+      {/* 学习进度卡片 */}
+      <ProgressPanel />
+      
+      {/* 标记为已读按钮 */}
+      <button 
+        onClick={handleMarkAsRead}
+        disabled={isCompleted}
+        className={`w-full px-4 py-2 text-sm rounded-lg transition-colors font-medium ${
+          isCompleted 
+            ? 'bg-green-100 text-green-700 cursor-default' 
+            : 'bg-blue-600 text-white hover:bg-blue-700'
+        }`}
+      >
+        {isCompleted ? '✅ 已完成' : '📚 标记为已读'}
+      </button>
+      
+      {/* 学习进度指示器 */}
       <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-3 text-sm flex items-center gap-2">
-          <span>📊</span>
-          学习进度
+          <span>📈</span>
+          本节进度
         </h3>
-        <div className="space-y-3">
-          <div>
-            <div className="flex justify-between text-xs mb-1">
-              <span className="text-gray-600">本节进度</span>
-              <span className="text-blue-600 font-medium">0%</span>
-            </div>
-            <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <div className="h-full bg-blue-500 w-0 transition-all duration-300"></div>
-            </div>
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs">
+            <span className="text-gray-600">阅读进度</span>
+            <span className="text-blue-600 font-medium">{Math.round(articleProgress * 100)}%</span>
           </div>
-          <button className="w-full px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md hover:bg-blue-700 transition-colors">
-            标记为已读
-          </button>
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div 
+              className={`h-full transition-all duration-300 ${isCompleted ? 'bg-green-500' : 'bg-blue-500'}`}
+              style={{ width: `${articleProgress * 100}%` }}
+            ></div>
+          </div>
         </div>
       </div>
 
-      {/* 相关推荐卡片 - 缩小尺寸 */}
+      {/* 相关推荐卡片 */}
       <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-3 text-sm flex items-center gap-2">
           <span>🔗</span>
           相关推荐
         </h3>
         <ul className="space-y-2 text-xs">
+          {adjacentArticles.prev && (
+            <li>
+              <Link
+                href={`/knowledge/${category}/${adjacentArticles.prev.id}`}
+                className="text-blue-600 hover:underline block"
+              >
+                ← {adjacentArticles.prev.title}
+              </Link>
+            </li>
+          )}
+          {adjacentArticles.next && (
+            <li>
+              <Link
+                href={`/knowledge/${category}/${adjacentArticles.next.id}`}
+                className="text-blue-600 hover:underline block"
+              >
+                {adjacentArticles.next.title} →
+              </Link>
+            </li>
+          )}
           <li>
             <Link
-              href={`/knowledge/${category}/ml-002`}
+              href={`/knowledge/${category}`}
               className="text-blue-600 hover:underline block"
             >
-              Transformer 架构详解
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={`/knowledge/${category}/ml-003`}
-              className="text-blue-600 hover:underline block"
-            >
-              Attention 机制入门
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={`/knowledge/${category}/ml-004`}
-              className="text-blue-600 hover:underline block"
-            >
-              BERT 模型实践
+              浏览该分类所有文章
             </Link>
           </li>
         </ul>
@@ -260,6 +314,13 @@ class Transformer(nn.Module):
         </p>
       </Callout>
 
+      {/* 上一篇/下一篇导航 */}
+      <ArticleNav 
+        prev={adjacentArticles.prev} 
+        next={adjacentArticles.next} 
+        category={category} 
+      />
+
       {/* 下一步 */}
       <div className="flex gap-4 mt-8 pt-6 border-t border-gray-200">
         <Link
@@ -273,6 +334,12 @@ class Transformer(nn.Module):
           className="px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-xl hover:bg-blue-50 transition-all font-medium"
         >
           返回知识库
+        </Link>
+        <Link
+          href="/learning-progress"
+          className="px-6 py-3 bg-white text-blue-600 border border-blue-600 rounded-xl hover:bg-blue-50 transition-all font-medium"
+        >
+          查看学习进度
         </Link>
       </div>
     </ContentLayout>
