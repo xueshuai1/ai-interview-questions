@@ -1,0 +1,14 @@
+{
+  "version": "5.0",
+  "categories": {
+    "CV": {
+      "name": {"zh": "计算机视觉", "en": "Computer Vision"},
+      "level2": {
+        "image-classification": {"name": {"zh": "图像分类", "en": "Image Classification"}, "keywords": {"zh": ["ResNet", "EfficientNet", "ViT"], "en": ["ResNet", "EfficientNet", "Vision Transformer"]}},
+        "object-detection": {"name": {"zh": "目标检测", "en": "Object Detection"}, "keywords": {"zh": ["YOLO", "Faster R-CNN", "DETR"], "en": ["YOLO", "Faster R-CNN", "DETR"]}},
+        "image-segmentation": {"name": {"zh": "图像分割", "en": "Image Segmentation"}, "keywords": {"zh": ["语义分割", "实例分割", "Mask R-CNN"], "en": ["Semantic Segmentation", "Instance Segmentation", "Mask R-CNN"]}},
+        "image-generation": {"name": {"zh": "图像生成", "en": "Image Generation"}, "keywords": {"zh": ["GAN", "Diffusion", "Stable Diffusion"], "en": ["GAN", "Diffusion Models", "Stable Diffusion"]}}
+      }
+    }
+  }
+}
