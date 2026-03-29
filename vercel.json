@@ -1,7 +1,10 @@
 {
   "functions": {
-    "src/app/api/**/*.ts": {
-      "includeFiles": "data/**/*"
+    "src/app/api/questions/route.ts": {
+      "includeFiles": "data/questions/**/*"
+    },
+    "src/app/api/knowledge/**/*": {
+      "includeFiles": "data/knowledge/**/*"
     }
   }
 }
