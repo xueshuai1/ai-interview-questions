@@ -28,6 +28,12 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Umami 网站统计 */}
+        <script
+          defer
+          src="http://45.77.121.84:3000/script.js"
+          data-website-id="5b596de5-1f54-44da-b8b7-547ab465f339"
+        />
       </head>
       <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>
