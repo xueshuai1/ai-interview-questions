@@ -70,33 +70,6 @@ function CodeIcon({ className }: { className?: string }) {
   );
 }
 
-function UsersIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
-  );
-}
-
-function ZapIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-  );
-}
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
-
 function ArrowRightIcon({ className }: { className?: string }) {
   return (
     <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -123,9 +96,9 @@ const CATEGORIES = [
 const NON_AI_ROLES = [
   { id: "frontend", name: "前端开发", icon: CodeIcon, href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI/UX", "Copilot 提效"] },
   { id: "backend", name: "后端开发", icon: CpuIcon, href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
-  { id: "fullstack", name: "全栈开发", icon: ZapIcon, href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
+  { id: "fullstack", name: "全栈开发", icon: BrainIcon, href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
   { id: "mobile", name: "移动端开发", icon: CodeIcon, href: "/roles/mobile", subRoles: ["iOS + AI", "Android + AI", "跨平台 + AI"] },
-  { id: "test-engineer", name: "测试工程师", icon: CheckIcon, href: "/roles/test-engineer", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
+  { id: "test-engineer", name: "测试工程师", icon: CpuIcon, href: "/roles/test-engineer", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
   { id: "data-engineer", name: "数据开发", icon: LayersIcon, href: "/roles/data-engineer", subRoles: ["数据工程", "数据 pipeline", "特征工程"] },
   { id: "product", name: "产品经理", icon: BriefcaseIcon, href: "/roles/product", subRoles: ["AI 产品设计", "场景分析", "商业化"] },
 ];
@@ -133,18 +106,18 @@ const NON_AI_ROLES = [
 // AI 专业岗位（4 个）- 深入 AI 技术
 const AI_PRO_ROLES = [
   { id: "algorithm", name: "算法工程师", icon: BrainIcon, href: "/roles/algorithm", subRoles: ["机器学习", "深度学习"] },
-  { id: "llm-engineer", name: "大模型工程师", icon: ZapIcon, href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent", "Fine-tuning"] },
+  { id: "llm-engineer", name: "大模型工程师", icon: BrainIcon, href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent", "Fine-tuning"] },
   { id: "cv-engineer", name: "CV 工程师", icon: LayersIcon, href: "/roles/cv-engineer", subRoles: ["图像分类", "目标检测", "图像生成"] },
   { id: "nlp-engineer", name: "NLP 工程师", icon: BookIcon, href: "/roles/nlp-engineer", subRoles: ["文本理解", "文本生成", "语言模型"] },
 ];
 
 // 技术专区数据
 const ZONES = [
-  { id: "openclaw", name: "OpenClaw 专区", icon: ZapIcon, href: "/zones/openclaw", topics: ["OpenClaw 技术", "技能开发", "节点控制"] },
+  { id: "openclaw", name: "OpenClaw 专区", icon: BrainIcon, href: "/zones/openclaw", topics: ["OpenClaw 技术", "技能开发", "节点控制"] },
   { id: "agent-dev", name: "Agent 开发", icon: CpuIcon, href: "/zones/agent-dev", topics: ["子 Agent", "多 Agent 协作"] },
   { id: "methodology", name: "开发方法论", icon: BookIcon, href: "/zones/methodology", topics: ["SDD", "TDD", "ATDD", "OMO"] },
   { id: "toolchain", name: "工具链", icon: CodeIcon, href: "/zones/toolchain", topics: ["OpenCode", "Cursor", "Windsurf"] },
-  { id: "frontier", name: "前沿技术", icon: ZapIcon, href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
+  { id: "frontier", name: "前沿技术", icon: BrainIcon, href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
 ];
 
 type TrackType = "non-ai" | "ai-pro";
@@ -306,30 +279,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="bg-[#F1F5F9] py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1E293B] mb-4 text-center">
-            为什么选择我们
-          </h2>
-          <p className="text-[#64748B] text-center mb-12 max-w-2xl mx-auto text-lg">
-            全面覆盖，持续更新，助你快速成长
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Feature
-              icon={LayersIcon}
-              title="11 岗位分类体系"
-              description="7 个非 AI 岗位 + 4 个 AI 专业岗位，全面覆盖技术角色"
-            />
-            <Feature
-              icon={ZapIcon}
-              title="持续更新"
-              description="自动收集最新 AI 知识和面试真题，紧跟前沿技术"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="container mx-auto px-4 py-8 text-center text-[#94A3B8] border-t border-[#E2E8F0]">
         <p className="text-sm">© 2026 AI 学习与面试大全 | Built with Next.js & Vercel</p>
@@ -341,10 +290,6 @@ export default function Home() {
           <Link href="/interview" className="text-[#64748B] hover:text-[#2563EB] transition-colors">
             面试题库
           </Link>
-          <span className="text-[#CBD5E1]">|</span>
-          <a href="https://github.com/xueshuai1/ai-interview-questions" className="text-[#64748B] hover:text-[#2563EB] transition-colors" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
         </div>
       </footer>
     </div>
@@ -455,25 +400,5 @@ function ZoneCard({
         ))}
       </div>
     </Link>
-  );
-}
-
-function Feature({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="text-center p-6">
-      <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto mb-5">
-        <Icon className="w-8 h-8 text-[#2563EB]" />
-      </div>
-      <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{title}</h3>
-      <p className="text-[#64748B] leading-relaxed">{description}</p>
-    </div>
   );
 }
