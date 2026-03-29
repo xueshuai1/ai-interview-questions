@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BriefcaseIcon, BookIcon, ArrowRightIcon, CpuIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, ZapIcon } from "@/components/Icons";
+import { BriefcaseIcon, BookIcon, ArrowRightIcon, CpuIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, ZapIcon, ServerIcon, TargetIcon, SparklesIcon, NetworkIcon, ChartIcon, PenToolIcon, RocketIcon, ShieldIcon, CheckCircleIcon } from "@/components/Icons";
 
 // Lucide 风格 SVG 图标组件
 function MapIcon({ className }: { className?: string }) {
@@ -17,26 +17,26 @@ function MapIcon({ className }: { className?: string }) {
 
 // 分类数据
 const CATEGORIES = [
-  { id: "ML", name: "机器学习基础", icon: CpuIcon, href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
+  { id: "ML", name: "机器学习基础", icon: ChartIcon, href: "/categories/ML", description: "监督学习、无监督学习、模型评估" },
   { id: "DL", name: "深度学习", icon: BrainIcon, href: "/categories/DL", description: "神经网络、CNN、RNN、Transformer" },
   { id: "NLP", name: "自然语言处理", icon: BookIcon, href: "/categories/NLP", description: "词向量、语言模型、文本生成" },
-  { id: "CV", name: "计算机视觉", icon: LayersIcon, href: "/categories/CV", description: "图像分类、目标检测、分割" },
-  { id: "LLM", name: "大语言模型", icon: ZapIcon, href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
+  { id: "CV", name: "计算机视觉", icon: TargetIcon, href: "/categories/CV", description: "图像分类、目标检测、分割" },
+  { id: "LLM", name: "大语言模型", icon: SparklesIcon, href: "/categories/LLM", description: "Prompt、RAG、Fine-tuning、Agent" },
   { id: "RecSys", name: "推荐系统", icon: UsersIcon, href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
-  { id: "RL", name: "强化学习", icon: CodeIcon, href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
-  { id: "System", name: "系统设计", icon: LayersIcon, href: "/categories/System", description: "ML 系统设计、架构设计" },
+  { id: "RL", name: "强化学习", icon: NetworkIcon, href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
+  { id: "System", name: "系统设计", icon: ServerIcon, href: "/categories/System", description: "ML 系统设计、架构设计" },
   { id: "Coding", name: "编程算法", icon: CodeIcon, href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
 
 // 非 AI 岗位（9 个）- 学习 AI 提升竞争力
 const NON_AI_ROLES = [
   { id: "frontend", name: "前端开发", icon: CodeIcon, href: "/roles/frontend", subRoles: ["AI 应用集成", "智能 UI/UX", "Copilot 提效"] },
-  { id: "backend", name: "后端开发", icon: CpuIcon, href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
-  { id: "fullstack", name: "全栈开发", icon: BrainIcon, href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
-  { id: "mobile", name: "移动端开发", icon: CodeIcon, href: "/roles/mobile", subRoles: ["iOS + AI", "Android + AI", "跨平台 + AI"] },
-  { id: "test-engineer", name: "测试工程师", icon: CpuIcon, href: "/roles/test-engineer", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
-  { id: "data-engineer", name: "数据开发", icon: LayersIcon, href: "/roles/data-engineer", subRoles: ["数据工程", "数据 pipeline", "特征工程"] },
-  { id: "designer", name: "设计师", icon: ZapIcon, href: "/roles/designer", subRoles: ["AI 设计工具", "智能界面", "UX 优化"] },
+  { id: "backend", name: "后端开发", icon: ServerIcon, href: "/roles/backend", subRoles: ["模型服务化", "AI API 设计", "系统架构"] },
+  { id: "fullstack", name: "全栈开发", icon: NetworkIcon, href: "/roles/fullstack", subRoles: ["AI 全栈项目", "快速原型", "独立开发"] },
+  { id: "mobile", name: "移动端开发", icon: RocketIcon, href: "/roles/mobile", subRoles: ["iOS + AI", "Android + AI", "跨平台 + AI"] },
+  { id: "test-engineer", name: "测试工程师", icon: ShieldIcon, href: "/roles/test-engineer", subRoles: ["AI 测试", "自动化测试", "质量保障"] },
+  { id: "data-engineer", name: "数据开发", icon: ChartIcon, href: "/roles/data-engineer", subRoles: ["数据工程", "数据 pipeline", "特征工程"] },
+  { id: "designer", name: "设计师", icon: PenToolIcon, href: "/roles/designer", subRoles: ["AI 设计工具", "智能界面", "UX 优化"] },
   { id: "product", name: "产品经理", icon: BriefcaseIcon, href: "/roles/product", subRoles: ["AI 产品设计", "场景分析", "商业化"] },
   { id: "devops", name: "运维/DevOps", icon: CpuIcon, href: "/roles/devops", subRoles: ["模型部署", "MLOps", "自动化运维"] },
 ];
@@ -44,20 +44,20 @@ const NON_AI_ROLES = [
 // AI 专业岗位（6 个）- 深入 AI 技术
 const AI_PRO_ROLES = [
   { id: "algorithm", name: "算法工程师", icon: BrainIcon, href: "/roles/algorithm", subRoles: ["机器学习", "深度学习"] },
-  { id: "llm-engineer", name: "大模型工程师", icon: BrainIcon, href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent", "Fine-tuning"] },
-  { id: "cv-engineer", name: "CV 工程师", icon: LayersIcon, href: "/roles/cv-engineer", subRoles: ["图像分类", "目标检测", "图像生成"] },
+  { id: "llm-engineer", name: "大模型工程师", icon: SparklesIcon, href: "/roles/llm-engineer", subRoles: ["LLM", "RAG", "Agent", "Fine-tuning"] },
+  { id: "cv-engineer", name: "CV 工程师", icon: TargetIcon, href: "/roles/cv-engineer", subRoles: ["图像分类", "目标检测", "图像生成"] },
   { id: "nlp-engineer", name: "NLP 工程师", icon: BookIcon, href: "/roles/nlp-engineer", subRoles: ["文本理解", "文本生成", "语言模型"] },
   { id: "recsys-engineer", name: "推荐算法工程师", icon: UsersIcon, href: "/roles/recsys-engineer", subRoles: ["召回排序", "协同过滤", "深度学习推荐"] },
-  { id: "ml-engineer", name: "ML 工程师", icon: CpuIcon, href: "/roles/ml-engineer", subRoles: ["模型训练", "特征工程", "模型优化"] },
+  { id: "ml-engineer", name: "ML 工程师", icon: CheckCircleIcon, href: "/roles/ml-engineer", subRoles: ["模型训练", "特征工程", "模型优化"] },
 ];
 
 // 技术专区数据
 const ZONES = [
-  { id: "openclaw", name: "OpenClaw 专区", icon: BrainIcon, href: "/zones/openclaw", topics: ["OpenClaw 技术", "技能开发", "节点控制"] },
-  { id: "agent-dev", name: "Agent 开发", icon: CpuIcon, href: "/zones/agent-dev", topics: ["子 Agent", "多 Agent 协作"] },
+  { id: "openclaw", name: "OpenClaw 专区", icon: ZapIcon, href: "/zones/openclaw", topics: ["OpenClaw 技术", "技能开发", "节点控制"] },
+  { id: "agent-dev", name: "Agent 开发", icon: NetworkIcon, href: "/zones/agent-dev", topics: ["子 Agent", "多 Agent 协作"] },
   { id: "methodology", name: "开发方法论", icon: BookIcon, href: "/zones/methodology", topics: ["SDD", "TDD", "ATDD", "OMO"] },
   { id: "toolchain", name: "工具链", icon: CodeIcon, href: "/zones/toolchain", topics: ["OpenCode", "Cursor", "Windsurf"] },
-  { id: "frontier", name: "前沿技术", icon: BrainIcon, href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
+  { id: "frontier", name: "前沿技术", icon: RocketIcon, href: "/zones/frontier", topics: ["最新论文", "技术趋势"] },
 ];
 
 type TrackType = "non-ai" | "ai-pro";
