@@ -28,6 +28,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* 缓存控制 - 强制浏览器刷新 */}
+        <meta name="version" content={Date.now().toString()} />
+        <meta name="cache-buster" content={Math.random().toString()} />
         {/* Umami 网站统计 - 本地脚本 */}
         <script
           defer
