@@ -46,10 +46,10 @@ const CATEGORIES = [
   { id: "RecSys", name: "推荐系统", href: "/categories/RecSys", description: "召回排序、协同过滤、深度学习" },
   { id: "RL", name: "强化学习", href: "/categories/RL", description: "MDP、Q-Learning、Policy Gradient" },
   { id: "System", name: "系统设计", href: "/categories/System", description: "ML 系统设计、架构设计" },
-  { id: "Design", name: "UI/UX 设计", href: "/categories/Design", description: "交互设计、视觉设计、设计系统" },
+  { id: "Coding", name: "编程算法", href: "/categories/Coding", description: "LeetCode、数据结构、算法" },
 ];
 
-// 岗位数据
+// 岗位数据（9 个）
 const ROLES = [
   { id: "frontend", name: "前端开发", href: "/roles/frontend" },
   { id: "backend", name: "后端开发", href: "/roles/backend" },
@@ -59,9 +59,7 @@ const ROLES = [
   { id: "data-engineer", name: "数据开发", href: "/roles/data-engineer" },
   { id: "algorithm", name: "算法工程师", href: "/roles/algorithm" },
   { id: "llm-engineer", name: "大模型工程师", href: "/roles/llm-engineer" },
-  { id: "cv-engineer", name: "CV 工程师", href: "/roles/cv-engineer" },
-  { id: "nlp-engineer", name: "NLP 工程师", href: "/roles/nlp-engineer" },
-  { id: "product", name: "产品经理", href: "/roles/product" },
+  { id: "designer", name: "设计师", href: "/roles/designer" },
 ];
 
 // 示例题目
