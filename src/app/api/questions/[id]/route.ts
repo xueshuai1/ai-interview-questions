@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
 
 interface Question {
   id: string;
@@ -13,59 +15,38 @@ interface Question {
   content: string;
 }
 
-const GITHUB_API = 'https://api.github.com/repos/xueshuai1/ai-interview-questions/contents';
+const QUESTIONS_DIR = path.join(process.cwd(), 'questions');
 
-async function fetchFromGitHub(path: string): Promise<any> {
-  try {
-    const response = await fetch(path, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-      },
-      // 缓存 5 分钟
-      next: { revalidate: 300 }
-    });
-    
-    if (!response.ok) {
-      throw new Error(`GitHub API error: ${response.status}`);
-    }
-    
-    return await response.json();
-  } catch (error) {
-    console.error('GitHub API error:', error);
-    return null;
-  }
-}
-
-async function getAllQuestions(): Promise<Question[]> {
+function getAllQuestions(): Question[] {
   const questions: Question[] = [];
   
-  // 获取所有分类目录
-  const categories = await fetchFromGitHub(GITHUB_API);
-  if (!categories || !Array.isArray(categories)) {
+  if (!fs.existsSync(QUESTIONS_DIR)) {
+    console.error('Questions directory not found:', QUESTIONS_DIR);
     return questions;
   }
   
+  // 获取所有分类目录
+  const categories = fs.readdirSync(QUESTIONS_DIR);
+  
   for (const category of categories) {
-    if (category.type !== 'dir') continue;
+    const categoryDir = path.join(QUESTIONS_DIR, category);
+    
+    if (!fs.statSync(categoryDir).isDirectory()) continue;
     
     // 获取分类下的所有文件
-    const files = await fetchFromGitHub(category.url);
-    if (!files || !Array.isArray(files)) continue;
+    const files = fs.readdirSync(categoryDir);
     
     for (const file of files) {
-      if (!file.name.endsWith('.md')) continue;
+      if (!file.endsWith('.md')) continue;
       
-      // 获取文件内容
-      const contentResponse = await fetch(file.download_url);
-      if (!contentResponse.ok) continue;
-      
-      const content = await contentResponse.text();
+      const filePath = path.join(categoryDir, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
       const { data, content: body } = matter(content);
       
       questions.push({
-        id: file.name.replace('.md', ''),
-        title: data.title || file.name.replace('.md', ''),
-        category: data.category || category.name,
+        id: file.replace('.md', ''),
+        title: data.title || file.replace('.md', '').replace(/^[^-]+-/, ''),
+        category: data.category || category,
         difficulty: data.difficulty || '⭐⭐',
         tags: data.tags || [],
         source: data.source || '',
@@ -82,7 +63,19 @@ async function getAllQuestions(): Promise<Question[]> {
 function getQuestionById(questions: Question[], id: string): Question | null {
   // URL 编码解码处理
   const decodedId = decodeURIComponent(id);
-  return questions.find(q => q.id === decodedId || decodeURIComponent(q.id) === decodedId) || null;
+  
+  // 尝试多种匹配方式
+  return questions.find(q => {
+    // 完全匹配
+    if (q.id === decodedId) return true;
+    // 解码后匹配
+    if (decodeURIComponent(q.id) === decodedId) return true;
+    // 去掉分类前缀匹配
+    const qIdWithoutPrefix = q.id.replace(/^[^-]+-/, '');
+    const decodedIdWithoutPrefix = decodedId.replace(/^[^-]+-/, '');
+    if (qIdWithoutPrefix === decodedIdWithoutPrefix) return true;
+    return false;
+  }) || null;
 }
 
 export async function GET(
@@ -91,7 +84,7 @@ export async function GET(
 ) {
   const { id } = await params;
   
-  const questions = await getAllQuestions();
+  const questions = getAllQuestions();
   
   if (id === 'list') {
     return NextResponse.json({ questions });
@@ -100,8 +93,9 @@ export async function GET(
   const question = getQuestionById(questions, id);
   
   if (!question) {
+    console.error('Question not found:', id, 'Available questions:', questions.map(q => q.id));
     return NextResponse.json(
-      { error: 'Question not found' },
+      { error: 'Question not found', availableCount: questions.length },
       { status: 404 }
     );
   }

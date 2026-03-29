@@ -1,6 +1,6 @@
 ---
 order: 2
-summary: "文章内容摘要" 2
+summary: "Transformer Self-Attention 机制解释"
 title: "解释 Transformer 中的自注意力机制"
 category: LLM
 difficulty: ⭐⭐⭐

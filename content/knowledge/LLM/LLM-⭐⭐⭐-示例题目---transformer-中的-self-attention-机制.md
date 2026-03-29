@@ -1,6 +1,6 @@
 ---
 order: 4
-summary: "文章内容摘要" 4
+summary: "Transformer Self-Attention 详解"
 title: "示例题目 - Transformer 中的 Self-Attention 机制"
 category: "LLM"
 roles: [算法工程师, AI 工程化]

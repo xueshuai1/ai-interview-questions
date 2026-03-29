@@ -1,6 +1,6 @@
 ---
 order: 3
-summary: "文章内容摘要" 3
+summary: "RAG 检索增强生成技术详解"
 title: "解释 RAG（检索增强生成）的工作原理和应用场景"
 category: LLM
 roles: ["后端开发", "算法工程师", "AI 工程化"]
