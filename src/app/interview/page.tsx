@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import TagFilter from "@/components/TagFilter";
-import Tag from "@/components/Tag";
 import CodeBlock from "@/components/CodeBlock";
 import Callout from "@/components/Callout";
 import Collapsible from "@/components/Collapsible";
@@ -88,40 +86,18 @@ const FEATURED_QUESTIONS = [
   { id: "q-008", title: "BERT 和 GPT 的区别", category: "NLP", difficulty: "⭐⭐⭐", role: "algorithm", tags: ["NLP", "Transformer", "3", "interview", "bigtech"] },
 ];
 
-interface TagFilters {
-  techDomains: string[];
-  difficulties: string[];
-  scenarios: string[];
-}
-
 export default function InterviewPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [tagFilters, setTagFilters] = useState<TagFilters>({
-    techDomains: [],
-    difficulties: [],
-    scenarios: [],
-  });
-
   const filteredQuestions = FEATURED_QUESTIONS.filter((q) => {
     if (selectedCategory && q.category !== selectedCategory) return false;
     if (selectedRole && q.role !== selectedRole) return false;
     if (searchQuery && !q.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     
-    // 标签筛选
-    if (tagFilters.techDomains.length > 0) {
-      const hasTechTag = tagFilters.techDomains.some(tag => q.tags.includes(tag));
-      if (!hasTechTag) return false;
-    }
-    if (tagFilters.difficulties.length > 0) {
-      const hasDiffTag = tagFilters.difficulties.some(tag => q.tags.includes(tag));
-      if (!hasDiffTag) return false;
-    }
-    if (tagFilters.scenarios.length > 0) {
-      const hasScenarioTag = tagFilters.scenarios.some(tag => q.tags.includes(tag));
-      if (!hasScenarioTag) return false;
-    }
+    
+    
+    
     
     return true;
   });
@@ -151,13 +127,7 @@ export default function InterviewPage() {
             >
               ← 返回首页
             </Link>
-            <Link
-              href="/tags"
-              className="text-blue-600 hover:text-blue-800 font-medium"
-            >
-              🏷️ 标签系统
-            </Link>
-          </div>
+            </div>
           <div className="flex items-center gap-4">
             <div className="w-14 h-14 bg-[#F1F5F9] rounded-xl flex items-center justify-center">
               <BriefcaseIcon className="w-8 h-8 text-[#475569]" />
@@ -277,8 +247,7 @@ export default function InterviewPage() {
             {/* 标签筛选 */}
             <div className="bg-white rounded-xl border border-[#E2E8F0] p-5">
               <h2 className="text-lg font-semibold text-[#1E293B] mb-3">🏷️ 标签筛选</h2>
-              <TagFilter onFilterChange={setTagFilters} compact />
-            </div>
+              </div>
           </div>
 
           {/* 右侧：题目列表 */}
@@ -311,16 +280,6 @@ export default function InterviewPage() {
                       <span className="text-sm">{q.difficulty}</span>
                     </div>
                     <h3 className="text-lg font-semibold text-[#1E293B] mb-3">{q.title}</h3>
-                    
-                    {/* 标签展示 */}
-                    <div className="flex flex-wrap gap-1.5 mb-3">
-                      {q.tags.slice(0, 4).map((tag) => (
-                        <Tag key={tag} id={tag} name={`#${tag}`} size="sm" group="tech" />
-                      ))}
-                      {q.tags.length > 4 && (
-                        <span className="text-xs text-gray-500 px-1">+{q.tags.length - 4}</span>
-                      )}
-                    </div>
                     
                     <div className="flex flex-wrap gap-2">
                       <span className="px-2 py-1 bg-[#DBEAFE] text-[#1E40AF] text-xs rounded">
