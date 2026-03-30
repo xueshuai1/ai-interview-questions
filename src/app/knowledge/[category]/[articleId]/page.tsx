@@ -240,8 +240,9 @@ export async function generateStaticParams() {
 async function ArticleContent({ params }: ArticlePageProps) {
   const { category, articleId } = await params;
   const decodedCategory = decodeURIComponent(category);
+  const decodedArticleId = decodeURIComponent(articleId);  // ✅ 添加 URL 解码
   
-  const article = loadArticle(decodedCategory, articleId);
+  const article = loadArticle(decodedCategory, decodedArticleId);
   
   if (!article) {
     notFound();
@@ -249,7 +250,7 @@ async function ArticleContent({ params }: ArticlePageProps) {
   
   // 获取相邻文章
   const articles = getArticlesByCategory(decodedCategory);
-  const currentIndex = articles.findIndex(a => a.id === articleId);
+  const currentIndex = articles.findIndex(a => a.id === decodedArticleId);
   const adjacentArticles: AdjacentArticles = {
     prev: currentIndex > 0 ? articles[currentIndex - 1] : null,
     next: currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null,
