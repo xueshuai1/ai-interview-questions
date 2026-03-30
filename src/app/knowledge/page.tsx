@@ -41,15 +41,14 @@ export default function KnowledgePage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 从 API 加载文章数据
+  // 从静态 JSON 文件加载文章数据 (SSG 模式)
   useEffect(() => {
     async function loadArticles() {
       try {
-        const response = await fetch('/api/knowledge');
+        const response = await fetch('/knowledge-index.json');
         if (response.ok) {
           const data = await response.json();
-          // API 返回格式：{success: true, data: {articles: [...]}}
-          setArticles(data.data?.articles || data.articles || []);
+          setArticles(data.articles || []);
         }
       } catch (error) {
         console.error('Failed to load articles:', error);
@@ -218,5 +217,3 @@ export default function KnowledgePage() {
     </div>
   );
 }
-// ISR 增量更新：每小时重新生成一次
-export const revalidate = 3600;

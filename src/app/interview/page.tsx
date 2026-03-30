@@ -248,13 +248,6 @@ export default function InterviewPage() {
               <BookIcon className="w-5 h-5" />
               前往知识库
             </Link>
-            <Link
-              href="/roadmaps"
-              className="px-6 py-3 bg-white text-[#2563EB] border border-[#2563EB] rounded-xl hover:bg-[#F1F5F9] transition-all inline-flex items-center gap-2"
-            >
-              查看学习路径
-              <ArrowRightIcon className="w-5 h-5" />
-            </Link>
           </div>
         </section>
       </main>

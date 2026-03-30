@@ -1,18 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookIcon, ArrowRightIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, ServerIcon, TargetIcon, SparklesIcon, NetworkIcon, ChartIcon } from "@/components/Icons";
-
-// Lucide 风格 SVG 图标组件
-function MapIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" />
-      <line x1="9" x2="9" y1="3" y2="18" />
-      <line x1="15" x2="15" y1="6" y2="21" />
-    </svg>
-  );
-}
+import { BookIcon, BrainIcon, LayersIcon, CodeIcon, UsersIcon, TargetIcon, SparklesIcon, NetworkIcon, ChartIcon, ArrowRightIcon } from "@/components/Icons";
 
 // 8 大技术领域
 const CATEGORIES = [
@@ -71,18 +60,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* 快捷入口 */}
-        <div className="flex justify-center gap-4 flex-wrap">
-          <Link
-            href="/roadmaps"
-            className="px-6 py-3 border-2 border-[#CBD5E1] text-[#475569] rounded-xl hover:bg-[#F1F5F9] transition-all duration-200 text-base min-h-[48px] font-medium cursor-pointer"
-          >
-            <span className="flex items-center gap-2">
-              <MapIcon className="w-5 h-5" />
-              学习路径
-            </span>
-          </Link>
-        </div>
       </section>
 
       {/* 技术分类 - 7 大领域 */}
