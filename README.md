@@ -1,10 +1,10 @@
-# AI 面试题大全 v2.0 🤖
+# AI 面试题大全 v3.0 🤖
 
-> 专注 AI 领域的面试题库，采用混合分类体系，助你拿到理想 Offer
+> 专注 AI 领域的面试题库 + 系统知识库，采用混合分类体系，助你拿到理想 Offer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)](https://nextjs.org)
-[![Auto Collect](https://img.shields.io/badge/Auto-Collect-green)](./skills/auto-interview-collector)
+[![Knowledge Base](https://img.shields.io/badge/Knowledge-Base-blue)](./content/knowledge)
 
 ---
 
@@ -25,15 +25,6 @@
 - 搜索结果高亮
 - 快速响应
 
-### 🤖 自动收集系统
-
-- 50+ 关键词轮换搜索（中英文）
-- 多来源内容获取（GitHub、Medium、知乎、牛客网等）
-- 图片本地化处理
-- AI 延伸追问生成
-- 智能去重
-- 自动 Git 提交 + Vercel 部署
-
 ### 📚 题目结构完善
 
 每道题目包含：
@@ -43,6 +34,13 @@
 - 延伸题目
 - **延伸追问**（v2.0 新增）
 - **深入理解**（v2.0 新增）
+
+### 📖 系统知识库（v3.0 新增）
+
+- **298 篇** 核心知识点文章
+- **8 大** 技术领域覆盖（LLM/DL/CV/ML/RL/NLP/RecSys/AI-Engineering）
+- **结构化** 知识体系：核心概念 → 核心原理 → 实际应用 → 面试题
+- **与题目关联**: 每个知识点配套 5-10 道面试题
 
 ---
 
@@ -119,67 +117,36 @@ images: []
 
 ---
 
-## 🤖 自动收集
-
-### 手动收集
-
-```bash
-cd skills/auto-interview-collector
-
-# 收集 10 道题目
-python scripts/collect.py --count 10 --manual
-
-# 指定分类
-python scripts/collect.py --category LLM --count 5
-
-# 指定关键词
-python scripts/collect.py --keywords "RAG,Agent" --count 5
-```
-
-### 定时任务
-
-配置每天凌晨 2 点自动收集：
-
-```bash
-# macOS / Linux
-bash scripts/setup-cron.sh
-```
-
-**配置详情**：
-- 执行时间：每天 2:00 AM
-- 每次收集：10-15 道题
-- 自动 commit + push
-- 触发 Vercel 部署
-- 日志保存：`logs/` 目录
-
----
-
 ## 📁 项目结构
 
 ```
 ai-interview-questions/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx          # 首页（v2.0 更新）
-│   │   ├── search/           # 搜索页面（v2.0 新增）
-│   │   └── api/search/       # 搜索 API（v2.0 新增）
-│   └── lib/
-│       └── search.ts         # 搜索逻辑库（v2.0 新增）
-├── content/meta/
-│   └── categories.json       # 分类配置（v2.0 更新）
-├── skills/auto-interview-collector/
-│   ├── scripts/
-│   │   ├── collect.py        # 收集脚本（v2.0 更新）
-│   │   └── setup-cron.sh     # Cron 配置（v2.0 更新）
-│   ├── config.json           # 配置文件（v2.0 更新）
-│   └── questions/            # 题目存储
+│   │   ├── page.tsx              # 首页
+│   │   ├── search/               # 搜索页面
+│   │   ├── knowledge/            # 知识库页面
+│   │   ├── questions/            # 题目详情页
+│   │   └── api/                  # API 路由
+├── content/
+│   ├── knowledge/                # 298 篇知识库文章
+│   │   ├── LLM/
+│   │   ├── DL/
+│   │   ├── CV/
+│   │   └── ...
+│   └── questions/                # 271 道面试题
 │       ├── LLM/
+│       ├── DL/
 │       ├── CV/
-│       ├── NLP/
 │       └── ...
+├── data/
+│   └── keywords-*.json           # 关键词库（AIGC 生成用）
+├── scripts/
+│   ├── auto-test.js              # 自动测试
+│   └── evaluate-quality.py       # 质量评估
 └── docs/
-    ├── site-structure.md     # 网站结构
-    └── classification-system.md  # 分类体系（v2.0 新增）
+    ├── site-structure.md         # 网站结构
+    └── classification-system.md  # 分类体系
 ```
 
 ---
@@ -260,7 +227,6 @@ ai-interview-questions/
 
 - [网站结构](./docs/site-structure.md)
 - [分类体系](./docs/classification-system.md)
-- [自动收集器](./skills/auto-interview-collector/README.md)
 
 ---
 
@@ -270,20 +236,27 @@ ai-interview-questions/
 - [x] 混合分类体系
 - [x] 搜索功能
 - [x] 图片本地化
-- [x] 自动收集系统
 - [x] 延伸追问生成
 
-### Phase 2: 🚧 进行中
-- [ ] 题目详情页
-- [ ] 分类筛选页
-- [ ] 岗位学习页
-- [ ] 技术专区页
+### Phase 2: ✅ 已完成 (2026-03-30)
+- [x] 题目详情页
+- [x] 分类筛选页
+- [x] 岗位学习页
+- [x] 技术专区页
+- [x] **知识库系统** (v3.0)
+- [x] **298 篇知识点文章**
+- [x] **271 道面试题**
 
-### Phase 3: 📋 计划中
+### Phase 3: 🚧 进行中
 - [ ] 学习路径
 - [ ] 模拟面试
 - [ ] 收藏功能
 - [ ] 进度追踪
+
+### Phase 4: 📋 计划中
+- [ ] 知识图谱可视化
+- [ ] 个性化推荐
+- [ ] 学习社区
 
 ---
 

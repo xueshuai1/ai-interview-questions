@@ -114,10 +114,10 @@ export default function KnowledgeCategoryPage() {
   useEffect(() => {
     async function loadArticles() {
       try {
-        const response = await fetch(`/api/knowledge/${categorySlug}`);
+        const response = await fetch(`/api/knowledge?category=${categorySlug}`);
         if (response.ok) {
           const data = await response.json();
-          setArticles(data.articles || []);
+          setArticles(data.data?.articles || data.articles || []);
         } else {
           setError('加载失败');
         }

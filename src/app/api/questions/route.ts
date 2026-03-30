@@ -40,44 +40,10 @@ interface QuestionWithContent extends Question {
   }>;
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'questions');
-const QUESTIONS_DIR = path.join(process.cwd(), 'questions');
+const QUESTIONS_DIR = path.join(process.cwd(), 'content', 'questions');
 
 /**
- * 从 JSON 文件加载题目
- */
-function loadQuestionsFromJSON(): QuestionWithContent[] {
-  const questions: QuestionWithContent[] = [];
-  
-  if (!fs.existsSync(DATA_DIR)) {
-    return questions;
-  }
-  
-  const categories = fs.readdirSync(DATA_DIR);
-  
-  for (const category of categories) {
-    const categoryDir = path.join(DATA_DIR, category);
-    
-    if (!fs.statSync(categoryDir).isDirectory()) continue;
-    
-    const files = fs.readdirSync(categoryDir);
-    
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue;
-      
-      const filePath = path.join(categoryDir, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(content);
-      
-      questions.push(data);
-    }
-  }
-  
-  return questions;
-}
-
-/**
- * 从 MD 文件加载题目（向后兼容）
+ * 从 MD 文件加载题目
  */
 function loadQuestionsFromMarkdown(): Question[] {
   const questions: Question[] = [];
@@ -111,15 +77,18 @@ function loadQuestionsFromMarkdown(): Question[] {
           const [key, ...valueParts] = line.split(':');
           if (key && valueParts.length > 0) {
             let value = valueParts.join(':').trim();
-            // 处理数组
-            if (value.startsWith('[') && value.endsWith(']')) {
-              value = value.slice(1, -1).split(',').map(v => v.trim().replace(/"/g, ''));
+            // 安全处理：确保 value 是字符串
+            if (typeof value === 'string') {
+              if (value.startsWith('[') && value.endsWith(']')) {
+                value = value.slice(1, -1).split(',').map((v: string) => v.trim().replace(/"/g, ''));
+                frontmatter[key.trim()] = value;
+              } else if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+                frontmatter[key.trim()] = value;
+              } else {
+                frontmatter[key.trim()] = value;
+              }
             }
-            // 处理带引号的字符串
-            if (value.startsWith('"') && value.endsWith('"')) {
-              value = value.slice(1, -1);
-            }
-            frontmatter[key.trim()] = value;
           }
         }
       }
@@ -151,13 +120,8 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
     
-    // 优先从 JSON 加载，回退到 MD
-    let questions = loadQuestionsFromJSON();
-    const hasJSONData = questions.length > 0;
-    
-    if (!hasJSONData) {
-      questions = loadQuestionsFromMarkdown() as QuestionWithContent[];
-    }
+    // 从 MD 文件加载
+    let questions = loadQuestionsFromMarkdown() as QuestionWithContent[];
     
     // 筛选
     if (category) {

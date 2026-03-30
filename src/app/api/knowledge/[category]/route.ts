@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'knowledge');
-const KNOWLEDGE_BASE_DIR = path.join(process.cwd(), '..', 'ai-knowledge-base');
+const KNOWLEDGE_BASE_DIR = path.join(process.cwd(), 'content', 'knowledge');
 
 interface KnowledgeArticle {
   id: string;
@@ -25,56 +24,35 @@ interface KnowledgeArticle {
 }
 
 function loadArticle(category: string, id: string) {
-  // 从 JSON 加载
-  const categoryDir = path.join(DATA_DIR, category);
-  if (fs.existsSync(categoryDir)) {
-    const filePath = path.join(categoryDir, `${id}.json`);
-    if (fs.existsSync(filePath)) {
-      const content = fs.readFileSync(filePath, 'utf-8');
-      return JSON.parse(content);
-    }
-    
-    const files = fs.readdirSync(categoryDir);
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue;
-      const filePath = path.join(categoryDir, file);
-      const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-      if (data.id === id) {
-        return data;
-      }
-    }
-  }
-  
   // 从 MD 加载
   const mdCategoryDir = path.join(KNOWLEDGE_BASE_DIR, category);
   if (fs.existsSync(mdCategoryDir)) {
     const filePath = path.join(mdCategoryDir, `${id}.md`);
     if (fs.existsSync(filePath)) {
       const content = fs.readFileSync(filePath, 'utf-8');
-      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      // 解析行内元数据
+      const lines = content.split('\n');
+      const secondLine = lines[1] || '';
       const frontmatter: Record<string, any> = {};
       
-      if (frontmatterMatch) {
-        const lines = frontmatterMatch[1].split('\n');
-        for (const line of lines) {
-          const [key, ...valueParts] = line.split(':');
-          if (key && valueParts.length > 0) {
-            let value = valueParts.join(':').trim();
-            if (value.startsWith('[') && value.endsWith(']')) {
-              value = value.slice(1, -1).split(',').map(v => v.trim().replace(/"/g, ''));
+      if (secondLine.startsWith('>')) {
+        const inlineMatch = secondLine.match(/\*\*([^*]+)\*\*:\s*([^|]+)/g);
+        if (inlineMatch) {
+          for (const item of inlineMatch) {
+            const parts = item.split(':');
+            const key = parts[0]?.trim().replace(/\*\*/g, '').toLowerCase();
+            const value = parts.slice(1).join(':').trim().replace(/\*\*/g, '');
+            if (key && value) {
+              frontmatter[key] = value;
             }
-            if (value.startsWith('"') && value.endsWith('"')) {
-              value = value.slice(1, -1);
-            }
-            frontmatter[key.trim()] = value;
           }
         }
       }
       
-      const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
+      const body = content.replace(/^#\s*[^\n]+\n[^\n]+\n/, '');
       return {
         id,
-        title: frontmatter.title || id,
+        title: frontmatter.title || id.replace(/[-_]/g, ' '),
         category,
         content: body,
         summary: frontmatter.summary || '',
@@ -89,27 +67,9 @@ function loadArticle(category: string, id: string) {
 function loadArticlesByCategory(category: string): KnowledgeArticle[] {
   const articles: KnowledgeArticle[] = [];
   
-  // 从 JSON 加载
-  const categoryDir = path.join(DATA_DIR, category);
-  if (fs.existsSync(categoryDir)) {
-    const files = fs.readdirSync(categoryDir);
-    
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue;
-      
-      const filePath = path.join(categoryDir, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(content);
-      
-      if (data.category === category) {
-        articles.push(data);
-      }
-    }
-  }
-  
-  // 从 MD 加载（向后兼容）
+  // 从 MD 加载
   const mdCategoryDir = path.join(KNOWLEDGE_BASE_DIR, category);
-  if (fs.existsSync(mdCategoryDir) && articles.length === 0) {
+  if (fs.existsSync(mdCategoryDir)) {
     const files = fs.readdirSync(mdCategoryDir);
     
     for (const file of files) {
@@ -118,22 +78,43 @@ function loadArticlesByCategory(category: string): KnowledgeArticle[] {
       const filePath = path.join(mdCategoryDir, file);
       const content = fs.readFileSync(filePath, 'utf-8');
       
-      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
       const frontmatter: Record<string, any> = {};
       
+      // 尝试 YAML frontmatter
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
       if (frontmatterMatch) {
         const lines = frontmatterMatch[1].split('\n');
         for (const line of lines) {
           const [key, ...valueParts] = line.split(':');
           if (key && valueParts.length > 0) {
             let value = valueParts.join(':').trim();
-            if (value.startsWith('[') && value.endsWith(']')) {
-              value = value.slice(1, -1).split(',').map(v => v.trim().replace(/"/g, ''));
+            if (typeof value === 'string') {
+              if (value.startsWith('[') && value.endsWith(']')) {
+                value = value.slice(1, -1).split(',').map((v: string) => v.trim().replace(/"/g, ''));
+                frontmatter[key.trim()] = value;
+              } else if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+                frontmatter[key.trim()] = value;
+              } else {
+                frontmatter[key.trim()] = value;
+              }
             }
-            if (value.startsWith('"') && value.endsWith('"')) {
-              value = value.slice(1, -1);
+          }
+        }
+      } else {
+        // 尝试行内格式
+        const secondLine = content.split('\n')[1] || '';
+        if (secondLine.startsWith('>')) {
+          const inlineMatch = secondLine.match(/\*\*([^*]+)\*\*:\s*([^|]+)/g);
+          if (inlineMatch) {
+            for (const item of inlineMatch) {
+              const parts = item.split(':');
+              const key = parts[0]?.trim().replace(/\*\*/g, '').toLowerCase();
+              const value = parts.slice(1).join(':').trim().replace(/\*\*/g, '');
+              if (key && typeof value === 'string') {
+                frontmatter[key] = value;
+              }
             }
-            frontmatter[key.trim()] = value;
           }
         }
       }

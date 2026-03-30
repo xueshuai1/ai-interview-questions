@@ -19,60 +19,33 @@ interface KnowledgeArticle {
   version: string;
 }
 
-const DATA_DIR = path.join(process.cwd(), '..', 'ai-knowledge-base', 'data', 'knowledge');
-const KNOWLEDGE_BASE_DIR = path.join(process.cwd(), '..', 'ai-knowledge-base', 'data', 'knowledge');
+const KNOWLEDGE_BASE_DIR = path.join(process.cwd(), 'content', 'knowledge');
 
 /**
- * 从 JSON 文件加载知识库文章
- */
-function loadArticlesFromJSON(): KnowledgeArticle[] {
-  const articles: KnowledgeArticle[] = [];
-  
-  if (!fs.existsSync(DATA_DIR)) {
-    return articles;
-  }
-  
-  const categories = fs.readdirSync(DATA_DIR);
-  
-  for (const category of categories) {
-    const categoryDir = path.join(DATA_DIR, category);
-    
-    if (!fs.statSync(categoryDir).isDirectory()) continue;
-    
-    const files = fs.readdirSync(categoryDir);
-    
-    for (const file of files) {
-      if (!file.endsWith('.json')) continue;
-      
-      const filePath = path.join(categoryDir, file);
-      const content = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(content);
-      
-      articles.push(data);
-    }
-  }
-  
-  return articles;
-}
-
-/**
- * 从 MD 文件加载知识库文章列表（向后兼容）
+ * 从 MD 文件加载知识库文章列表
  */
 function loadArticlesFromMarkdown(): KnowledgeArticle[] {
   const articles: KnowledgeArticle[] = [];
   
   if (!fs.existsSync(KNOWLEDGE_BASE_DIR)) {
+    console.log('Knowledge base directory not found:', KNOWLEDGE_BASE_DIR);
     return articles;
   }
   
+  console.log('Loading articles from:', KNOWLEDGE_BASE_DIR);
   const categories = fs.readdirSync(KNOWLEDGE_BASE_DIR);
+  console.log('Categories found:', categories);
   
   for (const category of categories) {
     const categoryDir = path.join(KNOWLEDGE_BASE_DIR, category);
     
-    if (!fs.statSync(categoryDir).isDirectory()) continue;
+    if (!fs.statSync(categoryDir).isDirectory()) {
+      console.log('Skipping non-directory:', category);
+      continue;
+    }
     
     const files = fs.readdirSync(categoryDir);
+    console.log(`Category ${category}: ${files.length} files`);
     
     for (const file of files) {
       if (!file.endsWith('.md')) continue;
@@ -80,23 +53,52 @@ function loadArticlesFromMarkdown(): KnowledgeArticle[] {
       const filePath = path.join(categoryDir, file);
       const content = fs.readFileSync(filePath, 'utf-8');
       
-      // 解析 frontmatter
-      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      // 解析元数据（支持 YAML frontmatter 和行内格式）
       const frontmatter: Record<string, any> = {};
       
+      // 尝试 YAML frontmatter
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
       if (frontmatterMatch) {
         const lines = frontmatterMatch[1].split('\n');
         for (const line of lines) {
           const [key, ...valueParts] = line.split(':');
           if (key && valueParts.length > 0) {
             let value = valueParts.join(':').trim();
-            if (value.startsWith('[') && value.endsWith(']')) {
-              value = value.slice(1, -1).split(',').map(v => v.trim().replace(/"/g, ''));
+            // 安全处理：确保 value 是字符串
+            if (typeof value === 'string') {
+              if (value.startsWith('[') && value.endsWith(']')) {
+                value = value.slice(1, -1).split(',').map((v: string) => v.trim().replace(/"/g, ''));
+                frontmatter[key.trim()] = value;
+              } else if (value.startsWith('"') && value.endsWith('"')) {
+                value = value.slice(1, -1);
+                frontmatter[key.trim()] = value;
+              } else {
+                frontmatter[key.trim()] = value;
+              }
             }
-            if (value.startsWith('"') && value.endsWith('"')) {
-              value = value.slice(1, -1);
+          }
+        }
+      } else {
+        // 尝试行内格式（第二行）：> **分类**: xxx | **编号**: xxx
+        const lines = content.split('\n');
+        const secondLine = lines[1] || '';
+        console.log(`Parsing file ${file}, second line: ${secondLine.slice(0, 100)}`);
+        
+        if (secondLine.startsWith('>')) {
+          const inlineMatch = secondLine.match(/\*\*([^*]+)\*\*:\s*([^|]+)/g);
+          if (inlineMatch) {
+            console.log(`Found ${inlineMatch.length} inline metadata items`);
+            for (const item of inlineMatch) {
+              const parts = item.split(':');
+              const key = parts[0]?.trim();
+              const value = parts.slice(1).join(':').trim();
+              if (key && typeof value === 'string') {
+                const cleanKey = key.replace(/\*\*/g, '').toLowerCase();
+                const cleanValue = value.replace(/\*\*/g, '').trim();
+                frontmatter[cleanKey] = cleanValue;
+                console.log(`  ${cleanKey}: ${cleanValue}`);
+              }
             }
-            frontmatter[key.trim()] = value;
           }
         }
       }
@@ -105,15 +107,29 @@ function loadArticlesFromMarkdown(): KnowledgeArticle[] {
       const wordCount = content.length / 3;
       const readTime = Math.ceil(wordCount / 300);
       
+      // 从文件名提取标题（如果没有 frontmatter）
+      const fileName = file.replace('.md', '');
+      const titleFromFileName = fileName.replace(/^[0-9]+[-_]?/, '').replace(/_/g, ' ');
+      
+      // 解析难度（从行内格式或默认）
+      let difficulty = '⭐⭐';
+      if (frontmatter.difficulty) {
+        difficulty = frontmatter.difficulty;
+      } else if (content.includes('难度**: ⭐⭐⭐')) {
+        difficulty = '⭐⭐⭐';
+      } else if (content.includes('难度**: ⭐')) {
+        difficulty = '⭐';
+      }
+      
       articles.push({
-        id: file.replace('.md', ''),
-        title: frontmatter.title || file.replace('.md', ''),
+        id: fileName,
+        title: frontmatter.title || frontmatter['编号'] || titleFromFileName,
         category: frontmatter.category || category,
-        difficulty: frontmatter.difficulty || '⭐⭐',
-        tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+        difficulty: difficulty,
+        tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [category],
         author: frontmatter.author || '',
-        createdAt: frontmatter.createdAt || new Date().toISOString(),
-        updatedAt: frontmatter.updatedAt || new Date().toISOString(),
+        createdAt: frontmatter.createdAt || frontmatter['更新时间'] || new Date().toISOString(),
+        updatedAt: frontmatter.updatedAt || frontmatter['更新时间'] || new Date().toISOString(),
         readTime,
         abstract: content.slice(0, 300).replace(/[#*`\n]/g, '') + '...',
         keyTakeaways: [],
@@ -134,13 +150,8 @@ export async function GET(request: NextRequest) {
     const tag = searchParams.get('tag');
     const search = searchParams.get('search');
     
-    // 优先从 JSON 加载
-    let articles = loadArticlesFromJSON();
-    const hasJSONData = articles.length > 0;
-    
-    if (!hasJSONData) {
-      articles = loadArticlesFromMarkdown();
-    }
+    // 从 MD 文件加载
+    let articles = loadArticlesFromMarkdown();
     
     // 筛选
     if (category) {
