@@ -34,9 +34,8 @@ export default function RootLayout({
         {/* Umami 网站统计 - HTTPS 已配置 */}
         <script
           defer
+          src="https://stats.ai-master.cc:8443/script.js"
           data-website-id="5b596de5-1f54-44da-b8b7-547ab465f339"
-          data-host-url="https://stats.ai-master.cc"
-          src="/umami.js"
         />
       </head>
       <body className="min-h-full flex flex-col font-body">{children}</body>
