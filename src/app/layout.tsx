@@ -31,13 +31,14 @@ export default function RootLayout({
         {/* 缓存控制 - 强制浏览器刷新 */}
         <meta name="version" content={Date.now().toString()} />
         <meta name="cache-buster" content={Math.random().toString()} />
-        {/* Umami 网站统计 - 本地脚本 */}
+        {/* Umami 网站统计 - 暂时禁用（等待域名配置 SSL）
         <script
           defer
           data-website-id="5b596de5-1f54-44da-b8b7-547ab465f339"
           data-host-url="https://stats.ai-master.cc"
           src="/umami.js"
         />
+        */}
       </head>
       <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>
