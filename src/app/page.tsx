@@ -229,9 +229,9 @@ function KnowledgeCard({
       <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{title}</h3>
       <p className="text-[#64748B] mb-4 leading-relaxed">{description}</p>
       <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
+        {tags.map((tag, index) => (
           <span
-            key={tag}
+            key={`${tag}-${index}`}
             className="px-3 py-1.5 bg-[#F3E8FF] text-[#7E22CE] text-sm rounded-lg font-medium"
           >
             {tag}
@@ -261,9 +261,9 @@ function QuestionCard({
       <h3 className="text-xl font-semibold text-[#1E293B] mb-3">{title}</h3>
       <p className="text-[#64748B] mb-4 leading-relaxed">{description}</p>
       <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
+        {tags.map((tag, index) => (
           <span
-            key={tag}
+            key={`${tag}-${index}`}
             className="px-3 py-1.5 bg-[#DCFCE7] text-[#166534] text-sm rounded-lg font-medium"
           >
             {tag}
