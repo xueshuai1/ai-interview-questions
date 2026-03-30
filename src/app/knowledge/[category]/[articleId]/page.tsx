@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
-import { remarkMermaid } from '@theguild/remark-mermaid';
 import 'highlight.js/styles/github.css';
 import ContentLayout from '@/components/ContentLayout';
 import ArticleNav from '@/components/ArticleNav';
@@ -280,8 +279,41 @@ async function ArticleContent({ params }: ArticlePageProps) {
                 </h2>
                 <div className="prose prose-lg max-w-none">
                   <ReactMarkdown
-                    remarkPlugins={[remarkGfm, remarkMermaid]}
+                    remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}
+                    components={{
+                      code({ node, inline, className, children, ...props }: any) {
+                        const match = /language-(\w+)/.exec(className || '');
+                        const content = String(children).replace(/\n$/, '');
+                        
+                        // 检测 Mermaid 图表（需要客户端渲染）
+                        if (!inline && match && match[1] === 'mermaid') {
+                          return (
+                            <div className="my-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
+                              <pre className="text-sm text-gray-600 overflow-x-auto">
+                                <code>{content}</code>
+                              </pre>
+                              <p className="text-xs text-gray-500 mt-2">
+                                💡 Mermaid 图表：需要在客户端渲染
+                              </p>
+                            </div>
+                          );
+                        }
+                        
+                        // 普通代码块
+                        return !inline && match ? (
+                          <pre className="bg-gray-50 rounded-lg p-4 overflow-x-auto my-4">
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          </pre>
+                        ) : (
+                          <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm" {...props}>
+                            {children}
+                          </code>
+                        );
+                      }
+                    }}
                   >
                     {section.content}
                   </ReactMarkdown>
