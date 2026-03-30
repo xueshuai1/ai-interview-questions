@@ -371,7 +371,7 @@ export default function KnowledgeArticlePage() {
 
     // 兼容旧格式：使用 ReactMarkdown 渲染
     return (
-      <div className="prose prose-lg max-w-none">
+      <div className="prose prose-lg max-w-none prose-slate">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {article.content}
         </ReactMarkdown>
