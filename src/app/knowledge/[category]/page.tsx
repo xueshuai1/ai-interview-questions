@@ -197,18 +197,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      {/* Google Fonts */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
-        
-        * {
-          font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-          font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-      `}</style>
 
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
