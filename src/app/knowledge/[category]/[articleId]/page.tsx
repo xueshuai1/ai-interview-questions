@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import { remarkMermaid } from '@theguild/remark-mermaid';
+import 'highlight.js/styles/github.css';
 import ContentLayout from '@/components/ContentLayout';
 import ArticleNav from '@/components/ArticleNav';
 import ProgressPanel from '@/components/ProgressPanel';
@@ -276,7 +279,10 @@ async function ArticleContent({ params }: ArticlePageProps) {
                   {section.title}
                 </h2>
                 <div className="prose prose-lg max-w-none">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm, remarkMermaid]}
+                    rehypePlugins={[rehypeHighlight]}
+                  >
                     {section.content}
                   </ReactMarkdown>
                 </div>
