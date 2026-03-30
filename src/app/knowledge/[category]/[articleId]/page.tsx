@@ -286,18 +286,9 @@ async function ArticleContent({ params }: ArticlePageProps) {
                         const match = /language-(\w+)/.exec(className || '');
                         const content = String(children).replace(/\n$/, '');
                         
-                        // 检测 Mermaid 图表（需要客户端渲染）
+                        // 检测 Mermaid 图表
                         if (!inline && match && match[1] === 'mermaid') {
-                          return (
-                            <div className="my-6 bg-gray-50 rounded-lg p-4 border border-gray-200">
-                              <pre className="text-sm text-gray-600 overflow-x-auto">
-                                <code>{content}</code>
-                              </pre>
-                              <p className="text-xs text-gray-500 mt-2">
-                                💡 Mermaid 图表：需要在客户端渲染
-                              </p>
-                            </div>
-                          );
+                          return <MermaidDiagram value={content} />;
                         }
                         
                         // 普通代码块
