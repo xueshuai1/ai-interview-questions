@@ -23,17 +23,17 @@
 
 ### 9 大技术分类
 
-| 分类 | 图标 | 描述 |
-|------|------|------|
-| **ML** | 📊 | 机器学习基础 - 监督学习、无监督学习、模型评估 |
-| **DL** | 🧠 | 深度学习 - 神经网络、CNN、RNN、Transformer |
-| **NLP** | 📝 | 自然语言处理 - 词向量、语言模型、文本生成 |
-| **CV** | 👁️ | 计算机视觉 - 图像分类、目标检测、分割 |
-| **LLM** | 🤖 | 大语言模型 - Prompt、RAG、Fine-tuning、Agent |
-| **RecSys** | 🎯 | 推荐系统 - 召回排序、协同过滤、深度学习 |
-| **RL** | 🎮 | 强化学习 - MDP、Q-Learning、Policy Gradient |
-| **System** | ⚙️ | AI 工程化 - 模型部署、MLOps、系统设计 |
-| **AI-Engineering** | 🛠️ | AI 工程与实践 - Agent 开发、方法论、工具链 |
+| 分类 | 英文全称 | 中文全称 | 描述 |
+|------|----------|----------|------|
+| **ML** | Machine Learning | 机器学习 | 监督学习、无监督学习、模型评估 |
+| **DL** | Deep Learning | 深度学习 | 神经网络、CNN、RNN、Transformer |
+| **NLP** | Natural Language Processing | 自然语言处理 | 词向量、语言模型、文本生成 |
+| **CV** | Computer Vision | 计算机视觉 | 图像分类、目标检测、分割 |
+| **LLM** | Large Language Model | 大语言模型 | Prompt、RAG、Fine-tuning、Agent |
+| **RecSys** | Recommendation System | 推荐系统 | 召回排序、协同过滤、深度学习 |
+| **RL** | Reinforcement Learning | 强化学习 | MDP、Q-Learning、Policy Gradient |
+| **System** | - | AI 工程化 | 模型部署、MLOps、系统设计 |
+| **AI-Engineering** | - | AI 工程与实践 | Agent 开发、方法论、工具链 |
 
 ---
 
