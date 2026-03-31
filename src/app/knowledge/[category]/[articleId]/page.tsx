@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
@@ -12,6 +12,7 @@ import 'katex/dist/katex.min.css';
 import ContentLayout from '@/components/ContentLayout';
 import ArticleNav from '@/components/ArticleNav';
 import ProgressPanel from '@/components/ProgressPanel';
+import components from '@/lib/mdx-components';
 
 // 客户端组件：处理学习进度
 import LearningProgress from './LearningProgress';
@@ -442,15 +443,19 @@ async function ArticleContent({ params }: ArticlePageProps) {
       );
     }
 
-    // 使用 React Markdown 渲染（支持数学公式）
+    // 使用 MDXRemote 渲染（支持 MDX 组件和数学公式）
     return (
       <div className="prose prose-lg max-w-none">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm, remarkMath]}
-          rehypePlugins={[rehypeHighlight, rehypeKatex]}
-        >
-          {article.content}
-        </ReactMarkdown>
+        <MDXRemote
+          source={article.content}
+          components={components}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm, remarkMath],
+              rehypePlugins: [rehypeHighlight, rehypeKatex],
+            },
+          }}
+        />
       </div>
     );
   };

@@ -25,10 +25,10 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [
-      // 数学公式支持
+      // 数学公式支持（在页面中配置）
     ],
     rehypePlugins: [
-      // 数学公式渲染
+      // 数学公式渲染（在页面中配置）
     ],
   },
 });
