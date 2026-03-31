@@ -3,11 +3,17 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeKatex from 'rehype-katex';
+import 'highlight.js/styles/github.css';
+import 'katex/dist/katex.min.css';
 import CodeBlock from "@/components/CodeBlock";
 import Callout from "@/components/Callout";
 import Collapsible from "@/components/Collapsible";
+import components from '@/lib/mdx-components';
 
 interface Question {
   id: string;
@@ -108,9 +114,16 @@ export default function QuestionDetailPage() {
       // 兼容旧格式：直接渲染 content
       return (
         <div className="prose prose-lg max-w-none">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {question.content}
-          </ReactMarkdown>
+          <MDXRemote
+            source={question.content}
+            components={components}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkMath],
+                rehypePlugins: [rehypeHighlight, rehypeKatex],
+              },
+            }}
+          />
         </div>
       );
     }
@@ -122,9 +135,16 @@ export default function QuestionDetailPage() {
           <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
             <h3 className="text-lg font-semibold text-blue-900 mb-3">📝 答案摘要</h3>
             <div className="prose prose-blue max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {question.answer.summary}
-              </ReactMarkdown>
+              <MDXRemote
+                source={question.answer.summary}
+                components={components}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm, remarkMath],
+                    rehypePlugins: [rehypeHighlight, rehypeKatex],
+                  },
+                }}
+              />
             </div>
           </div>
         )}
@@ -142,9 +162,16 @@ export default function QuestionDetailPage() {
                 </h3>
                 
                 <div className="prose prose-lg max-w-none mb-4">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {section.content}
-                  </ReactMarkdown>
+                  <MDXRemote
+                    source={section.content}
+                    components={components}
+                    options={{
+                      mdxOptions: {
+                        remarkPlugins: [remarkGfm, remarkMath],
+                        rehypePlugins: [rehypeHighlight, rehypeKatex],
+                      },
+                    }}
+                  />
                 </div>
 
                 {/* 代码示例 */}
@@ -163,7 +190,16 @@ export default function QuestionDetailPage() {
                     </pre>
                     {section.code.explanation && (
                       <p className="mt-3 text-sm text-gray-600">
-                        <ReactMarkdown>{section.code.explanation}</ReactMarkdown>
+                        <MDXRemote
+                          source={section.code.explanation}
+                          components={components}
+                          options={{
+                            mdxOptions: {
+                              remarkPlugins: [remarkGfm, remarkMath],
+                              rehypePlugins: [rehypeHighlight, rehypeKatex],
+                            },
+                          }}
+                        />
                       </p>
                     )}
                   </div>
@@ -232,7 +268,16 @@ export default function QuestionDetailPage() {
                       {item.answerHint && (
                         <Collapsible title="💡 答案提示">
                           <div className="prose prose-sm mt-2">
-                            <ReactMarkdown>{item.answerHint}</ReactMarkdown>
+                            <MDXRemote
+                              source={item.answerHint}
+                              components={components}
+                              options={{
+                                mdxOptions: {
+                                  remarkPlugins: [remarkGfm, remarkMath],
+                                  rehypePlugins: [rehypeHighlight, rehypeKatex],
+                                },
+                              }}
+                            />
                           </div>
                         </Collapsible>
                       )}
