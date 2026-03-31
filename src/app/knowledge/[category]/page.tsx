@@ -107,11 +107,36 @@ export const revalidate = 3600;
 // 解析 Markdown 文件
 function parseMarkdown(content: string) {
   const frontmatter: Record<string, any> = {};
-  
-  // 尝试行内格式
   const lines = content.split('\n');
-  const secondLine = lines[1] || '';
   
+  // 优先解析 YAML Frontmatter（--- 包裹的格式）
+  if (lines[0] === '---') {
+    const endLine = lines.findIndex((line, index) => index > 0 && line === '---');
+    if (endLine > 0) {
+      for (let i = 1; i < endLine; i++) {
+        const line = lines[i];
+        const match = line.match(/^([\w]+):\s*(.+)$/);
+        if (match) {
+          const key = match[1].trim();
+          let value = match[2].trim();
+          // 移除引号
+          if ((value.startsWith('"') && value.endsWith('"')) || 
+              (value.startsWith("'") && value.endsWith("'"))) {
+            value = value.slice(1, -1);
+          }
+          // 解析数组
+          if (value.startsWith('[') && value.endsWith(']')) {
+            value = value.slice(1, -1).split(',').map(v => v.trim().replace(/["']/g, ''));
+          }
+          frontmatter[key] = value;
+        }
+      }
+      return { frontmatter };
+    }
+  }
+  
+  // 兼容旧的行内格式
+  const secondLine = lines[1] || '';
   if (secondLine.startsWith('>')) {
     const categoryMatch = secondLine.match(/\*\*分类\*\*:\s*([^|]+)/);
     const numberMatch = secondLine.match(/\*\*编号\*\*:\s*([^|]+)/);
