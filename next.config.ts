@@ -24,8 +24,12 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
+    remarkPlugins: [
+      // 数学公式支持
+    ],
+    rehypePlugins: [
+      // 数学公式渲染
+    ],
   },
 });
 

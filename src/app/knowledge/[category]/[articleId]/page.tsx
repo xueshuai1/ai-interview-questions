@@ -4,8 +4,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeKatex from 'rehype-katex';
 import 'highlight.js/styles/github.css';
+import 'katex/dist/katex.min.css';
 import ContentLayout from '@/components/ContentLayout';
 import ArticleNav from '@/components/ArticleNav';
 import ProgressPanel from '@/components/ProgressPanel';
@@ -439,12 +442,12 @@ async function ArticleContent({ params }: ArticlePageProps) {
       );
     }
 
-    // 使用 React Markdown 渲染
+    // 使用 React Markdown 渲染（支持数学公式）
     return (
       <div className="prose prose-lg max-w-none">
         <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
+          remarkPlugins={[remarkGfm, remarkMath]}
+          rehypePlugins={[rehypeHighlight, rehypeKatex]}
         >
           {article.content}
         </ReactMarkdown>
