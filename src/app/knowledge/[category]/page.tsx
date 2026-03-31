@@ -183,11 +183,18 @@ function getArticlesByCategory(category: string): Article[] {
     const title = frontmatter.title || (titleMatch ? titleMatch[1].trim() : id);
     
     let summary = '';
-    const summaryMatch = content.match(/^>\s*\*\*分类\*\*.*\n\n(.+?)(?:\n|$)/);
+    // 尝试解析摘要（> **摘要**: 格式）
+    const summaryMatch = content.match(/\*\*摘要\*\*:\s*(.+?)(?:\n|$)/);
     if (summaryMatch) {
       summary = summaryMatch[1].trim();
     } else {
-      summary = content.slice(0, 100).replace(/[#*`\n]/g, '').trim() + '...';
+      // 兼容旧格式
+      const oldSummaryMatch = content.match(/^>\s*\*\*分类\*\*.*\n\n(.+?)(?:\n|$)/);
+      if (oldSummaryMatch) {
+        summary = oldSummaryMatch[1].trim();
+      } else {
+        summary = content.slice(0, 100).replace(/[#*`\n]/g, '').trim() + '...';
+      }
     }
     
     const keyPoints = frontmatter.tags || [];
