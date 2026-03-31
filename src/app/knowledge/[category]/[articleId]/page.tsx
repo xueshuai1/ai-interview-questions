@@ -281,6 +281,22 @@ async function ArticleContent({ params }: ArticlePageProps) {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeHighlight]}
+                    components={{
+                      code({ node, inline, className, children, ...props }: any) {
+                        const match = /language-(\w+)/.exec(className || '');
+                        return !inline && match ? (
+                          <pre className="bg-gray-50 rounded-lg p-4 overflow-x-auto my-4">
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          </pre>
+                        ) : (
+                          <code className="bg-gray-100 rounded px-1.5 py-0.5 text-sm" {...props}>
+                            {children}
+                          </code>
+                        );
+                      }
+                    }}
                   >
                     {section.content}
                   </ReactMarkdown>
@@ -294,7 +310,7 @@ async function ArticleContent({ params }: ArticlePageProps) {
                       <h3 className="text-xl font-semibold text-gray-800 mb-3">
                         {subsec.title}
                       </h3>
-                      <div className="prose prose-base max-w-none">
+                      <div className="prose">
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>
                           {subsec.content}
                         </ReactMarkdown>
@@ -425,7 +441,7 @@ async function ArticleContent({ params }: ArticlePageProps) {
 
     // 兼容旧格式：使用 ReactMarkdown 渲染
     return (
-      <div className="prose prose-lg max-w-none prose-slate">
+      <div className="prose prose-lg max-w-none">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {article.content}
         </ReactMarkdown>
