@@ -2,11 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
+import 'highlight.js/styles/github.css';
 import ContentLayout from '@/components/ContentLayout';
 import ArticleNav from '@/components/ArticleNav';
 import ProgressPanel from '@/components/ProgressPanel';
-import components from '@/lib/mdx-components';
 
 // 客户端组件：处理学习进度
 import LearningProgress from './LearningProgress';
@@ -123,7 +125,7 @@ function parseMarkdown(content: string) {
 
 // 加载单篇文章
 function loadArticle(category: string, articleId: string): Article | null {
-  const filePath = path.join(KNOWLEDGE_BASE_DIR, category, `${articleId}.md`);
+  const filePath = path.join(KNOWLEDGE_BASE_DIR, category, `${articleId}.mdx`);
   
   if (!fs.existsSync(filePath)) {
     return null;
@@ -179,11 +181,11 @@ function getArticlesByCategory(category: string): Array<{ id: string; title: str
   }
   
   const files = fs.readdirSync(categoryDir)
-    .filter(file => file.endsWith('.md'))
+    .filter(file => file.endsWith('.mdx'))
     .sort();
   
   return files.map(file => {
-    const id = file.replace('.md', '');
+    const id = file.replace('.mdx', '');
     const filePath = path.join(categoryDir, file);
     const content = fs.readFileSync(filePath, 'utf-8');
     const { frontmatter } = parseMarkdown(content);
@@ -437,13 +439,15 @@ async function ArticleContent({ params }: ArticlePageProps) {
       );
     }
 
-    // 统一使用 MDX 渲染
+    // 使用 React Markdown 渲染
     return (
       <div className="prose prose-lg max-w-none">
-        <MDXRemote
-          source={article.content}
-          components={components}
-        />
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeHighlight]}
+        >
+          {article.content}
+        </ReactMarkdown>
       </div>
     );
   };

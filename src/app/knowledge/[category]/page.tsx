@@ -145,11 +145,11 @@ function getArticlesByCategory(category: string): Article[] {
   }
   
   const files = fs.readdirSync(categoryDir)
-    .filter(file => file.endsWith('.md'))
+    .filter(file => file.endsWith('.mdx'))
     .sort();
   
   return files.map(file => {
-    const id = file.replace('.md', '');
+    const id = file.replace('.mdx', '');
     const filePath = path.join(categoryDir, file);
     const content = fs.readFileSync(filePath, 'utf-8');
     const { frontmatter } = parseMarkdown(content);

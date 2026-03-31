@@ -1,5 +1,5 @@
 ---
-title: "LLM（大语言模型）位置编码详解"
+title: "LLM 位置编码详解"
 category: "LLM"
 difficulty: "⭐⭐⭐⭐"
 tags: ["位置编码", "RoPE", "Transformer"]
@@ -23,7 +23,9 @@ updatedAt: "2026-03-31"
 
 Transformer 的 Self-Attention 机制本质上是**位置无关**的：
 
-$$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
+```
+Attention(Q, K, V) = softmax(QK^T / √d_k) × V
+```
 
 - Q、K、V 通过线性变换得到，不包含位置信息
 - 交换输入序列中两个 token 的位置，输出也会相应交换
@@ -47,7 +49,9 @@ $$Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
 
 为每个位置学习一个固定的向量，直接加到 token embedding 上：
 
-$$h_i = token\_embedding_i + position\_encoding_i$$
+```
+h_i = token_embedding_i + position_encoding_i
+```
 
 ### 2.2 Transformer 原始实现
 
@@ -197,4 +201,4 @@ graph LR
 
 - [RoPE 原论文](https://arxiv.org/abs/2104.09864)
 - [LLaMA 技术报告](https://arxiv.org/abs/2302.13971)
-- [图解 RoPE](https://blog.eleuther.ai/rotary-embeddings/)
+- [图解 RoPE](https://blog.eleuther.ai/rotary-embeddings/)[数学公式][数学公式][数学公式]
