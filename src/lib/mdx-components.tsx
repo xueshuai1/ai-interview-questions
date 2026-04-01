@@ -6,6 +6,7 @@ import Quiz, { Answer } from "@/components/mdx/Quiz";
 import Step from "@/components/mdx/Step";
 import Comparison from "@/components/mdx/Comparison";
 import Mermaid from "@/components/mdx/Mermaid";
+import Summary from "@/components/mdx/Summary";
 
 // 导出组件供 next-mdx-remote 使用
 export { default as CodeBlock } from "@/components/mdx/CodeBlock";
@@ -15,6 +16,7 @@ export { default as Quiz, Answer } from "@/components/mdx/Quiz";
 export { default as Step } from "@/components/mdx/Step";
 export { default as Comparison } from "@/components/mdx/Comparison";
 export { default as Mermaid } from "@/components/mdx/Mermaid";
+export { default as Summary } from "@/components/mdx/Summary";
 
 // 自定义 MDX 组件映射
 export const components: MDXComponents = {
@@ -31,9 +33,15 @@ export const components: MDXComponents = {
   h4: (props) => (
     <h4 className="text-xl font-bold text-gray-900 mt-4 mb-2" {...props} />
   ),
-  p: (props) => (
-    <p className="text-gray-700 leading-relaxed my-4" {...props} />
-  ),
+  p: (props: any) => {
+    // 检测是否是摘要段落（以"**摘要**: "或"摘要："开头）
+    const content = String(props.children || "");
+    if (content.startsWith("**摘要**: ") || content.startsWith("摘要：")) {
+      const summaryText = content.replace(/^\*\*摘要\*\*:\s*/, "").replace(/^摘要：\s*/, "");
+      return <Summary>{summaryText}</Summary>;
+    }
+    return <p className="text-gray-700 leading-relaxed my-4" {...props} />;
+  },
   ul: (props) => (
     <ul className="list-disc list-inside space-y-2 my-4 text-gray-700" {...props} />
   ),
@@ -105,6 +113,7 @@ export const components: MDXComponents = {
   Step,
   Comparison,
   Mermaid,
+  Summary,
 };
 
 export default components;
