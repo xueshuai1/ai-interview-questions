@@ -28,8 +28,8 @@ export default function CodeBlock({
   };
 
   const codeContent = (
-    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono leading-relaxed">
-      <code className={`language-${language}`}>{children}</code>
+    <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm font-mono leading-relaxed [&_code_*]:text-gray-100 [&_code_.keyword]:text-pink-400 [&_code_.function]:text-blue-400 [&_code_.string]:text-green-400 [&_code_.comment]:text-gray-500 [&_code_.number]:text-orange-400">
+      <code className={`language-${language}`} style={{ color: '#e5e7eb' }}>{children}</code>
     </pre>
   );
 

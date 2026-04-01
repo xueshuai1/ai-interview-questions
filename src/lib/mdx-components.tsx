@@ -39,10 +39,33 @@ export const components: MDXComponents = {
   ),
   p: (props: any) => {
     // 检测是否是摘要段落（以"**摘要**: "或"摘要："开头）
-    const content = String(props.children || "");
-    if (content.startsWith("**摘要**: ") || content.startsWith("摘要：")) {
-      const summaryText = content.replace(/^\*\*摘要\*\*:\s*/, "").replace(/^摘要：\s*/, "");
-      return <Summary>{summaryText}</Summary>;
+    // MDX 会将 **摘要** 解析为 <strong>摘要</strong>
+    const children = props.children;
+    let content = "";
+    
+    if (Array.isArray(children)) {
+      // 处理 MDX 解析后的结构：<strong>摘要</strong>: 内容
+      const firstChild = children[0];
+      if (firstChild?.props?.children === "摘要" || firstChild === "摘要") {
+        // 找到冒号后的内容
+        const colonIndex = children.findIndex((c: any) => c === ": ");
+        if (colonIndex !== -1 && colonIndex < children.length - 1) {
+          content = children.slice(colonIndex + 1).join("").trim();
+        }
+      }
+    } else {
+      content = String(children || "");
+    }
+    
+    // 兼容纯文本格式
+    if (!content && typeof children === "string") {
+      if (children.startsWith("**摘要**: ") || children.startsWith("摘要：")) {
+        content = children.replace(/^\*\*摘要\*\*:\s*/, "").replace(/^摘要：\s*/, "");
+      }
+    }
+    
+    if (content) {
+      return <Summary>{content}</Summary>;
     }
     return <p className="text-gray-700 leading-relaxed my-4" {...props} />;
   },
@@ -99,9 +122,11 @@ export const components: MDXComponents = {
       // 检测是否是标签（短文本，没有代码特征）
       const isTag = content.length < 50 && !/[={}\[\]();]/.test(content);
       if (isTag) {
+        // 移除反引号
+        const cleanContent = content.replace(/[`]/g, "").trim();
         return (
           <code className="px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 text-sm rounded-full font-medium border border-blue-200">
-            {props.children}
+            {cleanContent}
           </code>
         );
       }
