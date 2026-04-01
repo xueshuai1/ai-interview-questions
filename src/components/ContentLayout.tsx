@@ -101,6 +101,15 @@ export default function ContentLayout({
               </div>
             </header>
 
+            {/* 摘要 - 高亮块显示 */}
+            {subtitle && (
+              <div className="mb-8 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 rounded-xl">
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  {subtitle}
+                </p>
+              </div>
+            )}
+
             {/* Content - 撑满宽度（MDX 内容包含标题） */}
             <div className="prose prose-lg lg:prose-xl max-w-none prose-headings:font-semibold prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-img:rounded-xl prose-code:text-sm prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-200">
               {children}
