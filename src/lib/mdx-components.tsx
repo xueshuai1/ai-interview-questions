@@ -46,9 +46,9 @@ export const components: MDXComponents = {
     if (Array.isArray(children)) {
       // 处理 MDX 解析后的结构：<strong>摘要</strong>: 内容
       const firstChild = children[0];
-      if (firstChild?.props?.children === "摘要" || firstChild === "摘要") {
+      if (firstChild?.type === "strong" && (firstChild.props?.children === "摘要" || firstChild === "摘要")) {
         // 找到冒号后的内容
-        const colonIndex = children.findIndex((c: any) => c === ": ");
+        const colonIndex = children.findIndex((c: any) => c === ": " || c === ":");
         if (colonIndex !== -1 && colonIndex < children.length - 1) {
           content = children.slice(colonIndex + 1).join("").trim();
         }
@@ -65,7 +65,7 @@ export const components: MDXComponents = {
     }
     
     if (content) {
-      return <Summary>{content}</Summary>;
+      return <Summary><strong>摘要</strong>: {content}</Summary>;
     }
     return <p className="text-gray-700 leading-relaxed my-4" {...props} />;
   },
@@ -78,12 +78,27 @@ export const components: MDXComponents = {
   li: (props: any) => {
     return <ListItem>{props.children}</ListItem>;
   },
-  blockquote: (props) => (
-    <blockquote
-      className="border-l-4 border-indigo-500 pl-4 py-2 my-6 bg-indigo-50 italic text-gray-700"
-      {...props}
-    />
-  ),
+  blockquote: (props: any) => {
+    // 检测是否是元数据引用块（以"**分类**: "开头）
+    const children = props.children;
+    const content = String(children || "");
+    if (content.startsWith("**分类**: ") || content.includes("**分类**:")) {
+      // 元数据引用块 - 显示为浅灰色背景
+      return (
+        <blockquote
+          className="border-l-4 border-gray-300 pl-4 py-2 my-4 bg-gray-50 text-gray-600 italic"
+          {...props}
+        />
+      );
+    }
+    // 普通引用块 - 紫色背景
+    return (
+      <blockquote
+        className="border-l-4 border-indigo-500 pl-4 py-2 my-6 bg-indigo-50 italic text-gray-700"
+        {...props}
+      />
+    );
+  },
   hr: (props) => (
     <hr className="my-8 border-t-2 border-gray-200" {...props} />
   ),
@@ -122,11 +137,9 @@ export const components: MDXComponents = {
       // 检测是否是标签（短文本，没有代码特征）
       const isTag = content.length < 50 && !/[={}\[\]();]/.test(content);
       if (isTag) {
-        // 移除反引号
-        const cleanContent = content.replace(/[`]/g, "").trim();
         return (
           <code className="px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 text-sm rounded-full font-medium border border-blue-200">
-            {cleanContent}
+            {props.children}
           </code>
         );
       }
