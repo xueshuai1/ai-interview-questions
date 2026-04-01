@@ -39,15 +39,28 @@ for (const category of categories) {
       }
     }
     
-    // 解析摘要（第一行非空文本）
+    // 解析摘要
     const body = content.replace(/^---\n[\s\S]*?\n---\n/, '');
-    const summaryMatch = body.match(/^\*\*摘要\*\*:\s*(.+)/);
     let description = '';
-    if (summaryMatch) {
-      description = summaryMatch[1].trim();
-    } else {
-      // 如果没有摘要，取正文前 200 字
-      description = body.replace(/[#*`\n]/g, '').trim().slice(0, 200) + '...';
+    
+    // 尝试多种摘要格式
+    const summaryPatterns = [
+      /^\*\*摘要\*\*:\s*(.+)/,  // **摘要**: xxx
+      /^摘要:\s*(.+)/,           // 摘要：xxx
+      /^>\s*\*\*分类\*\*:.*\n\n(.+?)(?:\n|$)/,  // 引用块后的第一段
+    ];
+    
+    for (const pattern of summaryPatterns) {
+      const match = body.match(pattern);
+      if (match && match[1]) {
+        description = match[1].trim();
+        break;
+      }
+    }
+    
+    // 如果还是没找到，取正文前 200 字
+    if (!description) {
+      description = body.replace(/[#*`\n>]/g, '').trim().slice(0, 200) + '...';
     }
     
     // 解析难度
