@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import remarkFrontmatter from 'remark-frontmatter';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeKatex from 'rehype-katex';
 import 'highlight.js/styles/github.css';
@@ -279,7 +278,7 @@ async function ArticleContent({ params }: ArticlePageProps) {
           components={components}
           options={{
             mdxOptions: {
-              remarkPlugins: [remarkFrontmatter, remarkGfm, remarkMath],
+              remarkPlugins: [remarkGfm, remarkMath],
               rehypePlugins: [rehypeHighlight, rehypeKatex],
             },
           }}
