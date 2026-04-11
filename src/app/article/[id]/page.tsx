@@ -1,8 +1,9 @@
-import { articles } from "@/data/knowledge";
+import { articles, ArticleSection } from "@/data/knowledge";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import MermaidChart from "@/components/MermaidChart";
 
 const levelColors: Record<string, string> = {
   入门: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
@@ -35,7 +36,13 @@ function getRelatedArticles(currentId: string, category: string) {
 }
 
 function generateContent(article: (typeof articles)[0]) {
-  const sections: { title: string; body: string }[] = [];
+  // If the article has real content, use it directly
+  if (article.content && article.content.length > 0) {
+    return article.content.map((section) => ({ title: section.title, section }));
+  }
+
+  // Fallback: generate placeholder content for articles without content
+  const sections: { title: string; section?: never; body: string }[] = [];
 
   sections.push({
     title: "概述",
@@ -82,6 +89,94 @@ function generateContent(article: (typeof articles)[0]) {
   });
 
   return sections;
+}
+
+/** Render a single rich content section */
+function ArticleSectionContent({ section }: { section: ArticleSection }) {
+  return (
+    <div className="mb-10">
+      <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+        <span className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm font-bold">
+          {section.title.charAt(0)}
+        </span>
+        {section.title}
+      </h2>
+
+      {section.body && (
+        <p className="text-slate-300 leading-relaxed text-base sm:text-lg mb-4 whitespace-pre-line">
+          {section.body}
+        </p>
+      )}
+
+      {section.code && section.code.length > 0 && (
+        <div className="space-y-4 my-6">
+          {section.code.map((block, idx) => (
+            <div key={idx} className="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10">
+              <div className="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400">
+                <span className="font-mono">{block.lang}</span>
+                {block.filename && <span>{block.filename}</span>}
+              </div>
+              <pre className="p-4 overflow-x-auto text-sm">
+                <code className="text-slate-300 font-mono whitespace-pre">{block.code}</code>
+              </pre>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {section.mermaid && (
+        <div className="my-6 p-6 rounded-xl bg-white/5 border border-white/10">
+          <MermaidChart chart={section.mermaid} />
+        </div>
+      )}
+
+      {section.table && (
+        <div className="my-6 overflow-x-auto rounded-xl border border-white/10">
+          <table className="w-full text-sm">
+            <thead className="bg-white/5">
+              <tr>
+                {section.table.headers.map((h, i) => (
+                  <th key={i} className="px-4 py-3 text-left font-semibold text-slate-200 border-b border-white/10">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {section.table.rows.map((row, ri) => (
+                <tr key={ri} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  {row.map((cell, ci) => (
+                    <td key={ci} className="px-4 py-3 text-slate-300">{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {section.list && section.list.length > 0 && (
+        <ul className="my-4 space-y-2">
+          {section.list.map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-slate-300">
+              <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-400 flex-shrink-0" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {section.tip && (
+        <div className="my-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm">
+          💡 {section.tip}
+        </div>
+      )}
+
+      {section.warning && (
+        <div className="my-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
+          ⚠️ {section.warning}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export function generateStaticParams() {
@@ -174,19 +269,26 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {content.map((section, i) => (
-            <div key={i} className="mb-10">
-              <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm font-bold">
-                  {i + 1}
-                </span>
-                {section.title}
-              </h2>
-              <p className="text-slate-300 leading-relaxed text-base sm:text-lg">
-                {section.body}
-              </p>
-            </div>
-          ))}
+          {content.map((item, i) => {
+            // Article has real rich content
+            if (item.section) {
+              return <ArticleSectionContent key={i} section={item.section} />;
+            }
+            // Fallback: generic placeholder content
+            return (
+              <div key={i} className="mb-10">
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm font-bold">
+                    {i + 1}
+                  </span>
+                  {item.title}
+                </h2>
+                <p className="text-slate-300 leading-relaxed text-base sm:text-lg">
+                  {item.body}
+                </p>
+              </div>
+            );
+          })}
 
           <div className="mt-12 pt-8 border-t border-white/5">
             <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">标签</h3>

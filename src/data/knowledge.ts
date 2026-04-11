@@ -42,8 +42,264 @@ export const articles: Article[] = [
     tags: ["监督学习", "回归", "基础"],
     summary: "从最小二乘法到梯度下降，理解线性回归的数学原理与实现",
     date: "2026-04-10",
-    readTime: "8 min",
+    readTime: "18 min",
     level: "入门",
+    content: [
+      {
+        title: "1. 什么是线性回归？",
+        body: `线性回归是机器学习中最基础、最重要的算法之一。它的核心思想非常简单：假设输入特征和输出目标之间存在线性关系，我们试图找到一条直线（或多维空间中的一个超平面），使得这条线能够最好地拟合数据点。
+
+形式化地说，给定 n 个样本，每个样本有 p 个特征，线性回归模型可以表示为：y = w₀ + w₁x₁ + w₂x₂ + ... + wₚxₚ + ε，其中 w 是待学习的权重参数，ε 是随机误差项。
+
+不要被"简单"这个词欺骗——线性回归是理解几乎所有现代机器学习算法的基石。神经网络中的每个神经元本质上都是一个线性变换加上非线性激活函数；正则化技术（L1/L2）首先在线性回归中被提出；甚至深度学习中的优化方法也源于对线性回归损失函数的梯度分析。`,
+        mermaid: `graph LR
+    A["输入特征 x"] --> B["线性组合: w·x + b"]
+    B --> C["预测值 ŷ"]
+    D["真实值 y"] --> E["损失函数 MSE"]
+    C --> E
+    E --> F["优化算法"]
+    F -.->|更新参数| B`,
+        tip: "学习建议：不要跳过数学推导。亲手推一遍最小二乘法的解析解，这会让你对后面所有基于梯度的优化方法有更深的理解。",
+      },
+      {
+        title: "2. 损失函数：如何衡量拟合的好坏",
+        body: `训练线性回归模型的第一步是定义一个损失函数（Loss Function），用来衡量模型预测值与真实值之间的差距。最常用的是均方误差（Mean Squared Error, MSE）：MSE = (1/n) Σ(yᵢ - ŷᵢ)²。
+
+选择 MSE 有三个深层原因：第一，它对大误差给予更大的惩罚（平方项），这使得模型对异常值敏感；第二，MSE 是凸函数，保证了梯度下降能够找到全局最优解；第三，从概率角度看，最小化 MSE 等价于在误差服从高斯分布的假设下进行极大似然估计。
+
+除了 MSE，还有平均绝对误差（MAE）和 Huber Loss。MAE 对异常值更鲁棒，但在零点不可导；Huber Loss 结合了 MSE 和 MAE 的优点：小误差时用平方项保证光滑性，大误差时用绝对项减少异常值影响。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+def mse_loss(y_true, y_pred):
+    """均方误差损失（MSE）"""
+    return np.mean((y_true - y_pred) ** 2)
+
+def mae_loss(y_true, y_pred):
+    """平均绝对误差损失（MAE）"""
+    return np.mean(np.abs(y_true - y_pred))
+
+def huber_loss(y_true, y_pred, delta=1.0):
+    """Huber Loss：结合 MSE 和 MAE 的优点"""
+    residual = np.abs(y_true - y_pred)
+    quadratic = np.minimum(residual, delta)
+    linear = residual - quadratic
+    return np.mean(0.5 * quadratic ** 2 + delta * linear)
+
+# 对比三种损失函数对异常值的敏感度
+y_true = np.array([1, 2, 3, 4, 5])
+y_pred_good = np.array([1.1, 2.1, 3.1, 4.1, 5.1])
+y_pred_outlier = np.array([1.1, 2.1, 3.1, 4.1, 20.0])
+
+print(f"好预测  MSE: {mse_loss(y_true, y_pred_good):.4f}")
+print(f"异常值  MSE: {mse_loss(y_true, y_pred_outlier):.4f}")
+print(f"好预测  MAE: {mae_loss(y_true, y_pred_good):.4f}")
+print(f"异常值  MAE: {mae_loss(y_true, y_pred_outlier):.4f}")`,
+          },
+        ],
+        table: {
+          headers: ["损失函数", "公式", "可导性", "异常值鲁棒性", "适用场景"],
+          rows: [
+            ["MSE", "(1/n)Σ(y-ŷ)²", "✅ 处处可导", "❌ 敏感", "误差服从正态分布"],
+            ["MAE", "(1/n)Σ|y-ŷ|", "❌ 零点不可导", "✅ 鲁棒", "数据含较多异常值"],
+            ["Huber", "分段函数", "✅ 处处可导", "✅ 鲁棒", "兼顾精度与鲁棒性"],
+          ],
+        },
+      },
+      {
+        title: "3. 解析解：最小二乘法的矩阵推导",
+        body: `线性回归有一个优雅的闭式解（Closed-form Solution），可以直接通过矩阵运算得到最优参数，无需迭代。
+
+将模型写成矩阵形式：ŷ = Xw，其中 X 是 n×(p+1) 的设计矩阵（包含一列全 1 的偏置项），w 是 (p+1)×1 的参数向量。最小化 MSE 损失函数 J(w) = (1/n)(Xw - y)ᵀ(Xw - y)。
+
+对 w 求导并令导数为零：∂J/∂w = (2/n)Xᵀ(Xw - y) = 0，解得：w = (XᵀX)⁻¹Xᵀy。这就是著名的正规方程（Normal Equation）。
+
+解析解的优势是一次性得到精确解，不需要调学习率、不需要迭代。但它有致命缺陷：计算 (XᵀX)⁻¹ 的时间复杂度是 O(p³)，当特征数量 p 很大时（比如 p > 10000），求逆运算极其昂贵甚至内存溢出。因此，实际工程中通常使用梯度下降而非解析解。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+class LinearRegressionNormalEquation:
+    """使用正规方程求解线性回归（解析解）"""
+
+    def __init__(self):
+        self.weights = None
+
+    def fit(self, X, y):
+        # 添加偏置列（全 1）
+        X_b = np.c_[np.ones(X.shape[0]), X]
+        # 正规方程: w = (X^T X)^{-1} X^T y
+        self.weights = np.linalg.inv(X_b.T @ X_b) @ X_b.T @ y
+        return self
+
+    def predict(self, X):
+        X_b = np.c_[np.ones(X.shape[0]), X]
+        return X_b @ self.weights
+
+# 使用 sklearn 生成测试数据
+from sklearn.datasets import make_regression
+X, y = make_regression(n_samples=200, n_features=3, noise=10, random_state=42)
+
+model = LinearRegressionNormalEquation()
+model.fit(X, y)
+predictions = model.predict(X)
+mse = np.mean((y - predictions) ** 2)
+print(f"MSE: {mse:.2f}")
+print(f"权重: {model.weights}")`,
+          },
+        ],
+      },
+      {
+        title: "4. 梯度下降：机器学习的通用优化引擎",
+        body: `当解析解不可行时（特征太多、数据太大、或模型非线性），我们需要使用迭代优化方法。梯度下降是其中最核心的算法。
+
+核心思想：损失函数 J(w) 关于参数 w 的梯度 ∇J(w) 指向函数增长最快的方向，所以沿着负梯度方向更新参数，就能逐步降低损失。更新公式：w := w - α·∇J(w)，其中 α 是学习率。
+
+梯度下降有三种变体：批量梯度下降（BGD）使用全部数据计算梯度，保证收敛但速度慢；随机梯度下降（SGD）每次只用一个样本，速度快但波动大；小批量梯度下降（Mini-batch GD）折中两者，是深度学习中最常用的方法。`,
+        code: [
+          {
+            lang: "python",
+            code: `class LinearRegressionGD:
+    """使用梯度下降求解线性回归"""
+
+    def __init__(self, lr=0.01, n_iters=1000, batch_size=None):
+        self.lr = lr
+        self.n_iters = n_iters
+        self.batch_size = batch_size  # None 表示 BGD
+        self.weights = None
+        self.loss_history = []
+
+    def fit(self, X, y):
+        n_samples, n_features = X.shape
+        X_b = np.c_[np.ones(n_samples), X]
+        self.weights = np.zeros(n_features + 1)
+
+        for i in range(self.n_iters):
+            if self.batch_size is None:
+                y_pred = X_b @ self.weights
+                gradients = (2 / n_samples) * X_b.T @ (y_pred - y)
+            else:
+                indices = np.random.choice(n_samples, self.batch_size)
+                X_batch, y_batch = X_b[indices], y[indices]
+                y_pred = X_batch @ self.weights
+                gradients = (2 / self.batch_size) * X_batch.T @ (y_pred - y_batch)
+
+            self.weights -= self.lr * gradients
+
+            if i % 100 == 0:
+                loss = np.mean((X_b @ self.weights - y) ** 2)
+                self.loss_history.append(loss)
+        return self
+
+    def predict(self, X):
+        X_b = np.c_[np.ones(X.shape[0]), X]
+        return X_b @ self.weights`,
+          },
+        ],
+        mermaid: `graph TD
+    A["初始化权重 w=0"] --> B["计算梯度"]
+    B --> C{"选择梯度下降变体"}
+    C -->|BGD 全部数据| D["稳定但慢"]
+    C -->|SGD 单样本| E["快但波动大"]
+    C -->|Mini-batch| F["折中方案"]
+    D --> G["更新: w = w - α·∇J"]
+    E --> G
+    F --> G
+    G --> H{"收敛？"}
+    H -->|否| B
+    H -->|是| I["输出最优权重 w*"]`,
+        table: {
+          headers: ["变体", "每次迭代样本数", "收敛速度", "稳定性", "适用场景"],
+          rows: [
+            ["BGD", "n（全部）", "慢", "✅ 稳定", "小数据集"],
+            ["SGD", "1", "快", "❌ 波动大", "超大数据集"],
+            ["Mini-batch", "b（通常 32-256）", "快", "✅ 较稳定", "深度学习标准"],
+          ],
+        },
+      },
+      {
+        title: "5. 正则化：防止过拟合的利器",
+        body: `当模型过于复杂或特征之间存在共线性时，线性回归容易过拟合训练数据。正则化通过在损失函数中增加惩罚项来约束模型复杂度。
+
+L2 正则化（Ridge 回归）：在 MSE 基础上加上 λΣwⱼ²。它使权重趋向于小值但不为零，相当于给参数施加了高斯先验。
+
+L1 正则化（Lasso 回归）：加上 λΣ|wⱼ|。它的独特之处在于可以将某些权重精确压缩到零，实现自动特征选择。这等价于拉普拉斯先验。
+
+弹性网络（Elastic Net）：结合 L1 和 L2，同时获得特征选择和共线性处理能力。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+class RidgeRegression:
+    """L2 正则化线性回归（Ridge）"""
+
+    def __init__(self, alpha=1.0):
+        self.alpha = alpha
+        self.weights = None
+
+    def fit(self, X, y):
+        X_b = np.c_[np.ones(X.shape[0]), X]
+        n_features = X_b.shape[1]
+        reg_matrix = self.alpha * np.eye(n_features)
+        reg_matrix[0, 0] = 0  # 偏置项不惩罚
+        self.weights = np.linalg.inv(X_b.T @ X_b + reg_matrix) @ X_b.T @ y
+        return self
+
+    def predict(self, X):
+        X_b = np.c_[np.ones(X.shape[0]), X]
+        return X_b @ self.weights`,
+          },
+        ],
+        table: {
+          headers: ["方法", "惩罚项", "特征选择", "解析解", "适用场景"],
+          rows: [
+            ["普通最小二乘", "无", "❌", "✅", "特征少，无共线性"],
+            ["Ridge (L2)", "λΣw²", "❌", "✅", "特征共线性强"],
+            ["Lasso (L1)", "λΣ|w|", "✅ 自动选择", "❌ 需迭代", "需要特征选择"],
+            ["Elastic Net", "λ₁Σ|w|+λ₂Σw²", "✅ 自动选择", "❌ 需迭代", "高维数据（p>>n）"],
+          ],
+        },
+        warning: "正则化前务必对特征进行标准化（StandardScaler）！因为 L1/L2 惩罚对量纲敏感，未标准化的特征会导致惩罚项不公平地偏向某些特征。",
+      },
+      {
+        title: "6. 模型评估：不止看 R²",
+        body: `训练完线性回归模型后，如何科学地评估它的好坏？
+
+R²（决定系数）衡量模型解释了多少目标变量的方差：R² = 1 - SS_res/SS_tot。但 R² 有一个缺陷：增加任何特征都会使 R² 不减。因此引入了调整后的 R²：Adj_R² = 1 - (1-R²)·(n-1)/(n-p-1)，它会惩罚不必要的特征。
+
+此外还要关注：残差分析（残差应服从正态分布且方差恒定）、多重共线性诊断（VIF > 10 说明共线性严重）、交叉验证（K-fold CV 评估泛化能力）。`,
+        list: [
+          "R² > 0.8 通常认为拟合较好，但需结合领域知识判断",
+          "Adjusted R² 用于比较不同特征数量的模型",
+          "RMSE（均方根误差）与目标变量单位一致，更直观",
+          "残差图应呈现随机散点，不应有系统性模式",
+          "K-fold 交叉验证（K=5 或 10）评估模型泛化能力",
+          "VIF > 10 提示多重共线性，考虑删除或合并特征",
+        ],
+      },
+      {
+        title: "7. 线性回归的实际应用",
+        body: `线性回归看似简单，但在真实世界中有着广泛的应用。
+
+房价预测：根据房屋面积、房龄、地段等特征预测售价。这是线性回归最经典的应用，各大房价平台的核心算法之一就是多元线性回归的改进版本。
+
+销售预测：电商公司根据历史销量、促销活动、季节因素等预测未来销售额。线性回归提供了可解释的基准模型，业务人员可以直接理解每个特征的贡献度。
+
+金融风险评估：银行用线性回归（及其正则化变体）评估借款人的信用评分，预测违约概率。模型的可解释性是金融监管的硬性要求。`,
+        list: [
+          "房价预测：面积、位置、房龄 → 预测售价",
+          "销售预测：历史数据、促销、季节 → 预测未来销量",
+          "A/B 测试：实验组 vs 对照组，控制混杂变量",
+          "信用评分：收入、负债、历史 → 预测违约概率",
+          "医疗分析：年龄、BMI、血压 → 预测疾病风险",
+        ],
+        tip: "线性回归永远是数据分析的第一选择。先跑一个线性回归看看基线表现，再决定是否需要更复杂的模型。",
+      },
+    ],
   },
   {
     id: "ml-002",
@@ -52,8 +308,262 @@ export const articles: Article[] = [
     tags: ["监督学习", "集成学习", "分类"],
     summary: "从信息增益到基尼系数，掌握决策树的分裂策略与随机森林的集成思想",
     date: "2026-04-08",
-    readTime: "12 min",
+    readTime: "16 min",
     level: "入门",
+    content: [
+      {
+        title: "1. 决策树：像人类一样做决策",
+        body: `决策树是最直观的机器学习算法之一。它的核心思想是模拟人类的决策过程：通过一系列 if-then 规则，逐步将数据划分到不同的类别或预测不同的数值。
+
+想象你在判断一个人是否会购买某款产品：首先看年龄（>30 岁？），然后看收入（>50K？），最后看是否之前购买过类似产品。每一步都在缩小候选集，直到得出最终判断。
+
+决策树的优势在于：完全可解释（可以画出树形图展示每个决策路径）、不需要特征标准化、能处理数值和类别特征、对非线性关系天然友好。缺点是容易过拟合，一棵完全生长的树会记住训练集的每个细节。`,
+        mermaid: `graph TD
+    A["年龄 > 30?"] -->|"是"| B["收入 > 50K?"]
+    A -->|"否"| C["有学生优惠?"]
+    B -->|"是"| D["购买过类似产品?"]
+    B -->|"否"| E["不购买"]
+    C -->|"是"| F["购买"]
+    C -->|"否"| E
+    D -->|"是"| F
+    D -->|"否"| G["可能购买"]`,
+        tip: "决策树是理解更复杂算法（随机森林、梯度提升树）的基础。先理解一棵树如何生长，再理解多棵树如何协作。",
+      },
+      {
+        title: "2. 如何选择最佳分裂点：信息增益与基尼系数",
+        body: `决策树的核心问题是：在每个节点，应该选择哪个特征、哪个阈值来分裂数据？答案取决于纯度这个关键概念。一个好的分裂应该让子节点中的数据尽可能纯净（即属于同一类别）。
+
+信息增益（Information Gain）基于信息论中的熵（Entropy）。熵衡量一个数据集的不确定性：H(S) = -Σ pᵢ log₂(pᵢ)。当一个节点中所有样本属于同一类别时，熵为 0（完全纯净）；当类别均匀分布时，熵最大。信息增益 = 父节点熵 - 子节点加权熵。选择信息增益最大的特征进行分裂，就是 ID3 算法的核心思想。
+
+基尼系数（Gini Impurity）是另一种纯度度量：Gini(S) = 1 - Σ pᵢ²。它计算的是随机抽取两个样本属于不同类别的概率。基尼系数计算比熵更快（没有对数运算），是 CART 算法的默认选择。
+
+对于回归树，使用方差减少（Variance Reduction）作为分裂标准：选择使子节点方差之和最小的分裂点。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+def entropy(labels):
+    """计算熵: H(S) = -Σ p_i log_2(p_i)"""
+    _, counts = np.unique(labels, return_counts=True)
+    probs = counts / len(labels)
+    return -np.sum(probs * np.log2(probs + 1e-10))
+
+def gini_impurity(labels):
+    """计算基尼系数: G(S) = 1 - Σ p_i²"""
+    _, counts = np.unique(labels, return_counts=True)
+    probs = counts / len(labels)
+    return 1 - np.sum(probs ** 2)
+
+# 示例：二分类问题
+labels_pure = np.array([1, 1, 1, 1, 1])
+labels_mixed = np.array([1, 1, 0, 0, 0])
+labels_balanced = np.array([1, 1, 1, 0, 0, 0])
+
+print("=== 纯度对比 ===")
+print(f"完全纯净  - Entropy: {entropy(labels_pure):.4f}, Gini: {gini_impurity(labels_pure):.4f}")
+print(f"3:2 混合  - Entropy: {entropy(labels_mixed):.4f}, Gini: {gini_impurity(labels_mixed):.4f}")
+print(f"3:3 均衡  - Entropy: {entropy(labels_balanced):.4f}, Gini: {gini_impurity(labels_balanced):.4f}")`,
+          },
+        ],
+        table: {
+          headers: ["分裂标准", "公式", "特点", "代表算法"],
+          rows: [
+            ["信息增益", "H(父) - Σ(nᵢ/n)H(子ᵢ)", "偏向多值特征", "ID3"],
+            ["信息增益率", "IG / SplitInfo", "修正信息增益偏差", "C4.5"],
+            ["基尼系数", "1 - Σpᵢ²", "计算快，效果类似熵", "CART"],
+            ["方差减少", "Var(父) - Σ(nᵢ/n)Var(子ᵢ)", "用于回归树", "CART 回归"],
+          ],
+        },
+      },
+      {
+        title: "3. 从零实现决策树",
+        body: `理解决策树最好的方式就是手写一棵。下面是一个简化版的 CART 分类树实现：递归地选择最佳分裂点，直到达到停止条件（最大深度、最小样本数、或节点纯度达标）。`,
+        code: [
+          {
+            lang: "python",
+            code: `class DecisionNode:
+    """决策树节点"""
+    def __init__(self, feature=None, threshold=None,
+                 left=None, right=None, value=None):
+        self.feature = feature
+        self.threshold = threshold
+        self.left = left
+        self.right = right
+        self.value = value  # 叶子节点的预测值
+
+class DecisionTreeClassifier:
+    """简化版 CART 分类树"""
+
+    def __init__(self, max_depth=5, min_samples_split=2):
+        self.max_depth = max_depth
+        self.min_samples_split = min_samples_split
+        self.root = None
+
+    def _gini(self, y):
+        if len(y) == 0:
+            return 0
+        probs = np.bincount(y) / len(y)
+        return 1 - np.sum(probs ** 2)
+
+    def _best_split(self, X, y):
+        best_gain = -1
+        best_feature = None
+        best_threshold = None
+        n_samples, n_features = X.shape
+        parent_gini = self._gini(y)
+
+        for feature in range(n_features):
+            thresholds = np.unique(X[:, feature])
+            for threshold in thresholds:
+                left_mask = X[:, feature] <= threshold
+                right_mask = ~left_mask
+                if left_mask.sum() == 0 or right_mask.sum() == 0:
+                    continue
+                n_left = left_mask.sum()
+                n_right = right_mask.sum()
+                weighted_gini = (n_left * self._gini(y[left_mask]) +
+                                 n_right * self._gini(y[right_mask])) / n_samples
+                gain = parent_gini - weighted_gini
+                if gain > best_gain:
+                    best_gain = gain
+                    best_feature = feature
+                    best_threshold = threshold
+
+        return best_feature, best_threshold, best_gain
+
+    def _build_tree(self, X, y, depth):
+        if (depth >= self.max_depth or
+            len(y) < self.min_samples_split or
+            self._gini(y) == 0):
+            return DecisionNode(value=np.bincount(y).argmax())
+
+        feature, threshold, gain = self._best_split(X, y)
+        if feature is None or gain <= 0:
+            return DecisionNode(value=np.bincount(y).argmax())
+
+        left_mask = X[:, feature] <= threshold
+        left = self._build_tree(X[left_mask], y[left_mask], depth + 1)
+        right = self._build_tree(X[~left_mask], y[~left_mask], depth + 1)
+        return DecisionNode(feature, threshold, left, right)
+
+    def fit(self, X, y):
+        self.root = self._build_tree(X, y, depth=0)
+        return self
+
+    def _predict_one(self, x, node):
+        if node.value is not None:
+            return node.value
+        if x[node.feature] <= node.threshold:
+            return self._predict_one(x, node.left)
+        return self._predict_one(x, node.right)
+
+    def predict(self, X):
+        return np.array([self._predict_one(x, self.root) for x in X])`,
+          },
+        ],
+      },
+      {
+        title: "4. 剪枝：控制过拟合",
+        body: `一棵不受限制的决策树会不断分裂直到每个叶子节点只有一个样本，这意味着它在记忆训练数据而非学习规律。剪枝（Pruning）是控制决策树复杂度的核心手段。
+
+预剪枝（Pre-pruning）：在树生长过程中提前停止。常见策略包括：限制最大深度（max_depth）、要求节点最少样本数（min_samples_split）、要求叶子节点最少样本数（min_samples_leaf）。
+
+后剪枝（Post-pruning）：先让树完全生长，然后自底向上地合并那些对验证集性能没有帮助的节点。代价复杂度剪枝是最经典的后剪枝方法，它引入了一个复杂度参数 alpha，在树的拟合度和复杂度之间做权衡。
+
+实践中，预剪枝更常用（计算效率高），而后剪枝通常效果更好但更耗时。sklearn 的 DecisionTreeClassifier 默认不剪枝，所以实际使用时必须手动设置 max_depth 等参数。`,
+        list: [
+          "max_depth：限制树的最大深度（最常用的预剪枝参数）",
+          "min_samples_split：节点分裂所需的最小样本数（默认 2）",
+          "min_samples_leaf：叶子节点的最小样本数（防止极端分裂）",
+          "max_features：每步考虑的最大特征数（增加随机性）",
+          "ccp_alpha：代价复杂度剪枝参数（后剪枝）",
+          "交叉验证选择最佳超参数组合",
+        ],
+        warning: "sklearn 决策树默认不剪枝！如果你用默认参数训练，几乎一定会过拟合。至少设置 max_depth 或 min_samples_leaf。",
+      },
+      {
+        title: "5. 随机森林：集成的力量",
+        body: `随机森林（Random Forest）通过构建多棵决策树并将它们的结果聚合起来，大幅提升预测性能。它的核心思想是群体的智慧——每棵树独立做判断，然后投票决定最终结果。
+
+随机森林通过两种随机性来确保树之间的多样性：Bootstrap 采样（有放回抽样），每棵树使用不同的训练子集；特征随机选择，在每个分裂点只从随机选择的 k 个特征中寻找最佳分裂。
+
+这种设计使得随机森林几乎不会过拟合（随着树的数量增加，泛化误差收敛到一个下界）、不需要剪枝、对异常值鲁棒、可以并行训练。而且它天然支持特征重要性评估。`,
+        mermaid: `graph TB
+    A["原始训练集"] --> B["Bootstrap 采样 1"]
+    A --> C["Bootstrap 采样 2"]
+    A --> D["Bootstrap 采样 N"]
+    B --> E["决策树 1"]
+    C --> F["决策树 2"]
+    D --> G["决策树 N"]
+    E --> H["投票/平均"]
+    F --> H
+    G --> H
+    H --> I["最终预测"]`,
+        code: [
+          {
+            lang: "python",
+            code: `from sklearn.ensemble import RandomForestClassifier
+from sklearn.datasets import make_classification
+from sklearn.model_selection import train_test_split
+
+X, y = make_classification(n_samples=1000, n_features=20,
+                           n_informative=10, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+rf = RandomForestClassifier(
+    n_estimators=100,        # 树的数量
+    max_depth=10,            # 每棵树的最大深度
+    min_samples_split=5,     # 最小分裂样本数
+    min_samples_leaf=2,      # 叶子最小样本数
+    max_features="sqrt",     # 每步考虑的特征数
+    random_state=42,
+    n_jobs=-1                # 并行训练
+)
+rf.fit(X_train, y_train)
+
+print(f"训练集准确率: {rf.score(X_train, y_train):.4f}")
+print(f"测试集准确率: {rf.score(X_test, y_test):.4f}")
+
+# 特征重要性
+importances = rf.feature_importances_
+top_features = np.argsort(importances)[::-1][:5]
+print("Top 5 重要特征:")
+for i, feat_idx in enumerate(top_features):
+    print(f"  特征 {feat_idx}: {importances[feat_idx]:.4f}")`,
+          },
+        ],
+        table: {
+          headers: ["算法", "单树/集成", "过拟合风险", "可解释性", "训练速度"],
+          rows: [
+            ["单棵决策树", "单树", "高", "完全可解释", "快"],
+            ["随机森林", "集成 (Bagging)", "低", "特征重要性", "中等（可并行）"],
+            ["Gradient Boosting", "集成 (Boosting)", "中", "特征重要性", "慢（串行）"],
+            ["XGBoost", "集成 (Boosting+)", "中", "特征重要性", "快（优化版）"],
+          ],
+        },
+        tip: "随机森林的 n_estimators（树的数量）越大越好——不会过拟合，只会让结果更稳定。通常 100-500 棵树已经足够。",
+      },
+      {
+        title: "6. 实际应用场景",
+        body: `决策树和随机森林在工业界有着广泛的应用，尤其是当可解释性很重要时。
+
+信用风险评估：银行使用决策树来评估贷款申请。监管机构要求银行能解释为什么拒绝某个申请——决策树的决策路径完美满足这个要求。
+
+医疗诊断：根据患者症状、化验结果预测疾病。决策树可以生成清晰的诊断流程，医生可以直接理解和验证。
+
+客户流失预测：电信、金融行业用随机森林预测哪些客户可能流失。随机森林能处理混合类型特征（数值、类别），而且不需要复杂的特征工程。
+
+特征选择：随机森林的特征重要性是数据科学中最常用的特征选择方法之一。先用随机森林跑一遍数据，筛选出重要特征，再用更复杂的模型训练。`,
+        list: [
+          "信用评估：可解释的决策路径满足监管要求",
+          "医疗诊断：生成清晰的诊断流程",
+          "客户流失：随机森林处理混合特征，无需复杂工程",
+          "特征选择：用随机森林特征重要性做预筛选",
+          "异常检测：孤立森林（Isolation Forest）的变体",
+        ],
+      },
+    ],
   },
   {
     id: "ml-003",
