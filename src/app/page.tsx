@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 const features = [
   {
@@ -54,6 +55,14 @@ const news = [
 ];
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: "功能", href: "#features" },
+    { label: "动态", href: "#news" },
+    { label: "关于", href: "#about" },
+  ];
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
       {/* Navigation */}
@@ -64,16 +73,63 @@ export default function Home() {
               <span className="text-2xl">🍪</span>
               <span className="text-xl font-bold text-gradient">AI Master</span>
             </Link>
+            {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
-              <Link href="#features" className="text-slate-300 hover:text-white transition-colors">功能</Link>
-              <Link href="#news" className="text-slate-300 hover:text-white transition-colors">动态</Link>
-              <Link href="#about" className="text-slate-300 hover:text-white transition-colors">关于</Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-slate-300 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
               <button className="px-5 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all hover:shadow-lg hover:shadow-brand-500/25">
                 开始学习
               </button>
             </div>
+            {/* Mobile hamburger button */}
+            <button
+              className="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "关闭菜单" : "打开菜单"}
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-white/5 bg-slate-950/95 backdrop-blur-md">
+            <div className="px-4 py-4 space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors text-lg"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <button className="w-full mt-2 px-5 py-3 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all text-lg">
+                开始学习
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
