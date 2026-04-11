@@ -57,7 +57,7 @@ export default function KnowledgePage() {
             {categoryStats.map((c) => (
               <div
                 key={c.key}
-                className="text-center p-4 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/20 transition-all"
+                className="text-center p-4 rounded-xl bg-white/10 border border-white/10 hover:border-brand-500/30 transition-all"
               >
                 <div className="text-2xl mb-1">{c.icon}</div>
                 <div className="text-sm font-medium text-slate-300">{c.label}</div>

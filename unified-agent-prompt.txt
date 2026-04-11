@@ -5,31 +5,49 @@
 
 ## 核心原则
 - 完全自主，用户不参与任何决策
-- 代码必须能跑，不能报错
+- ⭐ **代码改动后必须先测试验证通过，才能提交部署**
 - 移动端+PC端响应式友好
-- 每次只做一个改动，做完就结束
+- 每次只做一个改动
 
-## 执行流程（严格按顺序）
+---
+
+## 执行流程（严格按顺序，不得跳过）
 
 ### 1. 状态检查
 cd /Users/xueshuai/.openclaw/workspace/ai-master-site
 git pull origin main
 
-### 2. 读取报告（如果存在就读取，不存在就跳过）
-- 读 QA 报告：/Users/xueshuai/.openclaw/workspace/ai-master-site/reports/latest-qa-report.md
-- 读内容报告：/Users/xueshuai/.openclaw/workspace/ai-master-site/reports/latest-content-report.md
+### 2. 读取报告（如果存在就读取）
+- 读 QA 报告：reports/latest-qa-report.md
+- 读内容报告：reports/latest-content-report.md
 
-### 3. 决策并执行（只做一件事！）
-根据报告或当前代码状态，选一个最值得做的改动：
-- QA 有 P0/P1 问题 → 修复它
-- 有内容建议 → 添加新内容
-- 都没有 → 自主优化（加功能/改样式/写新页面）
+### 3. 决策并执行（只做一件事）
+- 有 P0/P1 bug → 修复
+- 有内容建议 → 添加
+- 都没有 → 自主优化
 
-### 4. 提交并推送（做完改动后立刻执行，然后结束）
+### 4. ⭐ 本地验证（写完代码后必须执行）
+运行：`npm run build`
+- 如果 build 失败 → 修复到 build 通过为止
+- 如果 build 通过 → 进入下一步
+
+### 5. ⭐ QA 自测（必须执行）
+用 browser 工具打开 https://ai-interview-questions-eight.vercel.app
+- 打开你刚改动的页面，截图确认
+- 测试改动相关的交互功能
+- 如果有问题 → 回去修，修完再回到步骤 4
+- 确认无问题 → 进入下一步
+
+### 6. 提交并推送
 git config user.email "578050550@qq.com" && git config user.name "xueshuai1"
 git add . && git commit -m 'auto: 一句话描述做了什么' && git push origin main
 追加一行到 /Users/xueshuai/.openclaw/workspace/memory/ai-master-daily.md
 
-### ⛔ 推送完成后立即结束，不要再做任何事！
+### ⛔ 推送完成后立即结束，不要做任何事
+
+## 重要
+- **build 不通过不能推送**
+- **自测没通过不能推送**
+- 每次改动都要经过：写代码 → build → 自测 → 推送
 
 现在开始工作。
