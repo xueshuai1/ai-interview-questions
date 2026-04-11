@@ -1132,8 +1132,405 @@ vllm serve meta-llama/Llama-3-8B \\
     tags: ["Prompt", "技巧", "实战"],
     summary: "系统学习 CoT、Few-shot、ReAct 等 Prompt 设计模式与技巧",
     date: "2026-04-08",
-    readTime: "15 min",
+    readTime: "20 min",
     level: "入门",
+    content: [
+      {
+        title: "1. 什么是 Prompt Engineering？",
+        body: `Prompt Engineering（提示工程）是与大语言模型高效沟通的艺术和科学。它的核心目标是通过精心设计的输入文本，引导模型输出符合预期的高质量结果。
+
+不要被"写几句话"这个表象所欺骗——Prompt Engineering 背后有深刻的认知科学原理。大语言模型本质上是 next-token predictor，它们根据上下文的概率分布生成下一个词。好的 Prompt 实际上是在模型的巨大参数空间中划定一个高概率区域，让模型的输出落在这个区域内。
+
+理解这一点至关重要：你不是在"命令"模型做事，而是在"引导"模型走向你想要的推理路径。这就像在黑暗中用手电筒照亮一条路——手电筒照亮的地方，就是模型会走的方向。`,
+        mermaid: `graph LR
+    A["用户意图"] --> B["意图分析"]
+    B --> C["Prompt 设计"]
+    C --> D["角色设定"]
+    C --> E["任务描述"]
+    C --> F["约束条件"]
+    C --> G["示例提供"]
+    D --> H["LLM 推理"]
+    E --> H
+    F --> H
+    G --> H
+    H --> I["输出生成"]
+    I --> J["结果评估"]
+    J -.->|不满意| C
+    J -->|满意| K["最终结果"]`,
+        tip: "核心理念：Prompt Engineering 不是魔法，而是工程。好的 Prompt 应该是可复现、可迭代、可评估的。"
+      },
+      {
+        title: "2. Prompt 的核心组成要素",
+        body: `一个高质量的 Prompt 通常包含五个核心要素：角色（Role）、任务（Task）、上下文（Context）、约束（Constraints）和格式（Format）。这五个要素共同构成了 Prompt 的"黄金结构"。
+
+**角色（Role）**：赋予模型一个特定身份，如"你是一个资深 Python 工程师"。角色设定能激活模型参数空间中与该角色相关的专业知识区域。
+
+**任务（Task）**：清晰描述你要模型做什么。使用动作动词开头，如"分析"、"编写"、"解释"。避免模糊的"帮我看看"。
+
+**上下文（Context）**：提供完成任务所需的背景信息。包括领域知识、已有数据、用户画像等。上下文越充分，模型输出越精准。
+
+**约束（Constraints）**：限定输出的范围、长度、风格等。如"不超过 200 字"、"使用中文"、"避免专业术语"。
+
+**格式（Format）**：指定输出的结构，如 JSON、Markdown 表格、代码块等。结构化输出便于后续程序处理。`,
+        code: [
+          {
+            lang: "python",
+            code: `# 好的 Prompt 结构示例
+def build_prompt(user_question: str, context: str) -> str:
+    """构建结构化 Prompt"""
+    return f"""你是一个资深的数据分析师，擅长用 Python 进行数据清洗和可视化。
+
+【任务】
+请分析以下数据集的特征，并给出数据清洗方案。
+
+【上下文】
+数据集包含用户行为日志，字段包括：user_id, timestamp, action, page_url。
+当前数据存在以下问题：
+- timestamp 格式不统一（部分为 Unix 时间戳，部分为 ISO 格式）
+- action 字段存在拼写错误（如 "clik" 应为 "click"）
+- 约 5% 的 user_id 为空值
+
+【待分析问题】
+{user_question}
+
+【已有数据样例】
+{context}
+
+【约束】
+1. 使用 Python 代码，基于 pandas 库
+2. 代码需要包含详细注释
+3. 输出结果以 Markdown 表格形式呈现
+4. 总回答不超过 800 字"""
+
+# 使用示例
+question = "如何处理时间戳格式不一致的问题？"
+sample_data = """user_id,timestamp,action,page_url
+123,1712567890,click,/home
+,2024-04-08T10:30:00,clik,/products
+456,1712570000,view,/about"""
+
+print(build_prompt(question, sample_data))`
+          }
+        ]
+      },
+      {
+        title: "3. Few-Shot Learning：让模型照猫画虎",
+        body: `Few-Shot Learning 是 Prompt Engineering 中最强大的技术之一。通过在 Prompt 中提供少量输入-输出示例，你可以让模型快速理解任务模式，而无需重新训练模型参数。
+
+Few-Shot 的核心原理是 In-Context Learning（上下文学习）。大语言模型在预训练阶段已经见过海量的文本模式，当你在 Prompt 中展示几个示例时，模型会自动识别其中的模式并应用到新的输入上。这与人类的"举一反三"能力非常相似。
+
+关键要点：示例的质量远比重更重要。3 个精心挑选的高质量示例，效果远好于 10 个随机示例。示例应该覆盖任务的典型场景和边界情况。`,
+        code: [
+          {
+            lang: "python",
+            code: `# Few-Shot Prompt 示例：情感分类
+def few_shot_sentiment_prompt(text: str) -> str:
+    """Few-shot 情感分析 Prompt"""
+    return f"""请判断以下评论的情感倾向，输出"正面"、"负面"或"中性"，并给出简短理由。
+
+示例 1：
+输入："这部电影的特效太震撼了，剧情也很紧凑，强烈推荐！"
+输出：{{"sentiment": "正面", "reason": "表达了对电影的强烈推荐"}}
+
+示例 2：
+输入："等了两个小时才上菜，菜还是凉的，服务态度也很差。"
+输出：{{"sentiment": "负面", "reason": "描述了等待时间长、食物质量差、服务差"}}
+
+示例 3：
+输入："这款手机用了一个月了，电池续航一般，拍照还行。"
+输出：{{"sentiment": "中性", "reason": "客观描述，没有明显的褒贬"}}
+
+请分析：
+输入："{text}"
+输出："""
+
+# 测试
+test_cases = [
+    "物流很快，包装精美，产品质量超出预期",
+    "客服态度极其恶劣，再也不买了",
+    "产品功能中规中矩，价格偏高"
+]
+
+for case in test_cases:
+    prompt = few_shot_sentiment_prompt(case)
+    # response = llm.generate(prompt)
+    print(f"输入: {case}")`
+          },
+          {
+            lang: "python",
+            code: `# Few-Shot 示例选择策略
+def select_best_examples(query: str, example_pool: list,
+                         k: int = 3) -> list:
+    """基于语义相似度选择最相关的 Few-Shot 示例"""
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    
+    # 将查询和示例向量化
+    vectorizer = TfidfVectorizer()
+    all_texts = [query] + [ex["input"] for ex in example_pool]
+    vectors = vectorizer.fit_transform(all_texts)
+    
+    # 计算查询与每个示例的相似度
+    query_vec = vectors[0:1]
+    example_vecs = vectors[1:]
+    similarities = cosine_similarity(query_vec, example_vecs)[0]
+    
+    # 选择最相似的 k 个示例
+    top_indices = similarities.argsort()[-k:][::-1]
+    return [example_pool[i] for i in top_indices]
+
+# 使用示例
+examples = [
+    {"input": "如何重置密码？", "output": "前往设置 > 安全 > 重置密码"},
+    {"input": "订单什么时候到？", "output": "请在订单页面查看物流信息"},
+    {"input": "怎么开发票？", "output": "订单完成后在订单详情中申请"},
+]
+
+query = "我忘记登录密码了怎么办？"
+selected = select_best_examples(query, examples, k=2)
+for ex in selected:
+    print(f"Q: {ex['input']} → A: {ex['output']}")`
+          }
+        ],
+        table: {
+          headers: ["Few-Shot 策略", "适用场景", "优点", "缺点"],
+          rows: [
+            ["Zero-Shot", "简单分类、摘要", "简洁、Token 少", "复杂任务效果差"],
+            ["One-Shot", "中等复杂度任务", "快速建立模式", "单示例可能不具代表性"],
+            ["Few-Shot (3-5)", "格式要求严格的输出", "效果显著提升", "消耗更多 Token"],
+            ["Many-Shot (10+)", "高度专业化任务", "覆盖更多边界情况", "可能超出上下文窗口"],
+            ["动态选择", "查询类型多样", "最相关的示例", "需要额外的检索逻辑"],
+          ]
+        }
+      },
+      {
+        title: "4. Chain of Thought（思维链）：让模型逐步推理",
+        body: `Chain of Thought（CoT）Prompting 的核心思想是：引导模型将复杂问题拆解为多个中间推理步骤，而不直接跳到答案。这在数学推理、逻辑分析、代码调试等需要多步推理的任务中效果显著。
+
+为什么 CoT 有效？大语言模型本质上是自回归的——每个生成的 token 都基于之前的所有 token。当模型被要求展示推理过程时，中间推理步骤实际上成为了后续推理的上下文，帮助模型保持推理链的连贯性。这就像人类在草稿纸上做数学题——写下中间步骤可以大幅降低出错率。
+
+CoT 有两种实现方式：Zero-Shot CoT（只需在 Prompt 末尾加上"请逐步思考"）和 Few-Shot CoT（在示例中展示完整的推理过程）。Few-Shot CoT 通常效果更好，因为它不仅告诉模型"要逐步思考"，还示范了"如何逐步思考"。`,
+        code: [
+          {
+            lang: "python",
+            code: `# Chain of Thought Prompt 示例
+def cot_math_prompt(problem: str) -> str:
+    """CoT 数学推理 Prompt"""
+    return f"""你是一个数学老师。请逐步解答以下问题，展示完整的推理过程。
+
+示例：
+问题：一个水池有进水管和出水管。进水管单独工作 6 小时可以注满水池，出水管单独工作 8 小时可以排空水池。如果两管同时打开，需要多长时间才能注满水池？
+
+解答步骤：
+1. 进水管每小时注水量 = 1/6 池
+2. 出水管每小时排水量 = 1/8 池
+3. 两管同时工作，每小时净注水量 = 1/6 - 1/8 = 4/24 - 3/24 = 1/24 池
+4. 注满水池需要的时间 = 1 ÷ (1/24) = 24 小时
+答案：24 小时
+
+问题：{problem}
+
+解答步骤："""
+
+# 测试
+problem = "某商品先涨价 20%，再降价 20%，最终价格相比原价变化了多少？"
+print(cot_math_prompt(problem))`
+          }
+        ],
+        warning: "CoT 的安全注意事项：模型的推理过程可能包含错误或不一致的逻辑。对于关键决策（如医疗、金融），务必对推理过程进行人工审核，不能仅看最终答案。"
+      },
+      {
+        title: "5. ReAct 模式：推理与行动的交替循环",
+        body: `ReAct（Reasoning + Acting）是一种将推理和行动交替进行的 Prompt 设计模式。与纯 CoT 不同，ReAct 让模型在推理过程中可以调用外部工具（如搜索引擎、API、数据库），然后根据工具返回的结果继续推理。
+
+ReAct 的工作流程：Thought（思考下一步做什么）→ Action（执行具体操作）→ Observation（观察工具返回结果）→ 重复直到得出结论。这个循环让模型既能"思考"又能"行动"，极大地扩展了 LLM 的能力边界。
+
+ReAct 的实际应用非常广泛：问答系统可以先搜索再回答；数据分析可以先查询数据库再解释结果；代码调试可以先运行测试再分析错误。`,
+        code: [
+          {
+            lang: "python",
+            code: `# ReAct 模式简易实现
+class ReActAgent:
+    """简易 ReAct Agent 实现"""
+    
+    def __init__(self, llm, tools: dict):
+        self.llm = llm
+        self.tools = tools
+        self.max_iterations = 5
+    
+    def run(self, question: str) -> str:
+        # ReAct Prompt 模板
+        prompt = f"""请用以下格式回答问题：
+
+Thought: 分析当前情况，决定下一步
+Action: 使用工具（格式：tool_name[query]）
+Observation: 工具返回的结果
+...（重复 Thought/Action/Observation）
+Thought: 我已获得足够信息
+Answer: 最终答案
+
+可用工具：
+- search: 搜索引擎查询
+- calculate: 数学计算
+- weather: 查询天气
+
+问题：{question}
+"""
+        
+        history = prompt
+        for i in range(self.max_iterations):
+            response = self.llm.generate(history)
+            history += "\n" + response
+            
+            # 解析 Action
+            if "Action:" in response:
+                action_line = response.split("Action:")[1].strip().split("\n")[0]
+                tool_name = action_line.split("[")[0]
+                query = action_line.split("[")[1].rstrip("]")
+                
+                # 执行工具
+                if tool_name in self.tools:
+                    result = self.tools[tool_name](query)
+                    history += f"\nObservation: {result}"
+                else:
+                    history += f"\nObservation: 未知工具: {tool_name}"
+            else:
+                break  # 没有 Action，说明已有答案
+        
+        # 提取 Answer
+        if "Answer:" in history:
+            return history.split("Answer:")[-1].strip()
+        return history
+
+# 使用示例
+tools = {
+    "search": lambda q: f"搜索结果: {q} → 找到相关信息",
+    "calculate": lambda q: f"计算结果: {q} = {eval(q)}",
+}
+agent = ReActAgent(llm=None, tools=tools)  # 此处 llm 为示意
+print("ReAct Agent 初始化完成")`
+          }
+        ],
+        mermaid: `sequenceDiagram
+    participant U as 用户
+    participant A as ReAct Agent
+    participant T as 外部工具
+    U->>A: 提出问题
+    loop 推理循环
+        A->>A: Thought: 分析情况
+        A->>T: Action: 调用工具
+        T-->>A: Observation: 返回结果
+        A->>A: 基于结果继续推理
+    end
+    A-->>U: Answer: 最终答案`
+      },
+      {
+        title: "6. System Prompt 与角色工程",
+        body: `System Prompt 是对话开始前注入模型的"系统级指令"，它定义了模型的行为边界、角色定位和输出风格。与 User Prompt 不同，System Prompt 通常不会被用户直接看到，但它对整个对话质量的影响最大。
+
+角色工程（Role Engineering）是 System Prompt 设计的核心技术。通过精确的角色定义，你可以激活模型在特定领域的专业知识。例如，"你是一个有 10 年经验的安全工程师"和"你是一个安全专家"虽然意思相近，但前者会让模型倾向于提供更具体、更实战导向的建议。
+
+设计 System Prompt 的关键原则：明确角色、设定边界、定义风格、规定格式、强调约束。一个好的 System Prompt 应该像一份精确的岗位说明书——任何接手的人（或模型）都能清楚地知道该做什么、不该做什么、以及怎么做。`,
+        code: [
+          {
+            lang: "python",
+            code: `# System Prompt 模板库
+class SystemPromptTemplates:
+    """不同场景的 System Prompt 模板"""
+    
+    CODE_REVIEWER = """你是一位资深代码审查工程师，拥有 15 年以上软件开发经验。
+你的职责：
+1. 识别代码中的 bug、安全漏洞和性能问题
+2. 提出具体的改进建议，并说明原因
+3. 对代码风格和规范给出评价
+4. 始终保持建设性和尊重性
+
+输出格式：
+- 🟢 优点
+- 🔴 问题（按严重程度排序）
+- 💡 改进建议
+- 📝 重构示例代码"""
+
+    DATA_ANALYST = """你是一位数据科学家，擅长探索性数据分析和统计推断。
+你的风格：
+- 用数据说话，避免主观臆断
+- 解释统计指标的实际含义
+- 指出数据中的异常值和潜在偏差
+- 建议下一步的分析方向"""
+
+    TECHNICAL_WRITER = """你是一位技术文档撰写专家。
+原则：
+- 简洁明了，避免冗长
+- 使用主动语态
+- 每个段落只表达一个核心观点
+- 代码示例必须有注释和说明"""
+
+# 使用示例
+def create_chat_completion(system_prompt: str, user_message: str):
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_message}
+    ]
+    return messages  # 实际调用 LLM API
+
+# 代码审查场景
+messages = create_chat_completion(
+    SystemPromptTemplates.CODE_REVIEWER,
+    "请审查这段代码：\\ndef get_data(url):\\n    import urllib.request\\n    response = urllib.request.urlopen(url)\\n    return response.read()"
+)
+print(f"System: {messages[0]['content'][:80]}...")
+print(f"User: {messages[1]['content']}")`
+          }
+        ],
+        table: {
+          headers: ["角色类型", "System Prompt 关键词", "典型输出风格", "常见陷阱"],
+          rows: [
+            ["代码审查员", "资深工程师、15 年经验、建设性", "结构化、有代码示例", "过于苛刻，打击开发者"],
+            ["数据科学家", "统计推断、用数据说话、偏差分析", "数据驱动、谨慎结论", "过度技术化，非专业人士看不懂"],
+            ["技术写手", "简洁、主动语态、单段单观点", "精炼、易读、结构化", "过度简化，丢失技术细节"],
+            ["教师", "耐心、循序渐进、举例说明", "由浅入深、有练习题", "进度太慢，效率低"],
+            ["产品经理", "用户视角、商业价值、优先级", "需求文档格式、有优先级", "过度关注商业，忽略技术可行性"],
+          ]
+        }
+      },
+      {
+        title: "7. Prompt 安全与常见陷阱",
+        body: `Prompt Engineering 不仅关乎技巧，还关乎安全。了解常见的陷阱和安全风险，才能写出健壮可靠的 Prompt。
+
+**注入攻击（Prompt Injection）**：攻击者通过在用户输入中嵌入恶意指令，试图覆盖或绕过 System Prompt。防御策略包括：使用分隔符明确区分指令和数据、对输入进行清洗和转义、避免在 Prompt 中暴露敏感信息。
+
+**幻觉（Hallucination）**：模型生成的内容看起来合理但实际上是错误的。减少幻觉的方法包括：提供准确的上下文、要求模型引用来源、对不确定的内容要求模型表达不确定性。
+
+**输出不一致性**：同一个 Prompt 多次运行可能产生不同的结果。应对策略包括：设置 temperature=0 以获得确定性输出、使用结构化输出格式、对输出进行后处理验证。`,
+        mermaid: `graph TD
+    A["Prompt 安全风险"] --> B["注入攻击"]
+    A --> C["幻觉/编造"]
+    A --> D["输出不一致"]
+    A --> E["敏感信息泄露"]
+    B --> B1["使用分隔符"]
+    B --> B2["输入清洗"]
+    B --> B3["指令与数据分离"]
+    C --> C1["提供准确上下文"]
+    C --> C2["要求引用来源"]
+    C --> C3["表达不确定性"]
+    D --> D1["temperature=0"]
+    D --> D2["结构化输出"]
+    D --> D3["后处理验证"]
+    E --> E1["避免 System Prompt 暴露"]
+    E --> E2["敏感信息脱敏"]
+    E --> E3["输出内容审核"]`,
+        warning: "安全红线：永远不要在 Prompt 中包含 API 密钥、数据库连接字符串、用户密码等敏感信息。使用环境变量或密钥管理服务存储这些凭证。",
+        list: [
+          "始终对用户输入进行清洗和转义，防止注入攻击",
+          "使用 XML 标签或三引号明确区分指令和数据部分",
+          "对关键输出进行格式验证和逻辑校验",
+          "设置合理的 max_tokens 限制，防止输出过长",
+          "记录 Prompt 版本和对应的输出，便于回溯和优化",
+          "定期进行安全审计，测试 Prompt 的鲁棒性",
+          "避免过度依赖单个 Prompt——关键场景使用多轮对话验证",
+        ]
+      },
+    ],
   },
   {
     id: "llm-003",
@@ -1142,8 +1539,482 @@ vllm serve meta-llama/Llama-3-8B \\
     tags: ["RAG", "向量数据库", "知识库"],
     summary: "如何结合外部知识库增强 LLM 的准确性和时效性",
     date: "2026-04-06",
-    readTime: "18 min",
+    readTime: "22 min",
     level: "进阶",
+    content: [
+      {
+        title: "1. 为什么需要 RAG？大语言模型的三大局限",
+        body: `大语言模型虽然强大，但存在三个天然局限：知识截止（训练数据有固定截止日期，无法了解最新信息）、幻觉倾向（对不知道的内容倾向于编造而非承认）、私有数据盲区（训练数据不包含企业内部文档和数据库）。
+
+RAG（Retrieval-Augmented Generation，检索增强生成）是解决这些问题最优雅的架构方案。它的核心思想很简单：在模型生成回答之前，先从外部知识库中检索相关信息，然后将检索结果和问题一起输入模型。这样模型就不需要"记住"所有知识，只需要"读懂"给它的参考资料并作答。
+
+这就像开卷考试——你不需要背下整本教科书，只需要知道如何快速查找相关信息并理解它。RAG 让 LLM 从"闭卷答题"变成"开卷答题"，准确率大幅提升，幻觉显著减少。`,
+        mermaid: `graph LR
+    A["用户问题"] --> B["向量检索"]
+    C["知识库文档"] --> D["分块+向量化"]
+    D --> E["向量数据库"]
+    E --> B
+    B --> F["相关文档片段"]
+    F --> G["Prompt 组装"]
+    A --> G
+    G --> H["LLM 生成回答"]
+    H --> I["最终答案"]`,
+        tip: "关键认知：RAG 不是微调模型，而是在推理时注入外部知识。模型参数不变，但每次回答的上下文不同。"
+      },
+      {
+        title: "2. RAG 架构全景：从数据到答案的完整流程",
+        body: `一个完整的 RAG 系统包含两个阶段：索引阶段（Indexing）和查询阶段（Querying）。
+
+**索引阶段**（离线执行，一次性或定期更新）：
+1. 文档采集：从各种数据源（PDF、网页、数据库、API）获取原始文档
+2. 文本清洗：去除 HTML 标签、乱码、无关内容
+3. 文档分块（Chunking）：将长文档切分为固定大小的文本块。这是最关键也最容易被忽视的环节——块太大则检索精度下降，块太小则丢失上下文
+4. 向量化（Embedding）：使用 Embedding 模型将每个文本块转换为高维向量
+5. 存储入库：将向量和元数据存入向量数据库，建立索引
+
+**查询阶段**（在线执行，每次用户提问时触发）：
+1. 问题向量化：使用同一个 Embedding 模型将用户问题转换为向量
+2. 相似度检索：在向量数据库中找到与问题最相似的 Top-K 个文本块
+3. 上下文组装：将检索到的文本块与原始问题组合成 Prompt
+4. LLM 生成：将组装好的 Prompt 输入 LLM，生成最终回答
+5. 结果后处理：格式校验、引用标注、安全检查`,
+        code: [
+          {
+            lang: "python",
+            code: `# RAG 索引阶段完整实现
+from typing import List, Dict
+import hashlib
+
+class DocumentIndexer:
+    """RAG 文档索引器"""
+    
+    def __init__(self, embedding_model, vector_db, chunk_size=500,
+                 chunk_overlap=50):
+        self.embedding_model = embedding_model
+        self.vector_db = vector_db
+        self.chunk_size = chunk_size
+        self.chunk_overlap = chunk_overlap
+    
+    def chunk_document(self, text: str) -> List[Dict]:
+        """将文档切分为重叠的文本块"""
+        chunks = []
+        # 按段落分割
+        paragraphs = text.split('\n\n')
+        current_chunk = ""
+        chunk_index = 0
+        
+        for para in paragraphs:
+            if len(current_chunk) + len(para) > self.chunk_size:
+                if current_chunk:
+                    chunk_id = hashlib.md5(
+                        current_chunk.encode()
+                    ).hexdigest()[:12]
+                    chunks.append({
+                        "id": chunk_id,
+                        "text": current_chunk.strip(),
+                        "index": chunk_index
+                    })
+                    chunk_index += 1
+                # 保留重叠部分
+                overlap_start = max(0, len(current_chunk) - self.chunk_overlap)
+                current_chunk = current_chunk[overlap_start:] + "\n\n" + para
+            else:
+                current_chunk += ("\n\n" if current_chunk else "") + para
+        
+        if current_chunk.strip():
+            chunk_id = hashlib.md5(
+                current_chunk.encode()
+            ).hexdigest()[:12]
+            chunks.append({
+                "id": chunk_id,
+                "text": current_chunk.strip(),
+                "index": chunk_index
+            })
+        
+        return chunks
+    
+    def index(self, documents: List[Dict[str, str]]) -> int:
+        """索引文档列表，返回索引的文档数量"""
+        total_chunks = 0
+        for doc in documents:
+            chunks = self.chunk_document(doc["content"])
+            for chunk in chunks:
+                # 向量化
+                embedding = self.embedding_model.encode(chunk["text"])
+                # 存储到向量数据库
+                self.vector_db.add(
+                    id=chunk["id"],
+                    vector=embedding,
+                    metadata={
+                        "text": chunk["text"],
+                        "source": doc.get("source", ""),
+                        "title": doc.get("title", "")
+                    }
+                )
+                total_chunks += 1
+        return total_chunks
+
+# 使用示例
+documents = [
+    {
+        "title": "公司员工手册",
+        "source": "hr_docs",
+        "content": "员工每年享有 15 天带薪年假...\n\n"
+                   "病假需要提供医院证明...\n\n"
+                   "加班补偿按 1.5 倍工资计算..."
+    },
+]
+# indexer = DocumentIndexer(embedding_model, vector_db)
+# count = indexer.index(documents)
+# print(f"索引完成，共 {count} 个文本块")`
+          }
+        ]
+      },
+      {
+        title: "3. Chunking 策略：RAG 成败的关键",
+        body: `文本分块（Chunking）是 RAG 系统中最影响效果的环节之一。分块策略直接决定了检索的精度和上下文的质量。
+
+**固定大小分块（Fixed-Size Chunking）**：最简单的方法。按字符数或 Token 数等长切分，块之间有少量重叠。优点是简单高效，缺点是可能在不恰当的位置切断句子或段落。
+
+**语义分块（Semantic Chunking）**：利用文本的语义结构来切分。先按段落、章节、列表等自然边界分割，再对过长的段落进行二次切分。优点是保留了语义完整性，缺点是实现更复杂。
+
+**递归字符分块（Recursive Character Splitting）**：LangChain 等框架使用的策略。先用大分隔符（如双换行）分割，如果块仍然太大，再用小分隔符（如单换行、句号、空格）递归分割。这在简单性和效果之间取得了很好的平衡。
+
+**关键参数选择**：Chunk Size 取决于 Embedding 模型的上下文窗口和目标任务的性质。对于问答任务，300-500 Token 通常足够；对于需要长篇上下文的摘要任务，可能需要 1000-2000 Token。Overlap 一般设置为 Chunk Size 的 10%-20%。`,
+        code: [
+          {
+            lang: "python",
+            code: `# 递归字符分块实现
+def recursive_split(text: str, chunk_size: int,
+                    overlap: int) -> List[str]:
+    """递归字符分块算法"""
+    if len(text) <= chunk_size:
+        return [text] if text.strip() else []
+    
+    # 按优先级尝试不同的分隔符
+    separators = ["\n\n", "\n", "。", "，", " ", ""]
+    
+    for sep in separators:
+        if sep == "":
+            # 最后手段：按字符硬切
+            chunks = []
+            start = 0
+            while start < len(text):
+                end = start + chunk_size
+                chunks.append(text[start:end])
+                start = end - overlap
+            return chunks
+        
+        parts = text.split(sep)
+        # 如果分割后仍有过长的块，对长块递归处理
+        result = []
+        current = ""
+        for part in parts:
+            part_with_sep = part + sep
+            if len(part_with_sep) > chunk_size:
+                # 长块：递归处理
+                if current.strip():
+                    result.append(current.strip())
+                result.extend(recursive_split(
+                    part_with_sep, chunk_size, overlap
+                ))
+                current = ""
+            elif len(current + part_with_sep) > chunk_size:
+                if current.strip():
+                    result.append(current.strip())
+                current = part_with_sep
+            else:
+                current += part_with_sep
+        
+        if current.strip():
+            result.append(current.strip())
+        
+        # 检查是否有效分割
+        if len(result) > 1:
+            return result
+    
+    return [text] if text.strip() else []
+
+# 测试
+text = """第一段内容。
+
+第二段，这里有很多信息需要讨论。
+
+第三段是非常长的内容，""" + "A" * 600 + """。
+
+第四段结尾。"""
+
+chunks = recursive_split(text, chunk_size=200, overlap=40)
+for i, chunk in enumerate(chunks):
+    print(f"Chunk {i+1} ({len(chunk)} chars): {chunk[:60]}...")`
+          }
+        ],
+        table: {
+          headers: ["分块策略", "实现难度", "语义完整性", "检索精度", "适用场景"],
+          rows: [
+            ["固定大小", "低", "差", "中", "快速原型验证"],
+            ["递归字符", "中", "中", "高", "通用 RAG 系统"],
+            ["语义分块", "高", "优", "高", "结构化文档（论文、法律文件）"],
+            ["基于文档结构", "高", "优", "极高", "有明确章节标记的文档"],
+            ["滑动窗口", "低", "中", "中", "流式数据处理"],
+          ]
+        },
+        warning: "分块陷阱：不要让一个文本块包含多个不相关的主题。例如，一个块里同时有员工年假政策和服务器配置信息，这会导致检索时引入大量无关噪声。"
+      },
+      {
+        title: "4. 向量检索与 Embedding 模型选择",
+        body: `Embedding 模型将文本映射为高维向量，使得语义相似的文本在向量空间中的距离也更近。选择合适的 Embedding 模型是 RAG 系统的核心决策。
+
+**评估 Embedding 模型的关键指标**：
+1. MTEB 分数（Massive Text Embedding Benchmark）：权威的 Embedding 模型评测榜单，涵盖分类、聚类、配对、重排序、检索、STS 等任务
+2. 多语言能力：如果你的应用场景涉及中文，必须选择对中文支持良好的模型
+3. 上下文长度：模型能处理的最大文本长度，决定了单个 Chunk 的最大尺寸
+4. 推理速度：影响 RAG 系统的延迟表现
+5. 向量维度：维度越高表达能力越强，但存储和计算成本也越高
+
+**主流 Embedding 模型对比**：OpenAI 的 text-embedding-3-large 性能最强但需要付费；开源模型如 BGE（BAAI General Embedding）在中文场景下表现优异，且可以本地部署；Cohere 的 Embedding 模型在多语言支持上有优势。`,
+        mermaid: `graph TD
+    A["用户查询"] --> B["向量化 Query"]
+    C["向量数据库"] --> D["相似度计算"]
+    B --> D
+    D --> E["Top-K 候选"]
+    E --> F["Cross-Encoder 重排序"]
+    F --> G["Final Top-K"]
+    G --> H["组装 Prompt"]
+    
+    style A fill:#e1f5fe
+    style G fill:#e8f5e9
+    style H fill:#fff3e0`,
+        list: [
+          "中文场景优先选择 BGE-m3 或 m3e 等中文优化模型",
+          "向量维度不必盲目追求高维——768 维通常已经足够",
+          "使用混合检索（BM25 + 向量）可以弥补纯向量检索的不足",
+          "Cross-Encoder 重排序能显著提升 Top-K 的精度，但会增加延迟",
+          "定期评估检索质量：人工标注 50-100 个问答对，计算检索命中率",
+        ]
+      },
+      {
+        title: "5. 完整的 RAG 查询 pipeline 实现",
+        body: `查询阶段是 RAG 系统与用户直接交互的环节，决定了用户的实际体验。一个生产级的查询 pipeline 需要考虑多个方面：查询理解、多路检索、结果融合、答案生成、引用标注。
+
+**查询理解（Query Understanding）**：用户的原始提问可能不够精确。通过查询改写（Query Rewriting）、查询扩展（Query Expansion）和意图识别，可以大幅提升检索质量。例如，用户问"年假怎么算"，系统可以改写为"员工带薪年假计算规则"进行检索。
+
+**多路检索（Multi-Path Retrieval）**：结合多种检索策略。向量检索擅长语义匹配，BM25 擅长关键词匹配，知识图谱擅长实体关系查询。将多路检索结果融合（如 Reciprocal Rank Fusion），效果通常优于任何单一策略。`,
+        code: [
+          {
+            lang: "python",
+            code: `# 完整 RAG 查询 Pipeline
+class RAGPipeline:
+    """生产级 RAG 查询管道"""
+    
+    def __init__(self, embedding_model, vector_db,
+                 llm, reranker=None, top_k=5):
+        self.embedding_model = embedding_model
+        self.vector_db = vector_db
+        self.llm = llm
+        self.reranker = reranker
+        self.top_k = top_k
+    
+    def rewrite_query(self, query: str) -> List[str]:
+        """查询改写：生成多个检索查询"""
+        # 实际场景可以用 LLM 来改写
+        rewrites = [query]  # 原始查询
+        # 同义词扩展
+        synonyms = {
+            "年假": ["带薪年假", "年休假", "休假天数"],
+            "报销": ["费用报销", "财务报销", "报销流程"],
+        }
+        for keyword, syns in synonyms.items():
+            if keyword in query:
+                for syn in syns:
+                    rewrites.append(query.replace(keyword, syn))
+        return rewrites[:3]  # 最多 3 个改写
+    
+    def retrieve(self, queries: List[str]) -> List[Dict]:
+        """多查询检索 + 去重 + 重排序"""
+        all_results = []
+        seen_ids = set()
+        
+        for q in queries:
+            query_vec = self.embedding_model.encode(q)
+            results = self.vector_db.search(
+                vector=query_vec, top_k=self.top_k
+            )
+            for r in results:
+                if r["id"] not in seen_ids:
+                    all_results.append(r)
+                    seen_ids.add(r["id"])
+        
+        # Cross-Encoder 重排序
+        if self.reranker and all_results:
+            scored = self.reranker.rank(
+                query=queries[0],
+                documents=[r["text"] for r in all_results]
+            )
+            all_results = [
+                {**all_results[i], "rerank_score": s}
+                for i, s in enumerate(scored)
+            ]
+            all_results.sort(
+                key=lambda x: x.get("rerank_score", 0), reverse=True
+            )
+        
+        return all_results[:self.top_k]
+    
+    def generate(self, query: str, contexts: List[Dict]) -> Dict:
+        """组装 Prompt 并调用 LLM 生成"""
+        context_text = "\n\n".join([
+            f"[来源 {i+1}: {ctx.get('source', '未知')}]\\n{ctx['text']}"
+            for i, ctx in enumerate(contexts)
+        ])
+        
+        prompt = f"""你是一个专业的知识助手。请根据以下参考资料回答问题。
+
+参考资料：
+{context_text}
+
+问题：{query}
+
+要求：
+1. 仅基于参考资料回答，不要编造信息
+2. 如果参考资料不足以回答问题，请如实说明
+3. 在回答中标注引用来源，如 [来源 1]
+4. 回答要简洁准确"""
+        
+        response = self.llm.generate(prompt)
+        return {
+            "answer": response,
+            "sources": [
+                {"text": c["text"][:100], "source": c.get("source", "")}
+                for c in contexts[:3]
+            ]
+        }
+    
+    def run(self, query: str) -> Dict:
+        """完整 pipeline 执行"""
+        queries = self.rewrite_query(query)
+        contexts = self.retrieve(queries)
+        return self.generate(query, contexts)
+
+# 使用示例
+# rag = RAGPipeline(embedding_model, vector_db, llm, reranker)
+# result = rag.run("年假有多少天？")
+# print(f"答案: {result['answer']}")
+# for src in result['sources']:
+#     print(f"来源: {src['source']}")`
+          }
+        ]
+      },
+      {
+        title: "6. RAG 系统的评估与优化",
+        body: `没有评估就没有优化。RAG 系统需要从多个维度进行量化评估，才能持续迭代改进。
+
+**评估框架 RAGAS**：RAG Assessment（RAGAS）是目前最流行的 RAG 评估框架，它从四个维度进行评估：
+1. 忠实度（Faithfulness）：生成的答案是否忠实于检索到的上下文，即是否基于参考资料而非模型自身知识
+2. 答案相关性（Answer Relevance）：答案是否直接回答了用户的问题
+3. 上下文精度（Context Precision）：检索到的上下文中有多少是真正相关的
+4. 上下文召回率（Context Recall）：检索到的上下文覆盖了多少应该被召回的信息
+
+**优化策略**：当评估结果不理想时，有针对性地优化——忠实度低说明模型在编造，需要加强 Prompt 约束和降低 temperature；答案相关性低可能需要改进查询改写；上下文精度低需要优化 Embedding 模型或引入重排序；上下文召回率低可能需要调整分块策略或增加检索数量。`,
+        code: [
+          {
+            lang: "python",
+            code: `# 简易 RAG 评估实现
+def evaluate_rag(test_cases: List[Dict], rag_pipeline) -> Dict:
+    """评估 RAG 系统的质量"""
+    results = {"faithfulness": [], "relevance": [],
+               "context_precision": [], "context_recall": []}
+    
+    for case in test_cases:
+        query = case["question"]
+        ground_truth = case["answer"]
+        relevant_docs = case.get("relevant_docs", [])
+        
+        result = rag_pipeline.run(query)
+        answer = result["answer"]
+        contexts = [c["text"] for c in result.get("sources", [])]
+        
+        # 简易评估（实际应使用 LLM-as-judge 或人工标注）
+        # 忠实度：答案中的关键事实是否都在上下文中
+        facts_in_context = 0
+        total_facts = 0
+        for fact in extract_key_facts(answer):
+            total_facts += 1
+            if any(fact.lower() in ctx.lower() for ctx in contexts):
+                facts_in_context += 1
+        faithfulness = facts_in_context / max(total_facts, 1)
+        
+        # 答案相关性：答案与标准答案的关键词重叠
+        answer_words = set(extract_keywords(answer))
+        truth_words = set(extract_keywords(ground_truth))
+        relevance = len(answer_words & truth_words) / max(len(truth_words), 1)
+        
+        results["faithfulness"].append(faithfulness)
+        results["relevance"].append(relevance)
+    
+    return {
+        k: sum(v) / max(len(v), 1) for k, v in results.items()
+    }
+
+# 测试集示例
+test_cases = [
+    {
+        "question": "年假有多少天？",
+        "answer": "员工每年享有 15 天带薪年假",
+        "relevant_docs": ["hr_handbook_section_3.txt"]
+    },
+]
+# scores = evaluate_rag(test_cases, rag_pipeline)
+# print(f"忠实度: {scores['faithfulness']:.2%}")
+# print(f"相关性: {scores['relevance']:.2%}")`
+          }
+        ],
+        table: {
+          headers: ["评估指标", "衡量什么", "低分原因", "优化方向"],
+          rows: [
+            ["忠实度", "答案是否基于检索到的上下文", "模型编造信息、temperature 过高", "加强 Prompt 约束、降低 temperature"],
+            ["答案相关性", "答案是否直接回答问题", "查询理解不准、检索不精准", "查询改写、意图识别"],
+            ["上下文精度", "检索结果中有多少是相关的", "Embedding 模型质量差、Chunking 策略不佳", "更换模型、优化分块、引入重排序"],
+            ["上下文召回率", "应该召回的信息有多少被召回了", "检索数量太少、向量检索盲区", "增加 Top-K、混合检索"],
+          ]
+        }
+      },
+      {
+        title: "7. RAG 的进阶模式与未来趋势",
+        body: `基础 RAG 已经能解决很多问题，但在复杂场景下，需要更高级的 RAG 变体。
+
+**Agentic RAG**：将 RAG 嵌入到 Agent 的工作流中。Agent 可以根据需要自主决定何时检索、检索什么、以及如何处理检索结果。相比固定流程的 RAG，Agentic RAG 更灵活但也更复杂。
+
+**Graph RAG**：结合知识图谱的 RAG。将文档中的实体和关系抽取为知识图谱，检索时不仅考虑文本相似度，还考虑实体间的关系路径。这在需要多跳推理（Multi-hop Reasoning）的场景中特别有用，比如"张总的下属王经理负责哪个项目？"
+
+**Self-RAG**：模型在生成过程中自主评估是否需要检索、检索质量如何、以及生成的内容是否准确。这引入了反思机制，让模型能够自我纠正。
+
+**多模态 RAG**：不仅检索文本，还检索图像、表格、图表等多模态信息，让 LLM 的回答更加丰富和准确。`,
+        mermaid: `graph LR
+    A["基础 RAG"] --> B["+ Agent 自主规划"]
+    A --> C["+ 知识图谱"]
+    A --> D["+ 自我反思"]
+    A --> E["+ 多模态"]
+    B --> F["Agentic RAG"]
+    C --> G["Graph RAG"]
+    D --> H["Self-RAG"]
+    E --> I["多模态 RAG"]
+    
+    style A fill:#bbdefb
+    style F fill:#c8e6c9
+    style G fill:#c8e6c9
+    style H fill:#c8e6c9
+    style I fill:#c8e6c9`,
+        warning: "架构选择建议：从基础 RAG 开始，先评估效果，再按需升级到高级模式。不要一开始就上 Agentic RAG 或 Graph RAG——复杂度会显著增加开发和维护成本。",
+        list: [
+          "生产环境建议：基础 RAG + Cross-Encoder 重排序 + 查询改写，性价比最高",
+          "多跳推理场景优先考虑 Graph RAG，而非单纯增加 Top-K",
+          "Self-RAG 的延迟较高，适合离线场景或异步回答，不适合实时对话",
+          "定期更新知识库：文档过期是 RAG 系统最大的隐性风险",
+          "监控检索延迟：端到端延迟超过 3 秒会显著影响用户体验",
+        ]
+      },
+    ],
   },
   // AI Agent
   {
