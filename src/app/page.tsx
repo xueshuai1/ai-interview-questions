@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Footer from "@/components/Footer";
 
 const features = [
   {
@@ -60,6 +61,7 @@ export default function Home() {
   const navLinks = [
     { label: "知识库", href: "/knowledge" },
     { label: "工具集", href: "/tools" },
+    { label: "博客", href: "/blog" },
     { label: "关于", href: "/about" },
   ];
 
@@ -213,6 +215,65 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Blog Preview Section */}
+      <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-12">
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold mb-2">
+                📝 最新<span className="text-gradient">博客文章</span>
+              </h2>
+              <p className="text-slate-400">深度解读 AI 前沿动态与实战经验</p>
+            </div>
+            <Link href="/blog" className="text-brand-400 hover:text-brand-300 font-medium hidden sm:block">
+              查看全部 →
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                icon: "🔮",
+                category: "行业洞察",
+                title: "2026 年 AI 领域十大趋势预测",
+                summary: "从多模态大模型到 AI Agent 普及，盘点今年最值得关注的技术方向",
+                date: "2026-04-10",
+              },
+              {
+                icon: "📄",
+                category: "论文解读",
+                title: "GPT-5 技术报告深度解读",
+                summary: "OpenAI 最新发布的 GPT-5 在多模态推理方面实现了显著突破",
+                date: "2026-04-08",
+              },
+              {
+                icon: "🤖",
+                category: "实战经验",
+                title: "AI Agent 在软件开发中的最佳实践",
+                summary: "从代码审查到自动修复，AI Agent 正在重塑软件开发流程",
+                date: "2026-04-05",
+              },
+            ].map((post) => (
+              <Link
+                key={post.title}
+                href="/blog"
+                className="group p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 cursor-pointer"
+              >
+                <div className="text-3xl mb-4">{post.icon}</div>
+                <span className="inline-block px-3 py-1 bg-brand-500/10 text-brand-300 rounded-full text-xs font-medium mb-3">
+                  {post.category}
+                </span>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-brand-300 transition-colors leading-snug">
+                  {post.title}
+                </h3>
+                <p className="text-slate-400 text-sm line-clamp-2 mb-3">{post.summary}</p>
+                <span className="text-xs text-slate-500">{post.date}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Latest News Section */}
       <section id="news" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
         <div className="max-w-5xl mx-auto">
@@ -266,42 +327,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer id="about" className="py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">🍪</span>
-                <span className="text-xl font-bold text-gradient">AI Master</span>
-              </div>
-              <p className="text-slate-400 max-w-md leading-relaxed">
-                AI Master 致力于成为最优质的中文 AI 学习平台，让每个人都能掌握人工智能技术。
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">学习资源</h4>
-              <ul className="space-y-2 text-slate-400">
-                <li><Link href="#" className="hover:text-white transition-colors">机器学习基础</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">深度学习实战</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">NLP 教程</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">计算机视觉</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">关于</h4>
-              <ul className="space-y-2 text-slate-400">
-                <li><Link href="#" className="hover:text-white transition-colors">关于我们</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">联系方式</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">隐私政策</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-white/5 text-center text-slate-500 text-sm">
-            © 2026 AI Master. All rights reserved. Built with ❤️ and AI.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

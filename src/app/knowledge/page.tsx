@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import { articles, categories } from "@/data/knowledge";
 import ArticleCard from "@/components/ArticleCard";
+import Footer from "@/components/Footer";
 
 export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -185,12 +186,7 @@ export default function KnowledgePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto text-center text-slate-500 text-sm">
-          © 2026 AI Master. All rights reserved. Built with ❤️ and AI.
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

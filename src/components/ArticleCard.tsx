@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Article } from "@/data/knowledge";
 
 const levelColors: Record<string, string> = {
@@ -8,7 +9,10 @@ const levelColors: Record<string, string> = {
 
 export default function ArticleCard({ article }: { article: Article }) {
   return (
-    <div className="group p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 cursor-pointer flex flex-col">
+    <Link
+      href={`/article/${article.id}`}
+      className="group block p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 flex flex-col"
+    >
       {/* Header */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <h3 className="text-lg font-semibold group-hover:text-brand-300 transition-colors leading-snug line-clamp-2">
@@ -43,6 +47,6 @@ export default function ArticleCard({ article }: { article: Article }) {
         <span>{article.date}</span>
         <span>📖 {article.readTime}</span>
       </div>
-    </div>
+    </Link>
   );
 }

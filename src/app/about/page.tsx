@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Footer from "@/components/Footer";
 
 const techStack = [
   { name: "Next.js 14", icon: "▲", desc: "React 全栈框架" },
@@ -214,12 +215,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 px-4 sm:px-6 lg:px-8 border-t border-white/5">
-        <div className="max-w-7xl mx-auto text-center text-slate-500 text-sm">
-          © 2026 AI Master. All rights reserved. Built with ❤️ and AI.
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }
