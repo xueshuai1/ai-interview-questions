@@ -32,7 +32,7 @@ min_G max_D V(D, G) = E_{x~p_data}[log D(x)] + E_{z~p_z}[log(1 - D(G(z)))]
     F -.->|训练信号| B
     F -.->|训练信号| E`,
       tip: `理解 GAN 最好的方式是从直觉出发：想象一个假币制造者（生成器）和一个验钞员（判别器）。假币越来越真，验钞员越来越精，最终假币几乎无法区分。`,
-      warning: `GAN 训练极不稳定！生成器和判别器必须保持“势均力敌”。如果判别器太强，生成器的梯度消失（log(1-D(G(z))) 饱和）；如果判别器太弱，生成器得不到有效反馈。`,
+      warning: `GAN 训练极不稳定！生成器和判别器必须保持"势均力敌"。如果判别器太强，生成器的梯度消失（log(1-D(G(z))) 饱和）；如果判别器太弱，生成器得不到有效反馈。`,
     },
     {
       title: "2. 原始 GAN 的理论推导与训练困境",
@@ -164,7 +164,7 @@ class DCGANGenerator(nn.Module):
       title: "4. WGAN：Wasserstein 距离的革命",
       body: `2017 年 Arjovsky 等人提出的 WGAN（Wasserstein GAN）从理论上解决了原始 GAN 训练不稳定的问题。核心思想是用 Wasserstein 距离（也称 Earth Mover 距离，推土机距离）替代 JS 散度。
 
-Wasserstein 距离的定义：W(p_r, p_g) = inf_{γ∈Π(p_r,p_g)} E_{(x,y)~γ}[||x-y||]
+Wasserstein 距离的定义：W(p_r, p_g) = inf_{gamma∈Π(p_r,p_g)} E_{(x,y)~gamma}[||x-y||]
 
 直观理解：把 p_r 分布的"土"推到 p_g 分布的位置，最小的"工作量"就是 Wasserstein 距离。即使两个分布不重叠，Wasserstein 距离仍然能提供有意义的梯度——这正是 JS 散度做不到的。
 
@@ -221,7 +221,7 @@ critic_total_loss = critic_loss_real + critic_loss_fake + 10 * gp`,
           ["Loss含义", "无意义", "≈ Wasserstein距离", "≈ Wasserstein距离"],
         ],
       },
-      warning: "WGAN-GP 的梯度惩罚系数 λ 很关键，通常设为 10。太小则 Lipschitz 约束不足，太大则训练变慢。权重裁剪版本（原始 WGAN）的裁剪值通常在 ±0.01 之间。",
+      warning: "WGAN-GP 的梯度惩罚系数 lambda 很关键，通常设为 10。太小则 Lipschitz 约束不足，太大则训练变慢。权重裁剪版本（原始 WGAN）的裁剪值通常在 ±0.01 之间。",
     },
     {
       title: "5. StyleGAN：高质量人脸合成的王者",
@@ -288,7 +288,7 @@ L_cyc = E[||G_BA(G_AB(x)) - x||] + E[||G_AB(G_BA(y)) - y||]
 
 其中 G_AB 是从域 A 到域 B 的生成器，G_BA 是从域 B 到域 A 的生成器。循环一致性要求：A→B→A 应该回到原始输入 A，B→A→B 应该回到原始输入 B。
 
-总损失 = 对抗损失（两个方向）+ λ·循环一致性损失，通常 λ=10。`,
+总损失 = 对抗损失（两个方向）+ lambda·循环一致性损失，通常 lambda=10。`,
       code: [
         {
           lang: "python",
@@ -350,7 +350,7 @@ cycle_loss = F.l1_loss(recovered_A, real_A) * lambda_A`,
 
 FID（Fréchet Inception Distance）是目前最常用的评估指标。它假设真实图像和生成图像在 Inception-V3 特征空间中都服从高斯分布，然后计算两个高斯分布之间的 Fréchet 距离：
 
-FID = ||μ_r - μ_g||² + Tr(Σ_r + Σ_g - 2(Σ_r · Σ_g)^{1/2})
+FID = ||μ_r - μ_g||^2 + Tr(sum_r + sum_g - 2(sum_r · sum_g)^{1/2})
 
 FID 越小越好，0 表示完美匹配。StyleGAN2 在 FFHQ 数据集上的 FID 约为 2.84，远超原始 GAN。
 
@@ -386,7 +386,7 @@ mu_fake, sigma_fake = np.random.randn(2048), np.eye(2048) * 0.15
 print(f"FID: {calculate_fid(mu_real, sigma_real, mu_fake, sigma_fake):.2f}")`,
         },
       ],
-      tip: `评估 GAN 时，FID 比 IS 更可靠。IS 容易被“欺骗”（生成器只需学会产生多样但模糊的图像），而 FID 直接比较真实和生成特征的分布差异。`,
+      tip: `评估 GAN 时，FID 比 IS 更可靠。IS 容易被"欺骗"（生成器只需学会产生多样但模糊的图像），而 FID 直接比较真实和生成特征的分布差异。`,
       warning: "GAN 生成的内容可能被用于 Deepfake 等不当用途。使用 GAN 技术时必须遵守伦理和法律规范，特别是涉及人脸生成的场景。",
     },
   ],
