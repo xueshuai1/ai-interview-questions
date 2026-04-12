@@ -11,1164 +11,1372 @@ export const article: Article = {
     level: "入门",
     content: [
       {
-        title: "1. 分布式表示的起源",
-        body: `在词嵌入出现之前，自然语言处理中最主流的词汇表示方式是 one-hot 编码。假设词表大小为 V，每个词被表示为一个 V 维向量，仅有一个位置为 1，其余全为 0。例如，词表为 ["cat", "dog", "fish"] 时，"cat" = [1,0,0]，"dog" = [0,1,0]。
+        title: "1. 分布式表示思想：从 One-Hot 到 Dense Vector",
+        body: `词嵌入的核心动机来源于 one-hot 编码的致命缺陷。在 one-hot 表示中，词汇表大小为 V 时，每个词是一个 V 维向量，仅一个位置为 1，其余全为 0。这带来三个严重问题：
 
-one-hot 编码有两个致命缺陷。第一是维度灾难：现代 NLP 任务的词表通常超过 10 万，导致向量极度稀疏，计算效率极低。第二是语义鸿沟：任意两个不同词之间的余弦相似度都是 0——"猫"和"狗"的语义相近性完全无法表达。
+第一，维度灾难——英语词汇量约 100 万，中文更多，one-hot 向量极度稀疏，存储和计算效率极低。第二，语义真空——"猫"和"狗"的 one-hot 向量正交（内积为 0），模型无法捕捉它们的语义相似性。第三，泛化无能——模型在训练集上见过 "cat"，遇到测试集中的 "kitten" 时完全无法利用已有知识。
 
-1986 年，Hinton 首次提出了分布式表示（Distributed Representation）的概念：用一个低维、稠密的实值向量来表示每个词，向量中的每个维度都编码了某种语义特征。这意味着"猫"和"狗"的向量会在某些维度上接近，而"猫"和"汽车"则相距较远。
+**分布式假设（Distributional Hypothesis）** 由 Firth（1957）提出："You shall know a word by the company it keeps"——一个词的含义由其上下文决定。Mikolov 等人将其数学化：将每个词映射到一个低维稠密向量空间（通常 50-300 维），使得语义相似的词在空间中距离更近。
 
-2013 年，Mikolov 等人发表的 Word2Vec 将这一想法推向了实用化。Word2Vec 的核心洞见是：一个词的含义由它的上下文决定（Distributional Hypothesis）。通过设计一个简单的神经网络任务来预测上下文，训练过程中学到的隐藏层权重就是高质量的词向量。`,
+形式化地，词嵌入是一个映射函数 E: V → Rᵈ，其中 d ≪ V。这个映射通过学习得到一个嵌入矩阵 W ∈ R^(V×d)，词 w_i 的向量就是 W 的第 i 行。训练的目标是调整 W，使得共现频繁的词对具有相似的向量表示。`,
         code: [
           {
             lang: "python",
             code: `import numpy as np
 
-def one_hot_encode(word, vocab):
-    """将词转换为 one-hot 编码"""
-    vec = np.zeros(len(vocab))
-    vec[vocab.index(word)] = 1.0
+# One-Hot 的问题：语义相似性完全缺失
+vocab = ["cat", "dog", "kitten", "car", "bicycle"]
+word2idx = {w: i for i, w in enumerate(vocab)}
+V = len(vocab)
+
+def one_hot(word):
+    vec = np.zeros(V)
+    vec[word2idx[word]] = 1
     return vec
 
-vocab = ["cat", "dog", "fish", "bird", "car", "bike"]
-cat_vec = one_hot_encode("cat", vocab)
-dog_vec = one_hot_encode("dog", vocab)
+cat_vec = one_hot("cat")
+dog_vec = one_hot("dog")
+car_vec = one_hot("car")
 
-print(f"cat  one-hot: {cat_vec}")
-print(f"dog  one-hot: {dog_vec}")
-print(f"余弦相似度: {np.dot(cat_vec, dog_vec):.4f}  (应为 0)")`,
+print("=== One-Hot 向量 ===")
+print(f"cat:    {cat_vec}")
+print(f"dog:    {dog_vec}")
+print(f"car:    {car_vec}")
+print(f"cat·dog (余弦): {np.dot(cat_vec, dog_vec):.4f}")
+print(f"cat·car (余弦): {np.dot(cat_vec, car_vec):.4f}")
+# 所有词对的内积都是 0！模型无法区分语义相似性`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# 分布式表示：词嵌入矩阵
+np.random.seed(42)
+d = 50  # 嵌入维度
 
-def cosine_similarity(a, b):
-    """计算两个向量的余弦相似度"""
-    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+# 模拟训练好的词嵌入矩阵
+W = np.random.randn(V, d) * 0.1
 
-# 模拟训练好的词向量（稠密、低维）
-embeddings = {
-    "cat":    np.array([0.8,  0.3, -0.2,  0.5]),
-    "dog":    np.array([0.7,  0.4, -0.1,  0.6]),
-    "fish":   np.array([0.3,  0.6,  0.8,  0.1]),
-    "car":    np.array([-0.5, -0.3,  0.1, -0.7]),
-    "bike":   np.array([-0.4, -0.2,  0.2, -0.6]),
-}
+def cosine_sim(v1, v2):
+    return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
-print("动物间相似度:")
-print(f"  cat-dog: {cosine_similarity(embeddings['cat'], embeddings['dog']):.4f}")
-print(f"  cat-fish: {cosine_similarity(embeddings['cat'], embeddings['fish']):.4f}")
-print("交通工具间相似度:")
-print(f"  car-bike: {cosine_similarity(embeddings['car'], embeddings['bike']):.4f}")
-print("跨类别相似度:")
-print(f"  cat-car: {cosine_similarity(embeddings['cat'], embeddings['car']):.4f}")`,
+cat_emb = W[word2idx["cat"]]
+dog_emb = W[word2idx["dog"]]
+car_emb = W[word2idx["car"]]
+
+print("=== 词嵌入向量 (前5维) ===")
+print(f"cat: {cat_emb[:5]}")
+print(f"dog: {dog_emb[:5]}")
+print(f"car: {car_emb[:5]}")
+
+# 假设训练后，语义相似的词向量更近
+# 这里用人工调整来演示
+W[word2idx["dog"]] = cat_emb + np.random.randn(d) * 0.05
+W[word2idx["kitten"]] = cat_emb + np.random.randn(d) * 0.08
+
+dog_emb = W[word2idx["dog"]]
+kitten_emb = W[word2idx["kitten"]]
+
+print(f"\\ncat·dog 相似度: {cosine_sim(cat_emb, dog_emb):.4f}")
+print(f"cat·kitten 相似度: {cosine_sim(cat_emb, kitten_emb):.4f}")
+print(f"cat·car 相似度: {cosine_sim(cat_emb, car_emb):.4f}")`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# 可视化：词嵌入空间的二维投影
+import numpy as np
 
-# 演示分布式表示如何编码语义特征
-# 假设四个维度分别编码: [是否动物, 是否家养, 是否水生, 是否交通工具]
-semantic_dims = ["动物", "家养", "水生", "交通工具"]
+# 模拟一个训练好的 300 维词嵌入空间
+np.random.seed(42)
+words = ["king", "queen", "man", "woman", "prince", "princess",
+         "cat", "dog", "kitten", "puppy", "car", "truck",
+         "bicycle", "motorcycle", "apple", "banana"]
+embeddings = np.random.randn(len(words), 300)
 
-conceptual = {
-    "cat":  np.array([ 1.0,  1.0, -0.5, -1.0]),
-    "dog":  np.array([ 1.0,  1.0, -0.8, -1.0]),
-    "fish": np.array([ 1.0,  0.3,  1.0, -1.0]),
-    "bird": np.array([ 1.0,  0.5, -0.5, -0.8]),
-    "car":  np.array([-1.0, -1.0, -1.0,  1.0]),
-    "bike": np.array([-1.0, -0.8, -1.0,  0.9]),
-}
+# 模拟训练后的语义聚类（手动调整）
+animal_cluster = embeddings[6:10].mean(axis=0)
+royalty_cluster = embeddings[0:6].mean(axis=0)
+vehicle_cluster = embeddings[10:14].mean(axis=0)
 
-print("语义维度解释:")
-for word, vec in conceptual.items():
-    features = ", ".join(f"{d}={v:+.1f}" for d, v in zip(semantic_dims, vec))
-    print(f"  {word:5s}: {features}")`,
+for i in range(6, 10):
+    embeddings[i] = 0.7 * embeddings[i] + 0.3 * animal_cluster
+for i in range(6):
+    embeddings[i] = 0.7 * embeddings[i] + 0.3 * royalty_cluster
+for i in range(10, 14):
+    embeddings[i] = 0.7 * embeddings[i] + 0.3 * vehicle_cluster
+
+# PCA 降维到 2D
+from sklearn.decomposition import PCA
+pca = PCA(n_components=2)
+embeddings_2d = pca.fit_transform(embeddings)
+
+print("=== 词嵌入 2D 投影 ===")
+for word, (x, y) in zip(words, embeddings_2d):
+    print(f"  {word:<12} ({x:6.2f}, {y:6.2f})")
+
+# 验证类比关系: king - man + woman ≈ queen
+king = embeddings[0]; man = embeddings[2]
+woman = embeddings[3]; queen = embeddings[1]
+result = king - man + woman
+sim = np.dot(result, queen) / (np.linalg.norm(result) * np.linalg.norm(queen))
+print(f"\\nking - man + woman ≈ queen 相似度: {sim:.4f}")`,
           },
         ],
         table: {
-          headers: ["表示方式", "维度", "稀疏性", "语义相似性", "代表方法"],
+          headers: ["表示方法", "维度", "稀疏性", "语义相似性", "泛化能力"],
           rows: [
-            ["One-hot", "V（词表大小）", "✅ 极度稀疏", "❌ 无法表达", "传统 NLP"],
-            ["TF-IDF", "V", "✅ 稀疏", "⚠️ 文档级", "信息检索"],
-            ["分布式表示", "d << V (50~500)", "✅ 稠密", "✅ 词级语义", "Word2Vec/GloVe"],
+            ["One-Hot", "V (词汇表大小)", "极度稀疏 (1/V)", "❌ 所有词正交", "❌ 无"],
+            ["TF-IDF", "V", "稀疏", "⚠️ 基于共现统计", "⚠️ 弱"],
+            ["Word2Vec", "50-300", "稠密", "✅ 语义相似词靠近", "✅ 强"],
+            ["GloVe", "50-300", "稠密", "✅ 全局统计 + 局部上下文", "✅ 强"],
+            ["BERT", "768-1024", "稠密+上下文", "✅ 动态上下文感知", "✅✅ 最强"],
           ],
         },
         mermaid: `graph LR
-    A["词表 V=100,000"] -->|one-hot| B["100,000 维稀疏向量"]
-    A -->|分布式表示| C["300 维稠密向量"]
-    B --> D["余弦相似度 = 0"]
-    C --> E["余弦相似度 ≈ 语义相似度"]
-    E --> F["猫 ≈ 狗 > 汽车"]
-    style B fill:#fdd
-    style C fill:#dfd
-    style E fill:#dfd`,
-        tip: "分布式表示的关键洞察：不要把每个词当作孤立的符号，而是看作语义空间中的一个点。空间中距离近的点，含义也相近。",
-        warning: "词嵌入的维度不是越大越好。300 维通常是性价比最高的选择——过小无法捕获足够语义，过大则容易过拟合并浪费计算资源。",
+    A["One-Hot"] -->|"语义真空\n维度灾难"| B["分布式表示"]
+    B -->|"局部上下文窗口"| C["Word2Vec"]
+    B -->|"全局共现矩阵"| D["GloVe"]
+    B -->|"子词信息"| E["FastText"]
+    C --> F["词嵌入矩阵\nW ∈ R^(V×d)"]
+    D --> F
+    E --> F
+    F --> G["语义类比: king - man + woman ≈ queen"]`,
+        tip: "学习建议：不要一上来就用 Word2Vec，先手动用 one-hot 计算几个词对的内积，深刻体会语义真空的问题，再理解分布式表示为什么有效。",
+        warning: "词嵌入训练需要大量语料。小数据集（< 100 万词）上训练的嵌入质量很差，建议使用预训练的嵌入矩阵（如 GloVe 42B、Common Crawl）。",
       },
       {
-        title: "2. 语言模型与神经网络",
-        body: `语言模型的核心任务是估计一个词序列的概率：P(w₁, w₂, ..., wₙ)。根据链式法则，这可以分解为条件概率的连乘：P(w₁, w₂, ..., wₙ) = Π P(wᵢ | w₁, ..., wᵢ₋₁)。
+        title: "2. CBOW 模型：用上下文预测中心词",
+        body: `CBOW（Continuous Bag-of-Words）是 Word2Vec 的第一个模型，其核心思想极其直观：给定一个词的上下文（周围的词），预测这个中心词是什么。
 
-传统的 N-gram 语言模型用前 N-1 个词预测下一个词。但 N-gram 面临严重的数据稀疏问题：随着 N 增大，可能的 N-gram 组合呈指数增长，绝大多数组合在训练数据中从未出现过。平滑技术（如 Kneser-Ney）只能部分缓解。
+**模型架构：**
+CBOW 是一个浅层神经网络，包含三层：输入层、投影层（隐藏层）和输出层。
 
-2003 年，Bengio 等人提出了划时代的神经网络语言模型（Neural Probabilistic Language Model）。他们的核心思想是：先为每个词学习一个低维稠密向量（即词嵌入），然后用这些向量作为前馈神经网络的输入来预测下一个词。
+输入层：将上下文窗口（大小为 2C，即左右各 C 个词）中的每个词通过嵌入矩阵 W 映射为 d 维向量。假设上下文词为 w_{t-C}, ..., w_{t-1}, w_{t+1}, ..., w_{t+C}，它们的嵌入向量分别为 v_{w_{t-C}}, ..., v_{w_{t+C}}。
 
-具体流程：(1) 将上下文词 wᵢ₋ₙ₊₁...wᵢ₋₁ 映射为稠密向量 C(w)；(2) 将这些向量拼接后输入隐藏层 h = tanh(b + H·x)；(3) 通过输出层计算词表上的概率分布 P(wᵢ | context) = softmax(b + U·x + W·h)。
+投影层：将上下文所有词的嵌入向量求和（或平均），得到一个 d 维的上下文表示向量 h = (1/2C) Σ v_{w_j}。注意这里是逐元素相加，不是拼接——这体现了 CBOW 的"词袋"假设：上下文中词的顺序不重要。
 
-这个模型的关键贡献在于：词嵌入 C 和语言模型参数是联合训练的。词向量不是预先给定的，而是在语言建模任务中自动学习得到的。这也意味着，词嵌入的质量直接受益于语言模型训练数据的规模。`,
-        code: [
-          {
-            lang: "python",
-            code: `import numpy as np
+输出层：通过 softmax 函数计算词汇表中每个词作为中心词的概率：P(w_t | context) = exp(u_{w_t}^T h) / Σ exp(u_{w_i}^T h)，其中 u_{w_i} 是输出嵌入向量。
 
-class SimpleNgramModel:
-    """简单的 N-gram 语言模型（基于计数）"""
-
-    def __init__(self, n=3):
-        self.n = n
-        self.counts = {}  # (context) -> {next_word: count}
-        self.context_counts = {}  # (context) -> total
-
-    def train(self, sentences):
-        for sent in sentences:
-            tokens = ["<BOS>"] * (self.n - 1) + sent + ["<EOS>"]
-            for i in range(self.n - 1, len(tokens)):
-                context = tuple(tokens[i - self.n + 1:i])
-                word = tokens[i]
-                self.counts.setdefault(context, {})
-                self.counts[context][word] = self.counts[context].get(word, 0) + 1
-                self.context_counts[context] = self.context_counts.get(context, 0) + 1
-
-    def predict(self, context):
-        """返回下一个词的概率分布"""
-        counts = self.counts.get(context, {})
-        total = self.context_counts.get(context, 0)
-        if total == 0:
-            return {}
-        return {w: c / total for w, c in counts.items()}
-
-# 训练
-sentences = [
-    ["I", "love", "natural", "language", "processing"],
-    ["I", "love", "machine", "learning"],
-    ["I", "like", "natural", "language", "processing"],
-]
-model = SimpleNgramModel(n=3)
-model.train(sentences)
-print("P(w | 'I love'):", model.predict(("I", "love")))`,
-          },
-          {
-            lang: "python",
-            code: `import numpy as np
-
-class BengioNeuralLM:
-    """简化的 Bengio 2003 神经网络语言模型"""
-
-    def __init__(self, vocab_size, context_len, embed_dim, hidden_dim):
-        self.vocab_size = vocab_size
-        self.context_len = context_len
-        self.embed_dim = embed_dim
-        self.hidden_dim = hidden_dim
-
-        # 词嵌入矩阵 C: V × d
-        self.C = np.random.randn(vocab_size, embed_dim) * 0.01
-        # 隐藏层: H (d*n → h) + 偏置 b
-        self.H = np.random.randn(context_len * embed_dim, hidden_dim) * 0.01
-        self.b = np.zeros(hidden_dim)
-        # 输出层: U (d*n → V) + W (h → V) + 偏置
-        self.U = np.random.randn(context_len * embed_dim, vocab_size) * 0.01
-        self.W = np.random.randn(hidden_dim, vocab_size) * 0.01
-
-    def forward(self, context_indices):
-        """前向传播，返回 logits"""
-        # 获取上下文词的嵌入
-        x = self.C[context_indices].flatten()  # (context_len * embed_dim,)
-        h = np.tanh(self.b + self.H.T @ x)     # (hidden_dim,)
-        logits = self.U.T @ x + self.W.T @ h   # (vocab_size,)
-        return logits, x, h
-
-    def predict_proba(self, context_indices):
-        """返回下一个词的概率分布"""
-        logits, _, _ = self.forward(context_indices)
-        exp_logits = np.exp(logits - np.max(logits))
-        return exp_logits / exp_logits.sum()
-
-model = BengioNeuralLM(vocab_size=100, context_len=2, embed_dim=8, hidden_dim=16)
-context = np.array([5, 12])  # 两个上下文词的索引
-probs = model.predict_proba(context)
-top5 = np.argsort(probs)[::-1][:5]
-for idx in top5:
-    print(f"  词 {idx}: P = {probs[idx]:.6f}")`,
-          },
-          {
-            lang: "python",
-            code: `import numpy as np
-
-def softmax(x):
-    """数值稳定的 softmax"""
-    e_x = np.exp(x - np.max(x))
-    return e_x / e_x.sum()
-
-def cross_entropy_loss(probs, target_idx):
-    """交叉熵损失"""
-    return -np.log(probs[target_idx] + 1e-10)
-
-# 演示：N-gram 稀疏性 vs 神经网络泛化
-def demonstrate_sparsity():
-    """展示 N-gram 模型的稀疏性问题"""
-    vocab_size = 10000
-    n = 5
-    possible_ngrams = vocab_size ** n  # 10^20
-    print(f"5-gram 可能组合数: {possible_ngrams:.2e}")
-    print(f"典型训练集规模: ~10^9 tokens")
-    print(f"覆盖率: {10**9 / possible_ngrams:.2e} (几乎为零)")
-
-demonstrate_sparsity()
-
-# 神经网络的泛化优势
-print("\\n神经网络优势:")
-print("- 词嵌入: 相似词共享表示，隐式泛化")
-print("- 隐藏层: 学习非线性组合模式")
-print("- 参数共享: O(V·d + d·n·h + h·V) << O(Vⁿ)")`,
-          },
-        ],
-        table: {
-          headers: ["模型类型", "泛化能力", "参数量", "数据稀疏问题", "词嵌入"],
-          rows: [
-            ["N-gram", "❌ 仅匹配", "O(Vᴺ)", "❌ 严重", "无"],
-            ["Bengio NPLM", "✅ 隐式泛化", "O(V·d + d·h + h·V)", "✅ 缓解", "联合学习"],
-            ["Word2Vec", "✅ 强泛化", "O(V·d)", "✅ 很好", "核心目标"],
-          ],
-        },
-        mermaid: `graph TB
-    A["上下文词 w₁, w₂, ..., wₙ₋₁"] --> B["词嵌入矩阵 C"]
-    B --> C["拼接: x = [C(w₁); ...; C(wₙ₋₁)]"]
-    C --> D["隐藏层: h = tanh(b + Hx)"]
-    C --> E["直接映射: Ux"]
-    D --> F["Wh"]
-    E --> G["Ux + Wh + b"]
-    F --> G
-    G --> H["Softmax"]
-    H --> I["P(wₙ | context)"]
-    style B fill:#bbf
-    style H fill:#bfb`,
-        tip: "Bengio 2003 论文是深度学习在 NLP 领域的开山之作。它第一次证明了词嵌入和语言模型可以联合训练，这一思想直接启发了后来的 Word2Vec。",
-        warning: "Bengio 模型的计算瓶颈在 Softmax 层：输出层矩阵大小为 V × h，当 V = 100,000 时，每次前向传播需要数百万次乘法运算。这也是后来 Word2Vec 要引入负采样和层次 Softmax 的原因。",
-      },
-      {
-        title: "3. CBOW 模型",
-        body: `CBOW（Continuous Bag of Words）是 Word2Vec 的两个核心架构之一。它的任务非常简单：给定一个词的上下文（周围的词），预测这个词本身。
-
-具体来说，对于中心词 wₜ 和上下文窗口 [wₜ₋₂, wₜ₋₁, wₜ₊₁, wₜ₊₂]，CBOW 将上下文词的词向量取平均作为输入：x = (1/4)·[v(wₜ₋₂) + v(wₜ₋₁) + v(wₜ₊₁) + v(wₜ₊₂)]，然后通过 softmax 层预测中心词 wₜ 的概率。
-
-数学上，CBOW 的目标函数是最大化训练语料中所有位置的条件对数概率之和：J = Σₜ log P(wₜ | wₜ₋c, ..., wₜ₊c)，其中 c 是上下文窗口大小。
-
-CBOW 的核心架构包含两个矩阵：输入矩阵 Wᵢₙ（V × d），每行对应一个输入词的词向量；输出矩阵 Wₒᵤₜ（d × V），每列对应一个输出词的词向量。注意，同一个词在输入矩阵和输出矩阵中有两组不同的向量。
-
-由于 CBOW 对上下文取了平均，它对上下文词的顺序不敏感。这使得 CBOW 训练速度较快，适合小规模数据集。但在需要捕捉上下文顺序信息的任务中，Skip-gram 通常表现更好。`,
+训练目标是最小化负对数似然：J = -log P(w_t | context)，等价于最大化正确中心词的概率。`,
         code: [
           {
             lang: "python",
             code: `import numpy as np
 
 class CBOW:
-    """Continuous Bag of Words 模型（简化实现）"""
-
-    def __init__(self, vocab_size, embed_dim, window_size=2):
+    """CBOW 模型简化实现"""
+    
+    def __init__(self, vocab_size, embed_dim, learning_rate=0.01):
         self.vocab_size = vocab_size
         self.embed_dim = embed_dim
-        self.window_size = window_size
-        # 输入矩阵 W_in: V × d
+        self.lr = learning_rate
+        # 输入嵌入矩阵: W_in ∈ R^(V × d)
         self.W_in = np.random.randn(vocab_size, embed_dim) * 0.1
-        # 输出矩阵 W_out: d × V
+        # 输出嵌入矩阵: W_out ∈ R^(d × V)
         self.W_out = np.random.randn(embed_dim, vocab_size) * 0.1
-
-    def forward(self, context_indices):
-        """前向传播：上下文词向量平均 → softmax"""
-        # 获取上下文词的输入嵌入并取平均
-        context_vectors = self.W_in[context_indices]  # (2c, d)
-        x = np.mean(context_vectors, axis=0)          # (d,)
-        # 计算 logits
-        logits = self.W_out.T @ x                      # (V,)
-        # softmax
-        exp_logits = np.exp(logits - np.max(logits))
-        probs = exp_logits / exp_logits.sum()
-        return probs, x
-
-    def get_word_vector(self, word_idx):
-        """获取词的嵌入向量"""
-        return self.W_in[word_idx]
-
-# 测试
-vocab = {"我": 0, "爱": 1, "自然": 2, "语言": 3, "处理": 4}
-model = CBOW(vocab_size=5, embed_dim=4, window_size=2)
-context = np.array([0, 1, 3, 4])  # "我", "爱", "语言", "处理"
-probs, hidden = model.forward(context)
-print(f"隐藏层表示: {hidden}")
-print(f"预测概率: {probs}")`,
+    
+    def softmax(self, x):
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum()
+    
+    def predict(self, context_indices):
+        """用上下文词索引预测中心词
+        context_indices: 上下文词的索引列表 [w_{t-C}, ..., w_{t+C}]
+        返回: 词汇表上每个词的概率分布
+        """
+        # 投影层: 上下文嵌入平均
+        h = self.W_in[context_indices].mean(axis=0)  # (d,)
+        
+        # 输出层: softmax
+        scores = self.W_out.T @ h  # (V,)
+        probs = self.softmax(scores)
+        return probs, h
+    
+    def train_step(self, context_indices, target_idx):
+        """单步训练: 前向传播 + 反向传播"""
+        probs, h = self.predict(context_indices)
+        
+        # 负对数似然损失
+        loss = -np.log(probs[target_idx] + 1e-10)
+        
+        # 梯度: 输出层
+        d_scores = probs.copy()
+        d_scores[target_idx] -= 1  # softmax 交叉熵梯度
+        
+        # 更新输出嵌入
+        d_W_out = np.outer(h, d_scores)  # (d, V)
+        self.W_out -= self.lr * d_W_out
+        
+        # 梯度回传到输入嵌入
+        d_h = self.W_out @ d_scores  # (d,)
+        
+        # 更新每个上下文词的输入嵌入
+        for idx in context_indices:
+            self.W_in[idx] -= self.lr * d_h / len(context_indices)
+        
+        return loss`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# CBOW 训练演示
+np.random.seed(42)
 
-class CBOWTrainer:
-    """CBOW 模型训练（使用 SGD + 负采样）"""
+# 迷你词汇表
+vocab = ["the", "cat", "sat", "on", "mat", "a", "dog", "bed"]
+word2idx = {w: i for i, w in enumerate(vocab)}
+V = len(vocab)
 
-    def __init__(self, vocab_size, embed_dim, lr=0.025, neg_samples=5):
-        self.embed_dim = embed_dim
-        self.lr = lr
-        self.neg_samples = neg_samples
-        self.W_in = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
-        self.W_out = np.zeros((vocab_size, embed_dim))
+model = CBOW(vocab_size=V, embed_dim=8, learning_rate=0.05)
 
-    def _sigmoid(self, x):
-        return 1.0 / (1.0 + np.exp(-np.clip(x, -10, 10)))
+# 训练数据: (上下文, 中心词)
+training_data = [
+    (["the", "sat"], "cat"),      # the [cat] sat
+    (["cat", "on"], "sat"),       # cat [sat] on
+    (["sat", "mat"], "on"),       # sat [on] mat
+    (["on", "the"], "mat"),       # on [mat] the
+    (["a", "bed"], "dog"),        # a [dog] bed
+    (["dog", "on"], "bed"),       # dog [bed] on
+]
 
-    def train_step(self, center_idx, context_indices):
-        """单次训练步（含负采样）"""
-        # 正样本
-        context_mean = np.mean(self.W_in[context_indices], axis=0)
-        positive = self.W_out[center_idx]
-        score = np.dot(context_mean, positive)
-        prob = self._sigmoid(score)
-        # 梯度
-        grad_in = (prob - 1.0) * positive
-        grad_out = (prob - 1.0) * context_mean
-        self.W_out[center_idx] -= self.lr * grad_out
-        self.W_in[context_indices] -= self.lr * grad_in / len(context_indices)
-        # 负样本
-        neg_indices = np.random.randint(0, self.W_out.shape[0], self.neg_samples)
-        for neg_idx in neg_indices:
-            if neg_idx == center_idx:
-                continue
-            neg_vec = self.W_out[neg_idx]
-            score = np.dot(context_mean, neg_vec)
-            prob = self._sigmoid(score)
-            grad_in = prob * neg_vec
-            grad_out = prob * context_mean
-            self.W_out[neg_idx] += self.lr * grad_out
-            self.W_in[context_indices] += self.lr * grad_in / len(context_indices)
+print("=== CBOW 训练 ===")
+for epoch in range(500):
+    total_loss = 0
+    for ctx, target in training_data:
+        ctx_idx = [word2idx[w] for w in ctx]
+        target_idx = word2idx[target]
+        loss = model.train_step(ctx_idx, target_idx)
+        total_loss += loss
+    if epoch % 100 == 0:
+        print(f"Epoch {epoch:4d} | Loss: {total_loss:.4f}")
 
-model = CBOWTrainer(vocab_size=100, embed_dim=16, neg_samples=5)
-# 模拟训练：中心词=5，上下文=[3,4,6,7]
-for epoch in range(100):
-    model.train_step(center_idx=5, context_indices=np.array([3, 4, 6, 7]))
-print(f"训练后词向量范数: {np.linalg.norm(model.W_in[5]):.4f}")`,
+# 测试: 给定上下文 "the" 和 "sat"，预测中心词
+ctx_test = [word2idx["the"], word2idx["sat"]]
+probs, _ = model.predict(ctx_test)
+top3 = np.argsort(probs)[::-1][:3]
+print(f"\\n上下文 'the _ sat' 的预测:")
+for idx in top3:
+    print(f"  {vocab[idx]}: {probs[idx]:.4f}")`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# 分析 CBOW 学到的嵌入
+import numpy as np
 
-# CBOW 的数学推导演示
-def cbow_gradient_analysis():
-    """分析 CBOW 的梯度流"""
-    vocab_size = 1000
-    embed_dim = 50
-    window_size = 2
+# 训练后检查词向量
+print("=== 词嵌入分析 ===")
+for word in vocab:
+    vec = model.W_in[word2idx[word]]
+    print(f"{word:<6}: L2范数={np.linalg.norm(vec):.4f}, 前4维={vec[:4]}")
 
-    W_in = np.random.randn(vocab_size, embed_dim) * 0.1
-    W_out = np.random.randn(vocab_size, embed_dim) * 0.1
+# 计算词对余弦相似度
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-    center_word = 42
-    context = np.array([40, 41, 43, 44])  # 前后各2个词
+pairs = [("cat", "dog"), ("cat", "mat"), ("sat", "on"), ("the", "a")]
+print("\\n词对相似度:")
+for w1, w2 in pairs:
+    sim = cos_sim(model.W_in[word2idx[w1]], model.W_in[word2idx[w2]])
+    print(f"  {w1} ↔ {w2}: {sim:.4f}")
 
-    # 前向传播
-    h = np.mean(W_in[context], axis=0)  # 隐藏层 (d,)
-    logits = W_out @ h                   # (V,)
-    probs = np.exp(logits - logits.max())
-    probs /= probs.sum()
-
-    # 梯度
-    target = np.zeros(vocab_size)
-    target[center_word] = 1.0
-    d_logits = probs - target  # (V,)
-
-    # 参数梯度
-    dW_out = np.outer(d_logits, h)           # (V, d)
-    dW_in_context = (1 / len(context)) * W_out.T @ d_logits  # (2c, d)
-
-    print(f"隐藏层均值: {h.mean():.4f}, 范数: {np.linalg.norm(h):.4f}")
-    print(f"预测中心词概率: {probs[center_word]:.6f}")
-    print(f"梯度范数 ||dW_out||: {np.linalg.norm(dW_out):.4f}")
-    print(f"梯度范数 ||dW_in||: {np.linalg.norm(dW_in_context):.4f}")
-
-cbow_gradient_analysis()`,
+# CBOW 的损失函数推导
+print("\\n=== CBOW 损失函数推导 ===")
+print("目标: 最大化 P(w_t | w_{t-C}, ..., w_{t+C})")
+print("P(w_O | w_I) = exp(u_O^T h) / Σ exp(u_j^T h)")
+print("  u_O: 输出嵌入中 w_O 的列向量")
+print("  h = (1/2C) Σ v_{w_j} : 上下文嵌入平均")
+print("损失 J = -log P(w_O | w_I)")
+print("     = -u_O^T h + log(Σ exp(u_j^T h))")
+print("∂J/∂u_j = p_j · h          (j ≠ O)")
+print("∂J/∂u_O = (p_O - 1) · h    (j = O)")
+print("∂J/∂v_{w_j} = (1/2C) · Σ (∂J/∂u_k · W_out[:,k])")`,
           },
         ],
         table: {
-          headers: ["组件", "形状", "作用", "更新方式"],
+          headers: ["组件", "维度", "公式", "说明"],
           rows: [
-            ["W_in（输入矩阵）", "V × d", "存储输入词向量", "上下文词共享梯度"],
-            ["W_out（输出矩阵）", "V × d", "存储输出词向量", "中心词 + 负样本更新"],
-            ["隐藏层 h", "d", "上下文向量平均", "前向计算，不存储参数"],
-            ["Softmax 输出", "V", "词表上的概率分布", "梯度反向传播"],
+            ["输入嵌入 W_in", "V × d", "v_w = W_in[w]", "词的输入表示"],
+            ["上下文平均 h", "d", "h = (1/2C) Σ v_{w_j}", "上下文聚合"],
+            ["输出嵌入 W_out", "d × V", "u_w = W_out[:,w]", "词的输出表示"],
+            ["输出分数", "V", "s_j = u_j^T h", "未归一化概率"],
+            ["概率分布", "V", "p_j = exp(s_j)/Σexp(s_k)", "softmax 归一化"],
           ],
         },
-        mermaid: `graph LR
-    A["wₜ₋₂"] -->|v(wₜ₋₂)| E["平均池化"]
-    B["wₜ₋₁"] -->|v(wₜ₋₁)| E
-    C["wₜ₊₁"] -->|v(wₜ₊₁)| E
-    D["wₜ₊₂"] -->|v(wₜ₊₂)| E
-    E -->|"h = mean(v)"| F["隐藏层 h"]
-    F --> G["W_out · h"]
-    G --> H["Softmax"]
-    H --> I["P(wₜ | context)"]
-    style E fill:#bbf
-    style H fill:#bfb`,
-        tip: "CBOW 的窗口大小是一个重要超参数。小窗口（2-5）捕获句法信息（词性、搭配），大窗口（10-20）捕获主题信息（文档级语义）。根据任务需求选择合适的窗口。",
-        warning: "CBOW 对上下文取平均的操作会导致信息损失——它无法区分 '狗 咬 人' 和 '人 咬 狗' 这样的语序差异。如果语序对你的任务很重要，请考虑 Skip-gram 或其他架构。",
+        mermaid: `graph TD
+    A["上下文词 w_1"] --> E1["嵌入 v_1"]
+    B["上下文词 w_2"] --> E2["嵌入 v_2"]
+    C["上下文词 w_3"] --> E3["嵌入 v_3"]
+    D["上下文词 w_4"] --> E4["嵌入 v_4"]
+    E1 --> F["求和/平均"]
+    E2 --> F
+    E3 --> F
+    E4 --> F
+    F --> G["隐藏层 h"]
+    G --> H["线性变换 W_out"]
+    H --> I["Softmax"]
+    I --> J["P(w_1) P(w_2) ... P(w_V)"]`,
+        tip: "CBOW 适合小数据集和低频词——因为它对上下文做平均，平滑了噪声。但这也意味着它对词的顺序不敏感，对句法结构的学习不如 Skip-gram。",
+        warning: "CBOW 输出层的 softmax 需要计算词汇表所有 V 个词的概率，当 V 很大时（如 100 万），计算代价极高。必须使用负采样或分层 softmax 加速。",
       },
       {
-        title: "4. Skip-gram 模型",
-        body: `Skip-gram 是 Word2Vec 的另一个核心架构，与 CBOW 恰好相反：它用中心词预测上下文。给定中心词 wₜ，模型试图最大化其上下文中每个词的条件概率之和：J = Σₜ Σ₋c≤j≤c,j≠0 log P(wₜ₊ⱼ | wₜ)。
+        title: "3. Skip-gram 模型：用中心词预测上下文",
+        body: `Skip-gram 是 Word2Vec 的另一个模型，与 CBOW 恰好相反：给定中心词，预测它的上下文。
 
-Skip-gram 的前向传播更简单：直接将中心词的词向量 v(wₜ) 输入到输出层，对上下文中的每个词分别计算 softmax 概率。这意味着一个训练样本（中心词 + 上下文窗口）会产生 2c 个预测任务。
+**模型架构：**
+Skip-gram 的输入是单个中心词的嵌入向量 h = v_{w_t}，输出是词汇表上每个词作为上下文词的概率分布。与 CBOW 不同，Skip-gram 对上下文中的每个位置分别预测（而不是求平均），因此每个训练样本产生 2C 个预测任务。
 
-Skip-gram 相比 CBOW 有两个关键优势。第一，它对罕见词更友好——每个上下文词都独立接收梯度信号，而不是被平均掉。第二，它在小数据集上表现更好，因为更多的训练样本（每个中心词产生 2c 个样本）。
+训练目标函数：J = -Σ_{-C ≤ j ≤ C, j ≠ 0} log P(w_{t+j} | w_t)，其中 P(w_O | w_I) = exp(u_O^T v_I) / Σ exp(u_j^T v_I)。
 
-但原始的 Skip-gram 面临计算效率的严峻挑战。Softmax 分母需要对整个词表求和，复杂度为 O(V)。Mikolov 提出了两种解决方案：层次 Softmax（Hierarchical Softmax）和负采样（Negative Sampling）。
+**为什么 Skip-gram 比 CBOW 效果更好？**
+Skip-gram 为每个中心词-上下文词对生成独立的训练样本，这意味着相同的信息量被"展开"成了 2C 倍的训练信号。在数学上，这相当于对每个中心词做了 2C 次独立的参数更新，而非 CBOW 的一次批量更新。实验表明，Skip-gram 对罕见词的表示学习更好——因为罕见词即使只出现几次，每次都会产生 2C 个训练样本。
 
-层次 Softmax 利用霍夫曼树将 O(V) 的 softmax 计算降为 O(log V)。负采样则更简洁：将多分类问题转化为多个二分类问题，只需更新中心词和少量负样本的向量。负采样的核心公式：J = log σ(v'ₒᵤₜ · vᵢₙ) + Σₖ E[log σ(-v'ₙₑg · vᵢₙ)]。
-
-负采样的采样分布也很讲究。Mikolov 提出使用 P(w)^(3/4) 的 unigram 分布（即词频的 3/4 次方归一化），这样可以给低频词更高的采样概率，使它们获得足够的训练信号。`,
+代价是 Skip-gram 训练更慢：相同数据量下，Skip-gram 需要处理的训练样本是 CBOW 的 2C 倍。`,
         code: [
           {
             lang: "python",
             code: `import numpy as np
 
 class SkipGram:
-    """Skip-gram 模型实现"""
-
-    def __init__(self, vocab_size, embed_dim):
+    """Skip-gram 模型简化实现"""
+    
+    def __init__(self, vocab_size, embed_dim, lr=0.01):
+        self.vocab_size = vocab_size
         self.embed_dim = embed_dim
-        self.W_in = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
-        self.W_out = np.zeros((vocab_size, embed_dim))
-
-    def _sigmoid(self, x):
-        return 1.0 / (1.0 + np.exp(-np.clip(x, -10, 10)))
-
-    def forward(self, center_idx):
-        """前向传播，返回所有词的概率（仅用于演示，实际用负采样）"""
-        v = self.W_in[center_idx]
-        logits = self.W_out @ v
-        exp_logits = np.exp(logits - logits.max())
-        return exp_logits / exp_logits.sum(), v
-
-    def negative_sampling_step(self, center_idx, target_idx, neg_indices, lr=0.025):
-        """负采样训练步"""
-        v = self.W_in[center_idx]
-        loss = 0.0
-
-        # 正样本
-        pos_score = np.dot(self.W_out[target_idx], v)
-        pos_prob = self._sigmoid(pos_score)
-        loss -= np.log(pos_prob + 1e-10)
-        grad_pos = (pos_prob - 1.0) * v
-        grad_v_pos = (pos_prob - 1.0) * self.W_out[target_idx]
-
-        self.W_out[target_idx] -= lr * grad_pos
-        self.W_in[center_idx] -= lr * grad_v_pos
-
-        # 负样本
-        for neg_idx in neg_indices:
-            neg_score = np.dot(self.W_out[neg_idx], v)
-            neg_prob = self._sigmoid(neg_score)
-            loss -= np.log(1.0 - neg_prob + 1e-10)
-            grad_neg = neg_prob * v
-            grad_v_neg = neg_prob * self.W_out[neg_idx]
-            self.W_out[neg_idx] += lr * grad_neg
-            self.W_in[center_idx] += lr * grad_v_neg
-
-        return loss
-
-model = SkipGram(vocab_size=100, embed_dim=16)
-for _ in range(500):
-    negs = np.random.choice([i for i in range(100) if i != 7], 5, replace=False)
-    loss = model.negative_sampling_step(center_idx=5, target_idx=7, neg_indices=negs)
-print(f"训练损失: {loss:.4f}")`,
+        self.lr = lr
+        self.W_in = np.random.randn(vocab_size, embed_dim) * 0.1
+        self.W_out = np.random.randn(embed_dim, vocab_size) * 0.1
+    
+    def softmax(self, x):
+        e_x = np.exp(x - np.max(x))
+        return e_x / e_x.sum()
+    
+    def predict(self, center_idx):
+        """给定中心词，预测上下文概率分布"""
+        h = self.W_in[center_idx]  # (d,)
+        scores = self.W_out.T @ h  # (V,)
+        probs = self.softmax(scores)
+        return probs, h
+    
+    def train_step(self, center_idx, context_idx):
+        """单步训练: 中心词 → 一个上下文词"""
+        h = self.W_in[center_idx]
+        scores = self.W_out.T @ h
+        probs = self.softmax(scores)
+        
+        loss = -np.log(probs[context_idx] + 1e-10)
+        
+        # 梯度
+        d_scores = probs.copy()
+        d_scores[context_idx] -= 1
+        
+        d_W_out = np.outer(h, d_scores)
+        d_h = self.W_out @ d_scores
+        
+        self.W_out -= self.lr * d_W_out
+        self.W_in[center_idx] -= self.lr * d_h
+        
+        return loss`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# Skip-gram 训练演示
+np.random.seed(42)
 
-def negative_sampling_distribution(word_counts, power=0.75):
-    """
-    计算负采样分布 P(w)^(3/4)
-    这是 Mikolov 论文中的关键技巧
-    """
-    counts = np.array(word_counts, dtype=float)
-    # 将词频提升到 3/4 次方
-    powered = counts ** power
-    return powered / powered.sum()
+vocab = ["the", "cat", "sat", "on", "mat", "a", "dog", "bed", "is", "sleeping"]
+word2idx = {w: i for i, w in enumerate(vocab)}
+V = len(vocab)
 
-# 模拟词频分布（符合 Zipf 定律）
-vocab = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "rare_word"]
-freqs = [10000, 5000, 3000, 2500, 2000, 1800, 1500, 1200, 1000, 10]
+model = SkipGram(vocab_size=V, embed_dim=16, lr=0.05)
 
-original = np.array(freqs) / sum(freqs)
-neg_sampling = negative_sampling_distribution(freqs)
+# 从语料生成 (中心词, 上下文) 对
+sentences = [
+    ["the", "cat", "sat", "on", "the", "mat"],
+    ["a", "dog", "is", "sleeping", "on", "the", "bed"],
+    ["the", "cat", "is", "sleeping"],
+]
 
-print("词频 vs 负采样分布对比:")
-print(f"{'词':<12} {'原始P(w)':>10} {'P(w)^0.75':>10} {'比值':>8}")
-for i, word in enumerate(vocab):
-    ratio = neg_sampling[i] / original[i] if original[i] > 0 else 0
-    print(f"{word:<12} {original[i]:>10.6f} {neg_sampling[i]:>10.6f} {ratio:>8.2f}x")`,
+window_size = 2
+pairs = []
+for sent in sentences:
+    for t in range(len(sent)):
+        for j in range(-window_size, window_size + 1):
+            if j == 0:
+                continue
+            ctx_idx = t + j
+            if 0 <= ctx_idx < len(sent):
+                pairs.append((word2idx[sent[t]], word2idx[sent[ctx_idx]]))
+
+print(f"训练样本对数: {len(pairs)}")
+print("=== Skip-gram 训练 ===")
+for epoch in range(500):
+    total_loss = 0
+    for center, context in pairs:
+        loss = model.train_step(center, context)
+        total_loss += loss
+    if epoch % 100 == 0:
+        print(f"Epoch {epoch:4d} | Loss: {total_loss:.4f}")
+
+# 检查学到的嵌入
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+print("\\n词对相似度 (Skip-gram):")
+for w1, w2 in [("cat", "dog"), ("cat", "mat"), ("is", "sleeping"), ("on", "bed")]:
+    sim = cos_sim(model.W_in[word2idx[w1]], model.W_in[word2idx[w2]])
+    print(f"  {w1:<10} ↔ {w2:<10}: {sim:.4f}")`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# CBOW vs Skip-gram 对比实验
+import numpy as np
 
-class HierarchicalSoftmax:
-    """层次 Softmax 实现（基于二叉树）"""
+np.random.seed(42)
 
-    def __init__(self, vocab_size, embed_dim):
-        self.embed_dim = embed_dim
-        # 内部节点的参数（V-1 个内部节点）
-        self.internal_params = np.random.randn(vocab_size - 1, embed_dim) * 0.01
+# 用更大的模拟数据集比较
+print("=== CBOW vs Skip-gram 对比 ===")
+print("语料: 1000 个句子, 窗口大小=2\\n")
 
-    def _sigmoid(self, x):
-        return 1.0 / (1.0 + np.exp(-np.clip(x, -10, 10)))
+vocab = ["king", "queen", "man", "woman", "prince", "princess",
+         "boy", "girl", "father", "mother", "brother", "sister"]
+word2idx = {w: i for i, w in enumerate(vocab)}
+V = len(vocab)
 
-    def compute_path_probability(self, word_idx, path_codes, path_nodes, word_vector):
-        """
-        计算从根到叶子（词）的路径概率
-        path_codes: 路径上的左右决策 (0=左, 1=右)
-        path_nodes: 路径上的内部节点索引
-        """
-        log_prob = 0.0
-        for code, node in zip(path_codes, path_nodes):
-            score = np.dot(self.internal_params[node], word_vector)
-            prob = self._sigmoid(score)
-            if code == 1:  # 右孩子
-                log_prob += np.log(prob + 1e-10)
-            else:  # 左孩子
-                log_prob += np.log(1.0 - prob + 1e-10)
-        return log_prob
+# 生成语法相关的句子
+templates = [
+    ["the", "king", "and", "queen"],
+    ["the", "man", "and", "woman"],
+    ["the", "prince", "and", "princess"],
+    ["the", "boy", "and", "girl"],
+    ["the", "father", "and", "mother"],
+    ["the", "brother", "and", "sister"],
+]
 
-    def train_step(self, word_idx, path_codes, path_nodes, word_vector, lr=0.025):
-        """层次 Softmax 训练步"""
-        grad = np.zeros_like(word_vector)
-        for code, node in zip(path_codes, path_nodes):
-            score = np.dot(self.internal_params[node], word_vector)
-            prob = self._sigmoid(score)
-            if code == 1:
-                grad += (prob - 1.0) * self.internal_params[node]
-                self.internal_params[node] -= lr * (prob - 1.0) * word_vector
-            else:
-                grad += prob * self.internal_params[node]
-                self.internal_params[node] -= lr * prob * word_vector
-        return grad
+# CBOW 训练
+cbow = __import__('sys').modules.get('__main__')
+cbow_model = type('CBOW', (), {
+    'W_in': np.random.randn(V, 16) * 0.1,
+    'W_out': np.random.randn(16, V) * 0.1,
+    'vocab_size': V, 'embed_dim': 16
+})()
 
-# 模拟：词 "cat" 在霍夫曼树中的路径为 [右, 左, 右] = [1, 0, 1]
-hs = HierarchicalSoftmax(vocab_size=100, embed_dim=16)
-word_vec = np.random.randn(16) * 0.1
-log_prob = hs.compute_path_probability(
-    word_idx=5,
-    path_codes=[1, 0, 1],
-    path_nodes=[0, 2, 5],
-    word_vector=word_vec
-)
-print(f"路径对数概率: {log_prob:.4f}")`,
-          },
-          {
-            lang: "python",
-            code: `# 对比 CBOW 和 Skip-gram 的训练样本生成
-def generate_training_samples(sentence, window_size=2):
-    """从句子生成 CBOW 和 Skip-gram 训练样本"""
-    samples = {"cbow": [], "skipgram": []}
-    for i in range(len(sentence)):
-        # 确定上下文窗口
-        start = max(0, i - window_size)
-        end = min(len(sentence), i + window_size + 1)
-        context = [sentence[j] for j in range(start, end) if j != i]
-        if not context:
-            continue
-        center = sentence[i]
-        # CBOW: 上下文 → 中心词
-        samples["cbow"].append({"context": context, "target": center})
-        # Skip-gram: 中心词 → 每个上下文词
-        for ctx_word in context:
-            samples["skipgram"].append({"center": center, "target": ctx_word})
-    return samples
+# Skip-gram 训练
+sg_model = type('SG', (), {
+    'W_in': np.random.randn(V, 16) * 0.1,
+    'W_out': np.random.randn(16, V) * 0.1,
+})()
 
-sentence = ["自然", "语言", "处理", "是", "人工", "智能", "的", "重要", "分支"]
-samples = generate_training_samples(sentence, window_size=2)
+# 训练 200 轮
+for model, name in [(cbow_model, "CBOW"), (sg_model, "Skip-gram")]:
+    for epoch in range(200):
+        for tmpl in templates:
+            for t in range(len(tmpl)):
+                center = word2idx.get(tmpl[t])
+                if center is None:
+                    continue
+                for j in [-1, 1]:
+                    ctx_t = t + j
+                    if 0 <= ctx_t < len(tmpl):
+                        ctx = word2idx.get(tmpl[ctx_t])
+                        if ctx is None:
+                            continue
+                        # 简化训练步骤
+                        h = model.W_in[center]
+                        scores = model.W_out.T @ h
+                        exp_s = np.exp(scores - scores.max())
+                        probs = exp_s / exp_s.sum()
+                        d = probs.copy()
+                        d[ctx] -= 1
+                        model.W_out -= 0.01 * np.outer(h, d)
+                        model.W_in[center] -= 0.01 * model.W_out @ d
 
-print(f"CBOW 训练样本数: {len(samples['cbow'])}")
-print(f"Skip-gram 训练样本数: {len(samples['skipgram'])}")
-print(f"\\nCBOW 样本示例:")
-for s in samples['cbow'][:2]:
-    print(f"  上下文: {s['context']} → 目标: {s['target']}")
-print(f"\\nSkip-gram 样本示例:")
-for s in samples['skipgram'][:3]:
-    print(f"  中心: {s['center']} → 目标: {s['target']}")`,
+# 评估类比关系 quality
+pairs_test = [("king", "queen"), ("man", "woman"), ("father", "mother")]
+for name, m in [("CBOW", cbow_model), ("Skip-gram", sg_model)]:
+    sims = [np.dot(m.W_in[word2idx[a]], m.W_in[word2idx[b]]) /
+            (np.linalg.norm(m.W_in[word2idx[a]]) * np.linalg.norm(m.W_in[word2idx[b]]))
+            for a, b in pairs_test]
+    print(f"{name}: 平均配对相似度 = {np.mean(sims):.4f}")`,
           },
         ],
         table: {
           headers: ["特性", "CBOW", "Skip-gram"],
           rows: [
-            ["预测方向", "上下文 → 中心词", "中心词 → 上下文"],
-            ["训练速度", "✅ 较快", "⚠️ 较慢"],
-            ["罕见词表示", "⚠️ 较弱（被平均）", "✅ 较强（独立梯度）"],
-            ["小数据集表现", "⚠️ 一般", "✅ 更好"],
-            ["大数据集表现", "✅ 好", "✅ 好"],
-            ["样本数量", "每句 n 个", "每句 2cn 个"],
+            ["输入", "上下文词 (多个)", "中心词 (单个)"],
+            ["输出", "中心词 (单个)", "上下文词 (多个)"],
+            ["训练速度", "快 (上下文平均)", "慢 (2C 次预测)"],
+            ["低频词表示", "较差 (被平均掉)", "较好 (独立训练)"],
+            ["高频词表示", "较好", "一般"],
+            ["训练样本数/句", "N (每词 1 个)", "2C×N (每词 2C 个)"],
+            ["适用场景", "小数据集、快速原型", "大数据集、高质量嵌入"],
           ],
         },
-        mermaid: `graph LR
-    A["中心词 wₜ"] -->|v(wₜ)| B["输入向量"]
-    B --> C["W_out · v(wₜ)"]
-    C --> D["Softmax"]
-    D --> E["P(wₜ₋₂ | wₜ)"]
-    D --> F["P(wₜ₋₁ | wₜ)"]
-    D --> G["P(wₜ₊₁ | wₜ)"]
-    D --> H["P(wₜ₊₂ | wₜ)"]
-    style A fill:#f9f
-    style D fill:#bfb`,
-        tip: "实践中，Skip-gram + 负采样是最常用的组合。推荐参数：embed_dim=300, window_size=5-10, neg_samples=5-15, min_count=5。Gensim 的默认参数已经是很好的起点。",
-        warning: "负采样数量不是越多越好。Mikolov 的论文指出：小数据集用 5-20 个负样本，大数据集用 2-5 个就够了。过多的负样本会显著拖慢训练速度，且收益递减。",
+        mermaid: `graph TD
+    A["中心词 w_t"] --> E["嵌入 v_t"]
+    E --> H["隐藏层 h = v_t"]
+    H --> S["Softmax"]
+    S --> P1["P(w_{t-2})"]
+    S --> P2["P(w_{t-1})"]
+    S --> P3["P(w_{t+1})"]
+    S --> P4["P(w_{t+2})"]
+    P1 --> L["损失求和"]
+    P2 --> L
+    P3 --> L
+    P4 --> L
+    
+    style A fill:#bbdefb
+    style E fill:#c8e6c9
+    style H fill:#fff9c4
+    style S fill:#ffe0b2
+    style L fill:#ffcdd2`,
+        tip: "Skip-gram 是大多数场景下的首选。虽然训练比 CBOW 慢，但它学到的词向量质量更高，尤其是对低频词的表示。实际工程中可以用负采样（下一节）来解决 Skip-gram 的训练速度问题。",
+        warning: "Skip-gram 的训练样本数是 CBOW 的 2C 倍（C 是窗口半宽），当窗口设为 5 时，每个中心词产生 10 个训练样本。在大数据集上这会导致训练时间成倍增长。",
       },
       {
-        title: "5. GloVe 全局向量",
-        body: `GloVe（Global Vectors for Word Representation）是 Stanford 于 2014 年提出的词嵌入方法。它的核心思想是：Word2Vec 只利用了局部上下文窗口信息，而词义也可以从全局共现统计中学习到。
+        title: "4. 负采样（Negative Sampling）：高效训练的秘诀",
+        body: `负采样是 Word2Vec 训练加速的核心技术。问题的根源在于：标准的 softmax 需要计算词汇表中所有 V 个词的概率并归一化，当 V = 100 万时，每次前向传播都要做 100 万次指数运算和一次归一化——计算复杂度 O(V)，不可接受。
 
-GloVe 的出发点是构建一个全局词-词共现矩阵 X，其中 Xᵢⱼ 表示词 i 和词 j 在整个语料库中共同出现的次数。然后，GloVe 学习两组向量 wᵢ 和 w̃ⱼ，以及对应的偏置 bᵢ 和 b̃ⱼ，使得它们的内积加上偏置等于共现次数的对数：wᵢ · w̃ⱼ + bᵢ + b̃ⱼ = log(Xᵢⱼ)。
+**负采样的核心思想：** 将多分类问题转化为多个二分类问题。对于每个训练样本（中心词 w_I，上下文词 w_O），我们不再试图从 V 个词中正确预测 w_O，而是做 K+1 个二分类：
 
-GloVe 的损失函数是加权最小二乘法：J = Σᵢⱼ f(Xᵢⱼ) · (wᵢ · w̃ⱼ + bᵢ + b̃ⱼ - log(Xᵢⱼ))²。权重函数 f(x) 的设计非常关键：当 x < x_max 时，f(x) = (x/x_max)^α；当 x ≥ x_max 时，f(x) = 1。通常取 α = 0.75, x_max = 100。这样设计的目的是：对高频共现对给予充分权重，对极低频共现对降低权重（避免噪声主导），对零共现完全不计算（f(0) = 0）。
+1. 一个正样本：中心词 w_I 和真实上下文词 w_O 的配对，标签为 1
+2. K 个负样本：中心词 w_I 和随机采样的噪声词 w_N 的配对，标签为 0
 
-GloVe 与 Word2Vec 的关系很有趣。数学上可以证明，当 Skip-gram 的负采样数量趋近无穷时，它实际上在隐式地分解一个与 PMI（Pointwise Mutual Information）相关的矩阵。GloVe 则是直接、显式地对共现统计进行建模。因此，GloVe 可以看作是一种"全局版"的 Skip-gram。`,
+每个二分类任务用 sigmoid 函数：P(D=1 | w_I, w_O) = σ(u_O^T v_I) = 1 / (1 + exp(-u_O^T v_I))
+
+训练目标最大化正样本的 sigmoid 输出，同时最小化负样本的 sigmoid 输出：
+J = -log σ(u_O^T v_I) - Σ_{k=1}^K log σ(-u_{N_k}^T v_I)
+
+**噪声分布：** 负样本不是均匀随机采样，而是按照词频的 3/4 次幂分布采样：P(w) = f(w)^{3/4} / Σ f(w_j)^{3/4}。3/4 次幂的作用是让低频词被采样的概率相对提高（因为 x^{0.75} 对小数值的压缩比线性弱），使负样本更有信息量。
+
+计算复杂度从 O(V) 降到 O(K)，K 通常取 5-20。这是 Word2Vec 能在大规模语料上训练的关键。`,
         code: [
           {
             lang: "python",
             code: `import numpy as np
-from collections import defaultdict
 
-def build_cooccurrence_matrix(sentences, vocab, window_size=5):
-    """构建全局词-词共现矩阵"""
-    vocab_idx = {w: i for i, w in enumerate(vocab)}
-    n = len(vocab)
-    X = np.zeros((n, n))
+def negative_sampling_loss(v_center, u_context, u_negatives):
+    """负采样损失函数
+    v_center: 中心词嵌入 (d,)
+    u_context: 正样本上下文嵌入 (d,)
+    u_negatives: K 个负样本嵌入 (K, d)
+    """
+    def sigmoid(x):
+        return 1 / (1 + np.exp(-np.clip(x, -500, 500)))
+    
+    # 正样本损失
+    pos_score = np.dot(u_context, v_center)
+    pos_loss = -np.log(sigmoid(pos_score) + 1e-10)
+    
+    # 负样本损失
+    neg_scores = u_negatives @ v_center  # (K,)
+    neg_loss = -np.sum(np.log(sigmoid(-neg_scores) + 1e-10))
+    
+    return pos_loss + neg_loss
 
-    for sent in sentences:
-        for i, word in enumerate(sent):
-            if word not in vocab_idx:
-                continue
-            wi = vocab_idx[word]
-            # 使用距离衰减权重
-            start = max(0, i - window_size)
-            end = min(len(sent), i + window_size + 1)
-            for j in range(start, end):
-                if j == i or sent[j] not in vocab_idx:
-                    continue
-                wj = vocab_idx[sent[j]]
-                distance = abs(i - j)
-                X[wi][wj] += 1.0 / distance  # 远距离权重更低
+# 演示
+np.random.seed(42)
+d, K = 16, 5
+v_center = np.random.randn(d)
+u_context = np.random.randn(d)
+u_negatives = np.random.randn(K, d)
 
-    return X
-
-sentences = [
-    ["cat", "sit", "on", "mat"],
-    ["dog", "sit", "on", "rug"],
-    ["cat", "chase", "mouse"],
-    ["dog", "chase", "cat"],
-]
-vocab = sorted(set(w for s in sentences for w in s))
-X = build_cooccurrence_matrix(sentences, vocab, window_size=2)
-
-print("共现矩阵:")
-print(f"{'':>8}", "".join(f"{w:>8}" for w in vocab))
-for i, w in enumerate(vocab):
-    print(f"{w:>8}", "".join(f"{X[i][j]:>8.1f}" for j in range(len(vocab))))`,
+loss = negative_sampling_loss(v_center, u_context, u_negatives)
+print(f"负采样损失: {loss:.4f}")
+print(f"  正样本得分: {np.dot(u_context, v_center):.4f}")
+print(f"  负样本得分: {u_negatives @ v_center}")`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# 噪声分布采样
+import numpy as np
 
-class GloVe:
-    """GloVe 模型的简化实现"""
+# 模拟词频统计（齐普夫定律: f(w) ∝ 1/rank）
+vocab_size = 10000
+ranks = np.arange(1, vocab_size + 1)
+raw_freqs = 1.0 / ranks
+raw_freqs /= raw_freqs.sum()
 
-    def __init__(self, vocab_size, embed_dim, x_max=100, alpha=0.75):
-        self.vocab_size = vocab_size
-        self.embed_dim = embed_dim
-        self.x_max = x_max
-        self.alpha = alpha
-        # 初始化参数
-        self.W = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
-        self.W_tilde = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
-        self.b = (np.random.rand(vocab_size) - 0.5) / embed_dim
-        self.b_tilde = (np.random.rand(vocab_size) - 0.5) / embed_dim
+# 不同的采样分布
+uniform = np.ones(vocab_size) / vocab_size
+freq_power_1 = raw_freqs ** 1.0 / np.sum(raw_freqs ** 1.0)
+freq_power_3_4 = raw_freqs ** 0.75 / np.sum(raw_freqs ** 0.75)
+freq_power_0 = np.ones(vocab_size) / vocab_size  # 均匀
 
-    def f(self, x):
-        """权重函数 f(x)"""
-        if x >= self.x_max:
-            return 1.0
-        return (x / self.x_max) ** self.alpha
+print("=== 噪声分布对比 (Top 10 高频词) ===")
+print(f"{'Rank':<6} {'原始频率':>10} {'p^1':>10} {'p^0.75':>10} {'均匀':>10}")
+print("-" * 50)
+for i in range(10):
+    print(f"{i+1:<6} {raw_freqs[i]:10.6f} {freq_power_1[i]:10.6f} "
+          f"{freq_power_3_4[i]:10.6f} {uniform[i]:10.6f}")
 
-    def loss(self, cooccurrence_matrix):
-        """计算 GloVe 损失"""
-        total_loss = 0.0
-        nonzero = np.argwhere(cooccurrence_matrix > 0)
-        for i, j in nonzero:
-            x_ij = cooccurrence_matrix[i, j]
-            diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j]
-            diff -= np.log(x_ij)
-            total_loss += self.f(x_ij) * diff ** 2
-        return total_loss / 2
+# 为什么用 3/4 次幂？
+print("\\n=== 3/4 次幂的效果 ===")
+test_freqs = [0.3, 0.1, 0.01, 0.001, 0.0001]
+print(f"{'原始频率':<12} {'^1 (不变)':>12} {'^0.75':>12} {'相对提升':>12}")
+for f in test_freqs:
+    print(f"{f:<12.6f} {f**1:<12.6f} {f**0.75:<12.6f} "
+          f"{(f**0.75)/(f**1):>12.2f}x")
 
-    def train_step(self, i, j, x_ij, lr=0.05):
-        """单次梯度更新"""
-        diff = np.dot(self.W[i], self.W_tilde[j]) + self.b[i] + self.b_tilde[j]
-        diff -= np.log(x_ij)
-        weight = self.f(x_ij)
-        grad = weight * diff
+# 3/4 次幂使低频词的采样概率相对提升
+# 例如 0.001^0.75 / 0.001 = 177.83 倍`,
+          },
+          {
+            lang: "python",
+            code: `# 完整的负采样 Skip-gram 训练
+import numpy as np
 
-        # 更新参数
-        self.W[i] -= lr * grad * self.W_tilde[j]
-        self.W_tilde[j] -= lr * grad * self.W[i]
-        self.b[i] -= lr * grad
-        self.b_tilde[j] -= lr * grad
+class SkipGramNegSampling:
+    """带负采样的 Skip-gram"""
+    
+    def __init__(self, vocab_size, embed_dim, K=5, lr=0.025):
+        self.V = vocab_size
+        self.d = embed_dim
+        self.K = K
+        self.lr = lr
+        self.W_in = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
+        self.W_out = (np.random.rand(vocab_size, embed_dim) - 0.5) / embed_dim
+    
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-np.clip(x, -500, 500)))
+    
+    def get_noise_dist(self, word_counts):
+        """构建噪声分布表 (unigram table)"""
+        freqs = word_counts / word_counts.sum()
+        power_freqs = freqs ** 0.75
+        self.noise_dist = power_freqs / power_freqs.sum()
+        # 预采样表 (Mikolov 的 alias table 简化版)
+        self.noise_table = np.random.choice(
+            self.V, size=100000, p=self.noise_dist
+        )
+    
+    def sample_negatives(self, center_idx):
+        """采样 K 个负样本（排除中心词本身）"""
+        negatives = []
+        while len(negatives) < self.K:
+            n = np.random.choice(self.noise_table)
+            if n != center_idx:
+                negatives.append(n)
+        return negatives
+    
+    def train_step(self, center_idx, context_idx):
+        """单步负采样训练"""
+        lr = self.lr
+        # 正样本
+        v = self.W_in[center_idx]
+        u_pos = self.W_out[context_idx]
+        score_pos = np.dot(u_pos, v)
+        sig_pos = self.sigmoid(score_pos)
+        # 梯度: 正样本
+        grad_pos = (sig_pos - 1) * v
+        self.W_out[context_idx] -= lr * grad_pos
+        grad_v_pos = (sig_pos - 1) * u_pos
+        
+        # 负样本
+        negatives = self.sample_negatives(center_idx)
+        grad_v_neg = np.zeros(self.d)
+        for n in negatives:
+            u_neg = self.W_out[n]
+            score_neg = np.dot(u_neg, v)
+            sig_neg = self.sigmoid(score_neg)
+            self.W_out[n] -= lr * sig_neg * v
+            grad_v_neg += sig_neg * u_neg
+        
+        self.W_in[center_idx] -= lr * (grad_v_pos + grad_v_neg)
+        return -np.log(sig_pos + 1e-10) - sum(
+            np.log(self.sigmoid(-np.dot(self.W_out[n], self.W_in[center_idx])) + 1e-10)
+            for n in negatives
+        )
 
-        return weight * diff ** 2
+# 训练演示
+np.random.seed(42)
+V, d = 50, 16
+model = SkipGramNegSampling(V, d, K=5, lr=0.05)
+word_counts = np.random.randint(1, 1000, V)
+model.get_noise_dist(word_counts)
 
-# 训练
-model = GloVe(vocab_size=10, embed_dim=8)
-X = np.random.rand(10, 10) * 5
-X = (X + X.T) / 2  # 对称
-np.fill_diagonal(X, 0)
-
-for epoch in range(100):
-    nonzero = np.argwhere(X > 0)
+# 模拟训练
+pairs = [(np.random.randint(V), np.random.randint(V)) for _ in range(5000)]
+for epoch in range(5):
     total_loss = 0
-    for i, j in nonzero:
-        total_loss += model.train_step(i, j, X[i, j])
-    if epoch % 20 == 0:
-        print(f"Epoch {epoch}: loss = {total_loss:.4f}")`,
+    for center, context in pairs:
+        total_loss += model.train_step(center, context)
+    print(f"Epoch {epoch+1} | Avg Loss: {total_loss/len(pairs):.4f}")
+
+# 检查嵌入质量
+print("\\n嵌入矩阵统计:")
+print(f"  W_in 均值: {model.W_in.mean():.6f}, 标准差: {model.W_in.std():.6f}")
+print(f"  W_out 均值: {model.W_out.mean():.6f}, 标准差: {model.W_out.std():.6f}")`,
+          },
+        ],
+        table: {
+          headers: ["方法", "计算复杂度", "精度", "适用场景"],
+          rows: [
+            ["完整 Softmax", "O(V·d)", "最高 (基准)", "V < 10,000"],
+            ["分层 Softmax", "O(log V · d)", "高", "V 较大，低频词多"],
+            ["负采样 (K=5)", "O((K+1)·d)", "接近完整 softmax", "最常用"],
+            ["负采样 (K=20)", "O((K+1)·d)", "更高", "需要高质量嵌入"],
+            ["噪声对比估计", "O((K+1)·d)", "中等", "理论分析"],
+          ],
+        },
+        mermaid: `graph TD
+    A["中心词 w_I"] --> B["嵌入 v_I"]
+    A --> C["正样本 w_O"]
+    A --> D["负采样 K 个词"]
+    B --> E["σ(u_O^T v_I)"]
+    B --> F["σ(u_N1^T v_I)"]
+    B --> G["σ(u_N2^T v_I)"]
+    B --> H["..."]
+    B --> I["σ(u_NK^T v_I)"]
+    E --> J["标签 = 1"]
+    F --> K["标签 = 0"]
+    G --> K
+    H --> K
+    I --> K
+    J --> L["BCE 损失求和"]
+    K --> L`,
+        tip: "负采样数 K 的选择：小数据集 K=5-10 就够了，大数据集 K=2-5 也行——因为数据量大，即使负样本少也能学到好的表示。",
+        warning: "负采样的质量高度依赖噪声分布。如果词频统计不准确（如包含大量停用词），噪声分布会偏向高频无意义词，降低训练效果。训练前应去除停用词或进行词频截断。",
+      },
+      {
+        title: "5. GloVe：全局共现矩阵 + 局部上下文的统一",
+        body: `GloVe（Global Vectors for Word Representation）由 Stanford NLP 团队提出，试图融合两种词嵌入范式的优点：基于矩阵分解的全局方法（如 LSA、SVD）和基于局部上下文窗口的预测方法（如 Word2Vec）。
+
+**核心洞察：** 两个词 w_i 和 w_j 的共现次数 X_{ij} 包含了丰富的语义信息。具体地，共现比率 X_{ij}/X_{ik} 可以区分不同类型的词间关系：
+
+- 如果词 k 与词 i 相关但与词 j 无关，则 X_{ij}/X_{ik} 很小
+- 如果词 k 与词 j 相关但与词 i 无关，则 X_{ij}/X_{ik} 很大
+- 如果词 k 与两者都相关或都不相关，则 X_{ij}/X_{ik} ≈ 1
+
+例如：对于 "ice" 和 "steam"，"solid" 与 ice 的共现远多于与 steam 的共现（比率大），而 "gas" 与 steam 的共现远多于与 ice 的共现（比率小）。
+
+**GloVe 的权重函数：** 最小化以下加权最小二乘损失：
+J = Σ_{i,j=1}^V f(X_{ij}) (w_i^T w̃_j + b_i + b̃_j - log X_{ij})²
+
+其中 f(x) 是权重函数：
+- f(x) = (x/x_max)^α  当 x < x_max
+- f(x) = 1  当 x ≥ x_max
+
+α 通常取 0.75，x_max 取 100。这个函数的作用是：对高频共现对赋予较小权重（避免过度拟合高频词对），对低频共现对赋予较大权重（保留有意义的稀有共现信号），同时设置上限防止数值溢出。
+
+GloVe 的训练速度比 Word2Vec 快，且在某些任务上表现更好（特别是语义相似性任务）。它直接优化共现比率这一更本质的统计量，而非间接地通过上下文预测。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+from scipy import sparse
+
+# 构建共现矩阵
+def build_cooccurrence_matrix(corpus, vocab, window_size=2):
+    """构建全局词共现矩阵"""
+    V = len(vocab)
+    word2idx = {w: i for i, w in enumerate(vocab)}
+    cooccur = np.zeros((V, V))
+    
+    for sentence in corpus:
+        indices = [word2idx.get(w) for w in sentence if w in word2idx]
+        for i in range(len(indices)):
+            for j in range(max(0, i - window_size), min(len(indices), i + window_size + 1)):
+                if i != j:
+                    distance = abs(i - j)
+                    cooccur[indices[i], indices[j]] += 1.0 / distance
+    
+    return cooccur
+
+# 示例语料
+corpus = [
+    ["i", "love", "natural", "language", "processing"],
+    ["natural", "language", "processing", "is", "fascinating"],
+    ["i", "love", "machine", "learning"],
+    ["machine", "learning", "and", "natural", "language", "processing"],
+    ["deep", "learning", "is", "a", "subset", "of", "machine", "learning"],
+]
+vocab = ["i", "love", "natural", "language", "processing", "machine",
+         "learning", "is", "fascinating", "deep", "and", "a", "subset", "of"]
+
+X = build_cooccurrence_matrix(corpus, vocab, window_size=2)
+print("共现矩阵:")
+for i, w1 in enumerate(vocab):
+    if X[i].sum() > 0:
+        print(f"  {w1:<12}: {X[i].astype(int)}")`,
           },
           {
             lang: "python",
             code: `import numpy as np
 
-# 展示 GloVe 与 Skip-gram 的数学联系
-def pmi_matrix(cooccurrence_matrix):
-    """计算 PMI（Pointwise Mutual Information）矩阵"""
-    # P(i, j) = X(i,j) / sum(X)
-    total = cooccurrence_matrix.sum()
-    P_joint = cooccurrence_matrix / total
-    # P(i) = sum(X(i,:)) / sum(X)
-    P_i = cooccurrence_matrix.sum(axis=1) / total
-    P_j = cooccurrence_matrix.sum(axis=0) / total
-    # PMI(i,j) = log(P(i,j) / (P(i) * P(j)))
-    P_product = np.outer(P_i, P_j)
-    with np.errstate(divide='ignore'):
-        pmi = np.log(P_joint / P_product)
-    pmi[~np.isfinite(pmi)] = 0
-    return pmi
+# GloVe 权重函数
+def glove_weight(x, x_max=100, alpha=0.75):
+    """GloVe 权重函数 f(x)"""
+    if x < x_max:
+        return (x / x_max) ** alpha
+    return 1.0
 
-# 简单共现矩阵
-X = np.array([
-    [0, 10,  2,  1],
-    [10,  0,  8,  1],
-    [ 2,  8,  0,  5],
-    [ 1,  1,  5,  0],
-])
-pmi = pmi_matrix(X)
+# 可视化权重函数
+print("=== GloVe 权重函数 ===")
+print(f"{'共现次数':<10} {'权重':<10} {'说明'}")
+print("-" * 40)
+for x in [1, 2, 5, 10, 20, 50, 100, 200, 500]:
+    w = glove_weight(x)
+    desc = ""
+    if x < 10:
+        desc = "低频共现 → 较大权重"
+    elif x < 100:
+        desc = "中频共现 → 衰减权重"
+    else:
+        desc = "高频共现 → 上限权重"
+    print(f"{x:<10} {w:<10.4f} {desc}")
 
-print("PMI 矩阵:")
-words = ["cat", "dog", "fish", "bird"]
-print(f"{'':>6}", "".join(f"{w:>8}" for w in words))
-for i, w in enumerate(words):
-    print(f"{w:>6}", "".join(f"{pmi[i][j]:>8.2f}" for j in range(len(words))))
-print("\\n高 PMI 值 → 强共现关系（词义相关）")
-print("低 PMI 值 → 弱共现关系（词义无关）")`,
+# GloVe 训练
+def train_glove(cooccur_matrix, embed_dim=16, epochs=100, lr=0.05, x_max=100):
+    """GloVe 训练简化实现"""
+    V = cooccur_matrix.shape[0]
+    np.random.seed(42)
+    
+    # 词向量和上下文向量
+    W = np.random.randn(V, embed_dim) * 0.1
+    W_tilde = np.random.randn(V, embed_dim) * 0.1
+    b = np.zeros(V)
+    b_tilde = np.zeros(V)
+    
+    # 提取非零共现对
+    pairs = np.argwhere(cooccur_matrix > 0)
+    weights = np.array([glove_weight(cooccur_matrix[i, j]) for i, j in pairs])
+    log_cooccur = np.log(np.array([cooccur_matrix[i, j] for i, j in pairs]))
+    
+    for epoch in range(epochs):
+        # 梯度下降
+        diffs = (W[pairs[:, 0]] * W_tilde[pairs[:, 1]]).sum(axis=1) + b[pairs[:, 0]] + b_tilde[pairs[:, 1]] - log_cooccur
+        
+        loss = np.mean(weights * diffs ** 2)
+        
+        grad_common = weights * diffs[:, np.newaxis]  # (N, d)
+        
+        for idx in range(len(pairs)):
+            i, j = pairs[idx]
+            g = grad_common[idx]
+            W[i] -= lr * g * W_tilde[j]
+            W_tilde[j] -= lr * g * W[i]
+            b[i] -= lr * weights[idx] * diffs[idx]
+            b_tilde[j] -= lr * weights[idx] * diffs[idx]
+        
+        if epoch % 20 == 0:
+            print(f"Epoch {epoch:4d} | Loss: {loss:.6f}")
+    
+    return W + W_tilde  # 最终词向量 = 输入 + 输出
+
+W_final = train_glove(X, embed_dim=16, epochs=100, lr=0.01)
+print("\\n训练完成！最终词向量形状:", W_final.shape)`,
+          },
+          {
+            lang: "python",
+            code: `# GloVe vs Word2Vec 对比分析
+import numpy as np
+
+print("=== GloVe vs Word2Vec 深度对比 ===\\n")
+
+print("1. 优化目标:")
+print("   Word2Vec: 最大化 P(context | center) 或 P(center | context)")
+print("   GloVe:    最小化 Σ f(X_ij)(w_i·w_j + b_i + b_j - log X_ij)²")
+print()
+print("2. 信息利用:")
+print("   Word2Vec: 局部窗口内的共现 (顺序敏感)")
+print("   GloVe:    全局共现矩阵 (顺序不敏感)")
+print()
+print("3. 训练方式:")
+print("   Word2Vec: 随机梯度下降 (在线学习)")
+print("   GloVe:    批量梯度下降 (需要完整共现矩阵)")
+print()
+print("4. 词向量:")
+print("   Word2Vec: 使用输入嵌入 W_in 或两者平均")
+print("   GloVe:    使用 W_in + W_out 之和")
+print()
+print("5. 类比任务表现 (Google Analogy Test Set):")
+print("   Word2Vec (Skip-gram, 300d, 100B tokens): 72-76%")
+print("   GloVe (300d, 840B tokens): 75-78%")
+print()
+print("6. 语义相似性任务 (WordSim-353):")
+print("   Word2Vec: ~0.68 (Spearman)")
+print("   GloVe:    ~0.75 (Spearman)")
+
+# 模拟 GloVe 的共现比率分析
+print("\\n=== 共现比率分析 ===")
+# 假设: "ice" 和 "steam" 的共现统计
+cooccur = {
+    ("ice", "solid"): 380,
+    ("ice", "gas"): 12,
+    ("steam", "solid"): 8,
+    ("steam", "gas"): 320,
+    ("ice", "water"): 370,
+    ("steam", "water"): 310,
+}
+
+# 计算共现比率
+def ratio(wi, wj, wk):
+    X_ik = cooccur.get((wi, wk), 1)
+    X_jk = cooccur.get((wj, wk), 1)
+    return X_ik / X_jk
+
+print(f"P(solid|ice) / P(solid|steam) = {ratio('ice', 'steam', 'solid'):.1f}")
+print(f"P(gas|ice) / P(gas|steam) = {ratio('ice', 'steam', 'gas'):.3f}")
+print(f"P(water|ice) / P(water|steam) = {ratio('ice', 'steam', 'water'):.2f}")
+print("\\nGloVe 捕捉的正是这种比率模式！")`,
           },
         ],
         table: {
           headers: ["特性", "Word2Vec (Skip-gram)", "GloVe"],
           rows: [
-            ["信息来源", "局部上下文窗口", "全局共现矩阵"],
-            ["优化目标", "最大化上下文概率", "加权最小二乘拟合 log(Xᵢⱼ)"],
-            ["训练方式", "在线（SGD 逐样本）", "批量（利用全局统计）"],
-            ["对罕见词", "✅ 负采样有效", "⚠️ 低共现被降权"],
-            ["类比任务", "✅ 好", "✅ 略优"],
-            ["可扩展性", "✅ 流式训练", "⚠️ 需构建共现矩阵"],
+            ["方法", "预测模型 (局部上下文)", "矩阵分解 (全局统计)"],
+            ["优化目标", "负采样下的交叉熵", "加权最小二乘"],
+            ["训练数据", "流式文本", "全局共现矩阵"],
+            ["内存需求", "低 (在线学习)", "高 (需完整共现矩阵)"],
+            ["并行性", "有限", "高 (矩阵运算天然并行)"],
+            ["语义相似性", "好", "更好 (利用全局信息)"],
+            ["类比推理", "好", "相当或略好"],
+            ["训练速度", "中等", "快 (矩阵分解)"],
           ],
         },
-        mermaid: `graph TB
-    A["大规模语料库"] --> B["构建共现矩阵 X"]
-    B --> C["Xᵢⱼ = 词 i 和 j 的共现次数"]
-    C --> D["权重函数 f(Xᵢⱼ)"]
-    D --> E["f(x) = min((x/x_max)^α, 1)"]
-    E --> F["损失: f(Xᵢⱼ)·(wᵢ·w̃ⱼ + bᵢ + b̃ⱼ - log Xᵢⱼ)²"]
-    F --> G["SGD 优化"]
-    G --> H["最终向量: W + W_tilde"]
-    style B fill:#bbf
-    style F fill:#f9a
-    style H fill:#bfb`,
-        tip: "GloVe 的最佳实践：在大规模语料（如 Wikipedia + Gigaword）上训练时，GloVe 的表现通常略优于 Word2Vec。推荐使用官方预训练的 GloVe 向量（6B tokens, 300d），可以直接下载使用。",
-        warning: "GloVe 需要先构建完整的共现矩阵，这意味着你必须先遍历整个语料库。对于流式数据或持续更新的场景，Word2Vec 的在线训练方式更为合适。",
+        mermaid: `graph TD
+    A["大规模语料"] --> B["构建全局共现矩阵 X"]
+    B --> C["权重函数 f(X_ij)"]
+    C --> D["最小化损失"]
+    D -->|"J = Σ f(X_ij)(w_i·w_j + b_i + b_j - log X_ij)²"| E["SGD 优化"]
+    E --> F["词向量 W + 上下文向量 W̃"]
+    F --> G["最终嵌入 = W + W̃"]
+    
+    style A fill:#bbdefb
+    style B fill:#c8e6c9
+    style C fill:#fff9c4
+    style G fill:#e1bee7`,
+        tip: "GloVe 的全局共现矩阵在大规模语料上效果显著。如果你有足够的计算资源，推荐用 GloVe 训练 840B tokens 的 Common Crawl 语料——这几乎是目前最好的免费预训练词嵌入。",
+        warning: "GloVe 需要完整的共现矩阵，这意味着必须先扫描整个语料统计共现次数。对于超大规模语料（如 Common Crawl），这一步本身就可能需要大量内存。Word2Vec 的流式训练方式在这种情况下更可行。",
       },
       {
-        title: "6. FastText 子词嵌入",
-        body: `FastText 是 Facebook AI Research 于 2016 年提出的词嵌入方法，是对 Word2Vec 的重要改进。它解决了一个关键问题：如何处理未登录词（Out-Of-Vocabulary, OOV）？
+        title: "6. FastText：子词信息与形态学感知",
+        body: `FastText 由 Facebook AI Research 提出，解决了 Word2Vec 的一个根本局限：无法处理未见过的词（Out-Of-Vocabulary, OOV）。
 
-在 Word2Vec 中，每个词被当作不可分割的整体来学习向量。这意味着训练词表中不存在的词完全无法处理——你得到的只是一个空向量或报错。这在形态丰富的语言（如德语、土耳其语、芬兰语）中尤为严重。
+**子词分解（Subword Decomposition）：**
+FastText 的核心创新是将每个词分解为字符 n-gram 的集合。例如，对于词 "where"，设定 n-gram 范围为 3-6，我们得到：
+- 3-gram: <wh, whe, her, ere, re>
+- 4-gram: <whe, wher, here, ere>
+- 5-gram: <where>
+- 6-gram: <where>
+（< 和 > 是边界符号，用于区分前缀和后缀）
 
-FastText 的核心创新是引入子词（subword）信息。它将每个词表示为字符 n-gram 的集合。例如，单词 "apple" 在 n=3 时被分解为："<ap", "app", "ppl", "ple", "le>"（加上边界符 < 和 >）。FastText 为每个字符 n-gram 学习一个向量，然后将它们求和作为词的最终表示。
+词 w 的最终向量表示为其所有 n-gram 向量之和：v(w) = Σ_{g ∈ G(w)} z_g，其中 G(w) 是词 w 的所有 n-gram 集合，z_g 是 n-gram g 的嵌入向量。
 
-数学上，FastText 的词向量 v(w) = Σ₉∈G(w) z_g，其中 G(w) 是词 w 的所有字符 n-gram 集合，z_g 是 n-gram g 的向量。注意，整个词本身也被视为一个特殊的 n-gram（即 unigram 的情况），这样保证了 FastText 能退化为标准的 Skip-gram。
+**OOV 词的处理：** 当遇到训练时未见过的词时，FastText 可以将其分解为 n-gram，通过已有 n-gram 向量的组合得到该词的表示。例如，"unhappiness" 在训练时未出现，但其 n-gram（un, unh, hap, app, ppi, pin, ine, nes, ess）可能在其他词中出现过。
 
-这一设计的优雅之处在于：即使遇到训练时未见过的词，只要它的字符 n-gram 有部分出现在训练数据中，FastText 就能通过组合这些已知的 n-gram 向量来生成合理的词表示。例如，"unhappiness" 虽然未见过，但 "un-", "-ness", "happi-" 等子词都很常见。`,
+**形态学优势：** 词缀通常携带重要的语义信息。FastText 的 n-gram 自动捕捉了前缀（un-, re-, dis-）和后缀（-tion, -ness, -able）的含义。这使得 "unhappy" 和 "happy" 的向量天然相近——它们共享大量 n-gram。
+
+**训练：** FastText 的 Skip-gram 训练与 Word2Vec 类似，但每个词的表示从单一向量变为 n-gram 向量之和。负采样同样适用。`,
         code: [
           {
             lang: "python",
-            code: `def get_char_ngrams(word, min_n=3, max_n=6):
-    """获取词的字符 n-gram 集合（带边界符）"""
+            code: `# FastText 子词分解
+import numpy as np
+
+def get_char_ngrams(word, min_n=3, max_n=6):
+    """获取词的字符 n-gram"""
     word = f"<{word}>"  # 添加边界符
-    ngrams = []
+    ngrams = set()
     for n in range(min_n, max_n + 1):
         for i in range(len(word) - n + 1):
-            ngrams.append(word[i:i+n])
+            ngrams.add(word[i:i+n])
     return ngrams
 
 # 演示
-words = ["apple", "applying", "unhappiness", "快"]
+words = ["where", "when", "what", "unhappy", "happiness", "happily"]
 for word in words:
     ngrams = get_char_ngrams(word)
-    print(f"{word:15s} → {len(ngrams):3d} n-grams: {ngrams[:5]}{'...' if len(ngrams) > 5 else ''}")`,
+    print(f"{word:<12} → {len(ngrams):2d} n-grams: {sorted(ngrams)[:8]}")
+
+# 共享 n-gram 分析
+def shared_ngrams(w1, w2, min_n=3, max_n=6):
+    g1 = get_char_ngrams(w1, min_n, max_n)
+    g2 = get_char_ngrams(w2, min_n, max_n)
+    shared = g1 & g2
+    return shared
+
+print("\\n=== 共享 n-gram 分析 ===")
+pairs = [("happy", "unhappy"), ("happy", "happiness"), ("happy", "cat"),
+         ("running", "runner"), ("running", "swimming")]
+for w1, w2 in pairs:
+    shared = shared_ngrams(w1, w2)
+    ratio = len(shared) / max(len(get_char_ngrams(w1)), len(get_char_ngrams(w2)))
+    print(f"  {w1:<12} ↔ {w2:<12}: {len(shared):2d} 共享 ({ratio:.0%})")`,
           },
           {
             lang: "python",
             code: `import numpy as np
 
-class FastTextModel:
-    """简化的 FastText 模型（基于子词嵌入）"""
-
-    def __init__(self, vocab, embed_dim, min_n=3, max_n=6, num_buckets=2000000):
-        self.vocab = vocab
-        self.vocab_idx = {w: i for i, w in enumerate(vocab)}
-        self.embed_dim = embed_dim
+class FastTextSimple:
+    """简化版 FastText 实现"""
+    
+    def __init__(self, vocab, embed_dim=16, min_n=3, max_n=6):
+        self.vocab = set(vocab)
+        self.d = embed_dim
         self.min_n = min_n
         self.max_n = max_n
-        self.num_buckets = num_buckets  # 哈希桶数量
+        
+        # 收集所有 n-gram
+        self.ngram2idx = {"<pad>": 0}
+        idx = 1
+        for word in vocab:
+            for ngram in get_char_ngrams(word, min_n, max_n):
+                if ngram not in self.ngram2idx:
+                    self.ngram2idx[ngram] = idx
+                    idx += 1
+        
+        self.ngram_size = len(self.ngram2idx)
+        self.ngram_embeds = np.random.randn(self.ngram_size, embed_dim) * 0.1
+        self.output_embeds = np.random.randn(len(vocab), embed_dim) * 0.1
+        self.word2idx = {w: i for i, w in enumerate(vocab)}
+    
+    def get_word_vector(self, word):
+        """获取词向量（所有 n-gram 向量之和）"""
+        ngrams = get_char_ngrams(word, self.min_n, self.max_n)
+        indices = [self.ngram2idx.get(g, 0) for g in ngrams]
+        return self.ngram_embeds[indices].mean(axis=0)
+    
+    def get_oov_vector(self, word):
+        """获取 OOV 词的向量"""
+        ngrams = get_char_ngrams(word, self.min_n, self.max_n)
+        indices = [self.ngram2idx.get(g, 0) for g in ngrams 
+                   if g in self.ngram2idx]
+        if not indices:
+            return np.zeros(self.d)
+        return self.ngram_embeds[indices].mean(axis=0)
 
-        # 词向量（vocab 大小）
-        self.word_embeddings = np.random.randn(len(vocab), embed_dim) * 0.01
-        # 子词向量（哈希桶大小）
-        self.subword_embeddings = np.random.randn(num_buckets, embed_dim) * 0.01
+# 演示
+vocab = ["happy", "unhappy", "happiness", "happily", "sad", "sadness"]
+ft = FastTextSimple(vocab, embed_dim=16)
 
-    def _hash(self, ngram):
-        """简单哈希到桶索引"""
-        h = 0
-        for c in ngram:
-            h = (h * 31 + ord(c)) % self.num_buckets
-        return h
+print("=== FastText OOV 处理 ===")
+oov_words = ["happier", "unhappiness", "unhappily", "apple"]
+for word in oov_words:
+    vec = ft.get_oov_vector(word)
+    print(f"  {word:<15}: L2={np.linalg.norm(vec):.4f}, 前4维={vec[:4]}")
 
-    def get_word_representation(self, word):
-        """获取词的完整表示（词向量 + 子词向量之和）"""
-        word_idx = self.vocab_idx.get(word)
-        if word_idx is None:
-            # OOV 词：只用子词
-            vec = np.zeros(self.embed_dim)
-        else:
-            vec = self.word_embeddings[word_idx].copy()
-
-        ngrams = self._get_ngrams(word)
-        for ng in ngrams:
-            bucket = self._hash(ng)
-            vec += self.subword_embeddings[bucket]
-        return vec
-
-    def _get_ngrams(self, word):
-        word = f"<{word}>"
-        ngrams = []
-        for n in range(self.min_n, self.max_n + 1):
-            for i in range(len(word) - n + 1):
-                ngrams.append(word[i:i+n])
-        return ngrams
-
-# 测试
-vocab = ["apple", "apply", "applied", "happy", "happiness"]
-model = FastTextModel(vocab, embed_dim=16)
-
-# 已知词
-apple_vec = model.get_word_representation("apple")
-# OOV 词
-apples_vec = model.get_word_representation("apples")
-
-sim = np.dot(apple_vec, apples_vec) / (np.linalg.norm(apple_vec) * np.linalg.norm(apples_vec))
-print(f"'apple' 与 'apples' (OOV) 相似度: {sim:.4f}")
-print("即使 'apples' 不在词表中，也能获得有意义的表示！")`,
+# 对比 Word2Vec 和 FastText
+print("\\nWord2Vec: 'happier' → OOV (零向量)")
+print("FastText: 'happier' → 'happ' + 'appi' + 'ppie' + 'pier' + 'ier>' 组合向量")`,
           },
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# FastText 在词形变化上的优势
+import numpy as np
 
-# FastText 子词嵌入的优势演示：形态丰富的语言
-def demonstrate_morphology():
-    """展示 FastText 如何处理形态变化"""
-    # 模拟学习到的子词嵌入
-    subword_vecs = {
-        "<un":    np.array([ 0.8, -0.2,  0.5]),
-        "happy":  np.array([ 0.9,  0.7, -0.3]),
-        "ppin":   np.array([ 0.1,  0.3,  0.2]),
-        "iness>": np.array([-0.3,  0.6,  0.4]),
-        "ly>":    np.array([ 0.2, -0.5,  0.6]),
-        "<re":    np.array([ 0.6, -0.1, -0.3]),
-    }
+# 模拟训练后的 FastText 嵌入
+np.random.seed(42)
+d = 64
 
-    def subword_sum(word):
-        word = f"<{word}>"
-        ngrams = set()
-        for n in range(3, 7):
-            for i in range(len(word) - n + 1):
-                ng = word[i:i+n]
-                if ng in subword_vecs:
-                    ngrams.add(ng)
-        if not ngrams:
-            return np.zeros(3)
-        return sum(subword_vecs[ng] for ng in ngrams) / len(ngrams)
+# happy 词族的 n-gram 共享
+ngram_vectors = {}
+base_ngrams = get_char_ngrams("happy")
+for g in base_ngrams:
+    ngram_vectors[g] = np.random.randn(d) * 0.1
 
-    words = ["unhappiness", "happily", "reapply"]
-    print("子词组合生成词向量:")
-    for w in words:
-        v = subword_sum(w)
-        print(f"  {w:15s} → {v}")
+# unhappy 共享大部分 happy 的 n-gram
+unhappy_ngrams = get_char_ngrams("unhappy")
+for g in unhappy_ngrams & base_ngrams:
+    pass  # 已经存在
 
-demonstrate_morphology()`,
-          },
-          {
-            lang: "python",
-            code: `# 使用 gensim 训练 FastText
-try:
-    from gensim.models import FastText
-    from gensim.test.utils import common_texts
+# 构建词向量
+def build_vector(word, ngram_vectors):
+    ngrams = get_char_ngrams(word)
+    vecs = [ngram_vectors.get(g, np.random.randn(d) * 0.1) for g in ngrams]
+    return np.mean(vecs, axis=0)
 
-    # 训练 FastText
-    model = FastText(
-        sentences=common_texts,
-        vector_size=100,
-        window=5,
-        min_count=1,
-        min_n=3,        # 最小字符 n-gram 长度
-        max_n=6,        # 最大字符 n-gram 长度
-        epochs=10,
-        workers=4,
-    )
+happy_vec = build_vector("happy", ngram_vectors)
+unhappy_vec = build_vector("unhappy", ngram_vectors)
+happiness_vec = build_vector("happiness", ngram_vectors)
+cat_vec = np.random.randn(d) * 0.1  # 无关词
 
-    # 获取已知词向量
-    vec_human = model.wv["human"]
-    print(f"'human' 向量形状: {vec_human.shape}")
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-    # OOV 词也能获得向量！
-    oov_words = ["humanness", "humanity", "transhuman"]
-    for w in oov_words:
-        try:
-            vec = model.wv[w]
-            sim = model.wv.similarity("human", w)
-            print(f"  OOV '{w}': 与 'human' 相似度 = {sim:.4f}")
-        except KeyError:
-            print(f"  OOV '{w}': 无法表示")
-except ImportError:
-    print("gensim 未安装，跳过 FastText 演示")
-    print("安装: pip install gensim")`,
+print("=== FastText 词形变化相似度 ===")
+print(f"  happy    ↔ unhappy:   {cos_sim(happy_vec, unhappy_vec):.4f}")
+print(f"  happy    ↔ happiness: {cos_sim(happy_vec, happiness_vec):.4f}")
+print(f"  happy    ↔ cat:       {cos_sim(happy_vec, cat_vec):.4f}")
+
+print("\\nWord2Vec 需要独立学习每个词的向量：")
+print("  happy 和 unhappy 被视为完全独立的词")
+print("  如果训练集中 unhappy 出现很少，其向量质量差")
+print("\\nFastText 通过共享 n-gram 自动关联：")
+print("  happy 和 unhappy 共享 'happy' n-gram")
+print("  即使 unhappy 出现次数少，也能继承 happy 的信息")`,
           },
         ],
         table: {
-          headers: ["特性", "Word2Vec", "FastText"],
+          headers: ["特性", "Word2Vec", "GloVe", "FastText"],
           rows: [
-            ["词表示单位", "完整词", "字符 n-gram"],
-            ["OOV 处理", "❌ 无法处理", "✅ 子词组合"],
-            ["参数数量", "V × d", "V × d + B × d (B=桶数)"],
-            ["形态学语言", "⚠️ 一般", "✅ 优秀"],
-            ["训练速度", "✅ 快", "⚠️ 较慢（哈希碰撞）"],
-            ["词表外泛化", "❌ 无", "✅ 强"],
+            ["基本单元", "整词", "整词", "字符 n-gram"],
+            ["OOV 处理", "❌ 无法处理", "❌ 无法处理", "✅ n-gram 组合"],
+            ["形态学", "❌ 不感知", "❌ 不感知", "✅ 自动学习"],
+            ["参数量", "V × d", "V × d", "G × d (G ≫ V)"],
+            ["训练速度", "快", "快", "稍慢 (n-gram 分解)"],
+            ["低频词表示", "较差", "一般", "好 (共享 n-gram)"],
+            ["多语言", "需要分词器", "需要分词器", "对黏着语友好"],
           ],
         },
-        mermaid: `graph TB
-    A["单词: 'unhappiness'"] --> B["字符 n-gram 分解"]
-    B --> C["<un, unh, nha, hap, app, ppi, pin, ine, nes, ess, ss>"]
-    C --> D["每个 n-gram 映射到哈希桶"]
-    D --> E["查找子词向量 z_g"]
-    E --> F["v = Σ z_g"]
-    F --> G["最终词向量"]
-    style A fill:#f9f
-    style F fill:#bbf
-    style G fill:#bfb`,
-        tip: "FastText 在多语言场景下表现尤为出色。对于中文等语言，字符本身就是最小的语义单位，可以将 min_n 和 max_n 都设为 1，此时 FastText 退化为字符级词嵌入。",
-        warning: "FastText 的哈希桶大小是一个需要权衡的参数。桶太小会导致大量哈希碰撞，不同 n-gram 共享同一个向量；桶太大则浪费内存。官方推荐 200 万到 20 亿个桶，根据词表大小选择。",
+        mermaid: `graph TD
+    A["输入词 'unhappy'"] --> B["字符 n-gram 分解"]
+    B --> C1["<un"]
+    B --> C2["unh"]
+    B --> C3["nha"]
+    B --> C4["hap"]
+    B --> C5["app"]
+    B --> C6["ppy"]
+    B --> C7["py>"]
+    C1 --> D["查 n-gram 嵌入表"]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> D
+    C6 --> D
+    C7 --> D
+    D --> E["所有 n-gram 向量求和"]
+    E --> F["最终词向量"]
+    
+    style A fill:#bbdefb
+    style B fill:#fff9c4
+    style D fill:#c8e6c9
+    style F fill:#e1bee7`,
+        tip: "如果你的任务涉及大量专业术语、拼写变体或多语言混合（如代码中的变量名、化学分子式、人名等），FastText 是比 Word2Vec 更好的选择。",
+        warning: "FastText 的 n-gram 数量远大于词汇表大小（G ≫ V），因此参数量更大。对于小嵌入维度（如 d=50），n-gram 向量可能学习不充分，建议使用 d≥100。",
       },
       {
-        title: "7. 词嵌入评估与应用",
-        body: `如何判断一个词嵌入模型好不好？评估方法分为两大类：内在评估（Intrinsic Evaluation）和外在评估（Extrinsic Evaluation）。
+        title: "7. 词嵌入评估：如何衡量词向量质量",
+        body: `训练好的词嵌入到底好不好？评估词嵌入质量有两个维度：**内在评估（Intrinsic Evaluation）**和**外在评估（Extrinsic Evaluation）**。
 
-内在评估直接测量词向量本身的语义质量。最经典的任务是词类比（Word Analogy）：给定 "man : woman :: king : ?"，模型应该回答 "queen"。数学上，这等价于寻找使 v(queen) ≈ v(king) - v(man) + v(woman) 成立的词。另一个常用任务是词相似度（Word Similarity）：计算词向量之间的余弦相似度，与人类标注的相似度评分（如 SimLex-999、WordSim-353）计算 Spearman 相关系数。
+**内在评估：** 直接在词向量上测试特定语言能力。
+- 词相似性（Word Similarity）：计算词对向量间的余弦相似度，与人类标注的相似度评分做相关性分析（Spearman/Pearson 相关系数）。常用数据集：WordSim-353、SimLex-999、MEN。
+- 类比推理（Analogy）：测试向量空间的算术性质，如 "king - man + woman ≈ queen"。常用数据集：Google Analogy Test Set（包含语义类和语法类共 8 种关系）、BATS 数据集。
 
-外在评估则将词向量作为下游任务的输入，看任务性能是否提升。例如，将词向量输入到文本分类、命名实体识别（NER）、情感分析等模型中，观察准确率、F1 分数等指标的变化。外在评估更可靠——因为最终目的是提升下游任务表现，但它的缺点是计算成本高，且结果受到下游模型的影响。
+**外在评估：** 将词嵌入作为下游 NLP 任务的输入，看任务性能是否提升。这是更可靠的评估方式，因为最终目的是改善实际任务。常用任务：文本分类、NER、情感分析、机器翻译。
 
-值得注意的是，静态词嵌入（Word2Vec、GloVe、FastText）无法处理一词多义问题。"bank" 在 "river bank" 和 "bank account" 中应该有不同的向量，但静态嵌入只能给出一个固定的表示。这也是后来 ELMo、BERT 等上下文感知词嵌入兴起的根本原因。`,
+**可视化评估：** 用 t-SNE 或 PCA 将高维词向量降到 2D/3D，观察语义相似的词是否自然聚类。虽然不够定量，但直观有效。
+
+**需要注意的陷阱：** 内在评估高分不代表外在评估一定好——词向量可能过度拟合了类比任务但没有学到真正有用的语义。相反，内在评估一般的词向量在外在任务上可能表现不错。`,
         code: [
           {
             lang: "python",
-            code: `import numpy as np
+            code: `# 词相似性评估
+import numpy as np
+from scipy.stats import spearmanr, pearsonr
 
-def word_analogy(embeddings, word_a, word_b, word_c):
-    """
-    词类比任务: a : b :: c : ?
-    即: 找到 d 使得 v(d) ≈ v(b) - v(a) + v(c)
-    """
-    if not all(w in embeddings for w in [word_a, word_b, word_c]):
-        return None, None
-
-    target = embeddings[word_b] - embeddings[word_a] + embeddings[word_c]
-
-    best_sim = -1
-    best_word = None
-    for word, vec in embeddings.items():
-        if word in [word_a, word_b, word_c]:
-            continue
-        sim = np.dot(target, vec) / (np.linalg.norm(target) * np.linalg.norm(vec) + 1e-10)
-        if sim > best_sim:
-            best_sim = sim
-            best_word = word
-    return best_word, best_sim
-
-# 模拟训练好的词向量
-embeddings = {
-    "man":    np.array([ 0.9,  0.1,  0.2, -0.1]),
-    "woman":  np.array([ 0.8, -0.2,  0.3, -0.1]),
-    "king":   np.array([ 0.95, 0.1,  0.5,  0.3]),
-    "queen":  np.array([ 0.85,-0.15, 0.55, 0.25]),
-    "prince": np.array([ 0.88, 0.05, 0.45, 0.2]),
-    "princess": np.array([0.78,-0.1, 0.5,  0.15]),
-    "boy":    np.array([ 0.85, 0.15, 0.1, -0.05]),
-    "girl":   np.array([ 0.75,-0.15, 0.15,-0.05]),
-}
-
-answer, sim = word_analogy(embeddings, "man", "woman", "king")
-print(f"man : woman :: king : {answer} (相似度: {sim:.4f})")
-
-answer, sim = word_analogy(embeddings, "boy", "girl", "prince")
-print(f"boy : girl :: prince : {answer} (相似度: {sim:.4f})")`,
-          },
-          {
-            lang: "python",
-            code: `import numpy as np
-from scipy.stats import spearmanr
-
-def evaluate_word_similarity(embeddings, word_pairs, human_scores):
-    """
-    词相似度评估：计算词向量相似度与人类评分的 Spearman 相关系数
-    """
-    model_scores = []
-    valid_human = []
-
-    for (w1, w2), human in zip(word_pairs, human_scores):
-        if w1 in embeddings and w2 in embeddings:
-            vec1, vec2 = embeddings[w1], embeddings[w2]
-            sim = np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2) + 1e-10)
-            model_scores.append(sim)
-            valid_human.append(human)
-
-    if len(model_scores) < 3:
-        return None, None
-
-    corr, p_value = spearmanr(valid_human, model_scores)
-    return corr, p_value
-
-# 模拟 WordSim-353 数据集
-word_pairs = [
-    ("king", "queen"), ("boy", "girl"), ("car", "auto"),
-    ("cat", "dog"), ("book", "paper"), ("happy", "sad"),
+# WordSim-353 数据集示例 (词对, 人类评分)
+wordsim353 = [
+    ("tiger", "cat", 7.35),
+    ("tiger", "tiger", 10.0),
+    ("plane", "car", 5.77),
+    ("train", "car", 6.31),
+    ("television", "radio", 6.77),
+    ("media", "radio", 7.42),
+    ("doctor", "nurse", 7.00),
+    ("professor", "doctor", 6.62),
+    ("student", "professor", 6.81),
+    ("smart", "student", 4.62),
+    ("smart", "stupid", 5.81),
+    ("company", "stock", 7.08),
+    ("stock", "market", 8.13),
+    ("stock", "phone", 1.62),
+    ("stock", "CD", 1.62),
+    ("stock", "jaguar", 0.92),
+    ("money", "bank", 7.19),
+    ("money", "cash", 9.15),
+    ("money", "property", 5.94),
+    ("money", "possession", 7.29),
 ]
-human_scores = [8.5, 8.0, 8.8, 7.5, 6.5, 3.0]  # 人类标注的相似度 (0-10)
 
-embeddings = {
-    "king":  np.array([0.9, 0.1, 0.5, 0.3]),
-    "queen": np.array([0.85,-0.15,0.55,0.25]),
-    "boy":   np.array([0.85, 0.15,0.1,-0.05]),
-    "girl":  np.array([0.75,-0.15,0.15,-0.05]),
-    "car":   np.array([0.1, 0.2, 0.8, 0.1]),
-    "auto":  np.array([0.15,0.25,0.75,0.15]),
-    "cat":   np.array([0.8, 0.3,-0.2,0.5]),
-    "dog":   np.array([0.7, 0.4,-0.1,0.6]),
-    "book":  np.array([0.3, 0.1, 0.6, 0.2]),
-    "paper": np.array([0.25,0.15,0.55,0.25]),
-    "happy": np.array([0.4, 0.8, 0.1, 0.2]),
-    "sad":   np.array([0.3,-0.7, 0.15,0.1]),
-}
+# 模拟词嵌入（用预训练向量会更准确）
+np.random.seed(42)
+vocab_words = set()
+for w1, w2, _ in wordsim353:
+    vocab_words.add(w1)
+    vocab_words.add(w2)
+vocab = list(vocab_words)
+embeddings = {w: np.random.randn(100) for w in vocab}
 
-corr, p_val = evaluate_word_similarity(embeddings, word_pairs, human_scores)
-print(f"Spearman 相关系数: {corr:.4f} (p = {p_val:.4f})")
-print(f"{'优秀' if corr > 0.7 else '一般' if corr > 0.5 else '较差'} (WordSim-353 基线: ~0.65)")`,
+# 故意让语义相似的词向量更近
+embeddings["cat"] = embeddings["tiger"] * 0.9 + np.random.randn(100) * 0.1
+embeddings["car"] = embeddings["plane"] * 0.7 + np.random.randn(100) * 0.1
+embeddings["radio"] = embeddings["television"] * 0.8 + np.random.randn(100) * 0.1
+embeddings["nurse"] = embeddings["doctor"] * 0.85 + np.random.randn(100) * 0.1
+embeddings["cash"] = embeddings["money"] * 0.95 + np.random.randn(100) * 0.05
+embeddings["possession"] = embeddings["money"] * 0.7 + np.random.randn(100) * 0.1
+
+def cos_sim(a, b):
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+# 计算模型预测的相似度
+model_scores = []
+human_scores = []
+for w1, w2, score in wordsim353:
+    if w1 in embeddings and w2 in embeddings:
+        model_scores.append(cos_sim(embeddings[w1], embeddings[w2]))
+        human_scores.append(score)
+
+if model_scores:
+    spearman, _ = spearmanr(model_scores, human_scores)
+    pearson, _ = pearsonr(model_scores, human_scores)
+    print(f"WordSim-353 评估结果:")
+    print(f"  Spearman 相关: {spearman:.4f}")
+    print(f"  Pearson 相关:  {pearson:.4f}")
+    print(f"  (理想值 > 0.6 为良好, > 0.7 为优秀)")`,
           },
           {
             lang: "python",
-            code: `# 使用 gensim 进行完整的词嵌入评估
-try:
-    from gensim.models import KeyedVectors
-    from gensim.downloader import load
+            code: `# 类比推理评估
+import numpy as np
 
-    # 加载预训练模型
-    print("加载预训练词向量...")
-    model = load("glove-wiki-gigaword-100")  # 100d GloVe
+def evaluate_analogies(embeddings, questions):
+    """评估类比推理准确率
+    questions: [(a, b, c, expected_answer), ...]
+    测试: a - b + c ≈ expected_answer
+    """
+    def cos_sim(a, b):
+        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+    
+    correct = 0
+    total = 0
+    
+    for a, b, c, expected in questions:
+        if all(w in embeddings for w in [a, b, c, expected]):
+            # 计算类比向量
+            analogy_vec = embeddings[a] - embeddings[b] + embeddings[c]
+            
+            # 在所有词中找最相似的（排除 a, b, c）
+            best_word = None
+            best_sim = -float('inf')
+            exclude = {a, b, c}
+            
+            for word, vec in embeddings.items():
+                if word in exclude:
+                    continue
+                sim = cos_sim(analogy_vec, vec)
+                if sim > best_sim:
+                    best_sim = sim
+                    best_word = word
+            
+            total += 1
+            if best_word == expected:
+                correct += 1
+                print(f"  ✅ {a} - {b} + {c} = {best_word} (sim={best_sim:.3f})")
+            else:
+                print(f"  ❌ {a} - {b} + {c} = {best_word} (期望: {expected})")
+    
+    if total > 0:
+        print(f"\\n准确率: {correct}/{total} = {correct/total:.1%}")
+    return correct / total if total > 0 else 0
 
-    # 1. 词类比评估
-    print("\\n=== 词类比任务 ===")
-    analogy_pairs = [
-        ("man", "woman", "king"),
-        ("paris", "france", "berlin"),
-        ("big", "bigger", "small"),
-    ]
-    for a, b, c in analogy_pairs:
-        result = model.most_similar(positive=[b, c], negative=[a], topn=1)
-        print(f"  {a} : {b} :: {c} : {result[0][0]} ({result[0][1]:.4f})")
+# 模拟预训练嵌入
+np.random.seed(42)
+d = 300
 
-    # 2. 词相似度
-    print("\\n=== 词相似度 ===")
-    pairs = [("cat", "dog"), ("car", "bicycle"), ("happy", "sad")]
-    for w1, w2 in pairs:
-        sim = model.similarity(w1, w2)
-        print(f"  {w1} <-> {w2}: {sim:.4f}")
+# 语义类比
+king = np.random.randn(d)
+queen = king - np.array([1.0] * d * 0.01) + np.random.randn(d) * 0.05
+man = np.random.randn(d)
+woman = man - np.array([1.0] * d * 0.01) + np.random.randn(d) * 0.05
 
-    # 3. 找最相似的词
-    print("\\n=== 最相似词 ===")
-    for word in ["computer", "beautiful", "run"]:
-        similar = model.most_similar(word, topn=3)
-        print(f"  {word}: {', '.join(f'{w}({s:.3f})' for w, s in similar)}")
+# 首都类比
+paris = np.random.randn(d)
+france = paris + np.array([0.5] * d * 0.02) + np.random.randn(d) * 0.03
+london = np.random.randn(d)
+england = london + np.array([0.5] * d * 0.02) + np.random.randn(d) * 0.03
 
-except Exception as e:
-    print(f"gensim 评估跳过: {e}")`,
+embeddings = {"king": king, "queen": queen, "man": man, "woman": woman,
+              "paris": paris, "france": france, "london": london, "england": england,
+              "cat": np.random.randn(d), "dog": np.random.randn(d)}
+
+questions = [
+    ("king", "man", "woman", "queen"),
+    ("paris", "france", "london", "england"),
+]
+
+evaluate_analogies(embeddings, questions)`,
+          },
+          {
+            lang: "python",
+            code: `# t-SNE 可视化词嵌入
+import numpy as np
+
+def tsne_simple(words, embeddings, perplexity=5):
+    """简化的 t-SNE 可视化（使用 sklearn）"""
+    try:
+        from sklearn.manifold import TSNE
+        vecs = np.array([embeddings[w] for w in words])
+        tsne = TSNE(n_components=2, perplexity=min(perplexity, len(words)-1),
+                    random_state=42, n_iter=1000)
+        coords = tsne.fit_transform(vecs)
+        return coords
+    except ImportError:
+        # 如果没有 sklearn，用 PCA 替代
+        from sklearn.decomposition import PCA
+        vecs = np.array([embeddings[w] for w in words])
+        pca = PCA(n_components=2)
+        return pca.fit_transform(vecs)
+
+# 构建语义聚类
+np.random.seed(42)
+d = 50
+
+# 动物类
+center_animal = np.random.randn(d)
+animals = {"cat", "dog", "bird", "fish", "horse", "elephant", "lion", "tiger"}
+animal_embeds = {w: center_animal + np.random.randn(d) * 0.3 for w in animals}
+
+# 水果类
+center_fruit = np.random.randn(d) + 5
+fruits = {"apple", "banana", "orange", "grape", "peach", "mango", "lemon"}
+fruit_embeds = {w: center_fruit + np.random.randn(d) * 0.3 for w in fruits}
+
+# 车辆类
+center_vehicle = np.random.randn(d) - 5
+vehicles = {"car", "truck", "bus", "train", "plane", "boat", "bike"}
+vehicle_embeds = {w: center_vehicle + np.random.randn(d) * 0.3 for w in vehicles}
+
+all_embeds = {**animal_embeds, **fruit_embeds, **vehicle_embeds}
+all_words = list(all_embeds.keys())
+
+coords = tsne_simple(all_words, all_embeds)
+
+# 打印 2D 坐标（可用来画图）
+print("=== 词嵌入 t-SNE 2D 坐标 ===")
+categories = {"动物": animals, "水果": fruits, "车辆": vehicles}
+for cat, words in categories.items():
+    print(f"\\n{cat}:")
+    for w in words:
+        idx = all_words.index(w)
+        print(f"  {w:<12} ({coords[idx][0]:6.2f}, {coords[idx][1]:6.2f})")
+
+print("\\n在 t-SNE 图中，同一类别的词应该自然聚类在一起")
+print("如果不同类别的词混在一起，说明嵌入质量不佳")`,
           },
         ],
         table: {
-          headers: ["评估方法", "度量指标", "数据集", "Word2Vec 基线", "GloVe 基线"],
+          headers: ["评估方法", "测试内容", "数据规模", "评价标准", "优点", "缺点"],
           rows: [
-            ["词类比", "准确率", "Google Analogy", "~73%", "~76%"],
-            ["词相似度", "Spearman ρ", "WordSim-353", "~0.65", "~0.72"],
-            ["语义相关性", "Spearman ρ", "SimLex-999", "~0.35", "~0.40"],
-            ["文本分类", "准确率", "SST-2", "~85%", "~86%"],
-            ["NER", "F1 分数", "CoNLL-2003", "~88%", "~89%"],
+            ["词相似性 (WordSim-353)", "词对语义相似度", "353 对", "Spearman 相关", "快速直观", "不全面"],
+            ["词相似性 (SimLex-999)", "真正的相似性 (非关联)", "999 对", "Spearman 相关", "区分相似/关联", "较小"],
+            ["类比推理 (Google)", "向量算术性质", "19,544 题", "准确率", "测试关系推理", "不一定反映实用性"],
+            ["下游任务 (文本分类)", "实际任务性能", "任务相关", "F1/Accuracy", "最可靠", "慢，依赖任务"],
+            ["t-SNE 可视化", "空间结构", "全部词汇", "目视检查", "直观", "主观"],
           ],
         },
-        mermaid: `graph TB
-    A["词嵌入模型"] --> B["内在评估"]
-    A --> C["外在评估"]
-    B --> D["词类比任务"]
-    B --> E["词相似度任务"]
-    B --> F["聚类可视化"]
-    C --> G["文本分类"]
-    C --> H["命名实体识别"]
-    C --> I["情感分析"]
-    D --> J["准确率: ~73-76%"]
-    E --> K["Spearman ρ: ~0.65-0.72"]
-    G --> L["F1/Accuracy"]
-    H --> M["F1 Score"]
-    I --> N["Accuracy"]
-    style B fill:#bbf
-    style C fill:#bfb`,
-        tip: "词嵌入是 NLP 流水线的基石，但已经不是最前沿。如果你在做新项目，建议直接从 BERT/RoBERTa 等上下文嵌入开始——它们在几乎所有下游任务上都显著优于静态词嵌入。但理解 Word2Vec/GloVe 的原理对于掌握 NLP 仍然至关重要。",
-        warning: "词嵌入会继承训练数据中的偏见！研究表明，Word2Vec 向量中 'man : woman :: programmer : homemaker' 这样的性别偏见关系清晰可测。在实际应用中，需要意识到这些偏见并采取缓解措施（如 debiasing 技术）。",
+        mermaid: `graph TD
+    A["词嵌入训练完成"] --> B{"评估方式?"}
+    B -->|"内在评估"| C["词相似性测试"]
+    B -->|"内在评估"| D["类比推理测试"]
+    B -->|"内在评估"| E["t-SNE 可视化"]
+    B -->|"外在评估"| F["下游任务性能"]
+    C --> G["Spearman 相关系数"]
+    D --> H["类比准确率"]
+    E --> I["聚类效果目视"]
+    F --> J["F1/Accuracy/mAP"]
+    G --> K["综合评估报告"]
+    H --> K
+    I --> K
+    J --> K`,
+        tip: "评估词嵌入时，内在评估和外在评估要结合看。内在评估让你快速比较不同嵌入的质量，外在评估告诉你嵌入在实际任务中的真实价值。不要只看类比准确率——一个类比准确率 78% 的嵌入在文本分类上可能不如一个 65% 的嵌入。",
+        warning: "常见陷阱：(1) 在评估时没有排除训练集中的词对（数据泄露）；(2) 类比测试时没有排除输入词本身（如 king - man + woman = king）；(3) 用 t-SNE 的超参数（如 perplexity）操控可视化效果来'证明'嵌入质量好。",
       },
     ],
   };
