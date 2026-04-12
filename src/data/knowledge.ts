@@ -95,6 +95,10 @@ import { article as llm009 } from './articles/llm-009';
 import { article as llm010 } from './articles/llm-010';
 import { article as llm011 } from './articles/llm-011';
 import { article as llm012 } from './articles/llm-012';
+import { article as math001 } from './articles/math-001';
+import { article as math003 } from './articles/math-003';
+import { article as math004 } from './articles/math-004';
+import { article as math005 } from './articles/math-005';
 import { article as ml001 } from './articles/ml-001';
 import { article as ml002 } from './articles/ml-002';
 import { article as ml003 } from './articles/ml-003';
@@ -136,4 +140,4 @@ import { article as rl006 } from './articles/rl-006';
 import { article as rl007 } from './articles/rl-007';
 import { article as rl008 } from './articles/rl-008';
 
-export const articles: Article[] = [agent001,agent002,agent003,agent004,agent005,agent006,agent007,cv001,cv002,cv003,cv004,cv005,cv006,cv007,cv008,cv009,cv010,cv011,cv012,dl001,dl002,dl003,dl004,dl005,dl006,dl007,dl008,dl009,dl010,dl011,dl012,dl013,dl014,dl015,dl016,genai001,genai002,genai003,genai004,genai005,genai006,genai007,llm001,llm002,llm003,llm004,llm005,llm006,llm007,llm008,llm009,llm010,llm011,llm012,ml001,ml002,ml003,ml004,ml005,ml006,ml007,ml008,ml009,ml010,ml011,ml012,ml013,ml014,ml015,ml016,ml017,ml018,ml019,ml020,ml021,ml022,nlp001,nlp002,nlp003,nlp004,nlp005,nlp006,nlp007,nlp008,nlp009,nlp010,rl001,rl002,rl003,rl004,rl005,rl006,rl007,rl008];
+export const articles: Article[] = [agent001,agent002,agent003,agent004,agent005,agent006,agent007,cv001,cv002,cv003,cv004,cv005,cv006,cv007,cv008,cv009,cv010,cv011,cv012,dl001,dl002,dl003,dl004,dl005,dl006,dl007,dl008,dl009,dl010,dl011,dl012,dl013,dl014,dl015,dl016,genai001,genai002,genai003,genai004,genai005,genai006,genai007,llm001,llm002,llm003,llm004,llm005,llm006,llm007,llm008,llm009,llm010,llm011,llm012,math001,math003,math004,math005,ml001,ml002,ml003,ml004,ml005,ml006,ml007,ml008,ml009,ml010,ml011,ml012,ml013,ml014,ml015,ml016,ml017,ml018,ml019,ml020,ml021,ml022,nlp001,nlp002,nlp003,nlp004,nlp005,nlp006,nlp007,nlp008,nlp009,nlp010,rl001,rl002,rl003,rl004,rl005,rl006,rl007,rl008];
