@@ -76,13 +76,28 @@ const blogPosts = [
   },
 ];
 
+const POSTS_PER_PAGE = 3;
+
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("全部");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredPosts = useMemo(() => {
     if (activeCategory === "全部") return blogPosts;
     return blogPosts.filter((p) => p.category === activeCategory);
   }, [activeCategory]);
+
+  // Reset to page 1 when category changes
+  const handleCategoryChange = (cat: string) => {
+    setActiveCategory(cat);
+    setCurrentPage(1);
+  };
+
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const startIndex = (safePage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
@@ -108,7 +123,7 @@ export default function BlogPage() {
             {blogCategories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => handleCategoryChange(cat)}
                 className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
                   activeCategory === cat
                     ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
@@ -126,10 +141,10 @@ export default function BlogPage() {
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
           <p className="text-sm text-slate-500 mb-6">
-            找到 <span className="text-brand-400 font-medium">{filteredPosts.length}</span> 篇文章
+            找到 <span className="text-brand-400 font-medium">{filteredPosts.length}</span> 篇文章{filteredPosts.length !== paginatedPosts.length ? ` · 第 ${safePage}/${totalPages} 页` : ""}
           </p>
           <div className="space-y-6">
-            {filteredPosts.map((post, index) => (
+            {paginatedPosts.map((post, index) => (
               <Link
                 key={post.id}
                 href={`/blog/${post.id}`}
@@ -179,14 +194,38 @@ export default function BlogPage() {
             ))}
           </div>
 
-          {/* Pagination placeholder */}
-          <div className="mt-12 flex items-center justify-center gap-2">
-            <button className="px-4 py-2 bg-brand-600 rounded-lg text-sm font-medium">1</button>
-            <button className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-slate-400 transition-colors">2</button>
-            <button className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-slate-400 transition-colors">3</button>
-            <span className="text-slate-500 px-2">...</span>
-            <button className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-slate-400 transition-colors">下一页 →</button>
-          </div>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex items-center justify-center gap-2">
+              <button
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={safePage === 1}
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+              >
+                ← 上一页
+              </button>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    page === safePage
+                      ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                      : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={safePage === totalPages}
+                className="px-3 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+              >
+                下一页 →
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
