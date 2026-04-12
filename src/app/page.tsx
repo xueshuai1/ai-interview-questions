@@ -4,6 +4,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { LAST_UPDATE_TIME } from "@/data/update-time";
+import { news } from "@/data/news";
 
 const features = [
   {
@@ -44,35 +45,35 @@ const features = [
   },
 ];
 
-const news = [
+const newsPreview = news.slice(0, 5);
   {
     tag: "重磅",
-    title: "Microsoft AI 发布三款基础模型，直接挑战 OpenAI 和 Google",
+    title: "Anthropic 称最新 AI 模型过于强大，暂不向公众开放",
     date: "2026-04-12",
     href: "/blog",
   },
   {
     tag: "产品",
-    title: "Poke 让 AI Agent 像发短信一样简单，自然语言交互新范式",
+    title: "Meta AI 应用登顶 App Store 第五，Muse 功能引爆增长",
     date: "2026-04-12",
     href: "/blog",
   },
   {
     tag: "趋势",
-    title: "Snap 时隔多年重启 AI 眼镜项目，AR 硬件竞争再起",
+    title: "Nvidia 投资 SiFive 估值达 36.5 亿美元，开源 AI 芯片加速崛起",
     date: "2026-04-12",
     href: "/blog",
   },
   {
     tag: "前沿",
-    title: "MIT 用控制理论让 AI 模型边学边瘦身，推理效率大幅提升",
-    date: "2026-04-11",
+    title: "阿里巴巴开源 Wan 2.1 AI 视频模型，社区反响热烈",
+    date: "2026-04-12",
     href: "/blog",
   },
   {
     tag: "安全",
-    title: "AI 浏览器扩展漏洞率高达 60%，成网络安全新盲区",
-    date: "2026-04-11",
+    title: "伊朗威胁要轰炸 OpenAI 与英伟达在阿布扎比 300 亿美元数据中心",
+    date: "2026-04-12",
     href: "/blog",
   },
 ];
