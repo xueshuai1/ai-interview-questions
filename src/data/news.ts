@@ -278,4 +278,158 @@ arXiv 最新发表的论文展示了一个**革命性的 AI 科学发现系统**
     sourceUrl: "https://arxiv.org/list/cs.AI/new",
     href: "/news/news-005",
   },
+  {
+    id: "news-006",
+    tag: "研究",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "MIT 发布 Lean AI 技术：用控制论实时裁剪模型，训练成本降低 40%",
+    summary: "MIT 研究团队将控制论引入神经网络训练，在模型学习过程中动态移除冗余参数，打破\"越大越好\"的 AI 训练范式。",
+    content: `## 突破性研究
+
+2026 年 4 月 9 日，MIT 研究人员发表了一项名为 **\"Lean AI\"** 的突破性训练方法，将控制论（control theory）——传统用于工程和机器人领域的理论——引入神经网络训练过程。
+
+### 核心原理
+
+| 传统方法 | Lean AI 方法 |
+|----------|-------------|
+| 先训练大模型，再裁剪 | 训练中动态裁剪 |
+| 计算资源浪费严重 | 实时移除冗余参数 |
+| 训练后才知道最佳规模 | 训练中自适应调整 |
+
+### CompreSSM 技术
+
+研究团队开发了 **CompreSSM**（Compressed State-Space Model）技术，专门针对**状态空间模型**（State-Space Models）——这类模型正成为 Transformer 在长序列任务上的有力替代品：
+
+- **异步零气泡调度** — 提高训练效率
+- **动态剪枝** — 训练中移除 80-90% 的冗余权重
+- **性能不降级** — 保持与原模型相同的精度
+
+> 这标志着 \"越大越好\" 的 AI 训练范式可能正在走向终结。
+
+## 深远影响
+
+### 环境效益
+- 训练前沿模型所需的算力降低 **40%**
+- 大幅降低 AI 行业的碳排放
+- 减少对巨型数据中心的依赖
+
+### 经济民主化
+- 初创公司可以用**中端硬件**训练有竞争力的模型
+- 研究机构不再被 \"算力战\" 挤出市场
+- 加速**边缘 AI 模型**在各行业的部署
+
+### 行业信号
+正如 Song Han（MIT 教授）在播客中所说：\"修剪神经网络就像修剪树木——去掉不必要的枝干，让主干长得更好。\"
+
+## 未来展望
+
+这一研究验证了 2026 年的新趋势：**效率是新的扩展定律**。CTO 和 AI 架构师应该开始探索将动态剪枝和控制论优化整合到微调工作流中。`,
+    date: "2026-04-13",
+    source: "MIT News / SEODataPulse",
+    sourceUrl: "https://news.mit.edu/2026/new-technique-makes-ai-models-leaner-faster-while-still-learning-0409",
+    href: "/news/news-006",
+  },
+  {
+    id: "news-007",
+    tag: "基础设施",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "美国近半数规划中的 AI 数据中心被推迟或取消，社区抵制升级",
+    summary: "Bloomberg 报道，供应链瓶颈、电力短缺和社区抗议导致 2026 年美国近半数 AI 数据中心项目受阻，Sanders 和 AOC 提出暂停法案。",
+    content: `## 基础设施危机
+
+根据 Bloomberg 2026 年 4 月的报道，美国计划于 2026 年建设的 AI 数据中心中，**近三分之一到近半数**将被推迟或完全取消。
+
+### 受阻原因
+
+| 因素 | 影响 |
+|------|------|
+| **供应链中断** | 中国零部件出口受限，关键设备交付延迟 |
+| **电力短缺** | 数据中心需要 24/7 供电，电网无法满足 |
+| **社区抵制** | 居民抗议噪音、用水和 \"热岛效应\" |
+| **关税政策** | Trump 的关税政策反而伤害了数据中心建设 |
+
+### 数据冲击
+
+- Alphabet、Amazon、Meta、Microsoft 预计 2026 年在 AI 基础设施上的支出超过 **6500 亿美元**
+- 南卡罗来纳州：数据中心将占该州**新增用电量的 65-70%**
+- 全球超过 **4000 个** AI 数据中心正在规划或建设中
+
+## 政治回应
+
+### AI 数据中心暂停法案
+
+Bernie Sanders 和 Alexandria Ocasio-Cortez 联合提出了 **AI Data Center Moratorium Act**：
+
+> \"将合理暂停 AI 数据中心建设，直到建立国家保障，确保 AI 不会抬高电价、伤害社区或破坏环境。\"
+
+- 如果通过，可能**禁止任何实质性新建 AI 数据中心直到 2027 年**
+- 给各州立法者时间评估对环境和电网的影响
+- 地方利益相关者认为法案通过是\"既定事实\"
+
+### 各州行动
+
+| 州 | 行动 |
+|----|------|
+| **Georgia** | 提出取消服务器销售税豁免 |
+| **Arizona** | 州长撤回对数据中心税收优惠的支持 |
+| **Ohio** | 民主党提出限制数据中心的一揽子法案 |
+
+## 行业影响
+
+这一趋势表明 AI 基础设施扩张正在遭遇**物理和政治双重天花板**。科技巨头正在转向背后电表供电（behind-the-meter）方案，自建发电设施来绕过电网限制。`,
+    date: "2026-04-13",
+    source: "Bloomberg / Tom's Hardware / Ars Technica / NPR",
+    sourceUrl: "https://www.tomshardware.com/tech-industry/artificial-intelligence/half-of-planned-us-data-center-builds-have-been-delayed-or-canceled-growth-limited-by-shortages-of-power-infrastructure-and-parts-from-china-the-ai-build-out-flips-the-breakers",
+    href: "/news/news-007",
+  },
+  {
+    id: "news-008",
+    tag: "政策",
+    tagColor: "bg-gray-500/10 text-gray-300",
+    title: "Anthropic 取消第三方工具免费接入，OpenClaw 用户需额外付费",
+    summary: "自 2026 年 4 月 4 日起，Anthropic 将 OpenClaw 等第三方工具从 Claude 标准订阅中移除，标志着 AI 行业从固定费率向按量计费的转变。",
+    content: `## 政策变化
+
+2026 年 4 月 4 日，Anthropic 向用户发出通知：**Claude 标准订阅不再支持第三方工具**，包括 OpenClaw 等 AI Agent 框架。
+
+### 变化详情
+
+| | 变化前 | 变化后 |
+|--|--------|--------|
+| **第三方工具** | 包含在订阅内 | 需单独付费 |
+| **API 使用** | 计入订阅额度 | 额外计费 |
+| **Agent 框架** | 免费接入 | 按量付费 |
+
+> \"从 4 月 4 日起，您将不再能使用 Claude 订阅额度来使用 OpenClaw 等第三方工具。\" — Anthropic 用户邮件
+
+### 背后原因
+
+Anthropic 做出这一决定的核心原因是**计算资源消耗**：
+
+- AI Agent 工具产生的计算量远超普通人类用户
+- 固定费率模式在 Agent 场景下不可持续
+- Claude Code 等工具的高峰使用量导致服务 strain
+
+## 行业趋势
+
+这一变化标志着 AI 行业定价模式的**根本性转变**：
+
+### 从固定费率到按量计费
+
+1. **OpenAI** — API 按 token 计费，ChatGPT Plus 有使用上限
+2. **Anthropic** — 取消第三方工具的订阅覆盖
+3. **Google** — Gemini API 按用量分层定价
+
+> 随着 AI Agent 的普及，\"无限使用\"的订阅模式正在成为历史。
+
+## 对用户的影响
+
+- **OpenClaw 用户**：需要为 Claude API 单独付费
+- **开发者**：需要重新评估 AI Agent 的运营成本
+- **行业信号**：AI 公司的盈利能力正在取代增长优先策略`,
+    date: "2026-04-13",
+    source: "TechRadar / Hacker News",
+    sourceUrl: "https://www.techradar.com/pro/bad-news-claude-users-anthropic-says-youll-need-to-pay-to-use-openclaw-now",
+    href: "/news/news-008",
+  },
 ];
