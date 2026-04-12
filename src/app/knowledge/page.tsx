@@ -25,15 +25,6 @@ export default function KnowledgePage() {
     });
   }, [activeCategory, searchQuery]);
 
-  const categoryStats = useMemo(() => {
-    return categories
-      .filter((c) => c.key !== "all")
-      .map((c) => ({
-        ...c,
-        count: articles.filter((a) => a.category === c.key).length,
-      }));
-  }, []);
-
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
       {/* Navigation */}
@@ -49,24 +40,6 @@ export default function KnowledgePage() {
             系统化学习 AI 核心技术，从基础理论到前沿实践
           </p>
           <p className="text-sm text-slate-500 mt-3">📅 最后更新：{LAST_UPDATE_TIME}</p>
-        </div>
-      </section>
-
-      {/* Category Stats */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {categoryStats.map((c) => (
-              <div
-                key={c.key}
-                className="text-center p-4 rounded-xl bg-white/10 border border-white/10 hover:border-brand-500/30 transition-all"
-              >
-                <div className="text-2xl mb-1">{c.icon}</div>
-                <div className="text-sm font-medium text-slate-300">{c.label}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{c.count} 篇</div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
