@@ -5,805 +5,688 @@ export const article: Article = {
     title: "K-Means：无监督聚类基础",
     category: "ml",
     tags: ["聚类", "无监督学习", "K-Means"],
-    summary: "从直觉到实战，掌握最经典的无监督聚类算法 K-Means 及其核心技巧",
+    summary: "从 K 值选择到 K-Means++，掌握最基础的聚类算法",
     date: "2026-04-12",
-    readTime: "20 min",
+    readTime: "16 min",
     level: "入门",
     content: [
-      {
-        title: "1. 什么是聚类？直觉与概念",
-        body: `聚类（Clustering）是无监督学习中最核心的任务之一。与分类不同，聚类面对的数据没有任何标签——算法需要自己从数据中发现结构，把相似的样本「分堆」。
+        {
+            title: "1. 聚类概念与直觉：让数据自己说话",
+            body: `监督学习需要一个「老师」——标注好的标签告诉模型什么是对的。但现实世界中，大部分数据是没有标签的。你有一百万个用户的购买记录，但没人告诉你这些用户分几类；你有一万张商品图片，但没人告诉你该分成多少个品类。这就是无监督学习的舞台。
 
-想象一个场景：你是一家电商公司的数据分析师，手头有 10 万用户的消费数据（购买频次、平均客单价、退货率等），但没有任何用户分群标签。老板问你：「能不能帮我把用户分成几类？」这就是聚类的典型场景——你不知道分类标准是什么，但你相信数据中天然存在不同的用户群体。
+聚类（Clustering）是无监督学习中最核心的任务：把相似的数据点归为一组，让组内尽可能相似、组间尽可能不同。想象你在整理一堆混在一起的水果——苹果放一起、橙子放一起，虽然你没见过「苹果」这个词的定义，但你直觉上知道哪些水果「看起来像」。
 
-聚类算法的核心假设是：同一簇（Cluster）内的样本彼此相似，不同簇之间的样本差异较大。衡量「相似」的方式通常使用距离度量，最常见的是欧氏距离。
-
-K-Means 之所以经典，是因为它简单、快速、可解释，而且效果在大多数情况下都不错。理解 K-Means 是学习所有聚类算法的起点。`,
-        code: [
-          {
-            lang: "python",
-            code: `import numpy as np
+K-Means 是最经典的聚类算法。它的名字已经揭示了两个关键信息：K 代表你要分成几组，Means 代表用均值（质心）来描述每一组。它的核心直觉极其简单：找到 K 个点作为「中心」，把每个数据点分给最近的中心，然后重新计算中心的位置，反复迭代直到稳定。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.datasets import make_blobs
 
-# 生成模拟的聚类数据
-X, y_true = make_blobs(
-    n_samples=300,
-    centers=4,
-    cluster_std=0.60,
-    random_state=42
-)
+# 生成三个自然簇用于演示
+np.random.seed(42)
+cluster1 = np.random.randn(100, 2) + [2, 2]
+cluster2 = np.random.randn(100, 2) + [-2, -2]
+cluster3 = np.random.randn(100, 2) + [2, -2]
+X = np.vstack([cluster1, cluster2, cluster3])
 
-# 可视化原始数据
-plt.scatter(X[:, 0], X[:, 1], s=15, alpha=0.6, edgecolors='w')
-plt.title('模拟聚类数据（无标签）')
-plt.xlabel('特征 1')
-plt.ylabel('特征 2')
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `from scipy.spatial.distance import cdist
+plt.figure(figsize=(8, 6))
+plt.scatter(X[:, 0], X[:, 1], s=30, alpha=0.6, edgecolors='w', linewidth=0.5)
+plt.title('未标注的数据——你能看出几个簇？', fontsize=14)
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.grid(True, alpha=0.3)
+plt.show()`
+                },
+                {
+                    lang: "python",
+                    code: `# 计算数据点之间的距离矩阵（直觉：相似=距离近）
+from scipy.spatial.distance import pdist, squareform
 
-def euclidean_distance(a, b):
-    """计算两个点之间的欧氏距离"""
-    return np.sqrt(np.sum((a - b) ** 2))
+# 抽取 50 个样本可视化距离矩阵
+sample_idx = np.random.choice(len(X), 50, replace=False)
+X_sample = X[sample_idx]
+dist_matrix = squareform(pdist(X_sample, metric='euclidean'))
 
-# 验证距离计算
-point_a = np.array([1.0, 2.0])
-point_b = np.array([4.0, 6.0])
-dist = euclidean_distance(point_a, point_b)
-print(f"欧氏距离: {dist:.2f}")  # 应为 5.00
-
-# 批量距离计算（向量化版本）
-points = np.array([[1, 2], [3, 4], [5, 6]])
-center = np.array([2, 3])
-distances = np.sqrt(np.sum((points - center) ** 2, axis=1))
-print(f"各点到中心的距离: {distances}")`,
-          },
-        ],
-        table: {
-          headers: ["学习方式", "有无标签", "目标", "典型算法"],
-          rows: [
-            ["监督学习", "有标签", "学习输入到输出的映射", "线性回归、逻辑回归、SVM"],
-            ["无监督学习", "无标签", "发现数据内在结构", "K-Means、PCA、DBSCAN"],
-            ["半监督学习", "部分标签", "利用少量标签提升性能", "标签传播、自训练"],
-            ["强化学习", "奖励信号", "学习最优决策策略", "Q-Learning、PPO"],
-          ],
+plt.figure(figsize=(8, 6))
+plt.imshow(dist_matrix, cmap='YlOrRd', aspect='auto')
+plt.colorbar(label='欧氏距离')
+plt.title('距离热力图——对角线上的暗块=自然簇', fontsize=12)
+plt.xlabel('样本索引')
+plt.ylabel('样本索引')
+plt.show()`
+                }
+            ],
+            table: {
+                headers: ["学习类型", "需要标签?", "典型任务", "代表算法"],
+                rows: [
+                    ["监督学习", "是", "分类、回归", "线性回归、SVM、决策树"],
+                    ["无监督学习", "否", "聚类、降维", "K-Means、PCA、DBSCAN"],
+                    ["半监督学习", "部分", "少量标注+大量无标注", "自训练、协同训练"],
+                    ["强化学习", "奖励信号", "决策、控制", "Q-Learning、PPO"],
+                ]
+            },
+            mermaid: `graph TD
+    A["数据世界"] --> B{"有标签吗?"}
+    B -->|是| C["监督学习"]
+    B -->|否| D["无监督学习"]
+    B -->|部分| E["半监督学习"]
+    C --> F["预测/分类"]
+    D --> G["聚类"]
+    D --> H["降维"]
+    D --> I["异常检测"]
+    G --> J["K-Means"]
+    G --> K["DBSCAN"]
+    G --> L["层次聚类"]`,
+            tip: "聚类的黄金法则是「先可视化，再聚类」。用散点图、PCA 降维或 t-SNE 先看一眼数据，对簇的数量和形状有个直觉判断。",
+            warning: "聚类结果没有「标准答案」。同一个数据集，不同的算法、不同的参数可能给出完全不同但都合理的分组。聚类是探索性分析，不是真理。"
         },
-        mermaid: `graph LR
-    A["原始数据（无标签）"] --> B["聚类算法"]
-    B --> C["簇 1：高价值用户"]
-    B --> D["簇 2：流失风险用户"]
-    B --> E["簇 3：新用户群体"]
-    B --> F["簇 4：价格敏感用户"]
-    C --> G["精准营销策略"]
-    D --> G
-    E --> G
-    F --> G`,
-        tip: "学习建议：先理解「什么是好的聚类」——簇内紧凑、簇间分离。这个直觉会帮你理解后面所有算法的设计动机。",
-      },
-      {
-        title: "2. K-Means 算法流程：从初始化到收敛",
-        body: `K-Means 算法的核心思想可以用一句话概括：让每个样本归属于离它最近的簇中心，然后更新簇中心为该簇所有样本的均值，反复迭代直到收敛。
+        {
+            title: "2. K-Means 算法流程：简单而优雅",
+            body: `K-Means 的算法流程可以用四句话概括：随机选 K 个初始中心 → 把每个点分给最近的中心 → 用每组点的均值更新中心 → 重复直到中心不再变化。这个算法由 Stuart Lloyd 在 1957 年提出（1982 年发表），至今仍是最广泛使用的聚类算法之一。
 
-算法步骤如下：
+理解 K-Means 的关键在于它优化的目标函数：惯性（Inertia），也叫组内平方和（WCSS）。惯性衡量的是每个点到其所属簇中心的距离平方之和。K-Means 的每一步迭代都在减小这个值——分配步骤把每个点分给最近的中心（最小化该点的贡献），更新步骤把中心移到组内均值（均值是使组内平方和最小的点）。
 
-第一步：随机选择 K 个点作为初始簇中心（Centroids）。
-第二步：计算每个样本到所有 K 个簇中心的距离，将样本分配给距离最近的簇。
-第三步：对每个簇，重新计算簇中心（该簇所有样本的均值）。
-第四步：重复第二步和第三步，直到簇中心不再变化（或变化小于某个阈值）。
-
-K-Means 优化的是一个明确的目标函数——惯性（Inertia）：J = Σ Σ ||xᵢ - μⱼ||²，即所有样本到其所属簇中心的距离平方和。每一次迭代都保证 J 不增，因此算法必然收敛。
-
-需要注意的是，K-Means 收敛到的是局部最优解，而非全局最优。这是因为目标函数是非凸的，不同的初始化可能得到完全不同的结果。这也是为什么实践中要多次运行取最优，或使用 K-Means++ 初始化策略。`,
-        code: [
-          {
-            lang: "python",
-            code: `import numpy as np
-
-class KMeansFromScratch:
+K-Means 保证收敛吗？是的，因为惯性有下界（≥ 0），且每次迭代都在严格减小惯性。但由于它只保证收敛到局部最优，不同的初始中心可能得到完全不同的结果。这也是为什么实践中我们会多次运行、取最优。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `def kmeans_from_scratch(X, k, max_iters=100, random_state=None):
     """从零实现 K-Means 算法"""
+    rng = np.random.RandomState(random_state)
+    n_samples, n_features = X.shape
 
-    def __init__(self, k=3, max_iters=100, tol=1e-4, random_state=None):
-        self.k = k
-        self.max_iters = max_iters
-        self.tol = tol
-        self.random_state = random_state
-        self.centroids = None
-        self.labels = None
-        self.inertia = None
+    # 步骤 1: 随机初始化 K 个中心
+    centers = X[rng.choice(n_samples, k, replace=False)]
 
-    def _init_centroids(self, X):
-        """随机初始化 K 个簇中心"""
-        rng = np.random.RandomState(self.random_state)
-        indices = rng.choice(X.shape[0], self.k, replace=False)
-        return X[indices].copy()
+    for iteration in range(max_iters):
+        # 步骤 2: 分配——把每个点分给最近的中心
+        distances = np.zeros((n_samples, k))
+        for j in range(k):
+            distances[:, j] = np.sum((X - centers[j]) ** 2, axis=1)
+        labels = np.argmin(distances, axis=1)
 
-    def _assign_clusters(self, X):
-        """将每个样本分配给最近的簇中心"""
-        distances = np.sqrt(
-            ((X[:, np.newaxis, :] - self.centroids[np.newaxis, :, :]) ** 2).sum(axis=2)
-        )
-        return np.argmin(distances, axis=1)
+        # 步骤 3: 更新——用均值重新计算中心
+        new_centers = np.zeros_like(centers)
+        for j in range(k):
+            new_centers[j] = X[labels == j].mean(axis=0)
 
-    def _update_centroids(self, X, labels):
-        """重新计算每个簇的中心（均值）"""
-        new_centroids = np.zeros_like(self.centroids)
-        for i in range(self.k):
-            if np.sum(labels == i) > 0:
-                new_centroids[i] = X[labels == i].mean(axis=0)
-            else:
-                new_centroids[i] = X[np.random.choice(X.shape[0])]
-        return new_centroids
+        # 步骤 4: 检查收敛
+        if np.allclose(centers, new_centers, atol=1e-6):
+            print(f"第 {iteration + 1} 次迭代后收敛")
+            break
+        centers = new_centers
 
-    def fit(self, X):
-        self.centroids = self._init_centroids(X)
+    # 计算最终惯性
+    inertia = sum(np.sum((X[labels == j] - centers[j]) ** 2)
+                  for j in range(k))
+    return labels, centers, inertia
 
-        for i in range(self.max_iters):
-            self.labels = self._assign_clusters(X)
-            new_centroids = self._update_centroids(X, self.labels)
+labels, centers, inertia = kmeans_from_scratch(X, k=3, random_state=42)
+print(f"惯性 (WCSS): {inertia:.2f}")`
+                },
+                {
+                    lang: "python",
+                    code: `# 可视化 K-Means 迭代过程
+def plot_kmeans_iteration(X, centers, labels, k, title):
+    plt.figure(figsize=(6, 5))
+    colors = ['r', 'g', 'b']
+    for j in range(k):
+        mask = labels == j
+        plt.scatter(X[mask, 0], X[mask, 1], c=colors[j], s=30, alpha=0.6, label=f'Cluster {j}')
+    plt.scatter(centers[:, 0], centers[:, 1], c='black', marker='X', s=300, label='Centers')
+    plt.title(title, fontsize=13)
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.show()
 
-            # 检查收敛
-            shift = np.sqrt(((self.centroids - new_centroids) ** 2).sum(axis=1)).max()
-            self.centroids = new_centroids
+# 展示前 3 次迭代
+rng = np.random.RandomState(42)
+init_centers = X[rng.choice(len(X), 3, replace=False)]
 
-            if shift < self.tol:
-                print(f"第 {i+1} 次迭代后收敛")
-                break
-
-        self.inertia = self._compute_inertia(X)
-        return self
-
-    def _compute_inertia(self, X):
-        """计算惯性（所有样本到所属簇中心的距离平方和）"""
-        return sum(
-            np.sum((X[self.labels == i] - self.centroids[i]) ** 2)
-            for i in range(self.k)
-        )
-
-    def predict(self, X):
-        return self._assign_clusters(X)`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.datasets import make_blobs
-
-# 使用手写 K-Means 进行聚类
-X, _ = make_blobs(n_samples=200, centers=3, random_state=42)
-
-kmeans = KMeansFromScratch(k=3, max_iters=50, random_state=42)
-kmeans.fit(X)
-
-print(f"簇中心:\n{kmeans.centroids}")
-print(f"惯性 (Inertia): {kmeans.inertia:.2f}")
-print(f"各簇样本数: {[np.sum(kmeans.labels == i) for i in range(3)]}")`,
-          },
-        ],
-        table: {
-          headers: ["步骤", "操作", "输入", "输出", "时间复杂度"],
-          rows: [
-            ["1. 初始化", "随机选 K 个点", "数据集 X", "K 个簇中心", "O(K)"],
-            ["2. 分配", "计算到各中心距离", "X, 簇中心", "样本标签", "O(n·K·d)"],
-            ["3. 更新", "计算各簇均值", "X, 标签", "新簇中心", "O(n·d)"],
-            ["4. 收敛判断", "检查中心变化", "新旧中心", "继续/停止", "O(K·d)"],
-          ],
+for i in range(3):
+    dists = np.array([[np.sum((X - init_centers[j]) ** 2, axis=1)] for j in range(3)]).reshape(-1, 3)
+    temp_labels = np.argmin(dists, axis=1)
+    plot_kmeans_iteration(X, init_centers, temp_labels, 3, f'迭代 {i + 1}')
+    init_centers = np.array([X[temp_labels == j].mean(axis=0) for j in range(3)])`
+                }
+            ],
+            table: {
+                headers: ["步骤", "操作", "数学表达", "目的"],
+                rows: [
+                    ["初始化", "随机选择 K 个中心", "μ₁, μ₂, ..., μₖ ∈ 数据点", "启动算法"],
+                    ["分配", "每个点分给最近中心", "label(i) = argmin‖xᵢ - μⱼ‖²", "最小化点到中心距离"],
+                    ["更新", "重新计算每组均值", "μⱼ = mean({xᵢ | label(i)=j})", "找到使 WCSS 最小的新中心"],
+                    ["收敛", "中心不再变化", "‖μⱼ_new - μⱼ_old‖ < ε", "达到局部最优"],
+                ]
+            },
+            mermaid: `graph TD
+    A["开始"] --> B["随机选 K 个初始中心"]
+    B --> C["计算每个点到各中心距离"]
+    C --> D["分配每个点到最近的中心"]
+    D --> E["用组内均值更新中心"]
+    E --> F{"中心是否变化?"}
+    F -->|是| C
+    F -->|否| G["输出聚类结果 + 惯性"]
+    G --> H["结束"]`,
+            tip: "K-Means 对特征尺度非常敏感。如果某个特征的数值范围远大于其他特征，它会主导距离计算。聚类前一定要做标准化（StandardScaler）。",
+            warning: "K-Means 假设簇是球形且大小相近的。如果数据中的簇形状不规则（如月牙形、环形）或大小差异很大，K-Means 会给出错误的结果。"
         },
-        mermaid: `graph TD
-    A["随机选择 K 个初始中心"] --> B["计算每个样本到 K 个中心的距离"]
-    B --> C["将样本分配给最近的中心"]
-    C --> D["重新计算每个簇的均值作为新中心"]
-    D --> E{"中心是否变化？"}
-    E -->|是，继续迭代| B
-    E -->|否，收敛| F["输出最终簇标签和中心"]`,
-        warning: "K-Means 对异常值非常敏感！一个远离所有簇的异常点会把整个簇中心拉偏。在运行 K-Means 之前，务必进行异常值检测或使用 RobustScaler 做预处理。",
-      },
-      {
-        title: "3. K 值选择：肘部法与轮廓系数",
-        body: `K-Means 最大的超参数就是 K 值——你想要把数据分成几类？这个问题没有标准答案，但有几个科学的方法可以指导选择。
+        {
+            title: "3. K 值选择：肘部法与轮廓系数",
+            body: `K-Means 算法本身不会告诉你该分几个簇——K 必须预先指定。这是 K-Means 最大的痛点之一。如果 K 选得太小，不同的自然簇会被强行合并；如果 K 选得太大，一个自然簇会被拆成碎片。
 
-肘部法（Elbow Method）是最直观的方法：尝试不同的 K 值，计算对应的惯性（Inertia），然后画出 K-Inertia 曲线。随着 K 增加，惯性必然下降（极端情况 K=n 时惯性为零）。我们寻找曲线的「肘部」——即惯性下降速度显著变缓的拐点。
+肘部法（Elbow Method）是最直观的选择 K 的方法。它的逻辑是：尝试一系列 K 值，画出每个 K 对应的惯性曲线。随着 K 增大，惯性必然减小（极端情况 K=N 时惯性为零）。但你会看到惯性下降的速度在某个点突然变缓——这个「拐点」就是肘部。肘部之前，增加 K 能大幅改善聚类质量；肘部之后，增加 K 带来的边际收益很小。
 
-轮廓系数（Silhouette Score）则从另一个角度评估聚类质量：对每个样本 i，计算 a(i) = 样本 i 到同簇其他样本的平均距离（凝聚度），b(i) = 样本 i 到最近其他簇所有样本的平均距离（分离度）。轮廓系数 s(i) = (b(i) - a(i)) / max(a(i), b(i))。s(i) 的取值范围是 [-1, 1]，越接近 1 说明聚类效果越好。
+轮廓系数（Silhouette Score）是更精细的评估指标。对每个样本，计算它与自己簇内其他样本的平均距离（a）和与最近的其他簇的平均距离（b），轮廓系数 s = (b - a) / max(a, b)。s 的范围是 [-1, 1]，越接近 1 表示样本被正确且清晰地分到了合适的簇。所有样本的轮廓系数均值就是整体评分。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
-实际应用中，肘部法和轮廓系数应该结合使用。肘部法提供直觉，轮廓系数提供量化指标，同时还要结合业务理解——分 3 类还是 5 类，最终取决于业务场景。`,
-        code: [
-          {
-            lang: "python",
-            code: `import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-
-# 肘部法：寻找最优 K
+# 肘部法：尝试 K=1~10
 inertias = []
-k_range = range(1, 11)
+for k in range(1, 11):
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    km.fit(X)
+    inertias.append(km.inertia_)
 
-for k in k_range:
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    kmeans.fit(X)
-    inertias.append(kmeans.inertia_)
-
-plt.plot(k_range, inertias, 'bo-', linewidth=2, markersize=8)
-plt.xlabel('K 值')
-plt.ylabel('惯性 (Inertia)')
-plt.title('肘部法选择最优 K')
-plt.axvline(x=3, color='r', linestyle='--', label='最优 K=3')
+plt.figure(figsize=(8, 5))
+plt.plot(range(1, 11), inertias, 'bo-', linewidth=2, markersize=8)
+plt.xlabel('K（簇的数量）', fontsize=13)
+plt.ylabel('惯性 (WCSS)', fontsize=13)
+plt.title('肘部法：寻找惯性下降的拐点', fontsize=14)
+plt.grid(True, alpha=0.3)
+plt.axvline(x=3, color='r', linestyle='--', alpha=0.7, label='肘部: K=3')
 plt.legend()
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.metrics import silhouette_score
+plt.show()`
+                },
+                {
+                    lang: "python",
+                    code: `from sklearn.metrics import silhouette_score
+from sklearn.preprocessing import StandardScaler
 
-# 轮廓系数评估不同 K 值
+# 轮廓系数法
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
 sil_scores = []
-for k in range(2, 11):
-    kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
-    labels = kmeans.fit_predict(X)
-    score = silhouette_score(X, labels)
+for k in range(2, 11):  # K=1 没有轮廓系数
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = km.fit_predict(X_scaled)
+    score = silhouette_score(X_scaled, labels)
     sil_scores.append(score)
-    print(f"K={k}: 轮廓系数 = {score:.4f}")
+    print(f"K={k}: 轮廓系数={score:.4f}")
 
-best_k = range(2, 11)[np.argmax(sil_scores)]
-print(f"\n最优 K 值（轮廓系数）: {best_k}")
-
+plt.figure(figsize=(8, 5))
 plt.plot(range(2, 11), sil_scores, 'rs-', linewidth=2, markersize=8)
-plt.xlabel('K 值')
-plt.ylabel('轮廓系数')
-plt.title('轮廓系数法选择最优 K')
-plt.axvline(x=best_k, color='g', linestyle='--', label=f'最优 K={best_k}')
-plt.legend()
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.metrics import silhouette_samples
-
-# 深入分析：绘制每个样本的轮廓系数分布
-def plot_silhouette_analysis(X, k, cluster_labels):
-    """绘制每个簇的轮廓系数分布图"""
-    sil_vals = silhouette_samples(X, cluster_labels)
-    y_lower = 10
-
-    fig, ax = plt.subplots(figsize=(8, 6))
-
-    for i in range(k):
-        ith_vals = sil_vals[cluster_labels == i]
-        ith_vals.sort()
-        size = ith_vals.shape[0]
-        y_upper = y_lower + size
-        ax.fill_betweenx(range(y_lower, y_upper), 0, ith_vals, alpha=0.7)
-        ax.text(-0.05, y_lower + size / 2, f'簇 {i}')
-        y_lower = y_upper + 10
-
-    avg_score = silhouette_score(X, cluster_labels)
-    ax.axvline(x=avg_score, color='r', linestyle='--', label=f'平均 = {avg_score:.3f}')
-    ax.set_xlim([-0.1, 1])
-    ax.set_xlabel('轮廓系数')
-    ax.set_title(f'K={k} 时的轮廓系数分布')
-    ax.legend()
-    plt.show()`,
-          },
-        ],
-        table: {
-          headers: ["方法", "核心指标", "优点", "缺点", "适用场景"],
-          rows: [
-            ["肘部法", "惯性 Inertia", "直观简单", "拐点不明显时主观", "初步探索"],
-            ["轮廓系数", "s ∈ [-1, 1]", "量化、无业务假设", "计算量大 O(n²)", "科学评估"],
-            ["间隔统计量", "Gap Statistic", "统计严谨", "计算慢", "学术研究"],
-            ["业务驱动", "业务指标", "贴合实际需求", "需要领域知识", "工业落地"],
-          ],
+plt.xlabel('K（簇的数量）', fontsize=13)
+plt.ylabel('轮廓系数', fontsize=13)
+plt.title('轮廓系数 vs K 值', fontsize=14)
+plt.grid(True, alpha=0.3)
+plt.axhline(y=max(sil_scores), color='g', linestyle='--', alpha=0.5)
+plt.show()`
+                }
+            ],
+            table: {
+                headers: ["方法", "取值范围", "最优标志", "优点", "缺点"],
+                rows: [
+                    ["肘部法", "惯性 ↓", "曲线拐点（肘部）", "直观、计算快", "肘部不明显时难以判断"],
+                    ["轮廓系数", "[-1, 1]", "越大越好（接近 1）", "有明确数值标准", "对凸形簇偏好，计算较慢"],
+                    ["Gap 统计量", "Gap(k) ↑", "最大 Gap 对应的 K", "统计学基础扎实", "计算开销很大"],
+                    ["BIC/AIC", "越小越好", "最小值对应的 K", "考虑模型复杂度", "假设数据符合高斯混合"],
+                ]
+            },
+            mermaid: `graph TD
+    A["尝试 K=2,3,4,..."] --> B["计算每个 K 的惯性"]
+    B --> C["绘制惯性曲线"]
+    C --> D{"肘部明显吗?"}
+    D -->|是| E["肘部 = 最佳 K"]
+    D -->|否| F["计算轮廓系数"]
+    F --> G["选轮廓系数最大的 K"]
+    G --> H{"轮廓系数合理吗?"}
+    H -->|是| I["确认 K"]
+    H -->|否| J["考虑其他算法"]`,
+            tip: "在实际应用中，肘部法和轮廓系数可以结合使用。先用肘部法快速缩小 K 的范围，再用轮廓系数精细比较候选 K 值。",
+            warning: "惯性单调递减——K 越大惯性越小。所以不能简单地选惯性最小的 K，否则 K=N 时惯性为零（每个点一个簇），但这毫无意义。"
         },
-        mermaid: `graph LR
-    A["尝试不同 K 值"] --> B["计算惯性"]
-    A --> C["计算轮廓系数"]
-    B --> D["肘部法曲线"]
-    C --> E["轮廓系数曲线"]
-    D --> F["寻找拐点"]
-    E --> G["取最大值"]
-    F --> H["综合判断最优 K"]
-    G --> H
-    H --> I["结合业务场景验证"]`,
-        tip: "学习建议：肘部法有时候拐点不明显（特别是真实数据中），这时候轮廓系数是更好的选择。但也不要完全依赖数字——分几类最终要回到业务意义上去验证。",
-      },
-      {
-        title: "4. 初始化策略：K-Means++ 的智慧",
-        body: `K-Means 对初始簇中心非常敏感。如果随机选的两个初始中心很近，它们会「竞争」同一个区域的数据点，导致最终的聚类质量下降。
+        {
+            title: "4. K-Means++ 初始化：聪明地选择起点",
+            body: `标准 K-Means 的最大问题是：随机初始化中心可能导致极差的结果。想象一下，如果 K=3，但三个随机中心全落在了同一个自然簇内部，那么算法很可能只找到这个簇的子结构，而完全忽略其他两个簇。这就是局部最优的陷阱。
 
-K-Means++ 算法解决了这个问题。它的核心思想是：让初始簇中心彼此尽可能远离。具体做法是：
+K-Means++ 是 David Arthur 和 Sergei Vassilvitskii 在 2007 年提出的初始化策略，它用一种概率化的贪心策略来选择初始中心。第一个中心随机选择。第二个中心倾向于选择距离第一个中心最远的点。第三个中心倾向于选择距离已有中心集合最远的点。以此类推。
 
-第一步：随机选择第一个簇中心。
-第二步：对每个样本 x，计算它到最近已有中心的距离 D(x)。
-第三步：以概率 P(x) = D(x)² / ΣD(xᵢ)² 选择下一个中心——距离越远的点被选中的概率越大。
-第四步：重复第二和第三步，直到选出 K 个中心。
+关键公式：每个数据点 x 被选为下一个中心的概率 P(x) = D(x)² / Σ D(xᵢ)²，其中 D(x) 是 x 到最近已有中心的距离。距离越远的点，被选中的概率越大。这确保了初始中心尽可能分散在整个数据空间中。
 
-这个策略看似增加了计算量，但它大幅降低了陷入局部最优的概率。理论证明，K-Means++ 的解与最优解的期望差距仅为 O(log K)，而随机初始化的差距可能非常大。
+理论保证：K-Means++ 的期望惯性不超过最优解的 8·(ln K + 2) 倍。这是一个对数级别的近似保证，远优于完全随机初始化。sklearn 中的 KMeans 默认使用 n_init=10，也就是用 K-Means++ 初始化运行 10 次取最优。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `def kmeans_plus_plus_init(X, k, random_state=None):
+    """K-Means++ 初始化"""
+    rng = np.random.RandomState(random_state)
+    n_samples = X.shape[0]
+    centers = []
 
-scikit-learn 中 KMeans 的默认初始化方式就是 K-Means++（init='k-means++'），这也是为什么现代 K-Means 实现比早年教科书上的版本效果好得多的原因。`,
-        code: [
-          {
-            lang: "python",
-            code: `class KMeansPlusPlus:
-    """实现 K-Means++ 初始化策略"""
+    # 第 1 个中心：随机选择
+    idx = rng.randint(n_samples)
+    centers.append(X[idx])
 
-    def __init__(self, k, random_state=None):
-        self.k = k
-        self.rng = np.random.RandomState(random_state)
+    for _ in range(1, k):
+        # 计算每个点到最近中心的距离平方
+        dists = np.array([
+            min(np.sum((x - c) ** 2) for c in centers)
+            for x in X
+        ])
 
-    def _distance_to_nearest(self, X, centroids):
-        """计算每个点到最近已有中心的距离"""
-        min_dists = np.full(X.shape[0], np.inf)
-        for c in centroids:
-            dists = np.sum((X - c) ** 2, axis=1)
-            min_dists = np.minimum(min_dists, dists)
-        return min_dists
+        # 概率与距离平方成正比
+        probs = dists / dists.sum()
 
-    def init_centroids(self, X):
-        n_samples = X.shape[0]
-        centroids = []
+        # 按概率选择下一个中心
+        idx = rng.choice(n_samples, p=probs)
+        centers.append(X[idx])
 
-        # 第一步：随机选择第一个中心
-        first_idx = self.rng.randint(0, n_samples)
-        centroids.append(X[first_idx].copy())
+    return np.array(centers)
 
-        # 第二步到第四步：概率化选择后续中心
-        for _ in range(1, self.k):
-            dists = self._distance_to_nearest(X, centroids)
-            probs = dists / dists.sum()
-            cumprobs = np.cumsum(probs)
-            r = self.rng.rand()
-            idx = np.searchsorted(cumprobs, r)
-            idx = min(idx, n_samples - 1)
-            centroids.append(X[idx].copy())
+# 对比随机初始化和 K-Means++ 初始化
+random_centers = X[np.random.RandomState(42).choice(len(X), 3, replace=False)]
+kmpp_centers = kmeans_plus_plus_init(X, 3, random_state=42)
 
-        return np.array(centroids)
+print("随机初始化中心:")
+print(random_centers)
+print(f"\\nK-Means++ 初始化中心:")
+print(kmpp_centers)`
+                },
+                {
+                    lang: "python",
+                    code: `# 多次运行对比：随机初始化 vs K-Means++
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
-# 使用示例
-kpp = KMeansPlusPlus(k=3, random_state=42)
-init_centers = kpp.init_centroids(X)
-print(f"K-Means++ 初始中心:\n{init_centers}")`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.cluster import KMeans
+n_runs = 50
+random_inertias = []
+kmpp_inertias = []
 
-# 对比随机初始化 vs K-Means++ 的效果
-results = {'random': [], 'kmeans++': []}
-
-for trial in range(20):
+for i in range(n_runs):
     # 随机初始化
     km_rand = KMeans(n_clusters=3, init='random', n_init=1,
-                     max_iters=300, random_state=trial)
+                     random_state=i, max_iter=300)
     km_rand.fit(X)
-    results['random'].append(km_rand.inertia_)
+    random_inertias.append(km_rand.inertia_)
 
     # K-Means++ 初始化
     km_plus = KMeans(n_clusters=3, init='k-means++', n_init=1,
-                     max_iters=300, random_state=trial)
+                     random_state=i, max_iter=300)
     km_plus.fit(X)
-    results['kmeans++'].append(km_plus.inertia_)
+    kmpp_inertias.append(km_plus.inertia_)
 
-print(f"随机初始化  - 平均惯性: {np.mean(results['random']):.2f}, "
-      f"标准差: {np.std(results['random']):.2f}")
-print(f"K-Means++    - 平均惯性: {np.mean(results['kmeans++']):.2f}, "
-      f"标准差: {np.std(results['kmeans++']):.2f}")
-print(f"改进幅度: {(1 - np.mean(results['kmeans++'])/np.mean(results['random']))*100:.1f}%")`,
-          },
-          {
-            lang: "python",
-            code: `import matplotlib.pyplot as plt
-
-# 可视化两种初始化策略的对比
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-
-# 第一列：K-Means++ 初始化
-km_pp = KMeans(n_clusters=3, init='k-means++', n_init=1, random_state=42)
-labels_pp = km_pp.fit_predict(X)
-axes[0].scatter(X[:, 0], X[:, 1], c=labels_pp, cmap='viridis', s=15, alpha=0.7)
-axes[0].scatter(km_pp.cluster_centers_[:, 0], km_pp.cluster_centers_[:, 1],
-                c='red', marker='X', s=200, label='簇中心')
-axes[0].set_title(f'K-Means++ (Inertia={km_pp.inertia_:.0f})')
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+axes[0].hist(random_inertias, bins=15, color='skyblue', edgecolor='black', alpha=0.7)
+axes[0].axvline(np.mean(random_inertias), color='red', linestyle='--', label=f'均值={np.mean(random_inertias):.0f}')
+axes[0].set_title('随机初始化惯性分布')
 axes[0].legend()
 
-# 第二列：随机初始化
-km_rand = KMeans(n_clusters=3, init='random', n_init=1, random_state=42)
-labels_rand = km_rand.fit_predict(X)
-axes[1].scatter(X[:, 0], X[:, 1], c=labels_rand, cmap='viridis', s=15, alpha=0.7)
-axes[1].scatter(km_rand.cluster_centers_[:, 0], km_rand.cluster_centers_[:, 1],
-                c='red', marker='X', s=200, label='簇中心')
-axes[1].set_title(f'随机初始化 (Inertia={km_rand.inertia_:.0f})')
+axes[1].hist(kmpp_inertias, bins=15, color='lightgreen', edgecolor='black', alpha=0.7)
+axes[1].axvline(np.mean(kmpp_inertias), color='red', linestyle='--', label=f'均值={np.mean(kmpp_inertias):.0f}')
+axes[1].set_title('K-Means++ 初始化惯性分布')
 axes[1].legend()
-
-# 第三列：20 次试验的惯性对比
-axes[2].boxplot([results['random'], results['kmeans++']], labels=['Random', 'K-Means++'])
-axes[2].set_ylabel('Inertia')
-axes[2].set_title('20 次试验惯性对比')
 plt.tight_layout()
-plt.show()`,
-          },
-        ],
-        table: {
-          headers: ["初始化方式", "选择策略", "优点", "缺点", "sklearn 默认"],
-          rows: [
-            ["随机初始化", "均匀随机选 K 个点", "简单快速", "容易陷入差的局部最优", "否"],
-            ["K-Means++", "距离越远概率越大", "理论保证、效果好", "初始化稍慢", "是"],
-            ["手动指定", "用户提供初始中心", "完全可控", "需要领域知识", "否"],
-            ["K-Means||", "分布式并行初始化", "适合大规模数据", "实现复杂", "否"],
-          ],
+plt.show()`
+                }
+            ],
+            table: {
+                headers: ["初始化方法", "原理", "速度", "稳定性", "sklearn 默认"],
+                rows: [
+                    ["随机", "完全随机选 K 个点", "最快", "差（方差大）", "否"],
+                    ["K-Means++", "概率化分散选择", "稍慢", "好（有理论保证）", "是"],
+                    ["手动指定", "用户提供初始中心", "取决于用户", "完全可控", "否"],
+                    ["k-means||", "分布式并行初始化", "适合大数据", "好", "Spark 中使用"],
+                ]
+            },
+            mermaid: `graph TD
+    A["开始初始化"] --> B["随机选第 1 个中心"]
+    B --> C{"已选中心数 = K?"}
+    C -->|否| D["计算每个点到最近中心的距离 D"]
+    D --> E["P(x) = D²(x) / ΣD²"]
+    E --> F["按概率选下一个中心"]
+    F --> C
+    C -->|是| G["返回 K 个初始中心"]
+    G --> H["开始 K-Means 迭代"]`,
+            tip: "sklearn 1.2+ 中 n_init 默认从 10 改为 'auto'（即 10 次），但会警告。建议显式设置 n_init=10 或更多以获得稳定结果。",
+            warning: "K-Means++ 仍然不能保证全局最优。对于关键应用，建议设置较大的 n_init 值（如 20-50），多次运行取最优。"
         },
-        mermaid: `graph TD
-    A["随机选择第一个中心"] --> B["计算所有点到最近中心的距离 D"]
-    B --> C["P(x) = D(x)² / ΣD(xᵢ)²"]
-    C --> D["按概率选择下一个中心"]
-    D --> E{已选满 K 个？}
-    E -->|否| B
-    E -->|是| F["K-Means++ 初始化完成"]
-    F --> G["执行标准 K-Means 迭代"]`,
-        tip: "学习建议：K-Means++ 的精髓在于「让初始中心尽可能分散」。理解这个直觉后，你可以自然地想到更多改进思路——比如用 PCA 先降维再选初始中心。",
-      },
-      {
-        title: "5. 优缺点与局限性",
-        body: `没有完美的算法，K-Means 也不例外。理解它的局限性比了解它的优点更重要——这能帮你避免在错误的场景中使用它。
+        {
+            title: "5. 优缺点与局限性：什么时候该用，什么时候不该用",
+            body: `K-Means 之所以经久不衰，原因在于它的简洁和高效。时间复杂度约为 O(n·K·d·i)，其中 n 是样本数、K 是簇数、d 是特征维度、i 是迭代次数。对于中等规模的数据集（百万级以下），K-Means 可以在几秒钟内完成。它的空间复杂度是 O(n·d + K·d)，只需要存储数据和中心点。
 
-K-Means 最大的假设是：簇是凸形的（球形）且大小相近。这个假设在很多真实场景中并不成立。如果数据呈现月牙形、环形或不规则形状，K-Means 会强制把它切成球形的块，结果自然不理想。
+但 K-Means 的局限性同样不容忽视。它假设簇是球形的——更准确地说，它用欧氏距离作为相似度度量，这隐含着各向同性的球形假设。如果真实簇是拉长的椭圆，K-Means 会错误地切割它们。如果簇是月牙形或环形，K-Means 完全无能为力。
 
-K-Means 对异常值也很敏感。因为簇中心是均值，一个极端值会显著影响中心位置。相比之下，K-Medians（用中位数代替均值）或 K-Medoids（选实际样本点作为中心）更鲁棒。
+另一个严重的问题是它对异常值敏感。均值是最容易受极端值影响的统计量——一个远离簇的异常点可以显著地把中心拉向自己。此外，K-Means 只能用于数值型特征。如果你的数据包含类别变量，需要先做编码处理，而编码本身可能引入偏差。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `# 演示 K-Means 在非球形簇上的失败
+from sklearn.datasets import make_moons, make_blobs
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
-K-Means 还假设所有簇的方差相同。如果一个簇很密集而另一个簇很分散，K-Means 的决策边界（垂直平分线）会不合理地偏向密集的簇。
-
-另外，K-Means 基于欧氏距离，这意味着它假设所有特征量纲相同且独立。如果特征之间高度相关或量纲不同，应该先做标准化或 PCA。`,
-        code: [
-          {
-            lang: "python",
-            code: `from sklearn.datasets import make_moons, make_circles
-
-# K-Means 在非凸形状上的失败案例
 fig, axes = plt.subplots(2, 3, figsize=(15, 10))
 
-datasets = [
-    ('月牙形', make_moons(n_samples=300, noise=0.1, random_state=42)[0]),
-    ('环形', make_circles(n_samples=300, noise=0.05, factor=0.5, random_state=42)[0]),
-    (' blobs', make_blobs(n_samples=300, centers=2, random_state=42)[0]),
-]
+# 情况 1: 球形簇（K-Means 擅长）
+X_blobs, _ = make_blobs(n_samples=300, centers=3, random_state=42)
+km = KMeans(n_clusters=3, random_state=42, n_init=10)
+labels = km.fit_predict(X_blobs)
+axes[0, 0].scatter(X_blobs[:, 0], X_blobs[:, 1], c=labels, cmap='viridis', s=30)
+axes[0, 0].scatter(km.cluster_centers_[:, 0], km.cluster_centers_[:, 1],
+                    c='red', marker='X', s=200, label='Centers')
+axes[0, 0].set_title('球形簇 ✓')
 
-for i, (name, data) in enumerate(datasets):
-    km = KMeans(n_clusters=2, random_state=42, n_init=10)
-    labels = km.fit_predict(data)
+# 情况 2: 月牙形（K-Means 失败）
+X_moons, _ = make_moons(n_samples=300, noise=0.05, random_state=42)
+km = KMeans(n_clusters=2, random_state=42, n_init=10)
+labels = km.fit_predict(X_moons)
+axes[0, 1].scatter(X_moons[:, 0], X_moons[:, 1], c=labels, cmap='viridis', s=30)
+axes[0, 1].set_title('月牙形 ✗')
 
-    axes[0, i].scatter(data[:, 0], data[:, 1], c=labels, cmap='viridis', s=15)
-    axes[0, i].scatter(km.cluster_centers_[:, 0], km.cluster_centers_[:, 1],
-                       c='red', marker='X', s=150)
-    axes[0, i].set_title(f'K-Means on {name}')
-    axes[0, i].set_aspect('equal')
-
-# K-Medians 对比（用 L1 距离）
-def kmedians(X, k, max_iters=100, random_state=42):
-    rng = np.random.RandomState(random_state)
-    centers = X[rng.choice(X.shape[0], k, replace=False)].copy()
-    for _ in range(max_iters):
-        # L1 距离
-        dists = np.array([np.sum(np.abs(X - c), axis=1) for c in centers])
-        labels = np.argmin(dists, axis=0)
-        new_centers = np.array([X[labels == i].mean(axis=0)
-                                for i in range(k)])
-        if np.allclose(centers, new_centers):
-            break
-        centers = new_centers
-    return labels, centers
-
-labels_med, centers_med = kmedians(datasets[0][1], k=2)
-axes[1, 0].scatter(datasets[0][1][:, 0], datasets[0][1][:, 1],
-                   c=labels_med, cmap='viridis', s=15)
-axes[1, 0].scatter(centers_med[:, 0], centers_med[:, 1],
-                   c='red', marker='X', s=150)
-axes[1, 0].set_title('K-Medians on 月牙形')
-axes[1, 0].set_aspect('equal')
-
+# 情况 3: 含异常值的球形簇
+X_with_outliers = np.vstack([X_blobs, np.random.uniform(-10, 10, (10, 2))])
+km = KMeans(n_clusters=3, random_state=42, n_init=10)
+labels = km.fit_predict(X_with_outliers)
+axes[0, 2].scatter(X_with_outliers[:, 0], X_with_outliers[:, 1], c=labels,
+                    cmap='viridis', s=30, alpha=0.7)
+axes[0, 2].set_title('含异常值 ✗')
 plt.tight_layout()
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+plt.show()`
+                },
+                {
+                    lang: "python",
+                    code: `# 处理类别特征的方案：K-Prototypes
+# K-Means 无法直接处理类别特征，有以下几种解决方案：
 
-# 特征标准化对 K-Means 的影响
-from sklearn.datasets import load_iris
+# 方案 1: One-Hot 编码 + K-Means（简单但有维度爆炸风险）
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
-iris = load_iris()
-X_iris = iris.data
+numeric_features = ['age', 'income', 'score']
+categorical_features = ['gender', 'city', 'education']
 
-# 未标准化
-km_raw = KMeans(n_clusters=3, random_state=42, n_init=10)
-labels_raw = km_raw.fit_predict(X_iris)
+preprocessor = ColumnTransformer([
+    ('num', StandardScaler(), numeric_features),
+    ('cat', OneHotEncoder(sparse_output=False, drop='first'), categorical_features)
+])
 
-# 标准化后
-scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X_iris)
-km_scaled = KMeans(n_clusters=3, random_state=42, n_init=10)
-labels_scaled = km_scaled.fit_predict(X_scaled)
+# 方案 2: K-Prototypes（专为混合数据设计）
+# pip install kmodes
+try:
+    from kmodes.kprototypes import KPrototypes
+    # kproto = KPrototypes(n_clusters=3, init='Cao')
+    # kproto.fit_predict(data, categorical=[3, 4, 5])
+    print("K-Prototypes 可用于混合数据类型")
+except ImportError:
+    print("需安装 kmodes: pip install kmodes")
 
-from sklearn.metrics import adjusted_rand_score
-ari_raw = adjusted_rand_score(iris.target, labels_raw)
-ari_scaled = adjusted_rand_score(iris.target, labels_scaled)
-
-print(f"未标准化 ARI: {ari_raw:.4f}")
-print(f"标准化后 ARI: {ari_scaled:.4f}")
-print(f"各特征量纲差异: {X_iris.max(axis=0) - X_iris.min(axis=0)}")`,
-          },
-        ],
-        table: {
-          headers: ["特性", "K-Means 表现", "影响", "解决方案"],
-          rows: [
-            ["非凸形状", "差", "强制切分为球形", "DBSCAN / 谱聚类"],
-            ["异常值敏感", "差", "中心被拉偏", "K-Medoids / 异常值过滤"],
-            ["簇大小不均", "差", "倾向大簇", "GMM / 层次聚类"],
-            ["特征量纲不一", "差", "大量纲特征主导", "标准化 / 归一化"],
-            ["计算效率", "优 O(n·K·d·iter)", "适合大数据", "Mini-Batch K-Means"],
-            ["可解释性", "优", "簇中心即代表", "直接使用"],
-          ],
+# 方案 3: Gower 距离 + 层次聚类
+# pip install gower
+# import gower
+# dist_matrix = gower.gower_matrix(data)`
+                }
+            ],
+            table: {
+                headers: ["局限性", "具体表现", "影响程度", "缓解方案"],
+                rows: [
+                    ["球形假设", "无法识别非凸形簇", "高", "改用 DBSCAN 或谱聚类"],
+                    ["异常值敏感", "均值被极端值拉扯", "中高", "用 K-Medians 或提前清洗"],
+                    ["K 需预设", "不知道该分几组", "中", "用肘部法/轮廓系数估计"],
+                    ["类别特征不支持", "只能处理数值型", "中", "One-Hot 编码或 K-Prototypes"],
+                    ["等方差假设", "各方向散布相同", "中", "改用高斯混合模型"],
+                    ["大数据扩展性差", "O(n·K·d·i)", "低", "Mini-Batch K-Means"],
+                ]
+            },
+            mermaid: `graph TD
+    A["评估数据特征"] --> B{"簇的形状?"}
+    B -->|球形/紧凑| C{"有异常值吗?"}
+    B -->|不规则/任意形状| D["→ 用 DBSCAN"]
+    C -->|否| E["→ K-Means ✓"]
+    C -->|是| F{"异常值多吗?"}
+    F -->|少| E
+    F -->|多| G["→ 清洗数据或 K-Medians"]
+    A --> H{"数据类型?"}
+    H -->|纯数值| B
+    H -->|混合类型| I["→ K-Prototypes 或 Gower+层次聚类"]`,
+            tip: "K-Means 在图像压缩、客户分群、文档聚类等场景中表现优异。这些场景的共同点是：数据天然呈球形簇分布，且你只需要一个快速、可解释的结果。",
+            warning: "不要在不理解数据结构的情况下盲目使用 K-Means。先做探索性数据分析（EDA），了解特征分布、异常值情况和潜在的簇形状。"
         },
-        mermaid: `graph TD
-    A["K-Means 局限性"] --> B["假设簇为凸形"]
-    A --> C["对异常值敏感"]
-    A --> D["簇大小应相近"]
-    A --> E["欧氏距离依赖"]
-    B --> F["非凸数据用 DBSCAN"]
-    C --> G["用 K-Medoids 替代"]
-    D --> H["用 GMM 替代"]
-    E --> I["标准化 / 特征选择"]`,
-        warning: "K-Means 不能直接处理类别型特征（如颜色、城市名称）。如果数据包含类别变量，需要先进行 One-Hot 编码或使用 K-Prototypes 算法（支持混合型数据）。",
-      },
-      {
-        title: "6. 与层次聚类和 DBSCAN 对比",
-        body: `K-Means 不是唯一的聚类算法。在真实项目中，你应该根据数据特点选择最合适的算法。
+        {
+            title: "6. 与层次聚类/DBSCAN 对比：算法选型指南",
+            body: `聚类算法家族中，K-Means、层次聚类和 DBSCAN 是最常用的三员大将。理解它们的差异，是做出正确算法选择的前提。
 
-层次聚类（Hierarchical Clustering）的核心优势是不需要预先指定 K 值。它通过构建树状结构（Dendrogram）来展示数据在不同粒度下的聚类结果。你可以事后决定在哪一层「切一刀」。层次聚类有两种策略：自底向上的凝聚法（Agglomerative，每个样本先自成一类，逐步合并）和自顶向下的分裂法（Divisive，所有样本先成一类，逐步拆分）。
+层次聚类（Hierarchical Clustering）的核心优势是不需要预设 K。它自底向上（凝聚式）或自顶向下（分裂式）构建一棵树状结构（Dendrogram），你可以在任意高度切割这棵树得到不同粒度的聚类。但它的致命弱点是计算复杂度 O(n²·d)——对于超过万条的数据集就非常慢了。而且一旦一个样本被分配到某个簇，这个分配就固定了，不可更改。
 
-DBSCAN（Density-Based Spatial Clustering of Applications with Noise）则基于密度定义簇。它将密度足够大的区域连成一片，形成任意形状的簇。DBSCAN 的最大亮点是能够自动识别异常值（噪声点）——这在 K-Means 中是做不到的。
+DBSCAN（Density-Based Spatial Clustering）基于密度的直觉：簇是数据空间中密度较高的区域。它只需要两个参数：eps（邻域半径）和 min_samples（形成稠密区域的最小点数）。DBSCAN 的最大亮点是可以识别任意形状的簇，并且能自动检测异常值（标记为 -1）。但它对参数敏感，且在高维空间中效果下降（维度灾难导致距离变得无意义）。
 
-这三种算法各有所长：K-Means 适合大数据且簇近似球形；层次聚类适合中小数据且需要层次化理解；DBSCAN 适合发现任意形状的簇和处理噪声。`,
-        code: [
-          {
-            lang: "python",
-            code: `from sklearn.cluster import AgglomerativeClustering, DBSCAN
+三者的选择不是非此即彼的。在实际项目中，建议的流程是：先用 K-Means 做快速基线，再用 DBSCAN 检查是否有非球形簇，最后用层次聚类做小规模精细分析。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `from sklearn.cluster import DBSCAN, AgglomerativeClustering, KMeans
+from sklearn.datasets import make_moons
+import matplotlib.pyplot as plt
+
+X_moons, _ = make_moons(n_samples=300, noise=0.05, random_state=42)
+
+fig, axes = plt.subplots(1, 3, figsize=(16, 5))
+
+# K-Means
+km = KMeans(n_clusters=2, random_state=42, n_init=10)
+km_labels = km.fit_predict(X_moons)
+axes[0].scatter(X_moons[:, 0], X_moons[:, 1], c=km_labels, cmap='viridis', s=30)
+axes[0].set_title(f'K-Means (ARI={silhouette_score(X_moons, km_labels):.3f})')
+
+# 层次聚类
+hc = AgglomerativeClustering(n_clusters=2, linkage='ward')
+hc_labels = hc.fit_predict(X_moons)
+axes[1].scatter(X_moons[:, 0], X_moons[:, 1], c=hc_labels, cmap='viridis', s=30)
+axes[1].set_title(f'层次聚类 (Ward)')
+
+# DBSCAN
+db = DBSCAN(eps=0.3, min_samples=5)
+db_labels = db.fit_predict(X_moons)
+n_clusters = len(set(db_labels)) - (1 if -1 in db_labels else 0)
+n_noise = list(db_labels).count(-1)
+axes[2].scatter(X_moons[:, 0], X_moons[:, 1], c=db_labels, cmap='viridis', s=30)
+axes[2].set_title(f'DBSCAN ({n_clusters} 簇, {n_noise} 噪声点)')
+
+for ax in axes:
+    ax.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()`
+                },
+                {
+                    lang: "python",
+                    code: `# 可视化层次聚类的树状图
 from scipy.cluster.hierarchy import dendrogram, linkage
 import matplotlib.pyplot as plt
 
-# 层次聚类
-agg = AgglomerativeClustering(n_clusters=3, linkage='ward')
-labels_agg = agg.fit_predict(X)
+# 取 50 个样本做树状图（完整数据太慢）
+sample_idx = np.random.choice(len(X), 50, replace=False)
+X_sample = X[sample_idx]
 
-# 绘制树状图
-linkage_matrix = linkage(X[:50], method='ward')  # 样本多时用子集
-plt.figure(figsize=(10, 5))
-dendrogram(linkage_matrix, truncate_mode='level', p=15)
-plt.title('层次聚类树状图')
-plt.xlabel('样本索引')
+# 用 Ward  linkage
+Z = linkage(X_sample, method='ward')
+
+plt.figure(figsize=(12, 6))
+dendrogram(Z, leaf_rotation=90, leaf_font_size=8)
+plt.axhline(y=15, color='r', linestyle='--', alpha=0.5, label='切割线: K=3')
+plt.title('层次聚类树状图（Ward 连接）', fontsize=14)
+plt.xlabel('样本')
 plt.ylabel('距离')
-plt.axhline(y=10, color='r', linestyle='--', label='切割阈值=10')
 plt.legend()
+plt.grid(True, alpha=0.3)
 plt.show()
 
-print(f"层次聚类标签分布: {np.bincount(labels_agg)}")`,
-          },
-          {
-            lang: "python",
-            code: `# DBSCAN 聚类
-db = DBSCAN(eps=0.5, min_samples=5)
-labels_db = db.fit_predict(X)
-
-n_clusters_db = len(set(labels_db)) - (1 if -1 in labels_db else 0)
-n_noise = list(labels_db).count(-1)
-print(f"DBSCAN 发现 {n_clusters_db} 个簇，{n_noise} 个噪声点")
-
-# 可视化对比三种算法
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-colors = ['viridis', 'viridis', 'viridis']
-
-for ax, labels, name in zip(axes,
-    [KMeans(n_clusters=3, random_state=42).fit_predict(X),
-     AgglomerativeClustering(n_clusters=3).fit_predict(X),
-     DBSCAN(eps=0.5, min_samples=5).fit_predict(X)],
-    ['K-Means', '层次聚类', 'DBSCAN']):
-
-    mask_noise = labels == -1
-    ax.scatter(X[~mask_noise, 0], X[~mask_noise, 1],
-               c=labels[~mask_noise], cmap='viridis', s=15, alpha=0.7)
-    if np.any(mask_noise):
-        ax.scatter(X[mask_noise, 0], X[mask_noise, 1],
-                   c='red', s=15, label='噪声点', alpha=0.7)
-    ax.set_title(name)
-    ax.legend()
-
-plt.tight_layout()
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `import time
-
-# 三种算法的性能与效果对比
-algorithms = {
-    'K-Means': KMeans(n_clusters=3, random_state=42, n_init=10),
-    '层次聚类': AgglomerativeClustering(n_clusters=3, linkage='ward'),
-    'DBSCAN': DBSCAN(eps=0.5, min_samples=5),
-}
-
-from sklearn.metrics import silhouette_score, calinski_harabasz_score
-
-results = []
-for name, algo in algorithms.items():
-    start = time.time()
-    labels = algo.fit_predict(X)
-    elapsed = time.time() - start
-
-    n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
-    sil = silhouette_score(X, labels) if n_clusters > 1 else -1
-    ch = calinski_harabasz_score(X, labels) if n_clusters > 1 else -1
-
-    results.append({
-        '算法': name,
-        '耗时(s)': f'{elapsed:.3f}',
-        '簇数': n_clusters,
-        '轮廓系数': f'{sil:.4f}',
-        'CH分数': f'{ch:.1f}',
-    })
-
-for r in results:
-    print(r)`,
-          },
-        ],
-        table: {
-          headers: ["算法", "需要指定 K?", "簇形状", "处理噪声", "复杂度", "大数据适用"],
-          rows: [
-            ["K-Means", "是", "凸形（球形）", "否", "O(n·K·d·iter)", "是"],
-            ["层次聚类", "否（事后切）", "任意", "否", "O(n²·d) 或 O(n²log n)", "否"],
-            ["DBSCAN", "否（调 eps/minPts）", "任意形状", "是", "O(n log n)", "中等"],
-            ["GMM", "是", "椭圆（高斯）", "概率化", "O(n·K·d·iter)", "是"],
-          ],
+# 在不同高度切割得到不同 K
+from scipy.cluster.hierarchy import fcluster
+for dist in [10, 15, 25]:
+    labels = fcluster(Z, t=dist, criterion='distance')
+    print(f"切割距离={dist}: {len(set(labels))} 个簇")`
+                }
+            ],
+            table: {
+                headers: ["特性", "K-Means", "层次聚类", "DBSCAN"],
+                rows: [
+                    ["需要预设 K", "是", "否（可后切割）", "否（需 eps, min_samples）"],
+                    ["簇形状假设", "球形", "取决于 linkage", "任意形状"],
+                    ["异常值处理", "敏感（影响中心）", "敏感", "自动标记为噪声"],
+                    ["时间复杂度", "O(n·K·d·i)", "O(n²·d)", "O(n·log n)~O(n²)"],
+                    ["可扩展性", "好（支持 Mini-Batch）", "差（>10K 很慢）", "中"],
+                    ["可重复性", "否（需固定 seed）", "是（确定性）", "是（确定性）"],
+                ]
+            },
+            mermaid: `graph TD
+    A["选择聚类算法"] --> B{"数据量大小?"}
+    B -->|< 10K| C{"簇形状已知吗?"}
+    B -->|> 10K| D{"需要速度吗?"}
+    C -->|球形| E["→ K-Means"]
+    C -->|任意形状| F["→ DBSCAN"]
+    C -->|不确定| G["→ 都试一遍对比"]
+    D -->|是| E
+    D -->|否| H{"需要树状图吗?"}
+    H -->|是| I["→ 层次聚类"]
+    H -->|否| E
+    E --> J["快速基线"]
+    F --> K["发现复杂结构"]
+    I --> L["探索性分析"]`,
+            tip: "对于中等规模数据集（1K-10K 条），建议并行运行三种算法，用轮廓系数和 Calinski-Harabasz 指数对比结果，选择最优的。",
+            warning: "DBSCAN 在高维数据（>50 维）上效果通常不好。高维空间中所有点的距离趋于相近，密度概念失效。先用 PCA 降维再用 DBSCAN。"
         },
-        mermaid: `graph LR
-    A["选择聚类算法"] --> B{"数据规模？"}
-    B -->|大数据 n>10000| C["K-Means / Mini-Batch"]
-    B -->|中小数据| D{"簇的形状？"}
-    D -->|球形/凸形| C
-    D -->|任意形状| E["DBSCAN"]
-    D -->|需要层次结构| F["层次聚类"]
-    D -->|概率化软分配| G["GMM"]
-    C --> H["结果"]
-    E --> H
-    F --> H
-    G --> H`,
-        tip: "学习建议：不要只学一个聚类算法。掌握 K-Means 后，立刻学习 DBSCAN——两个算法的对比会帮你深刻理解「距离 vs 密度」的本质差异。",
-      },
-      {
-        title: "7. sklearn 实战：完整的聚类流水线",
-        body: `现在让我们把所有知识串起来，用一个真实的端到端案例来巩固 K-Means 的完整应用流程。
+        {
+            title: "7. sklearn 实战：从数据到可视化的完整流程",
+            body: `理论学习再多，不如动手跑一遍。本节用一个完整的实战流程，把前面所有的知识串联起来。我们将使用经典的 Iris 数据集，但故意只用两个特征来做二维可视化，这样你能直观地看到聚类效果。
 
-真实世界的数据从来不是干净的。你需要：处理缺失值、标准化特征、选择合适的 K 值、评估聚类质量、最后给出可解释的业务结论。
+完整的聚类流程包括六个步骤：数据加载与探索 → 数据预处理（标准化） → 确定最佳 K 值 → 训练 K-Means 模型 → 评估聚类质量 → 可视化结果。每一步都有其最佳实践。
 
-scikit-learn 提供了 Pipeline 和 GridSearchCV 来自动化这个过程。我们还可以结合 PCA 做降维可视化——把高维数据投影到 2D 平面上，直观地看到聚类效果。
-
-这个实战案例涵盖了你今后在项目中会遇到的所有关键步骤。`,
-        code: [
-          {
-            lang: "python",
-            code: `from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+实战中最容易踩的坑是：忘记标准化。Iris 数据集的花瓣长度和花萼长度单位相同但数值范围不同，不标准化的话，范围大的特征会主导聚类结果。另一个常见的坑是用训练集的标签来「作弊」评估聚类——无监督聚类时你不应该使用真实标签来选择 K，那相当于偷看了答案。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `from sklearn.datasets import load_iris
 from sklearn.cluster import KMeans
-from sklearn.datasets import load_digits
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import silhouette_score, calinski_harabasz_score
 import matplotlib.pyplot as plt
-
-# 加载真实数据集（手写数字，去掉标签使用）
-digits = load_digits()
-X_digits = digits.data  # 1797 样本, 64 维
-
-# 构建完整流水线
-pipeline = Pipeline([
-    ('scaler', StandardScaler()),
-    ('pca', PCA(n_components=2, random_state=42)),  # 降维到 2D 用于可视化
-    ('kmeans', KMeans(n_clusters=10, random_state=42, n_init=10)),
-])
-
-labels = pipeline.fit_predict(X_digits)
-
-# 可视化 2D 聚类结果
-X_2d = pipeline.named_steps['pca'].transform(X_digits)
-centers_2d = pipeline.named_steps['pca'].transform(
-    pipeline.named_steps['kmeans'].cluster_centers_
-)
-
-fig, ax = plt.subplots(figsize=(10, 8))
-scatter = ax.scatter(X_2d[:, 0], X_2d[:, 1], c=labels,
-                     cmap='tab10', s=10, alpha=0.6)
-ax.scatter(centers_2d[:, 0], centers_2d[:, 1], c='black',
-           marker='X', s=200, linewidths=2, label='簇中心')
-ax.set_title('K-Means 聚类手写数字（PCA 降维到 2D）')
-ax.legend()
-plt.colorbar(scatter, label='簇标签', ax=ax)
-plt.show()`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.metrics import adjusted_rand_score, adjusted_mutual_info_score
-
-# 评估聚类质量（与真实标签对比）
-true_labels = digits.target
-print(f"调整兰德指数 (ARI): {adjusted_rand_score(true_labels, labels):.4f}")
-print(f"调整互信息 (AMI): {adjusted_mutual_info_score(true_labels, labels):.4f}")
-
-# 查看每个簇主要由哪些数字组成
-print("\n各簇主要包含的数字：")
-for cluster_id in range(10):
-    mask = labels == cluster_id
-    cluster_digits = true_labels[mask]
-    if len(cluster_digits) > 0:
-        top_digits = np.bincount(cluster_digits).argsort()[::-1][:3]
-        counts = np.bincount(cluster_digits)[top_digits]
-        print(f"  簇 {cluster_id}: 主要数字 = {list(zip(top_digits, counts))}")`,
-          },
-          {
-            lang: "python",
-            code: `from sklearn.metrics import silhouette_score
 import numpy as np
 
-# 用 GridSearchCV 自动搜索最优 K（结合 PCA + KMeans）
-from sklearn.model_selection import ParameterGrid
+# 步骤 1: 加载数据
+iris = load_iris()
+X = iris.data  # 4 个特征
+y_true = iris.target  # 真实标签（仅用于最后对比）
+feature_names = iris.feature_names
 
-param_grid = {
-    'kmeans__n_clusters': range(5, 16),
-    'pca__n_components': [2, 5, 10, 20],
-}
+print(f"数据集: {X.shape[0]} 样本, {X.shape[1]} 特征")
+print(f"特征: {feature_names}")
 
-best_score = -1
-best_params = None
+# 步骤 2: 标准化
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
 
-for params in ParameterGrid(param_grid):
-    pipe = Pipeline([
-        ('scaler', StandardScaler()),
-        ('pca', PCA(random_state=42)),
-        ('kmeans', KMeans(random_state=42, n_init=10)),
-    ])
-    pipe.set_params(**params)
-    labels_temp = pipe.fit_predict(X_digits)
-    n_clusters = len(set(labels_temp))
+# 步骤 3: 确定最佳 K
+scores_sil = []
+scores_ch = []
+inertias = []
+for k in range(2, 8):
+    km = KMeans(n_clusters=k, random_state=42, n_init=10)
+    labels = km.fit_predict(X_scaled)
+    scores_sil.append(silhouette_score(X_scaled, labels))
+    scores_ch.append(calinski_harabasz_score(X_scaled, labels))
+    inertias.append(km.inertia_)
 
-    if n_clusters > 1:
-        score = silhouette_score(X_digits, labels_temp)
-        if score > best_score:
-            best_score = score
-            best_params = params
-            print(f"新最优: {params} -> 轮廓系数={score:.4f}")
+best_k_sil = np.argmax(scores_sil) + 2
+print(f"轮廓系数最佳 K: {best_k_sil}")
+print(f"轮廓系数: {max(scores_sil):.4f}")`
+                },
+                {
+                    lang: "python",
+                    code: `# 步骤 4: 训练最终模型
+best_k = 3  # Iris 已知有 3 类
+km_final = KMeans(n_clusters=best_k, random_state=42, n_init=10)
+km_labels = km_final.fit_predict(X_scaled)
 
-print(f"\n最优参数: {best_params}")
-print(f"最优轮廓系数: {best_score:.4f}")`,
-          },
-        ],
-        table: {
-          headers: ["步骤", "sklearn 工具", "作用", "关键参数"],
-          rows: [
-            ["数据加载", "load_digits / 自定义", "获取原始数据", "—"],
-            ["预处理", "StandardScaler", "特征标准化", "with_mean, with_std"],
-            ["降维", "PCA", "降维可视化", "n_components"],
-            ["聚类", "KMeans", "执行聚类", "n_clusters, init, n_init"],
-            ["评估", "silhouette_score, ARI", "量化聚类质量", "—"],
-            ["可视化", "matplotlib / seaborn", "展示聚类结果", "cmap, alpha"],
-          ],
-        },
-        mermaid: `graph LR
-    A["原始数据"] --> B["StandardScaler 标准化"]
-    B --> C["PCA 降维到 2D"]
-    C --> D["K-Means 聚类"]
-    D --> E["评估: 轮廓系数/ARI"]
-    D --> F["可视化: 散点图"]
-    D --> G["分析: 簇特征分布"]
-    E --> H{"效果满意？"}
-    H -->|否| I["调整 K 或换算法"]
-    H -->|是| J["输出业务结论"]
-    I --> D`,
-        warning: "聚类结果的解释要谨慎！K-Means 找到的簇是数学上紧凑的群体，但不一定有业务意义。务必结合领域知识验证——比如「这个簇真的对应一类特定的用户吗？」",
-        tip: "实战建议：永远把聚类结果可视化！即使你的数据有 100 维，先用 PCA/TSNE/UMAP 降到 2D 画出来看看。眼睛是最好的评估工具。",
-      },
+# 步骤 5: 评估
+print(f"惯性: {km_final.inertia_:.2f}")
+print(f"轮廓系数: {silhouette_score(X_scaled, km_labels):.4f}")
+print(f"Calinski-Harabasz: {calinski_harabasz_score(X_scaled, km_labels):.2f}")
+
+# 与真实标签对比（仅用于学习，实际应用中不可用）
+from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
+ari = adjusted_rand_score(y_true, km_labels)
+nmi = normalized_mutual_info_score(y_true, km_labels)
+print(f"调整兰德指数 (ARI): {ari:.4f} (越接近 1 越好)")
+print(f"归一化互信息 (NMI): {nmi:.4f} (越接近 1 越好)")
+
+# 步骤 6: 可视化
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+# 图 1: 聚类结果
+colors = ['#FF6B6B', '#4ECDC4', '#45B7D1']
+for i in range(best_k):
+    mask = km_labels == i
+    axes[0].scatter(X_scaled[mask, 2], X_scaled[mask, 3],
+                     c=colors[i], s=50, alpha=0.7, label=f'Cluster {i}')
+axes[0].scatter(km_final.cluster_centers_[:, 2], km_final.cluster_centers_[:, 3],
+                 c='black', marker='X', s=200, label='Centers')
+axes[0].set_xlabel(feature_names[2])
+axes[0].set_ylabel(feature_names[3])
+axes[0].set_title('K-Means 聚类结果')
+axes[0].legend()
+
+# 图 2: 真实标签
+for i in range(3):
+    mask = y_true == i
+    axes[1].scatter(X_scaled[mask, 2], X_scaled[mask, 3],
+                     c=colors[i], s=50, alpha=0.7, label=iris.target_names[i])
+axes[1].set_xlabel(feature_names[2])
+axes[1].set_ylabel(feature_names[3])
+axes[1].set_title('真实分类')
+axes[1].legend()
+
+# 图 3: 指标对比
+axes[2].bar(['ARI', 'NMI', 'Silhouette'], [ari, nmi, silhouette_score(X_scaled, km_labels)],
+             color=colors[:3], alpha=0.7)
+axes[2].set_ylim(0, 1)
+axes[2].set_title('聚类质量指标')
+axes[2].grid(True, alpha=0.3, axis='y')
+
+plt.tight_layout()
+plt.show()`
+                }
+            ],
+            table: {
+                headers: ["指标", "含义", "取值范围", "Iris 表现", "解读"],
+                rows: [
+                    ["惯性 (WCSS)", "组内平方和", "[0, ∞)", "越小越好", "无绝对标准，用于对比不同 K"],
+                    ["轮廓系数", "样本聚类紧密度", "[-1, 1]", "0.55-0.65", ">0.5 表示合理的聚类"],
+                    ["Calinski-Harabasz", "簇间/簇内方差比", "[0, ∞)", "越高越好", ">100 表示好的聚类"],
+                    ["调整兰德指数", "与真实标签一致性", "[-1, 1]", "0.73-0.82", "越接近 1 越一致"],
+                    ["NMI", "互信息归一化", "[0, 1]", "0.75-0.85", "越接近 1 信息保留越多"],
+                ]
+            },
+            mermaid: `graph TD
+    A["原始数据"] --> B["标准化 StandardScaler"]
+    B --> C["肘部法 + 轮廓系数选 K"]
+    C --> D["K-Means++ 初始化"]
+    D --> E["K-Means 迭代"]
+    E --> F["输出聚类标签"]
+    F --> G["轮廓系数评估"]
+    F --> H["Calinski-Harabasz 评估"]
+    G --> I["质量达标?"]
+    H --> I
+    I -->|是| J["可视化 + 业务解读"]
+    I -->|否| K["调整 K 或换算法"]
+    K --> C`,
+            tip: "在真实项目中，聚类结果最终要落地到业务决策。不要只看指标数字，要看聚类后的每个簇是否有实际的业务含义——比如「高消费低频用户」「低消费高频用户」。",
+            warning: "聚类是一种探索性分析，不是预测模型。对新的数据点做预测时（predict 方法），K-Means 只是计算它到各个中心的距离。如果新数据的分布和训练数据不同，预测可能没有意义。"
+        }
     ],
-  };
+};
