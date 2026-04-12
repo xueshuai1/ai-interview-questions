@@ -511,7 +511,7 @@ volumes:
         },
         {
           lang: "bash",
-          code: `# 上线检查清单脚本
+          code: String.raw`# 上线检查清单脚本
 #!/bin/bash
 set -euo pipefail
 
