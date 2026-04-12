@@ -46,37 +46,6 @@ const features = [
 ];
 
 const newsPreview = news.slice(0, 5);
-  {
-    tag: "重磅",
-    title: "Anthropic 称最新 AI 模型过于强大，暂不向公众开放",
-    date: "2026-04-12",
-    href: "/blog",
-  },
-  {
-    tag: "产品",
-    title: "Meta AI 应用登顶 App Store 第五，Muse 功能引爆增长",
-    date: "2026-04-12",
-    href: "/blog",
-  },
-  {
-    tag: "趋势",
-    title: "Nvidia 投资 SiFive 估值达 36.5 亿美元，开源 AI 芯片加速崛起",
-    date: "2026-04-12",
-    href: "/blog",
-  },
-  {
-    tag: "前沿",
-    title: "阿里巴巴开源 Wan 2.1 AI 视频模型，社区反响热烈",
-    date: "2026-04-12",
-    href: "/blog",
-  },
-  {
-    tag: "安全",
-    title: "伊朗威胁要轰炸 OpenAI 与英伟达在阿布扎比 300 亿美元数据中心",
-    date: "2026-04-12",
-    href: "/blog",
-  },
-];
 
 export default function Home() {
 
