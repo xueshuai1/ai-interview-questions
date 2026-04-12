@@ -18,6 +18,257 @@ export const news: NewsItem[] = [
     id: "news-001",
     tag: "重磅",
     tagColor: "bg-red-500/10 text-red-300",
+    title: "OpenAI 完成 1220 亿美元融资：估值 8520 亿，月收 20 亿，ChatGPT 周活 9 亿",
+    summary: "OpenAI 完成史上最大融资轮，月营收达 20 亿美元，ChatGPT 周活跃用户超 9 亿，广告试点 6 周突破 1 亿美元 ARR。",
+    content: `## 史无前例的融资规模
+
+2026 年 4 月，OpenAI 宣布完成一笔 **1220 亿美元** 的融资，投后估值达到 **8520 亿美元**。这是科技史上规模最大的融资轮之一。
+
+### 投资方阵容
+
+| 类型 | 主要投资者 |
+|------|-----------|
+| **领投** | Amazon, NVIDIA, SoftBank |
+| **联合领投** | a16z, D. E. Shaw, MGX, TPG, T. Rowe Price |
+| **跟投** | BlackRock, Blackstone, Sequoia, Fidelity, Temasek, Thrive Capital, ARK Invest 等 |
+| **个人投资者** | 通过银行渠道募资超 30 亿美元 |
+
+> "这是商业规模，也是使命规模。" — OpenAI 官方博客
+
+### 财务里程碑
+
+OpenAI 的增长速度**远超互联网和移动时代的所有公司**：
+
+- **月营收**：20 亿美元（同比增长 4 倍于 Alphabet 和 Meta 同期增速）
+- **ChatGPT 周活**：超 9 亿用户
+- **付费订阅**：超 5000 万用户
+- **API 处理量**：每分钟超 150 亿 token
+- **Codex 周活**：超 200 万用户（3 个月增长 5 倍）
+- **广告试点**：6 周内突破 1 亿美元 ARR
+- **企业收入占比**：超 40%，预计 2026 年底与消费收入持平
+
+### GPT-5.4 发布
+
+OpenAI 同时发布了 **GPT-5.4**，号称其"最强能力模型"，在智能和工作流性能上均有显著提升。Codex 已发展为旗舰级编程 Agent，每周服务超 200 万用户。
+
+### ARK Invest ETF 纳入
+
+OpenAI 宣布将被纳入 ARK Invest 管理的多只 ETF，进一步拓宽所有权，让更多人能分享 AI 时代的经济红利。
+
+## 深远影响
+
+这一融资规模表明：
+1. 全球资本对 AI 基础设施的信心达到前所未有的高度
+2. OpenAI 正在从 AI 公司转变为**核心基础设施平台**
+3. 消费+企业+开发者+算量的"飞轮效应"正在形成`,
+    date: "2026-04-13",
+    source: "OpenAI Official / Bloomberg",
+    sourceUrl: "https://openai.com/index/accelerating-the-next-phase-ai/",
+    href: "/news/news-001",
+  },
+  {
+    id: "news-002",
+    tag: "重磅",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Meta 发布 Muse Spark：放弃开源 Llama，转向闭源超级智能模型",
+    summary: "Meta Superintelligence Labs 首个模型 Muse Spark 正式发布，标志着 Meta 从开源 Llama 战略转向闭源专有路线。",
+    content: `## Meta 的 AI 战略大转弯
+
+2026 年 4 月 8 日，Meta 发布了 **Muse Spark** —— 这是 Meta Superintelligence Labs（超级智能实验室）成立以来的首个 AI 模型，也是 Meta 近一年来发布的首个新模型。
+
+### 关键变化：从开源到闭源
+
+| | Llama 系列 | Muse Spark |
+|--|-----------|------------|
+| **许可模式** | 开源权重 | 闭源专有 |
+| **访问方式** | 任何人下载 | 仅限 Meta AI App/Web |
+| **API** | 开放 | 仅限"受邀预览" |
+| **战略定位** | 开发者生态 | 消费者超级智能产品 |
+
+> Muse Spark 是 Meta 的"从头开始彻底改造 AI  efforts"的第一步。 — TechCrunch
+
+### 模型特点
+
+- **多 Agent 协作** — 使用多个 AI Agent 同时处理同一问题，加速复杂任务
+- **工具调用** — 内置代码执行器、视觉定位等工具
+- **视觉推理链** — 支持图像分析和视觉思维链
+- **Contemplating 模式** — 深度思考模式，用于复杂推理
+
+### 背后故事
+
+Muse Spark（内部代号 "Avocado"）经历了一个**9 个月的冲刺开发**：
+- Mark Zuckerberg 对 Llama 系列的进展不满，认为落后于 ChatGPT 和 Claude
+- 2025 年 6 月，Meta 以数十亿美元收购 Scale AI，引入 CEO Alexandr Wang
+- 经历了内部摩擦和多次延期
+
+### 行业影响
+
+**对开发者社区**：Llama 拥有数十亿用户和数千依赖它的开发者，转向闭源可能引发社区反弹。
+
+**对 AI 竞争格局**：Muse Spark 表明 Meta 现在将自己视为与 OpenAI、Anthropic 的直接竞争者，而非开源生态的推动者。
+
+Meta 表示"希望在未来开源模型版本"，但没有给出具体时间表。`,
+    date: "2026-04-13",
+    source: "TechCrunch / NYT / CNBC / VentureBeat",
+    sourceUrl: "https://techcrunch.com/2026/04/08/meta-debuts-the-muse-spark-model-in-a-ground-up-overhaul-of-its-ai/",
+    href: "/news/news-002",
+  },
+  {
+    id: "news-003",
+    tag: "安全",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Anthropic Claude Code 源代码泄露：51.2 万行代码外泄，发出 8000 份版权删除通知",
+    summary: "Anthropic 意外在 2.1.88 版本中打包了 Claude Code 完整源代码，紧急发出版权删除通知但部分撤回。",
+    content: `## 2026 年最大的 AI 代码泄露事件
+
+2026 年 3 月 31 日，Anthropic 在已删除的 **Claude Code 2.1.88 版本**中意外打包了一个 59.8MB 的文件，其中包含了 Claude Code CLI 工具的**完整源代码**。
+
+### 泄露规模
+
+| 指标 | 数据 |
+|------|------|
+| **泄露文件数** | 约 1,900 个文件 |
+| **代码行数** | 约 512,000 行 TypeScript |
+| **初始删除通知** | 8,100 个 GitHub 仓库 |
+| **最终撤回范围** | 缩减至 1 个仓库 + 96 个 fork |
+
+### 事件时间线
+
+1. **3 月 31 日** — Claude Code 2.1.88 版本发布，包含源代码文件
+2. **4 月 1 日** — 用户发现泄露，LA Times 率先报道
+3. **4 月 2 日** — Anthropic 发出大规模版权删除通知，覆盖 8,100 个仓库
+4. **4 月 3 日** — 部分撤回，仅保留对 1 个主仓库的删除通知
+5. **持续** — 代码已在开发者社区广泛传播
+
+### 双重安全事件
+
+这已经是 Anthropic **数天内的第二次安全失误**：
+- 此前，Fortune 报道称 Anthropic 在公开可访问的系统上存储了数千个内部文件
+- 其中包括一篇详细描述即将发布模型（内部代号 "Mythos" 和 "Capybara"）的博文草稿
+
+### 行业反应
+
+> 一家以安全为首要品牌承诺的 AI 模型开发者发生此类泄露，引发了对安全性的质疑。 — PCMag
+
+**影响分析：**
+- 竞争对手可以审查 Claude Code 的架构和实现细节
+- 可能暴露未公开的功能和安全漏洞
+- 对 Anthropic 的安全声誉造成打击
+
+### 深层含义
+
+这一事件凸显了 AI 公司在快速迭代过程中面临的**工程安全挑战**。即使是最重视安全的公司，也可能在发布流程中出现严重疏漏。`,
+    date: "2026-04-13",
+    source: "LA Times / PCMag / Dev.to",
+    sourceUrl: "https://www.pcmag.com/news/anthropic-issues-8000-copyright-takedowns-to-scrub-claude-code-leak",
+    href: "/news/news-003",
+  },
+  {
+    id: "news-004",
+    tag: "企业",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Anthropic 推出 Claude Managed Agents：企业可数内部署自主 AI Agent",
+    summary: "Anthropic 将 Claude 的 Computer Use 扩展到 Windows，并发布 Managed Agents 服务，企业可在数天内部署自主 Agent。",
+    content: `## 从模型提供者到系统编排者
+
+2026 年 4 月，Anthropic 正在经历一次**根本性的战略转变**——从单纯的模型提供者，变为企业 AI 系统的编排者。
+
+### 两大关键发布
+
+**1. Claude Computer Use 扩展至 Windows**
+- 此前仅支持 macOS 和 Linux
+- 现在 AI 可以直接操作 Windows 桌面
+- 自主导航应用程序、执行工作流、调试代码
+
+**2. Claude Managed Agents（托管 Agent 服务）**
+- 企业可以在**数天内**（而非数月）部署自主 Agent
+- 覆盖开发、运营等多个职能
+- 由 Anthropic 托管和管理
+
+### 战略意义
+
+| 维度 | 变化 |
+|------|------|
+| **产品定位** | 从 API 工具 → 企业基础设施 |
+| **部署速度** | 从数月 → 数天 |
+| **使用场景** | 从单点任务 → 全流程自动化 |
+| **商业模式** | 从按量付费 → 企业订阅 |
+
+### 与政府的深度绑定
+
+据报道，Anthropic 正在与**澳大利亚政府**进行保密讨论：
+- 涉及 AI 部署、安全保障和主权能力对齐
+- 前沿 AI 公司正在成为国家关键基础设施的一部分
+- 不再与政府保持距离，而是深度嵌入
+
+### 网络安全风险
+
+**94% 的网络安全领导者**认为 AI 是威胁格局变化的主要驱动力：
+
+> "AI 使得在发现漏洞后几乎可以立即利用它们。" — Evan Peña, CrowdStrike
+
+同一套系统既可以构建应用，也可以识别漏洞并利用它们。AI 不再只是增强网络操作——它正在**执行**网络操作。
+
+### Anthropic 的融资历程
+
+2026 年 2 月，Anthropic 完成 **300 亿美元 G 轮融资**，估值达到 **3800 亿美元**，标志着它正在成为一个新的企业平台类别。`,
+    date: "2026-04-13",
+    source: "Cyber News Centre / TechCrunch",
+    sourceUrl: "https://www.cybernewscentre.com/10th-of-april-2026-cyber-update-anthropics-warning-signals-a-new-phase-in-the-ai-cyber-arms-race/",
+    href: "/news/news-004",
+  },
+  {
+    id: "news-005",
+    tag: "政策",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "OpenAI 发布 AI 经济政策框架：公共财富基金、机器人税、四天工作制",
+    summary: "OpenAI 发布政策提案，建议将税收从劳动转向资本，建立公共财富基金让全民分享 AI 红利，并补贴四天工作制。",
+    content: `## AI 时代的经济蓝图
+
+2026 年 4 月 6 日，OpenAI 发布了一份名为 **"智能时代产业政策"** 的政策文件，提出了在超级智能机器时代如何重塑财富分配和工作方式的框架。
+
+### 核心提案
+
+| 提案 | 内容 |
+|------|------|
+| **税收转移** | 从劳动税转向资本税、AI 利润税或资本利得税 |
+| **公共财富基金** | 让美国人自动持有 AI 公司股份，收益直接分配给公民 |
+| **四天工作制** | 政府补贴企业实行四天工作制，薪资不减少 |
+| **可携带福利账户** | 跟随工人跨工作的福利账户 |
+| **机器人税** | 考虑对替代人类的 AI 系统征税 |
+
+### 背景动机
+
+OpenAI 警告，AI 驱动的增长可能**掏空社会保障的资金基础**：
+
+> "随着 AI 重塑工作和生产，经济活动的构成可能发生变化——企业利润和资本收益扩大，同时对劳动收入和工资税的依赖可能减少。"
+
+### 财务数据支撑
+
+- OpenAI 当前估值：**8520 亿美元**
+- 月营收：**20 亿美元**
+- AI 基础设施支出（四大科技巨头 2026 年）：**超 6500 亿美元**
+
+### 政治博弈
+
+- OpenAI 总裁 Greg Brockman 已向 Trump 捐款数百万美元
+- 硅谷科技富豪向支持宽松 AI 政策的超级 PAC 投入数亿美元
+- 提案试图在中期选举前实现两党定位
+
+### 争议点
+
+**缺失的群体**：OpenAI 将这些福利框架为"企业责任"而非"政府责任"，但对于**被 AI 完全替代的失业者**来说，如果雇主不存在了，这些福利也就消失了。
+
+这标志着 AI 公司从纯技术玩家转变为**政策制定参与者**，试图影响全球经济规则的制定。`,
+    date: "2026-04-13",
+    source: "TechCrunch / OpenAI",
+    sourceUrl: "https://techcrunch.com/2026/04/06/openais-vision-for-the-ai-economy-public-wealth-funds-robot-taxes-and-a-four-day-work-week/",
+    href: "/news/news-005",
+  },
+  {
+    id: "news-006",
+    tag: "商业",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
     title: "Anthropic Claude Mythos 引发全球恐慌：Yann LeCun 称其为自我欺骗的戏剧",
     summary: "Claude Mythos 发现数千个零日漏洞，美联储紧急召开银行 CEO 会议。而 Yann LeCun 公开批评这是过度炒作。",
     content: `## 事件概述
@@ -69,217 +320,63 @@ Anthropic 将提供高达 **1 亿美元** 的 Mythos 使用额度，专门用于
     date: "2026-04-12",
     source: "NYT / Fortune / Times of India",
     sourceUrl: "https://www.nytimes.com/2026/04/07/technology/anthropic-claims-its-new-ai-model-mythos-is-a-cybersecurity-reckoning.html",
-    href: "/news/news-001",
+    href: "/news/news-006",
   },
   {
-    id: "news-002",
-    tag: "商业",
-    tagColor: "bg-yellow-500/10 text-yellow-300",
-    title: "OpenAI CFO 公开反对 IPO 计划，与 Altman 发生严重分歧",
-    summary: "CFO Sarah Friar 认为 2026 年 Q4 上市过于激进，而 Anthropic 可能在 10 月抢先上市。",
-    content: `## 核心冲突
-
-OpenAI 内部正经历一场关于 IPO 时间线的**激烈争执**，这不仅是关于时间表的争论，更反映了公司战略方向的根本分歧。
-
-### 双方立场
-
-| | CEO Sam Altman | CFO Sarah Friar |
-|--|----------------|-----------------|
-| **IPO 时间** | 2026 年 Q4 | 2027 年或更晚 |
-| **估值目标** | 1 万亿美元 | 更保守的估值 |
-| **资本支出** | 5 年 6000 亿美元 | 质疑投资必要性 |
-| **核心观点** | 激进增长 | 财务稳健 |
-
-## 财务数据
-
-OpenAI 刚刚完成了一项创纪录的融资：
-
-- **融资金额**：1220 亿美元
-- **当前估值**：约 8520 亿美元
-- **目标估值**：1 万亿美元
-- **收入增长**：但增速正在放缓
-
-> CFO Friar 的担忧核心在于：收入增长放缓可能无法支撑如此庞大的资本支出。
-
-## 竞争对手动态
-
-**Anthropic 的 IPO 威胁：**
-- 可能在 **2026 年 10 月** 上市
-- 预计筹集超过 **600 亿美元**
-- 这将直接挑战 OpenAI 的市场领导地位
-
-**其他 AI 公司 IPO 计划：**
-- SpaceX 也在计划 IPO
-- 零售投资者通过 ARKK、VCX 等基金提前布局
-
-## 其他 OpenAI 动态
-
-1. **高管重组** — 公司内部正在进行角色调整
-2. **TBPN 收购** — 以数亿美元收购播客网络，试图建立自己的媒体空间
-3. **承认** — 标准传播手册已经不适用于 AI 公司
-
-## 市场影响
-
-这场内部争执如果公开化，可能会影响投资者对 OpenAI 的信心。在 IPO 前夕暴露管理层分歧，对任何公司都是不利的信号。`,
-    date: "2026-04-12",
-    source: "Fortune / The Information / Economic Times",
-    sourceUrl: "https://fortune.com/2026/04/07/openai-drama-sam-altman-ipo-anthropic-cybersecurity-risks-eye-on-ai/",
-    href: "/news/news-002",
-  },
-  {
-    id: "news-003",
-    tag: "前沿",
-    tagColor: "bg-blue-500/10 text-blue-300",
-    title: "Meta 与 CoreWeave 签署 210 亿美元 AI 基础设施协议",
-    summary: "Meta 继续加码 AI 基础设施，将利用 CoreWeave 的 AI 云平台扩展推理工作负载至 2032 年。",
-    content: `## 协议详情
-
-2026 年 4 月 9 日，Meta 和 CoreWeave 宣布了一项**价值约 210 亿美元**的扩展协议。
-
-### 核心条款
-
-| 条款 | 内容 |
-|------|------|
-| **金额** | 约 210 亿美元 |
-| **期限** | 至 2032 年 12 月 |
-| **用途** | 专用 AI 云容量，推理工作负载 |
-| **性质** | 长期合作协议 |
-
-## 战略意义
-
-> CoreWeave CEO Michael Intrator：
-> "这是领先公司选择 CoreWeave AI 云运行最苛刻工作负载的又一个例证。"
-
-### 为什么是 CoreWeave？
-
-CoreWeave 是新兴的 AI 云计算领导者，与传统云服务商（AWS、GCP、Azure）不同，它**专门为 AI 工作负载优化**：
-
-- **高性能 GPU 集群** — 针对 AI 训练和推理优化
-- **低延迟网络** — 适合大规模分布式训练
-- **专业支持** — 深度 AI 技术专家团队
-
-## Meta 的 AI 投入
-
-Meta 预计 **2026 年将在 AI 领域投入高达 1350 亿美元**，几乎是去年 720 亿美元的两倍。
-
-- 大量招募 AI 人才
-- 基础设施建设持续扩展
-- 发布首个超智能实验室 AI 模型 **Muse Spark**
-
-## 行业影响
-
-这一协议表明：
-1. AI 计算需求持续爆发式增长
-2. 专用 AI 云服务商正在崛起
-3. 巨头们正在为未来的 AI 竞争锁定算力资源`,
-    date: "2026-04-12",
-    source: "CoreWeave / Bloomberg",
-    sourceUrl: "https://investors.coreweave.com/news/news-details/2026/CoreWeave-and-Meta-Announce-21-Billion-Expanded-AI-Infrastructure-Agreement/default.aspx",
-    href: "/news/news-003",
-  },
-  {
-    id: "news-004",
+    id: "news-007",
     tag: "趋势",
-    tagColor: "bg-purple-500/10 text-purple-300",
-    title: "AI 正在颠覆网络安全：黑客利用 AI 以更高速度发动攻击",
-    summary: "随着 Anthropic 和 OpenAI 推出更强大的 AI 系统，黑客可以以前所未有的速度和规模进行网络攻击。",
-    content: `## 威胁升级
-
-AI 技术正在**从根本上改变**网络安全格局。这不仅仅是工具的升级，而是攻防范式的转变。
-
-### AI 驱动的威胁
-
-- **自动化漏洞挖掘** — Claude Mythos 展示了 AI 自主发现数千个零日漏洞的能力
-- **智能攻击链** — AI 可以自动规划多步骤攻击路径
-- **自适应防御绕过** — AI 能根据防御措施实时调整攻击策略
-- **规模化攻击** — 以前需要人工的操作现在可以大规模自动化
-
-## 行业应对
-
-### 防御方的 AI 武器
-
-| 工具 | 用途 |
-|------|------|
-| AI 威胁检测 | 实时识别异常行为 |
-| 自动补丁生成 | 快速修复发现的漏洞 |
-| 行为分析 | 预测潜在攻击路径 |
-| 自动化响应 | 秒级阻断攻击 |
-
-### 军备竞赛
-
-这正在演变成一场 **AI 对 AI** 的军备竞赛：
-
-> 一方面，AI 让攻击者更强大。
-> 另一方面，AI 也让防御者能更快速地检测和响应威胁。
-
-## 全球影响
-
-- Anthropic 通过 **Project Glasswing** 联盟帮助修补漏洞
-- 各国政府开始关注 AI 对关键基础设施的潜在威胁
-- 网络安全公司正在全面转向 AI 驱动的防御工具
-
-## 未来展望
-
-网络安全行业正在经历自互联网诞生以来最大的变革。AI 不仅是工具，更是改变游戏规则的力量。`,
-    date: "2026-04-12",
-    source: "NYT",
-    sourceUrl: "https://www.nytimes.com/2026/04/06/technology/ai-cybersecurity-hackers.html",
-    href: "/news/news-004",
-  },
-  {
-    id: "news-005",
-    tag: "研究",
     tagColor: "bg-green-500/10 text-green-300",
-    title: "arXiv 最新论文：多模态 AI Agent 团队实现自主科学发现",
-    summary: "研究人员开发出半自主发现系统，多模态 AI Agent 组成跨学科团队，自动执行化学分析和专利评估。",
-    content: `## 突破性研究
+    title: "2026 Q1 全球风投融资创纪录：AI 占三分之一，xAI 提交 1.75 万亿美元 IPO",
+    summary: "Crunchbase 报道 2026 Q1 全球创业融资达 2022 年 Q2 以来最高，xAI 提交 IPO 申请，Shield AI 估值一年增长 140%。",
+    content: `## 创纪录的融资季度
 
-arXiv 最新发表的论文展示了一个**革命性的 AI 科学发现系统**，这可能是 AI 从辅助工具向自主研究者转变的标志性事件。
+根据 Crunchbase 数据，**2026 年第一季度全球创业融资达到自 2022 年 Q2 以来的最高水平**，其中约三分之一的资金流向了 AI 领域。
 
-## 系统架构
+### 2026 AI 融资排行榜
 
-### 多 Agent 团队
+| 排名 | 公司 | 融资额 | 估值 | 领域 |
+|------|------|--------|------|------|
+| 1 | OpenAI | $1,220 亿 | $8,520 亿 | 通用 AI |
+| 2 | xAI/SpaceX | $380 亿+ | $1.75 万亿(IPO目标) | AI + 航天 |
+| 3 | Anthropic | $300 亿 | $3,800 亿 | 通用 AI |
+| 4 | Shield AI | $20 亿 | $127 亿 | 国防 AI |
+| 5 | Scale AI | $19 亿 | $160 亿 | 数据平台 |
+| 6 | Databricks | $7.76 亿 | $800 亿 | 数据智能 |
+| 7 | ElevenLabs | $5 亿 | $110 亿 | 语音 AI |
+| 8 | Skild AI | $14 亿 | $140 亿 | 机器人 AI |
 
-这个系统模拟了一个跨学科研究团队：
+### 关键趋势
 
-| Agent 角色 | 职责 |
-|-----------|------|
-| **计算化学家** | 编写和执行分析代码 |
-| **药物化学家** | 可视化评估候选分子 |
-| **专利代理人** | 评估专利申请性 |
+**1. xAI 提交 IPO 申请**
+- 2026 年 4 月 1 日提交
+- 目标估值 **1.75 万亿美元**
+- 如果成功，将成为史上最大 IPO
 
-### 核心模型
+**2. Shield AI 估值飙升**
+- Series G 融资 $15 亿（Advent + 摩根大通领投）
+- 另获 Blackstone $5 亿优先股
+- 估值从 $53 亿飙升至 $127 亿，**一年增长 140%**
 
-- **图神经网络（GNN）**：2.46 亿参数
-- **训练数据**：8 亿分子
-- **能力**：直接在分子图上生成新型化学物质
+**3. Q1 融资接近 $3000 亿**
+- AI 创业融资爆发式增长
+- 晚期和早期融资均大幅增长
+- 美国占全球融资超过 80%
 
-## 工作流程
+### 对小创业者的启示
 
-1. **分子生成** — GNN 直接在分子图上生成候选分子
-2. **代码执行** — AI Agent 自动编写和执行分析代码
-3. **可视化评估** — Agent 可视化评估分子特性
-4. **专利评估** — Agent 评估专利申请性
-5. **策略调整** — 根据筛选反馈调整生成策略
+尽管巨头融资惊人，**细分领域 AI 创业公司**依然获得可观融资：
+- Harvey（法律 AI）
+- Abridge（医疗 AI）
+- Glean（企业搜索）
 
-## 意义与影响
-
-> 这是 AI 从辅助工具向自主研究者的转变。
-
-- **药物发现** — 可能将新药研发周期从数年缩短到数月
-- **材料科学** — 加速新材料的发现和优化
-- **科研范式** — AI 不再是工具，而是研究团队成员
-
-## 未来展望
-
-这一研究展示了 AI Agent 在科学研究中的巨大潜力。随着模型能力的不断提升，AI 自主科学发现可能成为未来的主流研究模式。`,
-    date: "2026-04-12",
-    source: "arXiv / alphaXiv",
-    sourceUrl: "https://arxiv.org/list/cs.AI/new",
-    href: "/news/news-005",
+ niche AI players 正在获得更多关注，创业者应聚焦垂直领域而非通用平台。`,
+    date: "2026-04-13",
+    source: "Crunchbase / AI Funding Tracker",
+    sourceUrl: "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/",
+    href: "/news/news-007",
   },
   {
-    id: "news-006",
+    id: "news-008",
     tag: "研究",
     tagColor: "bg-green-500/10 text-green-300",
     title: "MIT 发布 Lean AI 技术：用控制论实时裁剪模型，训练成本降低 40%",
@@ -327,109 +424,6 @@ arXiv 最新发表的论文展示了一个**革命性的 AI 科学发现系统**
     date: "2026-04-13",
     source: "MIT News / SEODataPulse",
     sourceUrl: "https://news.mit.edu/2026/new-technique-makes-ai-models-leaner-faster-while-still-learning-0409",
-    href: "/news/news-006",
-  },
-  {
-    id: "news-007",
-    tag: "基础设施",
-    tagColor: "bg-orange-500/10 text-orange-300",
-    title: "美国近半数规划中的 AI 数据中心被推迟或取消，社区抵制升级",
-    summary: "Bloomberg 报道，供应链瓶颈、电力短缺和社区抗议导致 2026 年美国近半数 AI 数据中心项目受阻，Sanders 和 AOC 提出暂停法案。",
-    content: `## 基础设施危机
-
-根据 Bloomberg 2026 年 4 月的报道，美国计划于 2026 年建设的 AI 数据中心中，**近三分之一到近半数**将被推迟或完全取消。
-
-### 受阻原因
-
-| 因素 | 影响 |
-|------|------|
-| **供应链中断** | 中国零部件出口受限，关键设备交付延迟 |
-| **电力短缺** | 数据中心需要 24/7 供电，电网无法满足 |
-| **社区抵制** | 居民抗议噪音、用水和 \"热岛效应\" |
-| **关税政策** | Trump 的关税政策反而伤害了数据中心建设 |
-
-### 数据冲击
-
-- Alphabet、Amazon、Meta、Microsoft 预计 2026 年在 AI 基础设施上的支出超过 **6500 亿美元**
-- 南卡罗来纳州：数据中心将占该州**新增用电量的 65-70%**
-- 全球超过 **4000 个** AI 数据中心正在规划或建设中
-
-## 政治回应
-
-### AI 数据中心暂停法案
-
-Bernie Sanders 和 Alexandria Ocasio-Cortez 联合提出了 **AI Data Center Moratorium Act**：
-
-> \"将合理暂停 AI 数据中心建设，直到建立国家保障，确保 AI 不会抬高电价、伤害社区或破坏环境。\"
-
-- 如果通过，可能**禁止任何实质性新建 AI 数据中心直到 2027 年**
-- 给各州立法者时间评估对环境和电网的影响
-- 地方利益相关者认为法案通过是\"既定事实\"
-
-### 各州行动
-
-| 州 | 行动 |
-|----|------|
-| **Georgia** | 提出取消服务器销售税豁免 |
-| **Arizona** | 州长撤回对数据中心税收优惠的支持 |
-| **Ohio** | 民主党提出限制数据中心的一揽子法案 |
-
-## 行业影响
-
-这一趋势表明 AI 基础设施扩张正在遭遇**物理和政治双重天花板**。科技巨头正在转向背后电表供电（behind-the-meter）方案，自建发电设施来绕过电网限制。`,
-    date: "2026-04-13",
-    source: "Bloomberg / Tom's Hardware / Ars Technica / NPR",
-    sourceUrl: "https://www.tomshardware.com/tech-industry/artificial-intelligence/half-of-planned-us-data-center-builds-have-been-delayed-or-canceled-growth-limited-by-shortages-of-power-infrastructure-and-parts-from-china-the-ai-build-out-flips-the-breakers",
-    href: "/news/news-007",
-  },
-  {
-    id: "news-008",
-    tag: "政策",
-    tagColor: "bg-gray-500/10 text-gray-300",
-    title: "Anthropic 取消第三方工具免费接入，OpenClaw 用户需额外付费",
-    summary: "自 2026 年 4 月 4 日起，Anthropic 将 OpenClaw 等第三方工具从 Claude 标准订阅中移除，标志着 AI 行业从固定费率向按量计费的转变。",
-    content: `## 政策变化
-
-2026 年 4 月 4 日，Anthropic 向用户发出通知：**Claude 标准订阅不再支持第三方工具**，包括 OpenClaw 等 AI Agent 框架。
-
-### 变化详情
-
-| | 变化前 | 变化后 |
-|--|--------|--------|
-| **第三方工具** | 包含在订阅内 | 需单独付费 |
-| **API 使用** | 计入订阅额度 | 额外计费 |
-| **Agent 框架** | 免费接入 | 按量付费 |
-
-> \"从 4 月 4 日起，您将不再能使用 Claude 订阅额度来使用 OpenClaw 等第三方工具。\" — Anthropic 用户邮件
-
-### 背后原因
-
-Anthropic 做出这一决定的核心原因是**计算资源消耗**：
-
-- AI Agent 工具产生的计算量远超普通人类用户
-- 固定费率模式在 Agent 场景下不可持续
-- Claude Code 等工具的高峰使用量导致服务 strain
-
-## 行业趋势
-
-这一变化标志着 AI 行业定价模式的**根本性转变**：
-
-### 从固定费率到按量计费
-
-1. **OpenAI** — API 按 token 计费，ChatGPT Plus 有使用上限
-2. **Anthropic** — 取消第三方工具的订阅覆盖
-3. **Google** — Gemini API 按用量分层定价
-
-> 随着 AI Agent 的普及，\"无限使用\"的订阅模式正在成为历史。
-
-## 对用户的影响
-
-- **OpenClaw 用户**：需要为 Claude API 单独付费
-- **开发者**：需要重新评估 AI Agent 的运营成本
-- **行业信号**：AI 公司的盈利能力正在取代增长优先策略`,
-    date: "2026-04-13",
-    source: "TechRadar / Hacker News",
-    sourceUrl: "https://www.techradar.com/pro/bad-news-claude-users-anthropic-says-youll-need-to-pay-to-use-openclaw-now",
     href: "/news/news-008",
   },
 ];
