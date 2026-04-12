@@ -1,8 +1,9 @@
 # AI Master Site 多 Agent 维护工作流
 
 > 每小时执行，由 Cron 自动触发
-> 版本：v2.0 | 2026-04-12
+> 版本：v3.0 | 2026-04-12
 > **铁律：每次维护必须更新首页更新时间，严格按多 Agent 编排流程执行，按交付产物验收**
+> **更新：v3.0 — 不轮换，每次全量执行 A+B+C+D，新闻源 8+ 关键词，发现缺失立即生成**
 
 ---
 
@@ -62,9 +63,19 @@
 #### Agent A — 新闻采集与首页更新
 ```
 任务：扫描 AI 新闻源，更新首页
-来源：arXiv daily, Hacker News AI, TechCrunch AI, The Verge AI
-输出：更新 src/app/page.tsx 的 news 数组
-验证：npx tsc --noEmit src/app/page.tsx
+来源（至少 8+ 关键词组合）：
+  - "AI news today" + 日期
+  - "arXiv AI papers" + 最新
+  - "OpenAI latest news"
+  - "Google AI blog"
+  - "Meta AI news"
+  - "Anthropic news"
+  - "Microsoft AI"
+  - "AI startup funding"
+  - 补充：AI cybersecurity, LLM benchmark, AI regulation
+抓取页面：TechCrunch AI, arXiv cs.AI, alphaXiv, OpenAI blog
+输出：更新 src/data/news.ts 数据源
+验证：npx tsc --noEmit + npm run build
 ```
 
 #### Agent B — 博客文章生成
@@ -109,29 +120,18 @@
 
 ---
 
-## 📊 任务轮换表
+## 📊 执行策略
 
-| 小时 | 任务组合 | 说明 |
+**不轮换，每次全量执行 A+B+C+D。**
+
+| 任务 | 搜索要求 | 说明 |
 |------|----------|------|
-| 08:00 | A(新闻) + C(知识库) | 早间新闻 + 知识库检查 |
-| 09:00 | A(新闻) + B(博客) | 新闻 + 博客生成 |
-| 10:00 | A(新闻) | 仅新闻更新 |
-| 11:00 | A(新闻) + C(知识库) | 新闻 + 知识库 |
-| 12:00 | A(新闻) | 午间新闻 |
-| 13:00 | A(新闻) + B(博客) | 新闻 + 博客 |
-| 14:00 | A(新闻) + C(知识库) | 新闻 + 知识库 |
-| 15:00 | A(新闻) | 仅新闻 |
-| 16:00 | A(新闻) + B(博客) | 新闻 + 博客 |
-| 17:00 | A(新闻) + C(知识库) | 新闻 + 知识库 |
-| 18:00 | A(新闻) | 晚间新闻 |
-| 19:00 | A(新闻) + B(博客) | 新闻 + 博客 |
-| 20:00+| A(新闻) | 仅新闻（深夜不生成文章）|
+| A. 新闻 | **8+ 关键词组合** | 不要只搜一两个关键词 |
+| B. 博客 | arXiv + 技术博客 | 有值得解读的内容就生成 |
+| C. 知识库 | 对比 KNOWLEDGE-BASE-PLAN | **发现缺失立即生成** |
+| D. 工具集 | GitHub trending + HF | 有新工具就更新 |
 
-**规则：**
-- A(新闻) 每次必做
-- B(博客) 每天 3-4 篇
-- C(知识库) 每天 3-4 次
-- 23:00-07:00 只检查，不执行（除非紧急）
+**23:00-07:00** 只做轻量检查，不生成内容
 
 ---
 
