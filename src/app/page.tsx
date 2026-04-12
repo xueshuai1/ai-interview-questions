@@ -46,33 +46,33 @@ const features = [
 
 const news = [
   {
-    tag: "前沿",
-    title: "Anthropic 发布 Claude Cowork 企业版 + Project Glasswing 安全框架",
-    date: "2026-04-10",
+    tag: "重磅",
+    title: "Anthropic 发布 Claude Mythos：因网络安全风险暂不公开发布",
+    date: "2026-04-12",
     href: "/blog",
   },
   {
-    tag: "重磅",
-    title: "Nvidia GTC 2026：Agent Toolkit 开源平台，17 家巨头企业加入",
+    tag: "前沿",
+    title: "Meta 推出 Muse Spark：首个超智能实验室 AI 模型正式亮相",
     date: "2026-04-09",
     href: "/blog",
   },
   {
     tag: "商业",
-    title: "Anthropic 年化营收突破 300 亿美元，签 Google TPU 大单",
-    date: "2026-04-08",
+    title: "OpenAI ChatGPT 广告预计 2026 年收入 25 亿美元，向 Google/Meta 开战",
+    date: "2026-04-10",
     href: "/blog",
   },
   {
-    tag: "工具",
-    title: "Google 发布 AI Edge Eloquent：免费离线 AI 语音转录",
-    date: "2026-04-07",
+    tag: "趋势",
+    title: "MIT 研究：AI 已可替代 11.7% 的美国就业岗位，入门级岗位首当其冲",
+    date: "2026-04-11",
     href: "/blog",
   },
   {
     tag: "开源",
-    title: "Meta 新一代开源 AI 模型即将发布，Alexandr Wang 主导",
-    date: "2026-04-06",
+    title: "Arcee 发布 400B 参数开源推理模型，26 人小团队挑战 Meta Llama",
+    date: "2026-04-07",
     href: "/blog",
   },
 ];
