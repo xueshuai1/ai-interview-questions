@@ -2,123 +2,24 @@
 
 import Link from "next/link";
 import { useState, useMemo } from "react";
+import { blogs } from "@/data/blogs";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
-const blogCategories = ["全部", "行业洞察", "论文解读", "实战经验", "技术对比", "实战教程"];
+// 自动从 blogs.ts 生成列表数据
+const blogPosts = blogs.map((b) => ({
+  id: b.id,
+  title: b.title,
+  summary: b.summary,
+  date: b.date,
+  author: b.author,
+  readTime: `${b.readTime} min`,
+  category: b.tags.length > 0 ? b.tags[0] : "行业洞察",
+  tags: b.tags,
+  cover: b.coverImage || "📝",
+}));
 
-const blogPosts = [
-  {
-    id: "blog-001",
-    title: "2026 年 AI 领域十大趋势预测",
-    summary: "从多模态大模型到 AI Agent 普及，从边缘 AI 到具身智能，盘点今年最值得关注的技术方向",
-    date: "2026-04-10",
-    author: "AI Master 团队",
-    readTime: "10 min",
-    category: "行业洞察",
-    tags: ["趋势", "2026", "多模态"],
-    cover: "🔮",
-  },
-  {
-    id: "blog-002",
-    title: "GPT-5 技术报告深度解读",
-    summary: "OpenAI 最新发布的 GPT-5 在多模态推理、长上下文理解和代码生成方面实现了显著突破",
-    date: "2026-04-08",
-    author: "AI Master 团队",
-    readTime: "15 min",
-    category: "论文解读",
-    tags: ["GPT-5", "OpenAI", "多模态"],
-    cover: "📄",
-  },
-  {
-    id: "blog-003",
-    title: "AI Agent 在软件开发中的最佳实践",
-    summary: "从代码审查到自动修复，从需求分析到架构设计，AI Agent 正在重塑软件开发流程",
-    date: "2026-04-05",
-    author: "AI Master 团队",
-    readTime: "12 min",
-    category: "实战经验",
-    tags: ["AI Agent", "开发效率", "自动化"],
-    cover: "🤖",
-  },
-  {
-    id: "blog-004",
-    title: "RAG vs Fine-tuning：如何选择？",
-    summary: "检索增强生成和微调是增强 LLM 能力的两大主流方案，本文对比它们的适用场景和优缺点",
-    date: "2026-04-02",
-    author: "AI Master 团队",
-    readTime: "14 min",
-    category: "技术对比",
-    tags: ["RAG", "Fine-tuning", "LLM"],
-    cover: "⚖️",
-  },
-  {
-    id: "blog-005",
-    title: "从 0 到 1：用 LangChain 构建你的第一个 AI 应用",
-    summary: "手把手教你使用 LangChain 框架搭建一个完整的 RAG 应用，包含文档加载、向量存储和问答接口",
-    date: "2026-03-28",
-    author: "AI Master 团队",
-    readTime: "20 min",
-    category: "实战教程",
-    tags: ["LangChain", "RAG", "实战"],
-    cover: "🛠️",
-  },
-  {
-    id: "blog-006",
-    title: "AI 安全与伦理：不可忽视的议题",
-    summary: "随着 AI 能力的飞速提升，安全性、偏见、隐私保护等伦理问题变得越来越重要",
-    date: "2026-03-25",
-    author: "AI Master 团队",
-    readTime: "10 min",
-    category: "行业洞察",
-    tags: ["安全", "伦理", "治理"],
-    cover: "🛡️",
-  },
-  {
-    id: "blog-007",
-    title: "MoE 混合专家架构详解：从原理到实践",
-    summary: "深入解析 Mixture of Experts 架构如何通过稀疏激活实现模型规模与推理效率的双赢，附 PyTorch 实战代码",
-    date: "2026-04-12",
-    author: "AI Master 团队",
-    readTime: "18 min",
-    category: "论文解读",
-    tags: ["MoE", "稀疏激活", "架构设计"],
-    cover: "🧬",
-  },
-  {
-    id: "blog-008",
-    title: "Speculative Decoding：LLM 推理加速新范式",
-    summary: "用小模型草稿 + 大模型验证的策略，实现 LLM 推理 2-3 倍加速，深入理解其原理与实现细节",
-    date: "2026-04-11",
-    author: "AI Master 团队",
-    readTime: "16 min",
-    category: "技术对比",
-    tags: ["推理加速", "投机解码", "LLM优化"],
-    cover: "⚡",
-  },
-  {
-    id: "blog-009",
-    title: "DPO vs RLHF：大模型对齐方法全面对比",
-    summary: "从 PPO-RLHF 到 Direct Preference Optimization，对比两大对齐范式的技术原理、优劣势与选型指南",
-    date: "2026-04-10",
-    author: "AI Master 团队",
-    readTime: "15 min",
-    category: "技术对比",
-    tags: ["DPO", "RLHF", "模型对齐"],
-    cover: "🎯",
-  },
-  {
-    id: "blog-010",
-    title: "AI Agent 能搞定日常任务吗？ClawBench 基准测试深度解读",
-    summary: "从网购下单到预约医生，从投简历到订机票——153 个真实任务、144 个在线平台，全面评估当前 AI Agent 的实际能力边界",
-    date: "2026-04-12",
-    author: "AI Master 团队",
-    readTime: "18 min",
-    category: "论文解读",
-    tags: ["AI Agent", "基准测试", "ClawBench", "任务自动化"],
-    cover: "🐾",
-  },
-];
+const blogCategories = ["全部", ...Array.from(new Set(blogs.flatMap((b) => b.tags.slice(0, 1))))];
 
 const POSTS_PER_PAGE = 3;
 
