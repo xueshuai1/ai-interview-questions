@@ -109,8 +109,8 @@ export default function Home() {
           {/* Stats */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             {[
-              { num: "200+", label: "篇教程" },
-              { num: "50+", label: "个工具" },
+              { num: "140+", label: "篇教程" },
+              { num: "20+", label: "个工具" },
               { num: "10K+", label: "学习者" },
               { num: "100%", label: "免费" },
             ].map((stat) => (
@@ -225,7 +225,7 @@ export default function Home() {
               </h2>
               <p className="text-slate-400">紧跟行业脉搏，不错过任何重要进展</p>
             </div>
-            <Link href="#" className="text-brand-400 hover:text-brand-300 font-medium hidden sm:block">
+            <Link href="/blog" className="text-brand-400 hover:text-brand-300 font-medium hidden sm:block">
               查看全部 →
             </Link>
           </div>

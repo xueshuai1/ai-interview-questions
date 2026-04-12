@@ -2,7 +2,7 @@ import { Article } from '../knowledge';
 
 export const article: Article = {
     id: "mlops-002",
-    title: "模型版本管理与实验追踪",
+    title: "MLOps 实战：模型版本管理与实验追踪",
     category: "mlops",
     tags: ["模型版本管理", "实验追踪", "MLflow", "WandB"],
     summary: "从 MLflow 到 WandB，掌握机器学习实验追踪与模型版本管理的最佳实践",

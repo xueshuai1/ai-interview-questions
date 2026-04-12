@@ -2,7 +2,7 @@ import { Article } from '../knowledge';
 
 export const article: Article = {
     id: "mlops-004",
-    title: "边缘部署：移动端与 IoT",
+    title: "模型边缘部署：移动端、IoT 与 MLOps Pipeline",
     category: "mlops",
     tags: ["边缘计算", "移动端部署", "量化"],
     summary: "从 ONNX 到 CoreML，掌握 ML 模型在边缘设备的部署技术",
