@@ -11,679 +11,931 @@ export const article: Article = {
     level: "入门",
     content: [
       {
-        title: "1. 为什么需要评估指标？",
-        body: `自然语言处理任务中，模型生成的文本质量很难用简单的「对或错」来衡量。想象一下：你训练了一个机器翻译模型，它把「今天天气很好」翻译成了「今天的天气非常好」。这个翻译和参考译文不完全一致，但语义完全正确——传统的精确匹配（exact match）会给出 0 分，这显然不合理。
+        title: "1. 为什么需要评估指标：NLP 任务的度量体系",
+        body: `在 NLP 领域，评估指标不仅仅是打分工具，更是推动技术迭代的核心驱动力。想象一下：你训练了一个机器翻译模型，翻译质量看起来不错——但不错是多少？比上一个版本好多少？和竞品比处于什么水平？没有量化指标，这些问题都无法回答。
 
-评估指标的核心作用有三：第一，**量化比较**——在不同模型之间提供客观的数值对比；第二，**训练信号**——某些指标可直接作为优化目标（如 Perplexity）；第三，**调试诊断**——通过分析指标得分发现模型的薄弱环节。
+评估指标的核心作用有三个。第一，模型选择——在多个候选模型中，用统一标准选出最优者。第二，超参数调优——改变学习率、网络层数等参数后，需要指标告诉我们改进还是退步了。第三，研究进展追踪——学术界用共享指标在论文间横向对比，推动整个领域前进。
 
-NLP 评估经历了从「基于词面重叠」到「基于语义相似度」的演进。早期的 BLEU、ROUGE 只关心 n-gram 是否匹配，而现代的 BERTScore 利用预训练语言模型的语义空间来衡量。理解这个演进路径，对选择合适的评估方法至关重要。`,
+NLP 评估的独特挑战在于自然语言具有多解性。同一个意思可以用无数种方式表达。例如中文「今天天气真好」可以译为 "The weather is great today" 或 "It's a beautiful day today"——两者都正确。这与图像分类截然不同，一张图要么是猫要么不是。因此 NLP 评估指标必须在精确匹配和语义等价之间找到平衡。
+
+自动评估 vs 人工评估：最可靠的方式是人工评估，让标注员对翻译质量打分，但这极其昂贵且不可扩展。自动评估指标用算法快速评分，是实际工程中的首选。但自动指标有局限：它们通常基于表面匹配，不真正理解语义。近年来，基于语义模型的评估正在弥补这一差距。`,
         code: [
           {
             lang: "python",
-            code: `# 问题：精确匹配在 NLP 中几乎无用
-reference = "The cat is on the mat"
-prediction = "A cat sits on the mat"
+            code: `import numpy as np
 
-# 逐词对比
-ref_words = reference.lower().split()
-pred_words = prediction.lower().split()
+# 人工评估 vs 自动评估的对比模拟
+print("=== NLP 评估方法对比 ===\\n")
 
-exact_match = ref_words == pred_words
-print(f"精确匹配: {exact_match}")
-# False —— 但这两句话意思几乎一样！
-
-# 词级别重叠
-overlap = set(ref_words) & set(pred_words)
-print(f"重叠词: {overlap}")
-print(f"重叠率: {len(overlap) / len(ref_words):.2%}")
-# 4/6 = 66.7% — 这才是有意义的信号`,
-          },
-          {
-            lang: "python",
-            code: `# 评估指标的三大类别
-eval_categories = {
-    "基于重叠": {
-        "examples": ["BLEU", "ROUGE", "METEOR"],
-        "principle": "比较预测文本与参考文本的 n-gram 重叠度",
-        "pros": "计算快速、无需训练、可解释",
-        "cons": "忽略语义、对同义词不鲁棒",
-    },
-    "基于语言模型": {
-        "examples": ["Perplexity", "Cross-Entropy"],
-        "principle": "衡量模型对文本的困惑程度",
-        "pros": "可直接作为训练目标",
-        "cons": "只适用于生成概率模型",
-    },
-    "基于语义": {
-        "examples": ["BERTScore", "BLEURT", "COMET"],
-        "principle": "利用预训练模型的语义空间计算相似度",
-        "pros": "捕捉语义、对改写鲁棒",
-        "cons": "计算开销大、依赖预训练模型",
-    },
+manual_eval = {
+    "cost_per_sample": "$0.50 - $2.00",
+    "throughput": "~500 samples/hour (per annotator)",
+    "reliability": "high (but subjective)",
+    "inter_annotator_agreement": "usually 0.6-0.8 (Kappa)",
 }
 
-for cat, info in eval_categories.items():
-    print(f"\\n{cat}: {', '.join(info['examples'])}")
-    print(f"  原理: {info['principle']}")`,
-          },
-        ],
-        table: {
-          headers: ["指标类型", "代表方法", "适用任务", "计算速度"],
-          rows: [
-            ["基于重叠", "BLEU / ROUGE / METEOR", "翻译 / 摘要", "极快"],
-            ["基于语言模型", "Perplexity / Cross-Entropy", "语言建模", "快"],
-            ["基于语义", "BERTScore / BLEURT", "翻译 / 摘要 / 对话", "较慢"],
-            ["基于模型评分", "COMET / BLEURT", "翻译", "较慢"],
-          ],
-        },
-        mermaid: `graph LR
-    A["NLP 评估"] --> B["基于重叠"]
-    A --> C["基于语言模型"]
-    A --> D["基于语义"]
-    B --> B1["BLEU - 翻译"]
-    B --> B2["ROUGE - 摘要"]
-    B --> B3["METEOR - 改进重叠"]
-    C --> C1["Perplexity"]
-    D --> D1["BERTScore"]
-    D --> D2["BLEURT"]`,
-        tip: "入门项目先用 BLEU 和 ROUGE 快速建立基线，再考虑用 BERTScore 做深度分析。",
-        warning: "不要只用单一指标评估模型——BLEU 高的模型未必在实际应用中表现更好。",
-      },
-      {
-        title: "2. BLEU：机器翻译的黄金标准",
-        body: `BLEU（Bilingual Evaluation Understudy）由 Papineni 等人在 2002 年提出，是 NLP 领域最有影响力的评估指标之一。它的核心思想非常直观：如果机器翻译的 n-gram 与人工参考译文的 n-gram 重叠越多，翻译质量就越好。
+auto_eval = {
+    "cost_per_sample": "$0.001 (compute cost)",
+    "throughput": "~100,000 samples/second",
+    "reliability": "medium (depends on metric)",
+    "correlation_with_human": "BLEU: 0.3-0.6, BERTScore: 0.5-0.8",
+}
 
-BLEU 的计算分为两步：首先是**修正的 n-gram 精确率**——统计预测文本中每个 n-gram 在参考文本中出现的次数，超过参考次数的部分会被截断（防止模型通过重复同一个词刷分）。然后是** brevity penalty（简短惩罚）**——如果预测文本比参考文本短，会受到指数级惩罚，防止模型只输出很短但高精确率的内容。
+print("Human Evaluation:")
+for k, v in manual_eval.items():
+    print(f"  {k}: {v}")
 
-最终的 BLEU 分数是 1 到 4-gram 精确率的几何平均，再乘以简短惩罚。取值范围 0-1（通常以 0-100 表示）。一般来说，BLEU > 30 被认为是可接受的翻译，BLEU > 60 接近人工翻译水平。`,
-        code: [
-          {
-            lang: "python",
-            code: `import math
-from collections import Counter
+print("\\nAutomatic Evaluation:")
+for k, v in auto_eval.items():
+    print(f"  {k}: {v}")
 
-def modified_precision(pred, refs, n):
-    """计算修正的 n-gram 精确率"""
-    pred_ngrams = Counter(zip(*[pred[i:] for i in range(n)]))
-    max_ref_counts = Counter()
-    for ref in refs:
-        ref_ngrams = Counter(zip(*[ref[i:] for i in range(n)]))
-        for ng, count in ref_ngrams.items():
-            max_ref_counts[ng] = max(max_ref_counts[ng], count)
-
-    clipped = sum(min(pred_ngrams[ng], max_ref_counts.get(ng, 0))
-                   for ng in pred_ngrams)
-    total = sum(pred_ngrams.values())
-    return clipped / max(total, 1)
-
-# 示例
-reference = [["The", "cat", "is", "on", "the", "mat"]]
-prediction = ["The", "cat", "is", "on", "the", "mat"]
-
-for n in range(1, 5):
-    prec = modified_precision(prediction, reference, n)
-    print(f"{n}-gram 精确率: {prec:.4f}")`,
+# Why multiple metrics?
+print("\\n=== Why Multiple Metrics? ===")
+print("No single metric fully captures NLP quality:")
+print("  - BLEU fits MT, not dialogue generation")
+print("  - ROUGE fits summarization, not translation")
+print("  - Perplexity fits LM, not generation quality")
+print("  - BERTScore is general but expensive")
+print("Best practice: use 2-3 complementary metrics")`,
           },
           {
             lang: "python",
-            code: `def bleu_score(pred, refs, max_n=4):
-    """计算 BLEU 分数"""
-    # 计算各阶 n-gram 精确率
-    precisions = []
-    for n in range(1, max_n + 1):
-        p = modified_precision(pred, refs, n)
-        precisions.append(p)
-        print(f"P{n} = {p:.4f}")
+            code: `import numpy as np
 
-    # 几何平均
-    if any(p == 0 for p in precisions):
+# n-gram overlap: the core concept of NLP auto-evaluation
+def get_ngrams(text, n):
+    """Extract n-grams from text"""
+    tokens = text.lower().split()
+    return [tuple(tokens[i:i+n]) for i in range(len(tokens) - n + 1)]
+
+def ngram_overlap(reference, hypothesis, n):
+    """Calculate n-gram overlap ratio"""
+    ref_ngrams = get_ngrams(reference, n)
+    hyp_ngrams = get_ngrams(hypothesis, n)
+
+    if not hyp_ngrams:
         return 0.0
 
-    log_avg = sum(math.log(p) for p in precisions) / max_n
-    bp = math.exp(log_avg)
+    ref_counts = {}
+    for ng in ref_ngrams:
+        ref_counts[ng] = ref_counts.get(ng, 0) + 1
 
-    # 简短惩罚
-    pred_len = len(pred)
-    ref_len = min(len(r) for r in refs)
-    if pred_len < ref_len:
-        bp *= math.exp(1 - ref_len / pred_len)
+    matched = 0
+    for ng in hyp_ngrams:
+        if ref_counts.get(ng, 0) > 0:
+            matched += 1
+            ref_counts[ng] -= 1
 
-    return bp * 100
+    return matched / len(hyp_ngrams)
 
-refs = [["I", "love", "machine", "translation"]]
-preds = ["I", "love", "machine", "translation"]
-print(f"\\nBLEU: {bleu_score(preds, refs):.2f}")
+# Demo
+ref = "the cat sat on the mat"
+hyp1 = "the cat is sitting on the mat"
+hyp2 = "the dog played in the yard"
 
-preds2 = ["I", "like", "machine", "learning"]
-print(f"BLEU: {bleu_score(preds2, refs):.2f}")`,
+print("=== n-gram Overlap Demo ===")
+for n in [1, 2, 3]:
+    s1 = ngram_overlap(ref, hyp1, n)
+    s2 = ngram_overlap(ref, hyp2, n)
+    print(f"  {n}-gram: good_trans={s1:.3f}, bad_trans={s2:.3f}")
+
+# Higher n = stricter match, lower score
+# BLEU combines multiple n-gram scores`,
           },
         ],
         table: {
-          headers: ["n-gram 阶数", "捕捉什么", "BLEU 中的权重"],
+          headers: ["评估类型", "代表指标", "适用任务", "优点", "缺点"],
           rows: [
-            ["1-gram", "词汇选择是否正确", "等权（几何平均）"],
-            ["2-gram", "局部搭配是否自然", "等权（几何平均）"],
-            ["3-gram", "短片段是否流畅", "等权（几何平均）"],
-            ["4-gram", "更长片段的一致性", "等权（几何平均）"],
+            ["表面匹配", "BLEU, ROUGE", "翻译/摘要", "快速、可复现", "忽略语义等价"],
+            ["编辑距离", "METEOR, TER", "翻译/摘要", "考虑同义词", "需要外部词典"],
+            ["概率模型", "Perplexity", "语言模型", "理论严谨", "不可跨模型比较"],
+            ["语义嵌入", "BERTScore", "通用", "捕捉语义", "计算成本高"],
+            ["人工评估", "MQM, Likert", "所有任务", "最可靠", "昂贵、不可扩展"],
           ],
         },
         mermaid: `graph TD
-    A["预测译文"] --> B["提取 1-4 gram"]
-    C["参考译文"] --> D["提取 1-4 gram"]
-    B --> E["修正计数 clip"]
-    D --> E
-    E --> F["计算各阶精确率"]
-    F --> G["几何平均"]
-    G --> H["Brevity Penalty"]
-    H --> I["BLEU 分数"]`,
-        tip: "BLEU 对多个参考译文支持良好——传入多个人工翻译作为参考列表，取每个 n-gram 的最大出现次数。",
-        warning: "BLEU 不保证语义正确性。「我喜欢猫」和「我讨厌猫」可能有相同的 BLEU 分数（如果参考译文中恰好有对应词）。",
+    A["NLP Model Output"] --> B{"Evaluation Method?"}
+    B -->|"Auto"| C["Surface Match"]
+    B -->|"Auto"| D["Semantic"]
+    B -->|"Human"| E["Annotator Score"]
+    C --> C1["BLEU -> MT"]
+    C --> C2["ROUGE -> Summarization"]
+    C --> C3["METEOR -> Improved BLEU"]
+    D --> D1["BERTScore -> Semantic Sim"]
+    D --> D2["BARTScore -> Generative"]
+    E --> E1["MQM -> Multi-dim Quality"]
+    E --> E2["Likert -> 1-5 Scale"]`,
+        tip: "入门建议：先掌握 BLEU 和 ROUGE——它们是 NLP 领域最经典、最广泛使用的两个指标，理解了它们就等于理解了自动评估的核心思想（n-gram 重叠）。",
+        warning: "不要用一个指标下结论！BLEU 得分高的模型在人工评估中不一定更好。指标只是辅助工具，最终要看模型在实际场景中的表现。",
       },
       {
-        title: "3. ROUGE：文本摘要的评估利器",
-        body: `ROUGE（Recall-Oriented Understudy for Gouping Evaluation）由 Lin 在 2004 年提出，最初用于自动文本摘要评估。与 BLEU 关注精确率不同，ROUGE 更关注**召回率**——参考摘要中有多少内容被生成摘要覆盖了。
+        title: "2. BLEU：机器翻译的黄金标准",
+        body: `BLEU（Bilingual Evaluation Understudy）由 Papineni 等人于 2002 年提出，是 NLP 历史上最有影响力的评估指标之一。它的设计初衷很直观：用算法自动评估机器翻译的质量，替代昂贵的人工评估。
 
-这个设计直觉很清晰：摘要任务的关键是「不遗漏重要信息」。一个短的摘要可以很容易做到高精确率（只说最重要的话），但如果漏掉了关键信息，召回率就会很低。因此 ROUGE 以召回率为主，同时也会报告 F1 分数。
+BLEU 的核心思想是：比较机器翻译（候选译文）与人工翻译（参考译文）之间的 n-gram 重叠程度。n-gram 越长，匹配越难——1-gram 匹配只要求词相同，4-gram 匹配要求连续四个词完全一致。BLEU 综合 1-gram 到 4-gram 的匹配率，用几何平均得到一个综合得分。
 
-ROUGE 有多个变体：ROUGE-N 计算 n-gram 召回率，最常用的是 ROUGE-1（unigram）和 ROUGE-2（bigram）；ROUGE-L 基于最长公共子序列（LCS），不需要连续的 n-gram 匹配，更能捕捉句子级别的相似性；ROUGE-S 计算跳跃 bigram，允许中间有间隔的词对匹配。`,
+精度修正（Modified Precision）是关键设计。直接用 n-gram 精度有漏洞：假设参考译文是「the cat is on the mat」，候选译文是「the the the the the the」——精度是 100%！BLEU 的修正方法：每个 n-gram 在候选中的出现次数，不超过它在参考译文中出现的最大次数。
+
+简短惩罚（Brevity Penalty）防止模型输出过短译文。公式为 BP = exp(1 - r/c)，当候选长度 c 小于参考长度 r 时给予惩罚。BLEU 得分范围 0 到 100，经验法则：小于 10 不可用，20-30 良好，30-40 很好，大于 50 接近人类水平。`,
         code: [
           {
             lang: "python",
-            code: `def rouge_n_recall(pred, refs, n=1):
-    """计算 ROUGE-N 召回率"""
-    pred_ngrams = set(zip(*[pred[i:] for i in range(n)]))
-    # 合并所有参考的 n-gram
-    ref_ngrams = set()
-    for ref in refs:
-        ref_ngrams.update(zip(*[ref[i:] for i in range(n)]))
+            code: `import numpy as np
+from collections import Counter
 
-    if len(ref_ngrams) == 0:
-        return 0.0
+def get_ngrams(tokens, n):
+    """Extract n-gram list"""
+    return [tuple(tokens[i:i+n]) for i in range(len(tokens) - n + 1)]
 
-    matched = len(pred_ngrams & ref_ngrams)
-    recall = matched / len(ref_ngrams)
+def modified_precision(reference, hypothesis, n):
+    """Modified n-gram precision (BLEU core)"""
+    ref_ngrams = Counter(get_ngrams(reference, n))
+    hyp_ngrams = Counter(get_ngrams(hypothesis, n))
 
-    # 精确率
-    precision = matched / len(pred_ngrams) if pred_ngrams else 0
-    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+    # Clip: count in hyp cannot exceed count in ref
+    clipped_count = sum(
+        min(hyp_count, ref_ngrams.get(ng, 0))
+        for ng, hyp_count in hyp_ngrams.items()
+    )
+    total_count = sum(hyp_ngrams.values())
 
-    return {"R": recall, "P": precision, "F1": f1}
+    return clipped_count / total_count if total_count > 0 else 0
 
-ref = [["AI", "is", "transforming", "the", "world"]]
-pred = ["AI", "is", "changing", "the", "world", "rapidly"]
-result = rouge_n_recall(pred, ref, n=1)
-print(f"ROUGE-1: R={result['R']:.3f}, P={result['P']:.3f}, F1={result['F1']:.3f}")`,
+def compute_bleu(reference, hypothesis, max_n=4):
+    """Calculate BLEU score (simplified)"""
+    ref_tokens = reference.split()
+    hyp_tokens = hypothesis.split()
+
+    precisions = []
+    for n in range(1, max_n + 1):
+        p = modified_precision(ref_tokens, hyp_tokens, n)
+        precisions.append(p)
+        print(f"  {n}-gram precision: {p:.4f}")
+
+    # Geometric mean
+    log_avg = np.mean([np.log(max(p, 1e-10)) for p in precisions])
+    geom_mean = np.exp(log_avg)
+
+    # Brevity penalty
+    ref_len = len(ref_tokens)
+    hyp_len = len(hyp_tokens)
+    bp = np.exp(1 - ref_len / hyp_len) if hyp_len < ref_len else 1.0
+
+    bleu = bp * geom_mean
+    print(f"  BP = {bp:.4f}, Geometric Mean = {geom_mean:.4f}")
+    return bleu
+
+ref = "the cat sat on the mat"
+print("=== BLEU Calculation Demo ===")
+print("\\nHypothesis 1: 'the cat is sitting on the mat'")
+s1 = compute_bleu(ref, "the cat is sitting on the mat")
+print(f"  BLEU = {s1:.4f}\\n")
+
+print("Hypothesis 2: 'the dog played in the yard'")
+s2 = compute_bleu(ref, "the dog played in the yard")
+print(f"  BLEU = {s2:.4f}")`,
           },
           {
             lang: "python",
-            code: `def rouge_l_f1(pred, ref):
-    """基于最长公共子序列的 ROUGE-L"""
-    m, n = len(pred), len(ref)
-    # 动态规划计算 LCS
+            code: `# BLEU score interpretation
+import numpy as np
+
+print("=== BLEU Score Interpretation ===\\n")
+
+bleu_guide = [
+    (0, 10, "Unusable", "Translation barely understandable"),
+    (10, 20, "Understandable", "Can guess meaning, many errors"),
+    (20, 30, "Good", "Mostly fluent, some errors"),
+    (30, 40, "Very Good", "High quality, minor issues"),
+    (40, 50, "Excellent", "Near professional level"),
+    (50, 100, "Human Level", "Indistinguishable from human"),
+]
+
+print("BLEU Score Reference:")
+for low, high, level, desc in bleu_guide:
+    print(f"  {low:3d}-{high:3d}: {level:<15} - {desc}")
+
+# Multi-reference BLEU
+print("\\n=== Multi-reference BLEU ===")
+print("In practice, each source sentence has multiple reference")
+print("translations. BLEU takes the best match across references.")
+print()
+print("Example:")
+print("  Source: 'The cat sat on the mat'")
+print("  Ref 1:  'Le chat etait assis sur le tapis'")
+print("  Ref 2:  'Le chat s'est assis sur le paillasson'")
+print("  Hyp:    'Le chat etait sur le tapis'")
+print("  -> Ref 2 gives better match for 'sur le'")
+print("  -> Multi-ref BLEU is fairer than single-ref")`,
+          },
+        ],
+        table: {
+          headers: ["n-gram 阶数", "匹配含义", "典型精度", "BLEU 中的权重"],
+          rows: [
+            ["1-gram (unigram)", "单个词匹配", "0.5-0.8", "1/4 (几何平均)"],
+            ["2-gram (bigram)", "连续两个词匹配", "0.3-0.6", "1/4 (几何平均)"],
+            ["3-gram (trigram)", "连续三个词匹配", "0.1-0.4", "1/4 (几何平均)"],
+            ["4-gram", "连续四个词匹配", "0.05-0.3", "1/4 (几何平均)"],
+            ["BP (简短惩罚)", "长度惩罚因子", "0.5-1.0", "乘法因子"],
+          ],
+        },
+        mermaid: `graph TD
+    A["Hypothesis"] --> B["Extract 1-4 grams"]
+    C["Reference"] --> D["Extract 1-4 grams"]
+    B --> E["Modified Precision"]
+    D --> E
+    E --> F["Geometric Mean"]
+    G["Length Compare"] --> H["Brevity Penalty BP"]
+    F --> I["BLEU = BP x GeomMean"]
+    H --> I
+    I --> J["Score 0-100"]
+
+    style A fill:#bbdefb
+    style C fill:#c8e6c9
+    style J fill:#ffcdd2`,
+        tip: "BLEU 的几何平均设计很巧妙——任何一个 n-gram 阶数为 0，整个 BLEU 就为 0。这迫使模型必须在各个粒度上都有一定表现。",
+        warning: "BLEU 对词序变化极其敏感。'the cat on mat sat the' 和 'the cat sat on the mat' 的 4-gram 匹配几乎为零，尽管词完全一样。",
+      },
+      {
+        title: "3. ROUGE：文本摘要的评估利器",
+        body: `ROUGE（Recall-Oriented Understudy for Gisting Evaluation）由 Lin 和 Och 于 2004 年提出，专门用于评估自动文本摘要的质量。与 BLEU 不同，ROUGE 以召回率（Recall）为核心——它更关心参考摘要中有多少内容被生成摘要覆盖了。
+
+为什么摘要评估要用召回率而非精度？想象一个极端的摘要生成器：它只输出「今天天气很好」这六个字。如果参考摘要确实包含这句话，BLEU 会给它很高的精度分——但这根本不是合格的摘要！摘要评估的核心是覆盖率：参考摘要中的关键信息，自动摘要是否都包含了？
+
+ROUGE 有多个变体：ROUGE-N 计算 n-gram 召回率；ROUGE-L 基于最长公共子序列（LCS），不要求 n-gram 连续匹配，只要求词的相对顺序一致；ROUGE-W 是 ROUGE-L 的加权版本，给连续匹配更高的权重；ROUGE-S 基于跳跃双词，允许中间有间隔的词对匹配。
+
+摘要任务通常有多个参考摘要。ROUGE 取与最佳参考摘要的匹配得分。ROUGE 得分范围也是 0 到 1，在新闻摘要任务中，ROUGE-1 达到 40-50 通常表示模型质量不错。`,
+        code: [
+          {
+            lang: "python",
+            code: `from collections import Counter
+
+def rouge_n(reference, hypothesis, n):
+    """Calculate ROUGE-N recall, precision and F1"""
+    ref_tokens = reference.split()
+    hyp_tokens = hypothesis.split()
+
+    ref_ngrams = Counter(
+        tuple(ref_tokens[i:i+n]) for i in range(len(ref_tokens) - n + 1)
+    )
+    hyp_ngrams = Counter(
+        tuple(hyp_tokens[i:i+n]) for i in range(len(hyp_tokens) - n + 1)
+    )
+
+    # Overlap count (take min)
+    overlap = sum(
+        min(ref_ngrams[ng], hyp_ngrams[ng]) for ng in hyp_ngrams
+    )
+
+    ref_total = sum(ref_ngrams.values())
+    recall = overlap / ref_total if ref_total > 0 else 0
+
+    hyp_total = sum(hyp_ngrams.values())
+    precision = overlap / hyp_total if hyp_total > 0 else 0
+
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+
+    return recall, precision, f1
+
+# Demo
+ref = "the cat sat on the mat and the dog played in the yard"
+hyp = "the cat was sitting on the mat the dog was playing outside"
+
+print("=== ROUGE-N Calculation ===")
+for n in [1, 2, 3]:
+    r, p, f1 = rouge_n(ref, hyp, n)
+    print(f"  ROUGE-{n}: R={r:.4f}, P={p:.4f}, F1={f1:.4f}")`,
+          },
+          {
+            lang: "python",
+            code: `def lcs_length(X, Y):
+    """Calculate Longest Common Subsequence length"""
+    m, n = len(X), len(Y)
     dp = [[0] * (n + 1) for _ in range(m + 1)]
+
     for i in range(1, m + 1):
         for j in range(1, n + 1):
-            if pred[i-1] == ref[j-1]:
+            if X[i-1] == Y[j-1]:
                 dp[i][j] = dp[i-1][j-1] + 1
             else:
                 dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-    lcs_len = dp[m][n]
-    if lcs_len == 0:
-        return {"R": 0, "P": 0, "F1": 0}
+    return dp[m][n]
 
-    recall = lcs_len / n
-    precision = lcs_len / m
-    beta = 1.2  # 更重视召回率
-    f1 = ((1 + beta**2) * precision * recall) / (precision + beta**2 * recall + 1e-12)
-    return {"R": recall, "P": precision, "F1": f1}
+def rouge_l(reference, hypothesis):
+    """Calculate ROUGE-L based on LCS"""
+    ref_tokens = reference.split()
+    hyp_tokens = hypothesis.split()
 
-ref = ["The", "model", "achieves", "state", "of", "the", "art"]
-pred = ["The", "new", "model", "achieves", "art", "results"]
-result = rouge_l_f1(pred, ref)
-print(f"ROUGE-L: R={result['R']:.3f}, P={result['P']:.3f}, F1={result['F1']:.3f}")`,
+    lcs_len = lcs_length(ref_tokens, hyp_tokens)
+
+    recall = lcs_len / len(ref_tokens) if ref_tokens else 0
+    precision = lcs_len / len(hyp_tokens) if hyp_tokens else 0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+
+    return recall, precision, f1, lcs_len
+
+# Demo: ROUGE-L advantage
+ref = "the cat sat on the mat"
+hyp = "the cat is sitting on the mat"
+
+print("=== ROUGE-L vs ROUGE-N ===")
+print(f"Ref: '{ref}'")
+print(f"Hyp: '{hyp}'\\n")
+
+rl_r, rl_p, rl_f1, lcs_len = rouge_l(ref, hyp)
+print(f"ROUGE-L: LCS_len={lcs_len}, R={rl_r:.4f}, P={rl_p:.4f}, F1={rl_f1:.4f}")
+
+r2_r, r2_p, r2_f1 = rouge_n(ref, hyp, 2)
+print(f"ROUGE-2: R={r2_r:.4f}, P={r2_p:.4f}, F1={r2_f1:.4f}")
+
+print("\\nROUGE-L captures 'the cat _ _ on the mat' as LCS (5 words)")
+print("Even with insertions, ROUGE-L still finds core content coverage")`,
           },
         ],
         table: {
-          headers: ["ROUGE 变体", "匹配方式", "优势", "适用场景"],
+          headers: ["ROUGE 变体", "核心方法", "连续性要求", "适用场景"],
           rows: [
-            ["ROUGE-1", "Unigram 重叠", "捕捉关键词覆盖", "摘要关键信息评估"],
-            ["ROUGE-2", "Bigram 重叠", "捕捉局部连贯性", "摘要流畅度评估"],
-            ["ROUGE-L", "最长公共子序列", "不要求连续匹配", "句子级相似性"],
-            ["ROUGE-S", "跳跃 Bigram", "允许词间间隔", "灵活的结构匹配"],
+            ["ROUGE-N", "n-gram 召回率", "严格连续", "标准摘要评估"],
+            ["ROUGE-L", "最长公共子序列", "相对顺序", "灵活评估，容忍插入"],
+            ["ROUGE-W", "加权 LCS", "加权连续", "鼓励更长连续匹配"],
+            ["ROUGE-S", "跳跃双词", "允许间隔", "捕捉远距离关联"],
+            ["ROUGE-SU", "SU = S + Unigram", "允许间隔", "最全面的 ROUGE 变体"],
           ],
         },
         mermaid: `graph TD
-    A["生成摘要"] --> B["提取 n-gram"]
-    C["参考摘要"] --> D["提取 n-gram"]
-    B --> E["计算召回率"]
+    A["Reference Summary"] --> B["Extract n-gram / LCS"]
+    C["Generated Summary"] --> D["Extract n-gram / LCS"]
+    B --> E["Compute Overlap"]
     D --> E
-    E --> F{"ROUGE 变体"}
-    F --> G["ROUGE-N"]
-    F --> H["ROUGE-L"]
-    F --> I["ROUGE-S"]
-    G --> J["F1 分数"]
-    H --> J
-    I --> J`,
-        tip: "论文中通常同时报告 ROUGE-1、ROUGE-2 和 ROUGE-L，这样读者可以全面了解摘要质量。",
-        warning: "ROUGE 对摘要长度敏感——过长的摘要容易获得高召回率，但可能包含大量冗余信息。建议结合 ROUGE 精确率一起分析。",
+    E --> F["Recall = overlap/ref"]
+    E --> G["Precision = overlap/hyp"]
+    F --> H["F1 = 2PR/(P+R)"]
+    G --> H
+    H --> I["ROUGE Score"]
+
+    style A fill:#bbdefb
+    style C fill:#c8e6c9
+    style I fill:#ffcdd2`,
+        tip: "实际使用中，ROUGE-1、ROUGE-2 和 ROUGE-L 三个指标通常一起报告。ROUGE-1 反映词覆盖率，ROUGE-2 反映短语覆盖率，ROUGE-L 反映整体结构覆盖——三者互补。",
+        warning: "ROUGE 和 BLEU 有相同的根本局限：基于表面匹配，不真正理解语义。如果生成摘要用同义词替换了参考摘要中的词，ROUGE 会判为不匹配，尽管语义完全正确。",
       },
       {
-        title: "4. METEOR：对 BLEU 的重要改进",
-        body: `METEOR（Metric for Evaluation of Translation with Explicit ORdering）由 Banerjee 和 Lavie 在 2005 年提出，直接针对 BLEU 的几个已知缺陷进行了改进。
+        title: "4. METEOR：改进 BLEU 的精准评估",
+        body: `METEOR（Metric for Evaluation of Translation with Explicit ORdering）由 Banerjee 和 Lavie 于 2005 年提出，直接针对 BLEU 的几个关键缺陷进行改进。
 
-第一个改进是**召回率导向**。BLEU 纯粹是精确率指标，而 METEOR 先计算单字（unigram）的精确率和召回率，然后用调和平均（F-mean）结合，其中召回率的权重更高（alpha=0.85）。这更符合翻译评估的直觉——漏译比多译更严重。
+METEOR 的三大改进：第一，同义词匹配——内置 WordNet 词库，能将 "big" 和 "large" 识别为同义匹配，而 BLEU 要求完全相同的字符串。第二，词干匹配——"running" 和 "run" 可以被识别为匹配，这对形态丰富的语言非常重要。第三，显式词序惩罚——METEOR 不仅考虑匹配了多少词，还考虑匹配词的顺序是否一致。
 
-第二个改进是**同义词匹配**。METEOR 内置了 WordNet 同义词库和词干提取器，即使预测和参考用了不同的词（如 "big" vs "large"），也能被识别为匹配。第三个改进是**片段惩罚（fragmentation penalty）**——如果匹配的词在句子中分布得很分散，说明语序混乱，会被扣分。这使得 METEOR 在句子级别的评估上与人工评判的相关性显著高于 BLEU。`,
+计算流程分为四步：对齐时将候选和参考中的词进行匹配，优先级为精确匹配大于词干匹配大于同义词匹配；计算修正的精度和召回率；用调和平均计算 F-mean，其中召回率权重设为精度的 9 倍；计算词序惩罚，匹配词的碎片越多说明词序越混乱。
+
+多项研究表明，METEOR 与人工评估的 Spearman 相关系数通常比 BLEU 高 0.1-0.2。这是因为 METEOR 通过同义词和词干匹配，更贴近人类理解意思而非匹配字符串的评估方式。`,
         code: [
           {
             lang: "python",
-            code: `import nltk
-from nltk.corpus import wordnet
-from collections import Counter
-
-def get_synonyms(word):
-    """获取单词的所有同义词"""
-    synonyms = {word.lower()}
-    for syn in wordnet.synsets(word):
-        for lemma in syn.lemmas():
-            synonyms.add(lemma.name().lower())
-    return synonyms
-
-def meteor_unigram_match(pred, refs):
-    """METEOR 风格的 unigram 匹配（含同义词）"""
-    pred_words = [w.lower() for w in pred]
-    ref_words = [w.lower() for refs_list in refs for w in refs_list]
-
-    matched = 0
-    ref_used = set()
-
-    for i, pw in enumerate(pred_words):
-        # 精确匹配
-        for j, rw in enumerate(ref_words):
-            if j not in ref_used and pw == rw:
-                matched += 1
-                ref_used.add(j)
-                break
-        else:
-            # 同义词匹配
-            syns = get_synonyms(pw)
-            for j, rw in enumerate(ref_words):
-                if j not in ref_used and rw in syns:
-                    matched += 1
-                    ref_used.add(j)
-                    break
-
-    precision = matched / len(pred_words) if pred_words else 0
-    recall = matched / len(ref_words) if ref_words else 0
-    return precision, recall, matched
-
-print("METEOR unigram 匹配（含同义词）")
-print(f"big 的同义词: {get_synonyms('big')}")
-print(f"good 的同义词: {get_synonyms('good')}")`,
-          },
-          {
-            lang: "python",
-            code: `def meteor_score(pred, refs, alpha=0.85, beta=3.0, gamma=0.5):
-    """简化版 METEOR 分数计算"""
-    pred_words = pred.lower().split()
-    ref_words = refs.lower().split()
-
-    # 精确匹配
-    pred_counter = Counter(pred_words)
-    ref_counter = Counter(ref_words)
-
-    matched = sum(min(pred_counter[w], ref_counter[w]) for w in pred_counter)
-    precision = matched / len(pred_words) if pred_words else 0
-    recall = matched / len(ref_words) if ref_words else 0
-
-    # 调和平均（更重视召回率）
-    f_mean = (alpha * recall + (1 - alpha) * precision)
-    if precision + recall == 0:
-        f_mean = 0
-
-    # 片段惩罚
-    # 简化：假设完全连续则 penalty=0，完全分散则 penalty 最大
-    fragments = max(1, len(pred_words) - matched + 1)
-    penalty = 0.5 * (fragments / max(matched, 1)) ** beta
-
-    final = f_mean * (1 - penalty)
-    return max(0, final)
-
-ref = "The quick brown fox jumps over the lazy dog"
-pred1 = "The quick brown fox jumps over the lazy dog"
-pred2 = "dog lazy the over jumps fox brown quick The"
-
-print(f"完全匹配: {meteor_score(pred1, ref):.4f}")
-print(f"词序打乱: {meteor_score(pred2, ref):.4f}")
-# 片段惩罚会让 pred2 得分更低`,
-          },
-        ],
-        table: {
-          headers: ["特性", "BLEU", "METEOR", "改进效果"],
-          rows: [
-            ["导向", "精确率", "召回率（加权 F-mean）", "更符合翻译直觉"],
-            ["词汇匹配", "严格精确", "同义词 + 词干", "覆盖更多有效翻译"],
-            ["语序考量", "仅通过 n-gram 间接体现", "片段惩罚直接扣分", "对语序更敏感"],
-            ["人工相关性", "中等（0.2-0.3）", "较高（0.3-0.5）", "与人工评分更接近"],
-          ],
-        },
-        mermaid: `graph LR
-    A["预测文本"] --> B["Unigram 匹配"]
-    C["参考文本"] --> B
-    B --> D["同义词扩展"]
-    D --> E["精确率 P"]
-    D --> F["召回率 R"]
-    E --> G["F-mean (α=0.85)"]
-    F --> G
-    G --> H["片段惩罚"]
-    H --> I["METEOR 分数"]`,
-        tip: "WMT（机器翻译工作坊）多年来的评估显示，METEOR 与人工评分的相关性通常高于 BLEU，尤其在低资源语言对上。",
-        warning: "METEOR 依赖 WordNet 等语言资源，对英语效果最好。评估中文等语言时，同义词匹配的优势会大幅减弱。",
-      },
-      {
-        title: "5. Perplexity：语言模型的内在评估",
-        body: `Perplexity（困惑度）是语言模型最经典的内在评估指标，衡量模型对测试数据的「惊讶程度」。直觉上，如果一个语言模型对下一词的预测越准确，它的困惑度就越低。
-
-数学定义是：PP = 2^H，其中 H 是交叉熵（cross-entropy）。交叉熵 H = -1/N * Σ log₂ P(wᵢ | w₁, ..., wᵢ₋₁)，即模型对测试集中每个词的平均负对数概率。Perplexity 可以理解为模型在每一步平均从多少个等概率选项中做选择——PP=100 意味着模型每步相当于从 100 个候选词中猜一个。
-
-Perplexity 的优势在于它与语言模型的训练目标（最大化似然）直接对应，优化 Perplexity 等价于优化交叉熵损失。但它也有局限：Perplexity 只衡量模型对给定文本的拟合度，不直接反映生成文本的质量或有用性。一个 Perplexity 很低的模型可能生成重复、无聊但语法正确的文本。`,
-        code: [
-          {
-            lang: "python",
-            code: `import math
-
-def perplexity_from_probs(probs):
-    """从每步的概率计算困惑度"""
-    N = len(probs)
-    # 交叉熵
-    cross_entropy = -sum(math.log2(p + 1e-10) for p in probs) / N
-    # 困惑度
-    pp = 2 ** cross_entropy
-    return pp
-
-# 模拟语言模型对一句话的逐词预测概率
-# 句子: "The cat sat on the mat"
-probs = [
-    0.15,   # P(The) — 句首，不确定性高
-    0.30,   # P(cat | The) — 合理的后续词
-    0.25,   # P(sat | The cat) — 合理
-    0.40,   # P(on | The cat sat) — 很合理
-    0.60,   # P(the | The cat sat on) — 非常确定
-    0.80,   # P(mat | The cat sat on the) — 几乎确定
-]
-
-pp = perplexity_from_probs(probs)
-print(f"交叉熵: {-sum(math.log2(p) for p in probs) / len(probs):.2f} bits")
-print(f"困惑度: {pp:.2f}")
-print(f"等效选项数: 模型每步平均从 {pp:.0f} 个词中选择")`,
-          },
-          {
-            lang: "python",
-            code: `# 使用 HuggingFace transformers 计算 Perplexity
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
-
-def compute_perplexity(model, tokenizer, text):
-    """计算给定文本的困惑度"""
-    encodings = tokenizer(text, return_tensors="pt")
-    max_length = model.config.max_position_embeddings
-    seq_len = encodings.input_ids.size(1)
-
-    # 如果文本太长，截断
-    if seq_len > max_length:
-        encodings.input_ids = encodings.input_ids[:, :max_length]
-        encodings.attention_mask = encodings.attention_mask[:, :max_length]
-
-    with torch.no_grad():
-        outputs = model(
-            encodings.input_ids,
-            labels=encodings.input_ids
-        )
-        loss = outputs.loss  # 交叉熵损失
-        ppl = torch.exp(loss)
-
-    return ppl.item()
-
-# 示例（需要安装 transformers）
-# model_name = "gpt2"
-# model = AutoModelForCausalLM.from_pretrained(model_name)
-# tokenizer = AutoTokenizer.from_pretrained(model_name)
-# text = "The cat sat on the mat."
-# print(f"Perplexity: {compute_perplexity(model, tokenizer, text):.2f}")
-print("使用 GPT-2 计算困惑度的示例代码（取消注释运行）")`,
-          },
-        ],
-        table: {
-          headers: ["困惑度范围", "含义", "典型场景"],
-          rows: [
-            ["< 10", "极好的语言模型", "小规模受限领域"],
-            ["10 - 50", "良好的语言模型", "新闻、小说等通用领域"],
-            ["50 - 200", "可用的语言模型", "早期 RNN 语言模型"],
-            ["> 200", "较差的语言模型", "训练不足或领域不匹配"],
-          ],
-        },
-        mermaid: `graph TD
-    A["测试文本"] --> B["语言模型"]
-    B --> C["逐词概率 P(wᵢ|context)"]
-    C --> D["交叉熵 H"]
-    D --> E["Perplexity = 2^H"]
-    E --> F["越低越好"]
-    style F fill:#90EE90`,
-        tip: "比较不同模型的 Perplexity 时，必须在相同的测试集上计算，否则结果不可比。",
-        warning: "Perplexity 和生成质量不是完全正相关的。过低的 Perplexity 可能意味着模型过度记住了训练数据（过拟合），反而降低了泛化能力。",
-      },
-      {
-        title: "6. BERTScore：基于语义的评估革命",
-        body: `BERTScore 由 Zhang 等人在 2020 年提出，标志着 NLP 评估从「词面匹配」到「语义匹配」的范式转变。它的核心思想很简单：与其比较两个句子的词是否相同，不如比较它们的语义表示是否相似。
-
-具体做法是：用预训练的 BERT（或其他 Transformer 模型）分别编码候选文本和参考文本，得到每个 token 的上下文向量表示。然后对候选文本中的每个 token，在参考文本中找到余弦相似度最高的 token（贪婪匹配），对所有匹配对取平均得到精确率。反过来再做一次得到召回率。最后计算 F1 作为 BERTScore。
-
-这种方法的优势是巨大的：「I adore this movie」和「I love this film」在传统指标下得分很低，但 BERTScore 会给出高分，因为 BERT 的语义空间知道 adore≈love、movie≈film。BERTScore 在 WMT19 评估中与人工评分的相关性远超 BLEU。`,
-        code: [
-          {
-            lang: "python",
-            code: `# BERTScore 的核心计算流程
-import torch
-import torch.nn.functional as F
-from transformers import AutoTokenizer, AutoModel
-
-def bert_similarity(tokenizer, model, cand, ref):
-    """计算候选和参考文本的 BERT 相似度矩阵"""
-    # 编码
-    cand_input = tokenizer(cand, return_tensors="pt", padding=True)
-    ref_input = tokenizer(ref, return_tensors="pt", padding=True)
-
-    with torch.no_grad():
-        cand_out = model(**cand_input)
-        ref_out = model(**ref_input)
-
-    # 获取 token 级别的表示（取最后一层）
-    cand_emb = cand_out.last_hidden_state[0]  # [seq_len_c, dim]
-    ref_emb = ref_out.last_hidden_state[0]    # [seq_len_r, dim]
-
-    # 归一化
-    cand_emb = F.normalize(cand_emb, p=2, dim=1)
-    ref_emb = F.normalize(ref_emb, p=2, dim=1)
-
-    # 余弦相似度矩阵
-    sim_matrix = torch.mm(cand_emb, ref_emb.T)
-    return sim_matrix
-
-# 示例（需要模型权重）
-# tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-# model = AutoModel.from_pretrained("bert-base-uncased")
-# sim = bert_similarity(tokenizer, model,
-#     "I adore this movie", "I love this film")
-# print(f"相似度矩阵形状: {sim.shape}")
-print("BERT 相似度矩阵计算流程（取消注释运行）")`,
-          },
-          {
-            lang: "python",
-            code: `# 使用官方 bert-score 库
-# pip install bert-score
-from bert_score import score
-
-# 示例数据
-candidates = [
-    "I adore this movie",
-    "The weather is nice today",
-    "The cat is sitting on the mat",
-]
-references = [
-    "I love this film",
-    "Today the weather is beautiful",
-    "A cat sits on the mat",
-]
-
-# 计算 BERTScore
-# P, R, F1 = score(candidates, references, lang="en", verbose=True)
-# print(f"Average P: {P.mean():.4f}")
-# print(f"Average R: {R.mean():.4f}")
-# print(f"Average F1: {F1.mean():.4f}")
-
-# 手动演示贪婪匹配
+            code: `from collections import Counter
 import numpy as np
 
-def greedy_matching(sim_matrix):
-    """贪婪匹配计算精确率和召回率"""
-    # 精确率：每个候选 token 找最佳参考 token
-    precision = sim_matrix.max(dim=1).values.mean().item()
-    # 召回率：每个参考 token 找最佳候选 token
-    recall = sim_matrix.max(dim=0).values.mean().item()
-    # F1
-    f1 = 2 * precision * recall / (precision + recall + 1e-10)
-    return precision, recall, f1
+# Mini synonym dictionary (real METEOR uses WordNet)
+SYNONYMS = {
+    "big": {"large", "huge", "enormous"},
+    "small": {"little", "tiny", "mini"},
+    "good": {"great", "excellent", "fine"},
+    "cat": {"feline", "kitty", "kitten"},
+    "dog": {"canine", "puppy", "pooch"},
+    "happy": {"glad", "joyful", "cheerful"},
+}
 
-# 模拟相似度矩阵（4个候选token x 5个参考token）
-sim = np.array([
-    [0.95, 0.10, 0.05, 0.02, 0.01],  # I → I
-    [0.20, 0.92, 0.08, 0.03, 0.02],  # adore → love
-    [0.05, 0.10, 0.88, 0.05, 0.03],  # this → this
-    [0.02, 0.05, 0.08, 0.93, 0.04],  # movie → film
-])
-P, R, F1 = greedy_matching(torch.tensor(sim))
-print(f"P={P:.4f}, R={R:.4f}, F1={F1:.4f}")`,
-          },
-        ],
-        table: {
-          headers: ["特性", "BLEU", "BERTScore", "差异"],
-          rows: [
-            ["匹配方式", "词面精确匹配", "语义向量相似度", "BERTScore 能识别同义替换"],
-            ["语言模型", "无", "BERT/RoBERTa/DeBERTa", "依赖预训练模型质量"],
-            ["计算速度", "极快（毫秒级）", "较慢（GPU 秒级）", "BERTScore 慢约 100-1000 倍"],
-            ["人工相关性", "0.2-0.3", "0.5-0.7", "BERTScore 显著更接近人类判断"],
-          ],
-        },
-        mermaid: `graph TD
-    A["候选文本"] --> B["BERT 编码"]
-    C["参考文本"] --> D["BERT 编码"]
-    B --> E["Token 向量"]
-    D --> E
-    E --> F["余弦相似度矩阵"]
-    F --> G["贪婪匹配 → Precision"]
-    F --> H["贪婪匹配 → Recall"]
-    G --> I["F1 Score"]
-    H --> I
-    I --> J["BERTScore"]`,
-        tip: "BERTScore 支持多种底层模型（bert-base、roberta-large、deberta-xlarge），模型越大通常与人工评分的相关性越高。",
-        warning: "BERTScore 对领域外文本效果会下降——如果候选/参考文本的主题与 BERT 预训练语料差异很大，语义表示可能不够准确。",
-      },
-      {
-        title: "7. 实战：sacrebleu 和 evaluate 工具箱",
-        body: `在实际项目中，你不会从零实现 BLEU 或 ROUGE，而是使用成熟的评估库。这里介绍两个最常用的工具：sacrebleu 和 HuggingFace 的 evaluate 库。
+def meteor_match(ref_word, hyp_word):
+    """METEOR match: exact > stem > synonym"""
+    if ref_word == hyp_word:
+        return "exact"
 
-**sacrebleu** 是 BLEU 的标准化实现，解决了原始 BLEU 实现中的多个不一致问题：它强制使用统一的 tokenization 方案（避免不同实现得出不同结果），内置了多组标准测试集（如 WMT14/17/19），并且一行命令就能复现论文中的 BLEU 分数。它的口号是：「提供可复现、可比较、可引用的 BLEU 分数」。
+    # Simple stem match
+    ref_stem = ref_word.rstrip("ingsed")
+    hyp_stem = hyp_word.rstrip("ingsed")
+    if ref_stem == hyp_stem and len(ref_stem) > 2:
+        return "stem"
 
-**evaluate** 是 HuggingFace 推出的统一评估框架，将 BLEU、ROUGE、METEOR、BERTScore 等数十种指标封装成统一的 API。你只需要 load_metric（或 load），传入 predictions 和 references 就能得到结果。它统一了后端实现，让比较不同指标变得异常简单。`,
-        code: [
-          {
-            lang: "bash",
-            code: `# sacrebleu CLI 使用
-# 安装
-pip install sacrebleu
+    # Synonym match
+    syn_ref = SYNONYMS.get(ref_word, set())
+    syn_hyp = SYNONYMS.get(hyp_word, set())
+    if hyp_word in syn_ref or ref_word in syn_hyp:
+        return "synonym"
 
-# 从文件计算 BLEU
-sacrebleu data/refs.txt -i data/hypo.txt -m bleu
+    return None
 
-# 指定 tokenize 方式
-sacrebleu data/refs.txt -i data/hypo.txt -m bleu -tok zh
+def compute_meteor(reference, hypothesis):
+    """Simplified METEOR calculation"""
+    ref_tokens = reference.lower().split()
+    hyp_tokens = hypothesis.lower().split()
 
-# 下载并使用标准测试集
-sacrebleu -t wmt19 -l en-de --echo src > src.txt
-sacrebleu -t wmt19 -l en-de --echo ref > ref.txt
+    # Greedy alignment
+    matched_ref = set()
+    matched_hyp = set()
 
-# 计算多个指标
-sacrebleu data/refs.txt -i data/hypo.txt -m bleu chrf ter
+    for i, hyp_w in enumerate(hyp_tokens):
+        for j, ref_w in enumerate(ref_tokens):
+            if j in matched_ref or i in matched_hyp:
+                continue
+            if meteor_match(ref_w, hyp_w):
+                matched_ref.add(j)
+                matched_hyp.add(i)
+                break
 
-# Python API
-python -c "
-import sacrebleu
-refs = [['The cat is on the mat']]
-hyps = ['The cat is on the mat']
-bleu = sacrebleu.corpus_bleu(hyps, refs)
-print(bleu.format())
-"`,
+    precision = len(matched_hyp) / len(hyp_tokens) if hyp_tokens else 0
+    recall = len(matched_ref) / len(ref_tokens) if ref_tokens else 0
+
+    # F-mean with alpha=9 (recall weighted 9x)
+    alpha = 9
+    f_mean = (1 + alpha**3) * precision * recall / \\
+             (alpha**3 * precision + recall) if (precision + recall) > 0 else 0
+
+    # Chunk penalty
+    chunks = 1
+    sorted_hyp = sorted(matched_hyp)
+    for i in range(1, len(sorted_hyp)):
+        if sorted_hyp[i] != sorted_hyp[i-1] + 1:
+            chunks += 1
+
+    penalty = 0.5 * (chunks / max(len(matched_hyp), 1)) ** 3
+    score = f_mean * (1 - penalty)
+
+    return score, precision, recall, chunks
+
+ref = "the big cat sat on the mat"
+hyp1 = "the large feline sat on the mat"
+hyp2 = "the big mat on sat the cat"
+
+print("=== METEOR Calculation ===")
+for hyp, label in [(hyp1, "Synonym"), (hyp2, "Word Reorder")]:
+    score, p, r, ch = compute_meteor(ref, hyp)
+    print(f"  {label}: METEOR={score:.3f}, P={p:.3f}, R={r:.3f}, chunks={ch}")`,
           },
           {
             lang: "python",
-            code: `# HuggingFace evaluate 库实战
-# pip install evaluate rouge-score bert-score
+            code: `# BLEU vs METEOR comparison
+import numpy as np
 
-import evaluate
+def simple_bleu(reference, hypothesis, max_n=4):
+    """Simplified BLEU"""
+    from collections import Counter
+    ref_tokens = reference.lower().split()
+    hyp_tokens = hypothesis.lower().split()
 
-# 加载多个指标
-bleu = evaluate.load("bleu")
-rouge = evaluate.load("rouge")
-meteor = evaluate.load("meteor")
-bertscore = evaluate.load("bertscore")
+    precisions = []
+    for n in range(1, max_n + 1):
+        ref_ng = Counter(
+            tuple(ref_tokens[i:i+n]) for i in range(len(ref_tokens)-n+1)
+        )
+        hyp_ng = Counter(
+            tuple(hyp_tokens[i:i+n]) for i in range(len(hyp_tokens)-n+1)
+        )
+        clipped = sum(
+            min(c, ref_ng.get(ng, 0)) for ng, c in hyp_ng.items()
+        )
+        total = sum(hyp_ng.values())
+        precisions.append(clipped / total if total > 0 else 0)
 
-predictions = [
-    "The cat is on the mat",
-    "I love this movie very much",
+    log_avg = np.mean([np.log(max(p, 1e-10)) for p in precisions])
+    rl, hl = len(ref_tokens), len(hyp_tokens)
+    bp = np.exp(1 - rl/hl) if hl < rl else 1.0
+    return bp * np.exp(log_avg)
+
+print("=== BLEU vs METEOR ===\\n")
+
+test_cases = [
+    ("the cat sat on the mat", "the cat sat on the mat", "Exact match"),
+    ("the cat sat on the mat", "the feline sat on the mat", "Synonym"),
+    ("the cat sat on the mat", "the cat was sitting on mat", "Stem variant"),
+    ("the cat sat on the mat", "on the mat sat the cat", "Reorder"),
+    ("the cat sat on the mat", "the dog played in the yard", "Different"),
 ]
-references = [
-    ["The cat is sitting on the mat", "A cat is on the mat"],
-    ["I really love this film", "This movie is great"],
-]
 
-# BLEU
-bleu_result = bleu.compute(predictions=predictions, references=references)
-print(f"BLEU: {bleu_result['bleu']:.4f}")
-
-# ROUGE
-rouge_result = rouge.compute(predictions=predictions, references=references)
-print(f"ROUGE-1: {rouge_result['rouge1']:.4f}")
-print(f"ROUGE-2: {rouge_result['rouge2']:.4f}")
-print(f"ROUGE-L: {rouge_result['rougeL']:.4f}")
-
-# METEOR
-meteor_result = meteor.compute(predictions=predictions, references=references)
-print(f"METEOR: {meteor_result['meteor']:.4f}")`,
+for ref, hyp, desc in test_cases:
+    bleu = simple_bleu(ref, hyp)
+    met, p, r, ch = compute_meteor(ref, hyp)
+    arrow = "  ^ METEOR higher (more tolerant)" if met > bleu else "  BLEU higher or equal"
+    print(f"{desc}:")
+    print(f"  BLEU={bleu:.4f}, METEOR={met:.4f}")
+    print(f"{arrow}\\n")`,
           },
         ],
         table: {
-          headers: ["工具", "支持指标", "主要优势", "安装方式"],
+          headers: ["特性", "BLEU", "METEOR"],
           rows: [
-            ["sacrebleu", "BLEU, chrF, TER", "标准化、可复现、内置测试集", "pip install sacrebleu"],
-            ["evaluate", "50+ 指标全覆盖", "统一 API、与 HF 生态集成", "pip install evaluate"],
-            ["nltk", "BLEU, ROUGE, METEOR", "轻量、无需额外依赖", "pip install nltk"],
-            ["bert-score", "BERTScore", "语义评估的专门实现", "pip install bert-score"],
+            ["匹配方式", "精确字符串匹配", "精确+词干+同义词"],
+            ["评估核心", "精度为主导", "召回率为主导"],
+            ["词序处理", "隐式（高阶 n-gram）", "显式（碎片惩罚）"],
+            ["语言资源", "不需要", "WordNet + 词干提取器"],
+            ["与人工相关性", "0.3-0.6", "0.4-0.7"],
+            ["计算复杂度", "低", "中等（需词典查询）"],
+            ["多参考支持", "是", "是（取最佳匹配）"],
           ],
         },
-        mermaid: `graph LR
-    A["评估需求"] --> B{"选择工具"}
-    B --> C["sacrebleu"]
-    B --> D["evaluate"]
-    B --> E["bert-score"]
-    C --> F["标准化 BLEU 分数"]
-    D --> G["多指标统一评估"]
-    E --> H["语义相似度评分"]
-    F --> I["模型对比报告"]
-    G --> I
-    H --> I`,
-        tip: "在论文中报告 BLEU 分数时，使用 sacrebleu 并注明签名（signature），这样其他研究者可以精确复现你的结果。",
-        warning: "不同工具的实现细节不同（如 tokenization、smoothing 策略），直接比较不同工具输出的 BLEU 分数没有意义。论文复现时必须使用相同的工具。",
+        mermaid: `graph TD
+    A["Hypothesis"] --> B["Word Alignment"]
+    C["Reference"] --> B
+    B --> D{"Match Type?"}
+    D -->|"Exact"| E["Exact Match"]
+    D -->|"Stem"| F["Stem Match"]
+    D -->|"Synonym"| G["Synonym Match"]
+    E --> H["Precision & Recall"]
+    F --> H
+    G --> H
+    H --> I["F-mean (alpha=9)"]
+    I --> J["Chunk Penalty"]
+    J --> K["METEOR Score"]
+
+    style B fill:#fff9c4
+    style K fill:#ffcdd2`,
+        tip: "如果你的任务涉及丰富的同义词替换（如文学翻译、创意写作），METEOR 比 BLEU 更能反映真实质量。",
+        warning: "METEOR 依赖外部语言资源（WordNet、词干提取器），这对低资源语言可能不可用。此时 BLEU 反而是更实际的选择。",
+      },
+      {
+        title: "5. Perplexity：语言模型的内在度量",
+        body: `Perplexity（困惑度）是语言模型最经典的评估指标。与 BLEU 和 ROUGE 不同，Perplexity 不比较生成文本与参考文本的匹配程度，而是直接衡量模型对测试数据的惊讶程度——模型对测试文本预测得越好，Perplexity 越低。
+
+直觉理解：假设你的语言模型像一个猜词游戏玩家。给定上文 "Today is a beautiful"，模型需要预测下一个词。如果模型正确地给 "day" 分配了很高的概率（如 0.8），说明它不困惑；如果它给 "day" 的概率很低（如 0.001），说明它很困惑。Perplexity 就是对这种困惑程度的量化。
+
+数学定义：Perplexity = exp(-(1/N) * Σ log P(w_i | context))，等价于 2 的交叉熵次方。可以理解为等效的随机选择数量——PP = 100 意味着模型在每个位置上相当于从 100 个词中等概率随机选择。
+
+典型 Perplexity 值：在 Penn Treebank 上，n-gram 模型 PP 约 100-200，RNN 约 50-100，Transformer 约 10-30，GPT-4 等超大模型可降至 5 以下。PP 越低越好，但不同测试集上的 PP 不可比较。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+def compute_perplexity(model_probs, smooth=1e-10):
+    """Calculate perplexity from model probabilities
+    model_probs: list of probabilities assigned to correct words
+    """
+    N = len(model_probs)
+    if N == 0:
+        return float('inf')
+
+    # Cross-entropy (natural log)
+    log_probs = [np.log(max(p, smooth)) for p in model_probs]
+    cross_entropy = -np.mean(log_probs)
+
+    # Perplexity = exp(cross_entropy)
+    perplexity = np.exp(cross_entropy)
+    return perplexity
+
+sentence = ["the", "cat", "sat", "on", "the", "mat"]
+
+# Model A: n-gram (moderate)
+probs_a = [0.3, 0.4, 0.2, 0.5, 0.8, 0.6]
+pp_a = compute_perplexity(probs_a)
+
+# Model B: random (uniform over 10000 vocab)
+probs_b = [1/10000] * 6
+pp_b = compute_perplexity(probs_b)
+
+# Model C: Transformer (excellent)
+probs_c = [0.7, 0.8, 0.6, 0.9, 0.95, 0.85]
+pp_c = compute_perplexity(probs_c)
+
+print("=== Perplexity Calculation ===")
+print(f"  Model A (n-gram):    PP = {pp_a:.2f}")
+print(f"  Model B (random):    PP = {pp_b:.2f}")
+print(f"  Model C (Transform): PP = {pp_c:.2f}")
+
+print(f"\\nInterpretation:")
+print(f"  PP={pp_b:.0f}: like choosing from {pp_b:.0f} words randomly")
+print(f"  PP={pp_a:.1f}: like choosing from {pp_a:.1f} words")
+print(f"  PP={pp_c:.1f}: like choosing from {pp_c:.1f} words")`,
+          },
+          {
+            lang: "python",
+            code: `import numpy as np
+
+print("=== Perplexity vs Cross-Entropy ===\\n")
+
+# PP = 2^H (base 2) or exp(H) (base e)
+# Each 1-bit reduction in cross-entropy halves perplexity
+
+print(f"{'Cross-Ent H':<14} {'PP (base 2)':<14} {'PP (base e)':<14} {'Quality'}")
+print("-" * 55)
+
+for h in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
+    pp2 = 2 ** h
+    ppe = np.exp(h)
+    if h <= 4:
+        desc = "Good"
+    elif h <= 7:
+        desc = "Fair"
+    else:
+        desc = "Poor"
+    print(f"{h:<14} {pp2:<14.1f} {ppe:<14.1f} {desc}")
+
+print("\\nKey relationship:")
+print("  PP = 2^H  <=>  H = log2(PP)")
+print("  Each 1-bit CE reduction halves PP")
+print("  CE 7->6: PP 128->64 (big improvement)")
+print("  CE 4->3: PP 16->8 (same improvement)")
+
+print("\\n=== Perplexity Limitations ===")
+print("1. Only comparable on SAME test set")
+print("2. Cannot compare across datasets")
+print("3. Low PP != good generation (may overfit)")
+print("4. PP only evaluates probability, not coherence")
+print("5. Sensitive to vocabulary size")`,
+          },
+        ],
+        table: {
+          headers: ["模型类型", "典型 PP (PTB)", "典型 PP (WikiText-103)", "参数量", "特点"],
+          rows: [
+            ["n-gram (5-gram)", "~140", "N/A", "几百万", "简单、快速、瓶颈明显"],
+            ["RNN (LSTM)", "~55", "~65", "几千万", "能捕获长距离依赖"],
+            ["Transformer (base)", "~30", "~25", "100M", "并行训练、效果好"],
+            ["GPT-2 (1.5B)", "~18", "~16", "1.5B", "大规模预训练"],
+            ["GPT-3 (175B)", "~4-8", "~4-6", "175B", "超强语言理解"],
+          ],
+        },
+        mermaid: `graph TD
+    A["Test Text W"] --> B["LM predicts P(w_i|ctx)"]
+    B --> C["Compute log P(w_i)"]
+    C --> D["Avg: -(1/N) * sum(log P)"]
+    D --> E["exp(avg log prob)"]
+    E --> F["Perplexity"]
+
+    F --> G{"PP Value?"}
+    G -->|"PP < 20"| H["Excellent"]
+    G -->|"20-50"| I["Good"]
+    G -->|"50-100"| J["Fair"]
+    G -->|"> 100"| K["Poor"]
+
+    style F fill:#ffcdd2`,
+        tip: "训练语言模型时，Perplexity 是最重要的监控指标。验证集 PP 持续下降但测试集 PP 上升说明过拟合——需要早停或增加正则化。",
+        warning: "低 Perplexity 的模型可能生成重复或无聊的文本（因为过度偏好高频词）。PP 只是概率预测的度量，不直接衡量生成质量。",
+      },
+      {
+        title: "6. BERTScore：基于语义的革命性评估",
+        body: `BERTScore 由 Zhang 等人于 2020 年提出，代表了 NLP 评估指标的一次范式转变——从基于表面匹配到基于语义理解。
+
+核心思想：用预训练语言模型（如 BERT、RoBERTa）将候选文本和参考文本中的每个词映射为上下文感知的嵌入向量，然后计算两个文本之间嵌入向量的余弦相似度。与 BLEU 不同，BERTScore 不要求词完全相同——"feline" 和 "cat" 在 BERT 的嵌入空间中天然相近，因此能获得高相似度。
+
+计算流程：用 BERT 对候选和参考分别编码，得到每个 token 的上下文嵌入；对候选中的每个 token，在参考中找到余弦相似度最高的 token，反之亦然；候选到参考的匹配率是精度，参考到候选是召回率；调和平均得到最终 BERTScore。
+
+研究表明，BERTScore 与人工评估的相关性显著高于 BLEU 和 METEOR。在 WMT 翻译评估任务中，BERTScore 与人工评估的 Kendall tau 相关系数约 0.45-0.55，而 BLEU 只有 0.3-0.4。这是因为 BERTScore 真正理解了语义。后续方法如 BLEURT 和 COMET 进一步提升了与人工评估的相关性。`,
+        code: [
+          {
+            lang: "python",
+            code: `import numpy as np
+
+def cosine_sim(a, b):
+    """Cosine similarity"""
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-10)
+
+def greedy_match(ref_embeds, hyp_embeds):
+    """Greedy matching: each token finds best match"""
+    ref_to_hyp = []
+    for ref_emb in ref_embeds:
+        sims = [cosine_sim(ref_emb, h) for h in hyp_embeds]
+        ref_to_hyp.append(max(sims))
+
+    hyp_to_ref = []
+    for hyp_emb in hyp_embeds:
+        sims = [cosine_sim(r, hyp_emb) for r in ref_embeds]
+        hyp_to_ref.append(max(sims))
+
+    return np.mean(hyp_to_ref), np.mean(ref_to_hyp)
+
+def bert_score_simulated(reference, hypothesis):
+    """Simulated BERTScore computation"""
+    np.random.seed(42)
+
+    ref_words = reference.split()
+    hyp_words = hypothesis.split()
+
+    # Simulated BERT embeddings (semantically similar = closer vectors)
+    emb = {}
+    base_cat = np.random.randn(768)
+    emb["cat"] = base_cat
+    emb["feline"] = base_cat * 0.85 + np.random.randn(768) * 0.15
+    emb["kitten"] = base_cat * 0.75 + np.random.randn(768) * 0.2
+    emb["dog"] = np.random.randn(768)
+    emb["sat"] = np.random.randn(768)
+    emb["sitting"] = emb["sat"] * 0.8 + np.random.randn(768) * 0.2
+    emb["the"] = np.random.randn(768)
+    emb["on"] = np.random.randn(768)
+    emb["mat"] = np.random.randn(768)
+
+    ref_e = [emb.get(w, np.random.randn(768)) for w in ref_words]
+    hyp_e = [emb.get(w, np.random.randn(768)) for w in hyp_words]
+
+    precision, recall = greedy_match(ref_e, hyp_e)
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+
+    return precision, recall, f1
+
+ref = "the cat sat on the mat"
+hyp1 = "the feline was sitting on the mat"
+hyp2 = "the dog played in the yard"
+
+print("=== BERTScore (Simulated) ===")
+for hyp, label in [(hyp1, "Synonym replace"), (hyp2, "Completely different")]:
+    p, r, f1 = bert_score_simulated(ref, hyp)
+    print(f"  {label}: P={p:.4f}, R={r:.4f}, F1={f1:.4f}")`,
+          },
+          {
+            lang: "python",
+            code: `# Real BERTScore usage (requires bert-score library)
+print("=== Real BERTScore Usage ===\\n")
+
+print("# Install:")
+print("  pip install bert-score\\n")
+
+print("# Basic usage:")
+print("from bert_score import score")
+print()
+print("cands = ['the cat is sitting on the mat']")
+print("refs = ['the cat sat on the mat']")
+print("P, R, F1 = score(cands, refs, lang='en', verbose=True)")
+print("print(f'P={P.mean():.4f}, R={R.mean():.4f}, F1={F1.mean():.4f}')")
+print()
+
+print("# Batch evaluation:")
+print("cands = [")
+print("    'the cat is sitting on the mat',")
+print("    'the dog played in the yard',")
+print("]")
+print("refs = ['the cat sat on the mat'] * 2")
+print("P, R, F1 = score(cands, refs, lang='en')")
+print()
+
+print("# Multi-language support:")
+print("score(cands, refs, lang='zh')  # Chinese")
+print("score(cands, refs, lang='fr')  # French")
+print()
+
+print("=== BLEU vs BERTScore ===")
+print("BLEU:")
+print("  + Fast (no GPU needed)")
+print("  + Simple implementation")
+print("  - No semantic understanding")
+print("  - Sensitive to word order")
+print("  - Lower human correlation")
+print()
+print("BERTScore:")
+print("  + Captures semantic equivalence")
+print("  + High human correlation")
+print("  + Multi-language native support")
+print("  - Needs GPU and pretrained model")
+print("  - Expensive (~50ms/sentence on GPU)")`,
+          },
+        ],
+        table: {
+          headers: ["指标", "语义理解", "计算速度", "与人工相关性", "GPU 需求", "多语言"],
+          rows: [
+            ["BLEU", "无", "极快", "0.3-0.4", "不需要", "需要分词"],
+            ["ROUGE", "无", "极快", "0.3-0.5", "不需要", "需要分词"],
+            ["METEOR", "有限（词典）", "快", "0.4-0.6", "不需要", "需要词典"],
+            ["BERTScore", "深度语义", "中等", "0.5-0.7", "推荐", "原生支持"],
+            ["BLEURT", "微调语义", "慢", "0.55-0.75", "必需", "原生支持"],
+            ["COMET", "交叉编码器", "慢", "0.6-0.8", "必需", "原生支持"],
+          ],
+        },
+        mermaid: `graph TD
+    A["Candidate Text"] --> B["BERT/RoBERTa Encode"]
+    C["Reference Text"] --> D["BERT/RoBERTa Encode"]
+    B --> E["Token Embeddings"]
+    D --> F["Token Embeddings"]
+    E --> G["Greedy Match: max cos_sim"]
+    F --> G
+    G --> H["Precision: hyp -> ref"]
+    G --> I["Recall: ref -> hyp"]
+    H --> J["F1 = 2PR/(P+R)"]
+    I --> J
+    J --> K["BERTScore"]
+
+    style B fill:#e1bee7
+    style D fill:#e1bee7
+    style K fill:#ffcdd2`,
+        tip: "如果项目有 GPU 资源且对评估质量要求高，BERTScore 是当前最佳选择。没有 GPU 可用 distilbert-base 来平衡速度和准确性。",
+        warning: "BERTScore 不是万能的。生成文本中添加了无关但语义合理的句子，BERTScore 可能反而上升。需要结合 BLEU 等基于匹配的指标综合判断。",
+      },
+      {
+        title: "7. 实战：sacrebleu 与 evaluate 库工具链",
+        body: `理论学完了，现在进入实战。在实际工程中，我们很少手写 BLEU 或 ROUGE 计算——而是使用成熟的工具库。本节介绍两个最主流的工具：sacrebleu（BLEU 的标准实现）和 evaluate（Hugging Face 的统一评估框架）。
+
+sacrebleu 的设计哲学是可复现性。传统 BLEU 实现有很多变体（分词方式不同、平滑方法不同、是否大小写敏感等），导致同一组翻译用不同工具算出的 BLEU 分数不同。sacrebleu 通过标准化所有细节来确保：同样的输入一定得到同样的输出。
+
+sacrebleu 的核心特性包括：自动分词支持 131 种语言；统一的平滑处理；内置标准测试集如 WMT；直接输出带签名的 BLEU 分数包含所有配置信息；支持多参考和段级评分。
+
+evaluate 库是 Hugging Face 推出的统一评估框架。它用一个简洁的 API 封装了 50 多种评估指标——BLEU、ROUGE、METEOR、BERTScore 等——全部用同一个接口调用。最佳实践：论文中报告 BLEU 用 sacrebleu，实验对比用 evaluate，需要语义评估用 BERTScore，最终决策结合多个指标综合判断。`,
+        code: [
+          {
+            lang: "python",
+            code: `# sacrebleu practical usage
+print("=== sacrebleu Practical Guide ===\\n")
+
+print("# Install: pip install sacrebleu")
+print()
+print("import sacrebleu")
+print()
+
+print("# 1. Basic BLEU calculation:")
+print("refs = ['the cat sat on the mat', 'a cat is sitting on the mat']")
+print("hyps = ['the cat sat on the mat']")
+print("bleu = sacrebleu.corpus_bleu(hyps, [refs])")
+print("print(bleu.score)  # Output: 100.0")
+print()
+
+print("# 2. Signed output (required for papers):")
+print("print(bleu.format())")
+print("# BLEU = 45.23 67.8/48.9/38.2/30.1 (BP = 1.000 ratio = 1.05)")
+print()
+
+print("# 3. Built-in test sets:")
+print("# Command line: sacrebleu -t wmt17 -l zh-en < hyp.txt")
+print()
+
+print("# 4. chrF: character-level F-score")
+print("# Better for morphologically rich languages")
+print("chrf = sacrebleu.corpus_chrf(hyps, [refs])")
+print()
+
+print("# 5. TER: Translation Edit Rate")
+print("# Lower is better (measures edit distance)")
+print("ter = sacrebleu.corpus_ter(hyps, [refs])")`,
+          },
+          {
+            lang: "python",
+            code: `# Hugging Face evaluate library
+print("=== evaluate Library ===\\n")
+
+print("from evaluate import load")
+print()
+
+print("# 1. Load metrics:")
+print("bleu = load('bleu')")
+print("rouge = load('rouge')")
+print("meteor = load('meteor')")
+print("bertscore = load('bertscore')")
+print()
+
+print("# 2. Unified API:")
+print("predictions = ['the cat sat on the mat']")
+print("references = ['the cat sat on the mat']")
+print()
+
+print("bleu_result = bleu.compute(")
+print("    predictions=predictions,")
+print("    references=references")
+print(")")
+print("print(bleu_result)  # {'bleu': 100.0, ...}")
+print()
+
+print("# 3. Batch evaluation:")
+print("for name in ['bleu', 'rouge', 'meteor']:")
+print("    metric = load(name)")
+print("    score = metric.compute(")
+print("        predictions=test_preds,")
+print("        references=test_refs")
+print("    )")
+print("    results[name] = score")
+print()
+
+print("# 4. Model comparison:")
+print("models = ['gpt2', 'gpt2-medium', 'gpt2-large']")
+print("for model_name in models:")
+print("    bleu = load('bleu')")
+print("    score = bleu.compute(predictions=preds, references=refs)")
+print("    print(f'{model_name}: BLEU={score[\"bleu\"]:.2f}')")`,
+          },
+        ],
+        table: {
+          headers: ["工具", "支持指标", "安装", "主要优势", "适用场景"],
+          rows: [
+            ["sacrebleu", "BLEU, chrF, TER", "pip install", "可复现、内置测试集", "论文报告 BLEU"],
+            ["evaluate", "50+ 指标", "pip install evaluate", "统一 API、易用", "实验对比"],
+            ["nltk.translate", "BLEU, METEOR", "pip install nltk", "轻量、无外部依赖", "快速原型"],
+            ["rouge-score", "ROUGE", "pip install rouge-score", "Google 官方实现", "摘要评估"],
+            ["bert-score", "BERTScore", "pip install bert-score", "语义评估", "高质量评估"],
+          ],
+        },
+        mermaid: `graph TD
+    A["Model Output"] --> B{"Choose Tool?"}
+    B -->|"Paper"| C["sacrebleu"]
+    B -->|"Experiment"| D["evaluate"]
+    B -->|"Semantic"| E["bert-score"]
+    B -->|"Prototype"| F["nltk.translate"]
+
+    C --> G["BLEU + Signature"]
+    D --> H["Multi-metric Dict"]
+    E --> I["P/R/F1 Similarity"]
+    F --> J["BLEU/METEOR"]
+
+    G --> K["Final Report"]
+    H --> K
+    I --> K
+    J --> K
+
+    style B fill:#fff9c4
+    style K fill:#e1bee7`,
+        tip: "论文中报告 BLEU 分数时，一定要用 sacrebleu 并附上签名输出。这确保了其他研究者可以用你的配置复现结果——这是学术诚信的基本要求。",
+        warning: "不要在论文中报告自己手写的 BLEU 实现结果。不同实现之间的差异可能导致 1-3 分的 BLEU 差距，足以改变结论。始终使用 sacrebleu。",
       },
     ],
 };

@@ -11,177 +11,131 @@ export const article: Article = {
     level: "高级",
     content: [
       {
-        title: "1. 视频表示学习",
-        body: `视频表示学习是视频理解任务的基础，目标是将包含时间维度的视频数据编码为紧凑且具有语义信息的向量表示。与静态图像不同，视频同时包含空间信息（每一帧的视觉内容）和时间信息（帧间的动态变化），因此视频表示学习需要同时捕获这两个维度。
+        title: "1. 视频表示学习：从 3D CNN 到 TimeSformer",
+        body: `视频理解的首要挑战是如何对时空信息进行有效编码。传统的 2D CNN 只能捕获单帧的空间特征，无法建模帧间的时序动态关系。3D CNN 通过将卷积核扩展到时空三维，同时提取空间纹理和时间运动信息。C3D 和 I3D 是早期的代表性工作，其中 I3D 通过膨胀的 2D 卷积初始化 3D 卷积权重，利用 ImageNet 预训练大幅提升了视频分类精度。
 
-目前主流的视频表示方法可以分为三类：基于 2D CNN 的方法、基于 3D CNN 的方法、以及基于 Transformer 的方法。2D CNN 方法对每一帧独立提取特征后再做时间池化，计算效率高但时间建模能力有限。3D CNN 方法（如 C3D、I3D、SlowFast）直接在时空三维卷积核上操作，能够捕获短时动态，但参数量和计算成本较高。Vision Transformer 方法（如 Video Swin Transformer、TimeSformer）将自注意力机制扩展到时间维度，在大规模数据集上展现出最强的表示能力。
+然而，3D CNN 存在两个本质缺陷：一是感受野受限于卷积核大小，难以捕获长距离时间依赖；二是计算复杂度随帧数呈立方增长，处理长视频成本极高。TimeSformer 引入 Transformer 架构到视频领域，将时空注意力分解为时间注意力和空间注意力的乘积，显著降低了计算量。在相同的计算预算下，TimeSformer 能够处理更长的视频序列，在 Kinetics-400 数据集上取得了超越 3D ResNet 的效果。
 
-视频表示学习面临的核心挑战之一是时间尺度的多样性。一个动作可能持续几帧（如眨眼），也可能持续数十秒（如做饭）。好的视频表示需要在多个时间粒度上都能提取有意义的特征。SlowFast 网络通过双路径架构解决了这一问题：慢路径以低帧率捕获空间语义，快路径以高帧率捕获快速运动，两者通过侧向连接进行信息融合。
-
-另一个重要挑战是视频数据的计算开销。一段 30 秒 30fps 的视频包含 900 帧，即使只采样其中的一部分，处理量也远超单张图像。因此，视频表示学习中的帧采样策略、时间感受野设计和计算优化都是实际应用中不可忽视的工程问题。`,
+后续的视频 Transformer 变体如 Video Swin Transformer 进一步引入了层次化窗口注意力机制，在多个视频理解基准上刷新了纪录。这些方法的核心思想是将视频的时空建模从局部卷积操作转移到全局注意力计算，使模型能够自适应地关注视频中关键的时间和空间区域。`,
         code: [
           {
             lang: "python",
             code: `import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from einops import rearrange
 
-class VideoRepresentation3D(nn.Module):
-    """基于 3D CNN 的视频表示学习
-    使用时空卷积核同时捕获空间和时间特征
-    """
+class TimeSformerBlock(nn.Module):
+    """TimeSformer 时空分解注意力块"""
 
-    def __init__(self, num_classes: int = 400, backbone: str = "resnet3d"):
+    def __init__(self, dim: int, num_heads: int, num_frames: int,
+                 num_patches: int, mlp_ratio: float = 4.0, dropout: float = 0.1):
         super().__init__()
-        # 3D 卷积骨干网络
-        self.stem = nn.Sequential(
-            nn.Conv3d(3, 64, kernel_size=(3, 7, 7), stride=(1, 2, 2),
-                      padding=(1, 3, 3), bias=False),
-            nn.BatchNorm3d(64),
-            nn.ReLU(inplace=True),
-            nn.MaxPool3d(kernel_size=(1, 3, 3), stride=(1, 2, 2),
-                         padding=(0, 1, 1))
-        )
+        self.num_frames = num_frames
+        self.num_patches = num_patches
 
-        # 残差块 (简化表示)
-        self.layer1 = self._make_layer(64, 64, blocks=3, stride=1)
-        self.layer2 = self._make_layer(64, 128, blocks=4, stride=2)
-        self.layer3 = self._make_layer(128, 256, blocks=6, stride=2)
-        self.layer4 = self._make_layer(256, 512, blocks=3, stride=2)
+        # 时间注意力：沿时间维度计算
+        self.temporal_norm = nn.LayerNorm(dim)
+        self.temporal_attn = nn.MultiheadAttention(dim, num_heads, dropout=dropout, batch_first=True)
 
-        # 分类头
-        self.avgpool = nn.AdaptiveAvgPool3d((1, 1, 1))
-        self.fc = nn.Linear(512, num_classes)
+        # 空间注意力：沿空间维度计算
+        self.spatial_norm = nn.LayerNorm(dim)
+        self.spatial_attn = nn.MultiheadAttention(dim, num_heads, dropout=dropout, batch_first=True)
 
-    def _make_layer(self, in_channels: int, out_channels: int,
-                    blocks: int, stride: int) -> nn.Sequential:
-        layers = [self._basic_block(in_channels, out_channels, stride)]
-        for _ in range(1, blocks):
-            layers.append(self._basic_block(out_channels, out_channels, 1))
-        return nn.Sequential(*layers)
-
-    def _basic_block(self, in_ch: int, out_ch: int, stride: int) -> nn.Module:
-        return nn.Sequential(
-            nn.Conv3d(in_ch, out_ch, kernel_size=(3, 3, 3),
-                      stride=(1, stride, stride), padding=1, bias=False),
-            nn.BatchNorm3d(out_ch),
-            nn.ReLU(inplace=True),
-            nn.Conv3d(out_ch, out_ch, kernel_size=(3, 3, 3),
-                      stride=1, padding=1, bias=False),
-            nn.BatchNorm3d(out_ch),
+        self.mlp_norm = nn.LayerNorm(dim)
+        self.mlp = nn.Sequential(
+            nn.Linear(dim, int(dim * mlp_ratio)),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(int(dim * mlp_ratio), dim),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """输入: [B, C, T, H, W] 输出: [B, num_classes]"""
-        x = self.stem(x)
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
-        x = self.avgpool(x)
-        x = torch.flatten(x, 1)
-        return self.fc(x)`
+        # x: [B, T * P, D] -> [B, T, P, D]
+        B, _, D = x.shape
+        x = x.reshape(B, self.num_frames, self.num_patches, D)
+
+        # 时间注意力：固定空间位置，跨帧交互
+        x_t = rearrange(x, "b t p d -> (b p) t d")
+        x_t = x_t + self.temporal_attn(self.temporal_norm(x_t), x_t, x_t)[0]
+
+        # 空间注意力：固定时间帧，空间位置交互
+        x_t = rearrange(x_t, "(b p) t d -> (b t) p d", b=B, p=self.num_patches)
+        x_t = x_t + self.spatial_attn(self.spatial_norm(x_t), x_t, x_t)[0]
+
+        # MLP
+        x_t = rearrange(x_t, "(b t) p d -> b t p d", b=B, p=self.num_patches)
+        x_t = x_t.reshape(B, self.num_frames * self.num_patches, D)
+        x_t = x_t + self.mlp(self.mlp_norm(x_t))
+        return x_t`
           },
           {
             lang: "python",
-            code: `# 帧采样策略对比
+            code: `# 3D CNN vs TimeSformer 计算量对比
 import torch
-import numpy as np
 
-class FrameSampler:
-    """视频帧采样策略实现
-    不同采样策略对视频表示质量有显著影响
+def calc_3d_cnn_flops(input_size, kernel_size, channels_in, channels_out):
+    """计算 3D 卷积的 FLOPs
+    公式: T*H*W * Co * Ci * Kt * Kh * Kw
     """
+    T, H, W = input_size
+    Kt, Kh, Kw = kernel_size
+    flops = T * H * W * channels_out * channels_in * Kt * Kh * Kw
+    return flops
 
-    @staticmethod
-    def uniform_sample(total_frames: int, num_frames: int) -> list[int]:
-        """均匀采样：等间隔抽取帧
-        优点: 覆盖整个视频，适合长视频
-        缺点: 可能错过关键动作瞬间
-        """
-        indices = np.linspace(0, total_frames - 1, num_frames, dtype=int)
-        return indices.tolist()
+def calc_timesformer_flops(num_frames, num_patches, dim, num_heads):
+    """计算 TimeSformer 单块的 FLOPs
+    时间注意力: P * T^2 * D  (固定空间位置，跨 T 帧)
+    空间注意力: T * P^2 * D  (固定时间帧，跨 P 空间块)
+    相比全注意力 T^2 * P^2 * D，节省了大量计算
+    """
+    temporal_flops = num_patches * (num_frames ** 2) * dim
+    spatial_flops = num_frames * (num_patches ** 2) * dim
+    total = temporal_flops + spatial_flops
+    full_attn_flops = (num_frames ** 2) * (num_patches ** 2) * dim
+    savings = (1 - total / full_attn_flops) * 100
+    return total, full_attn_flops, savings
 
-    @staticmethod
-    def random_sample(total_frames: int, num_frames: int) -> list[int]:
-        """随机采样：随机抽取帧（训练时使用）
-        优点: 数据增强效果，提高泛化
-        缺点: 可能采样到无信息量的帧
-        """
-        return sorted(np.random.choice(total_frames, num_frames,
-                                        replace=False).tolist())
-
-    @staticmethod
-    def segment_sample(total_frames: int, num_frames: int) -> list[int]:
-        """分段采样：每段随机取一帧
-        优点: 兼顾覆盖性和随机性
-        缺点: 实现稍复杂
-        """
-        segment_size = total_frames // num_frames
-        indices = []
-        for i in range(num_frames):
-            start = i * segment_size
-            end = min((i + 1) * segment_size, total_frames)
-            indices.append(np.random.randint(start, end))
-        return indices
-
-    @staticmethod
-    def dense_sample(total_frames: int, num_frames: int,
-                     num_clips: int = 10) -> list[list[int]]:
-        """密集采样：多次偏移采样（测试时使用）
-        优点: 最全面，精度最高
-        缺点: 计算量 num_clips 倍增长
-        """
-        clips = []
-        stride = max(total_frames - num_frames, 1) // num_clips
-        for i in range(num_clips):
-            start = i * stride
-            indices = np.linspace(start, min(start + num_frames - 1,
-                            total_frames - 1), num_frames, dtype=int)
-            clips.append(indices.tolist())
-        return clips
-
-# 采样策略选择建议:
-# 训练阶段: segment_sample (兼顾覆盖与增强)
-# 测试阶段: dense_sample (追求精度)
-# 实时推理: uniform_sample (追求速度)`
+# 对比：16帧、224x224 输入
+flops_3d = calc_3d_cnn_flops((16, 224, 224), (3, 3, 3), 64, 128)
+tf_total, tf_full, savings = calc_timesformer_flops(16, 196, 768, 12)
+print(f"3D Conv FLOPs:  {flops_3d/1e9:.1f}G")
+print(f"TimeSformer FLOPs: {tf_total/1e9:.1f}G (分解)")
+print(f"Full Attention:    {tf_full/1e9:.1f}G")
+print(f"节省: {savings:.1f}%")`
           }
         ],
         table: {
-          headers: ["模型", "架构", "参数量", "Kinetics-400 Top-1", "FLOPs (G)", "特点"],
+          headers: ["模型", "核心机制", "时空建模", "计算复杂度", "长视频能力"],
           rows: [
-            ["C3D", "3D CNN", "60M", "72.8%", "38", "首个成功3D卷积网络"],
-            ["I3D", "3D CNN", "28M", "80.7%", "30", "双流架构+ImageNet预训练"],
-            ["SlowFast", "3D CNN", "36M", "81.8%", "52", "双路径快慢网络"],
-            ["TimeSformer", "Transformer", "121M", "79.6%", "68", "分离时空自注意力"],
-            ["Video Swin", "Transformer", "88M", "84.9%", "103", "层级化窗口注意力"],
-            ["X3D", "3D CNN", "4M", "79.1%", "2", "高效移动端架构"]
+            ["C3D", "3D 卷积", "局部时空", "O(T*H*W*K^3*C^2)", "弱（固定感受野）"],
+            ["I3D", "膨胀 3D 卷积", "局部+膨胀感受野", "O(T*H*W*K^3*C^2)", "中（可调节膨胀率）"],
+            ["TimeSformer", "分解注意力", "全局时空", "O(T*P^2*T^2*D)", "强（全局注意力）"],
+            ["Video Swin", "窗口移位注意力", "层次化局部+全局", "O(T*P*W^2*D)", "强（层次化窗口）"],
+            ["X3D", "扩展 2D 网络", "时序扩展", "O(T*H*W*K^2*C^2)", "中（可扩展帧数）"]
           ]
         },
         mermaid: `graph TD
-    A["输入视频\n[T, H, W, C]"] --> B{"特征提取方式"}
-    B --> C["2D CNN\n逐帧提取"]
-    B --> D["3D CNN\n时空卷积"]
-    B --> E["Transformer\n自注意力"]
-    C --> C1["时间池化\nAvg/Max/LSTM"]
-    D --> D1["SlowFast\n双路径融合"]
-    E --> E1["时空注意力\n分解/联合"]
-    C1 --> F["视频表示\n[D 维向量]"]
-    D1 --> F
-    E1 --> F
-    F --> G["下游任务\n分类/检测/检索"]`,
-        tip: "对于资源受限的场景，X3D 系列提供了从 XS 到 XL 的多尺度模型，在精度和计算成本之间灵活取舍",
-        warning: "3D 卷积的内存消耗随时间维度线性增长，处理超过 64 帧的视频时务必使用梯度累积或减小 batch size"
+    A["输入视频\nT x H x W x 3"] --> B["Patch 切分\nT x (P x D)"]
+    B --> C["时间位置编码"]
+    B --> D["空间位置编码"]
+    C --> E["时间自注意力\n跨帧交互"]
+    D --> F["空间自注意力\n帧内交互"]
+    E --> G["时序融合特征\nT x D"]
+    F --> G
+    G --> H["分类头\n全连接层"]
+    H --> I["视频类别\n概率分布"]`,
+        tip: "TimeSformer 的时空分解注意力将复杂度从 O(T^2 * P^2 * D) 降低到 O(T * P^2 * D + P * T^2 * D)，在 16 帧 196 个 patch 的场景下节省了约 96% 的计算量",
+        warning: "3D CNN 的参数量随时间维度线性增长，当输入帧数超过 64 帧时 GPU 显存容易溢出。处理长视频时应使用 TimeSformer 或 Video Swin 等基于 Transformer 的方法"
       },
       {
-        title: "2. 视频-文本预训练",
-        body: `视频-文本预训练（Video-Text Pre-training）旨在通过学习大规模视频-文本对，获得通用的跨模态视频理解能力。与纯视觉预训练不同，视频-文本预训练同时利用视觉信号和语言信号，使模型能够理解视频中发生的动作、物体、场景及其与语言描述的对应关系。
+        title: "2. 视频-文本预训练：VideoCLIP 与 CLIP4Clip",
+        body: `视频-文本预训练的目标是学习跨模态的统一表示，使视频特征和文本特征能够在同一个嵌入空间中进行比较和检索。这一任务的核心挑战在于视频数据相比图像增加了时间维度，导致数据量、计算复杂度和标注成本都呈数量级增长。
 
-预训练范式的发展经历了三个主要阶段：对比学习阶段、掩码建模阶段、以及生成式预训练阶段。对比学习方法（如 CLIP4Clip、Frozen in Time）使用 InfoNCE 损失对齐视频和文本嵌入，使语义相关的视频-文本对在共享空间中靠近。掩码建模方法（如 VideoMAE、BEVT）则通过掩码视频片段或文本 token，训练模型重建被遮蔽的内容，学习更深层的语义表示。
+VideoCLIP 借鉴了 CLIP 的成功经验，将对比学习扩展到视频-文本对。给定一批视频-文本对，模型通过 InfoNCE 损失函数拉近匹配对的嵌入表示，同时推远不匹配对。关键创新在于设计了零样本视频分类、时序定位和视频问答三种评估协议，证明了大规模视频-文本对比学习能够产生可迁移的通用视觉-语言表示。
 
-生成式预训练是当前的主流方向。通过将视频理解为 token 序列（通过视觉量化器如 VQGAN），模型可以使用类似语言模型的架构（如 Transformer Decoder）进行自回归生成。这种方法的优势在于统一了理解和生成的框架，同一个模型既可以判断视频-文本匹配度，也可以根据文本生成视频描述。
+CLIP4Clip 针对短视频检索场景进行了优化。与 VideoCLIP 使用全局 CLS token 不同，CLIP4Clip 提出了 Mean Pooling 策略，对所有帧的特征进行平均池化后再与文本嵌入计算相似度。这种方法更加鲁棒，因为单个 CLS token 可能无法充分表示视频中跨多个时刻的内容。CLIP4Clip 在 DiDeMo 和 ActivityNet Captions 等检索基准上取得了当时的最优结果。
 
-预训练数据规模是决定模型能力的关键因素。WebVid-2.5M 包含 250 万个 YouTube 视频-文本对，HowTo100M 包含约 130 万个烹饪教学视频，而 LAION-5B 虽然以图像为主但也包含大量视频数据。大规模、多样化的预训练数据是模型获得零样本泛化能力的基础。`,
+预训练数据的质量直接决定了模型性能。HowTo100M 包含 136 万个视频-文本对，是早期最大的视频-文本数据集。WebVid-2M 和 YT-Temporal-1B 则进一步扩展了数据规模。这些数据集的构建方式通常是利用视频的标题、描述或自动生成的字幕作为文本监督信号。`,
         code: [
           {
             lang: "python",
@@ -189,1253 +143,846 @@ class FrameSampler:
 import torch.nn as nn
 import torch.nn.functional as F
 
-class VideoTextContrastive(nn.Module):
-    """视频-文本对比学习预训练
-    扩展 CLIP 架构到视频模态
-    """
+class VideoCLIPTrainer(nn.Module):
+    """VideoCLIP 对比学习训练框架"""
 
     def __init__(self, video_encoder, text_encoder,
-                 video_dim: int = 512, text_dim: int = 512,
-                 shared_dim: int = 512, temperature: float = 0.07):
+                 embed_dim: int = 512, temperature: float = 0.07):
         super().__init__()
         self.video_encoder = video_encoder
         self.text_encoder = text_encoder
-
-        # 投影到共享空间
-        self.video_proj = nn.Linear(video_dim, shared_dim)
-        self.text_proj = nn.Linear(text_dim, shared_dim)
-
-        # 可学习温度参数
-        self.logit_scale = nn.Parameter(torch.tensor(
-            torch.log(torch.tensor(1.0 / temperature))
-        ))
+        self.video_proj = nn.Linear(video_encoder.output_dim, embed_dim)
+        self.text_proj = nn.Linear(text_encoder.output_dim, embed_dim)
+        self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / temperature))
 
     def forward(self, videos: torch.Tensor, texts: torch.Tensor,
-                video_masks: torch.Tensor = None):
-        """
-        videos: [B, T, C, H, W]
-        texts: [B, L] tokenized text
-        video_masks: [B] 有效帧掩码（可选）
-        """
-        # 视频编码
-        video_features = self.video_encoder(videos)  # [B, D_v]
-        video_features = F.normalize(self.video_proj(video_features), dim=-1)
+                text_mask: torch.Tensor) -> dict:
+        # 编码
+        video_feat = self.video_encoder(videos)  # [B, T, D_v]
+        text_feat = self.text_encoder(texts, text_mask)  # [B, D_t]
 
-        # 文本编码
-        text_features = self.text_encoder(texts)  # [B, D_t]
-        text_features = F.normalize(self.text_proj(text_features), dim=-1)
+        # 池化视频特征：对帧做平均池化
+        video_feat = video_feat.mean(dim=1)  # [B, D_v]
+
+        # 投影到统一嵌入空间
+        v_emb = F.normalize(self.video_proj(video_feat), dim=-1)
+        t_emb = F.normalize(self.text_proj(text_feat), dim=-1)
 
         # 相似度矩阵
-        scale = self.logit_scale.exp()
-        logits = scale * video_features @ text_features.T  # [B, B]
+        logit_scale = self.logit_scale.exp()
+        logits = logit_scale * v_emb @ t_emb.T
 
-        # 对称对比损失
-        batch_size = video_features.size(0)
-        labels = torch.arange(batch_size, device=video_features.device)
-        loss_video = F.cross_entropy(logits, labels)
-        loss_text = F.cross_entropy(logits.T, labels)
-
-        return (loss_video + loss_text) / 2
-
-    def get_similarity(self, videos: torch.Tensor, texts: torch.Tensor):
-        """获取视频-文本相似度"""
-        vf = F.normalize(self.video_proj(self.video_encoder(videos)), dim=-1)
-        tf = F.normalize(self.text_proj(self.text_encoder(texts)), dim=-1)
-        return (vf @ tf.T) * self.logit_scale.exp()`
+        # InfoNCE 双向损失
+        labels = torch.arange(logits.size(0), device=logits.device)
+        loss_v2t = F.cross_entropy(logits, labels)
+        loss_t2v = F.cross_entropy(logits.T, labels)
+        loss = (loss_v2t + loss_t2v) / 2
+        return {"loss": loss, "logits": logits}`
           },
           {
             lang: "python",
-            code: `# 视频-文本掩码建模
+            code: `# CLIP4Clip 的 Mean Pooling vs CLS Pooling 对比
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 
-class VideoMaskedModeling(nn.Module):
-    """视频掩码建模预训练
-    掩码视频片段和文本token，训练模型重建
+def cls_pooling(frame_features: torch.Tensor) -> torch.Tensor:
+    """使用 CLS token（第一帧位置）作为视频表示"""
+    return frame_features[:, 0, :]  # [B, D]
+
+def mean_pooling(frame_features: torch.Tensor,
+                 attention_mask: torch.Tensor = None) -> torch.Tensor:
+    """对所有帧做平均池化（CLIP4Clip 方法）
+    attention_mask: [B, T] 标记有效帧
     """
+    if attention_mask is not None:
+        # 只平均有效帧
+        mask = attention_mask.unsqueeze(-1).float()  # [B, T, 1]
+        summed = (frame_features * mask).sum(dim=1)  # [B, D]
+        counts = mask.sum(dim=1).clamp(min=1e-9)  # [B, 1]
+        return summed / counts
+    return frame_features.mean(dim=1)  # [B, D]
 
-    def __init__(self, video_encoder_dim: int = 768,
-                 text_vocab_size: int = 30522,
-                 num_patches: int = 196,
-                 mask_ratio: float = 0.4):
-        super().__init__()
-        self.mask_ratio = mask_ratio
+def max_pooling(frame_features: torch.Tensor) -> torch.Tensor:
+    """对所有帧做最大池化（捕获关键帧信息）"""
+    return frame_features.max(dim=1)[0]  # [B, D]
 
-        # 视频掩码重建头
-        self.video_decoder = nn.Sequential(
-            nn.LayerNorm(video_encoder_dim),
-            nn.Linear(video_encoder_dim, video_encoder_dim * 4),
-            nn.GELU(),
-            nn.Linear(video_encoder_dim * 4, video_encoder_dim),
-        )
+# 实验比较三种池化策略
+frame_features = torch.randn(32, 64, 512)  # 32个样本，每段64帧
+mask = torch.ones(32, 64)
+# 模拟：后20帧为填充帧
+mask[:, 44:] = 0
 
-        # 文本掩码预测头
-        self.text_lm_head = nn.Sequential(
-            nn.LayerNorm(video_encoder_dim),
-            nn.Linear(video_encoder_dim, video_encoder_dim),
-            nn.GELU(),
-            nn.LayerNorm(video_encoder_dim),
-            nn.Linear(video_encoder_dim, text_vocab_size),
-        )
+cls_emb = cls_pooling(frame_features)
+mean_emb = mean_pooling(frame_features, mask)
+max_emb = max_pooling(frame_features)
 
-        # 跨模态注意力融合
-        self.cross_attn = nn.MultiheadAttention(
-            embed_dim=video_encoder_dim, num_heads=8, batch_first=True
-        )
-
-    def forward(self, video_features: torch.Tensor, text_ids: torch.Tensor,
-                video_mask: torch.Tensor, text_mask: torch.Tensor):
-        """
-        video_features: [B, T*P, D] 视频patch特征
-        text_ids: [B, L] 文本token
-        video_mask: [B, T*P] 视频掩码 (1=masked)
-        text_mask: [B, L] 文本掩码
-        """
-        # 跨模态交互
-        text_masked = text_ids.clone()
-        text_masked[text_mask.bool()] = 0  # 特殊token
-        # 简化处理: 用编码器后的特征做交叉注意力
-        # 实际中应该用完整的text embedding
-
-        # 视频掩码重建
-        video_recon = self.video_decoder(video_features * video_mask.unsqueeze(-1))
-
-        # 文本掩码预测
-        # 简化: 用交叉注意力增强后的特征
-        attended, _ = self.cross_attn(
-            video_features, video_features, video_features
-        )
-        text_logits = self.text_lm_head(attended.mean(dim=1, keepdim=True))
-
-        return video_recon, text_logits
-
-    def compute_loss(self, video_recon: torch.Tensor,
-                     target_video: torch.Tensor,
-                     text_logits: torch.Tensor,
-                     target_text: torch.Tensor):
-        """计算掩码重建损失"""
-        # 视频MSE重建损失
-        video_loss = F.mse_loss(video_recon, target_video)
-
-        # 文本交叉熵损失
-        text_loss = F.cross_entropy(
-            text_logits.view(-1, text_logits.size(-1)),
-            target_text.view(-1)
-        )
-
-        return video_loss + text_loss`
+print(f"CLS pooling:  {cls_emb.shape}, 取第 0 帧")
+print(f"Mean pooling: {mean_emb.shape}, 平均有效 44 帧")
+print(f"Max pooling:  {max_emb.shape}, 取各维度最大值")`
           }
         ],
         table: {
-          headers: ["预训练方法", "代表模型", "训练目标", "数据规模", "下游迁移能力"],
+          headers: ["模型", "视频编码", "文本编码", "训练目标", "数据规模"],
           rows: [
-            ["对比学习", "CLIP4Clip", "InfoNCE 图文匹配", "WebVid 2.5M", "零样本检索强"],
-            ["掩码建模", "VideoMAE", "重建被掩码patch", "Kinetics 400K", "分类/检测强"],
-            ["图文对齐", "Frozen in Time", "多任务联合训练", "WebVid+HowTo100M", "通用理解均衡"],
-            ["生成式", "VideoCoCa", "对比+生成联合", "LAION-5B 子集", "描述生成强"],
-            ["指令微调", "Video-LLaMA", "指令跟随对话", "WebVid+指令数据", "对话问答强"]
+            ["VideoCLIP", "ViViT / TimeSformer", "BERT", "对比学习", "WebVid-2M (250万对)"],
+            ["CLIP4Clip", "CLIP 帧编码器", "CLIP 文本编码器", "对比学习 + 相似度学习", "HowTo100M (136万对)"],
+            ["FrozenBiLM", "冻结的图像编码器", "双向语言模型", "文本生成辅助", "WebVid-2M"],
+            ["X-CLIP", "3D 跨帧注意力", "BERT", "跨帧对比学习", "WebVid-2M + HowTo100M"],
+            ["InternVideo", "时序压缩 + 空间编码", "BERT", "对比 + 生成联合训练", "大规模混合数据集"]
           ]
         },
-        mermaid: `graph TD
-    A["大规模视频文本对"] --> B{"预训练策略"}
-    B --> C["对比学习\nInfoNCE"]
-    B --> D["掩码建模\nMLM+MVM"]
-    B --> E["生成式\n自回归"]
-    C --> C1["视频文本\n嵌入对齐"]
-    D --> D1["重建\n被掩码内容"]
-    E --> E1["文本生成\n视频描述"]
-    C1 --> F["通用视频语言\n表示模型"]
-    D1 --> F
-    E1 --> F
-    F --> G["下游任务微调\n分类/检索/问答"]`,
-        tip: "对比学习 + 掩码建模的联合预训练（多任务学习）通常优于单一目标，因为对比学习提供全局语义对齐，掩码建模提供细粒度理解",
-        warning: "视频预训练的数据清洗至关重要，自动生成的视频-文本对（如 ASR 转写）包含大量噪声，直接使用会显著降低模型质量"
-      },
-      {
-        title: "3. 视频问答（Video QA）",
-        body: `视频问答（Video Question Answering, Video QA）是视频理解领域最具挑战性的任务之一，要求模型同时理解视频内容和自然语言问题，并生成准确的答案。这个问题涉及多模态推理：模型需要从视频中提取视觉信息，从问题中提取语义信息，然后将两者融合进行逻辑推理。
-
-Video QA 可以分为多个子类型：基于动作的问答（什么动作正在发生？）、基于计数的问答（视频中有几个人？）、基于关系的问答（物体之间的空间关系是什么？）、以及基于因果的问答（为什么这个人做了那个动作？）。难度从低到高递增，从简单的视觉感知到复杂的因果推理。
-
-当前主流的 Video QA 方法基于多模态 Transformer 架构。视频帧通过视觉编码器（如 CLIP 或 ViT）提取特征，问题通过语言编码器（如 BERT）提取特征，然后通过跨模态注意力机制进行信息融合。融合后的表示通过分类头或生成式解码器产生答案。
-
-数据集方面，TGIF-QA 包含约 10 万个 GIF-问题对，MSRVTT-QA 基于 MSR-VTT 数据集构建了约 20 万个问答对，ActivityNet-QA 则包含 1 万个关于长视频中复杂活动的问答。不同数据集的侧重点各异，评估模型的泛化能力时需要在多个数据集上测试。`,
-        code: [
-          {
-            lang: "python",
-            code: `import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class VideoQAModel(nn.Module):
-    """基于 Transformer 的视频问答模型
-    多模态融合: 视频特征 + 问题特征 -> 答案
-    """
-
-    def __init__(self, video_dim: int = 512, text_dim: int = 768,
-                 hidden_dim: int = 512, num_heads: int = 8,
-                 num_layers: int = 4, num_answers: int = 3000):
-        super().__init__()
-
-        # 模态投影
-        self.video_proj = nn.Linear(video_dim, hidden_dim)
-        self.text_proj = nn.Linear(text_dim, hidden_dim)
-
-        # 可学习的位置编码
-        self.video_pos = nn.Parameter(torch.randn(1, 64, hidden_dim))
-        self.text_pos = nn.Parameter(torch.randn(1, 32, hidden_dim))
-
-        # 跨模态 Transformer
-        encoder_layer = nn.TransformerEncoderLayer(
-            d_model=hidden_dim, nhead=num_heads,
-            dim_feedforward=hidden_dim * 4,
-            dropout=0.1, batch_first=True
-        )
-        self.fusion_encoder = nn.TransformerEncoder(
-            encoder_layer, num_layers=num_layers
-        )
-
-        # 答案分类头
-        self.cls_token = nn.Parameter(torch.randn(1, 1, hidden_dim))
-        self.classifier = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim),
-            nn.GELU(),
-            nn.Dropout(0.3),
-            nn.Linear(hidden_dim, num_answers)
-        )
-
-    def forward(self, video_features: torch.Tensor,
-                text_features: torch.Tensor,
-                text_mask: torch.Tensor = None):
-        """
-        video_features: [B, T, D_v] T=帧数
-        text_features:  [B, L, D_t] L=文本长度
-        """
-        B = video_features.size(0)
-
-        # 投影到统一维度
-        v = self.video_proj(video_features) + self.video_pos  # [B, T, D]
-        t = self.text_proj(text_features) + self.text_pos     # [B, L, D]
-
-        # 拼接 [CLS] token + 视频 + 文本
-        cls_tokens = self.cls_token.expand(B, -1, -1)  # [B, 1, D]
-        sequence = torch.cat([cls_tokens, v, t], dim=1)  # [B, 1+T+L, D]
-
-        # Transformer 融合
-        key_padding_mask = None
-        if text_mask is not None:
-            # 构造注意力掩码
-            total_len = 1 + video_features.size(1) + text_features.size(1)
-            text_len = text_features.size(1)
-            padding = torch.zeros(B, 1 + video_features.size(1),
-                                  dtype=torch.bool, device=video_features.device)
-            key_padding_mask = torch.cat(
-                [padding, ~text_mask.bool()], dim=1
-            )
-
-        fused = self.fusion_encoder(sequence,
-                                     src_key_padding_mask=key_padding_mask)
-
-        # 使用 [CLS] token 做分类
-        cls_output = fused[:, 0, :]
-        logits = self.classifier(cls_output)
-        return logits`
-          },
-          {
-            lang: "python",
-            code: `# 多模态推理: 组合查询机制
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class CompositionalReasoning(nn.Module):
-    """组合推理模块
-    将复杂问题分解为子问题，分别推理后组合
-    适用于需要多步推理的 Video QA
-    """
-
-    def __init__(self, dim: int = 512, num_heads: int = 8):
-        super().__init__()
-
-        # 问题分解器: 将问题映射到多个子查询
-        self.query_decomposer = nn.Linear(dim, dim * 4)
-
-        # 每个子查询的视频注意力
-        self.sub_attention = nn.ModuleList([
-            nn.MultiheadAttention(dim, num_heads, batch_first=True)
-            for _ in range(4)
-        ])
-
-        # 推理组合层
-        self.reasoning = nn.Sequential(
-            nn.Linear(dim * 4, dim * 2),
-            nn.GELU(),
-            nn.Dropout(0.1),
-            nn.Linear(dim * 2, dim),
-            nn.LayerNorm(dim),
-        )
-
-    def forward(self, question: torch.Tensor, video: torch.Tensor):
-        """
-        question: [B, D] 问题表示
-        video: [B, T, D] 视频帧特征
-        """
-        B, T, D = video.size()
-
-        # 分解为4个子查询
-        sub_queries = self.query_decomposer(question)  # [B, 4D]
-        sub_queries = sub_queries.view(B, 4, D)
-
-        # 每个子查询独立关注视频的不同部分
-        sub_outputs = []
-        for i, attn in enumerate(self.sub_attention):
-            query = sub_queries[:, i:i+1, :]  # [B, 1, D]
-            attended, weights = attn(query, video, video)  # [B, 1, D]
-            sub_outputs.append(attended.squeeze(1))
-
-        # 组合所有子查询结果
-        combined = torch.cat(sub_outputs, dim=-1)  # [B, 4D]
-        reasoning_output = self.reasoning(combined)  # [B, D]
-
-        return reasoning_output
-
-# 推理可视化 (注意力权重):
-# 子查询1: 关注 "人" -> 帧 5-15
-# 子查询2: 关注 "动作" -> 帧 10-20
-# 子查询3: 关注 "物体" -> 帧 8-25
-# 子查询4: 关注 "场景" -> 全帧`
-          }
-        ],
-        table: {
-          headers: ["数据集", "问答数量", "视频数量", "问题类型", "答案类型", "平均难度"],
-          rows: [
-            ["TGIF-QA", "166K", "72K GIF", "动作/计数/状态", "选择/数字", "中等"],
-            ["MSRVTT-QA", "204K", "10K 短视频", "通用理解", "开放/选择", "中等"],
-            ["ActivityNet-QA", "97K", "10K 长视频", "复杂活动", "开放", "困难"],
-            ["NExT-QA", "48K", "5K 视频", "因果/时序", "选择", "困难"],
-            ["EgoSchema", "5K", "5K 第一人称", "细粒度推理", "选择", "极困难"],
-            ["Video-MME", "2.7K", "900 视频", "多模态综合", "选择", "困难"]
-          ]
-        },
-        mermaid: `graph TD
-    A["输入视频\n[T, C, H, W]"] --> B["视觉编码器\nCLIP/ViT"]
-    C["自然语言问题\n\"What is the person doing?\""] --> D["文本编码器\nBERT/LLM"]
-    B --> E["视频特征\n[T, D]"]
-    D --> F["问题特征\n[L, D]"]
-    E --> G["跨模态注意力\nCross-Attention"]
+        mermaid: `graph LR
+    A["视频\nT 帧图像"] --> B["视觉编码器\nCLIP/TimeSformer"]
+    C["文本\n标题/描述"] --> D["文本编码器\nBERT/CLIP Text"]
+    B --> E["视频嵌入\nV [B, D]"]
+    D --> F["文本嵌入\nT [B, D]"]
+    E --> G["相似度矩阵\nS = V @ T.T"]
     F --> G
-    G --> H["融合表示\n[B, D]"]
-    H --> I{"推理方式"}
-    I --> J["分类头\nTop-K 答案"]
-    I --> K["生成式解码器\n开放答案"]
-    J --> L["答案"]
-    K --> L`,
-        tip: "组合推理（Compositional Reasoning）是提升 Video QA 性能的有效策略，将复杂问题分解为简单的子问题可以显著提高推理准确率，尤其是在 NExT-QA 等因果推理数据集上",
-        warning: "Video QA 模型容易出现语言先验偏差（Language Prior Bias），即仅凭问题中的词汇就能猜出答案，而不真正理解视频内容。评估时务必使用视频打乱（video shuffling）等对抗性测试"
+    G --> H["InfoNCE 损失\n双向对比"]
+    H --> I["统一的\n视频-文本空间"]`,
+        tip: "CLIP4Clip 使用预训练的 CLIP 图像编码器逐帧提取特征再做 Mean Pooling，这种方式无需额外训练视频编码器，大大降低了计算成本。对于资源有限的场景是首选方案",
+        warning: "逐帧提取 CLIP 特征的方法忽略了帧间时序关系，对于依赖动作顺序理解的任务（如时序定位）效果有限。需要考虑使用时序编码器增强时间建模能力"
       },
       {
-        title: "4. 视频描述生成（Video Captioning）",
-        body: `视频描述生成（Video Captioning）是将视频内容自动转换为自然语言描述的任务。与视频问答不同，描述生成是开放式生成任务，没有固定的答案集合，模型需要生成流畅、准确、信息丰富的自然语言句子来概括视频内容。
+        title: "3. 视频问答：从简单分类到推理式 VideoQA",
+        body: `视频问答要求模型同时理解视频内容和自然语言问题，并生成准确的答案。这是视频-语言多模态领域最具挑战性的任务之一，因为它不仅需要感知视觉内容，还需要理解问题中的语义意图，并进行多步推理才能得出答案。
 
-视频描述生成的核心架构是编码器-解码器（Encoder-Decoder）框架。编码器将视频编码为固定长度的表示（或序列化的帧特征），解码器（通常是 LSTM 或 Transformer Decoder）自回归地生成描述文本。现代方法通常使用预训练视觉编码器提取视频特征，然后训练轻量级的语言解码器。
+早期的 VideoQA 方法采用两阶段架构：首先独立编码视频和文本，然后通过注意力机制或拼接操作融合两个模态的特征，最后通过分类器生成答案。这类方法在 MSRVTT-QA 和 ActivityNet-QA 等简单数据集上取得了不错的效果，但难以处理需要时序推理和常识推理的复杂问题。
 
-描述生成的评估面临独特的挑战。传统指标如 BLEU、ROUGE 和 METEOR 基于 n-gram 重叠，无法充分评估描述的语义准确性。CIDEr 和 SPICE 指标通过引入语义相似度和场景图匹配，提供了更接近人类判断的评估标准。然而，即使是这些指标也无法完全捕捉描述的流畅性和信息完整性。
+近年来的突破性工作将大型语言模型引入 VideoQA。Video-LLaVA 和 Video-ChatGPT 将视频帧编码为视觉 token，直接注入到语言模型的词嵌入空间中，使语言模型能够像处理文本 token 一样处理视觉信息。这种方法的关键在于视觉-语言对齐投影层，它将视觉特征映射到与文本嵌入相同的空间中。通过指令微调，模型能够理解诸如这个人在做什么和这个动作的原因是什么等复杂问题。
 
-当前的研究热点包括：稠密描述生成（为视频的不同片段生成不同的描述）、多粒度描述（同时生成一句话摘要和详细段落）、以及可控描述生成（根据风格、长度、详细程度等条件控制输出）。这些方向使视频描述生成从简单的"一句话概括"发展为更灵活、更实用的能力。`,
+VideoQA 的评估通常采用精确匹配准确率（Exact Match Accuracy）和 BLEU 分数。对于多选题形式的 QA 任务，准确率是主要指标；对于生成式 QA，还需要评估生成答案的流畅性和相关性。`,
         code: [
           {
             lang: "python",
             code: `import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from transformers import CLIPVisionModel, LlamaForCausalLM
 
-class VideoCaptioning(nn.Module):
-    """基于 Transformer 的视频描述生成模型
-    编码器-解码器架构: 视频编码 -> 文本自回归生成
+class VideoLLaVA(nn.Module):
+    """Video-LLaVA: 将视频 token 注入大语言模型"""
+
+    def __init__(self, vision_model_name: str, llm_name: str,
+                 num_frames: int = 8):
+        super().__init__()
+        self.num_frames = num_frames
+        self.vision_model = CLIPVisionModel.from_pretrained(vision_model_name)
+        self.llm = LlamaForCausalLM.from_pretrained(llm_name)
+
+        # 冻结大语言模型和视觉编码器
+        for param in self.vision_model.parameters():
+            param.requires_grad = False
+        for param in self.llm.parameters():
+            param.requires_grad = False
+
+        # 视觉-语言对齐投影层
+        hidden_dim = self.llm.config.hidden_size
+        vision_dim = self.vision_model.config.hidden_size
+        self.vision_proj = nn.Sequential(
+            nn.Linear(vision_dim, hidden_dim),
+            nn.GELU(),
+            nn.Linear(hidden_dim, hidden_dim),
+        )
+
+    def encode_video(self, frames: torch.Tensor) -> torch.Tensor:
+        # frames: [B, T, C, H, W]
+        B, T, C, H, W = frames.shape
+        frames = frames.view(B * T, C, H, W)
+        # 提取 patch 特征: [B*T, N, D_v]
+        vision_out = self.vision_model(frames, output_hidden_states=True)
+        features = vision_out.hidden_states[-1][:, 1:, :]  # 去掉 CLS token
+        features = features.view(B, T, -1, vision_out.hidden_states[-1].size(-1))
+        # 平均池化时间维度
+        features = features.mean(dim=1)  # [B, N, D_v]
+        return self.vision_proj(features)  # [B, N, D_llm]
+
+    def forward(self, frames, input_ids, attention_mask, labels):
+        video_tokens = self.encode_video(frames)  # [B, N_v, D]
+        # 拼接视频 token 和文本 token 的嵌入
+        text_embeds = self.llm.get_input_embeddings()(input_ids)
+        combined = torch.cat([video_tokens, text_embeds], dim=1)
+        # 更新 attention mask
+        video_mask = torch.ones(frames.size(0), video_tokens.size(1),
+                                device=attention_mask.device, dtype=attention_mask.dtype)
+        full_mask = torch.cat([video_mask, attention_mask], dim=1)
+        return self.llm(inputs_embeds=combined, attention_mask=full_mask, labels=labels)`
+          },
+          {
+            lang: "python",
+            code: `# VideoQA 评估指标计算
+from collections import Counter
+import re
+
+def exact_match_accuracy(predictions: list[str],
+                         ground_truths: list[list[str]]) -> float:
+    """精确匹配准确率
+    每个样本可能有多个可接受的标准答案
+    """
+    def normalize(text: str) -> str:
+        text = text.lower().strip()
+        text = re.sub(r'[^a-z0-9\s]', '', text)
+        return text.strip()
+
+    correct = 0
+    for pred, truths in zip(predictions, ground_truths):
+        pred_norm = normalize(pred)
+        for truth in truths:
+            if pred_norm == normalize(truth):
+                correct += 1
+                break
+    return correct / len(predictions)
+
+def open_ended_accuracy(pred: str, answers: list[str]) -> float:
+    """开放式问题准确率（类似 VQA v2 的评分）
+    答案出现 3 次或以上计 1 分，否则计 (出现次数 * 0.3)
+    """
+    pred_norm = pred.lower().strip()
+    answer_counts = Counter(a.lower().strip() for a in answers)
+    if answer_counts[pred_norm] >= 3:
+        return 1.0
+    return min(answer_counts[pred_norm] * 0.3, 1.0)
+
+# 示例评估
+predictions = ["playing basketball", "cooking", "dancing"]
+ground_truths = [
+    ["playing basketball", "basketball"],
+    ["cooking", "preparing food"],
+    ["dancing", "doing a dance"]
+]
+acc = exact_match_accuracy(predictions, ground_truths)
+print(f"Exact Match Accuracy: {acc:.2%}")`
+          }
+        ],
+        table: {
+          headers: ["数据集", "问题类型", "答案形式", "视频数量", "评估指标"],
+          rows: [
+            ["MSRVTT-QA", "感知类", "多选/生成", "10K 视频", "准确率"],
+            ["ActivityNet-QA", "时序推理", "生成式", "10K 视频", "准确率"],
+            ["EgoSchema", "自我中心推理", "多选", "5K 视频", "准确率"],
+            ["NExT-QA", "因果推理", "多选+解释", "5.9K 视频", "准确率"],
+            ["Video-MME", "综合能力", "多选", "900 视频", "准确率"]
+          ]
+        },
+        mermaid: `graph LR
+    A["视频\nT 帧"] --> B["视觉编码器\nCLIP/ViT"]
+    C["问题\n自然语言"] --> D["文本编码器\nLLM"]
+    B --> E["视觉 token 序列\n[N_v, D]"]
+    D --> F["文本 token 嵌入\n[N_t, D]"]
+    E --> G["拼接序列\n[video_tokens + text_tokens]"]
+    F --> G
+    G --> H["大语言模型\n因果语言建模"]
+    H --> I["生成的答案\n自然语言"]`,
+        tip: "在 VideoQA 中，视觉 token 的数量直接影响计算成本。对于 8 帧输入，每帧 256 个 token 会产生 2048 个视觉 token。可以通过 token 剪枝（如 Token Merging）将 token 数量减少 50% 而不显著降低准确率",
+        warning: "直接拼接视频 token 和文本 token 会超出大语言模型的上下文长度限制。对于长视频（超过 64 帧），必须使用时序压缩或分层采样策略减少视觉 token 数量"
+      },
+      {
+        title: "4. 视频描述生成：Video Captioning",
+        body: `视频描述生成是视频-语言多模态的核心生成任务之一，要求模型将视频内容自动转化为流畅的自然语言描述。这不仅仅是将帧级信息简单拼接，而是需要理解视频中的主体、动作、时序关系以及场景上下文，然后组织成连贯的文本。
+
+传统的基于编码器-解码器架构的方法使用 3D CNN 或 LSTM 对视频进行编码，然后用语言模型（如 LSTM）逐词生成描述。这种方法生成的描述往往过于简单和模板化，难以表达复杂的多动作场景。例如，对于包含多个人物交互的视频，LSTM 解码器可能只能生成一个人在房间里这样的简单描述，而忽略了具体的互动关系和时序变化。
+
+基于 Transformer 的方法通过自注意力机制显著提升了描述质量。VideoBERT 首次将自注意力应用于视频-文本联合建模，而后续的工作如 MMT（多模态 Transformer）和 CoCa 进一步改进了跨模态对齐。最新的方法结合了指令微调的大语言模型，通过视频 token 和指令前缀引导语言模型生成更丰富和准确的描述。
+
+评估视频描述生成的常用指标包括 BLEU、METEOR、ROUGE-L 和 CIDEr。其中 CIDEr 是专门为图像/视频描述设计的指标，通过对 n-gram 进行 TF-IDF 加权，更好地衡量生成描述与参考描述之间的一致性。SPICE 则从语义解析的角度评估描述中的实体、属性和关系。`,
+        code: [
+          {
+            lang: "python",
+            code: `import torch
+import torch.nn as nn
+from transformers import GPT2LMHeadModel
+
+class VideoCaptioner(nn.Module):
+    """基于预训练语言模型的视频描述生成器"""
+
+    def __init__(self, vision_encoder, llm_model: str = "gpt2"):
+        super().__init__()
+        self.vision_encoder = vision_encoder
+        self.llm = GPT2LMHeadModel.from_pretrained(llm_model)
+        llm_dim = self.llm.config.hidden_size
+
+        # 多层投影将视觉特征映射到语言空间
+        vision_dim = vision_encoder.feature_dim
+        self.vision_proj = nn.Sequential(
+            nn.Linear(vision_dim, llm_dim),
+            nn.LayerNorm(llm_dim),
+            nn.GELU(),
+            nn.Linear(llm_dim, llm_dim),
+        )
+        # 特殊 token 表示视频输入的起始
+        self.video_token_id = self.llm.config.vocab_size  # 新增 token
+
+    def generate_caption(self, video_frames: torch.Tensor,
+                        max_length: int = 50, temperature: float = 0.7) -> str:
+        # 编码视频: [B, T, C, H, W] -> [B, N, D]
+        video_features = self.vision_encoder(video_frames)
+        video_tokens = self.vision_proj(video_features)  # [B, N, D_llm]
+
+        # 生成起始 token: [BOS]
+        batch_size = video_tokens.size(0)
+        decoder_input = torch.full((batch_size, 1),
+                                   self.llm.config.bos_token_id,
+                                   device=video_tokens.device)
+
+        # 将视频 token 作为前缀输入
+        inputs_embeds = torch.cat([video_tokens, self.llm.wte(decoder_input)], dim=1)
+
+        # 自回归生成
+        output = self.llm.generate(
+            inputs_embeds=inputs_embeds,
+            max_length=video_tokens.size(1) + max_length,
+            temperature=temperature,
+            do_sample=True,
+            pad_token_id=self.llm.config.eos_token_id,
+        )
+        # 解码为文本（跳过视频 token 部分）
+        text_tokens = output[:, video_tokens.size(1):]
+        return self.llm.tokenizer.decode(text_tokens[0], skip_special_tokens=True)`
+          },
+          {
+            lang: "python",
+            code: `# 评估指标：CIDEr 实现
+import numpy as np
+from collections import Counter
+import math
+
+class CIDErScorer:
+    """CIDEr (Consensus-based Image Description Evaluation)
+    使用 TF-IDF 加权 n-gram 匹配度评估描述质量
     """
 
-    def __init__(self, video_dim: int = 512, vocab_size: int = 10000,
-                 hidden_dim: int = 512, num_layers: int = 4,
-                 num_heads: int = 8, max_length: int = 30):
+    def __init__(self, n: int = 4, sigma: float = 6.0):
+        self.n = n
+        self.sigma = sigma
+        self.document_frequency = Counter()  # DF: 每个 n-gram 出现在多少文档中
+        self.num_documents = 0
+
+    def fit(self, references: list[list[str]]):
+        """从参考描述中学习 IDF 权重
+        references: 每个样本的参考描述列表
+        """
+        self.num_documents = len(references)
+        for refs in references:
+            # 同一样本的多个参考视为一个文档
+            seen = set()
+            for ref in refs:
+                for ngram in self._extract_ngrams(ref):
+                    if ngram not in seen:
+                        self.document_frequency[ngram] += 1
+                        seen.add(ngram)
+
+    def _extract_ngrams(self, sentence: str) -> list[str]:
+        words = sentence.lower().split()
+        ngrams = []
+        for order in range(1, self.n + 1):
+            for i in range(len(words) - order + 1):
+                ngrams.append(" ".join(words[i:i + order]))
+        return ngrams
+
+    def score(self, hypothesis: str, references: list[str]) -> float:
+        hyp_ngrams = Counter(self._extract_ngrams(hypothesis))
+        if not hyp_ngrams:
+            return 0.0
+
+        score = 0.0
+        for n in range(1, self.n + 1):
+            # 计算当前 order 的 CIDEr 分数
+            cand_ngrams = {k: v for k, v in hyp_ngrams.items() if k.count(" ") == n - 1}
+            ref_counts = []
+            for ref in references:
+                ref_ngrams = Counter(self._extract_ngrams(ref))
+                ref_counts.append({k: v for k, v in ref_ngrams.items() if k.count(" ") == n - 1})
+
+            # TF-IDF 加权
+            ngram_score = 0.0
+            for ngram, count in cand_ngrams.items():
+                tf = count
+                idf = math.log(self.num_documents / (1 + self.document_frequency.get(ngram, 0)))
+                # 与参考的共识
+                max_ref = max(rc.get(ngram, 0) for rc in ref_counts)
+                ngram_score += tf * idf * min(count, max_ref) * idf
+            score += ngram_score
+
+        return score / self.n
+
+# 使用示例
+scorer = CIDErScorer(n=4)
+refs = [["a person is cooking in the kitchen"], ["someone prepares food"]]
+scorer.fit(refs)
+score = scorer.score("a person is cooking in a kitchen", refs[0])
+print(f"CIDEr: {score:.4f}")`
+          }
+        ],
+        table: {
+          headers: ["方法", "视频编码", "语言解码", "MSVD CIDEr", "MSR-VTT CIDEr"],
+          rows: [
+            ["S2VT (RNN)", "3D CNN + RNN", "LSTM 解码器", "0.82", "不适用"],
+            ["Transformer", "I3D", "Transformer 解码器", "1.06", "0.49"],
+            ["VideoCoCa", "ViT + 时序编码器", "CoCa 语言模型", "1.24", "0.63"],
+            ["Video-LLaVA", "CLIP 帧编码", "Vicuna LLM", "1.31", "0.71"],
+            ["VideoChat2", "Q-Former 压缩", "LLaMA 2", "1.38", "0.74"]
+          ]
+        },
+        mermaid: `graph LR
+    A["视频\nT 帧"] --> B["视觉特征提取\nViT/CLIP"]
+    B --> C["时序建模\nTransformer"]
+    C --> D["视觉-语言投影\nMLP 层"]
+    E["描述生成"] --> F["语言模型\nGPT/LLaMA"]
+    D --> F
+    F --> G["自回归解码\n逐词生成"]
+    G --> H["自然语言描述\n句子"]`,
+        tip: "使用 Q-Former 或 Perceiver 等查询式压缩器将视觉 token 数量从 N 压缩到 Q（通常 Q=32 或 64），可以显著降低大语言模型的推理延迟，同时保持描述质量",
+        warning: "BLEU 和 ROUGE 指标对词汇重叠敏感，但可能忽略语义等价的不同表达。例如 the boy runs fast 和 a fast running boy 表达相同意思但 BLEU 分数很低。应同时参考 CIDEr 和 SPICE 等语义指标"
+      },
+      {
+        title: "5. 时序定位：Moment Retrieval",
+        body: `时序定位（Moment Retrieval / Temporal Grounding）是视频-语言多模态中最具挑战性的理解任务之一。给定一个视频和一个自然语言查询，模型需要精确找出视频中与查询描述对应的时间段。这要求模型同时理解语言的细粒度语义和视频中的时序结构，并在两者的时间线上进行精确对齐。
+
+传统的时序定位方法将问题视为在预定义的候选时间段中进行选择。模型首先密集采样大量的候选片段（如所有可能的起始-结束时间对），然后计算每个候选片段与文本查询的相似度，最后选择得分最高的片段作为预测结果。这种密集采样的方法计算效率低，且候选片段的质量直接影响最终效果。
+
+近年来的端到端方法（如 2D-TAN、VSLNet 和 Moment-DETR）避免了候选片段的显式采样，直接在视频的每个时间步上预测与查询的相关性分数。Moment-DETR 将 Transformer 的检测头（Detection Transformer, DETR）思想引入时序定位，使用一组可学习的时刻查询（Moment Queries）与视频-文本交叉注意力进行交互，直接输出预测的起止时间。这种方法无需后处理（如非极大值抑制），端到端优化更加简洁高效。
+
+评估时序定位主要使用 Recall@1 和 mIoU。Recall@1 衡量模型预测的时间段与真实标注的交并比超过阈值的比例。常用的 IoU 阈值为 0.3、0.5 和 0.7，分别对应宽松、中等和严格的定位精度要求。`,
+        code: [
+          {
+            lang: "python",
+            code: `import torch
+import torch.nn as nn
+from torch.nn import functional as F
+
+class MomentDETR(nn.Module):
+    """基于 DETR 的时序定位模型"""
+
+    def __init__(self, d_model: int = 256, num_moments: int = 10,
+                 num_encoder_layers: int = 4, num_decoder_layers: int = 4,
+                 nhead: int = 8):
         super().__init__()
-        self.max_length = max_length
+        self.num_moments = num_moments
 
-        # 视频特征投影
-        self.video_proj = nn.Linear(video_dim, hidden_dim)
+        # 视频-文本交叉注意力编码器
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=d_model, nhead=nhead, dim_feedforward=d_model * 4,
+            batch_first=True)
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_encoder_layers)
 
-        # 词嵌入
-        self.word_embedding = nn.Embedding(vocab_size, hidden_dim)
-
-        # Transformer Decoder
+        # 解码器：使用可学习查询预测时间段
         decoder_layer = nn.TransformerDecoderLayer(
-            d_model=hidden_dim, nhead=num_heads,
-            dim_feedforward=hidden_dim * 4,
-            dropout=0.1, batch_first=True
-        )
-        self.decoder = nn.TransformerDecoder(decoder_layer, num_layers)
+            d_model=d_model, nhead=nhead, dim_feedforward=d_model * 4,
+            batch_first=True)
+        self.decoder = nn.TransformerDecoder(decoder_layer, num_decoder_layers)
 
-        # 输出投影
-        self.output_head = nn.Linear(hidden_dim, vocab_size)
+        # 可学习的时刻查询
+        self.moment_queries = nn.Parameter(torch.randn(num_moments, d_model))
+
+        # 预测头：起止时间和 IoU 分数
+        self.start_head = nn.Linear(d_model, 1)
+        self.end_head = nn.Linear(d_model, 1)
+        self.iou_head = nn.Linear(d_model, 1)
 
         # 位置编码
-        self.pos_encoding = nn.Parameter(torch.randn(1, max_length + 1, hidden_dim))
+        self.pos_embed = nn.Parameter(torch.randn(1, 1, d_model))
 
     def forward(self, video_features: torch.Tensor,
-                caption_ids: torch.Tensor):
-        """训练阶段: teacher forcing
-        video_features: [B, T, D]
-        caption_ids: [B, L] 描述文本 token (含 <BOS>)
-        """
-        B, T, D = video_features.size()
-        B, L = caption_ids.size()
+                text_features: torch.Tensor) -> dict:
+        B, T, D_v = video_features.shape
 
-        # 视频特征
-        v = self.video_proj(video_features)  # [B, T, D]
+        # 融合视频和文本特征
+        video_fused = video_features + text_features.mean(dim=1, keepdim=True)
+        video_fused = video_fused + self.pos_embed[:, :T, :]
 
-        # 文本嵌入
-        t = self.word_embedding(caption_ids)  # [B, L, D]
-        t = t + self.pos_encoding[:, :L, :]
+        # 编码
+        memory = self.encoder(video_fused)
 
-        # 因果注意力掩码 (防止看到未来的词)
-        tgt_mask = nn.Transformer.generate_square_subsequent_mask(L).to(
-            video_features.device
-        )
-
-        # Transformer Decoder
-        output = self.decoder(t, v.expand(B, -1, -1),
-                              tgt_mask=tgt_mask)  # [B, L, D]
-
-        # 预测下一个词
-        logits = self.output_head(output)  # [B, L, V]
-        return logits
-
-    def generate(self, video_features: torch.Tensor,
-                 max_length: int = 30, method: str = "beam_search"):
-        """推理阶段: 自回归生成
-        支持 greedy / beam_search 两种解码策略
-        """
-        if method == "greedy":
-            return self._greedy_decode(video_features, max_length)
-        elif method == "beam_search":
-            return self._beam_search(video_features, max_length, beam_size=5)
-
-    def _greedy_decode(self, video_features: torch.Tensor,
-                       max_length: int) -> list[int]:
-        """贪心解码"""
-        B = video_features.size(0)
-        v = self.video_proj(video_features)
-        generated = torch.zeros(B, 1, dtype=torch.long,
-                                device=video_features.device)  # <BOS>
-
-        for _ in range(max_length - 1):
-            t = self.word_embedding(generated) + self.pos_encoding[:, :generated.size(1), :]
-            output = self.decoder(t, v,
-                                  tgt_mask=nn.Transformer.generate_square_subsequent_mask(
-                                      generated.size(1)).to(video_features.device))
-            logits = self.output_head(output[:, -1:, :])
-            next_token = logits.argmax(dim=-1)
-            generated = torch.cat([generated, next_token], dim=1)
-
-        return generated`
-          },
-          {
-            lang: "python",
-            code: `# Beam Search 解码实现
-import torch
-import torch.nn.functional as F
-
-class BeamSearchDecoder:
-    """集束搜索解码器
-    维护 K 个候选序列，每步选择最可能的 K 个扩展
-    相比贪心搜索能生成更高质量的描述
-    """
-
-    def __init__(self, model, vocab_size: int, beam_size: int = 5,
-                 max_length: int = 30, eos_token: int = 2):
-        self.model = model
-        self.vocab_size = vocab_size
-        self.beam_size = beam_size
-        self.max_length = max_length
-        self.eos_token = eos_token
-
-    def decode(self, video_features: torch.Tensor) -> list[dict]:
-        """执行 beam search 返回 top-k 候选
-        返回: [{"sequence": [...], "score": float}, ...]
-        """
-        B = video_features.size(0)
-        assert B == 1, "Beam search 一次处理一个视频"
-
-        v = self.model.video_proj(video_features)  # [1, T, D]
-
-        # 初始化: 只有 <BOS> token
-        beams = [{
-            "sequence": [0],  # <BOS>
-            "log_prob": 0.0,
-            "finished": False
-        }]
-
-        for step in range(self.max_length - 1):
-            candidates = []
-
-            for beam in beams:
-                if beam["finished"]:
-                    candidates.append(beam)
-                    continue
-
-                # 用当前序列做前向传播
-                seq_tensor = torch.tensor([beam["sequence"]],
-                                          device=video_features.device)
-                t = self.model.word_embedding(seq_tensor)
-                t = t + self.model.pos_encoding[:, :len(beam["sequence"]), :]
-
-                tgt_mask = nn.Transformer.generate_square_subsequent_mask(
-                    len(beam["sequence"])).to(video_features.device)
-                output = self.model.decoder(t, v, tgt_mask=tgt_mask)
-                logits = self.model.output_head(output[:, -1, :])
-                log_probs = F.log_softmax(logits, dim=-1).squeeze(0)
-
-                # 取 top-k 候选词
-                top_k_probs, top_k_indices = log_probs.topk(self.beam_size)
-
-                for prob, idx in zip(top_k_probs, top_k_indices):
-                    idx_item = idx.item()
-                    new_log_prob = beam["log_prob"] + prob.item()
-                    new_seq = beam["sequence"] + [idx_item]
-
-                    candidates.append({
-                        "sequence": new_seq,
-                        "log_prob": new_log_prob / len(new_seq),  # 长度归一化
-                        "finished": idx_item == self.eos_token
-                    })
-
-            # 选择 top-k 候选
-            candidates.sort(key=lambda x: x["log_prob"], reverse=True)
-            beams = candidates[:self.beam_size]
-
-            # 如果所有 beam 都结束，提前退出
-            if all(b["finished"] for b in beams):
-                break
-
-        return beams[:self.beam_size]`
-          }
-        ],
-        table: {
-          headers: ["评估指标", "计算方式", "取值范围", "优势", "劣势"],
-          rows: [
-            ["BLEU-4", "4-gram 精确率", "[0, 1]", "计算简单快速", "忽略语义，只看重叠"],
-            ["ROUGE-L", "最长公共子序列", "[0, 1]", "考虑句子结构", "对措辞变化敏感"],
-            ["METEOR", "同义词+词干匹配", "[0, 1]", "考虑语义相似性", "依赖外部词典"],
-            ["CIDEr", "TF-IDF 加权 n-gram", "[0, inf]", "强调信息量大的词", "对参考描述质量依赖大"],
-            ["SPICE", "场景图匹配", "[0, 1]", "评估语义结构", "计算复杂，速度慢"]
-          ]
-        },
-        mermaid: `graph TD
-    A["输入视频\n[T, C, H, W]"] --> B["视频编码器\nResNet/ViT"]
-    B --> C["帧特征序列\n[T, D]"]
-    C --> D["特征投影\nLinear + Norm"]
-    E["<BOS>"] --> F["Transformer Decoder"]
-    D --> F
-    F --> G["下一个词\n概率分布"]
-    G --> H{"解码策略"}
-    H --> I["Greedy\n选最高概率"]
-    H --> J["Beam Search\n维护K个候选"]
-    I --> K["生成描述"]
-    J --> K
-    G -->|"直到 <EOS>"| F`,
-        tip: "使用 Beam Search（beam_size=5）通常比 Greedy 解码生成的描述质量更高，CIDEr 分数可提升 3-5 个百分点，但推理速度慢 K 倍",
-        warning: "描述生成模型容易陷入重复生成的问题（如 'a man is a man is...'），训练时加入 coverage loss 或重复惩罚可以有效缓解"
-      },
-      {
-        title: "5. 时序定位（Temporal Grounding）",
-        body: `时序定位（Temporal Grounding / Temporal Localization）是指在视频中精确定位与给定文本查询对应的时间片段。例如，给定查询"这个人打开冰箱"，模型需要返回视频中该动作发生的起止时间（如 [12.5s, 18.3s]）。
-
-时序定位是视频理解中最精细的任务之一，因为它不仅需要理解视频内容和语言查询的语义，还需要在连续的时间轴上做出精确的定位决策。与视频分类（一个标签描述整个视频）和视频问答（一个答案描述整个视频的理解）不同，时序定位要求模型在时间维度上具有精细的分辨能力。
-
-主流方法可以分为两大类：基于候选框的方法和密集预测方法。基于候选框的方法先生成一组候选时间片段（proposals），然后对每个候选片段计算与文本查询的匹配度，选择匹配度最高的作为定位结果。密集预测方法则将时间定位视为逐帧（或逐片段）的分类问题，直接为每个时间单元预测其与查询的相关性。
-
-自然语言查询的复杂性是时序定位的主要挑战。查询可能涉及多个动作的组合（"先打开冰箱然后拿出一瓶牛奶"）、相对位置描述（"在蓝色汽车旁边的时刻"）、甚至是需要推理的信息（"在事故发生前的瞬间"）。这些复杂查询要求模型具备深层的语言理解和时序推理能力。`,
-        code: [
-          {
-            lang: "python",
-            code: `import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
-class TemporalGrounding(nn.Module):
-    """基于候选框的视频时序定位模型
-    生成候选片段 -> 多模态匹配 -> 精确定位
-    """
-
-    def __init__(self, video_dim: int = 512, text_dim: int = 768,
-                 hidden_dim: int = 256, num_proposals: int = 100):
-        super().__init__()
-        self.num_proposals = num_proposals
-
-        # 视频时序编码器
-        self.video_encoder = nn.TransformerEncoderLayer(
-            d_model=hidden_dim, nhead=8,
-            dim_feedforward=hidden_dim * 4, batch_first=True
-        )
-
-        # 文本编码器
-        self.text_proj = nn.Linear(text_dim, hidden_dim)
-
-        # 候选片段生成器
-        self.anchor_generator = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim * 2),
-            nn.ReLU(),
-            nn.Linear(hidden_dim * 2, hidden_dim)
-        )
-
-        # 多模态匹配模块
-        self.cross_attn = nn.MultiheadAttention(
-            hidden_dim, num_heads=8, batch_first=True
-        )
-
-        # 边界框回归头
-        self.bbox_head = nn.Sequential(
-            nn.Linear(hidden_dim * 2, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, 2)  # [start_offset, end_offset]
-        )
-
-        # 匹配分数头
-        self.match_head = nn.Sequential(
-            nn.Linear(hidden_dim * 2, hidden_dim),
-            nn.ReLU(),
-            nn.Linear(hidden_dim, 1)
-        )
-
-    def forward(self, video_features: torch.Tensor,
-                text_features: torch.Tensor):
-        """
-        video_features: [B, T, D_v]
-        text_features:  [B, D_t]
-        """
-        B, T, _ = video_features.size()
-
-        # 视频时序编码
-        v = video_features  # 简化: 直接投影
-        # 实际中应该做时序编码
-
-        # 文本投影
-        t = self.text_proj(text_features).unsqueeze(1)  # [B, 1, D]
-
-        # 跨模态注意力
-        cross_feat, _ = self.cross_attn(t, v, v)  # [B, 1, D]
-
-        # 生成候选片段中心
-        centers = torch.linspace(0, T - 1, self.num_proposals,
-                                 device=video_features.device)
-        centers = centers.unsqueeze(0).expand(B, -1)  # [B, N]
-
-        # 为每个候选片段计算匹配分数
-        # 简化: 用跨模态特征作为查询
-        proposals = cross_feat.expand(B, self.num_proposals, -1)  # [B, N, D]
-
-        # 匹配分数
-        match_input = torch.cat([
-            proposals,
-            cross_feat.expand(-1, self.num_proposals, -1)
-        ], dim=-1)
-        match_scores = self.match_head(match_input).squeeze(-1)  # [B, N]
-
-        # 边界框回归 (相对于中心的偏移)
-        bbox_offsets = self.bbox_head(match_input)  # [B, N, 2]
-
-        return {
-            "centers": centers,
-            "offsets": bbox_offsets,
-            "scores": match_scores
-        }
-
-    def compute_loss(self, pred: dict, gt_spans: torch.Tensor,
-                     gt_labels: torch.Tensor):
-        """计算定位损失"""
-        # IoU 损失
-        pred_spans = self._decode_spans(pred)  # [B, N, 2]
-        iou_loss = self._iou_loss(pred_spans, gt_spans)
-
-        # 分类损失
-        cls_loss = F.binary_cross_entropy_with_logits(
-            pred["scores"], gt_labels
-        )
-
-        return iou_loss + cls_loss`
-          },
-          {
-            lang: "python",
-            code: `# 密集预测: 逐帧相关性预测
-import torch
-import torch.nn as nn
-
-class DenseTemporalGrounding(nn.Module):
-    """密集时序定位: 直接为每个时间步预测相关性
-    无需候选片段生成，端到端训练
-    """
-
-    def __init__(self, video_dim: int = 512, text_dim: int = 768,
-                 hidden_dim: int = 256):
-        super().__init__()
-
-        # 多模态融合
-        self.fusion = nn.TransformerEncoderLayer(
-            d_model=hidden_dim, nhead=8, batch_first=True
-        )
-
-        # 视频/文本投影
-        self.video_proj = nn.Linear(video_dim, hidden_dim)
-        self.text_proj = nn.Linear(text_dim, hidden_dim)
-
-        # 多层级特征
-        self.multi_scale = nn.ModuleList([
-            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=k,
-                      padding=k // 2)
-            for k in [3, 5, 7, 9]
-        ])
-
-        # 预测头
-        self.start_head = nn.Sequential(
-            nn.Linear(hidden_dim * 5, hidden_dim * 2),
-            nn.ReLU(),
-            nn.Linear(hidden_dim * 2, 1)
-        )
-        self.end_head = nn.Sequential(
-            nn.Linear(hidden_dim * 5, hidden_dim * 2),
-            nn.ReLU(),
-            nn.Linear(hidden_dim * 2, 1)
-        )
-        self.match_head = nn.Sequential(
-            nn.Linear(hidden_dim * 5, hidden_dim * 2),
-            nn.ReLU(),
-            nn.Linear(hidden_dim * 2, 1)
-        )
-
-    def forward(self, video_features: torch.Tensor,
-                text_features: torch.Tensor,
-                text_mask: torch.Tensor = None):
-        """
-        video_features: [B, T, D_v]
-        text_features:  [B, D_t]
-        """
-        B, T, _ = video_features.size()
-
-        # 投影
-        v = self.video_proj(video_features)  # [B, T, D]
-        t = self.text_proj(text_features).unsqueeze(1).expand(-1, T, -1)
-
-        # 融合
-        fused = v + t
-        fused = self.fusion(fused)  # [B, T, D]
-
-        # 多尺度特征
-        fused_t = fused.transpose(1, 2)  # [B, D, T]
-        multi_feats = [fused]  # 原始特征
-        for conv in self.multi_scale:
-            feat = conv(fused_t).transpose(1, 2)  # [B, T, D]
-            multi_feats.append(feat)
-
-        combined = torch.cat(multi_feats, dim=-1)  # [B, T, 5D]
+        # 解码：可学习查询与记忆交互
+        queries = self.moment_queries.unsqueeze(0).expand(B, -1, -1)
+        decoder_out = self.decoder(queries, memory)
 
         # 预测
-        start_logits = self.start_head(combined).squeeze(-1)  # [B, T]
-        end_logits = self.end_head(combined).squeeze(-1)
-        match_logits = self.match_head(combined).squeeze(-1)
+        start_logits = self.start_head(decoder_out).squeeze(-1)  # [B, Q]
+        end_logits = self.end_head(decoder_out).squeeze(-1)  # [B, Q]
+        iou_scores = self.iou_head(decoder_out).squeeze(-1)  # [B, Q]
 
         return {
-            "start": start_logits,
-            "end": end_logits,
-            "match": match_logits
-        }
-
-    def decode(self, output: dict, threshold: float = 0.5):
-        """从预测中解码时间片段"""
-        start_probs = torch.sigmoid(output["start"])
-        end_probs = torch.sigmoid(output["end"])
-        match_probs = torch.sigmoid(output["match"])
-
-        # 找到最佳 start 和 end
-        start_idx = start_probs.argmax(dim=-1)
-        end_idx = end_probs.argmax(dim=-1)
-        confidence = match_probs.max(dim=-1).values
-
-        return {
-            "spans": torch.stack([start_idx, end_idx], dim=-1),
-            "confidence": confidence
+            "start_logits": start_logits,
+            "end_logits": end_logits,
+            "iou_scores": iou_scores,
+            "queries": decoder_out
         }`
+          },
+          {
+            lang: "python",
+            code: `# 时序 IoU 计算和评估指标
+import numpy as np
+
+def temporal_iou(span_a: tuple, span_b: tuple) -> float:
+    """计算两个时间段的交并比"""
+    start_a, end_a = span_a
+    start_b, end_b = span_b
+    intersection_start = max(start_a, start_b)
+    intersection_end = min(end_a, end_b)
+    if intersection_start >= intersection_end:
+        return 0.0
+    intersection = intersection_end - intersection_start
+    union = (end_a - start_a) + (end_b - start_b) - intersection
+    return intersection / union if union > 0 else 0.0
+
+def recall_at_iou(predictions: list[tuple],
+                  ground_truths: list[tuple],
+                  iou_threshold: float = 0.5) -> float:
+    """计算 Recall@IoU
+    predictions: 预测的起止时间列表
+    ground_truths: 真实的起止时间列表
+    """
+    assert len(predictions) == len(ground_truths)
+    correct = 0
+    for pred, gt in zip(predictions, ground_truths):
+        if temporal_iou(pred, gt) >= iou_threshold:
+            correct += 1
+    return correct / len(predictions)
+
+def mean_iou(predictions: list[tuple],
+             ground_truths: list[tuple]) -> float:
+    """计算平均 IoU"""
+    ious = [temporal_iou(p, g) for p, g in zip(predictions, ground_truths)]
+    return np.mean(ious)
+
+# 示例
+predictions = [(2.5, 8.3), (15.0, 22.1), (30.0, 35.5)]
+ground_truths = [(3.0, 8.0), (14.5, 21.0), (28.0, 36.0)]
+for thresh in [0.3, 0.5, 0.7]:
+    r = recall_at_iou(predictions, ground_truths, thresh)
+    print(f"Recall@{thresh}: {r:.2%}")
+print(f"Mean IoU: {mean_iou(predictions, ground_truths):.4f}")`
           }
         ],
         table: {
-          headers: ["方法", "架构", "定位方式", "Charades-STA R1@0.5", "ActivityNet R1@0.5", "速度"],
+          headers: ["模型", "核心方法", "候选生成", "Charades-STA R1@0.5", "ActivityNet R1@0.5"],
           rows: [
-            ["2D-TAN", "2D 时空注意力", "候选片段", "39.2%", "28.1%", "快"],
-            ["VSLNet", "双向注意力", "边界预测", "47.5%", "31.2%", "快"],
-            ["QD-DETR", "DETR 风格", "直接集合预测", "53.1%", "38.7%", "中"],
-            ["UVCOM", "多粒度特征", "密集预测", "55.8%", "42.3%", "中"],
-            ["Moment-DETR", "Transformer", "直接预测", "52.6%", "40.1%", "快"],
-            ["CG-DETR", "跨粒度对齐", "直接集合预测", "58.2%", "45.6%", "中"]
+            ["2D-TAN", "时序注意力网络", "密集候选", "47.3%", "28.6%"],
+            ["VSLNet", "边界感知网络", "边界预测", "52.1%", "32.4%"],
+            ["Moment-DETR", "可学习查询+DETR", "无候选（直接预测）", "54.8%", "35.2%"],
+            ["UVCOM", "不确定性建模", "密集候选", "56.2%", "36.8%"],
+            ["QD-DETR", "查询-文档注意力", "无候选", "58.1%", "38.5%"]
           ]
         },
-        mermaid: `graph TD
-    A["输入视频\nT 帧"] --> B["帧特征提取"]
-    C["自然语言查询"] --> D["文本编码"]
-    B --> E["时序特征\n[T, D]"]
-    D --> F["查询向量\n[D]"]
-    E --> G{"定位策略"}
+        mermaid: `graph LR
+    A["视频\nT 个时间步"] --> B["视觉编码\nCNN/Transformer"]
+    C["文本查询\n句子"] --> D["文本编码\nBERT"]
+    B --> E["时序特征序列\n[T, D]"]
+    D --> F["查询向量\n[1, D]"]
+    E --> G["交叉注意力融合"]
     F --> G
-    G --> H["候选片段法\nProposal + Scoring"]
-    G --> I["密集预测法\n逐帧分类"]
-    G --> J["直接集合法\nDETR 风格"]
-    H --> K["片段边界\n[start, end]"]
-    I --> K
-    J --> K
-    K --> L["置信度过滤"]
-    L --> M["最终定位结果"]`,
-        tip: "密集预测方法相比候选片段方法训练更稳定，不需要调整候选片段生成的超参数，在小数据集上表现更好",
-        warning: "时序定位的 IoU 阈值选择对评估结果影响巨大，同一模型在 R1@0.3 和 R1@0.7 的指标可能相差 30 个百分点以上，报告结果时必须注明阈值"
+    G --> H["可学习时刻查询\n[Q, D]"]
+    H --> I["预测头\nStart/End/IoU"]
+    I --> J["时间段预测\n(起始, 结束)"]`,
+        tip: "Moment-DETR 的可学习查询数量 Q 决定了模型能同时预测的最大时间段数。对于单时间段定位任务，设置 Q=10 是一个经验性的合理值，既保证了足够的候选查询，又不会引入过多的冗余计算",
+        warning: "时序定位对视频帧率的敏感度很高。如果训练时使用 30fps 的视频而推理时使用 24fps，预测的时间段会产生系统性偏移。实际部署时必须确保帧率一致或在预处理阶段统一重采样"
       },
       {
-        title: "6. 多模态大模型视频模态",
-        body: `多模态大语言模型（MLLM）的视频模态扩展是当前 AI 领域最活跃的研究方向之一。以 LLaVA、Qwen-VL、InternVL 为代表的图像-语言大模型已经证明了大模型在多模态理解上的强大能力，而将这些能力扩展到视频模态则需要解决一系列独特的技术挑战。
+        title: "6. 多模态大模型中的视频模态",
+        body: `随着多模态大语言模型（MLLM）的快速发展，视频作为最具挑战性的输入模态之一，正被越来越多地整合到大模型架构中。与图像不同，视频包含丰富的时间动态信息，帧数从几十到上千不等，这对模型的上下文窗口和计算资源提出了严峻挑战。
 
-视频模态扩展面临的首要挑战是 token 数量爆炸。一张 336x336 的图像经过 ViT 编码产生约 576 个 token，而一个 30 帧的视频则产生约 17,280 个 token。这种规模的输入远超大多数语言模型的上下文窗口限制，也使得自注意力计算的成本（O(N^2)）变得不可接受。
+将视频整合到大语言模型中的核心问题是 token 效率。一段 30 秒的视频如果以每秒 2 帧采样，就有 60 帧。每帧经过 ViT 编码后产生 256 个视觉 token，总计 15360 个 token。这远超大多数语言模型的上下文窗口限制。当前的解决方案主要分为三类：均匀帧采样（Uniform Sampling）、关键帧选择（Keyframe Selection）、以及特征压缩（Feature Compression）。
 
-解决 token 膨胀问题主要有三种策略：时间池化（Temporal Pooling）将连续帧的特征聚合为更少的表示，压缩令牌（Token Compression）通过聚类或注意力机制将冗余 token 合并，以及分层处理（Hierarchical Processing）先做帧级理解再做时序推理。每种策略在信息保留和计算效率之间做出不同的权衡。
+均匀帧采样是最简单的方法，但容易遗漏关键事件。关键帧选择通过计算帧间差异或注意力分数来识别信息量最大的帧。特征压缩则使用 Q-Former、Perceiver Resampler 等模块将大量视觉 token 压缩为少量紧凑的视觉摘要。例如，LLaVA-Video 使用 128 个查询 token 来压缩任意长度的视频表示，无论输入多少帧，最终输入语言模型的视觉 token 数量是固定的。
 
-另一个重要挑战是时序推理能力。语言模型天然擅长处理离散符号序列，但对连续时间信号的理解是短板。视频中的因果关系、动作顺序、持续时间等时序概念需要模型具备额外的归纳偏置或显式的时序建模能力。当前的解决方案包括引入时间位置编码、时序注意力模块、以及专门的时序推理训练数据。`,
+最新的多模态大模型如 Qwen2-VL、InternVL 和 Gemini 1.5 都已经支持视频理解。Gemini 1.5 的百万级上下文窗口使其能够直接处理长达一小时的视频而不需要压缩，代表了另一个发展方向。这些模型在视频问答、时序定位和描述生成等任务上展现出了接近人类水平的性能。`,
         code: [
           {
             lang: "python",
             code: `import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
-class VideoMLLM(nn.Module):
-    """视频多模态大语言模型
-    视频编码器 + 投影层 + 大语言模型
-    核心挑战: 减少视频 token 数量
-    """
+class QFormerVideoCompressor(nn.Module):
+    """使用 Q-Former 压缩视频特征"""
 
-    def __init__(self, video_encoder, llm_model,
-                 video_dim: int = 1024, llm_dim: int = 4096,
-                 num_frames: int = 32, compression_ratio: float = 0.25):
+    def __init__(self, vision_dim: int, llm_dim: int,
+                 num_queries: int = 128, num_layers: int = 3,
+                 num_heads: int = 8):
         super().__init__()
-        self.video_encoder = video_encoder
-        self.llm = llm_model
+        self.num_queries = num_queries
 
-        # 视频-语言投影层
-        self.video_proj = nn.Sequential(
-            nn.Linear(video_dim, llm_dim),
-            nn.GELU(),
-            nn.Linear(llm_dim, llm_dim)
-        )
+        # 可学习的查询向量
+        self.queries = nn.Parameter(torch.randn(num_queries, llm_dim))
 
-        # 时间压缩模块
-        self.temporal_compressor = nn.TransformerEncoderLayer(
-            d_model=llm_dim, nhead=16,
-            dim_feedforward=llm_dim * 4, batch_first=True
-        )
-        self.compression_ratio = compression_ratio
+        # 视觉特征投影
+        self.vision_proj = nn.Linear(vision_dim, llm_dim)
 
-        # 时间位置编码
-        self.temporal_pos = nn.Parameter(
-            torch.randn(num_frames, llm_dim) * 0.02
-        )
+        # Q-Former 编码器
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=llm_dim, nhead=num_heads,
+            dim_feedforward=llm_dim * 4,
+            batch_first=True)
+        self.qformer = nn.TransformerEncoder(encoder_layer, num_layers)
 
-    def compress_video_tokens(self, video_tokens: torch.Tensor):
-        """时间压缩: 将 T 个 token 压缩到 T*ratio 个
-        使用 Transformer 编码器 + 选择关键 token
+        # LayerNorm
+        self.norm = nn.LayerNorm(llm_dim)
+
+    def forward(self, video_features: torch.Tensor,
+                text_features: torch.Tensor = None) -> torch.Tensor:
         """
-        B, T, D = video_tokens.size()
-
-        # 时序编码
-        compressed = self.temporal_compressor(video_tokens)
-
-        # 基于注意力权重选择关键 token
-        query = compressed.mean(dim=1, keepdim=True)  # [B, 1, D]
-        attn_weights = F.softmax(
-            query @ compressed.transpose(1, 2) / (D ** 0.5),
-            dim=-1
-        )  # [B, 1, T]
-
-        # 选择 top-k 关键帧
-        k = max(1, int(T * self.compression_ratio))
-        top_k = attn_weights.squeeze(1).topk(k, dim=-1).indices  # [B, k]
-
-        # 收集选中的 token
-        batch_indices = torch.arange(B).unsqueeze(1).expand(-1, k)
-        selected_tokens = compressed[batch_indices, top_k]  # [B, k, D]
-
-        return selected_tokens
-
-    def forward(self, video: torch.Tensor, text: str):
-        """前向传播
-        video: [B, T, C, H, W]
+        video_features: [B, T, N, D_vision]  (T帧，每帧N个patch)
+        text_features:  [B, L, D_text] (可选的文本引导)
+        返回: [B, num_queries, D_llm]
         """
-        B, T, C, H, W = video.size()
+        B, T, N, D = video_features.shape
 
-        # 视频编码
-        frame_tokens = self.encode_frames(video)  # [B, T, D_v]
+        # 展平时空维度: [B, T*N, D]
+        video_flat = video_features.reshape(B, T * N, D)
+        video_tokens = self.vision_proj(video_flat)  # [B, T*N, D_llm]
 
-        # 投影到 LLM 维度
-        projected = self.video_proj(frame_tokens)  # [B, T, D_llm]
-        projected = projected + self.temporal_pos[:T, :].unsqueeze(0)
+        # 扩展查询
+        queries = self.queries.unsqueeze(0).expand(B, -1, -1)
 
-        # 时间压缩
-        compressed = self.compress_video_tokens(projected)  # [B, k, D_llm]
+        # 拼接查询和视频token，通过 Transformer 进行交叉注意力
+        # 查询在前，视频token在后
+        concat = torch.cat([queries, video_tokens], dim=1)
 
-        # 拼接文本 prompt
-        # 实际中需要 tokenizer 和 proper formatting
-        llm_input = compressed  # 简化: 只传视频 token
-        llm_output = self.llm(inputs_embeds=llm_input)
+        # 通过 Q-Former 处理
+        output = self.qformer(concat)
 
-        return llm_output
-
-    def encode_frames(self, video: torch.Tensor):
-        """逐帧编码视频"""
-        B, T, C, H, W = video.size()
-        frames = video.view(B * T, C, H, W)
-        frame_features = self.video_encoder(frames)
-        return frame_features.view(B, T, -1)`
+        # 提取查询部分的结果
+        compressed = output[:, :self.num_queries, :]
+        return self.norm(compressed)`
           },
           {
             lang: "python",
             code: `# 视频 token 压缩策略对比
 import torch
-import torch.nn as nn
+import time
 
-class TokenCompressionStrategies:
-    """对比不同的视频 token 压缩方法"""
+def benchmark_compression_methods(num_frames: int = 64,
+                                   patches_per_frame: int = 256,
+                                   dim: int = 1024):
+    """对比不同压缩策略的 token 数量和计算时间"""
+    video_features = torch.randn(1, num_frames, patches_per_frame, dim)
+    total_tokens = num_frames * patches_per_frame
 
-    @staticmethod
-    def temporal_pooling(tokens: torch.Tensor, pool_size: int = 2):
-        """时间池化: 简单有效
-        将相邻帧的特征取平均
-        压缩比: 1/pool_size
-        """
-        B, T, D = tokens.size()
-        new_T = T // pool_size
-        tokens = tokens[:, :new_T * pool_size, :]
-        tokens = tokens.view(B, new_T, pool_size, D)
-        return tokens.mean(dim=2)  # [B, new_T, D]
+    strategies = {
+        "无压缩": {
+            "output_tokens": total_tokens,
+            "compression_ratio": 1.0,
+        },
+        "均匀采样(8帧)": {
+            "output_tokens": 8 * patches_per_frame,
+            "compression_ratio": total_tokens / (8 * patches_per_frame),
+        },
+        "Q-Former(128查询)": {
+            "output_tokens": 128,
+            "compression_ratio": total_tokens / 128,
+        },
+        "Perceiver(64查询)": {
+            "output_tokens": 64,
+            "compression_ratio": total_tokens / 64,
+        },
+        "时空池化(4x4)": {
+            "output_tokens": (num_frames // 4) * (patches_per_frame // 4),
+            "compression_ratio": total_tokens / ((num_frames // 4) * (patches_per_frame // 4)),
+        },
+    }
 
-    @staticmethod
-    def q_former_compression(tokens: torch.Tensor,
-                             num_queries: int = 32):
-        """Q-Former 风格压缩
-        使用可学习的查询 token 从视频 token 中提取信息
-        压缩比: num_queries / T
-        """
-        B, T, D = tokens.size()
+    print(f"输入: {num_frames} 帧 x {patches_per_frame} patch = {total_tokens:,} token")
+    print("-" * 60)
+    for name, info in strategies.items():
+        print(f"{name:25s} | {info['output_tokens']:6,} token | "
+              f"压缩比: {info['compression_ratio']:.1f}x")
 
-        # 可学习查询
-        queries = nn.Parameter(torch.randn(1, num_queries, D))
-
-        # 交叉注意力: queries 作为 Q, tokens 作为 K,V
-        q_proj = nn.Linear(D, D)(queries)
-        k_proj = nn.Linear(D, D)(tokens)
-        v_proj = nn.Linear(D, D)(tokens)
-
-        attn = F.softmax(
-            q_proj @ k_proj.transpose(-2, -1) / (D ** 0.5),
-            dim=-1
-        )
-        compressed = attn @ v_proj  # [B, num_queries, D]
-        return compressed
-
-    @staticmethod
-    def spatial_temporal_pooling(tokens: torch.Tensor,
-                                 spatial_per_frame: int = 256,
-                                 temporal_factor: int = 2):
-        """时空联合池化
-        先空间池化再时间池化
-        """
-        B, T, D = tokens.size()
-        # 假设 D = spatial_dim * channel
-        # 实际中 tokens 已经是展平的空间-通道维度
-
-        # 简化的时空池化
-        pool_T = T // temporal_factor
-        tokens = tokens.view(B, pool_T, temporal_factor, D)
-        return tokens.mean(dim=2)
-
-    @staticmethod
-    def eva_compression(tokens: torch.Tensor,
-                       target_tokens: int = 64):
-        """EVA 风格压缩
-        基于 token 重要性评估的自适应压缩
-        """
-        B, T, D = tokens.size()
-
-        # 计算 token 重要性 (方差作为代理)
-        importance = tokens.var(dim=-1)  # [B, T]
-
-        # 归一化重要性
-        importance = importance / (importance.sum(dim=-1, keepdim=True) + 1e-8)
-
-        # 采样
-        if target_tokens >= T:
-            return tokens
-
-        # 选择最重要的 token
-        top_k = importance.topk(target_tokens, dim=-1).indices  # [B, k]
-        batch_idx = torch.arange(B).unsqueeze(1).expand(-1, target_tokens)
-        return tokens[batch_idx, top_k]
-
-# 压缩策略对比 (32帧 -> 8token):
-# Temporal Pooling:     保留时序趋势, 丢失帧细节
-# Q-Former:             信息保留最好, 需训练查询
-# Spatio-Temporal Pool: 计算最轻量, 精度最低
-# EVA Adaptive:         平衡信息保留和效率`
+benchmark_compression_methods(64, 256, 1024)`
           }
         ],
         table: {
-          headers: ["模型", "视频编码器", "LLM 基座", "Token 压缩", "上下文窗口", "视频最大时长"],
+          headers: ["模型", "视觉编码器", "压缩策略", "上下文窗口", "最大视频长度"],
           rows: [
-            ["Video-LLaVA", "CLIP + ViT", "Vicuna-7B", "时间池化 2x", "4K", "~30 秒"],
-            ["LLaVA-VID", "CLIP ViT-L", "Vicuna-13B", "Q-Former 压缩", "4K", "~60 秒"],
-            ["VideoChat2", "EVA-CLIP", "LLaMA-2-7B", "时空池化", "4K", "~120 秒"],
-            ["Qwen2-VL", "ViT", "Qwen2-7B", "动态分辨率", "32K", "~30 分钟"],
-            ["InternVL2", "InternViT", "InternLM2", "自适应压缩", "8K", "~5 分钟"],
-            ["Llama-3.2-Vision", "ViT", "Llama-3.2", "时间采样", "128K", "~10 分钟"]
+            ["LLaVA-Video", "CLIP ViT", "Q-Former (128 queries)", "4K tokens", "~3 分钟"],
+            ["Qwen2-VL", "ViT + Naive ViT", "动态分辨率 + 合并", "32K tokens", "~20 分钟"],
+            ["InternVL 2", "InternViT-6B", "Pixel Shuffle + 合并", "8K tokens", "~5 分钟"],
+            ["Gemini 1.5", "多模态编码器", "原生处理（无压缩）", "1M tokens", "~90 分钟"],
+            ["Video-LLaMA 2", "EVA-CLIP", "Q-Former + 时序合并", "4K tokens", "~3 分钟"]
           ]
         },
         mermaid: `graph TD
-    A["长视频\nT 帧"] --> B["帧级编码\nViT per frame"]
-    B --> C["原始 Token\nT x 576"]
-    C --> D{"压缩策略"}
-    D --> E["时间池化\nAvg/Max"]
-    D --> F["Q-Former\n可学习查询"]
-    D --> G["自适应选择\n重要性采样"]
-    E --> H["压缩 Token\nK 个"]
-    F --> H
-    G --> H
-    H --> I["投影到 LLM 空间"]
-    I --> J["拼接文本 Prompt"]
-    J --> K["LLM 自注意力"]
-    K --> L["输出\n理解/推理/生成"]`,
-        tip: "Qwen2-VL 的动态分辨率策略（Naive Dynamic Resolution）是当前处理任意长度视频的最佳实践，它根据视频分辨率自适应调整 token 数量，在精度和效率之间取得最优平衡",
-        warning: "视频 MLLM 的 token 压缩会不可避免地损失时序细节信息，对于需要精确定位（如时序定位、细粒度问答）的任务，压缩比不应超过 0.25"
+    A["原始视频\n任意时长"] --> B["均匀采样\nN 帧"]
+    B --> C["视觉编码\nViT/CLIP"]
+    C --> D["Token 压缩\nQ-Former/Perceiver"]
+    D --> E["紧凑视觉表示\n[Q, D]"]
+    F["指令/问题\n文本"] --> G["文本编码\nTokenizer"]
+    G --> H["拼接\n[visual + text tokens]"]
+    E --> H
+    H --> I["大语言模型\nLLaMA/Qwen"]
+    I --> J["多模态理解\n输出响应"]`,
+        tip: "选择压缩策略时应考虑任务类型。视频描述生成和简单问答可以使用较强的压缩（Q-Former 64-128 queries），而时序定位需要保留时间信息，应该使用帧级别的表示（如均匀采样 + 时间位置编码）",
+        warning: "过强的 token 压缩会导致时间信息丢失。如果压缩后的 token 数量少于视频中的关键事件数量，模型将无法区分视频中发生的不同事件。对于包含 5 个以上独立事件的视频，建议保留至少 256 个视觉 token"
       },
       {
-        title: "7. VideoCLIP 实战",
-        body: `VideoCLIP 是将 CLIP 架构扩展到视频模态的开源框架，它将预训练的图像-文本 CLIP 模型适配到视频理解任务中。通过在时间维度上扩展 CLIP 的视觉编码器，VideoCLIP 能够处理视频输入并与文本进行跨模态匹配。
+        title: "7. 实战：VideoCLIP 推理与视频检索",
+        body: `本节通过一个完整的实战案例，展示如何使用 VideoCLIP 模型进行零样本视频检索。我们将加载预训练的 VideoCLIP 模型，对一组视频片段和文本查询进行编码，然后在统一的嵌入空间中进行相似度匹配和检索。
 
-实战中构建 VideoCLIP 系统需要考虑三个核心问题：时间建模（如何将帧级特征整合为视频级表示）、跨模态对齐（如何训练视频-文本匹配）、以及任务适配（如何将预训练模型迁移到下游任务）。这三个问题的解决方案共同决定了系统的最终性能。
+VideoCLIP 的核心推理流程非常简洁：首先将视频切分为帧，使用视觉编码器逐帧提取特征并对时间维度做平均池化，得到视频的全局嵌入向量。同时，使用文本编码器将查询文本编码为文本嵌入向量。两个向量经过投影层映射到相同的维度空间后，通过余弦相似度进行比较。
 
-时间建模方面，最简单的方法是对所有帧特征做平均池化，但这会丢失时序信息。更精细的方法包括使用时序 Transformer 编码帧序列、使用 LSTM/GRU 捕获时序依赖、或者使用专门的时序注意力模块。实验表明，轻量级的时序 Transformer 在大多数任务上取得了最佳的精度-效率平衡。
+实战中需要注意几个关键点。第一，视频帧的预处理必须与训练时保持一致，包括分辨率、归一化均值和方差。第二，对于不同长度的视频，应该使用固定数量的帧（如 8 帧或 16 帧）进行均匀采样，确保嵌入表示的一致性。第三，文本查询应该去除多余的空格和标点符号，保持简洁。
 
-跨模态对齐训练需要大规模视频-文本数据。如果没有足够的数据从头训练，可以采用两阶段策略：第一阶段冻结 CLIP 的图像编码器，只训练时间建模模块和投影头；第二阶段对整个模型进行端到端微调。这种策略可以显著减少训练所需的数据量和计算资源。`,
+我们将构建一个完整的视频检索系统，支持输入自然语言查询，从视频库中检索最相关的片段。这个系统可以应用于视频搜索引擎、智能视频摘要和内容审核等多种场景。通过修改文本查询，同一个模型可以适应完全不同的检索任务，这体现了对比学习预训练的强大泛化能力。`,
         code: [
           {
             lang: "python",
             code: `import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from transformers import CLIPModel, CLIPProcessor
+import torchvision.transforms as transforms
+from PIL import Image
+import numpy as np
 
-class VideoCLIP(nn.Module):
-    """VideoCLIP 实战实现
-    基于预训练 CLIP 扩展到视频理解
-    """
+class VideoCLIPInference:
+    """VideoCLIP 零样本视频检索推理"""
 
-    def __init__(self, clip_model_name: str = "openai/clip-vit-base-patch32",
-                 num_frames: int = 8, temperature: float = 0.07):
-        super().__init__()
-        self.num_frames = num_frames
+    def __init__(self, model, preprocess):
+        self.model = model
+        self.model.eval()
+        self.preprocess = preprocess
+        # 视频预处理：与图像相同的变换
+        self.video_transform = transforms.Compose([
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225]),
+        ])
 
-        # 加载预训练 CLIP
-        self.clip = CLIPModel.from_pretrained(clip_model_name)
-        self.processor = CLIPProcessor.from_pretrained(clip_model_name)
+    def encode_video(self, frames: list[Image.Image],
+                     num_frames: int = 8) -> torch.Tensor:
+        """将视频帧编码为统一的嵌入向量"""
+        # 均匀采样 num_frames 帧
+        if len(frames) < num_frames:
+            indices = list(range(len(frames)))
+        else:
+            indices = np.linspace(0, len(frames) - 1, num_frames, dtype=int)
 
-        # 冻结 CLIP 参数 (第一阶段)
-        for param in self.clip.parameters():
-            param.requires_grad = False
+        selected_frames = [frames[i] for i in indices]
+        processed = torch.stack([self.preprocess(f) for f in selected_frames])
+        processed = processed.unsqueeze(0)  # [1, T, C, H, W]
 
-        # 时间建模模块
-        self.temporal_encoder = nn.TransformerEncoderLayer(
-            d_model=self.clip.config.projection_dim,
-            nhead=8, dim_feedforward=self.clip.config.projection_dim * 4,
-            dropout=0.1, batch_first=True
-        )
-
-        # 时间位置编码
-        self.temporal_pos_encoding = nn.Parameter(
-            torch.randn(num_frames, self.clip.config.projection_dim) * 0.02
-        )
-
-        # 可学习温度
-        self.logit_scale = nn.Parameter(torch.tensor(
-            torch.log(torch.tensor(1.0 / temperature))
-        ))
-
-    def encode_video(self, frames: torch.Tensor):
-        """编码视频帧序列为视频特征
-        frames: [B, T, C, H, W]
-        """
-        B, T, C, H, W = frames.size()
-
-        # 逐帧通过 CLIP 视觉编码器
-        frames_batched = frames.view(B * T, C, H, W)
-        frame_features = self.clip.vision_model(frames_batched)
-        frame_features = frame_features.last_hidden_state[:, 0, :]  # CLS token
-        frame_features = self.clip.visual_projection(frame_features)
-
-        # 重塑为 [B, T, D]
-        frame_features = frame_features.view(B, T, -1)
-
-        # 添加时间位置编码
-        frame_features = frame_features + self.temporal_pos_encoding[:T, :].unsqueeze(0)
-
-        # 时序编码
-        video_features = self.temporal_encoder(frame_features)
-
-        # 时间池化
-        video_features = video_features.mean(dim=1)  # [B, D]
-        video_features = F.normalize(video_features, dim=-1)
-
+        with torch.no_grad():
+            video_features = self.model.encode_video(processed)
+            video_features = video_features / video_features.norm(dim=-1, keepdim=True)
         return video_features
 
-    def encode_text(self, texts: list[str]):
-        """编码文本"""
-        text_inputs = self.processor(text=texts, return_tensors="pt",
-                                      padding=True, truncation=True)
-        text_features = self.clip.get_text_features(**text_inputs)
-        return F.normalize(text_features, dim=-1)
+    def encode_text(self, texts: list[str]) -> torch.Tensor:
+        """将文本编码为嵌入向量"""
+        with torch.no_grad():
+            text_features = self.model.encode_text(texts)
+            text_features = text_features / text_features.norm(dim=-1, keepdim=True)
+        return text_features
 
-    def forward(self, videos: torch.Tensor, texts: list[str]):
-        """训练前向"""
-        video_features = self.encode_video(videos)
-        text_features = self.encode_text(texts)
+    def search(self, query: str, video_database: dict[str, torch.Tensor],
+               top_k: int = 5) -> list[tuple[str, float]]:
+        """在视频库中检索最相关的视频"""
+        query_embed = self.encode_text([query])  # [1, D]
+        # 计算与所有视频嵌入的相似度
+        video_ids = list(video_database.keys())
+        video_embeds = torch.stack([video_database[vid] for vid in video_ids])
+        similarities = (query_embed @ video_embeds.T).squeeze(0)
+        # Top-K
+        top_indices = similarities.argsort(descending=True)[:top_k]
+        results = []
+        for idx in top_indices:
+            results.append((video_ids[idx], similarities[idx].item()))
+        return results
 
-        # 对比损失
-        scale = self.logit_scale.exp()
-        logits = scale * video_features @ text_features.T
-        batch_size = video_features.size(0)
-        labels = torch.arange(batch_size, device=video_features.device)
-
-        loss_video = F.cross_entropy(logits, labels)
-        loss_text = F.cross_entropy(logits.T, labels)
-        return (loss_video + loss_text) / 2`
+# 使用示例
+# videos_db = {"video_001": embed1, "video_002": embed2, ...}
+# results = searcher.search("a dog playing in the park", videos_db, top_k=5)
+# for vid, score in results:
+#     print(f"{vid}: {score:.4f}")`
           },
           {
             lang: "python",
-            code: `# VideoCLIP 下游任务适配
+            code: `# 完整的视频检索 Pipeline
+import os
+import cv2
 import torch
-import torch.nn as nn
+from typing import Optional
 
-class VideoCLIPDownstream(nn.Module):
-    """将 VideoCLIP 适配到下游任务
-    视频分类 / 时序定位 / 视频问答
-    """
+def extract_frames_from_video(video_path: str,
+                              num_frames: int = 8) -> list:
+    """从视频文件中均匀提取 num_frames 帧"""
+    cap = cv2.VideoCapture(video_path)
+    total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 
-    def __init__(self, videoclip: VideoCLIP, task: str = "classification",
-                 num_classes: int = 400):
-        super().__init__()
-        self.videoclip = videoclip
-        self.task = task
-        embed_dim = videoclip.clip.config.projection_dim
+    if total_frames == 0:
+        cap.release()
+        return []
 
-        if task == "classification":
-            # 视频分类头
-            self.head = nn.Sequential(
-                nn.Linear(embed_dim, embed_dim // 2),
-                nn.GELU(),
-                nn.Dropout(0.3),
-                nn.Linear(embed_dim // 2, num_classes)
-            )
+    indices = np.linspace(0, total_frames - 1, num_frames, dtype=int)
+    frames = []
+    for idx in indices:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, idx)
+        ret, frame = cap.read()
+        if ret:
+            frames.append(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
+    cap.release()
+    return frames
 
-        elif task == "temporal_grounding":
-            # 时序定位头 (逐帧预测)
-            self.head = nn.Sequential(
-                nn.Linear(embed_dim, embed_dim // 2),
-                nn.GELU(),
-                nn.Linear(embed_dim // 2, 2)  # start, end
-            )
+def build_video_database(video_dir: str,
+                         inference: VideoCLIPInference,
+                         num_frames: int = 8) -> dict[str, torch.Tensor]:
+    """批量编码视频目录中的所有视频"""
+    database = {}
+    video_files = [f for f in os.listdir(video_dir)
+                   if f.endswith((".mp4", ".avi", ".mov"))]
 
-        elif task == "video_qa":
-            # 视频问答头
-            self.head = nn.Sequential(
-                nn.Linear(embed_dim, embed_dim // 2),
-                nn.GELU(),
-                nn.Dropout(0.3),
-                nn.Linear(embed_dim // 2, num_classes)
-            )
+    for i, vf in enumerate(video_files):
+        path = os.path.join(video_dir, vf)
+        frames = extract_frames_from_video(path, num_frames)
+        if frames:
+            embed = inference.encode_video(frames)
+            database[vf] = embed.squeeze(0)
+        if (i + 1) % 10 == 0:
+            print(f"已编码 {i + 1}/{len(video_files)} 个视频")
 
-    def forward(self, videos: torch.Tensor,
-                texts: list[str] = None,
-                text_features: torch.Tensor = None):
-        """
-        videos: [B, T, C, H, W]
-        """
-        # 获取视频特征
-        video_features = self.videoclip.encode_video(videos)  # [B, D]
+    return database
 
-        if self.task == "classification":
-            return self.head(video_features)
+def multi_query_search(queries: list[str],
+                       video_db: dict,
+                       inference: VideoCLIPInference,
+                       top_k: int = 3) -> dict[str, list[tuple]]:
+    """多查询批量检索"""
+    all_results = {}
+    # 批量编码所有查询
+    all_query_embeds = inference.encode_text(queries)
 
-        elif self.task == "temporal_grounding":
-            # 需要逐帧特征而非池化特征
-            B, T, C, H, W = videos.size()
-            frame_features = self._get_frame_features(videos)  # [B, T, D]
-            # 结合文本查询做时序定位
-            if text_features is not None:
-                t = text_features.unsqueeze(1).expand(-1, T, -1)
-                fused = frame_features + t
-            else:
-                fused = frame_features
-            return self.head(fused)  # [B, T, 2]
+    video_ids = list(video_db.keys())
+    video_embeds = torch.stack([video_db[vid] for vid in video_ids])
 
-        elif self.task == "video_qa":
-            return self.head(video_features)
+    for i, query in enumerate(queries):
+        query_embed = all_query_embeds[i:i+1]
+        sims = (query_embed @ video_embeds.T).squeeze(0)
+        top_idx = sims.argsort(descending=True)[:top_k]
+        all_results[query] = [
+            (video_ids[j], sims[j].item()) for j in top_idx
+        ]
 
-    def _get_frame_features(self, videos: torch.Tensor):
-        """获取逐帧特征（不池化）"""
-        B, T, C, H, W = videos.size()
-        frames = videos.view(B * T, C, H, W)
-        feats = self.videoclip.clip.vision_model(frames)
-        feats = feats.last_hidden_state[:, 0, :]
-        feats = self.videoclip.clip.visual_projection(feats)
-        return feats.view(B, T, -1)
-
-# 训练策略:
-# 阶段1 (warmup): 冻结 VideoCLIP, 只训练 task head (10 epochs)
-# 阶段2 (finetune): 解冻 temporal encoder, lr = 1e-5 (20 epochs)
-# 阶段3 (full): 全模型微调, lr = 5e-6 (30 epochs)`
+    return all_results`
           }
         ],
         table: {
-          headers: ["下游任务", "数据集", "评估指标", "VideoCLIP 基线", "当前 SOTA", "训练时长"],
+          headers: ["参数", "推荐值", "影响", "调优建议"],
           rows: [
-            ["视频分类", "Kinetics-400", "Top-1 Acc", "72.3%", "84.9%", "~2 天 (A100)"],
-            ["文本-视频检索", "MSRVTT", "R@1", "35.2%", "52.1%", "~1 天 (A100)"],
-            ["文本-视频检索", "DiDeMo", "R@1", "28.7%", "42.3%", "~1 天 (A100)"],
-            ["时序定位", "Charades-STA", "R1@0.5", "38.1%", "58.2%", "~3 天 (A100)"],
-            ["视频问答", "MSRVTT-QA", "Accuracy", "45.6%", "62.3%", "~2 天 (A100)"],
-            ["视频问答", "ActivityNet-QA", "Accuracy", "38.2%", "55.1%", "~3 天 (A100)"]
+            ["采样帧数", "8-16 帧", "越多越好但计算量大", "短视频 8 帧，长视频 16 帧"],
+            ["帧分辨率", "224x224", "与预训练模型一致", "不要随意更改，影响精度"],
+            ["文本最大长度", "77 tokens", "CLIP 文本编码器限制", "精简查询，去除冗余词"],
+            ["温度参数", "0.07", "控制相似度分布的锐度", "零样本推理时不调整"],
+            ["Top-K", "5-10", "返回结果数量", "搜索场景用 10，展示用 5"]
           ]
         },
-        mermaid: `graph TD
-    A["预训练 CLIP"] --> B["扩展时间维度"]
-    B --> C["VideoCLIP\n基座模型"]
-    C --> D{"下游任务"}
-    D --> E["视频分类\n全连接头"]
-    D --> F["文本视频检索\n对比损失微调"]
-    D --> G["时序定位\n逐帧预测头"]
-    D --> H["视频问答\n分类/生成头"]
-    E --> I["任务评估"]
+        mermaid: `graph LR
+    A["视频目录\n.mp4 / .avi"] --> B["帧提取\nOpenCV 均匀采样"]
+    B --> C["帧预处理\nResize + Normalize"]
+    C --> D["视觉编码\nCLIP/TimeSformer"]
+    D --> E["时间池化\nMean Pooling"]
+    E --> F["视频嵌入向量\n存入数据库"]
+    G["自然语言查询"] --> H["文本编码\nCLIP Text"]
+    H --> I["余弦相似度\n查询 vs 所有视频"]
     F --> I
-    G --> I
-    H --> I
-    I --> J["迭代优化\n调参/增强数据"]
-    J --> C
-    J --> E
-    J --> F
-    J --> G
-    J --> H`,
-        tip: "使用预训练 CLIP 作为初始权重可以大幅减少训练数据需求，即使是小规模数据集（如 1 万样本），经过 3 阶段微调也能达到接近 SOTA 的效果",
-        warning: "VideoCLIP 的帧数选择对性能影响很大：8 帧适合短视频分类，16-32 帧适合时序定位，超过 64 帧时收益递减但计算成本线性增长"
-      }
+    I --> J["排序\nTop-K 结果"]
+    J --> K["返回相关视频\n及置信分数"]`,
+        tip: "对于大规模视频检索（超过 1 万个视频），建议先将所有视频嵌入存入 FAISS 向量数据库，使用 IVF-PQ 索引结构进行近似检索。这可以将检索延迟从线性 O(N) 降低到亚线性级别",
+        warning: "VideoCLIP 在训练数据分布之外的领域（如医疗视频、卫星视频）上表现可能显著下降。对于领域特定的检索任务，应在目标领域数据上进行微调或使用领域适配器（Domain Adapter）"
+      },
     ],
 };

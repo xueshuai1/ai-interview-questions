@@ -2,10 +2,10 @@ import { Article } from '../knowledge';
 
 export const article: Article = {
     id: "mlops-001",
-    title: "MLOps 流水线与持续训练",
+    title: "ML 流水线设计与自动化",
     category: "mlops",
-    tags: ["MLOps", "持续训练", "CI/CD"],
-    summary: "从模型训练到自动化部署，掌握 MLOps 流水线的最佳实践",
+    tags: ["MLOps", "流水线", "自动化"],
+    summary: "从数据处理到模型部署，掌握 MLOps 流水线的最佳实践",
     date: "2026-04-12",
     readTime: "18 min",
     level: "进阶",

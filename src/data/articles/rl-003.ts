@@ -11,95 +11,10 @@ export const article: Article = {
     level: "进阶",
     content: [
         {
-            title: "1. 从值函数到策略：范式的转变",
-            body: `在强化学习的早期方法中，我们总是先学习值函数 V(s) 或 Q(s,a)，然后通过贪心策略提取动作。这种间接方式有一个根本缺陷：值函数是最优策略的充分条件，但不是必要条件。即使值函数估计有误差，只要动作之间的相对排序正确，策略仍然是最优的。这意味着我们花费了大量精力去精确估计值函数的绝对大小，而这些精度对最终策略可能毫无帮助。
-
-策略梯度方法绕过了值函数，直接对策略进行参数化并优化。策略 pi_theta(a|s) 是一个以 theta 为参数的概率分布，我们通过梯度上升来最大化期望累积奖励。这种方法的优势在于：可以处理连续动作空间、天然支持随机策略、并且在部分可观测环境中表现更好。`,
-            code: [
-                {
-                    lang: "python",
-                    code: `# 值函数方法 vs 策略梯度方法的核心差异
-
-import numpy as np
-
-# 值函数方法：间接优化
-class ValueBasedAgent:
-    def __init__(self, n_states, n_actions):
-        self.Q = np.zeros((n_states, n_actions))
-
-    def choose_action(self, state, epsilon=0.1):
-        if np.random.random() < epsilon:
-            return np.random.randint(self.Q.shape[1])
-        return np.argmax(self.Q[state])
-
-    def update(self, s, a, r, s_next, alpha=0.1, gamma=0.99):
-        target = r + gamma * np.max(self.Q[s_next])
-        self.Q[s, a] += alpha * (target - self.Q[s, a])
-
-# 策略梯度方法：直接优化
-class PolicyGradientAgent:
-    def __init__(self, n_states, n_actions):
-        self.theta = np.zeros((n_states, n_actions))
-
-    def choose_action(self, state):
-        logits = self.theta[state]
-        probs = np.exp(logits) / np.sum(np.exp(logits))
-        return np.random.choice(len(probs), p=probs)
-
-    def update(self, states, actions, returns, alpha=0.01):
-        for s, a, G in zip(states, actions, returns):
-            logits = self.theta[s]
-            probs = np.exp(logits) / np.sum(np.exp(logits))
-            self.theta[s, a] += alpha * G * (1 - probs[a])
-            self.theta[s] -= alpha * G * probs`
-                },
-                {
-                    lang: "python",
-                    code: `# 为什么策略梯度更稳健？
-
-def value_based_precision_test():
-    true_Q = np.array([1.0, 1.1])
-    estimated_Q = np.array([1.05, 0.95])  # 微小误差导致排序错误
-    return np.argmax(estimated_Q)  # 返回 0，错误！
-
-def policy_gradient_robustness():
-    advantage = np.array([-0.5, 0.5])  # 只需要相对大小
-    probs = np.array([0.5, 0.5])
-    new_probs = probs + 0.1 * advantage
-    new_probs = np.clip(new_probs, 0.1, 0.9)
-    new_probs /= new_probs.sum()
-    return np.argmax(new_probs)  # 返回 1，正确
-
-print(f"值函数选了动作: {value_based_precision_test()}")
-print(f"策略梯度选了动作: {policy_gradient_robustness()}")`
-                }
-            ],
-            table: {
-                headers: ["特性", "值函数方法", "策略梯度方法"],
-                rows: [
-                    ["优化目标", "值函数估计精度", "期望累积奖励"],
-                    ["动作空间", "主要离散", "离散和连续均可"],
-                    ["策略类型", "通常确定性", "天然随机性"],
-                    ["收敛性", "可能因估计误差次优", "直接优化目标渐近收敛"],
-                    ["方差特性", "低方差", "高方差"],
-                ]
-            },
-            mermaid: `graph TD
-    A["值函数方法"] --> B["估计 Q(s,a)"]
-    B --> C["贪心提取策略"]
-    C --> D["可能因估计误差选错动作"]
-    E["策略梯度方法"] --> F["直接参数化策略"]
-    F --> G["梯度上升优化期望奖励"]
-    G --> H["策略与目标一致"]
-    style A fill:#ffebee
-    style E fill:#e8f5e9`,
-            tip: "理解策略梯度的关键思维转变：不再问这个状态值多少分，而是问这个动作应该以多大概率执行。前者是评估，后者是决策。"
-        },
-        {
-            title: "2. 策略函数表示：Softmax 策略与神经网络",
+            title: "1. 策略函数表示：Softmax 策略",
             body: `策略梯度方法的第一步是选择策略的表示方式。最经典的选择是 Softmax 策略，它将参数化的偏好值 h(s,a,theta) 转换为概率分布：pi_theta(a|s) = exp(h(s,a,theta)) / sum_b exp(h(s,b,theta))。这种表示天然保证概率非负且和为 1，无需额外约束。
 
-当使用线性函数近似时，h(s,a,theta) = theta^T * x(s,a)，其中 x(s,a) 是状态-动作的特征向量。更常见的是使用神经网络作为函数近似器，此时 theta 是网络的所有权重。对于连续动作空间，策略通常参数化为高斯分布 pi_theta(a|s) = N(mu_theta(s), sigma^2)，其中均值 mu 由网络输出。`,
+当使用线性函数近似时，h(s,a,theta) = theta^T * x(s,a)，其中 x(s,a) 是状态-动作的特征向量。更常见的是使用神经网络作为函数近似器，此时 theta 是网络的所有权重。对于连续动作空间，策略通常参数化为高斯分布 pi_theta(a|s) = N(mu_theta(s), sigma^2)，其中均值 mu 由网络输出，方差可以固定或学习。`,
             code: [
                 {
                     lang: "python",
@@ -179,13 +94,13 @@ class NeuralPolicy:
     E --> F["采样动作 a"]
     C -.->|"h = theta * x"| G["参数 theta"]
     C -.->|"h = NN(x)"| H["神经网络权重"]`,
-            warning: "Softmax 策略中务必做数值稳定处理：h_shifted = h - max(h)。否则当偏好值较大时 exp(h) 会溢出，导致 NaN 梯度。"
+            tip: "Softmax 策略中务必做数值稳定处理：h_shifted = h - max(h)。否则当偏好值较大时 exp(h) 会溢出，导致 NaN 梯度。"
         },
         {
-            title: "3. 策略梯度定理：理论基础",
+            title: "2. 策略梯度定理：理论基础",
             body: `策略梯度定理是策略梯度方法的数学基石，由 Sutton 等人在 2000 年提出。它给出了期望累积奖励关于策略参数的梯度的精确表达式，而无需对环境转移概率求导——这是该定理最精妙之处。
 
-定理的核心结论是：gradient J(theta) = E[gradient log pi_theta(a|s) * Q_pi(s,a)]。其中期望在策略 pi 下的稳态状态分布和策略动作分布上取。这个公式的直觉非常清晰：如果某个动作在某个状态下带来了高 Q 值，我们就增大该动作在该状态下的选择概率。关键是不需要知道环境如何响应动作，因为 Q_pi 已经隐含了环境的动力学特性。`,
+定理的核心结论是：gradient J(theta) = E[gradient log pi_theta(a|s) * Q_pi(s,a)]。这个公式的直觉非常清晰：如果某个动作在某个状态下带来了高 Q 值，我们就增大该动作在该状态下的选择概率。关键是不需要知道环境如何响应动作，因为 Q_pi 已经隐含了环境的动力学特性。`,
             code: [
                 {
                     lang: "python",
@@ -210,7 +125,6 @@ def estimate_policy_gradient(states, actions, returns, agent):
     for traj_s, traj_a, traj_r in zip(states, actions, returns):
         for s, a, G in zip(traj_s, traj_a, traj_r):
             probs = agent.get_probs(s)
-            # grad log pi(a|s) = one_hot(a) - pi(a|s)
             grad_log_pi = -probs.copy()
             grad_log_pi[a] += 1.0
             grad += np.outer(np.ones_like(agent.theta[a]), grad_log_pi * G)
@@ -281,10 +195,10 @@ verify_policy_gradient_theorem()`
     G --> H
     H --> A
     style C fill:#fff3e0`,
-            tip: "策略梯度定理最反直觉的一点是：不需要对环境转移概率 P(s'|s,a) 求导。因为 Q(s,a) 已经包含了环境动力学信息。"
+            warning: "策略梯度定理最反直觉的一点是：不需要对环境转移概率 P(s'|s,a) 求导。因为 Q(s,a) 已经包含了环境动力学信息。"
         },
         {
-            title: "4. REINFORCE 算法：蒙特卡洛策略梯度",
+            title: "3. REINFORCE 算法：蒙特卡洛策略梯度",
             body: `REINFORCE 是 Williams 在 1992 年提出的经典算法，是策略梯度定理最直接的应用。它使用蒙特卡洛方法估计回报 G_t，即从时刻 t 开始到 episode 结束的所有折扣奖励之和。由于使用了完整的 episode 回报，REINFORCE 是无偏的估计，但也因此具有较高的方差。
 
 算法流程很简洁：采样完整轨迹，计算每个时间步的回报 G_t，然后用 grad log pi(a_t|s_t) * G_t 更新策略参数。REINFORCE 只在 episode 结束后才更新，属于回合更新。这保证了回报的无偏性，但也意味着学习效率较低，特别是在长 episode 中。`,
@@ -403,11 +317,11 @@ def train_reinforce(env_name="CartPole-v1", episodes=1000, lr=0.01, gamma=0.99):
     G --> B
     style D fill:#fff3e0
     style E fill:#e8f5e9`,
-            warning: "REINFORCE 的方差问题是实际应用中的主要瓶颈。当 episode 很长时，不同轨迹的回报差异巨大，导致梯度估计噪声很大，训练不稳定。"
+            tip: "实践中对回报做标准化（减均值除标准差）能显著稳定训练，这是 REINFORCE 最重要的工程技巧之一。"
         },
         {
-            title: "5. 基线函数：降低方差的利器",
-            body: `策略梯度定理的公式中有一个非常巧妙的自由度：我们可以从 Q_pi(s,a) 中减去任意只依赖于状态的基线函数 b(s)，而不会改变梯度的期望值。即 E[grad log pi(a|s) * (Q_pi(s,a) - b(s))] = E[grad log pi(a|s) * Q_pi(s,a)]。这个性质成立的核心原因是 E[grad log pi(a|s) * b(s)] = b(s) * E[grad log pi(a|s)] = 0，因为 log 概率梯度的期望恰好为零。
+            title: "4. 基线函数：降低方差的利器",
+            body: `策略梯度定理的公式中有一个非常巧妙的自由度：我们可以从 Q_pi(s,a) 中减去任意只依赖于状态的基线函数 b(s)，而不会改变梯度的期望值。即 E[grad log pi(a|s) * (Q_pi(s,a) - b(s))] = E[grad log pi(a|s) * Q_pi(s,a)]。这个性质成立的核心原因是 E[grad log pi(a|s) * b(s)] = 0，因为 log 概率梯度的期望恰好为零。
 
 最常用的基线函数是状态值函数 V(s)，此时 Q(s,a) - V(s) 恰好就是优势函数 A(s,a)。优势函数衡量的是在状态 s 下选择动作 a 比平均水平好多少。如果 A > 0，说明这个动作优于平均，应该增大其概率；如果 A < 0，则应该减小其概率。`,
             code: [
@@ -417,14 +331,11 @@ def train_reinforce(env_name="CartPole-v1", episodes=1000, lr=0.01, gamma=0.99):
 
 def prove_baseline_property():
     """数学证明：E[grad log pi(a|s) * b(s)] = 0"""
-    # E[grad log pi(a|s)] = sum_a pi(a|s) * grad log pi(a|s)
-    #                      = sum_a grad pi(a|s) = grad sum_a pi(a|s) = grad 1 = 0
-
     theta = np.array([0.5, -0.3, 0.8])
     probs = np.exp(theta) / np.sum(np.exp(theta))
     grad_log_pi = np.eye(3) - probs
     expected_grad = probs @ grad_log_pi
-    print(f"E[grad log pi] = {expected_grad}")
+    print(f"E[grad log pi] = {expected_grad}")  # 接近零
 
 class BaselineREINFORCE:
     def __init__(self, n_features, n_actions, lr=0.01, gamma=0.99):
@@ -504,13 +415,13 @@ compare_variance_with_baseline()`
     I --> F
     style C fill:#ffebee
     style F fill:#e8f5e9`,
-            tip: "实践中最简单的基线是回报的移动平均。它不需要额外的值网络，但效果已经相当不错。当需要更好的效果时，再引入单独的值网络估计 V(s)。"
+            warning: "实践中最简单的基线是回报的移动平均。它不需要额外的值网络，但效果已经相当不错。"
         },
         {
-            title: "6. 折扣回报与优势函数：深入理解",
+            title: "5. 折扣回报与优势函数：深入理解",
             body: `折扣回报 G_t = R_{t+1} + gamma*R_{t+2} + gamma^2*R_{t+3} + ... 是强化学习中衡量长期价值的核心概念。折扣因子 gamma 控制着智能体对未来的重视程度：gamma 接近 1 时更关注长期收益，gamma 接近 0 时更关注即时奖励。
 
-优势函数 A(s,a) = Q(s,a) - V(s) 提供了一个更精确的回报估计。它衡量的是：在状态 s 下选择动作 a 相对于策略 pi 的平均表现好多少。优势函数在 Actor-Critic 架构中尤为重要，其中 Critic 估计 V(s)，Actor 使用 A(s,a) 来更新策略。虽然本节聚焦 REINFORCE，但理解优势函数是通向更高级算法的关键桥梁。`,
+优势函数 A(s,a) = Q(s,a) - V(s) 提供了一个更精确的回报估计。它衡量的是在状态 s 下选择动作 a 相对于策略 pi 的平均表现好多少。优势函数在 Actor-Critic 架构中尤为重要，其中 Critic 估计 V(s)，Actor 使用 A(s,a) 来更新策略。虽然本节聚焦 REINFORCE，但理解优势函数是通向更高级算法的关键桥梁。`,
             code: [
                 {
                     lang: "python",
@@ -527,14 +438,6 @@ class DiscountedReturns:
             G = r + self.gamma * G
             returns.insert(0, G)
         return np.array(returns)
-
-    def compute_normalized(self, rewards):
-        returns = self.compute(rewards)
-        if len(returns) > 1:
-            mean = np.mean(returns)
-            std = np.std(returns) + 1e-8
-            returns = (returns - mean) / std
-        return returns
 
 class AdvantageEstimator:
     def __init__(self, gamma=0.99, lambda_=0.95):
@@ -561,9 +464,7 @@ class AdvantageEstimator:
 
 def analyze_gamma_impact():
     rewards = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10]
-    gammas = [0.5, 0.9, 0.99, 0.999, 1.0]
-
-    for gamma in gammas:
+    for gamma in [0.5, 0.9, 0.99, 0.999, 1.0]:
         G = 0
         for r in reversed(rewards):
             G = r + gamma * G
@@ -576,7 +477,6 @@ def analyze_gae_lambda():
     values = [0.5, 1.5, 2.5, 3.5, 4.5]
     next_values = [1.5, 2.5, 3.5, 4.5, 0.0]
     dones = [0, 0, 0, 0, 1]
-
     for lam in [0.0, 0.5, 0.95, 1.0]:
         gae = AdvantageEstimator(gamma=0.99, lambda_=lam)
         advantages = gae.compute_gae(rewards, values, next_values, dones)
@@ -603,11 +503,11 @@ analyze_gae_lambda()`
     F["lambda 小"] -->|偏差大方差小| B
     G["lambda 大"] -->|偏差小方差大| B
     style B fill:#e3f2fd`,
-            warning: "GAE 中的 lambda 是最重要的超参数之一。通常 lambda=0.95 在偏差和方差之间取得了很好的平衡。"
+            tip: "GAE 中的 lambda 是最重要的超参数之一。通常 lambda=0.95 在偏差和方差之间取得了很好的平衡。"
         },
         {
-            title: "7. CartPole 环境实战：REINFORCE 完整实现",
-            body: `CartPole 是强化学习的标准测试环境。场景是一辆小车在水平轨道上移动，车上倒立着一根杆子。智能体的目标是通过左右移动小车来保持杆子不倒。状态空间是 4 维连续向量（小车位置、速度、杆子角度、角速度），动作空间是 2 维离散（左移或右移）。每一步杆子不倒就获得 +1 奖励，episode 在杆子角度超过 12 度或小车超出边界时结束。
+            title: "6. CartPole 环境实战：REINFORCE 完整实现",
+            body: `CartPole 是强化学习的标准测试环境。场景是一辆小车在水平轨道上移动，车上倒立着一根杆子。智能体的目标是通过左右移动小车来保持杆子不倒。状态空间是 4 维连续向量（小车位置、速度、杆子角度、角速度），动作空间是 2 维离散（左移或右移）。每一步杆子不倒就获得 +1 奖励。
 
 这个环境看似简单，但完美展示了策略梯度方法的核心能力：从连续状态到离散动作的映射学习。我们使用一个两层神经网络作为策略函数近似器，配合基线函数降低方差。`,
             code: [
@@ -679,7 +579,6 @@ def train_cartpole(episodes=500):
     env = gym.make("CartPole-v1")
     agent = CartPoleREINFORCE()
     history = []
-
     for ep in range(episodes):
         state, _ = env.reset()
         states, actions, rewards = [], [], []
@@ -750,7 +649,119 @@ def evaluate(agent, n_episodes=10):
     K["值网络 V(s)"] -.->|基线| I
     style C fill:#e8f5e9
     style K fill:#fff3e0`,
-            tip: "CartPole 的 solved 标准是最近 100 集平均奖励 >= 195。REINFORCE 通常在 200-400 个 episode 内可以达到。"
+            warning: "CartPole 的 solved 标准是最近 100 集平均奖励 >= 195。REINFORCE 通常在 200-400 个 episode 内可以达到。"
+        },
+        {
+            title: "7. 策略梯度 vs 值方法：全面对比与选择指南",
+            body: `策略梯度和值函数方法是强化学习的两大主流范式，各有优劣。值函数方法通过学习 Q 值间接学习策略，策略梯度方法直接优化策略参数。理解两者的差异对于选择合适的算法至关重要。
+
+值函数方法的核心优势是样本效率较高，TD 学习利用自举机制不需要等到 episode 结束就能更新，而且 TD 误差的方差通常远小于蒙特卡洛回报的方差。但值函数方法在处理连续动作空间时面临困难，且确定性策略的探索需要额外设计。策略梯度方法天然支持连续动作和随机策略，但样本效率低、方差高。现代强化学习中，Actor-Critic 架构结合了两者的优势，成为工业界的首选。`,
+            code: [
+                {
+                    lang: "python",
+                    code: `# Actor-Critic：结合值方法和策略梯度的优势
+
+import numpy as np
+
+class ActorCritic:
+    def __init__(self, n_features, n_actions, lr_actor=0.001, lr_critic=0.005):
+        self.lr_actor = lr_actor
+        self.lr_critic = lr_critic
+        self.gamma = 0.99
+        self.actor_w1 = np.random.randn(n_features, 64) * 0.01
+        self.actor_w2 = np.random.randn(64, n_actions) * 0.01
+        self.critic_w1 = np.random.randn(n_features, 64) * 0.01
+        self.critic_w2 = np.random.randn(64, 1) * 0.01
+
+    def select_action(self, state):
+        h = np.tanh(state @ self.actor_w1)
+        logits = h @ self.actor_w2
+        logits -= np.max(logits)
+        probs = np.exp(logits) / np.sum(np.exp(logits))
+        return np.random.choice(len(probs), p=probs)
+
+    def learn(self, state, action, reward, next_state, done):
+        V_s = self._value(state)
+        V_sp = 0.0 if done else self._value(next_state)
+        td_error = reward + self.gamma * V_sp - V_s
+        self._update_actor(state, action, td_error)
+        self._update_critic(state, td_error)
+        return td_error
+
+    def _value(self, state):
+        h = np.tanh(state @ self.critic_w1)
+        return float(h @ self.critic_w2)
+
+    def _update_actor(self, state, action, td_error):
+        h = np.tanh(state @ self.actor_w1)
+        probs = self._probs(state)
+        d_logits = -np.eye(2)[action] + probs
+        self.actor_w2 += self.lr_actor * td_error * np.outer(h, d_logits)
+
+    def _update_critic(self, state, td_error):
+        h = np.tanh(state @ self.critic_w1)
+        self.critic_w2 += self.lr_critic * td_error * h
+
+    def _probs(self, state):
+        h = np.tanh(state @ self.actor_w1)
+        logits = h @ self.actor_w2
+        logits -= np.max(logits)
+        exp_l = np.exp(logits)
+        return exp_l / exp_l.sum()`
+                },
+                {
+                    lang: "python",
+                    code: `# 算法选择决策树
+
+def choose_algorithm(action_space, state_dim, need_efficiency):
+    if action_space == "continuous":
+        if need_efficiency:
+            return ["SAC（最大熵，样本效率好）", "TD3（确定性策略梯度）"]
+        return ["PPO（稳定，工业界首选）", "DDPG（基础连续控制）"]
+    else:
+        if state_dim > 100:
+            return ["DQN/Rainbow（高维离散）", "C51（分布型 DQN）"]
+        else:
+            if need_efficiency:
+                return ["Q-learning（表格）", "SARSA（on-policy）"]
+            return ["REINFORCE（策略梯度入门）", "Actor-Critic（混合架构）"]
+
+# 使用示例
+scenarios = [
+    ("continuous", 24, False, "机器人控制"),
+    ("discrete", 84*84*3, True, "Atari 游戏"),
+    ("discrete", 4, False, "CartPole"),
+]
+for action_s, state_d, eff, name in scenarios:
+    recs = choose_algorithm(action_s, state_d, eff)
+    print(f"\\n{name}: {recs}")`
+                }
+            ],
+            table: {
+                headers: ["对比维度", "值函数方法 (DQN)", "策略梯度 (REINFORCE)", "Actor-Critic (A2C/PPO)"],
+                rows: [
+                    ["样本效率", "高（TD 自举）", "低（蒙特卡洛）", "中高（Critic 辅助）"],
+                    ["方差", "低", "高", "中"],
+                    ["连续动作", "困难", "天然支持", "天然支持"],
+                    ["随机策略", "需要额外设计", "天然支持", "天然支持"],
+                    ["收敛稳定性", "较好", "较差（高方差）", "好（工业首选）"],
+                    ["工业应用", "推荐系统", "较少单独使用", "首选（PPO/SAC）"],
+                ]
+            },
+            mermaid: `graph TD
+    A["算法选择"] --> B{动作空间类型?}
+    B -->|离散| C{状态维度?}
+    B -->|连续| D["策略梯度类算法"]
+    C -->|低维| E["Q-learning / SARSA"]
+    C -->|高维| F["DQN / Rainbow"]
+    D --> G{样本效率需求?}
+    G -->|高| H["SAC / TD3"]
+    G -->|中| I["PPO / A3C"]
+    J["Actor-Critic"] --> K["结合两者优势"]
+    K --> L["工业界首选"]
+    style J fill:#e3f2fd
+    style L fill:#e8f5e9`,
+            warning: "现代强化学习中，纯 REINFORCE 已经很少单独使用。Actor-Critic 架构（特别是 PPO 和 SAC）结合了两者的优势，是工业界的首选。但理解 REINFORCE 是理解所有高级策略梯度算法的基础。"
         }
     ],
 };
