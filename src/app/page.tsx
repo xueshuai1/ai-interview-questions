@@ -106,7 +106,7 @@ export default function Home() {
               </div>
               <div className="hidden sm:block w-px h-4 bg-emerald-500/30" />
               <div className="flex items-center gap-3 text-xs text-emerald-400/80">
-                <span>⚡ qwen3.6-plus</span>
+                <span>⚡ Qwen 3.6 Plus</span>
                 <span>·</span>
                 <span>📅 {LAST_UPDATE_TIME} 更新</span>
               </div>
