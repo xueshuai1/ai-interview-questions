@@ -218,6 +218,37 @@ export const tools: Tool[] = [
     price: "付费",
     icon: "🤝",
   },
+  // 智能体平台 - 编程 Agent
+  {
+    id: "claude-code",
+    name: "Claude Code (Anthropic)",
+    category: "agent",
+    description: "Anthropic 终端优先的 AI 编程 Agent，支持仓库级理解、多文件修改、自动运行测试和创建 PR，2026 年已成为最流行的 AI 编程工具",
+    url: "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview",
+    tags: ["编程 Agent", "终端", "自动化", "Anthropic"],
+    price: "免费+付费",
+    icon: "⌨️",
+  },
+  {
+    id: "cursor",
+    name: "Cursor",
+    category: "agent",
+    description: "AI 原生 IDE，支持 Composer 多 Agent 并行编码、Plan Mode 可编辑计划、4 倍于竞品的响应速度，2026 年收入突破 20 亿美元",
+    url: "https://www.cursor.com",
+    tags: ["IDE", "多 Agent", "代码生成", "编辑器"],
+    price: "免费+付费",
+    icon: "💎",
+  },
+  {
+    id: "cline",
+    name: "Cline",
+    category: "agent",
+    description: "开源 VS Code 编程 Agent 扩展，支持 Claude、GPT、Gemini、DeepSeek 等多模型灵活切换，本地优先，完全透明可控",
+    url: "https://cline.bot",
+    tags: ["开源", "VS Code 扩展", "多模型", "本地优先"],
+    price: "开源",
+    icon: "🔧",
+  },
   // 语音音频 - 新增
   {
     id: "google-eloquent",
