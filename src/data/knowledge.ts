@@ -31,13 +31,24 @@ export const categories = [
   { key: "cv", label: "计算机视觉", icon: "👁️" },
   { key: "llm", label: "大语言模型", icon: "🤖" },
   { key: "agent", label: "AI Agent", icon: "🦾" },
+  { key: "rl", label: "强化学习", icon: "🎮" },
+  { key: "genai", label: "生成式 AI", icon: "🎨" },
+  { key: "multimodal", label: "多模态学习", icon: "🔗" },
+  { key: "aieng", label: "AI 工程化", icon: "🔧" },
+  { key: "practice", label: "实践应用", icon: "🌍" },
+  { key: "mlops", label: "MLOps 与部署", icon: "🚀" },
+  { key: "ethics", label: "AI 伦理与安全", icon: "⚖️" },
+  { key: "math", label: "数学基础", icon: "📐" },
 ];
 
 import { article as ml001 } from './articles/ml-001';
 import { article as ml002 } from './articles/ml-002';
 import { article as ml003 } from './articles/ml-003';
+import { article as ml004 } from './articles/ml-004';
 import { article as ml005 } from './articles/ml-005';
+import { article as ml006 } from './articles/ml-006';
 import { article as dl001 } from './articles/dl-001';
+import { article as dl002 } from './articles/dl-002';
 import { article as dl003 } from './articles/dl-003';
 import { article as dl004 } from './articles/dl-004';
 import { article as dl005 } from './articles/dl-005';
@@ -51,4 +62,4 @@ import { article as llm003 } from './articles/llm-003';
 import { article as agent001 } from './articles/agent-001';
 import { article as agent002 } from './articles/agent-002';
 
-export const articles: Article[] = [ml001, ml002, ml003, ml005, dl001, dl003, dl004, dl005, nlp001, nlp002, cv001, cv002, llm001, llm002, llm003, agent001, agent002];
+export const articles: Article[] = [ml001, ml002, ml003, ml004, ml005, ml006, dl001, dl002, dl003, dl004, dl005, nlp001, nlp002, cv001, cv002, llm001, llm002, llm003, agent001, agent002];
