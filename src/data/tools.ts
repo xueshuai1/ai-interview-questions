@@ -104,6 +104,16 @@ export const tools: Tool[] = [
     price: "免费+付费",
     icon: "🤗",
   },
+  {
+    id: "vllm",
+    name: "vLLM",
+    category: "framework",
+    description: "高性能 LLM 推理引擎，支持 PagedAttention 连续批处理、张量并行，0.19.0 版本新增 Hugging Face 深度集成和 Gemma 4 支持",
+    url: "https://vllm.ai",
+    tags: ["推理引擎", "高性能", "部署", "PagedAttention"],
+    price: "开源",
+    icon: "⚡",
+  },
   // 数据处理
   {
     id: "pandas",
