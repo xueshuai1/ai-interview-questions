@@ -456,5 +456,47 @@ Anthropic 的 Claude AI 在 2026 年迎来了爆发式的付费用户增长。
     source: "NucNet / Axios / UN News",
     sourceUrl: "https://www.nucnet.org",
     href: "/news/news-057",
+  },
+  {
+    id: "news-058",
+    tag: "行业报告",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/tech.jpg",
+    title: "斯坦福 2026 AI Index 报告：中国正在缩小与美国的 AI 差距",
+    summary: "斯坦福大学 HAI 研究所发布 2026 年 AI Index 报告，显示 AI 竞争已从 OpenAI 和 Google 的双寡头扩展到全球多国竞争。中国 DeepSeek-R1 在 LMSYS 基准测试中接近美国顶尖模型水平，中美开放模型差距从 8% 缩至 1.7%。报告涵盖研究开发、技术性能、经济、政策等 8 大维度，12 项关键发现。",
+    content: `## 斯坦福 2026 AI Index 报告发布
+
+斯坦福大学人类中心 AI 研究所（HAI）发布了 **2026 年 AI Index 报告**，全面追踪全球 AI 发展趋势。
+
+**关键发现：**
+
+- **AI 竞争全球化**：AI 不再是 OpenAI 和 Google 的双寡头游戏，Meta、Anthropic、xAI 等美国公司以及中国 DeepSeek、法国 Mistral 等正在迎头赶上
+- **中国 AI 崛起**：DeepSeek-R1 在 LMSYS 基准测试中接近美国顶尖模型水平
+- **开源模型追赶**：2024 年开放模型与闭源模型的差距从 8% 缩小到 1.7%
+- **但美国仍领先**：美国产出 40 个前沿模型，中国 15 个，欧洲 3 个
+- **论文与专利**：中国 AI 论文和专利申请数量超过美国
+- **硬件效率提升**：过去一年硬件效率提升 40%，AI 查询成本下降
+
+**12 项关键发现涵盖：**
+1. 研究开发趋势
+2. 技术性能突破
+3. 负责任 AI 发展
+4. AI 经济影响
+5. 科学与医学应用
+6. 政策与治理
+7. 教育
+8. 公众意见
+
+**行业趋势：**
+- 60.7% 的先进模型仍是闭源
+- Meta Llama 4 刚刚发布（4 月 5 日）
+- OpenAI 宣布夏季发布首个开源模型（自 GPT-2 以来）
+- 中东、拉美、东南亚也出现强大 AI 模型
+
+**Fox News 4 月 13 日报道**：斯坦福 HAI 执行主任 Russell Wald 讨论 2026 AI Index，指出中国正在缩小与美国的 AI 差距。`,
+    date: "2026-04-13",
+    source: "Stanford HAI / WIRED / Fox News",
+    sourceUrl: "https://hai.stanford.edu/news/inside-the-ai-index-12-takeaways-from-the-2026-report",
+    href: "/news/news-058",
   }
 ];
