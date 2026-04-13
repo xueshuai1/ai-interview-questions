@@ -18,28 +18,28 @@ export const news: NewsItem[] = [
     id: "news-030",
     tag: "Research",
     tagColor: "bg-cyan-500/10 text-cyan-300",
-    title: "MIT Introduces CompreSSM: Control Theory Method Compresses AI Models During Training",
-    summary: "MIT CSAIL researchers developed CompreSSM, a technique using control theory to dynamically remove unnecessary complexity from state-space models during training, making AI models leaner and faster without sacrificing accuracy.",
-    content: `MIT researchers have developed CompreSSM, a novel compression technique that makes AI models smaller, faster, and more efficient during the training process itself — not after.
+    title: "MIT 推出 CompreSSM：用控制理论在训练过程中压缩 AI 模型",
+    summary: "MIT CSAIL 研究团队开发了 CompreSSM 技术，利用控制理论在训练过程中动态移除状态空间模型中不必要的复杂度，使 AI 模型更轻量、更快，同时不牺牲精度。",
+    content: `MIT 研究人员开发了一种名为 CompreSSM 的新型压缩技术，它能在训练过程本身中使 AI 模型变得更小、更快、更高效——而不是在训练之后。
 
-**How It Works:**
-- Uses principles from control theory to identify and remove redundant parameters while models are still learning
-- Targets state-space models (SSMs), emerging alternatives to transformers for long-sequence tasks
-- Dynamically streamlines model architecture as training progresses, rather than applying post-hoc pruning
+**工作原理：**
+- 利用控制理论原理，在模型学习过程中识别并移除冗余参数
+- 针对状态空间模型（SSMs），这是处理长序列任务时 transformer 的新兴替代方案
+- 在训练过程中动态精简模型架构，而非采用事后剪枝
 
-**Key Advantages:**
-- More efficient training: models learn using fewer computational resources
-- State-space models are already leaner alternatives to transformers for audio processing, robotics, and extended language contexts
-- CompreSSM tips the balance further for specific use cases
+**核心优势：**
+- 更高效的训练：模型使用更少的计算资源进行学习
+- 状态空间模型本身已经是音频处理、机器人和扩展语言上下文场景中比 transformer 更轻量的替代方案
+- CompreSSM 进一步在特定用例中倾斜了平衡
 
-**Applications:**
-- Language processing with long temporal dependencies
-- Audio analysis and speech recognition
-- Robotics control systems
-- Any domain requiring efficient sequence modeling
+**应用场景：**
+- 具有长时间依赖的语言处理
+- 音频分析和语音识别
+- 机器人控制系统
+- 任何需要高效序列建模的领域
 
-**Strategic Significance:**
-As AI models continue to scale in size, techniques like CompreSSM address one of the biggest challenges in modern AI development: balancing performance with cost and efficiency. By reducing computational overhead during learning itself, this approach could democratize access to advanced AI capabilities.`,
+**战略意义：**
+随着 AI 模型规模不断扩大，CompreSSM 等技术解决了现代 AI 开发中最大的挑战之一：在性能与成本和效率之间取得平衡。通过在学习本身减少计算开销，这种方法有望降低先进 AI 能力的获取门槛。`,
     date: "2026-04-13",
     source: "MIT News / ICLR 2026",
     sourceUrl: "https://news.mit.edu/2026/new-technique-makes-ai-models-leaner-faster-while-still-learning-0409",
@@ -49,34 +49,34 @@ As AI models continue to scale in size, techniques like CompreSSM address one of
     id: "news-031",
     tag: "Policy",
     tagColor: "bg-yellow-500/10 text-yellow-300",
-    title: "Trump Administration Publishes AI Framework: Risk-Based Approach to Federal AI Regulation",
-    summary: "The White House has released its comprehensive AI Framework establishing federal policy priorities, calling for sector-specific oversight, mandatory disclosure for AI handling personal data, and provisions for AI in national security applications.",
-    content: `The Trump Administration has published its AI Framework, setting out key federal policy priorities and legislative recommendations for the United States' approach to artificial intelligence governance.
+    title: "特朗普政府发布 AI 框架：联邦 AI 监管的风险分级方案",
+    summary: "白宫发布了全面的 AI 框架，确立了联邦政策优先级，呼吁行业特定监管、要求 AI 处理个人数据时强制披露，以及纳入 AI 在国家安全应用中的条款。",
+    content: `特朗普政府发布了其 AI 框架，为美国人工智能治理方法设定了关键的联邦政策优先级和立法建议。
 
-**Framework Highlights:**
-- Establishes a risk-based approach to AI regulation, differentiating between high-risk and low-risk applications
-- Calls for sector-specific oversight rather than a monolithic regulatory body
-- Proposes mandatory disclosure requirements for AI systems handling personal data
-- Includes provisions for AI in national security and defense applications
+**框架要点：**
+- 建立了基于风险的 AI 监管方法，区分高风险和低风险应用
+- 呼吁行业特定监管，而非单一监管机构
+- 提出对处理个人数据的 AI 系统实行强制披露要求
+- 包括 AI 在国家安全和国防应用中的条款
 
-**Legislative Context:**
-The framework follows closely behind Senator Marsha Blackburn's (R-TN) March 18, 2026, legislative discussion draft, which proposed a different approach to AI governance. The two documents represent competing visions for how the US should regulate AI.
+**立法背景：**
+该框架紧跟参议员 Marsha Blackburn（R-TN）于 2026 年 3 月 18 日发布的立法讨论草案，两者提出了不同的 AI 治理方案。这两份文件代表了美国应该如何监管 AI 的两种不同愿景。
 
-**Industry Response:**
-AI companies are navigating a complex landscape. Major AI firms have recognized they face an "image problem" and are increasingly publishing policy papers and funding thinktanks to shape the regulatory narrative.
+**行业回应：**
+AI 公司正在应对复杂局面。主要 AI 企业已经意识到它们面临"形象问题"，并且越来越多地发布政策文件和资助智库来塑造监管叙事。
 
-**Global Comparison:**
-- The EU continues to enforce the world's most comprehensive AI regulation through the EU AI Act
-- The UK has adopted a "pro-innovation" approach, with existing regulators interpreting AI principles within their sectors
-- China has introduced measures for labelling AI-generated content
-- The US framework represents a lighter-touch approach focused on market-driven innovation`,
+**全球对比：**
+- 欧盟继续通过 EU AI Act 执行全球最全面的 AI 监管
+- 英国采取了"促进创新"的方法，由现有监管机构在各自领域内解读 AI 原则
+- 中国已引入 AI 生成内容标签措施
+- 美国框架代表了一种更宽松的、以市场驱动创新为中心的方法`,
     date: "2026-04-13",
     source: "Alston & Bird / White House",
     sourceUrl: "https://www.alston.com/en/insights/publications/2026/04/ai-quarterly-april-2026",
     href: "/news/news-031",
   },
   {
-    id: "news-030",
+    id: "news-032",
     tag: "Models",
     tagColor: "bg-violet-500/10 text-violet-300",
     title: "Microsoft Launches Three In-House AI Models: MAI-Transcribe, MAI-Voice, MAI-Image",
@@ -98,7 +98,7 @@ Microsoft's move is part of a larger pattern of tech giants building in-house AI
     date: "2026-04-13",
     source: "Microsoft / TechCrunch",
     sourceUrl: "https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/",
-    href: "/news/news-030",
+    href: "/news/news-032",
   },
   {
     id: "news-029",

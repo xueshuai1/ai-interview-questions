@@ -19,6 +19,7 @@ export const toolCategories = [
   { key: "vision", label: "图像视觉", icon: "🎨" },
   { key: "audio", label: "语音音频", icon: "🎙️" },
   { key: "agent", label: "智能体平台", icon: "🦾" },
+  { key: "search", label: "AI 搜索", icon: "🔍" },
 ];
 
 export const tools: Tool[] = [
@@ -563,6 +564,27 @@ export const tools: Tool[] = [
     tags: ["开源", "本地部署", "多模型", "GPU 加速"],
     price: "开源",
     icon: "🦙",
+  },
+  // AI 搜索
+  {
+    id: "perplexity-search",
+    name: "Perplexity AI",
+    category: "search",
+    description: "AI 驱动的答案引擎，结合实时网络搜索与高级 AI 推理，提供带引用的精准答案，支持 Deep Research 深度研究和 Model Council 多模型交叉验证",
+    url: "https://www.perplexity.ai",
+    tags: ["AI 搜索", "实时数据", "深度研究", "引用溯源"],
+    price: "免费+付费",
+    icon: "🔎",
+  },
+  {
+    id: "openrouter",
+    name: "OpenRouter",
+    category: "search",
+    description: "统一 AI 模型 API 网关，通过一个接口访问 300+ 模型（GPT、Claude、Gemini、开源等），自动路由最优模型，提供统一计费和监控面板，开发者友好",
+    url: "https://openrouter.ai",
+    tags: ["API 网关", "多模型", "统一接口", "开发者工具"],
+    price: "免费+付费",
+    icon: "🔀",
   },
   // 智能体平台 - 2026.04 新增
   {
