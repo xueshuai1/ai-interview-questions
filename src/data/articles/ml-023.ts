@@ -169,6 +169,113 @@ class EpisodicMemory:
                 ],
             },
             tip: "Start small: train your world model on a simple domain like CartPole or a 2D grid world before scaling to complex environments. This helps you debug each component in isolation.",
+            code: [
+                {
+                    lang: "python",
+                    code: `# Test-Time Training with Elastic Weight Consolidation (EWC)
+# EWC 防止持续学习中的灾难性遗忘：对重要参数施加更大的正则化惩罚
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
+
+
+class EWC:
+    """Elastic Weight Consolidation: 保护重要参数不被覆盖"""
+
+    def __init__(self, model: nn.Module, dataloader: DataLoader, device: str = "cpu"):
+        self.model = model
+        self.device = device
+        # Fisher 信息矩阵的对角线近似（存储在参数平方的梯度期望中）
+        self.fisher = {n: torch.zeros_like(p) for n, p in model.named_parameters() if p.requires_grad}
+        # 任务结束时的最优参数（作为正则化目标）
+        self.optimal_params = {n: p.clone().detach() for n, p in model.named_parameters() if p.requires_grad}
+        # 计算 Fisher 信息
+        self._compute_fisher(dataloader)
+
+    def _compute_fisher(self, dataloader: DataLoader):
+        """通过 empirical Fisher 近似计算参数重要性"""
+        self.model.train()
+        for n, p in self.fisher.items():
+            p.zero_()
+
+        n_samples = 0
+        for obs, action in dataloader:
+            obs, action = obs.to(self.device), action.to(self.device)
+            # 用负 log 似然作为 Fisher 的代理
+            _, _, mu, log_var = self.model.encode(obs)
+            # VAE 的负 log 似然近似
+            recon, _, _, _ = self.model(obs, action)
+            nll = nn.MSELoss()(recon, obs)
+            
+            self.model.zero_grad()
+            nll.backward()
+            
+            for n, p in self.model.named_parameters():
+                if p.requires_grad and p.grad is not None:
+                    self.fisher[n] += p.grad.pow(2) * obs.size(0)
+            n_samples += obs.size(0)
+
+        # 归一化
+        for n in self.fisher:
+            self.fisher[n] /= n_samples
+
+    def penalty(self) -> torch.Tensor:
+        """计算 EWC 正则化惩罚项: Σ (λ/2) * F_i * (θ_i - θ*_i)²"""
+        penalty = torch.tensor(0.0, device=self.device)
+        for n, p in self.model.named_parameters():
+            if p.requires_grad and n in self.fisher:
+                penalty += (self.fisher[n] * (p - self.optimal_params[n]).pow(2)).sum()
+        return 0.5 * penalty
+
+
+# 持续学习训练循环示例
+def continual_training_loop(world_model, task_dataloaders, ewc_lambda=100.0, epochs=10, device="cpu"):
+    """在多任务流上进行持续学习，使用 EWC 防止遗忘
+    
+    参数:
+        world_model: WorldModel 实例
+        task_dataloaders: 每个任务的数据加载器列表
+        ewc_lambda: EWC 正则化强度（越大越保守）
+    """
+    optimizer = optim.Adam(world_model.parameters(), lr=1e-3)
+    ewc = None  # 第一个任务不需要 EWC
+
+    for task_id, dataloader in enumerate(task_dataloaders):
+        print(f"\n=== 训练任务 {task_id + 1} ===")
+        
+        for epoch in range(epochs):
+            total_loss = 0
+            for obs, action in dataloader:
+                obs, action = obs.to(device), action.to(device)
+                recon, reward, mu, log_var = world_model(obs, action)
+                
+                # 重建损失 + KL 散度
+                recon_loss = nn.MSELoss()(recon, obs)
+                kl_loss = -0.5 * torch.sum(1 + log_var - mu.pow(2) - log_var.exp())
+                model_loss = recon_loss + 0.01 * kl_loss
+                
+                # EWC 正则化（保护之前任务学到的参数）
+                if ewc is not None:
+                    ewc_loss = ewc_lambda * ewc.penalty()
+                    loss = model_loss + ewc_loss
+                else:
+                    loss = model_loss
+                
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+                total_loss += loss.item()
+            
+            print(f"  Epoch {epoch+1}/{epochs}, Loss: {total_loss/len(dataloader):.4f}")
+        
+        # 任务完成后，更新 EWC 保护参数
+        ewc = EWC(world_model, dataloader, device)
+        print(f"  任务 {task_id + 1} 完成，EWC 已更新")
+    
+    return world_model`,
+                },
+            ],
         },
         {
             title: "Current Challenges and Open Problems",

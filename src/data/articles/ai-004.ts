@@ -78,6 +78,74 @@ export const article: Article = {
             code: [
                 {
                     lang: "python",
+                    code: `# 知识图谱检索增强（KG-RAG）：将知识图谱注入 LLM 推理
+from typing import Dict, List, Tuple
+import json
+
+# 简易知识图谱：实体 → 关系 → 实体
+KG = {
+    "Elon Musk": {
+        "founded": ["Zip2", "X.com", "SpaceX", "The Boring Company", "Neuralink", "xAI"],
+        "ceo_of": ["Tesla", "SpaceX", "xAI"],
+        "born": "1971-06-28",
+    },
+    "SpaceX": {
+        "founded": "2002",
+        "headquarters": "Hawthorne, California",
+        "notable_achievements": ["Falcon 1", "Falcon 9", "Starship", "Dragon"],
+    },
+    "Tesla": {
+        "founded": "2003",
+        "headquarters": "Austin, Texas",
+        "products": ["Model S", "Model 3", "Model X", "Model Y", "Cybertruck"],
+    },
+}
+
+
+def query_kg(entity: str, relation: str = None) -> Dict | List:
+    """查询知识图谱，返回实体或关系对应的信息"""
+    if entity not in KG:
+        return {}
+    if relation is None:
+        return KG[entity]
+    return KG[entity].get(relation, [])
+
+
+def kg_rag_prompt(user_question: str) -> str:
+    """基于知识图谱构建增强 Prompt
+    
+    核心思路：从用户问题中识别关键实体，检索相关知识图谱信息，
+    然后将检索到的结构化事实注入到 Prompt 上下文中。
+    """
+    # 简单的实体识别（实际系统会使用 NER 模型）
+    known_entities = [e for e in KG if e.lower() in user_question.lower()]
+    
+    if not known_entities:
+        return user_question  # 知识图谱中无相关信息
+    
+    # 构建知识图谱上下文
+    kg_context = "\n--- 知识图谱检索结果 ---\n"
+    for entity in known_entities:
+        kg_context += f"实体: {entity}\n"
+        for rel, val in KG[entity].items():
+            if isinstance(val, list):
+                kg_context += f"  {rel}: {', '.join(val)}\n"
+            else:
+                kg_context += f"  {rel}: {val}\n"
+    kg_context += "---\n"
+    
+    return f"{kg_context}\n基于以上知识图谱中的事实，回答以下问题：\n{user_question}"
+
+
+# 测试
+question = "Elon Musk 创立的第三家公司是什么？SpaceX 有哪些重要成就？"
+enhanced_prompt = kg_rag_prompt(question)
+print(enhanced_prompt)
+# 输出将包含 Elon Musk 的创业历程和 SpaceX 的成就列表
+# LLM 可以基于这些结构化事实生成准确的回答`,
+                },
+                {
+                    lang: "python",
                     code: `# 逻辑规则转化为可微分损失函数
 import torch
 import torch.nn as nn
