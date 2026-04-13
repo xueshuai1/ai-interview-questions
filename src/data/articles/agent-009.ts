@@ -370,11 +370,11 @@ main().catch(console.error);`
             table: {
                 headers: ["MCP Server 类型", "用途", "数据流向", "安全风险"],
                 rows: [
-                    ["文件系统 Server", "读取/写入本地文件", 本地 ↔ Agent, "中（文件权限控制）"],
-                    ["数据库 Server", "执行 SQL 查询", 数据库 ↔ Agent, "高（SQL 注入、数据泄露）"],
-                    ["API Server", "调用外部 API", 外部服务 ↔ Agent", "中（认证令牌管理）"],
-                    ["搜索 Server", "网络搜索", 搜索引擎 ↔ Agent", "低（只读操作）"],
-                    ["浏览器 Server", "网页自动化", 浏览器 ↔ Agent", "高（任意代码执行）"],
+                    ["文件系统 Server", "读取/写入本地文件", "本地 ↔ Agent", "中（文件权限控制）"],
+                    ["数据库 Server", "执行 SQL 查询", "数据库 ↔ Agent", "高（SQL 注入、数据泄露）"],
+                    ["API Server", "调用外部 API", "外部服务 ↔ Agent", "中（认证令牌管理）"],
+                    ["搜索 Server", "网络搜索", "搜索引擎 ↔ Agent", "低（只读操作）"],
+                    ["浏览器 Server", "网页自动化", "浏览器 ↔ Agent", "高（任意代码执行）"],
                 ]
             },
             mermaid: `graph TD
