@@ -16,6 +16,208 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-052",
+    tag: "融资",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/funding.jpg",
+    title: "OpenAI 完成 1220 亿美元史上最大融资，估值达 8520 亿美元",
+    summary: "OpenAI 宣布完成 1220 亿美元融资，投后估值 8520 亿美元，其中 30 亿美元来自散户投资者。这是科技史上规模最大的融资轮次，标志着 AI 行业资本投入达到前所未有的水平。",
+    content: `![news-052](/images/news/funding.jpg)
+
+## OpenAI 融资刷新历史记录
+
+2026 年 3 月 31 日，OpenAI 官方宣布完成了总额 1220 亿美元的融资，投后估值达到 8520 亿美元。
+
+**融资细节：**
+- 总金额 **1220 亿美元**，是科技史上规模最大的融资轮次之一
+- 其中 **30 亿美元**来自散户投资者，在尚未上市的 AI 公司中极为罕见
+- 投后估值 **8520 亿美元**，超越了许多传统科技巨头的市值
+
+**战略意义：**
+- 这笔资金将用于大规模算力基础设施建设、模型研发和全球扩张
+- OpenAI 正从一家 AI 研究公司转变为全球基础设施级平台
+- 融资规模远超 Anthropic（3800 亿美元估值）和 xAI（2000 亿美元估值）
+
+**行业影响：**
+- 科技巨头 2026 年 AI 资本支出预计超过 3000 亿美元
+- AI 初创公司融资持续升温，2026 年已有 17 家美国 AI 公司融资超 1 亿美元
+- OpenAI 同时计划到 2026 年底将员工从 4500 人扩招至 8000 人`,
+    date: "2026-04-13",
+    source: "OpenAI / TechCrunch / Bloomberg",
+    sourceUrl: "https://techcrunch.com/2026/03/31/openai-not-yet-public-raises-3b-from-retail-investors-in-monster-122b-fund-raise/",
+    href: "/news/news-052",
+  },
+  {
+    id: "news-051",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/security.jpg",
+    title: "特朗普政府将 Anthropic 列为供应链风险，联邦机构被令停止使用 Claude",
+    summary: "特朗普政府将 Anthropic 标记为供应链风险（通常仅用于中国间谍嫌疑企业的 designation），并下令联邦机构停止使用 Claude 技术。Anthropic 正在与此进行法律抗争。",
+    content: `![news-051](/images/news/security.jpg)
+
+## Anthropic 与五角大楼的全面对抗
+
+特朗普政府将 Anthropic 标记为供应链风险——这一 designation 通常仅保留给涉嫌间谍活动的中国企业——并下令联邦机构停止使用 Anthropic 的技术。
+
+**事件要点：**
+- Anthropic 因安全立场拒绝接受国防部合同，引发政治反弹
+- 联邦机构被要求立即停止使用 Claude 相关技术
+- Anthropic 已获得禁令初步胜利，正在与政府进行法律抗争
+
+**企业影响：**
+- 美国付费使用 Anthropic 工具的企业比例已从约 4% 飙升至 20%
+- Anthropic 软件工程相关岗位自 2025 年 1 月以来增长 170%
+- 与 OpenAI 形成鲜明对比——后者与 DOD 签约后遭遇用户卸载量激增 295%
+
+**行业意义：**
+这一事件标志着 AI 安全立场已从企业价值观升级为政治议题。Anthropic 因坚持安全原则而被政府针对，反而赢得了更多企业和消费者用户的信任。`,
+    date: "2026-04-13",
+    source: "Quartz / TechCrunch",
+    sourceUrl: "https://qz.com/anthropic-claude-ai-business-revenue-pentagon-openai-chatgpt",
+    href: "/news/news-051",
+  },
+  {
+    id: "news-050",
+    tag: "公司动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/meta-layoffs.jpg",
+    title: "Meta 计划裁员 20% 以上，AI 基础设施巨额投入成主因",
+    summary: "据 Reuters 独家报道，Meta 正计划裁员 20% 或更多员工，以应对高达 1150-1350 亿美元的 AI 资本支出。同时，其 Avocado 模型表现不及预期，发布计划被迫推迟。",
+    content: `![news-050](/images/news/meta-layoffs.jpg)
+
+## Meta 大规模裁员应对 AI 成本
+
+2026 年 3 月，据 Reuters 独家报道，Meta 正在计划大规模裁员，可能影响 20% 或更多的员工。
+
+**裁员背景：**
+- Meta 2026 年 AI 资本支出预计高达 **1150-1350 亿美元**
+- 公司试图通过裁员来抵消昂贵的 AI 基础设施投入
+- AI 辅助工作将提升效率，减少部分岗位需求
+
+**模型挑战：**
+- 超智能团队正在开发新一代模型 **Avocado**，但性能不及预期
+- 图像和视频生成模型 **Mango** 也在同步开发中
+- 发布计划被迫推迟，面临 OpenAI 和 Anthropic 的激烈竞争
+
+**硬件与生态布局：**
+- 计划 2026 年推出智能手表 **Malibu 2**，内置 Meta AI 助手
+- 建设 **Prometheus** 超算集群，部署数十万块英伟达 GPU
+- 与 CoreWeave 签署 **210 亿美元**的 AI 计算合作协议
+
+**用户规模：**
+- Meta AI 月活跃用户达 **10 亿**，是历史上增长最快的 AI 平台
+- AI 视频工具已产生 **100 亿美元**的年度经常性收入`,
+    date: "2026-04-13",
+    source: "Reuters / NYT / eMarketer",
+    sourceUrl: "https://www.reuters.com/business/world-at-work/meta-planning-sweeping-layoffs-ai-costs-mount-2026-03-14/",
+    href: "/news/news-050",
+  },
+  {
+    id: "news-049",
+    tag: "公司动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/microsoft-ai.jpg",
+    title: "微软发布三款自研 AI 基础模型，直接挑战 OpenAI 和 Google",
+    summary: "微软 MAI Superintelligence 团队发布 MAI-Transcribe-1、MAI-Voice-1 和 MAI-Image-2 三款自研基础模型，聚焦语音转录、语音生成和图像生成，标志着微软 AI 战略的重大转向。",
+    content: `![news-049](/images/news/microsoft-ai.jpg)
+
+## 微软 MAI 基础模型正式发布
+
+2026 年 4 月 2 日，微软 AI 研究实验室正式发布了三款自研基础 AI 模型。
+
+**模型详情：**
+- **MAI-Transcribe-1**：专注于高精度语音转录，支持多语言实时识别
+- **MAI-Voice-1**：自然语音生成模型，可生成接近真人水平的语音内容
+- **MAI-Image-2**：图像生成模型，在质量和速度上对标 DALL-E 和 Imagen
+
+**战略转向：**
+- 由 Mustafa Suleyman 领导的 MAI Superintelligence 团队研发
+- 这是微软首次大规模推出自研基础模型，而非依赖 OpenAI 的技术
+- 微软 CEO Satya Nadella 确认将继续采购 NVIDIA 和 AMD 芯片
+
+**行业影响：**
+- 微软同时也在其研究工具中使用 OpenAI 和 Anthropic 的模型，展现多模型并行的务实策略
+- Microsoft AI 负责人 Suleyman 预测 18 个月内所有白领工作将被 AI 自动化
+- 这预示着科技巨头正从「绑定单一供应商」转向「多模型混合架构」`,
+    date: "2026-04-13",
+    source: "TechCrunch / VentureBeat",
+    sourceUrl: "https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/",
+    href: "/news/news-049",
+  },
+  {
+    id: "news-048",
+    tag: "行业趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/venture-capital.jpg",
+    title: "2026 年 Q1 全球风投达 2970 亿美元，81% 资金流向 AI 初创公司",
+    summary: "Crunchbase 数据显示，2026 年第一季度全球风险投资总额达 2970 亿美元，其中 81% 流向 AI 相关初创公司。种子轮 AI 公司估值中位数达 1790 万美元，比非 AI 公司溢价 42%。",
+    content: `![news-048](/images/news/venture-capital.jpg)
+
+## AI 吞噬风投市场
+
+2026 年第一季度的风险投资数据令人震惊。根据 Crunchbase 的最新数据：
+
+**关键数据：**
+- Q1 总融资额：**2970 亿美元**
+- AI 占比：**81%**（即每 100 美元风投中有 81 美元投向 AI）
+- 种子轮 AI 公司估值中位数 **1790 万美元**，比非 AI 公司溢价 42%
+- A 轮估值普遍突破 5000 万美元
+
+**投资趋势变化：**
+- 不再是 2021 年的「撒网式」投资模式
+- 资本更加集中，流向有实际收入的 AI 公司
+- 后期投资占比增加，证明 AI 行业走向成熟
+
+**科技巨头资本支出：**
+- Alphabet、Microsoft、Amazon 和 Meta 2026 年资本支出预计 **6350-6650 亿美元**
+- 加上风险投资市场，AI 领域总资金投入超过 **1 万亿美元**
+
+**非 AI 初创公司的困境：**
+据 Fast Company 报道，不在旧金山、不做 AI 的初创公司融资难度极大。`,
+    date: "2026-04-13",
+    source: "Crunchbase / Fast Company / Yahoo Finance",
+    sourceUrl: "https://qubit.capital/blog/ai-startup-fundraising-trends",
+    href: "/news/news-048",
+  },
+  {
+    id: "news-047",
+    tag: "前沿",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    coverImage: "/images/news/benchmark.jpg",
+    title: "2026 年 LLM 基准评测全景：GPT-5.4 领跑编码，GLM-5 开源模型跻身前三",
+    summary: "BenchLM 发布 2026 年 4 月最新 LLM 基准评测，GPT-5.4 Pro 在 SWE-bench Verified 达 76.9%，GLM-5 开源模型在编码领域以 49.64 质量指数位列第二，标志开源模型正式进入顶级阵营。",
+    content: `![news-047](/images/news/benchmark.jpg)
+
+## LLM 基准评测 2026 年 4 月更新
+
+独立评测机构 BenchLM 和 LM Council 发布了 2026 年最新 LLM 基准评测报告。
+
+**SWE-bench Verified（软件工程）：**
+- GPT-5.4 Pro (xhigh)：**76.9%** — 最强工程能力
+- Claude 4.6 Opus Thinking：紧随其后
+- GPT-5.4 (high)：表现同样出色
+
+**编码质量指数（WhatLLM.org）：**
+- GPT-5.2 (xhigh)：**50.5** — LiveCodeBench 89%
+- **GLM-5 (Reasoning)：49.64** — 最佳开源综合模型
+- Claude Opus 4.5 (high)：49.1 — LiveCodeBench 87%
+
+**LiveBench 综合评测：**
+- GPT-5.4 Thinking xHigh：**80.28** — 综合领先
+- Claude 4.6 Opus Thinking：**76.33**
+- Claude 4.5 Opus Thinking：75.96
+
+**关键趋势：**
+- 头部模型差距缩小至 1-2 分，竞争白热化
+- 开源模型 GLM-5 正式跻身顶级编码能力前三
+- 前沿模型 API 价格同比下降 40-80%，性价比大幅提升`,
+    date: "2026-04-13",
+    source: "BenchLM / LM Council / WhatLLM",
+    sourceUrl: "https://benchlm.ai/blog/posts/state-of-llm-benchmarks-2026",
+    href: "/news/news-047",
+  },
+  {
     id: "news-046",
     tag: "公司动态",
     tagColor: "bg-blue-500/10 text-blue-300",
