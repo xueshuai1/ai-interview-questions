@@ -281,6 +281,16 @@ export const tools: Tool[] = [
     icon: "🗣️",
   },
   {
+    id: "voxcpm",
+    name: "VoxCPM2 (OpenBMB)",
+    category: "audio",
+    description: "清华大学开源无 Tokenizer 语音合成模型，2B 参数，支持 30 种语言、48kHz 录音棚级音质、零样本语音克隆和创意声音设计，GitHub Trending 热门项目",
+    url: "https://github.com/OpenBMB/VoxCPM",
+    tags: ["语音合成", "开源", "语音克隆", "Trending", "多语言"],
+    price: "开源",
+    icon: "🎙️",
+  },
+  {
     id: "notebooklm",
     name: "Google NotebookLM",
     category: "data",
@@ -882,6 +892,16 @@ export const tools: Tool[] = [
     icon: "🎓",
   },
   // 2026.04 新增
+  {
+    id: "mem-ai",
+    name: "MemPalace",
+    category: "agent",
+    description: "AI Agent 长期记忆系统，采用记忆宫殿架构 + AAAK 30x 压缩技术，仅需 170 token 启动，LongMemEval 准确率达 96.6%，完全离线运行，支持 MCP 集成，48 小时获 22K GitHub Stars",
+    url: "https://github.com/MemPalace/mempalace",
+    tags: ["AI 记忆", "开源", "MCP", "知识图谱", "Trending"],
+    price: "开源",
+    icon: "🏛️",
+  },
   {
     id: "mem-ai",
     name: "Mem AI",
