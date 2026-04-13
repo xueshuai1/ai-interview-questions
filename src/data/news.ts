@@ -230,32 +230,6 @@ AI 公司正在应对复杂局面。主要 AI 企业已经意识到它们面临"
     href: "/news/news-031",
   },
   {
-    id: "news-004",
-    tag: "商业",
-    tagColor: "bg-yellow-500/10 text-yellow-300",
-    title: "CoreWeave 与 Meta 扩大 210 亿美元 AI 计算合作，英伟达芯片需求持续飙升",
-    summary: "CoreWeave 与 Meta 签署扩大合作协议，将部署超过 18 万块英伟达 GPU，AI 基础设施军备竞赛进入新阶段。",
-    content: `2026 年 4 月 10 日，AI 云计算公司 CoreWeave 宣布与 Meta 扩大长期合作协议，总金额高达 210 亿美元，用于部署和运营大规模 AI 计算集群。
-
-**合作规模：**
-- 总金额 210 亿美元，是 AI 基础设施领域最大的合作协议之一
-- 将部署超过 18 万块英伟达 GPU，涵盖最新的 Blackwell 架构芯片
-- 覆盖多个数据中心区域，为 Meta 的 AI 模型训练和推理提供算力支撑
-
-**行业背景：**
-这一合作发生在全球 AI 算力需求持续爆发的背景下。TSMC 同日报告第一季度收入同比增长 35%，达到约 357 亿美元，远超市场预期，进一步验证了 AI 芯片需求的强劲势头。
-
-**战略意义：**
-CoreWeave 已成为仅次于 AWS 和 Azure 的第三大 AI 云服务商。与 Meta 的深化合作不仅巩固了其市场地位，也反映出科技巨头对 AI 基础设施的投入正在加速，而非放缓。210 亿美元的投入规模，预示着 AI 军备竞赛远未见顶。
-
-**供应链影响：**
-这一规模的合作将直接影响英伟达的芯片出货计划、数据中心的电力和冷却需求，以及整个 AI 硬件供应链的产能规划。`,
-    date: "2026-04-10",
-    source: "TechStartups / Reuters",
-    sourceUrl: "https://techstartups.com/2026/04/10/top-tech-news-today-april-10-2026/",
-    href: "/news/news-004",
-  },
-  {
     id: "news-005",
     tag: "趋势",
     tagColor: "bg-purple-500/10 text-purple-300",

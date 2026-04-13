@@ -46,8 +46,20 @@ const features = [
   },
 ];
 
-const newsPreview = news.slice(0, 8);
+// 首页新闻：头条 1 条 + 快讯 5 条
+const headlineNews = news[0];
+const quickNews = news.slice(1, 6);
 const latestBlogs = blogs.slice(0, 3);
+
+function formatDate(dateStr: string): string {
+  const today = new Date();
+  const d = new Date(dateStr + "T00:00:00");
+  const diff = Math.floor((today.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+  if (diff === 0) return "今日";
+  if (diff === 1) return "昨日";
+  if (diff < 7) return `${diff} 天前`;
+  return dateStr;
+}
 
 export default function Home() {
 
@@ -58,7 +70,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-brand-500/10 rounded-full blur-3xl animate-pulse-slow" />
           <div className="absolute bottom-10 right-10 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: "2s" }} />
@@ -108,7 +119,6 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Stats */}
           <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
             {[
               { num: "140+", label: "篇教程" },
@@ -196,10 +206,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest News Section */}
-      <section id="news" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between mb-12">
+      {/* Latest News Section — 头条 + 快讯 */}
+      <section id="news" className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-2">
                 📰 AI <span className="text-gradient">最新动态</span>
@@ -207,29 +217,71 @@ export default function Home() {
               <p className="text-slate-400">紧跟行业脉搏，不错过任何重要进展</p>
             </div>
             <Link href="/blog" className="text-brand-400 hover:text-brand-300 font-medium hidden sm:block">
-              查看全部 →
+              更多 →
             </Link>
           </div>
 
-          <div className="space-y-4">
-            {newsPreview.map((item) => (
+          {headlineNews && (
+            <div className="grid lg:grid-cols-5 gap-6 mb-8">
+              {/* 头条 */}
               <Link
-                key={item.title}
-                href={item.href || "/blog"}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-500/5"
+                href={headlineNews.href}
+                className="lg:col-span-3 group relative block rounded-2xl overflow-hidden bg-gradient-to-br from-brand-600/20 via-slate-800/80 to-slate-900/80 border border-brand-500/20 hover:border-brand-500/40 transition-all hover:shadow-xl hover:shadow-brand-500/10"
               >
-                <div className="flex items-center gap-4 mb-3 sm:mb-0">
-                  <span className="px-3 py-1 bg-brand-500/10 text-brand-300 rounded-full text-sm font-medium">
-                    {item.tag}
-                  </span>
-                  <h3 className="text-lg font-medium group-hover:text-brand-300 transition-colors">
-                    {item.title}
+                {/* Decorative gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                <div className="relative p-6 sm:p-8 flex flex-col justify-end min-h-[260px]">
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="px-3 py-1 bg-brand-500 text-white rounded-full text-xs font-bold uppercase tracking-wider shadow-lg shadow-brand-500/30">
+                      🔥 头条
+                    </span>
+                    <span className="text-xs text-slate-400">{formatDate(headlineNews.date)}</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-brand-300 transition-colors leading-snug">
+                    {headlineNews.title}
                   </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed line-clamp-2 mb-3">
+                    {headlineNews.summary}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500">{headlineNews.source}</span>
+                    <span className="text-xs text-brand-400 group-hover:text-brand-300 transition-colors">阅读全文 →</span>
+                  </div>
                 </div>
-                <span className="text-slate-500 text-sm">{item.date}</span>
               </Link>
-            ))}
-          </div>
+
+              {/* 快讯列表 */}
+              <div className="lg:col-span-2 flex flex-col">
+                <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 px-1">
+                  最近更新
+                </h3>
+                <div className="flex-1 space-y-2">
+                  {quickNews.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="group block p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-brand-500/20 hover:bg-white/[0.06] transition-all"
+                    >
+                      <div className="flex items-center gap-2 mb-1.5">
+                        <span className="text-xs font-mono text-slate-500">{formatDate(item.date)}</span>
+                        <span className="text-xs text-slate-600">·</span>
+                        <span className="text-xs text-slate-500 truncate">{item.source}</span>
+                      </div>
+                      <h4 className="text-sm font-medium text-slate-300 group-hover:text-brand-300 transition-colors leading-snug line-clamp-2">
+                        {item.title}
+                      </h4>
+                    </Link>
+                  ))}
+                </div>
+                <Link
+                  href="/blog"
+                  className="mt-3 block text-center text-sm text-brand-400/70 hover:text-brand-300 transition-colors py-2"
+                >
+                  浏览更多动态 →
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
