@@ -16,6 +16,125 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-046",
+    tag: "产品发布",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/google-io-2026.jpg",
+    title: "Google I/O 2026：Gemini 4 与 Veo 4 重磅发布，AI 生态全面升级",
+    summary: "Google I/O 2026 大会发布 Gemini 4 多模态模型和 Veo 4 视频生成模型，同时推出多项 AI 开发工具更新，标志着 Google 在 AI 领域的全面进攻。",
+    content: `2026 年 4 月，Google 在 I/O 开发者大会上发布了多项重磅 AI 产品。
+
+**核心发布：**
+- **Gemini 4**：新一代多模态大模型，在文本、图像、视频、代码理解等方面实现全面突破，性能较 Gemini 3.1 大幅提升
+- **Veo 4**：新一代视频生成模型，支持更长时间、更高质量的视频内容生成，画面连贯性和物理真实感显著增强
+- **AI 开发工具链**：更新 Firebase AI、Vertex AI 等平台，降低开发者接入门槛
+
+**行业影响：**
+- Google 正从 "跟随者" 转向 AI 领域的 "全面竞争者"
+- Gemini 4 的发布直接对标 OpenAI GPT-5 系列和 Anthropic Claude Mythos
+- Veo 4 将加剧 AI 视频生成领域的竞争（对标 Runway Gen-4.5、Sora）`,
+    date: "2026-04-13",
+    source: "Google I/O 2026",
+    sourceUrl: "https://blog.google/technology/ai/google-io-2026-announcements/",
+    href: "/news/news-046",
+  },
+  {
+    id: "news-045",
+    tag: "开源",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/seedance.jpg",
+    title: "字节跳动 Seedance 2.0 模型解除限制，全面开放使用",
+    summary: "字节跳动旗下 Seedance 2.0 视频生成模型在经历两个月的访问限制后正式解除限制，向全球开发者开放，成为 2026 年最强大的开源视频生成模型之一。",
+    content: `2026 年 4 月，字节跳动宣布 Seedance 2.0 模型正式解除访问限制，面向全球开发者和研究人员开放。
+
+**模型亮点：**
+- Seedance 2.0 是 2026 年性能最强的开源视频生成模型之一
+- 支持高质量视频生成、风格迁移和内容编辑
+- 此前因安全考量被限制了两个月
+
+**开源生态影响：**
+- 为全球 AI 视频创作者提供了新的开源选择
+- 与 Runway Gen-4.5、Google Veo 4 形成三足鼎立
+- 进一步推动了 AI 视频生成领域的开源化趋势`,
+    date: "2026-04-13",
+    source: "字节跳动 / Seedance",
+    sourceUrl: "https://seedance.bytedance.com",
+    href: "/news/news-045",
+  },
+  {
+    id: "news-044",
+    tag: "行业趋势",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/meta-ai.jpg",
+    title: "Meta AI 生态全面扩展，定制化智能体覆盖多场景应用",
+    summary: "Meta 在 2026 年 3-4 月间大幅扩展其 AI 生态系统，推出定制化智能体平台，覆盖社交、商业、教育等多场景应用，成为 AI Agent 领域的重要力量。",
+    content: `2026 年 3 月至 4 月，Meta AI 生态系统迎来快速扩展期。
+
+**核心更新：**
+- 推出定制化 AI 智能体平台，用户可创建专属 AI 助手
+- 覆盖社交互动、商业服务、教育辅导等多个场景
+- 与 Instagram、WhatsApp、Facebook 深度集成
+
+**战略方向：**
+- Meta 正将 AI 从 "对话工具" 升级为 "基础设施"
+- 借助庞大的用户基数，Meta AI 拥有独特的场景优势
+- 定制化智能体可能成为 2026 年 AI 消费级应用的主流形态`,
+    date: "2026-04-13",
+    source: "Meta AI",
+    sourceUrl: "https://ai.meta.com/blog/",
+    href: "/news/news-044",
+  },
+  {
+    id: "news-043",
+    tag: "行业分析",
+    tagColor: "bg-amber-500/10 text-amber-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/morgan-stanley.jpg",
+    title: "摩根士丹利警告：2026 上半年将出现 AI 重大突破，多数企业尚未准备好",
+    summary: "摩根士丹利发布报告警告称，2026 年上半年将出现重大 AI 技术突破，但全球大多数企业尚未为此做好基础设施和人才准备，呼吁企业加速 AI 转型。",
+    content: `2026 年 4 月，摩根士丹利发布重磅 AI 行业报告，发出明确警告。
+
+**核心观点：**
+- 2026 上半年将出现 "重大 AI 突破"，可能改变多个行业格局
+- 全球超过 70% 的企业尚未做好应对准备
+- AI 基础设施投资和人才储备存在巨大缺口
+
+**投资建议：**
+- 重点关注 AI 基础设施、芯片、数据中心等赛道
+- 建议企业加速 AI 人才招募和技术储备
+- 警告 "等待观望" 策略可能导致竞争劣势
+
+**市场反应：**
+- AI 相关股票在报告发布后持续上涨
+- 企业 AI 支出预计 2026 年增长 40% 以上`,
+    date: "2026-04-13",
+    source: "Morgan Stanley / Yahoo Finance",
+    sourceUrl: "https://finance.yahoo.com/news/morgan-stanley-warns-ai-breakthrough-072000084.html",
+    href: "/news/news-043",
+  },
+  {
+    id: "news-042",
+    tag: "技术前沿",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/anthropic-tools.jpg",
+    title: "Anthropic 发布全新 AI 工具，解锁此前无人企及的能力",
+    summary: "Anthropic 推出全新 AI 工具套件，解锁多项前所未有的能力，包括深度代码理解、复杂任务规划和多模态实时交互，引发行业广泛关注。",
+    content: `2026 年 4 月，Anthropic 发布了全新的 AI 工具套件，展示了 Claude 系列模型的最新能力边界。
+
+**新能力亮点：**
+- 深度代码理解：可理解和分析百万行级代码库
+- 复杂任务规划：自动拆解多步骤任务并执行
+- 多模态实时交互：支持文本、图像、代码的混合实时处理
+
+**行业影响：**
+- 这些能力此前被认为需要数年才能成熟
+- Claude 系列正从 "对话 AI" 向 "全能工作助手" 演进
+- 2026 年 AI 工具竞争已进入 "能力深度" 而非 "参数量" 的比拼`,
+    date: "2026-04-13",
+    source: "Anthropic",
+    sourceUrl: "https://www.anthropic.com/news",
+    href: "/news/news-042",
+  },
+  {
     id: "news-041",
     tag: "行业趋势",
     tagColor: "bg-blue-500/10 text-blue-300",
