@@ -16,6 +16,150 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-041",
+    tag: "行业趋势",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/microsoft-ai.jpg",
+    title: "微软发布三款自研 AI 基础模型，直接挑战 OpenAI 和 Google",
+    summary: "微软推出 MAI-Transcribe-1、MAI-Voice-1 和 MAI-Image-2 三款自研基础模型，聚焦语音转录、语音生成和图像生成，以更低成本挑战 OpenAI 和 Google 的同类服务，标志着微软 AI 战略的重大转向。",
+    content: `2026 年 4 月初，微软正式发布了三款自研 AI 基础模型：MAI-Transcribe-1（语音转录）、MAI-Voice-1（语音生成）和 MAI-Image-2（图像生成）。
+
+**模型详情：**
+- MAI-Transcribe-1：专注于高精度语音转录，支持多语言实时识别
+- MAI-Voice-1：自然语音生成模型，可生成接近真人水平的语音内容
+- MAI-Image-2：图像生成模型，在质量和速度上对标 DALL-E 和 Imagen
+
+**战略意义：**
+- 这是微软首次大规模推出自研基础模型，而非依赖 OpenAI 的技术
+- 微软计划到 2027 年建立完整的自研大模型体系
+- 以更低成本为 Azure 客户提供 AI 服务，减少对 OpenAI 的依赖
+
+**行业影响：**
+- 微软同时也在其研究工具中使用 OpenAI 和 Anthropic 的模型，展现出多模型并行的务实策略
+- 这预示着科技巨头正从"绑定单一供应商"转向"多模型混合架构"`,
+    date: "2026-04-13",
+    source: "VentureBeat / ExtremeTech",
+    sourceUrl: "https://venturebeat.com/technology/microsoft-launches-3-new-ai-models-in-direct-shot-at-openai-and-google",
+    href: "/news/news-041",
+  },
+  {
+    id: "news-040",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/security.jpg",
+    title: "Anthropic 与 Google、Broadcom 达成合作，扩展下一代计算基础设施",
+    summary: "Anthropic 宣布与 Google 和 Broadcom 扩大合作伙伴关系，共同建设千兆瓦级的下一代 AI 计算基础设施，以支持 Claude 系列模型的持续扩展和训练需求。",
+    content: `2026 年 4 月 6 日，Anthropic 官方宣布与 Google 和 Broadcom 扩大战略合作，共同投资下一代 AI 计算基础设施。
+
+**合作内容：**
+- 三方将共同建设千兆瓦（GW）级别的 AI 计算设施
+- Broadcom 提供定制化 AI 芯片设计，Google 提供云计算基础设施
+- 该合作旨在支持 Claude 系列模型（包括 Mythos）的训练和推理需求
+
+**背景信息：**
+- Anthropic 此前因 Claude Mythos 模型过于强大而暂缓公开发布
+- AI 模型的算力需求正呈指数级增长，传统云计算已难以满足
+- 定制化芯片（ASIC）正成为降低 AI 推理成本的关键路径
+
+**行业趋势：**
+- 大型 AI 公司正从"租用算力"转向"自建基础设施"
+- Amazon CEO 也提出 AI 芯片愿景，未来可能挑战 NVIDIA 的垄断地位
+- 2026 年 AI 数据中心建设热潮持续，全美已有超过 4000 个 AI 数据中心`,
+    date: "2026-04-13",
+    source: "Anthropic",
+    sourceUrl: "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+    href: "/news/news-040",
+  },
+  {
+    id: "news-039",
+    tag: "开源",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/opensource.jpg",
+    title: "OpenAI、Anthropic、Google 罕见联手，共同打击中国模型抄袭行为",
+    summary: "竞争对手 OpenAI、Anthropic 和 Google 史无前例地联合行动，共同打击中国竞争对手从美国 AI 服务中提取模型输出用于训练的行为，标志着 AI 行业知识产权保护的转折。",
+    content: `2026 年 4 月 6 日，据 Bloomberg 报道，OpenAI、Anthropic 和 Alphabet（Google 母公司）正携手合作，共同遏制中国竞争对手通过 API 调用提取美国 AI 模型输出结果并用于自身模型训练的行为。
+
+**联合行动：**
+- 三家公司共享技术手段，检测和防止大规模 API 数据提取
+- 建立了跨公司的数据保护协议和联合监控机制
+- 这是 AI 行业罕见的竞争对手联合行动
+
+**背景：**
+- 多家中国 AI 公司被指控通过 API 批量获取美国模型的输出数据
+- 这些数据被用于训练竞争性模型，绕过了自主研发的高昂成本
+- 这种"模型蒸馏"行为引发了关于 AI 知识产权的广泛讨论
+
+**影响：**
+- 此举可能导致更严格的 API 使用限制和区域访问管控
+- 同时也引发了关于 AI 技术开源与封闭的更深层辩论
+- 中国开源社区在 2026 年 4 月持续活跃，已有超过 9000 个开源项目贡献`,
+    date: "2026-04-13",
+    source: "Bloomberg",
+    sourceUrl: "https://www.bloomberg.com/news/articles/2026-04-06/openai-anthropic-google-unite-to-combat-model-copying-in-china",
+    href: "/news/news-039",
+  },
+  {
+    id: "news-038",
+    tag: "研究",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/research.jpg",
+    title: "HuggingFace 4 月热门论文：MiroEval、GEMS、MARS 引领 Agent 与多模态新方向",
+    summary: "HuggingFace 4 月每日论文榜单涌现大量 Agent 评测和多模态研究，MiroEval 提出过程与结果双维度 Agent 评估框架，GEMS 实现 Agent 原生多模态生成，MARS 突破自回归模型多 Token 生成技术。",
+    content: `2026 年 4 月，HuggingFace 每日论文（Daily Papers）榜单呈现出 AI 研究的几个重要方向：
+
+**Agent 评测与基准：**
+- MiroEval：首次提出对多模态深度研究 Agent 进行"过程+结果"双维度评估
+- ViGoR-Bench：测试视觉生成模型的零样本视觉推理能力，揭示图像质量与理解能力的鸿沟
+- Act Wisely：研究 Agent 的元认知工具使用，让模型学会"知道何时该用工具"
+
+**多模态生成：**
+- GEMS：Agent 原生多模态生成框架，融合记忆和技能实现智能体级别的图像生成
+- Unify-Agent：统一多模态 Agent，实现世界级图像合成
+- LatentUM：潜在空间统一模型，释放交叉模态推理的潜力
+
+**基础模型创新：**
+- MARS：使自回归模型支持多 Token 并行生成，大幅提升推理速度
+- ThinkTwice：联合优化 LLM 的推理和自我修正能力
+- RAGEN-2：研究 Agent RL 中的推理崩溃现象
+- DataFlex：以数据为中心的动态 LLM 训练框架
+
+**趋势解读：**
+这些研究共同指向 2026 年的三大趋势：Agent 从单一文本走向多模态、评测从静态基准走向动态竞技场、基础模型从单 Token 生成走向多 Token 并行。`,
+    date: "2026-04-13",
+    source: "HuggingFace Daily Papers",
+    sourceUrl: "https://huggingface.co/papers/month/2026-04",
+    href: "/news/news-038",
+  },
+  {
+    id: "news-037",
+    tag: "行业趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/trends.jpg",
+    title: "Morgan Stanley 警告：2026 上半年 AI 重大突破即将到来，大多数人尚未准备好",
+    summary: "Morgan Stanley 发布报告警告称，2026 上半年将出现 AI 领域的重大突破，但大多数企业和个人尚未做好应对准备，建议加快 AI 基础设施建设和人才储备。",
+    content: `Morgan Stanley 在最新报告中发出了关于 AI 突破的警告，认为 2026 上半年将出现改变行业格局的重大技术进展。
+
+**核心预测：**
+- AI 能力将在 2026 上半年出现"质的飞跃"，而非渐进式改进
+- 大多数企业尚未建立足够的 AI 基础设施来利用这些突破
+- AI 人才短缺将进一步加剧，具备 Agent 开发能力的工程师需求激增
+
+**Deloitte 的呼应观点：**
+- Deloitte 预测 2026 年 AI 的"承诺与现实之间的差距"将继续缩小
+- 但仍存在"期望过高"和"落地不足"的矛盾
+- 企业需要更务实地规划 AI 部署路线图
+
+**应对建议：**
+- 企业应立即评估现有 AI 基础设施的扩展能力
+- 投资 Agent 开发平台和多模型编排能力
+- 建立 AI 治理框架，为更强大的 AI 系统做好准备
+- 关注开源生态，2026 年开源 AI 项目已超过 9000 个活跃贡献`,
+    date: "2026-04-13",
+    source: "Morgan Stanley / Yahoo Finance / Deloitte",
+    sourceUrl: "https://finance.yahoo.com/news/morgan-stanley-warns-ai-breakthrough-072000084.html",
+    href: "/news/news-037",
+  },
+  {
     id: "news-036",
     tag: "行业趋势",
     tagColor: "bg-purple-500/10 text-purple-300",
