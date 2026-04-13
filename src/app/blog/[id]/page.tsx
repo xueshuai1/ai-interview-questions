@@ -48,10 +48,20 @@ export default function BlogDetailPage({ params }: { params: { id: string } }) {
             <span className="text-slate-400 truncate">{post.title}</span>
           </div>
 
-          {/* Cover */}
-          <div className="text-center mb-6">
-            <span className="text-6xl">{post.coverImage || "📝"}</span>
-          </div>
+          {/* Cover Image */}
+          {post.coverImage && post.coverImage.startsWith('/images/') ? (
+            <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-brand-500/10">
+              <img
+                src={post.coverImage}
+                alt={post.title}
+                className="w-full h-48 sm:h-64 lg:h-80 object-cover"
+              />
+            </div>
+          ) : (
+            <div className="text-center mb-6">
+              <span className="text-6xl">{post.coverImage || "📝"}</span>
+            </div>
+          )}
 
           {/* Category badge */}
           <div className="flex items-center gap-3 mb-4 flex-wrap justify-center">
@@ -134,7 +144,13 @@ export default function BlogDetailPage({ params }: { params: { id: string } }) {
                   href={`/blog/${rel.id}`}
                   className="group p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5"
                 >
-                  <div className="text-2xl mb-2">{rel.coverImage || "📝"}</div>
+                  {rel.coverImage && rel.coverImage.startsWith('/images/') ? (
+                    <div className="mb-2 rounded-lg overflow-hidden h-24">
+                      <img src={rel.coverImage} alt={rel.title} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="text-2xl mb-2">{rel.coverImage || "📝"}</div>
+                  )}
                   <span className="inline-block px-2 py-0.5 bg-brand-500/10 text-brand-300 rounded-full text-xs font-medium mb-2">
                     {rel.tags[0]}
                   </span>

@@ -98,11 +98,19 @@ export default function BlogPage() {
                 }`}
               >
                 {/* Cover */}
-                <div className={`flex items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/10 to-accent-500/10 shrink-0 ${
-                  index === 0 ? "sm:w-48 sm:h-48" : "sm:w-32 sm:h-32"
-                } w-full h-32 sm:h-auto`}>
-                  <span className={index === 0 ? "text-6xl" : "text-4xl"}>{post.cover}</span>
-                </div>
+                {post.cover && post.cover.startsWith('/images/') ? (
+                  <div className={`rounded-xl overflow-hidden bg-gradient-to-br from-brand-500/10 to-accent-500/10 shrink-0 ${
+                    index === 0 ? "sm:w-48 sm:h-48" : "sm:w-32 sm:h-32"
+                  } w-full h-32 sm:h-auto`}>
+                    <img src={post.cover} alt={post.title} className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  <div className={`flex items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/10 to-accent-500/10 shrink-0 ${
+                    index === 0 ? "sm:w-48 sm:h-48" : "sm:w-32 sm:h-32"
+                  } w-full h-32 sm:h-auto`}>
+                    <span className={index === 0 ? "text-6xl" : "text-4xl"}>{post.cover || "📝"}</span>
+                  </div>
+                )}
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
