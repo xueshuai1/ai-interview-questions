@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { LAST_UPDATE_TIME } from "@/data/update-time";
@@ -168,7 +167,7 @@ export default function Home() {
 
       {/* Blog Preview Section */}
       <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-12">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-2">
@@ -181,41 +180,27 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestBlogs.length > 0 ? (
-              latestBlogs.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.id}`}
-                  className="group p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 cursor-pointer"
-                >
-                  {post.coverImage && (post.coverImage.startsWith('/images/') || post.coverImage.includes('clouddn.com')) ? (
-                    <div className="relative mb-4 rounded-xl overflow-hidden h-32">
-                      <Image src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, 384px"/>
-                    </div>
-                  ) : (
-                    <div className="text-3xl mb-4">{post.coverImage || "📝"}</div>
-                  )}
-                  <span className="inline-block px-3 py-1 bg-brand-500/10 text-brand-300 rounded-full text-xs font-medium mb-3">
-                    {post.tags[0] || "行业洞察"}
-                  </span>
-                  <h3 className="text-lg font-semibold mb-2 group-hover:text-brand-300 transition-colors leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-slate-400 text-sm line-clamp-2 mb-3">{post.summary}</p>
-                  <span className="text-xs text-slate-500">{post.date}</span>
-                </Link>
-              ))
-            ) : (
-              <p className="text-slate-500 col-span-3 text-center py-8">暂无博客文章</p>
-            )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {latestBlogs.map((post) => (
+              <Link key={post.id} href={`/blog/${post.id}`}
+                className="group block p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-0.5">
+                <span className="inline-block px-2.5 py-0.5 bg-brand-500/10 text-brand-300 rounded-full text-xs font-medium mb-2">
+                  {post.tags[0] || "行业洞察"}
+                </span>
+                <h3 className="text-base font-semibold mb-1.5 group-hover:text-brand-300 transition-colors leading-snug line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-slate-400 text-xs leading-relaxed line-clamp-2 mb-2">{post.summary}</p>
+                <span className="text-xs text-slate-500">{post.date} · {post.readTime} min</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Latest News Section */}
       <section id="news" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-2">
@@ -230,48 +215,27 @@ export default function Home() {
 
           {/* Headline */}
           {headlineNews && (
-            <Link
-              href={headlineNews.href}
-              className="group block mb-6 rounded-2xl overflow-hidden bg-gradient-to-br from-brand-600/15 via-slate-800/60 to-slate-900/60 border border-brand-500/20 hover:border-brand-500/40 transition-all hover:shadow-lg hover:shadow-brand-500/10"
-            >
-              {headlineNews.coverImage && (
-                <div className="relative h-40 sm:h-48 overflow-hidden">
-                  <Image src={headlineNews.coverImage} alt={headlineNews.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, 640px"/>
-                </div>
-              )}
-              <div className="p-6 sm:p-8">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-3 py-1 bg-brand-500/90 text-white rounded-full text-xs font-bold uppercase tracking-wider">
-                  🔥 头条
-                </span>
+            <Link href={headlineNews.href}
+              className="group block mb-4 p-6 rounded-xl bg-gradient-to-br from-brand-600/10 via-slate-800/40 to-slate-900/40 border border-brand-500/20 hover:border-brand-500/40 transition-all">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="px-2.5 py-0.5 bg-brand-500/90 text-white rounded-full text-xs font-bold">🔥 头条</span>
                 <span className="text-xs text-slate-500">{formatDate(headlineNews.date)}</span>
                 <span className="text-xs text-slate-600">·</span>
                 <span className="text-xs text-slate-500">{headlineNews.source}</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-3 group-hover:text-brand-300 transition-colors leading-snug">
+              <h3 className="text-lg font-bold mb-1.5 group-hover:text-brand-300 transition-colors leading-snug">
                 {headlineNews.title}
               </h3>
-              <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">
-                {headlineNews.summary}
-              </p>
-              </div>
+              <p className="text-slate-400 text-sm leading-relaxed line-clamp-2">{headlineNews.summary}</p>
             </Link>
           )}
 
           {/* Quick news list */}
           <div className="space-y-2">
             {quickNews.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="group flex items-start gap-4 p-4 rounded-xl hover:bg-white/[0.03] border border-transparent hover:border-white/5 transition-all"
-              >
-                <span className="shrink-0 mt-0.5 text-xs font-mono text-slate-600 w-12">
-                  {formatDate(item.date)}
-                </span>
-                {item.coverImage && (
-                  <Image src={item.coverImage} alt="" width={40} height={40} className="shrink-0 w-10 h-10 rounded-lg object-cover border border-white/5"/>
-                )}
+              <Link key={item.href} href={item.href}
+                className="group flex items-start gap-3 p-3 rounded-lg hover:bg-white/[0.03] transition-all">
+                <span className="shrink-0 mt-0.5 text-xs font-mono text-slate-600 w-10">{formatDate(item.date)}</span>
                 <span className="text-sm text-slate-300 group-hover:text-brand-300 transition-colors leading-snug line-clamp-1">
                   {item.title}
                 </span>
