@@ -16,6 +16,165 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-051",
+    tag: "学术研究",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/mit-ai.jpg",
+    title: "MIT 新突破：让 AI 模型在学习过程中自动瘦身提速",
+    summary: "MIT 研究团队利用控制论原理，开发出一种让 AI 模型在训练阶段自动精简不必要参数的技术，大幅降低计算成本同时保持性能，为高效 AI 训练开辟新路径。",
+    content: `2026 年 4 月 9 日，MIT 研究团队发表了一项突破性研究成果，利用控制论原理让 AI 模型在学习过程中自动瘦身。
+
+**核心技术：**
+- 引入控制理论中的反馈机制，在训练过程中动态识别并移除冗余参数
+- 不同于传统的"先训练后压缩"方式，该方法在模型学习时即进行精简
+- 在保持模型精度的同时，显著降低计算资源消耗和训练时间
+
+**技术优势：**
+- 计算效率提升 30-50%，大幅降低 AI 训练成本
+- 适用于各种规模的模型，从小型边缘模型到大规模语言模型
+- 为资源受限场景下的 AI 部署提供了新可能
+
+**行业影响：**
+- 有望改变 AI 模型训练范式，从"越大越好"转向"精而高效"
+- 对于缺乏大规模算力资源的中小企业和研究机构意义重大
+- 与当前 AI 行业追求参数规模的趋势形成鲜明对比`,
+    date: "2026-04-13",
+    source: "MIT Research",
+    sourceUrl: "https://radicaldatascience.wordpress.com/2026/04/09/ai-news-briefs-bulletin-board-for-april-2026/",
+    href: "/news/news-051",
+  },
+  {
+    id: "news-050",
+    tag: "行业趋势",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/startup-funding.jpg",
+    title: "AI 种子轮估值飙升：2026 年早期 AI 创业公司融资溢价超 40%",
+    summary: "TechCrunch 报道显示，2026 年 AI 种子轮创业公司估值中位数达 1790 万美元，较非 AI 公司高出 42%，Cursor 等成功案例引发的估值泡沫引发行业讨论。",
+    content: `2026 年 3 月 31 日，TechCrunch 发布深度报道，揭示 AI 种子轮融资的估值飙升现象。
+
+**核心数据：**
+- AI 种子轮公司估值中位数达 1790 万美元，较非 AI 公司高出 42%
+- AI 种子轮融资中位数为 460 万美元，较非 AI 公司的 350 万美元高出 31%
+- Y Combinator 2025 年单个批次就接纳了 70+ AI 公司
+
+**估值驱动因素：**
+- Cursor 在 2025 年初仅用 12 个月就达到 1 亿美元年收入，创下 SaaS 最快纪录
+- 投资者担心错过下一个 AI 独角兽，推动估值非理性上涨
+- Carta 数据显示种子轮交易数量下降但单笔金额上升，呈现"少而贵"趋势
+
+**行业争议：**
+- 部分投资人认为存在"AI 估值泡沫"，估值脱离基本面
+- YC Demo Day 上所有公司都被高价定价，超出传统"YC 溢价"范围
+- 但也有观点认为 AI 确实带来了范式级变革，高估值有合理性
+
+**未来展望：**
+- 2026 年 AI 风投持续火热，超过三分之一的全球 VC 资金流向 AI 公司
+- 预计下半年将出现估值回调，但 AI 赛道长期增长趋势不变`,
+    date: "2026-04-13",
+    source: "TechCrunch / Carta",
+    sourceUrl: "https://techcrunch.com/2026/03/31/its-not-your-imagination-ai-seed-startups-are-commanding-higher-valuations/",
+    href: "/news/news-050",
+  },
+  {
+    id: "news-049",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/cybersecurity.jpg",
+    title: "CrowdStrike CEO 警告：AI 自动发现漏洞将引发大量网络安全攻击",
+    summary: "CrowdStrike CEO 在 CNBC 采访中表示，AI 驱动的安全漏洞自动发现技术将导致网络攻击数量激增，企业需要紧急升级防御体系以应对 AI 赋能的攻击手段。",
+    content: `2026 年 4 月 8 日，CrowdStrike CEO 在接受 CNBC 采访时发出严厉警告，AI 自动发现漏洞的能力将引发新一轮网络安全危机。
+
+**核心警告：**
+- AI 系统现在可以自动扫描和发现软件漏洞，速度远超人类安全研究员
+- 这种能力被恶意利用后，网络攻击的数量和复杂度将大幅增加
+- 传统的安全防御体系难以应对 AI 驱动的自动化攻击
+
+**攻击趋势变化：**
+- 攻击者利用 AI 快速识别零日漏洞，缩短了漏洞发现到利用的时间窗口
+- AI 生成的攻击代码更加精准，降低了网络攻击的技术门槛
+- 针对关键基础设施的 AI 赋能攻击风险显著上升
+
+**应对建议：**
+- 企业需要部署 AI 驱动的安全防御系统，实现"以 AI 对抗 AI"
+- 加快漏洞修补速度，传统按月修补周期已不再适用
+- 建立自动化安全监控和应急响应体系
+- CrowdStrike 等安全公司正在加速开发 AI 原生防御产品
+
+**行业影响：**
+- 网络安全支出预计 2026 年增长 25% 以上
+- AI 安全成为科技行业最热门的创业赛道之一`,
+    date: "2026-04-13",
+    source: "CNBC / CrowdStrike",
+    sourceUrl: "https://www.cnbc.com/video/2026/04/08/crowdstrike-ceo-ai-finding-vulnerabilities-will-cause-high-number-of-cybersecurity-attacks.html",
+    href: "/news/news-049",
+  },
+  {
+    id: "news-048",
+    tag: "政策监管",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/white-house.jpg",
+    title: "白宫发布国家 AI 政策框架，推动联邦法律优先于州级 AI 监管",
+    summary: "特朗普政府于 3 月 20 日发布《国家人工智能政策框架》，建议国会制定统一的联邦 AI 立法，以取代各州分散的 AI 监管法规，引发科技行业和州政府的激烈讨论。",
+    content: `2026 年 3 月 20 日，白宫正式发布《国家人工智能政策框架》（National Policy Framework for Artificial Intelligence），为美国 AI 监管制定了联邦层面的蓝图。
+
+**框架核心内容：**
+- 建议国会制定统一的联邦 AI 法律，优先于各州现有或拟议的 AI 监管法规
+- 建立七大支柱政策体系，涵盖 AI 创新促进、安全保障、消费者保护等领域
+- 延续 2025 年 12 月行政命令的精神，反对州级 AI 立法对全国市场的割裂
+
+**背景与动机：**
+- 加州、纽约、科罗拉多等州已出台严格的 AI 监管法规
+- 科技行业担心各州法规不一致会增加合规成本和阻碍创新
+- 框架由白宫科技政策办公室（OSTP）牵头制定
+
+**各方反应：**
+- **科技行业**：OpenAI 联合创始人 Greg Brockman 等投入数千万美元支持反监管的政治团体
+- **州政府**：加州等地明确表示将继续推进自己的 AI 监管计划，无视联邦压力
+- **消费者团体**：担忧联邦框架可能弱化对消费者的保护力度
+
+**全球对比：**
+- 欧盟 AI 法案的高风险系统要求已在 2026 年全面生效，罚款高达 300 万美元
+- 美国框架更注重"创新优先"，与欧盟"安全优先"的思路形成对比
+- 2026 年中期选举中，AI 监管成为重要议题，行业投入超 1 亿美元用于政治游说`,
+    date: "2026-04-13",
+    source: "白宫 / CNN / Holland & Knight",
+    sourceUrl: "https://www.cnn.com/2026/03/20/tech/white-house-ai-framework",
+    href: "/news/news-048",
+  },
+  {
+    id: "news-047",
+    tag: "产品发布",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "http://tdewkptsq.hd-bkt.clouddn.com/images/news/meta-muse-spark.jpg",
+    title: "Meta 发布 Muse Spark AI 模型：9 个月重构技术栈，正面挑战 OpenAI 和 Anthropic",
+    summary: "Meta 于 4 月 8 日发布 Muse Spark AI 模型，这是 Meta 超级智能实验室在 Alexandr Wang 领导下历时 9 个月从零重构的首个成果，标志着 Meta 在 AI 竞赛中的绝地反击。JPMorgan 视其为 Meta 股价转折点。",
+    content: `2026 年 4 月 8 日，Meta 正式发布 Muse Spark AI 模型，这是 Meta 超级智能实验室（Meta Superintelligence Labs）成立以来首个重大成果。
+
+**发布背景：**
+- Muse Spark（代号 Avocado）由 Meta 超级智能实验室开发，该实验室由 Alexandr Wang 领导
+- Wang 于 2025 年 6 月通过 Meta 对 Scale AI 的 143 亿美元收购加入 Meta
+- 此前 Meta 的开源模型表现未达预期，Zuckerberg 决定彻底重构 AI 技术栈
+
+**模型特点：**
+- 定位为"小巧快速"的设计哲学，但具备推理复杂科学、数学和健康问题的能力
+- 这是 Muse 系列的首个模型，下一代已在开发中
+- Meta 在 9 个月内完成了从零开始的技术栈重建，速度创公司记录
+
+**商业化方向：**
+- Meta AI 将集成购物模式，帮助用户购买服装和装饰房间
+- 与 CoreWeave 达成 210 亿美元的 AI 云计算合作，扩展计算基础设施
+- Meta 计划到 2028 年在美国 AI 项目上投入 6000 亿美元
+
+**市场反应：**
+- Meta 股价发布当日上涨 6.5%
+- JPMorgan 分析师认为 Muse Spark 的发布是 Meta 股票的"转折点"，增强了投资者对公司 AI 扩展轨迹的信心
+- 分析师强调，尽管 AI 投入巨大，Meta 在重大增长方向上的资金分配一直"纪律严明"`,
+    date: "2026-04-13",
+    source: "CNBC / JPMorgan",
+    sourceUrl: "https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html",
+    href: "/news/news-047",
+  },
+  {
     id: "news-046",
     tag: "产品发布",
     tagColor: "bg-purple-500/10 text-purple-300",
@@ -1008,6 +1167,149 @@ GitHub 在 r/github 社区发布了一项引发广泛讨论的政策更新。
     source: "Stanford HAI",
     sourceUrl: "https://hai.stanford.edu/ai-index",
     href: "/news/news-047",
+  },
+  {
+    id: "news-048",
+    tag: "国防安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "纽约时报深度报道：全球 AI 军备竞赛升级，中美俄竞逐自主武器系统",
+    summary: "纽约时报 4 月 12 日发表深度报道，揭示中美俄三国加速 AI 驱动的自主武器竞赛。Anduril 开始制造 AI 自主飞行无人机，乌克兰与 Palantir 共享战场数据训练 AI 系统，无人机在某些情况下已比火炮更具杀伤力。",
+    content: `2026 年 4 月 12 日，纽约时报发表了关于全球 AI 军备竞赛的深度报道。
+
+**核心事件：**
+- 美国国防科技初创公司 Anduril 于 3 月开始制造 AI 自主飞行无人机，外观和能力类似中国展示的新型无人机
+- 乌克兰开始与 Palantir 等公司共享大量战场数据，使 AI 系统能够更好地学习作战
+- 业余竞速无人机被用于攻击俄军阵地，最终变得比火炮更具杀伤力，部分已获得自主能力
+
+**全球竞赛格局：**
+- 美国：国防部和 Anthropic 就 AI 安全展开合作，Anduril 等新兴防务科技公司快速崛起
+- 中国：展示了先进的 AI 军事无人机能力，在 AI 武器领域快速推进
+- 俄罗斯：在乌克兰战场上面临 AI 驱动无人机的严峻挑战
+
+**历史回响：**
+报道回顾了 Google 内部对 Project Maven 的员工抗议事件——当员工发现公司正在帮助识别无人机打击目标时，他们站出来反对一家曾承诺"不作恶"的公司参与军事应用。
+
+**深层影响：**
+AI 正在从根本上改变战争形态，从人类决策主导转向算法和自主系统主导。战场数据的价值正变得与武器本身同等重要。`,
+    date: "2026-04-13",
+    source: "The New York Times",
+    sourceUrl: "https://www.nytimes.com/2026/04/12/technology/china-russia-us-ai-weapons.html",
+    href: "/news/news-048",
+  },
+  {
+    id: "news-049",
+    tag: "产品发布",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Google 发布 Veo 3.1 Lite：成本降低 50% 以上，视频生成更普及",
+    summary: "Google 推出 Veo 3.1 Lite，这是该公司最具成本效益的视频生成模型，价格不到 Veo 3.1 Fast 的一半。同时宣布自 4 月 7 日起降低 Veo 3.1 Fast 价格，降低开发者使用门槛。",
+    content: `2026 年 4 月初，Google 宣布推出 Veo 3.1 Lite 视频生成模型。
+
+**Veo 3.1 Lite 核心特点：**
+- Google 迄今最具成本效益的视频生成模型
+- 价格不到 Veo 3.1 Fast 的 50%
+- 速度保持与 Veo 3.1 Fast 相同
+
+**降价计划：**
+- 自 4 月 7 日起，Google 将降低 Veo 3.1 Fast 的价格
+- Google AI Studio 和 Gemini API 产品负责人 Logan Kilpatrick 表示："视频将长期存在"
+
+**行业影响：**
+- Google 正通过价格竞争策略扩大视频生成市场份额
+- 与 OpenAI 关闭 Sora 形成鲜明对比——Gemini 高管甚至公开调侃了 Sora 的停运
+- 降低了 AI 视频生成的门槛，推动更多创新应用场景出现`,
+    date: "2026-04-13",
+    source: "Google Blog / Times of India",
+    sourceUrl: "https://blog.google/innovation-and-ai/technology/ai/veo-3-1-lite/",
+    href: "/news/news-049",
+  },
+  {
+    id: "news-050",
+    tag: "开发者工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "JetBrains Air 发布公共预览：多 Agent 并行编程，开发者进入 Agent 优先时代",
+    summary: "JetBrains 发布全新的 Agent 开发环境 Air，支持同时委派任务给多个 AI Agent（Codex、Claude Agent、Gemini CLI、Junie）并行执行。基于被放弃的 Fleet 项目重构，标志着传统 IDE 向 Agent 编排平台转型。",
+    content: `2026 年 3-4 月，JetBrains 推出了革命性的 Agent 开发环境 Air。
+
+**JetBrains Air 核心能力：**
+- 同时委派编码任务给多个 AI Agent 并行执行
+- 支持 Codex、Claude Agent、Gemini CLI 和 JetBrains 自研 Junie 四大 Agent
+- 基于被放弃的 Fleet 项目重新构建，专注于 Agent 编排
+- 需要 JetBrains AI Pro 或 AI Ultimate 订阅
+
+**设计理念：**
+- "IDE 往编辑器里加工具，Air 围绕 Agent 构建工具"
+- 开发者在现有 IDE 中继续日常工作，Air 专注 Agent 驱动的任务执行
+
+**Junie CLI：**
+- JetBrains 同时推出了独立的 LLM 无关 Agent 工具 Junie CLI
+- 作为 Agent 工具栈的一部分，与传统 IDE 体验互补
+
+**深层意义：**
+- JetBrains 承认 AI Agent 正在改变软件开发的基本范式
+- 从"辅助编码"到"委派任务"的转变
+- 传统 IDE 厂商正在积极适应 Agent 优先的开发流程`,
+    date: "2026-04-13",
+    source: "JetBrains / The Register",
+    sourceUrl: "https://blog.jetbrains.com/air/2026/03/air-launches-as-public-preview-a-new-wave-of-dev-tooling-built-on-26-years-of-experience/",
+    href: "/news/news-050",
+  },
+  {
+    id: "news-051",
+    tag: "模型发布",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Google Gemma 4 发布：字节对字节最强开源模型，单 GPU 即可运行",
+    summary: "Google DeepMind 发布 Gemma 4 系列开源模型，官方称为字节对字节最强的开源模型。在数学、编程和 Agent 任务上全面超越 Llama 4，Arena Hard 排名第 3，为开发者和企业提供强大的本地部署选择。",
+    content: `2026 年 4 月 2 日，Google DeepMind 正式发布 Gemma 4 系列开源模型。
+
+**Gemma 4 核心亮点：**
+- 官方定位：字节对字节最强的开源模型
+- 数学、编程和 Agent 任务上全面超越同尺寸 Llama 4
+- Arena Hard 排行榜排名第 3
+- 单 GPU 即可运行，大幅降低了部署门槛
+
+**与竞品的对比：**
+- 相比 Llama 4：在多项基准测试中表现更优
+- 相比闭源模型：绝对性能不及旗舰级闭源模型，但性价比极高
+- 开源生态中：成为中小开发者和企业的首选方案
+
+**行业影响：**
+- Google 持续在开源领域加大投入，与 Meta Llama 系列形成竞争
+- 单 GPU 可运行特性使 Gemma 4 成为边缘 AI 和隐私敏感场景的理想选择`,
+    date: "2026-04-13",
+    source: "Google DeepMind",
+    sourceUrl: "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+    href: "/news/news-051",
+  },
+  {
+    id: "news-052",
+    tag: "开发者生态",
+    tagColor: "bg-amber-500/10 text-amber-300",
+    title: "JetBrains 4 月调研：Cursor、Copilot、Claude Code 三足鼎立 AI 编程工具市场",
+    summary: "JetBrains 发布 2026 年 4 月开发者 AI 工具使用调研。Cursor、GitHub Copilot 和 Claude Code 成为最受欢迎的三大工具，JetBrains Air 作为新入场者正在吸引关注。开发者正从单一工具转向多工具组合工作流。",
+    content: `2026 年 4 月，JetBrains 研究团队发布了开发者 AI 编程工具使用调研报告。
+
+**核心发现：**
+- Cursor：凭借 AI 原生 IDE 体验继续领跑 AI 编程工具市场
+- GitHub Copilot：企业级部署最广泛，Agent 模式使其仍然是工作场所最常见的 AI 编程工具
+- Claude Code：终端优先设计和仓库级理解能力在高级开发者中快速普及
+
+**新进入者：**
+- JetBrains Air：公共预览阶段，多 Agent 并行执行
+- Windsurf：Cascade 引擎深度代码理解，Cursor 最强竞品之一
+- Aider：终端 AI 结对编程工具，43k+ GitHub 星
+
+**使用模式变化：**
+- 开发者正从"单一工具"转向"多工具组合"工作流
+- 日常编码用 Copilot，复杂任务用 Claude Code，多 Agent 编排用 Air
+- AI 辅助代码审查和文档生成成为新兴需求
+
+**行业趋势：**
+- AI 编程工具市场正在从"功能竞争"转向"工作流竞争"
+- 企业级安全合规成为采购决策关键因素`,
+    date: "2026-04-13",
+    source: "JetBrains Research",
+    sourceUrl: "https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/",
+    href: "/news/news-052",
   },
 
 ];
