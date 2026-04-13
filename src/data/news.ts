@@ -16,6 +16,182 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-056",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/anthropic-mythos.jpg",
+    title: "Anthropic Mythos 模型安全警报：发现 27 年历史的 OpenBSD 漏洞",
+    summary: "Anthropic 在 Claude Mythos 的内部安全评估中发现其具备前所未有的漏洞挖掘能力，能在 OpenBSD 中发现潜伏 27 年的远程崩溃漏洞，并在 FFmpeg 中找到扛过 500 万次自动化测试的 16 年历史缺陷，引发华尔街紧急讨论 AI 模型安全风险。",
+    content: `2026 年 4 月 11-12 日，Anthropic 的 Claude Mythos 模型成为全球科技界和安全界最热门的话题。
+
+**核心事件：**
+Anthropic 在内部安全评估（"Project Glasswing"）中发现，Claude Mythos 展现出了前所未有的漏洞挖掘能力。在 CyberGym 网络安全基准测试中，Mythos 达到了 **83.1%** 的得分，远超之前的最优水平 66.6%。
+
+**实战发现：**
+- 在 **OpenBSD** 中发现了一个潜伏 **27 年**的远程崩溃漏洞
+- 在 **FFmpeg** 代码中找到一个扛过了 **500 万次自动化测试**的 16 年历史缺陷
+- 展现了"涌现式工具链"能力——将看似无害的工具调用组合成强大的攻击序列
+
+**行业反应：**
+- 华尔街 CEO 被紧急召集到华盛顿讨论 Mythos 的金融风险
+- 彭博社制作专题视频分析"为什么 Mythos 被视为对银行的风险"
+- 前国土安全部顾问 John Carlin 称这些发现为"行业中前所未有"
+- CNN 报道："可怕的警告信号"——Anthropic 因安全顾虑延迟 AI 模型发布
+
+**安全影响：**
+Mythos 的能力表明，当模型规模达到十万亿参数级别时，可能出现训练者未曾预料到的涌现能力。这不仅是一个技术突破，更是一个安全挑战——当 AI 能够发现人类安全专家数十年未曾发现的漏洞时，我们如何确保这种能力不被滥用？
+
+Anthropic 选择通过受限预览的方式向选定的安全合作伙伴开放 Mythos，而非公开发布，这一决定在行业内引发了关于"私人公司是否有权单方面决定技术发布时间"的激烈辩论。`,
+    date: "2026-04-13",
+    source: "PBS / Bloomberg / CNN",
+    sourceUrl: "https://www.pbs.org/newshour/show/anthropics-powerful-new-ai-model-raises-concerns-about-high-tech-risks",
+    href: "/news/news-056",
+  },
+  {
+    id: "news-055",
+    tag: "产品发布",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/meta-muse-spark.jpg",
+    title: "Meta 发布 Muse Spark AI 模型：沉思模式开启多推理代理并行架构",
+    summary: "Meta Superintelligence Lab 在 Alexandr Wang 领导下发布首款重大 AI 模型 Muse Spark，引入创新的'沉思模式'——多个推理代理并行工作后综合结果，直接对标 OpenAI 和 Anthropic，JPMorgan 称其为 Meta 股票的转折点。",
+    content: `2026 年 4 月 8-9 日，Meta 正式发布了其 Superintelligence Lab（MSL）的首个重大 AI 模型——**Muse Spark**（内部代号 Avocado）。
+
+**核心技术：沉思模式（Contemplating Mode）**
+Muse Spark 的最大创新是"沉思模式"——一种允许多个推理代理并行工作、然后综合结果的架构：
+1. 启动多个推理代理，每个代理从不同角度分析问题
+2. 独立生成推理路径，避免相互干扰和确认偏差
+3. 综合所有路径的结果，通过内部投票或加权机制确定最终答案
+4. 压缩推理过程，用最少的 token 输出最终结果
+
+**基准测试表现：**
+- **Humanity's Last Exam**：58%（跨学科综合推理能力）
+- **FrontierScience Research**：38%（前沿科学研究推理）
+
+**战略意义：**
+Muse Spark 的发布恰好是 Anthropic 宣布推迟 Mythos 发布的第二天，反映了两种截然不同的 AI 发布哲学：
+- **Anthropic**：安全第一，发现风险就暂停
+- **Meta**：快速迭代，在真实世界中测试和改进
+
+Meta 计划将 Muse Spark 扩展到 WhatsApp、Instagram 和智能眼镜，直接面对数十亿真实用户。
+
+**市场反应：**
+JPMorgan 分析师 Doug Anmuth 表示："Muse Spark 的发布应该增强投资者对 Meta 发展轨迹的信心，改善市场情绪。"Meta 股票在消息公布后显著上涨。
+
+**更大的背景：**
+这是 Meta 在 140 亿美元收购 Scale AI（Alexandr Wang 的公司）后发布的首个重大 AI 模型，标志着 Meta 正式加入前沿 AI 模型的竞争。`,
+    date: "2026-04-13",
+    source: "CNBC / JPMorgan",
+    sourceUrl: "https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html",
+    href: "/news/news-055",
+  },
+  {
+    id: "news-054",
+    tag: "行业趋势",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/ai-funding-2026.jpg",
+    title: "2026 Q1 AI 融资 3000 亿美元：OpenAI 1220 亿、xAI IPO 在即",
+    summary: "2026 年第一季度 AI 核心公司总融资额达到 3000 亿美元，环比和同比均增长 150%。OpenAI 完成 1220 亿美元融资估值达 8520 亿，xAI/SpaceX 以 1.75 万亿美元估值秘密提交 IPO，AI 竞争进入国家级预算阶段。",
+    content: `2026 年 4 月，多份报告显示 AI 行业的融资规模达到了前所未有的高度。
+
+**Q1 2026 融资数据：**
+- **AI 核心公司总融资额**：3000 亿美元，环比和同比均增长 **150%**
+- **OpenAI**：完成 **1220 亿美元**融资，投后估值 **8520 亿美元**
+- **xAI/SpaceX**：以 **1.75 万亿美元**估值秘密提交 IPO
+- **Anthropic**：G 轮融资确认，估值 **3800 亿美元**，年化收入估计 300 亿美元
+- **CoreWeave × Meta**：签订 **210 亿美元**算力供应协议（到 2032 年）
+
+**行业意义：**
+这些数字传达了一个明确的信息：AI 竞争已经进入了一个只有国家级预算才能参与的阶段。
+
+**Big Tech 支出：**
+Alphabet、Microsoft、Amazon 和 Meta 在 2026 财年的 AI 相关支出预计在 **6350-6650 亿美元**之间。
+
+**对创业公司的影响：**
+AI 种子轮估值中位数达到 **1790 万美元**，较非 AI 公司高出 42%。投资者担心错过下一个 AI 独角兽，推动估值非理性上涨。
+
+**市场趋势：**
+- 超过三分之一的全球 VC 资金流向 AI 公司
+- AI 创业公司在种子轮的融资溢价持续扩大
+- 预计下半年将出现估值回调，但 AI 赛道长期增长趋势不变`,
+    date: "2026-04-13",
+    source: "Reuters / TechCrunch / Qubit Capital",
+    sourceUrl: "https://qubit.capital/blog/ai-startup-fundraising-trends",
+    href: "/news/news-054",
+  },
+  {
+    id: "news-053",
+    tag: "技术突破",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/google-colab-learn.jpg",
+    title: "Google I/O 2026 前瞻：Gemini 3.1 百万级上下文 + Colab 学习模式",
+    summary: "Google 4 月密集发布多项 AI 更新：Gemini 3.1 支持百万级上下文且定价低至 0.25 美元/百万 token，Colab 推出 AI 学习模式，Gemini 引入 Notebook 功能，Search Live 全球扩展，为即将到来的 Google I/O 2026 大会预热。",
+    content: `2026 年 4 月，Google 在 AI 领域密集发布了一系列重要更新，为即将到来的 Google I/O 2026 大会预热。
+
+**Gemini 3.1 关键特性：**
+- **百万级上下文窗口**：Pro 层级支持高达 100 万 token 的上下文
+- **极致定价**：Flash-Lite 定价仅 **$0.25/百万输入 token**，较 GPT-4 级别模型便宜 40-120 倍
+- **KV Cache 压缩**：引入突破性的压缩算法，将 KV Cache 内存需求降低 **6 倍**
+- **Veo 3.1 Lite**：最具成本效益的视频生成模型，价格不到 Veo 3.1 Fast 的 50%
+
+**Colab 学习模式（Learn Mode）：**
+- 基于 AI 的个人编程导师
+- 提供交互式代码教学和实时指导
+- 降低编程学习门槛
+
+**Gemini Notebook 功能：**
+- 在 Gemini 中直接使用 Notebook 功能
+- 与 NotebookLM 深度集成
+- 方便跟踪和管理项目
+
+**Search Live 全球扩展：**
+- 将 Search Live 扩展到所有提供 AI Mode 的地区
+- 推出帮助用户切换到 Gemini 的工具
+
+**行业影响：**
+Google 的 $0.25/百万 token 定价策略直接挑战了 OpenAI 和 Anthropic 的利润率。如果 Google 能够在保持质量的同时维持这个价格，整个行业将面临巨大的降价压力。这标志着 AI 行业从"能力竞赛"进入了"效率竞赛"的新阶段。`,
+    date: "2026-04-13",
+    source: "Google Blog",
+    sourceUrl: "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-march-2026/",
+    href: "/news/news-053",
+  },
+  {
+    id: "news-052",
+    tag: "学术研究",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/ai-agent-swarms.jpg",
+    title: "AI Agent Swarm 革命：单 Agent 时代已经结束，多智能体协作成主流",
+    summary: "2026 年 4 月多个研究表明，AI Agent 正在从单一智能体向多 Agent 协作（Swarm）模式演进。JetBrains Air、Anthropic Claude Agent Teams、OpenAI Agents SDK 等平台纷纷推出多 Agent 编排能力，行业专家认为这是通往 AGI 的关键路径。",
+    content: `2026 年 4 月，AI Agent 领域出现了一个明确的趋势转变：**从单 Agent 到多 Agent Swarm 协作**。
+
+**主要平台动态：**
+- **JetBrains Air**：同时委派任务给 Codex、Claude Agent、Gemini CLI、Junie 四大 Agent 并行执行
+- **Anthropic Claude Agent Teams**：支持多 Agent 协作，配合 Opus 4.6 的自适应推理能力
+- **OpenAI Agents SDK**：原生支持 Handoffs 智能体交接机制
+- **Google ADK**：支持 YAML 配置和可视化编排的多智能体开发框架
+
+**技术趋势：**
+1. **多 Agent 编排成为标配**：年底前主流编程工具都将支持多 Agent 协作
+2. **终端 Agent 崛起**：Claude Code 和 Aider 证明终端是 AI Agent 更自然的交互界面
+3. **MCP 协议普及**：已有 5,000+ MCP 服务器，所有主流 AI 编程工具均支持
+
+**行业观点：**
+Julia McCoy（AI 行业知名专家）表示："AI Agent Swarm 刚刚改变了一切。单一 AI 已经死了。"
+
+JetBrains 4 月发布的开发者调研报告也证实了这一趋势：开发者正在从使用单一工具转向多工具组合工作流。
+
+**开源生态：**
+- **Hermes Agent**（NousResearch）：GitHub Trending +10,487 星，总星数 35,820
+- **Goose**（Block）：基于 MCP 协议连接 1,700+ 扩展，Rust 编写高性能
+- **SmolAgents**（Hugging Face）：极简 API 设计的轻量级 Agent 库
+
+**对开发者的启示：**
+关键不是选择"最好的工具"，而是理解每个工具的定位，构建适合自己的多工具工作流。多 Agent 协作正在成为 AI 应用开发的新标准。`,
+    date: "2026-04-13",
+    source: "YouTube / JetBrains / GitHub",
+    sourceUrl: "https://www.youtube.com/watch?v=Q-Su4FXJUOs",
+    href: "/news/news-052",
+  },
+  {
     id: "news-051",
     tag: "学术研究",
     tagColor: "bg-yellow-500/10 text-yellow-300",
