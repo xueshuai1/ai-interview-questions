@@ -15,6 +15,163 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-023",
+    tag: "Environment",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "AI Data Center Boom Reverses Clean Air Gains in St. Louis, Sparking Environmental Justice Concerns",
+    summary: "The rapid expansion of AI data centers in St. Louis has reversed years of clean air progress, disproportionately affecting predominantly Black neighborhoods and reigniting debates about the environmental cost of the AI boom.",
+    content: `The AI infrastructure boom is colliding with environmental justice in one of America's most polluted cities. In North St. Louis, Barbara Johnson and her community organization Metropolitan Congregations United have been fighting coal pollution for years, only to see their gains undone by a new wave of data center construction.
+
+**The Problem:**
+- Data centers require enormous power, often drawing from the same grid that serves coal plants
+- The Labadie Energy Center, a major coal facility, produces the highest total of sulfur dioxide and nitrogen oxides in the region
+- Emission rates at the plant are two to three times higher than most coal plants nationwide
+- Federal soot standards adopted in 2024 were set to take effect in 2027, but the data center boom is outpacing regulatory timelines
+
+**Community Impact:**
+- Predominantly Black neighborhoods bear the brunt of increased pollution
+- Clean air activists criticize the narrative that data centers are "clean" infrastructure
+- The region's existing air quality problems are being exacerbated by new energy demand
+- Ameren, the energy company, has been pressured to improve the Labadie plant due to stricter pollution limits
+
+**Broader Implications:**
+This case in St. Louis is not isolated. Across the United States, communities near data center clusters are reporting similar concerns. The AI industry's massive power demands — projected to reach $650 billion in combined spending by Google, Amazon, Meta, and Microsoft in 2026 alone — are straining local energy grids and, in many cases, relying on fossil fuel infrastructure that communities fought hard to phase out.
+
+The tension between technological progress and environmental justice is becoming one of the defining policy challenges of the AI era.`,
+    date: "2026-04-13",
+    source: "Modern Diplomacy",
+    sourceUrl: "https://moderndiplomacy.eu/2026/04/13/how-the-ai-boom-reversed-clean-air-gains-in-one-of-americas-most-polluted-cities/",
+    href: "/news/news-023",
+  },
+  {
+    id: "news-022",
+    tag: "Industry",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Anthropic Releases 2026 Agentic Coding Trends Report: Eight Trends Reshaping Software Development",
+    summary: "Anthropic's new report identifies eight key trends in agentic coding, including shifting engineering roles, multi-agent coordination, and scaling beyond traditional engineering teams, with case studies from Rakuten, CRED, TELUS, and Zapier.",
+    content: `Anthropic has published its comprehensive 2026 Agentic Coding Trends Report, documenting how software development is fundamentally shifting from writing code to orchestrating AI agents that write code.
+
+**The Eight Trends:**
+1. **Shifting Engineering Roles** — Engineers are becoming orchestrators and reviewers rather than primary code authors
+2. **Multi-Agent Coordination** — Teams of specialized AI agents collaborating on complex tasks
+3. **Human-AI Collaboration Patterns** — New workflows emerging for effective human oversight
+4. **Scaling Beyond Engineering** — Agentic coding expanding to non-engineering teams
+5. **Automated Code Review** — AI agents performing comprehensive code reviews
+6. **Continuous Integration Evolution** — CI/CD pipelines now include agent-driven testing
+7. **Prompt Engineering as a Core Skill** — Quality of prompts directly impacts output quality
+8. **Security-First Agent Design** — Built-in safeguards for agent-generated code
+
+**Real-World Case Studies:**
+- **Rakuten** reported 40% faster feature delivery using agentic coding workflows
+- **CRED** deployed multi-agent systems for their payment infrastructure
+- **TELUS** used Claude Code to accelerate their customer service platform development
+- **Zapier** integrated agentic coding into their no-code/low-code ecosystem
+
+**Market Context:**
+The report comes as AI coding tools reach mainstream adoption. GitHub Copilot is used by millions of developers, while tools like Claude Code, Cursor, and Windsurf are gaining significant traction. The shift from "vibe coding" to production-ready agent orchestration marks a maturation of the field.`,
+    date: "2026-04-13",
+    source: "Anthropic",
+    sourceUrl: "https://resources.anthropic.com/2026-agentic-coding-trends-report",
+    href: "/news/news-022",
+  },
+  {
+    id: "news-021",
+    tag: "Policy",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Trump Administration Releases AI Framework: Key Federal Policy Priorities and Legislative Recommendations",
+    summary: "The White House has published its AI Framework outlining federal policy priorities for artificial intelligence, following Senator Marsha Blackburn's March 2026 legislative discussion draft and intensifying debate over AI regulation.",
+    content: `The Trump Administration has released its comprehensive AI Framework, setting out key federal policy priorities and legislative recommendations for the United States' approach to artificial intelligence governance.
+
+**Framework Highlights:**
+- Establishes a risk-based approach to AI regulation, differentiating between high-risk and low-risk applications
+- Calls for sector-specific oversight rather than a monolithic regulatory body
+- Proposes mandatory disclosure requirements for AI systems handling personal data
+- Includes provisions for AI in national security and defense applications
+
+**Legislative Context:**
+The framework follows closely behind Senator Marsha Blackburn's (R-TN) March 18, 2026, legislative discussion draft, which proposed a different approach to AI governance. The two documents represent competing visions for how the US should regulate AI.
+
+**Industry Response:**
+AI companies are navigating a complex landscape. According to The Guardian, major AI firms have recognized they face an "image problem" and are increasingly publishing policy papers and funding thinktanks to shape the regulatory narrative. OpenAI's recent acquisition of tech talkshow TBPN was interpreted as part of this effort to shape public perception.
+
+**Global Comparison:**
+- The EU continues to enforce the world's most comprehensive AI regulation through the EU AI Act
+- The UK has adopted a "pro-innovation" approach, with existing regulators interpreting AI principles within their sectors
+- China has introduced measures for labelling AI-generated content
+- The US framework represents a lighter-touch approach focused on market-driven innovation`,
+    date: "2026-04-13",
+    source: "Alston & Bird / The Guardian",
+    sourceUrl: "https://www.alston.com/en/insights/publications/2026/04/ai-quarterly-april-2026",
+    href: "/news/news-021",
+  },
+  {
+    id: "news-020",
+    tag: "Startup",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Q1 2026 Venture Funding Shatters Records as AI Boom Pushes Global Investment Past $300 Billion",
+    summary: "Crunchbase reports that Q1 2026 global venture funding posted its strongest quarter since Q2 2022, with AI startups dominating deal flow and a third of all capital going to massive OpenAI funding rounds.",
+    content: `Global venture capital funding in Q1 2026 has shattered records, reaching nearly $300 billion — the strongest quarter since Q2 2022. AI startups are the primary driver, accounting for an unprecedented share of total investment.
+
+**Key Numbers:**
+- **$300 billion** in total global VC funding for Q1 2026
+- **80%+** of US venture capital flowing to AI-related companies
+- **$122 billion** in a single round for OpenAI at $852 billion valuation
+- Early-stage funding up over **38%** year-over-year
+- Late-stage AI deals seeing average valuations of **$10+ billion**
+
+**Sector Breakdown:**
+- **Agentic AI** has seen 89 funding rounds since 2023, with sharp acceleration into 2026
+- **Healthcare AI** average deal size jumped from $36M in 2023 to $112M in 2025 (211% increase)
+- **Fintech AI** firms are transforming from payment companies into full-stack AI platforms
+- **AI infrastructure** (data centers, chips, networking) attracting sovereign wealth fund investment
+
+**Notable Companies:**
+- **Cognition AI**: $175M in 2024, $10B valuation in late 2025
+- **xAI**: $20B raised from Nvidia, Cisco investors
+- **Anthropic**: $183B post-money valuation
+- **Databricks**: $134B valuation with $4.8B revenue run rate
+
+**Looking Ahead:**
+The concentration of capital in AI raises questions about diversification in the startup ecosystem. While AI funding is booming, other sectors are seeing reduced investment, potentially creating bubbles in AI valuations while starving other innovation areas.`,
+    date: "2026-04-13",
+    source: "Crunchbase / Forbes",
+    sourceUrl: "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/",
+    href: "/news/news-020",
+  },
+  {
+    id: "news-019",
+    tag: "Product",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Meta Unveils Muse Spark: First AI Model from Superintelligence Lab, Available Across WhatsApp, Instagram, and AI Glasses",
+    summary: "Meta has launched Muse Spark (internally known as 'Avocado'), its first major AI model from the Superintelligence Lab led by Alexandr Wang. The model features a new Shopping mode and will roll out across Meta's ecosystem in coming weeks.",
+    content: `Meta has officially unveiled Muse Spark, the first AI model to emerge from its Superintelligence Lab, marking a significant milestone in the company's AI ambitions.
+
+**About Muse Spark:**
+- Developed internally over a nine-month sprint, code-named "Avocado"
+- First major AI model from Meta's Superintelligence Lab
+- Lab led by Alexandr Wang, brought in through a $14 billion acquisition deal
+- Now available on Meta's standalone AI app
+- Rolling out to WhatsApp, Instagram, and AI smart glasses in coming weeks
+
+**New Features:**
+- **Shopping Mode**: AI-powered assistance for buying clothes, decorating rooms, and product discovery
+- **Multi-platform integration**: Seamless experience across Meta's ecosystem of apps
+- **Enhanced reasoning**: Improved performance on complex tasks compared to previous Meta models
+
+**Strategic Context:**
+Meta's announcement came just one day after Anthropic said its Claude Mythos model was "too powerful to safely release" due to cybersecurity concerns. This contrast highlights different approaches to AI development: Meta pushing for broad availability while Anthropic exercises caution.
+
+**Investment Scale:**
+Meta is forecast to spend up to **$135 billion** on AI in 2026, nearly double the $72 billion it spent last year. This massive investment underscores the company's commitment to competing with OpenAI, Google, and Anthropic in the frontier AI race.
+
+**Industry Reaction:**
+Analysts note that Meta's advantage lies in its massive user base — billions of people across Facebook, Instagram, and WhatsApp provide both distribution and training data that smaller competitors cannot match.`,
+    date: "2026-04-13",
+    source: "NY Times / CNBC",
+    sourceUrl: "https://www.nytimes.com/2026/04/08/technology/meta-muse-spark-ai-model.html",
+    href: "/news/news-019",
+  },
+  {
     id: "news-010",
     tag: "Safety",
     tagColor: "bg-red-500/10 text-red-300",
@@ -412,5 +569,175 @@ CoreWeave 已成为仅次于 AWS 和 Azure 的第三大 AI 云服务商。与 Me
     source: "Bloomberg / Reuters / Fortune",
     sourceUrl: "https://fortune.com/2026/04/10/anthropic-mythos-ai-driven-cybersecurity-risks-already-here/",
     href: "/news/news-011",
+  },
+  {
+    id: "news-014",
+    tag: "Product Launch",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Meta Unveils Muse Spark: First Major AI Model Since $14B Alexandr Wang Acquisition",
+    summary: "Meta has launched Muse Spark, its first flagship AI model since acquiring Scale AI CEO Alexandr Wang's company for $14 billion, directly challenging ChatGPT and Claude in the consumer AI chatbot market.",
+    content: `On April 8-9, 2026, Meta rolled out Muse Spark, marking the company's first major AI model release since its landmark $14 billion acquisition deal to bring in Alexandr Wang and the Scale AI team.
+
+**Key Features:**
+- Muse Spark is designed as the first in a planned series of large language models from Meta's Superintelligence Labs
+- The revamped Meta AI assistant integrates Muse Spark with a new Shopping mode, enabling users to buy clothes or get room decoration recommendations directly through the chat interface
+- The model features cross-platform imports, personalized intelligence, and memory functions
+
+**Strategic Context:**
+- JPMorgan analyst Doug Anmuth called the launch "a turning point for the stock," noting it should "provide increased confidence in Meta's scaling trajectory and improve investor sentiment"
+- Meta's $600 billion AI infrastructure investment commitment through 2028 underscores the company's long-term AI ambitions
+- The company recently acquired rising AI startups Manus and Moltbook, accelerating its talent pipeline
+
+**Market Impact:**
+- Meta positions Muse Spark as a direct competitor to OpenAI's ChatGPT and Anthropic's Claude
+- The model leverages Meta's deep integration with its ecosystem, combining user behavior data across apps like Maps and YouTube
+- Analysts note that Meta's investments into costly AI projects should not deter investors, as the company has historically remained "disciplined" toward funding its major growth verticals
+
+**Looking Ahead:**
+Meta stated that "larger, increasingly capable models are in development" and the company will "continue to move along the path to personal superintelligence." The Muse Spark launch represents just the beginning of Meta's next-generation AI strategy.`,
+    date: "2026-04-13",
+    source: "CNBC / CNN",
+    sourceUrl: "https://www.cnbc.com/2026/04/08/meta-debuts-first-major-ai-model-since-14-billion-deal-to-bring-in-alexandr-wang.html",
+    href: "/news/news-014",
+  },
+  {
+    id: "news-015",
+    tag: "Policy",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "AI Industry Faces Reckoning: Companies Know They Have an Image Problem",
+    summary: "A Guardian investigation reveals AI companies are increasingly aware of their public relations crisis, with firms turning to thinktank policy papers and narrative-shaping initiatives to reshape public perception.",
+    content: `An April 12, 2026 investigation by The Guardian exposes how major AI companies are grappling with a growing image problem and deploying sophisticated PR strategies to reshape public narratives.
+
+**The PR Push:**
+- OpenAI recently purchased the tech talkshow TBPN in an explicit push to shape the AI narrative, according to reporting from April 2026
+- AI companies are funding thinktank policy papers and commissioning research designed to frame the industry in a more favorable light
+- "The OpenAI paper has a lot of the sounds of wanting more regulatory oversight," said Sarah Myers West, co-executive director at the AI Now Institute
+
+**Growing Skepticism:**
+- Public trust in AI companies is declining even as the technology becomes more pervasive
+- Workers across industries are expressing concerns about job displacement, with MIT research showing 11.7% of US jobs are already automatable
+- Palantir CEO Alex Karp recently stated AI "will destroy" humanities jobs, though he claimed there will be "more than enough jobs" for people with vocational training
+
+**The Transparency Question:**
+- AI companies' funding of policy research raises questions about the independence of thinktank recommendations
+- Critics argue that industry-funded research may serve to legitimize corporate positions rather than advance genuine public interest
+- The tension between rapid AI development and responsible public communication remains unresolved
+
+**Industry Response:**
+- Companies argue that proactive engagement with policy and public discourse is essential for responsible AI development
+- Some experts suggest that the industry's narrative-shaping efforts, while well-intentioned, may actually undermine trust if perceived as manipulation
+- The debate highlights the fundamental challenge: how to communicate AI's transformative potential while honestly addressing its risks`,
+    date: "2026-04-13",
+    source: "The Guardian",
+    sourceUrl: "https://www.theguardian.com/technology/2026/apr/12/ai-image-problem-policy-papers-thinktanks",
+    href: "/news/news-015",
+  },
+  {
+    id: "news-016",
+    tag: "Security",
+    tagColor: "bg-rose-500/10 text-rose-300",
+    title: "Anthropic Issues 8,000 Copyright Takedowns After Massive Claude Code Leak",
+    summary: "In an unprecedented emergency response, Anthropic issued thousands of copyright takedown notices to scrub leaked Claude Code source code from GitHub after accidentally shipping it in a public package release.",
+    content: `Anthropic launched an extraordinary damage control operation after accidentally exposing the complete source code for its Claude Code CLI tool in a public package release, initially issuing takedown notices for an entire network of 8,100 GitHub repositories.
+
+**The Leak:**
+- The source code was accidentally shipped in a 59.8MB file in the now-deleted version 2.1.88 release of Claude Code
+- The leak included approximately 1,900 files and 512,000 lines of TypeScript code
+- The exposed code contained proprietary algorithms, internal API configurations, and security implementations
+
+**Emergency Response:**
+- Anthropic initially reported processing copyright takedown notices for 8,100 repositories across the GitHub network
+- The company later partially retracted the takedown scope, scaling it down to one primary repository and 96 fork URLs
+- All API keys and internal credentials were immediately rotated as a precautionary measure
+
+**Security Implications:**
+- This was Anthropic's second security slipup in a matter of days, compounding concerns about internal security practices
+- The company had previously been reported storing thousands of internal files on a publicly accessible system
+- Security researchers who accessed the code before removal identified several potential vulnerabilities
+
+**Industry Reaction:**
+- The incident has sparked debate about code security practices at major AI companies
+- Experts are calling for standardized security review processes before any package publication at scale
+- The leak highlights the challenges of maintaining secure development practices while moving at the breakneck speed required to compete in the AI industry
+
+**Business Impact:**
+Despite the security incidents, Anthropic's business continues to grow rapidly. The company has hit a $30 billion valuation and its Claude paid subscriptions have more than doubled in early 2026, driven by strong adoption of Claude Code and Claude Cowork tools.`,
+    date: "2026-04-13",
+    source: "PCMag / LA Times",
+    sourceUrl: "https://www.pcmag.com/news/anthropic-issues-8000-copyright-takedowns-to-scrub-claude-code-leak",
+    href: "/news/news-016",
+  },
+  {
+    id: "news-017",
+    tag: "Infrastructure",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Nationwide AI Data Center Boom Sparks Community Resistance Across America",
+    summary: "The explosive growth of AI data centers is meeting fierce local opposition as communities push back against power consumption, water usage, and environmental impacts of massive AI infrastructure projects.",
+    content: `As of April 2026, a nationwide boom in AI data center construction is generating significant community resistance, with local groups organizing against what they see as unchecked corporate expansion at the expense of environmental and community health.
+
+**The Scale:**
+- AI data center construction is accelerating across the United States at an unprecedented pace
+- Major tech companies including Microsoft, Google, Amazon, and Meta are investing hundreds of billions in new facilities
+- These facilities require enormous amounts of electricity and water for cooling
+
+**Community Pushback:**
+- CBS News reported that local communities are increasingly organizing against data center projects
+- Residents cite concerns about power grid strain, water consumption, noise pollution, and property value impacts
+- Environmental groups are highlighting how AI data center growth is reversing clean air gains in some of America's most polluted cities
+
+**Environmental Impact:**
+- A Modern Diplomacy report on April 13, 2026 detailed how the AI boom has reversed clean air improvements in cities like St. Louis
+- The Labadie Energy Center, a coal plant powering AI data centers, emits soot at rates two to three times higher than most coal plants
+- Clean air activists criticize the narrative that AI development is inherently sustainable, emphasizing that data center pollution continues to impact local communities
+
+**Policy Responses:**
+- Local governments are beginning to implement zoning restrictions and environmental review requirements for new data center projects
+- Some states are considering legislation to require community impact assessments before approving data center construction
+- The tension between economic development and environmental protection is becoming a defining issue in AI infrastructure policy
+
+**The Big Picture:**
+The data center boom represents one of the largest infrastructure expansions in US history, but it also highlights the fundamental question of who bears the costs of AI advancement and who reaps the benefits.`,
+    date: "2026-04-13",
+    source: "CBS News / Modern Diplomacy",
+    sourceUrl: "https://www.cbsnews.com/video/nationwide-boom-in-ai-data-centers-stirs-resistance/",
+    href: "/news/news-017",
+  },
+  {
+    id: "news-018",
+    tag: "Funding",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Q1 2026 VC Funding Shatters Records as AI Startups Dominate Global Investment",
+    summary: "Crunchbase reports Q1 2026 as the strongest quarter for global venture funding since Q2 2022, with AI startups capturing over a third of all venture capital dollars deployed worldwide.",
+    content: `Crunchbase data released in April 2026 reveals that Q1 2026 was the strongest quarter for global venture capital funding since Q2 2022, driven almost entirely by massive AI startup investments.
+
+**Record-Breaking Numbers:**
+- Global VC funding in Q1 2026 reached levels not seen since the peak of the 2022 bull market
+- AI startups accounted for more than 33% of all venture capital deployed globally
+- The United States captured over 80% of global AI investment, cementing its dominance in the AI ecosystem
+
+**Mega-Rounds Dominate:**
+- xAI raised a $20 billion Series E in January 2026, one of the largest single rounds ever
+- OpenAI closed a staggering $110 billion round in February, bringing total funding to $122 billion at an $852 billion valuation
+- Anthropic raised $30 billion in a Series G at a $380 billion valuation
+- Together, these three rounds accounted for a significant share of total global VC activity
+
+**Early-Stage Momentum:**
+- Seed-stage valuations for AI startups show a clear premium over non-AI peers
+- Y Combinator's P2026 batch is heavily AI-focused, with companies building autonomous agents, AI scientist tools, and vertical AI platforms
+- Notable P2026 companies include Ara (personal AI agent computing), matforge (AI scientists for materials discovery), and Korso (AI agents for manufacturing)
+
+**Market Maturation:**
+- Carta data shows AI startups accounted for 41% of the $128 billion in venture dollars raised by companies on Carta last year
+- 10% of startups captured half of all funding, indicating a "winner-take-most" dynamic
+- The IPO pipeline is strengthening, with several major AI companies expected to go public in 2026
+
+**Investment Trends:**
+- Late-stage investments dominate, proving AI's transition from experimental technology to mature industry
+- Corporate investors and sovereign wealth funds are increasingly participating in AI rounds
+- The gap between AI and non-AI startup valuations continues to widen at every funding stage`,
+    date: "2026-04-13",
+    source: "Crunchbase / TechCrunch",
+    sourceUrl: "https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/",
+    href: "/news/news-018",
   },
 ];
