@@ -23,6 +23,38 @@ export const toolCategories = [
 ];
 
 export const tools: Tool[] = [
+  // 开发框架 - 2026.04 新增
+  {
+    id: "llamaindex",
+    name: "LlamaIndex",
+    category: "framework",
+    description: "领先的 RAG（检索增强生成）框架，支持复杂文档索引、高级检索策略和 Agentic Workflows，擅长从 PDF、数据库、Slack 等杂乱数据源中精准检索信息，2026 年企业知识库检索首选方案",
+    url: "https://www.llamaindex.ai",
+    tags: ["RAG", "文档检索", "企业知识库", "Agentic Workflows"],
+    price: "开源",
+    icon: "🦙",
+  },
+  {
+    id: "langfuse",
+    name: "Langfuse",
+    category: "framework",
+    description: "开源 LLM 工程平台，提供完整的可观测性、Prompt 管理、评估和协作功能，支持多轮对话追踪、LLM-as-Judge 评估和自部署，MIT 协议，5 万条/月免费额度",
+    url: "https://langfuse.com",
+    tags: ["可观测性", "Prompt 管理", "评估", "开源", "自部署"],
+    price: "免费+付费",
+    icon: "📊",
+  },
+  // 数据处理 - 2026.04 新增
+  {
+    id: "markitdown",
+    name: "MarkItDown (Microsoft)",
+    category: "data",
+    description: "微软开源的通用文件转 Markdown 工具，支持 PDF、Word、PPT、Excel、HTML、音频、图片 OCR 等数十种格式转换，专为 LLM 和 RAG 数据预处理设计，插件系统可扩展，MIT 协议",
+    url: "https://github.com/microsoft/markitdown",
+    tags: ["文件转换", "Markdown", "数据预处理", "OCR", "微软"],
+    price: "开源",
+    icon: "📝",
+  },
   // 大语言模型
   {
     id: "grok",
