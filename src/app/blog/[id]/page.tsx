@@ -50,9 +50,9 @@ export default function BlogDetailPage({ params }: { params: { id: string } }) {
           </div>
 
           {/* Cover Image */}
-          {post.coverImage && post.coverImage.startsWith('/images/') ? (
+          {post.coverImage && (post.coverImage.startsWith('/images/') || post.coverImage.includes('clouddn.com')) ? (
             <div className="mb-8 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-brand-500/10">
-              <Image src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 512px, 896px" />
+              <Image src={post.coverImage} alt={post.title} fill className="object-cover" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 512px, 896px" unoptimized />
             </div>
           ) : (
             <div className="text-center mb-6">
@@ -141,9 +141,9 @@ export default function BlogDetailPage({ params }: { params: { id: string } }) {
                   href={`/blog/${rel.id}`}
                   className="group p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5"
                 >
-                  {rel.coverImage && rel.coverImage.startsWith('/images/') ? (
+                  {rel.coverImage && (rel.coverImage.startsWith('/images/') || rel.coverImage.includes('clouddn.com')) ? (
                     <div className="mb-2 rounded-lg overflow-hidden h-24">
-                      <Image src={rel.coverImage} alt={rel.title} fill className="object-cover" sizes="192px" />
+                      <Image src={rel.coverImage} alt={rel.title} fill className="object-cover" sizes="192px" unoptimized />
                     </div>
                   ) : (
                     <div className="text-2xl mb-2">{rel.coverImage || "📝"}</div>

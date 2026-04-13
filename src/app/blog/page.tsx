@@ -99,7 +99,7 @@ export default function BlogPage() {
                 }`}
               >
                 {/* Cover */}
-                {post.cover && post.cover.startsWith('/images/') ? (
+                {post.cover && (post.cover.startsWith('/images/') || post.cover.includes('clouddn.com')) ? (
                   <div className={`rounded-xl overflow-hidden bg-gradient-to-br from-brand-500/10 to-accent-500/10 shrink-0 ${
                     index === 0 ? "sm:w-48 sm:h-48" : "sm:w-32 sm:h-32"
                   } w-full h-32 sm:h-auto`}>
