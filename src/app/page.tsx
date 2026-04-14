@@ -48,7 +48,7 @@ const features = [
   },
 ];
 
-// 首页新闻：6 条卡片
+// 首页展示：6 条新闻卡片 + 3 篇博客滚动
 const homeNews = news.slice(0, 6);
 const latestBlogs = blogs.slice(0, 3);
 
@@ -146,29 +146,27 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Latest News Ticker */}
+          {/* Blog Highlights */}
           <div className="mt-12 max-w-3xl mx-auto">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-sm text-brand-400 font-medium">🔥 最新新闻速览</span>
+              <span className="text-sm text-brand-400 font-medium">✍️ 精选博客推荐</span>
               <span className="flex-1 h-px bg-white/10" />
             </div>
             <div className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5">
               <div className="flex animate-news-ticker gap-6 py-3 px-4">
-                {[...homeNews, ...homeNews].map((item, i) => (
-                  <a
-                    key={`${item.href}-${i}`}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                {[...latestBlogs, ...latestBlogs].map((item, i) => (
+                  <Link
+                    key={`blog-${item.id}-${i}`}
+                    href={`/blog/${item.id}`}
                     className="flex items-center gap-2 shrink-0 group"
                   >
-                    <span className={`px-2 py-0.5 ${item.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-[10px] font-medium whitespace-nowrap`}>
-                      {item.tag}
+                    <span className="px-2 py-0.5 bg-brand-500/10 text-brand-300 rounded-full text-[10px] font-medium whitespace-nowrap">
+                      {item.tags[0] || "行业洞察"}
                     </span>
                     <span className="text-sm text-slate-300 group-hover:text-brand-300 transition-colors whitespace-nowrap">
                       {item.title}
                     </span>
-                  </a>
+                  </Link>
                 ))}
               </div>
               {/* Fade edges */}
