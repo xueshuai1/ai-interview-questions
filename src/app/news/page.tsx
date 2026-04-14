@@ -12,21 +12,25 @@ function getLast3DaysNews() {
   const now = new Date();
   const threeDaysAgo = new Date(now);
   threeDaysAgo.setDate(now.getDate() - 2);
+  threeDaysAgo.setHours(0, 0, 0, 0);
 
   return news.filter((n) => {
-    const d = new Date(n.date + "T00:00:00");
+    // date 格式: "YYYY-MM-DD" 或 "YYYY-MM-DD HH:mm"，取日期部分
+    const datePart = n.date.split(" ")[0];
+    const d = new Date(datePart + "T00:00:00");
     return d >= threeDaysAgo;
   });
 }
 
 function formatDate(dateStr: string): string {
   const now = new Date();
-  const d = new Date(dateStr + "T00:00:00");
+  const datePart = dateStr.split(" ")[0];
+  const d = new Date(datePart + "T00:00:00");
   const diff = Math.floor((now.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
   if (diff === 0) return "今日";
   if (diff === 1) return "昨日";
   if (diff < 7) return `${diff} 天前`;
-  return dateStr;
+  return datePart;
 }
 
 export default function NewsPage() {
