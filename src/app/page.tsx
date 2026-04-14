@@ -48,10 +48,10 @@ const features = [
   },
 ];
 
-// 首页展示：6 条新闻卡片 + 3 篇博客滚动 + 3 篇博客预览（不重复）
+// 首页展示：6 条新闻卡片 + 6 条新闻滚动 + 3 篇博客预览
 const homeNews = news.slice(0, 6);
-const tickerBlogs = blogs.slice(0, 3);       // 滚动条：最热门 3 篇
-const previewBlogs = blogs.slice(3, 6);     // 预览区：第 4-6 篇，避免重复
+const tickerNews = news.slice(0, 6);         // 滚动条：最新 6 条新闻
+const previewBlogs = blogs.slice(0, 3);      // 博客预览：最新 3 篇
 
 function formatNewsTime(dateStr: string): string {
   const now = new Date();
@@ -131,38 +131,39 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Stats + Trending */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+          {/* Stats Cards */}
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
             {[
-              { num: `${articles.length}+`, label: "篇教程", trend: "↑ 持续更新" },
-              { num: `${tools.length}+`, label: "个工具", trend: "↑ 精选收录" },
-              { num: `${news.length}+`, label: "条新闻", trend: "⚡ 实时更新" },
-              { num: "100%", label: "免费", trend: "❤️ 永远免费" },
+              { num: `${articles.length}+`, label: "篇教程", icon: "📚", trend: "持续更新" },
+              { num: `${tools.length}+`, label: "个工具", icon: "🛠️", trend: "精选收录" },
+              { num: `${news.length}+`, label: "条新闻", icon: "⚡", trend: "实时更新" },
+              { num: "100%", label: "免费", icon: "❤️", trend: "永远免费" },
             ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl font-bold text-gradient">{stat.num}</div>
-                <div className="text-slate-400 mt-1">{stat.label}</div>
-                <div className="text-xs text-emerald-400/70 mt-0.5">{stat.trend}</div>
+              <div key={stat.label} className="flex flex-col items-center gap-2 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-brand-500/30 transition-all">
+                <span className="text-2xl">{stat.icon}</span>
+                <span className="text-2xl font-bold text-white">{stat.num}</span>
+                <span className="text-sm text-slate-400">{stat.label}</span>
+                <span className="text-xs text-emerald-400/70">{stat.trend}</span>
               </div>
             ))}
           </div>
 
-          {/* Blog Highlights */}
-          <div className="mt-12 max-w-3xl mx-auto">
+          {/* News Ticker */}
+          <div className="mt-8 max-w-3xl mx-auto">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-sm text-brand-400 font-medium">✍️ 精选博客推荐</span>
+              <span className="text-sm text-brand-400 font-medium">🔥 最新动态</span>
               <span className="flex-1 h-px bg-white/10" />
             </div>
             <div className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5">
-              <div className="flex animate-news-ticker gap-6 py-3 px-4">
-                {[...tickerBlogs, ...tickerBlogs].map((item, i) => (
+              <div className="flex animate-news-ticker gap-8 py-3 px-4">
+                {[...tickerNews, ...tickerNews].map((item, i) => (
                   <Link
-                    key={`blog-${item.id}-${i}`}
-                    href={`/blog/${item.id}`}
+                    key={`news-${item.id}-${i}`}
+                    href={item.href}
                     className="flex items-center gap-2 shrink-0 group"
                   >
-                    <span className="px-2 py-0.5 bg-brand-500/10 text-brand-300 rounded-full text-[10px] font-medium whitespace-nowrap">
-                      {item.tags[0] || "行业洞察"}
+                    <span className={`px-2 py-0.5 ${item.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-[10px] font-medium whitespace-nowrap`}>
+                      {item.tag}
                     </span>
                     <span className="text-sm text-slate-300 group-hover:text-brand-300 transition-colors whitespace-nowrap">
                       {item.title}
@@ -184,7 +185,7 @@ export default function Home() {
           100% { transform: translateX(-50%); }
         }
         .animate-news-ticker {
-          animation: news-ticker 25s linear infinite;
+          animation: news-ticker 12s linear infinite;
         }
         .animate-news-ticker:hover {
           animation-play-state: paused;
