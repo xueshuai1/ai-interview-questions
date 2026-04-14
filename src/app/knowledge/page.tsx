@@ -10,13 +10,16 @@ import Navbar from "@/components/Navbar";
 
 const PAGE_SIZE = 9;
 
+const levelOrder: Record<string, number> = { 入门: 1, 进阶: 2, 高级: 3 };
+
 export default function KnowledgePage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"default" | "level-asc" | "level-desc">("default");
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArticles = useMemo(() => {
-    return articles.filter((a) => {
+    let result = articles.filter((a) => {
       const matchCategory =
         activeCategory === "all" || a.category === activeCategory;
       const matchSearch =
@@ -26,7 +29,13 @@ export default function KnowledgePage() {
         a.summary.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCategory && matchSearch;
     });
-  }, [activeCategory, searchQuery]);
+    if (sortBy === "level-asc") {
+      result = [...result].sort((a, b) => levelOrder[a.level] - levelOrder[b.level]);
+    } else if (sortBy === "level-desc") {
+      result = [...result].sort((a, b) => levelOrder[b.level] - levelOrder[a.level]);
+    }
+    return result;
+  }, [activeCategory, searchQuery, sortBy]);
 
   // Reset page when filters change
   const handleFilterChange = (setter: (v: string) => void, value: string) => {
@@ -116,6 +125,17 @@ export default function KnowledgePage() {
                 <span>，第 <span className="text-brand-400 font-medium">{safePage}</span> / {totalPages} 页</span>
               )}
             </p>
+            <div className="flex items-center gap-2">
+              <select
+                value={sortBy}
+                onChange={(e) => { setSortBy(e.target.value as typeof sortBy); setCurrentPage(1); }}
+                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
+              >
+                <option value="default">默认排序</option>
+                <option value="level-asc">难度 ↑ 入门→高级</option>
+                <option value="level-desc">难度 ↓ 高级→入门</option>
+              </select>
+            </div>
           </div>
 
           {filteredArticles.length > 0 ? (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import ReadingProgressBar from "@/components/ReadingProgressBar";
 import MermaidChart from "@/components/MermaidChart";
 import { marked } from "marked";
 
@@ -242,6 +243,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
+      <ReadingProgressBar />
       <Navbar />
 
       {/* Article Header */}
