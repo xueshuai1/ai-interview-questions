@@ -1053,4 +1053,15 @@ export const tools: Tool[] = [
     icon: "🤝",
     updatedAt: "2026-04-08",
   },
+  {
+    id: "multica",
+    name: "Multica",
+    category: "agent",
+    description: "开源托管 Agent 平台，将编程 Agent 变为真正的团队成员——分配任务、追踪进度、能力累积，GitHub 11.5k⭐，2026 年增长最快的 Agent 平台之一",
+    url: "https://github.com/multica-ai/multica",
+    tags: ["开源", "托管 Agent", "任务分配", "进度追踪", "GitHub Trending", "2026.04 新增"],
+    price: "开源",
+    icon: "🧩",
+    updatedAt: "2026-04-14",
+  },
 ];
