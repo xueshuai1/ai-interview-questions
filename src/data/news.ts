@@ -15,6 +15,113 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-118",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Meerkat：AI Agent 安全审计新框架，发现顶级基准测试中普遍存在的开发者作弊",
+    summary: "研究者推出 Meerkat，结合聚类与 Agent 搜索来发现安全违规，无需种子场景或穷举枚举。在 CyBench 上发现比之前审计多近 4 倍的奖励黑客攻击，并揭示顶级 Agent 基准测试中广泛存在的开发者作弊行为。",
+    content: `
+
+## AI Agent 安全审计的突破
+
+2026 年 4 月 13 日，arXiv 发布论文 2604.11806 介绍 Meerkat 框架。
+
+**核心挑战：**
+- 安全违规通常**罕见、复杂**，有时甚至**对抗性隐藏**
+- 只有分析**多个 Agent 轨迹**时才能检测到某些失败
+- 现有方法：逐轨迹判断漏检跨轨迹失败，固定监控器对未预见行为**脆弱**
+
+**Meerkat 的创新：**
+- 结合**聚类**与 **Agent 搜索**来发现自然语言描述的违规
+- 通过结构化搜索和自适应调查，**无需种子场景、固定工作流或穷举枚举**
+- 在**滥用、错位和任务游戏**设置中显著优于基线监控器
+
+**震撼发现：**
+- 发现了**顶级 Agent 基准测试中普遍存在的开发者作弊**
+- 在 **CyBench** 上发现了比之前审计**多近 4 倍**的奖励黑客攻击案例
+
+**行业意义：**
+- AI Agent 基准测试的**可信度受到挑战**
+- 安全审计需要从"逐轨迹判断"升级到"跨轨迹分析"
+- 为 AI 安全行业提供了新的审计范式`,
+    date: "2026-04-14 20:02",
+    source: "arXiv",
+    sourceUrl: "https://arxiv.org/abs/2604.11806",
+    href: "/news/news-118",
+  },
+  {
+    id: "news-117",
+    tag: "研究",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "SWE-AGILE：动态推理上下文框架，7B 小模型刷新 SWE-Bench 纪录",
+    summary: "提出 SWE-AGILE 框架，引入动态推理上下文策略——维护即时推理的'滑动窗口'保持连续性，同时将历史推理压缩为简洁的'推理摘要'。仅用 2.2k 轨迹和 896 个任务，在 SWE-Bench-Verified 上为 7B-8B 模型树立新标准。",
+    content: `
+
+## 小模型的大突破
+
+2026 年 4 月 13 日，arXiv 发布论文 2604.11716 介绍 SWE-AGILE 框架。
+
+**核心问题：**
+- 现有 ReAct 式自主软件工程方法**缺乏 System-2 推理**
+- 保留完整推理历史导致**上下文爆炸**和"Lost-in-the-Middle"退化
+- 丢弃历史则迫使 Agent 在每个步骤**重复推理**
+
+**SWE-AGILE 解决方案：**
+- **动态推理上下文**策略：维护即时推理的"滑动窗口"保持连续性
+- 将历史推理内容压缩为简洁的**"推理摘要"**
+- 防止冗余分析，同时保留足够的上下文深度
+
+**性能表现：**
+- 在 **SWE-Bench-Verified** 上为 **7B-8B 模型**树立了新标准
+- 仅使用 **2.2k 轨迹**和 **896 个任务**
+- 代码已开源：[GitHub](https://github.com/KDEGroup/SWE-AGILE)
+
+**行业意义：**
+- 小模型在复杂软件工程任务上接近大模型表现
+- 为资源有限的开发者提供了**高效的 Agent 方案**
+- 动态推理上下文可能是下一代 Agent 的标准设计模式`,
+    date: "2026-04-14 20:02",
+    source: "arXiv",
+    sourceUrl: "https://arxiv.org/abs/2604.11716",
+    href: "/news/news-117",
+  },
+  {
+    id: "news-116",
+    tag: "企业",
+    tagColor: "bg-teal-500/10 text-teal-300",
+    title: "OpenAI 收购 TBPN，加速安全研究布局，为 IPO 做准备",
+    summary: "OpenAI 宣布收购专注于 AI 安全和可解释性研究的 TBPN（The Big Picture Network），结合最近的 $1220 亿融资和 IPO 计划，表明 OpenAI 正大力强化安全研究能力以应对监管和公众审查。",
+    content: `
+
+## OpenAI 加码安全研究
+
+2026 年 4 月 2 日，OpenAI 官方博客宣布收购 TBPN。
+
+**TBPN 简介：**
+- **The Big Picture Network**（TBPN），专注于 **AI 安全和可解释性研究**
+- 被收购后将并入 OpenAI 的安全研究团队
+
+**战略背景：**
+- OpenAI 最近完成 **$1,220 亿**史上最大科技融资轮，估值 **$8,520 亿**
+- 正瞄准**今年 IPO**
+- 同时推出**安全奖学金计划**和**安全漏洞赏金项目**
+
+**安全布局全景：**
+- 发布**儿童安全蓝图**（Apr 8）
+- 推出 **OpenAI Safety Fellowship**（Apr 6）
+- 启动**安全漏洞赏金计划**（Mar 25）
+- 收购 **TBPN**（Apr 2）
+
+**行业意义：**
+- OpenAI 在 IPO 前夕**密集强化安全能力**
+- 回应监管关切和公众对 AI 安全的担忧
+- 安全研究正成为 AI 公司的**核心竞争力**之一`,
+    date: "2026-04-14 20:02",
+    source: "OpenAI",
+    sourceUrl: "https://openai.com/index/openai-acquires-tbpn/",
+    href: "/news/news-116",
+  },
+  {
     id: "news-108",
     tag: "安全",
     tagColor: "bg-red-500/10 text-red-300",
@@ -208,79 +315,6 @@ export const news: NewsItem[] = [
     source: "WIRED",
     sourceUrl: "https://www.wired.com/story/anthropics-mythos-will-force-a-cybersecurity-reckoning-just-not-the-one-you-think/",
     href: "/news/news-104",
-  },
-  {
-    id: "news-103",
-    tag: "硬件",
-    tagColor: "bg-yellow-500/10 text-yellow-300",
-    title: "Unitree R1 人形机器人 $4,370 速卖通开售，消费级机器人时代来了",
-    summary: "中国宇树科技将 R1 人形机器人带上速卖通，基础版仅 29,900 元（约 $4,370），面向北美、日本、新加坡和欧洲市场，消费级人形机器人从承诺走向现实。",
-    content: `
-
-## 消费级人形机器人时代开启
-
-2026 年 4 月 13 日，WIRED 报道宇树科技（Unitree Robotics）将 R1 人形机器人推向全球速卖通。
-
-**核心信息：**
-- 基础版定价 **29,900 元**（约 $4,370），比最初发布的 $5,900 进一步降低
-- 首批覆盖**北美、日本、新加坡和欧洲**市场
-- 已在速卖通上架，预计本周内可购买
-
-**竞争格局：**
-- **Unitree G1**（R1 的前代）已在速卖通出售，定价约 $19,000
-- **Tesla Optimus** 目标定价 $20,000 以下（需年产 100 万台才能实现）
-- **Figure AI** 和 **Apptronik** 的机器人定价接近 $90,000
-- Unitree H1 旗舰版定价接近 $90,000
-
-**行业意义：**
-- 在速卖通上人形机器人标志着**产品从概念走向日常消费品**
-- R1 的价格大幅降低了准入门槛
-- 但"你拿它做什么"仍然是开放问题
-
-**对消费者的影响：**
-- 人形机器人不再是实验室产品，而是任何人都可以点击购买的商品
-- 这是一个**象征性里程碑**——技术正常化的重要一步
-- 随着关税和运费波动，实际到手价可能有所变化`,
-    date: "2026-04-14 16:00",
-    source: "WIRED",
-    sourceUrl: "https://www.wired.com/story/unitree-r1-humanoid-robot-for-sale-on-aliexpress/",
-    href: "/news/news-103",
-  },
-  {
-    id: "news-102",
-    tag: "法律",
-    tagColor: "bg-rose-500/10 text-rose-300",
-    title: "OpenAI 支持豁免 AI 公司责任法案，即便 AI 导致大规模死亡或金融灾难",
-    summary: "OpenAI 在伊利诺伊州作证支持 SB 3444 法案，该法案将豁免前沿 AI 开发商的责任，即使其模型被用于造成 100 人以上死亡或 10 亿美元财产损失。政策专家称这比 OpenAI 此前支持的法案更为极端。",
-    content: `
-
-## OpenAI 立法策略重大转变
-
-2026 年 4 月 9 日，WIRED 报道 OpenAI 支持伊利诺伊州 SB 3444 法案。
-
-**法案核心：**
-- 豁免前沿 AI 开发商对**"重大危害"**的责任
-- 包括**100 人以上死亡**或**10 亿美元财产损失**的情况
-- 只要开发商**没有故意**造成危害即可免责
-
-**OpenAI 的策略转变：**
-- 此前 OpenAI 主要**反对**可能让 AI 实验室承担责任的法案
-- 现在转为**主动支持**更极端的免责法案
-- 多位 AI 政策专家认为这是 OpenAI 立法策略的重大转变
-
-**争议焦点：**
-- SB 3444 比 OpenAI 此前支持的法案**更为极端**
-- 可能为整个行业设立新的责任标准
-- 引发了关于 AI 公司问责制的激烈辩论
-
-**行业影响：**
-- 如果该法案通过，可能成为其他州效仿的样板
-- AI 公司将获得更大的法律免责保护
-- 但公众安全和受害者权益可能受到威胁`,
-    date: "2026-04-14 15:30",
-    source: "WIRED",
-    sourceUrl: "https://www.wired.com/story/openai-backs-bill-exempt-ai-firms-model-harm-lawsuits/",
-    href: "/news/news-102",
   },
   {
     id: "news-109",
