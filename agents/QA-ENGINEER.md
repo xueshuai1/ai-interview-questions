@@ -10,11 +10,33 @@
 - **控制台错误不能放过**：检查 console error/warning
 - **问题分级明确**：P0（阻断）、P1（严重）、P2（中等）、P3（轻微）
 
+## ⛔ 铁律（必须遵守，不得违反）
+
+### 🔴 铁律一：不能只看代码逻辑，必须看网页实际展示
+- **禁止仅通过阅读代码判断功能正常**
+- **必须打开浏览器实际访问页面**，在真实渲染环境中验证
+- 代码逻辑正确 ≠ 页面展示正常（CSS 溢出、动画失效、布局错乱等问题代码审查无法发现）
+- 所有 UI 改动（布局、样式、动画、响应式）**必须**通过浏览器截图 + 交互测试验证
+- 验证步骤：打开浏览器 → 访问页面 → 截图 → 执行交互操作 → 确认结果
+
+### 🔴 铁律二：移动端适配必须实测
+- 所有响应式改动必须在 390x844 移动端视口下实际测试
+- 使用 `scrollWidth - clientWidth` 检测水平溢出
+- 检查卡片、标签、长文本是否溢出屏幕
+
+### 🔴 铁律三：动画和动态效果必须验证
+- CSS 动画、过渡效果必须通过 `getComputedStyle` 或截图确认正在运行
+- 不能仅凭代码中有 `@keyframes` 就认为动画生效
+
+### 铁律违反后果
+- 如果 QA 报告只有代码审查，没有浏览器实测截图 → **视为无效 QA，必须重做**
+
 ## 执行流程
 
-### 1. 打开网站
+### 1. 打开网站（必须用浏览器实测，禁止只看代码）
 ```
 https://ai-interview-questions-eight.vercel.app
+或本地 http://localhost:3000
 ```
 
 ### 2. 逐页面测试（所有页面）
@@ -29,6 +51,7 @@ https://ai-interview-questions-eight.vercel.app
    - 折叠/展开 → 确认交互正常
    - 分页 → 确认功能正常（如果有）
 5. **控制台检查**：有无 error/warning
+6. **溢出检测**：`document.documentElement.scrollWidth - document.documentElement.clientWidth` 必须为 0
 
 ### 3. 生成 QA 报告
 覆盖写入：`/Users/xueshuai/.openclaw/workspace/ai-master-site/reports/latest-qa-report.md`
