@@ -16,6 +16,74 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-126",
+    tag: "平台动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/google.jpg",
+    title: "Google Gemini Personal Intelligence 全球 rollout — 可读取 Gmail、相册、搜索和 YouTube 历史记录",
+    summary: "Google 宣布 Gemini Personal Intelligence 功能向全球更多地区开放（英国、瑞士和欧洲经济区除外）。该功能允许 Gemini 从用户的 Gmail、Google Photos、搜索和 YouTube 观看记录中提取信息，提供个性化 AI 服务。AI Plus、Pro 和 Ultra 订阅用户将率先在受限地区获得此功能，随后向免费用户开放。",
+    content: `## Google Gemini Personal Intelligence 全球扩展
+
+2026 年 4 月 15 日，Google 宣布其 Gemini Personal Intelligence 功能正在向全球更多地区 rollout。
+
+**核心功能：**
+- Gemini 可读取 Gmail 邮件内容
+- 访问 Google Photos 相册
+- 搜索历史记录
+- YouTube 观看记录
+- 提供基于个人数据的个性化 AI 建议
+
+**发布范围：**
+- 全球大部分地区可用
+- 英国、瑞士和欧洲经济区暂不可用
+- AI Plus、Pro 和 Ultra 订阅用户将在受限地区率先获得
+- 之后免费用户也将获得
+
+**隐私考量：**
+Personal Intelligence 是 Google 将 AI 深度整合到个人生活的重要一步。用户需要在便利性和隐私之间做出权衡——允许 AI 访问个人数据意味着更精准的建议，但也意味着更多数据被收集和处理。
+
+**行业背景：**
+这一趋势与 Onix 等平台的「Personal Intelligence」架构相呼应，标志着 AI 从通用工具向个人助手的转变正在加速。Google、OpenAI、Anthropic 都在探索让 AI 更好地理解用户个人上下文。`,
+    date: "2026-04-15 06:30",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-126",
+  },
+  {
+    id: "news-127",
+    tag: "工具发布",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Microsoft 发布 MAI-Image-2-Efficient — 面向生产环境的高效能 AI 图像生成模型",
+    summary: "Microsoft 在 Foundry 和 MAI Playground 上发布 MAI-Image-2-Efficient，号称其「最佳文本到图像模型」。相比 MAI-Image-2，该模型速度更快、成本更低，定位为产品照片、营销素材、UI 模型和品牌资产的批量生成工具。",
+    content: `## Microsoft MAI-Image-2-Efficient：生产级 AI 图像生成
+
+2026 年 4 月 15 日，Microsoft 发布了 MAI-Image-2-Efficient，这是其最新的文本到图像生成模型。
+
+**产品定位：**
+Microsoft 称之为「生产工作马」（production workhorse），专为大规模、高速度、低成本控制的需求设计。
+
+**适用场景：**
+- 产品照片批量生成
+- 营销素材
+- UI 模型
+- 品牌资产
+- 批处理管线
+
+**技术特点：**
+- 比 MAI-Image-2 更快
+- 成本更低
+- 在 Microsoft Foundry 和 MAI Playground 同步上线
+- 面向企业级生产环境优化
+
+**行业意义：**
+这表明 Microsoft 正在从「最好的模型」转向「最实用的模型」——在质量和效率之间找到平衡点。对于需要大量生成图像的企业用户来说，速度和成本往往是比极致质量更重要的因素。`,
+    date: "2026-04-15 06:30",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-127",
+  },
+  {
     id: "news-124",
     tag: "行业趋势",
     tagColor: "bg-purple-500/10 text-purple-300",
