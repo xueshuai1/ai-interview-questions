@@ -703,6 +703,18 @@ export const tools: Tool[] = [
     price: "开源",
     icon: "🔌",
   },
+  // 2026.04 新增
+  {
+    id: "langflow",
+    name: "Langflow",
+    category: "framework",
+    description: "可视化 AI Agent 和工作流构建平台，基于 React Flow 的拖拽式界面，支持多模型路由、自定义组件和一键部署，146k+ GitHub 星，2026 年最受欢迎的可视化 AI 开发工具",
+    url: "https://www.langflow.org",
+    tags: ["可视化编排", "拖拽式", "多模型", "部署", "React Flow"],
+    price: "开源",
+    icon: "🌊",
+    updatedAt: "2026-04-14",
+  },
   // 大语言模型 - 2026.04 新增
   {
     id: "qwen-3-5",
