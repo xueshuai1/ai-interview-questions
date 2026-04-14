@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { LAST_UPDATE_TIME } from "@/data/update-time";
@@ -155,43 +158,41 @@ export default function Home() {
               <span className="flex-1 h-px bg-white/10" />
             </div>
             <div className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5">
-              <div className="flex animate-news-ticker gap-8 py-3 px-4">
-                {[...tickerNews, ...tickerNews].map((item, i) => (
-                  <Link
-                    key={`news-${item.id}-${i}`}
-                    href={item.href}
-                    className="flex items-center gap-2 shrink-0 group"
-                  >
-                    <span className={`px-2 py-0.5 ${item.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-[10px] font-medium whitespace-nowrap`}>
-                      {item.tag}
-                    </span>
-                    <span className="text-sm text-slate-300 group-hover:text-brand-300 transition-colors whitespace-nowrap">
-                      {item.title}
-                    </span>
-                  </Link>
+              <Swiper
+                modules={[Autoplay]}
+                loop={true}
+                autoplay={{
+                  delay: 0,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
+                }}
+                speed={5000}
+                slidesPerView="auto"
+                className="w-full"
+              >
+                {tickerNews.map((item) => (
+                  <SwiperSlide key={`news-${item.id}`} style={{ width: 'auto' }}>
+                    <Link
+                      href={item.href}
+                      className="flex items-center gap-2 shrink-0 group py-3 px-4"
+                    >
+                      <span className={`px-2 py-0.5 ${item.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-[10px] font-medium whitespace-nowrap`}>
+                        {item.tag}
+                      </span>
+                      <span className="text-sm text-slate-300 group-hover:text-brand-300 transition-colors whitespace-nowrap">
+                        {item.title}
+                      </span>
+                    </Link>
+                  </SwiperSlide>
                 ))}
-              </div>
+              </Swiper>
               {/* Fade edges */}
-              <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-slate-900/90 to-transparent pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-slate-900/90 to-transparent pointer-events-none" />
+              <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-slate-900/90 to-transparent pointer-events-none z-10" />
+              <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-slate-900/90 to-transparent pointer-events-none z-10" />
             </div>
           </div>
         </div>
       </section>
-
-      <style jsx>{`
-        @keyframes news-ticker {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-news-ticker {
-          animation: news-ticker 40s linear infinite;
-        }
-        .animate-news-ticker:hover {
-          animation-play-state: paused;
-        }
-      `}
-      </style>
 
       {/* Features Section */}
       <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
