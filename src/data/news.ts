@@ -16,6 +16,107 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-124",
+    tag: "行业趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/industry.jpg",
+    title: "Onix 推出「聊天版 Substack」— 付费订阅专家 AI 数字分身，提供 24/7 个性化咨询",
+    summary: "Onix 正式上线，自称「聊天版 Substack」。用户可订阅健康、营养等领域专家的 AI 数字分身，获得全天候个性化建议。公司由前 WIRED 撰稿人 David Bennahum 联合创办，采用「Personal Intelligence」架构，用户数据加密存储在本地设备。",
+    content: `## Onix：专家 AI 数字分身平台上线
+
+2026 年 4 月 10 日，Onix（onix.life）正式上线，联合创始人 David Bennahum 是前 WIRED 撰稿人。
+
+**产品模式：**
+
+Onix 自称是「聊天版 Substack」——正如你在 Substack 上订阅作家，你可以在 Onix 上订阅专家的 AI 分身（称为 "Onix"）。
+
+**核心特性：**
+- 专家亲自用个人内容训练自己的 AI 分身
+- AI 分身能投影专家的独特个性
+- 用户通过对话获得专业建议，如同面对面咨询
+- 覆盖健康、营养、心理等领域
+
+**隐私架构「Personal Intelligence」：**
+- 用户数据存储在本机设备，加密保护
+- 即使政府要求提供数据，公司也只能获得用户邮箱
+- 专家自主训练分身，不存在知识产权盗窃问题
+
+**商业模式：**
+- 订阅制付费使用
+- 专家可通过分身销售自己的产品
+- AI 分身 24/7 在线，无需专家实时参与
+
+**争议与挑战：**
+- LLM 易产生幻觉和不准确
+- 与机器人分享隐私的心理影响
+- 虽然专家训练了分身，但交互体验仍由 AI 代理
+
+**行业意义：**
+这标志着 AI 从「工具」走向「个人顾问」的又一重要尝试。如果 Onix 成功，将为知识付费和专家咨询开辟全新商业模式——专家可以无限放大自己的影响力，而不受时间限制。`,
+    date: "2026-04-15 05:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/onix-substack-ai-platform-therapy-medicine-nutrition/",
+    href: "/news/news-124",
+  },
+  {
+    id: "news-125",
+    tag: "学术研究",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    coverImage: "/images/news/research.jpg",
+    title: "Google Research 提出 Vantage — 用 LLM 评估协作能力、创造力和批判性思维",
+    summary: "Google Research 提出 Vantage 框架，通过编排 LLM 模拟真实小组互动来评估协作、创造力和批判性思维等「持久技能」。采用 Executive LLM 架构，单个 LLM 生成所有 AI 参与者的回复，主动引导对话以激发特定技能证据，评分准确性接近人类专家。",
+    content: `## Vantage：用 AI 评估人类「持久技能」
+
+2026 年 4 月 13 日，Google Research 发表论文，提出 Vantage 框架。
+
+**核心问题：**
+
+标准化考试能评估微积分或文本分析能力，但无法可靠评估：
+- 与队友解决分歧的能力
+- 压力下产生原创想法的能力
+- 批判性拆解有缺陷论证的能力
+
+这些被称为**「持久技能」**（durable skills）——协作、创造力、批判性思维。
+
+**Vantage 解决方案：**
+
+通过编排 LLM 来**同时模拟真实小组互动并评分**，准确性接近人类专家评分者。
+
+**Executive LLM 架构（关键技术贡献）：**
+
+Vantage 最独特的设计是 Executive LLM 架构：
+
+- **不是**为每个 AI 队友生成独立的 LLM
+- **而是**使用单个 LLM 生成所有 AI 参与者的回复
+- Executive LLM 访问相同的教学评估量表
+- **主动**引导对话走向能激发特定技能证据的场景
+
+**工作原理：**
+
+1. 用户参与模拟的小组讨论
+2. Executive LLM 根据目标技能（如冲突解决）动态调整对话
+3. 例如：如果目标是「冲突解决」，Executive LLM 会让一个 AI 角色引入分歧并持续，直到用户展示出（或未能展示）冲突解决策略
+4. 这类似于计算机自适应测试（CAT），但「题目」是实时对话中的回合
+
+**对比实验：**
+
+- **独立 Agent 基线**（多个独立 LLM，无协调）效果明显更差
+- 没有引导的对话往往无法有效激发目标技能
+
+**关键优势：**
+- **生态效度**：像真实世界的场景
+- **心理测量严谨性**：标准化条件、可重复性、可控刺激
+
+**行业意义：**
+这标志着 AI 评估从「标准化考试」走向「动态对话评估」。如果 Vantage 被广泛采用，将对教育评估、招聘面试、团队协作培训产生深远影响。
+
+**论文：** [Toward Scalable Measurement of Durable Skills](https://services.google.com/fh/files/misc/toward_scalable_measurement_of_durable_skills.pdf)`,
+    date: "2026-04-15 05:00",
+    source: "MarkTechPost / Google Research",
+    sourceUrl: "https://www.marktechpost.com/2026/04/13/google-ai-research-proposes-vantage-an-llm-based-protocol-for-measuring-collaboration-creativity-and-critical-thinking/",
+    href: "/news/news-125",
+  },
+  {
     id: "news-119",
     tag: "开发工具",
     tagColor: "bg-green-500/10 text-green-300",
