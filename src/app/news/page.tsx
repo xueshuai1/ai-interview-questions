@@ -45,11 +45,30 @@ function formatNewsTime(dateStr: string): string {
 export default function NewsPage() {
   const recentNews = useMemo(() => getLast3DaysNews(), []);
   const [currentPage, setCurrentPage] = useState(1);
+  const [activeTag, setActiveTag] = useState<string>("全部");
+
+  // 获取所有标签
+  const allTags = useMemo(() => {
+    const tags = Array.from(new Set(recentNews.map(n => n.tag)));
+    return ["全部", ...tags.sort()];
+  }, [recentNews]);
+
+  // 按标签筛选
+  const filteredNews = useMemo(() => {
+    if (activeTag === "全部") return recentNews;
+    return recentNews.filter(n => n.tag === activeTag);
+  }, [recentNews, activeTag]);
 
   const sortedNews = useMemo(
-    () => [...recentNews].sort((a, b) => b.date.localeCompare(a.date)),
-    [recentNews]
+    () => [...filteredNews].sort((a, b) => b.date.localeCompare(a.date)),
+    [filteredNews]
   );
+
+  // 切换标签时重置页码
+  const handleTagChange = (tag: string) => {
+    setActiveTag(tag);
+    setCurrentPage(1);
+  };
 
   const totalPages = Math.max(1, Math.ceil(sortedNews.length / NEWS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
@@ -80,6 +99,25 @@ export default function NewsPage() {
       {/* News List */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
+          {/* Tag Filter */}
+          {allTags.length > 1 && (
+            <div className="mb-8 flex flex-wrap gap-2 justify-center">
+              {allTags.map(tag => (
+                <button
+                  key={tag}
+                  onClick={() => handleTagChange(tag)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                    activeTag === tag
+                      ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                      : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                  }`}
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          )}
+
           {paginatedNews.length === 0 ? (
             <div className="text-center py-20">
               <div className="text-6xl mb-4">📭</div>
