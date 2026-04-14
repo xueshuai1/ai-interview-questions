@@ -64,17 +64,15 @@
 #### Agent A — 新闻采集与首页更新
 ```
 任务：扫描 AI 新闻源，更新首页
-来源（至少 8+ 关键词组合）：
-  - "AI news today" + 日期
-  - "arXiv AI papers" + 最新
-  - "OpenAI latest news"
-  - "Google AI blog"
-  - "Meta AI news"
-  - "Anthropic news"
-  - "Microsoft AI"
-  - "AI startup funding"
-  - 补充：AI cybersecurity, LLM benchmark, AI regulation
-抓取页面：TechCrunch AI, arXiv cs.AI, alphaXiv, OpenAI blog
+来源（至少 8+ 关键词组合，必须覆盖三类）：
+  🔴 **事件类**："AI news today" + 日期、"OpenAI latest news"、"Google AI blog"、
+    "Meta AI news"、"Anthropic news"、"Microsoft AI"、"AI startup funding"、
+    AI cybersecurity、LLM benchmark、AI regulation
+  🔴 **论文类**："arXiv AI papers" + 最新、"arXiv cs.AI latest"、"arXiv cs.LG latest"
+  🔴 **概念趋势类（不可省略！）**："AI trends 2026"、"AI engineering paradigm"、
+    "AI agent framework"、"AI infrastructure"、"AI tool comparison"、
+    行业意见领袖最新文章（Ethan Mollick、Andrej Karpathy 等）
+抓取页面：TechCrunch AI, arXiv cs.AI, alphaXiv, OpenAI blog, 行业博客
 输出：更新 src/data/news.ts 数据源
 验证：npx tsc --noEmit + npm run build
 ```
