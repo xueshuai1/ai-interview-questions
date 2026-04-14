@@ -48,9 +48,10 @@ const features = [
   },
 ];
 
-// 首页展示：6 条新闻卡片 + 3 篇博客滚动
+// 首页展示：6 条新闻卡片 + 3 篇博客滚动 + 3 篇博客预览（不重复）
 const homeNews = news.slice(0, 6);
-const latestBlogs = blogs.slice(0, 3);
+const tickerBlogs = blogs.slice(0, 3);       // 滚动条：最热门 3 篇
+const previewBlogs = blogs.slice(3, 6);     // 预览区：第 4-6 篇，避免重复
 
 function formatNewsTime(dateStr: string): string {
   const now = new Date();
@@ -154,7 +155,7 @@ export default function Home() {
             </div>
             <div className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5">
               <div className="flex animate-news-ticker gap-6 py-3 px-4">
-                {[...latestBlogs, ...latestBlogs].map((item, i) => (
+                {[...tickerBlogs, ...tickerBlogs].map((item, i) => (
                   <Link
                     key={`blog-${item.id}-${i}`}
                     href={`/blog/${item.id}`}
@@ -237,7 +238,7 @@ export default function Home() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {latestBlogs.map((post) => (
+            {previewBlogs.map((post) => (
               <Link key={post.id} href={`/blog/${post.id}`}
                 className="group block p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-0.5">
                 <span className="inline-block px-2.5 py-0.5 bg-brand-500/10 text-brand-300 rounded-full text-xs font-medium mb-2">
