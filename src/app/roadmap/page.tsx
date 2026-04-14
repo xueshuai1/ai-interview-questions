@@ -152,12 +152,7 @@ export default function RoadmapPage() {
       {/* Timeline */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-4xl mx-auto">
-          {/* Vertical timeline line */}
-          <div className="relative">
-            {/* Center line - hidden on mobile, shown on md+ */}
-            <div className="hidden md:block absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500/30 via-violet-500/30 to-brand-500/30" />
-
-            <div className="space-y-4">
+          <div className="space-y-4">
               {roadmapPhases.map((phase) => {
                 const isExpanded = expandedPhase === phase.phase;
                 return (
@@ -254,7 +249,6 @@ export default function RoadmapPage() {
                 );
               })}
             </div>
-          </div>
         </div>
       </section>
 
