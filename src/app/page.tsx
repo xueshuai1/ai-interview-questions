@@ -50,7 +50,7 @@ const features = [
 
 // 首页展示：6 条新闻卡片 + 6 条新闻滚动 + 3 篇博客预览
 const homeNews = news.slice(0, 6);
-const tickerNews = news.slice(0, 6);         // 滚动条：最新 6 条新闻
+const tickerNews = news.slice(0, 12);        // 滚动条：最新 12 条新闻（保证填满滚动条）
 const previewBlogs = blogs.slice(0, 6);      // 博客预览：最新 6 篇
 
 function formatNewsTime(dateStr: string): string {
@@ -185,7 +185,7 @@ export default function Home() {
           100% { transform: translateX(-50%); }
         }
         .animate-news-ticker {
-          animation: news-ticker 12s linear infinite;
+          animation: news-ticker 40s linear infinite;
         }
         .animate-news-ticker:hover {
           animation-play-state: paused;
