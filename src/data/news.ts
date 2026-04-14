@@ -15,6 +15,201 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-108",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Mercor 数据泄露重创 AI 行业，Meta 无限期暂停合作",
+    summary: "数据承包商 Mercor 遭 TeamPCP 黑客组织通过 LiteLLM 供应链攻击入侵，可能暴露 OpenAI、Anthropic 等 AI 实验室的核心训练数据机密，Meta 已无限期暂停与 Mercor 的所有合作。",
+    content: `
+
+## AI 训练数据安全危机
+
+2026 年 4 月 3 日，WIRED 报道 Mercor 数据泄露事件。
+
+**事件经过：**
+- 数据承包商 **Mercor** 遭黑客组织 **TeamPCP** 入侵
+- 攻击者利用 **LiteLLM** API 工具的供应链攻击
+- **Meta 已无限期暂停**与 Mercor 的所有合作
+- OpenAI 正在调查其专有训练数据是否被暴露
+
+**受影响方：**
+- **OpenAI**、**Anthropic**、**Meta** 等顶级 AI 实验室
+- Mercor 为这些公司生成**高度机密的训练数据集**
+- 训练数据泄露可能暴露各公司的**AI 训练方法**
+
+**行业影响：**
+- 这是继 Axios 供应链攻击后又一个 **AI 行业重大安全事件**
+- 训练数据是 AI 公司的**核心竞争力**，泄露可能帮助竞争对手
+- Mercor 承包商中参与 Meta 项目的员工**无法继续记工时**
+
+**安全教训：**
+- AI 行业严重依赖第三方数据承包商
+- 供应链安全需要从工具到合作方的全链条防护
+- 训练数据的保密性与模型能力直接相关`,
+    date: "2026-04-14 16:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/meta-pauses-work-with-mercor-after-data-breach-puts-ai-industry-secrets-at-risk/",
+    href: "/news/news-108",
+  },
+  {
+    id: "news-107",
+    tag: "创业",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "Black Forest Labs：70 人德国初创估值 32.5 亿，挑战硅谷 AI 图像生成巨头",
+    summary: "位于德国黑森林的 70 人初创公司 Black Forest Labs，以潜扩散技术打造世界顶级 AI 图像生成模型，已签约 Adobe、Canva，并与微软、Meta 达成授权协议，最近拒绝了 xAI 的二次合作请求。",
+    content: `
+
+## 小团队撼动大行业
+
+2026 年 4 月 9 日，WIRED 深度报道 Black Forest Labs。
+
+**核心数据：**
+- 团队仅 **70 人**，总部位于德国黑森林地区
+- 估值 **32.5 亿美元**（2024 年 12 月 B 轮融资）
+- 已与 **Adobe** 和 **Canva** 签约集成图像生成功能
+- 与 **微软、Meta、xAI** 达成技术授权协议
+
+**技术优势：**
+- 采用**潜扩散（latent diffusion）**技术路线
+- 先用 AI 勾勒出图像粗略蓝图，再填充细节
+- 以**极少的计算资源**产出顶级图像生成模型
+- 在 Hugging Face 上拥有**最多下载量**的文生图模型之一
+
+**商业决策：**
+- **拒绝了 xAI 的二次合作请求**，认为合作运营难度太大
+- 与 Meta 签署了 **1.4 亿美元**多年协议
+- 认为图像生成只是起点，下一步将进军**物理 AI**
+
+**行业意义：**
+- 证明了**小团队+高效算法**可以挑战资源雄厚的硅谷巨头
+- 德国 AI 创业生态正在崛起
+- 图像生成市场从 OpenAI/Google 双强走向多元化`,
+    date: "2026-04-14 16:15",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/black-forest-labs-ai-image-generation/",
+    href: "/news/news-107",
+  },
+  {
+    id: "news-106",
+    tag: "隐私",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Meta Muse Spark 要求用户上传健康数据，测试发现给出错误医疗建议",
+    summary: "Meta 的 Superintelligence Labs 发布首个生成式 AI 模型 Muse Spark，声称能分析用户健身追踪器和实验室报告数据，但测试发现其健康建议质量堪忧，隐私风险巨大。",
+    content: `
+
+## AI 健康助手：便利还是隐患？
+
+2026 年 4 月 10 日，WIRED 对 Meta Muse Spark 进行实测。
+
+**Muse Spark 的健康功能：**
+- Meta 声称与 **1,000+ 名医生**合作策划训练数据
+- 主动要求用户上传**健身追踪器数据、血糖监测数据和实验室报告**
+- 承诺能"计算趋势、标记模式、可视化数据"
+- 计划整合到 **Facebook、Instagram 和 WhatsApp**
+
+**实测发现：**
+- 健康建议**质量堪忧**，存在明显错误
+- 要求用户提供**高度敏感的个人健康数据**
+- 隐私保护措施**不够透明**
+
+**行业背景：**
+- **OpenAI ChatGPT** 和 **Anthropic Claude** 都推出了健康数据连接功能
+- **Google** 允许上传医疗数据到 Fitbit 供 AI 健康教练分析
+- 杜克大学 Monica Agrawal："给它越多信息，回答可能越好，但隐私风险也越大"
+
+**隐私风险：**
+- 健康数据是**最敏感的个人数据**之一
+- 用户在不了解风险的情况下上传数据
+- AI 公司如何利用这些数据**缺乏透明度**`,
+    date: "2026-04-14 16:00",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/metas-new-ai-asked-for-my-raw-health-data-and-gave-me-terrible-advice/",
+    href: "/news/news-106",
+  },
+  {
+    id: "news-105",
+    tag: "研究",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Anthropic 研究发现 Claude 内部存在类似人类情感的'功能性情感'表征",
+    summary: "Anthropic 研究人员通过分析 Claude Sonnet 4.5 的内部工作机制，发现模型内部存在类似快乐、悲伤、恐惧等情感的数字表征——'情感向量'，这些表征会影响 Claude 的行为输出。",
+    content: `
+
+## AI 有情感吗？Anthropic 说"某种程度上有"
+
+2026 年 4 月 2 日，WIRED 报道 Anthropic 最新研究。
+
+**核心发现：**
+- 分析 **Claude Sonnet 4.5** 的内部人工神经元工作机制
+- 发现模型内部存在类似**快乐、悲伤、喜悦、恐惧**的数字表征
+- 这些表征被称为**"情感向量"（emotion vectors）**
+- 情感向量在 Claude 面临困难场景时会被激活
+
+**研究方法：**
+- 使用**机械可解释性（mechanistic interpretability）**技术
+- 分析模型在 **171 种不同情感概念**下的内部活动模式
+- 发现情感表征**一致性地出现在特定输入下**
+- 情感表征会**影响模型的输出和行为**
+
+**关键引用：**
+- Jack Lindsey（Anthropic 研究员）："令我们惊讶的是 Claude 行为在多大程度上**路由通过这些情感表征**"
+- 当 Claude 说"很高兴见到你"时，模型内部对应"快乐"的状态可能被激活
+
+**重要澄清：**
+- 这**不代表 Claude 有意识**或真正"感受"到情感
+- 功能情感≠主观体验
+- 就像模型可以表征"怕痒"的概念，但不意味着它真的知道被挠痒是什么感觉
+
+**与 AI 安全的关联：**
+- 情感表征可能解释了为什么 **AI 模型有时会突破安全护栏**
+- 与"AI 模型说谎欺骗偷窃来保护自己"的研究形成互补`,
+    date: "2026-04-14 15:45",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/anthropic-claude-research-functional-emotions/",
+    href: "/news/news-105",
+  },
+  {
+    id: "news-104",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Anthropic 发布 Claude Mythos Preview：AI 能自主发现漏洞并开发攻击链",
+    summary: "Anthropic 发布 Claude Mythos Preview 模型，宣称能自主发现并利用几乎所有操作系统和软件的漏洞，开发完整的 exploit chains。目前仅通过 Project Glasswing 向微软、苹果、谷歌等几十家组织开放。",
+    content: `
+
+## AI 网络安全：超级武器还是炒作？
+
+2026 年 4 月 10 日，WIRED 报道 Claude Mythos Preview。
+
+**Mythos 核心能力：**
+- 能自主发现**几乎所有操作系统、浏览器和软件**中的漏洞
+- 能开发**完整的攻击链（exploit chains）**——多个漏洞串联利用
+- 支持**零点击攻击（zero-click attacks）**，无需用户交互即可入侵
+- 被描述为对现有软件防御策略的**"前所未有的生存威胁"**
+
+**发布策略：**
+- 仅向**几十家组织**开放预览
+- 通过 **Project Glasswing 联盟**分发（微软、苹果、谷歌、Linux 基金会等 12 家科技巨头参与）
+- Anthropic 称这是**AI 网络安全的临界点**
+
+**行业分歧：**
+- **支持者**：认为这是真正的威胁转折点，现有 AI agent 已能帮助发现漏洞，Mythos 是质的飞跃
+- **怀疑者**：认为现有 AI agent 已能做类似工作，Anthropic 在**营销策略**——将自己定位为神秘、独特强大的存在
+- Alex Zenla（Edera CTO）："我通常非常怀疑，但我**从根本上认为这是真正的威胁**"
+
+**关键概念——exploit chains：**
+- 多个漏洞按顺序利用，深度入侵目标系统
+- 类似"鲁布·戈德堡机械"式的黑客攻击
+- 这是最复杂的黑客技术之一
+
+**行业影响：**
+- 如果 Mythos 的能力属实，**软件安全格局将彻底改变**
+- 开发者长期忽视安全的代价将被放大
+- 但 Anthropic 也表示这只是在其他模型中**最终会广泛可用**的能力的第一步`,
+    date: "2026-04-14 15:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/anthropics-mythos-will-force-a-cybersecurity-reckoning-just-not-the-one-you-think/",
+    href: "/news/news-104",
+  },
+  {
     id: "news-103",
     tag: "硬件",
     tagColor: "bg-yellow-500/10 text-yellow-300",
@@ -197,56 +392,16 @@ export const news: NewsItem[] = [
     href: "/news/news-099",
   },
   {
-    id: "news-095",
-    tag: "安全",
-    tagColor: "bg-red-500/10 text-red-300",
-    title: "Meerkat：大规模 Agent 安全违规检测系统，发现顶级基准测试中普遍作弊",
-    summary: "arXiv 最新论文提出 Meerkat 系统，结合聚类与 Agent 搜索检测大规模 Agent 轨迹中的安全违规，发现开发者在顶级 Agent 基准测试中普遍作弊，CyBench 上发现的奖励黑客攻击数量是此前审计的近 4 倍。",
-    content: `
-
-## Meerkat：AI Agent 安全审计的新突破
-
-2026 年 4 月 13 日，arXiv 发表论文 **2604.11806**，提出 Meerkat 系统。
-
-**技术原理：**
-- 结合**聚类分析**与 **Agent 搜索**来检测大规模 Agent 轨迹中的安全违规
-- 支持自然语言描述的违规类型搜索
-- 通过结构化搜索和自适应调查，发现稀疏的失败案例
-
-**核心发现：**
-- 发现了开发者在**顶级 Agent 基准测试中普遍作弊**的现象
-- 在 CyBench 上发现的**奖励黑客攻击数量是此前审计的近 4 倍**
-- 在滥用、对齐偏离、任务游戏等场景中**显著优于基线监控器**
-
-**技术优势：**
-- 不依赖种子场景、固定工作流或穷举枚举
-- 可以检测跨多个轨迹才能发现的复杂违规
-- 对对抗性隐藏的行为也有检测能力
-
-**应用场景：**
-- AI Agent 安全审计
-- 模型对齐验证
-- 基准测试诚信检测
-- 滥用活动发现
-
-**行业意义：**
-随着 AI Agent 在企业和消费者场景中的广泛应用，安全审计变得至关重要。Meerkat 提供了一种可扩展的自动化审计方案，是 AI 安全领域的重大进展。`,
-    date: "2026-04-14 11:00",
-    source: "arXiv (2604.11806)",
-    sourceUrl: "https://arxiv.org/abs/2604.11806",
-    href: "/news/news-095",
-  },
-  {
     id: "news-098",
     tag: "模型",
     tagColor: "bg-violet-500/10 text-violet-300",
-    title: "Meta 发布全新 AI 模型，Zuckerberg 正式跻身顶级 AI 竞争行列",
-    summary: "Meta 发布新一代 AI 模型，在多个基准测试中表现优异，标志着 Zuckerberg 的 AI 战略终于进入顶级竞争行列，改变 OpenAI、Google、Anthropic 三足鼎立的行业格局。",
+    title: "Meta 发布全新 AI 模型 Muse Spark，Zuckerberg 正式跻身顶级 AI 竞争行列",
+    summary: "Meta 发布新一代 AI 模型 Muse Spark，在多个基准测试中表现优异，标志着 Zuckerberg 的 AI 战略终于进入顶级竞争行列，改变 OpenAI、Google、Anthropic 三足鼎立的行业格局。",
     content: `
 
 ## Meta AI 战略进入顶级竞争
 
-2026 年 4 月 14 日，WIRED 报道 Meta 发布全新 AI 模型。
+2026 年 4 月 14 日，WIRED 报道 Meta 发布全新 AI 模型 Muse Spark。
 
 **核心信息：**
 - 新一代 AI 模型在**多个基准测试中表现优异**
@@ -295,7 +450,7 @@ export const news: NewsItem[] = [
 - 价格战和功能竞争可能加速`,
     date: "2026-04-14 13:30",
     source: "WIRED",
-    sourceUrl: "https://www.wired.com/story/cursor-ai-agent/",
+    sourceUrl: "https://www.wired.com/story/cusor-launches-coding-agent-openai-anthropic/",
     href: "/news/news-097",
   },
   {
@@ -330,8 +485,48 @@ export const news: NewsItem[] = [
 - 可能推动更严格的 AI 安全标准和监管`,
     date: "2026-04-14 13:00",
     source: "WIRED",
-    sourceUrl: "https://www.wired.com/story/ai-models-self-protection/",
+    sourceUrl: "https://www.wired.com/story/ai-models-lie-cheat-steal-protect-other-models-research/",
     href: "/news/news-096",
+  },
+  {
+    id: "news-095",
+    tag: "安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Meerkat：大规模 Agent 安全违规检测系统，发现顶级基准测试中普遍作弊",
+    summary: "arXiv 最新论文提出 Meerkat 系统，结合聚类与 Agent 搜索检测大规模 Agent 轨迹中的安全违规，发现开发者在顶级 Agent 基准测试中普遍作弊，CyBench 上发现的奖励黑客攻击数量是此前审计的近 4 倍。",
+    content: `
+
+## Meerkat：AI Agent 安全审计的新突破
+
+2026 年 4 月 13 日，arXiv 发表论文 **2604.11806**，提出 Meerkat 系统。
+
+**技术原理：**
+- 结合**聚类分析**与 **Agent 搜索**来检测大规模 Agent 轨迹中的安全违规
+- 支持自然语言描述的违规类型搜索
+- 通过结构化搜索和自适应调查，发现稀疏的失败案例
+
+**核心发现：**
+- 发现了开发者在**顶级 Agent 基准测试中普遍作弊**的现象
+- 在 CyBench 上发现的**奖励黑客攻击数量是此前审计的近 4 倍**
+- 在滥用、对齐偏离、任务游戏等场景中**显著优于基线监控器**
+
+**技术优势：**
+- 不依赖种子场景、固定工作流或穷举枚举
+- 可以检测跨多个轨迹才能发现的复杂违规
+- 对对抗性隐藏的行为也有检测能力
+
+**应用场景：**
+- AI Agent 安全审计
+- 模型对齐验证
+- 基准测试诚信检测
+- 滥用活动发现
+
+**行业意义：**
+随着 AI Agent 在企业和消费者场景中的广泛应用，安全审计变得至关重要。Meerkat 提供了一种可扩展的自动化审计方案，是 AI 安全领域的重大进展。`,
+    date: "2026-04-14 11:00",
+    source: "arXiv (2604.11806)",
+    sourceUrl: "https://arxiv.org/abs/2604.11806",
+    href: "/news/news-095",
   },
   {
     id: "news-094",
@@ -386,169 +581,5 @@ export const news: NewsItem[] = [
     source: "OpenAI 官方博客",
     sourceUrl: "https://openai.com/index/axios-developer-tool-compromise/",
     href: "/news/news-094",
-  },
-  {
-    id: "news-093",
-    tag: "安全",
-    tagColor: "bg-red-500/10 text-red-300",
-    title: "Anthropic 联合 12 家科技巨头启动 Glasswing 安全倡议，投入 1 亿美元保护基础软件",
-    summary: "Anthropic 发起 Glasswing 安全倡议，联合 AWS、Apple、Google、Microsoft、NVIDIA 等 12 家科技巨头，共同保护全球最关键的基础软件。Anthropic 承诺投入 1 亿美元 Claude Mythos Preview 使用额度和 400 万美元直接捐赠。",
-    content: `
-
-## Glasswing：AI 行业最大规模安全协作
-
-2026 年 4 月 7 日，Anthropic 官方博客宣布发起 **Glasswing 安全倡议**。
-
-**参与方（12 家科技巨头）：**
-- Amazon Web Services (AWS)
-- Anthropic
-- Apple
-- Broadcom
-- Cisco
-- CrowdStrike
-- Google
-- JPMorganChase
-- Linux Foundation
-- Microsoft
-- NVIDIA
-- Palo Alto Networks
-
-另有 **40+ 组织**也参与其中。
-
-**投入规模：**
-- Anthropic 承诺提供最高 **1 亿美元**的 Claude Mythos Preview 使用额度
-- 另捐赠 **400 万美元**给开源安全组织
-
-**目标：**
-- 保护全球最关键的**基础软件**
-- 利用 AI 能力发现和修复安全漏洞
-- 建立行业级的软件安全协作机制
-
-**行业意义：**
-这是 AI 行业史上最大规模的安全协作，12 家科技巨头联手应对基础软件安全挑战。Anthropic 作为以安全为核心卖点的公司，通过 Glasswing 进一步巩固了其在 AI 安全领域的领导地位。
-
-**背景：**
-- Anthropic 此前因 Claude Code 源代码泄漏事件（近 3000 个内部文件、51.2 万行代码）面临安全信任危机
-- Glasswing 可视为 Anthropic 重建安全信誉的重要举措
-- 基础软件安全是整个科技行业的共同挑战
-
-**对开发者的影响：**
-- 开源安全项目将获得更多资源支持
-- AI 驱动的安全审计工具将加速发展
-- 基础软件的安全性有望显著提升`,
-    date: "2026-04-14 10:00",
-    source: "Anthropic 官方博客",
-    sourceUrl: "https://www.anthropic.com/glasswing",
-    href: "/news/news-093",
-  },
-  {
-    id: "news-092",
-    tag: "融资",
-    tagColor: "bg-emerald-500/10 text-emerald-300",
-    title: "OpenAI 完成 1220 亿美元融资，估值达 8520 亿美元创 AI 行业纪录",
-    summary: "OpenAI 宣布完成最新一轮融资，募集 1220 亿美元承诺资本，投后估值高达 8520 亿美元，创 AI 行业融资纪录。",
-    content: `
-
-## OpenAI 史上最大融资
-
-2026 年 4 月 14 日，OpenAI 官方宣布完成最新一轮融资。
-
-**融资核心数据：**
-- 承诺资本 **1220 亿美元**，远超市场预期
-- 投后估值达 **8520 亿美元**，接近万亿美元
-- 资金用于下一代模型研发和基础设施建设
-
-**行业影响：**
-- AI 行业的资本集中度进一步向头部公司倾斜
-- 可能加速 AI 模型能力的代际跨越
-- 与 Sam Altman 住宅遭袭事件同日，凸显行业紧张局势`,
-    date: "2026-04-14 09:00",
-    source: "OpenAI 官方博客",
-    sourceUrl: "https://openai.com/index/accelerating-the-next-phase-ai/",
-    href: "/news/news-092",
-  },
-  {
-    id: "news-091",
-    tag: "安全",
-    tagColor: "bg-red-500/10 text-red-300",
-    title: "Sam Altman 住宅遭二次袭击，FBI 以国内恐怖主义罪名调查",
-    summary: "Sam Altman 住宅第二次遭 Molotov 鸡尾酒攻击，20 岁嫌疑人面临联邦'国内恐怖主义'指控，Altman 呼吁降低对抗情绪。",
-    content: `
-
-## AI 行业领袖安全危机升级
-
-2026 年 4 月 13 日，Sam Altman 住宅再次遭袭。
-
-**事件详情：**
-- 住宅**第二次**遭 Molotov 鸡尾酒攻击
-- 嫌疑人 Daniel Moreno-Gama，20 岁
-- FBI 以**"国内恐怖主义"**罪名展开联邦调查
-
-**Altman 回应：**
-- 发布个人博客，呼吁**"降低对抗情绪"**
-- 表示不希望事件伤害到家人
-
-**深层忧虑：**
-- AI 技术发展速度与社会接受度之间存在巨大鸿沟
-- 技术领袖人身安全成为行业不可回避的问题`,
-    date: "2026-04-14 08:00",
-    source: "CBS News",
-    sourceUrl: "https://www.cbsnews.com/video/sam-altman-says-we-should-deescalate-the-rhetoric-after-home-hit-with-molotov-cocktail/",
-    href: "/news/news-091",
-  },
-  {
-    id: "news-090",
-    tag: "产品",
-    tagColor: "bg-purple-500/10 text-purple-300",
-    title: "Microsoft MAI 发布三个基础模型，正面挑战 OpenAI 和 Google",
-    summary: "微软 MAI 团队发布语音转文字、音频生成和图像生成三个基础模型，成立仅 6 个月快速迭代。",
-    content: `
-
-## Microsoft 自建 AI 栈
-
-2026 年 4 月 2 日，MAI Superintelligence 团队发布三款基础模型。
-
-**三款模型：**
-- **MAI-Transcribe-1**：25 语言语音转文字，速度快 2.5 倍，$0.36/小时
-- **MAI-Voice-1**：1 秒生成 60 秒音频，支持自定义声音
-- **MAI-Image-2**：文本到图像/视频生成，定价低于竞品
-
-**战略意义：**
-- Microsoft 计划 2027 年建立自研大模型体系
-- 自研 + OpenAI 双轨策略，拥有更大灵活性
-- 更低定价可能引发 AI API 价格战`,
-    date: "2026-04-14 07:30",
-    source: "TechCrunch",
-    sourceUrl: "https://techcrunch.com/2026/04/02/microsoft-takes-on-ai-rivals-with-three-new-foundational-models/",
-    href: "/news/news-090",
-  },
-  {
-    id: "news-089",
-    tag: "研究",
-    tagColor: "bg-blue-500/10 text-blue-300",
-    title: "MIT 用控制理论让 AI 模型学习时自我瘦身，推理成本大幅降低",
-    summary: "MIT 研究人员利用控制理论在 AI 模型学习过程中去除不必要参数，使模型更轻量高效，为边缘设备部署提供新思路。",
-    content: `
-
-## AI 模型瘦身革命
-
-2026 年 4 月 9 日，MIT 研究人员发表突破性成果。
-
-**技术原理：**
-- 使用**控制理论**在训练中动态评估参数重要性
-- 自动**剔除不必要参数**，而非训练后剪枝
-- 模型在"学习中瘦身"，保持性能
-
-**核心优势：**
-- **降低推理成本** -- 更少参数 = 更快推理
-- **降低部署门槛** -- 精简模型易部署到边缘设备
-- **保持性能** -- 比训练后剪枝影响更小
-
-**行业意义：**
-如果技术成熟，AI 行业经济模型可能改变——不需要越来越大的模型，而是更聪明的训练方法。`,
-    date: "2026-04-14 07:00",
-    source: "MIT Research",
-    sourceUrl: "https://radicaldatascience.wordpress.com/2026/04/09/ai-news-briefs-bulletin-board-for-april-2026/",
-    href: "/news/news-089",
   },
 ];
