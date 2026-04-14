@@ -18,8 +18,13 @@ export default function NewsTicker({ items }: { items: NewsItem[] }) {
   const rafRef = useRef<number>(0);
   const speed = 200;
   const [visible, setVisible] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   const loop = useCallback(() => {
+    if (paused) {
+      rafRef.current = requestAnimationFrame(loop);
+      return;
+    }
     const track = trackRef.current;
     const container = containerRef.current;
     if (!track || !container) {
@@ -91,7 +96,9 @@ export default function NewsTicker({ items }: { items: NewsItem[] }) {
       </div>
       <div
         ref={containerRef}
-        className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5"
+        className="relative overflow-hidden rounded-xl bg-white/[0.03] border border-white/5 cursor-pointer"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
       >
         <div
           ref={trackRef}
