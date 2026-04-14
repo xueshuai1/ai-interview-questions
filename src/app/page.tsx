@@ -51,7 +51,7 @@ const features = [
 // 首页展示：6 条新闻卡片 + 6 条新闻滚动 + 3 篇博客预览
 const homeNews = news.slice(0, 6);
 const tickerNews = news.slice(0, 6);         // 滚动条：最新 6 条新闻
-const previewBlogs = blogs.slice(0, 3);      // 博客预览：最新 3 篇
+const previewBlogs = blogs.slice(0, 6);      // 博客预览：最新 6 篇
 
 function formatNewsTime(dateStr: string): string {
   const now = new Date();
@@ -238,7 +238,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {previewBlogs.map((post) => (
               <Link key={post.id} href={`/blog/${post.id}`}
                 className="group block p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-0.5">
