@@ -16,7 +16,66 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-093",
+    tag: "机器人",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "软银成立"物理 AI"新公司，联合索尼、本田、新日铁打造自主控制机器人",
+    summary: "软银创建新公司专注'物理 AI'研发，目标 2030 年前实现 AI 自主控制机器人与设备，获索尼、本田、新日铁等日本巨头支持。",
+    content: `
+
+## 软银押注物理 AI
+
+2026 年 4 月 13 日，据日经报道，软银成立新公司专注'物理 AI'领域。
+
+**核心目标：**
+- 到 **2030 年**开发出能**自主控制机器人与设备**的 AI 模型
+- 将 AI 从数字世界延伸到物理世界
+
+**合作伙伴：**
+- **索尼**（电子与传感器）
+- **本田**（汽车与移动机器人）
+- **新日铁**（工业制造）
+
+**行业背景：**
+- 各国加速推进**主权 AI**建设以与美国和中国竞争
+- 机器人+AI 融合成为新赛道
+- 日本希望在物理 AI 领域抢占先机`,
+    date: "2026-04-14 10:30",
+    source: "The Verge / 日经新闻",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-093",
+  },
+  {
     id: "news-092",
+    tag: "安全",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "OpenAI 回应 Axios HTTP 供应链攻击，紧急更新安全证书",
+    summary: "Axios HTTP 库维护者账号被入侵，恶意脚本可远程访问 Windows、macOS 和 Linux 设备，ChatGPT macOS 应用可能受影响，OpenAI 已发布更新和新证书。",
+    content: `
+
+## Axios HTTP 供应链攻击波及 ChatGPT
+
+2026 年 4 月 11 日，OpenAI 针对 Axios HTTP 库供应链攻击作出回应。
+
+**攻击细节：**
+- 黑客获取 **Axios HTTP 维护者账号**访问权限
+- 插入恶意脚本，可**远程访问**用户设备
+- 影响范围：Windows、macOS、**Linux**
+
+**OpenAI 应对：**
+- 确认 ChatGPT macOS 应用**可能受影响**
+- 已发布**安全更新**和新证书
+- 建议用户立即更新客户端
+
+**行业警示：**
+- npm 供应链攻击日益频繁
+- 即使是知名库也可能被植入后门
+- 企业应加强依赖审查机制`,
+    date: "2026-04-14 10:00",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-092",
+  },
     tag: "融资",
     tagColor: "bg-emerald-500/10 text-emerald-300",
     title: "OpenAI 完成 1220 亿美元融资，估值达 8520 亿美元创 AI 行业纪录",

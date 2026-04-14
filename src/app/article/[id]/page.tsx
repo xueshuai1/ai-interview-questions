@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import MermaidChart from "@/components/MermaidChart";
+import { marked } from "marked";
+
+marked.setOptions({ breaks: true, gfm: true });
 
 const levelColors: Record<string, string> = {
   入门: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
@@ -110,9 +113,14 @@ function ArticleSectionContent({ section }: { section: ArticleSection }) {
       </h2>
 
       {section.body && (
-        <p className="text-slate-300 leading-relaxed text-base sm:text-lg mb-4 whitespace-pre-line">
-          {section.body}
-        </p>
+        <div className="prose prose-invert max-w-none text-base sm:text-lg mb-4
+          prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
+          prose-strong:text-white prose-strong:font-semibold
+          prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          prose-a:text-brand-400 hover:prose-a:underline
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
+          [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:text-slate-300
+          [&_li]:leading-relaxed" dangerouslySetInnerHTML={{ __html: marked.parse(section.body) as string }} />
       )}
 
       {section.code && section.code.length > 0 && (
@@ -151,7 +159,10 @@ function ArticleSectionContent({ section }: { section: ArticleSection }) {
               {section.table.rows.map((row, ri) => (
                 <tr key={ri} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                   {row.map((cell, ci) => (
-                    <td key={ci} className="px-4 py-3 text-slate-300">{cell}</td>
+                    <td key={ci} className="px-4 py-3 text-slate-300 prose prose-invert prose-sm max-w-none
+                      prose-strong:text-white prose-strong:font-semibold
+                      prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+                      [&_p]:my-0 [&_p]:inline" dangerouslySetInnerHTML={{ __html: marked.parse(cell) as string }} />
                   ))}
                 </tr>
               ))}
@@ -163,24 +174,26 @@ function ArticleSectionContent({ section }: { section: ArticleSection }) {
       {section.list && section.list.length > 0 && (
         <ul className="my-4 space-y-2">
           {section.list.map((item, i) => (
-            <li key={i} className="flex items-start gap-2 text-slate-300">
+            <li key={i} className="flex items-start gap-2 text-slate-300 leading-relaxed">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-400 flex-shrink-0" />
-              <span>{item}</span>
+              <span dangerouslySetInnerHTML={{ __html: marked.parse(item) as string }} />
             </li>
           ))}
         </ul>
       )}
 
       {section.tip && (
-        <div className="my-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm">
-          💡 {section.tip}
-        </div>
+        <div className="my-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-sm prose prose-invert max-w-none
+          prose-strong:text-white prose-strong:font-semibold
+          prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          [&_p]:my-0 [&_p]:text-emerald-300" dangerouslySetInnerHTML={{ __html: `💡 ${marked.parse(section.tip) as string}` }} />
       )}
 
       {section.warning && (
-        <div className="my-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
-          ⚠️ {section.warning}
-        </div>
+        <div className="my-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-sm prose prose-invert max-w-none
+          prose-strong:text-white prose-strong:font-semibold
+          prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          [&_p]:my-0 [&_p]:text-amber-300" dangerouslySetInnerHTML={{ __html: `⚠️ ${marked.parse(section.warning) as string}` }} />
       )}
     </div>
   );
