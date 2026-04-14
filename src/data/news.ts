@@ -16,6 +16,126 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-091",
+    tag: "行业动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/tech.jpg",
+    title: "Meta 发布 Muse Spark — 首款专有闭源 AI 模型正面挑战 OpenAI 与 Anthropic",
+    summary: "Meta 正式发布 Muse Spark（内部代号 Avocado），这是 Meta 首款自研的专有闭源 AI 模型，直接挑战 OpenAI 的 GPT 系列和 Anthropic 的 Claude。Meta 拥有 10 亿月活用户，通过 AI 助手深度整合 Facebook、Instagram、WhatsApp，形成独特的分发优势。",
+    content: `## Meta Muse Spark：闭源 AI 的新玩家
+
+2026 年 4 月 14 日，Meta 正式发布 Muse Spark，这是该公司首款自研的专有闭源 AI 模型。
+
+**战略转变：**
+- Meta 此前以开源 LLaMA 系列闻名，此次转向闭源标志着战略重大调整
+- Muse Spark 内部代号为「Avocado」
+- 直接对标 OpenAI GPT 系列和 Anthropic Claude
+
+**核心优势：**
+- Meta 拥有超过 **10 亿月活用户**
+- AI 助手深度整合 **Facebook、Instagram、WhatsApp** 三大平台
+- 独特的社交数据优势用于模型训练和优化
+
+**竞争格局：**
+- OpenAI：GPT-4/5 系列，ChatGPT 应用生态
+- Anthropic：Claude 系列，企业市场 80% 收入占比
+- Google：Gemini 系列，Google 全产品线集成
+- Meta：Muse Spark，社交生态分发优势
+
+**行业意义：**
+- AI 竞争从技术竞赛扩展到生态竞争
+- Meta 的社交分发能力可能成为差异化优势
+- 闭源与开源路线之争在 Meta 内部得到体现
+- AI 行业格局从「两强争霸」变为「四国时代」`,
+    date: "2026-04-15 00:00",
+    source: "WIRED / Meta",
+    sourceUrl: "https://www.wired.com/story/muse-spark-meta-open-source-closed-source/",
+    href: "/news/news-091",
+  },
+  {
+    id: "news-092",
+    tag: "行业动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/tech.jpg",
+    title: "Anthropic 公开反对 OpenAI 支持的 AI 责任豁免法案 — 两大巨头首次政策对立",
+    summary: "OpenAI 支持一项限制 AI 公司责任的法案（AI 导致大规模伤亡或金融灾难时免于诉讼），Anthropic 公开反对。两大 AI 巨头在监管政策上首次公开对立，反映商业利益与安全理念的深刻分歧。",
+    content: `## AI 责任法案之争：OpenAI vs Anthropic
+
+2026 年 4 月 14 日，WIRED 报道了 OpenAI 与 Anthropic 在 AI 责任法案上的公开对立。
+
+**法案核心内容：**
+- 限制 AI 公司在 AI 导致大规模伤亡或金融灾难时的法律责任
+- OpenAI 公开支持该法案
+- 认为过度责任可能抑制 AI 创新
+
+**Anthropic 的反对立场：**
+- Anthropic 公开反对该豁免法案
+- 认为 AI 公司应该为其模型造成的伤害承担责任
+- 这反映了 Anthropic 以「安全优先」为核心的企业理念
+
+**深层分歧：**
+- **OpenAI**：面临巨大的商业化压力，需要法律确定性来推进产品
+- **Anthropic**：以 AI 安全为品牌定位，反对责任豁免符合其价值观
+- 这是两大 AI 巨头首次在监管政策上公开对立
+
+**行业影响：**
+- AI 行业的自我监管共识正在破裂
+- 政府立法可能更加复杂，需要平衡创新与责任
+- 其他 AI 公司可能被迫选边站队
+- 这一分歧可能影响全球 AI 监管框架的走向
+
+**背景：**
+- OpenAI 月营收 20 亿美元但距离盈利仍有差距
+- 刚完成 1220 亿美元融资，投资者期望极高
+- Anthropic 80% 收入来自企业客户，安全是核心竞争力`,
+    date: "2026-04-14 23:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/anthropic-opposes-extreme-ai-liability-bill/",
+    href: "/news/news-092",
+  },
+  {
+    id: "news-093",
+    tag: "行业动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/tech.jpg",
+    title: "美国陆军开发 Victor AI 聊天系统 — AI 正式进入军事作战领域",
+    summary: "美国陆军正在开发名为 'Victor' 的 AI 聊天系统，专为士兵设计。这是 AI 技术在军事领域的又一重要进展，引发关于 AI 战争伦理、自主武器系统和国际公约的深入讨论。",
+    content: `## AI 军事化：美国陆军的 Victor Chatbot
+
+2026 年 4 月 14 日，WIRED 报道了美国陆军正在开发专供士兵使用的 AI 聊天系统。
+
+**系统信息：**
+- 代号 **「Victor」**
+- 专为军事场景设计的 AI 聊天系统
+- 目标用户：现役士兵和军事决策者
+
+**潜在应用场景：**
+- 战术决策辅助
+- 情报分析与情报摘要
+- 战场态势感知
+- 训练模拟与推演
+- 后勤保障优化
+
+**伦理争议：**
+- **自主武器系统**：AI 是否应该在军事决策中拥有自主权？
+- **责任归属**：AI 辅助决策导致的失误由谁负责？
+- **国际公约**：目前尚无国际条约明确规范 AI 在军事领域的应用
+- **技术风险**：AI 系统的幻觉和误判在军事场景中可能导致灾难性后果
+
+**全球趋势：**
+- 各国都在加速 AI 军事化研究
+- 中国在 AI 军事应用方面投入巨大
+- 俄罗斯也在推进 AI 武器系统
+- 缺乏全球统一的 AI 军事应用规范
+
+**深层意义：**
+AI 军事化是 AI 技术发展的必然延伸，但也是最具争议的应用场景之一。Victor Chatbot 的出现标志着 AI 正在从民用领域向军事领域快速渗透。`,
+    date: "2026-04-14 23:00",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/army-developing-ai-system-victor-chatbot-soldiers/",
+    href: "/news/news-093",
+  },
+  {
     id: "news-086",
     tag: "行业动态",
     tagColor: "bg-orange-500/10 text-orange-300",

@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -188,6 +189,7 @@ export default function BlogDetailContent({
           "
               >
                 <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
                   components={{
                     h2: ({ children, ...props }: any) => {
                       const text = typeof children === 'string' ? children : '';
@@ -197,6 +199,17 @@ export default function BlogDetailContent({
                       const text = typeof children === 'string' ? children : '';
                       return <h3 id={headingToId(text)} {...props}>{children}</h3>;
                     },
+                    table: ({ children, ...props }: any) => (
+                      <div className="overflow-x-auto my-6 rounded-xl border border-white/10">
+                        <table className="w-full text-sm" {...props}>{children}</table>
+                      </div>
+                    ),
+                    th: ({ children, ...props }: any) => (
+                      <th className="px-4 py-3 text-left font-semibold text-brand-300 border-b border-white/10 whitespace-nowrap bg-white/5" {...props}>{children}</th>
+                    ),
+                    td: ({ children, ...props }: any) => (
+                      <td className="px-4 py-3 text-slate-300 border-b border-white/5" {...props}>{children}</td>
+                    ),
                   }}
                 >{post.content}</ReactMarkdown>
               </article>
