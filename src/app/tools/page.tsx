@@ -7,13 +7,18 @@ import githubStars from "@/data/github-stars.json";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
-// Merge GitHub stars into tools
-const toolsWithStars: Tool[] = tools.map(t => {
-  const starData = (githubStars as any).stars?.[t.id];
-  return starData ? { ...t, githubStars: starData.stars } : t;
+// Merge GitHub stars + AlternativeTo likes into tools
+const toolsWithPopularity: Tool[] = tools.map(t => {
+  const ghData = (githubStars as any).githubStars?.[t.id] || (githubStars as any).stars?.[t.id];
+  const altData = (githubStars as any).alternativeTo?.[t.id];
+  return {
+    ...t,
+    githubStars: ghData?.stars ?? null,
+    altToLikes: altData?.likes ?? null,
+  };
 });
 
-function formatStars(n: number): string {
+function formatPopularity(n: number): string {
   if (n >= 10000) return `${Math.round(n / 1000)}k`;
   if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
   return n.toString();
@@ -49,7 +54,12 @@ function ToolCard({ tool }: { tool: Tool }) {
             </span>
             {tool.githubStars != null && tool.githubStars > 0 && (
               <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-300 flex items-center gap-0.5">
-                ⭐ {formatStars(tool.githubStars)}
+                ⭐ {formatPopularity(tool.githubStars)}
+              </span>
+            )}
+            {tool.githubStars == null && (tool as any).altToLikes != null && (tool as any).altToLikes > 0 && (
+              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-500/10 text-orange-300 flex items-center gap-0.5">
+                🔥 {formatPopularity((tool as any).altToLikes)}
               </span>
             )}
           </div>
@@ -88,9 +98,10 @@ export default function ToolsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortBy, setSortBy] = useState<"default" | "stars">("default");
 
   const filteredTools = useMemo(() => {
-    return toolsWithStars.filter((t) => {
+    let result = toolsWithPopularity.filter((t) => {
       const matchCategory = activeCategory === "all" || t.category === activeCategory;
       const matchSearch =
         !searchQuery ||
@@ -99,7 +110,18 @@ export default function ToolsPage() {
         t.description.toLowerCase().includes(searchQuery.toLowerCase());
       return matchCategory && matchSearch;
     });
-  }, [activeCategory, searchQuery]);
+
+    // 按 GitHub stars 排序：有 stars 的在前（降序），没有 stars 的排最后
+    if (sortBy === "stars") {
+      result = [...result].sort((a, b) => {
+        const aStars = a.githubStars != null && a.githubStars > 0 ? a.githubStars : 0;
+        const bStars = b.githubStars != null && b.githubStars > 0 ? b.githubStars : 0;
+        return bStars - aStars;
+      });
+    }
+
+    return result;
+  }, [activeCategory, searchQuery, sortBy]);
 
   // Reset page when filters change
   const totalPages = Math.max(1, Math.ceil(filteredTools.length / TOOLS_PER_PAGE));
@@ -110,6 +132,11 @@ export default function ToolsPage() {
   );
 
   const handleFilterChange = () => {
+    setCurrentPage(1);
+  };
+
+  const handleSortChange = (newSort: "default" | "stars") => {
+    setSortBy(newSort);
     setCurrentPage(1);
   };
 
@@ -146,9 +173,32 @@ export default function ToolsPage() {
             />
           </div>
 
+          {/* Sort + Category filters */}
           <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center">
+            <div className="flex gap-1.5 shrink-0 items-center mr-2">
+              <button
+                onClick={() => handleSortChange("default")}
+                className={`px-3 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                  sortBy === "default"
+                    ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                    : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                📋 默认
+              </button>
+              <button
+                onClick={() => handleSortChange("stars")}
+                className={`px-3 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                  sortBy === "stars"
+                    ? "bg-yellow-500/20 text-yellow-300 shadow-lg shadow-yellow-500/10"
+                    : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                ⭐ 热门
+              </button>
+            </div>
             {toolCategories.map((c) => {
-              const count = c.key === "all" ? toolsWithStars.length : toolsWithStars.filter((t) => t.category === c.key).length;
+              const count = c.key === "all" ? toolsWithPopularity.length : toolsWithPopularity.filter((t) => t.category === c.key).length;
               const isActive = activeCategory === c.key;
               return (
                 <button
@@ -175,6 +225,7 @@ export default function ToolsPage() {
         <div className="max-w-5xl mx-auto">
           <p className="text-sm text-slate-500 mb-6">
             找到 <span className="text-brand-400 font-medium">{filteredTools.length}</span> 个工具
+            {sortBy === "stars" && " · 按 stars 降序排列"}
           </p>
 
           {filteredTools.length > 0 ? (
@@ -227,6 +278,7 @@ export default function ToolsPage() {
                 onClick={() => {
                   setSearchQuery("");
                   setActiveCategory("all");
+                  setSortBy("default");
                   setCurrentPage(1);
                 }}
                 className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all"

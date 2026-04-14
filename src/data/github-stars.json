@@ -1,8 +1,6 @@
 {
   "fetchedAt": "2026-04-14T17:53:08.442Z",
-  "totalRepos": 51,
-  "successCount": 55,
-  "stars": {
+  "githubStars": {
     "langflow": {
       "stars": 146932,
       "forks": 8761,
@@ -388,5 +386,97 @@
       "updatedAt": "2026-04-14T16:48:51Z",
       "fetchedAt": "2026-04-14T17:53:03.460Z"
     }
-  }
+  },
+  "alternativeTo": {
+    "google-gemini": {
+      "likes": 162,
+      "slug": "google-bard"
+    },
+    "claude": {
+      "likes": 118,
+      "slug": "claude"
+    },
+    "deepseek": {
+      "likes": 120,
+      "slug": "deepseek"
+    },
+    "perplexity": {
+      "likes": 150,
+      "slug": "perplexity-ai"
+    },
+    "microsoft-copilot": {
+      "likes": 90,
+      "slug": "bing-chat"
+    },
+    "qwen": {
+      "likes": 39,
+      "slug": "qwen"
+    },
+    "jan-ai": {
+      "likes": 101,
+      "slug": "jan-ai"
+    },
+    "poe": {
+      "likes": 71,
+      "slug": "poe--fast-ai-chat"
+    },
+    "lumo": {
+      "likes": 105,
+      "slug": "lumo-ai"
+    },
+    "mistral": {
+      "likes": 111,
+      "slug": "mistral-ai"
+    },
+    "anything-llm": {
+      "likes": 48,
+      "slug": "anything-llm"
+    },
+    "duckduckgo": {
+      "likes": 84,
+      "slug": "duckduckgo-ai-chat"
+    },
+    "cursor": {
+      "likes": 48,
+      "slug": "cursor"
+    },
+    "midjourney": {
+      "likes": 83,
+      "slug": "midjourney"
+    },
+    "manus": {
+      "likes": 18,
+      "slug": "manus"
+    },
+    "chatgpt": {
+      "likes": 449,
+      "slug": "chatgpt"
+    },
+    "gemini": {
+      "likes": 162,
+      "slug": "google-bard"
+    },
+    "perplexity-search": {
+      "likes": 150,
+      "slug": "perplexity-ai"
+    },
+    "duckduckgo-ai": {
+      "likes": 84,
+      "slug": "duckduckgo-ai-chat"
+    },
+    "google-adk": {
+      "likes": 25,
+      "slug": "google-ai-developer-toolkit"
+    },
+    "grok": {
+      "likes": 57,
+      "slug": "grok"
+    },
+    "elevenlabs": {
+      "likes": 19,
+      "slug": "elevenlabs"
+    }
+  },
+  "totalGithubStars": 55,
+  "totalAltTo": 22
 }
