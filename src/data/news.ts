@@ -4349,4 +4349,98 @@ Crawl4AI 是专为 AI Agent 设计的开源 Web 爬取框架。
     sourceUrl: "https://arxiv.org/abs/2604.12820",
     href: "/news/news-188",
   },
+  {
+    id: "news-189",
+    tag: "多模态",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    coverImage: "/images/news/multimodal.jpg",
+    title: "DocSeeker：CVPR 2026 Highlight — 结构化视觉推理 + 证据定位解决超长文档理解难题",
+    summary: "提出现有 MLLM 在长文档理解上面临信噪比低和监督稀缺两大挑战。DocSeeker 采用「分析-定位-推理」结构化工作流，两阶段训练：先通过知识蒸馏进行 SFT，再用证据感知组相对策略优化（GRPO）联合优化证据定位和答案准确率。引入证据引导分辨率分配策略缓解多页文档训练内存限制。在域内和域外任务上均达到 SOTA。（arXiv:2604.12812）",
+    content: `## DocSeeker：超长文档理解的结构化视觉推理方案
+
+2026 年 4 月 14 日，arXiv 发表 DocSeeker 论文（arXiv:2604.12812），已被 **CVPR 2026 Highlight** 接收。
+
+**核心问题：**
+- 现有 MLLM 在长文档理解任务上随文档长度增加性能显著下降
+- **信噪比低**：关键证据埋没在无关页面中
+- **监督稀缺**：仅提供最终短答案的数据集学习信号弱
+
+**DocSeeker 解决方案：**
+
+**1. 结构化工作流**
+- 要求模型执行「**分析（Analysis）、定位（Localization）、推理（Reasoning）**」三步流程
+- 不同于直接输出答案，先定位证据再推理
+
+**2. 两阶段训练框架**
+- **阶段 1**：通过高效知识蒸馏策略生成高质量数据进行 SFT
+- **阶段 2**：采用证据感知组相对策略优化（Evidence-aware GRPO）
+- 联合优化证据定位和答案准确率
+
+**3. 证据引导分辨率分配**
+- 缓解多页文档训练时的内存限制
+- 根据证据重要性动态分配分辨率
+
+**实验结果：**
+- 在域内和域外任务上均达到 **SOTA**
+- 从短页训练**鲁棒泛化到超长文档**
+- 与视觉 RAG 系统天然协同，可作为其实现基础
+
+**深层意义：**
+- 长文档理解是 MLLM 的关键应用场景（合同、论文、报告等）
+- 「先定位再推理」的结构化方法比端到端更可靠
+- GRPO 在证据定位上的应用为 MLLM 训练提供了新思路`,
+    date: "2026-04-15 20:25",
+    source: "arXiv 2604.12812 / CVPR 2026 Highlight",
+    sourceUrl: "https://arxiv.org/abs/2604.12812",
+    href: "/news/news-189",
+  },
+  {
+    id: "news-190",
+    tag: "Agent 架构",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/agent.jpg",
+    title: "LIFE：能效高效的持续学习 Agentic AI 框架——超越单体 Transformer 的 Agent 中心化架构",
+    summary: "针对 HPC 场景中 AI 能耗激增和持续学习能力不足的问题，提出 LIFE 框架——一个增量式、灵活、能效高效的 Agent 中心化系统。结合四大组件：编排器、Agent 上下文工程、新型记忆系统、信息晶格学习。以 Kubernetes 集群微服务延迟尖峰检测缓解为案例，展示闭环运维能力。（arXiv:2604.12874）",
+    content: `## LIFE：超越单体 Transformer 的 Agent 中心化 HPC 框架
+
+2026 年 4 月 14 日，arXiv 发表 LIFE 论文（arXiv:2604.12874），提出了一个面向高性能计算（HPC）场景的 Agentic AI 框架。
+
+**背景问题：**
+- AI 快速发展改变了 HPC 的使用方式：维度设计、资源调配和执行
+- 能源需求急剧增加
+- 现有的基础持续学习能力限制了 AI 有效管理 HPC 的能力
+
+**LIFE 框架四大组件：**
+
+**1. 编排器（Orchestrator）**
+- 协调各个 Agent 的协作
+
+**2. Agent 上下文工程（Agentic Context Engineering）**
+- 动态管理和优化 Agent 的上下文信息
+
+**3. 新型记忆系统**
+- 支持增量学习和知识积累
+
+**4. 信息晶格学习（Information Lattice Learning）**
+- 结构化的知识表示和组织方式
+
+**核心特性：**
+- **Agent 中心化**：不同于单体模型，以 Agent 为核心构建
+- **增量学习**：支持持续适应新场景
+- **能效高效**：针对 HPC 场景的能耗优化
+- **灵活**：可泛化到多种正交用例
+
+**案例验证：**
+- 以 Kubernetes 集群中**微服务延迟尖峰检测与缓解**为案例
+- 展示闭环运维能力
+
+**深层意义：**
+- 代表从单体 Transformer 向 Agent 中心化架构的演进趋势
+- 类脑架构和 Agentic AI 的结合可能是可持续、自适应系统的路径
+- 为 HPC 运维自动化提供了新范式`,
+    date: "2026-04-15 20:25",
+    source: "arXiv 2604.12874",
+    sourceUrl: "https://arxiv.org/abs/2604.12874",
+    href: "/news/news-190",
+  },
 ];
