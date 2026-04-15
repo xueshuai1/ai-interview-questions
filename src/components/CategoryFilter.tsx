@@ -20,7 +20,7 @@ export default function CategoryFilter({ categories, activeCategory, onChange }:
   const panelRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
-  const activeItem = categories.find((c) => c.key === activeCategory) || categories[0];
+  const hasSelection = activeCategory !== categories[0]?.key;
 
   // Click outside to close
   useEffect(() => {
@@ -61,15 +61,17 @@ export default function CategoryFilter({ categories, activeCategory, onChange }:
         ref={btnRef}
         onClick={() => setOpen(!open)}
         className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${
-          activeCategory !== categories[0]?.key
+          hasSelection
             ? "bg-brand-600/20 text-brand-300 border border-brand-500/30"
             : "bg-white/5 text-slate-400 border border-white/10 hover:bg-white/10 hover:text-white"
         }`}
       >
-        <span>{activeItem.icon}</span>
-        <span className="hidden sm:inline">{activeItem.label}</span>
-        {activeCategory !== categories[0]?.key && (
-          <span className="hidden sm:inline text-[10px] text-brand-400/60 ml-0.5">·{activeItem.count}</span>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+        </svg>
+        <span>分类</span>
+        {hasSelection && (
+          <span className="text-[10px] text-brand-400/60">·已选</span>
         )}
         <svg
           className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
