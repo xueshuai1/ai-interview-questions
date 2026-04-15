@@ -16,6 +16,38 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-194",
+    tag: "工具发布",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Adobe 发布 Firefly AI 助手 — 可在 Creative Cloud 应用中自主操作，实现设计工作流自动化",
+    summary: "Adobe 推出 Firefly AI 助手，能够在 Creative Cloud 应用（如 Photoshop、Illustrator 等）中自主执行操作，而不仅是生成内容。用户可通过自然语言指令让 AI 直接操作设计工具，实现端到端的设计工作流自动化。",
+    content: `## Adobe Firefly AI 助手：从内容生成到应用自主操作
+
+2026 年 4 月 15 日，Adobe 发布了全新的 Firefly AI 助手，这是其 AI 能力从「生成内容」向「自主操作应用」的重要跃升。
+
+**核心特性：**
+- AI 可在 Creative Cloud 应用中自主执行操作
+- 支持 Photoshop、Illustrator 等主流设计工具
+- 通过自然语言指令控制设计工作流
+- 不仅是生成图片，而是直接操作应用界面和功能
+
+**与竞品的区别：**
+- 不同于 Midjourney 或 DALL-E 仅生成静态图像
+- Firefly AI 可以像人类设计师一样「使用」设计工具
+- 支持多步骤工作流（如：打开图片→调整图层→应用滤镜→导出）
+
+**行业意义：**
+这标志着 AI 正在从「创作工具」走向「创作助手」——不再只是生成素材，而是能够理解设计意图并直接操作专业软件。对设计师来说，这意味着可以将重复性工作交给 AI，专注于创意和决策。
+
+**对行业的影响：**
+如果 Firefly AI 成功，可能重新定义设计师与工具的交互方式。未来的设计师可能更多地扮演「创意总监」角色，而 AI 负责具体的工具操作和素材处理。`,
+    date: "2026-04-15 22:35",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-194",
+  },
+  {
     id: "news-193",
     tag: "行业动态",
     tagColor: "bg-red-500/10 text-red-300",
