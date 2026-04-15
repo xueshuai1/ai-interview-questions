@@ -16,6 +16,142 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-176",
+    tag: "安全动态",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/security.jpg",
+    title: "本周安全新闻：伊朗断网突破 1000 小时、加密货币诈骗创纪录、Telegram 非自愿图像交易泛滥",
+    summary: "WIRED 本周安全新闻汇总：伊朗互联网中断已持续超过 1000 小时创历史纪录；加密货币诈骗导致美国人损失金额创历史新高；研究发现 Telegram 群组中男性正在购买间谍软件用于监控妻子和朋友。中国成为东南亚工业诈骗最大的执法者但具有选择性。",
+    content: `## 本周安全新闻汇总
+
+2026 年 4 月 11 日，WIRED 发布本周安全新闻汇总，涵盖多个重大安全事件。
+
+**伊朗互联网中断突破 1000 小时：**
+- 伊朗全国性互联网中断已持续超过 **1000 小时**
+- 创现代历史纪录
+- 对依赖互联网通信的黎巴嫩等地区造成连锁影响
+
+**加密货币诈骗创纪录：**
+- 加密货币诈骗导致美国人的损失金额达到**历史最高水平**
+- 东南亚成为工业诈骗的主要发源地
+- 各国政府正在紧急应对
+
+**中国打击诈骗的选择性执法：**
+- 中国成为东南亚工业诈骗**最大的执法者**
+- 但执法具有**选择性**
+- 导致犯罪集团将目标转向海外以避免中国受害者
+
+**Telegram 非自愿图像交易：**
+- 研究发现 Telegram 群组中男性正在**购买黑客工具**用于监控妻子和朋友
+- 涉及**数千张**女性和女孩的非自愿图像
+- 包括人肉搜索和性虐待行为
+- 暴露了加密通信平台被滥用于犯罪的严重问题
+
+**叙利亚政府账户被劫持：**
+- WIRED 分析显示 3 月份叙利亚政府账户遭到大规模劫持
+- 暴露了叙利亚基础网络防御能力的不足
+
+**美国政治候选人增加安全支出：**
+- 在政治暴力担忧上升的背景下
+- 政治候选人正在购买家庭报警系统和防弹背心
+- 对政治人物的人身安全投资显著增加
+
+**深层意义：**
+本周安全新闻反映了全球网络安全态势的多维度恶化：国家级网络攻击、跨国犯罪、平台滥用和政治暴力交织在一起，形成了一个日益复杂的安全挑战网络。`,
+    date: "2026-04-15 16:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/security-news-this-week-your-push-notifications-arent-safe-from-the-fbi/",
+    href: "/news/news-176",
+  },
+  {
+    id: "news-175",
+    tag: "芯片产业",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/industry.jpg",
+    title: "Elon Musk 的 Terafab 芯片计划联手 Intel — 但具体合作方式成谜",
+    summary: "Intel CEO Lip-Bu Tan 宣布将与 Elon Musk 的 Terafab 项目紧密合作。Terafab 是 SpaceX 和 Tesla 联合开发的超大规模芯片制造设施，可能耗资数十亿美元。但行业分析师对 Musk 能否完成如此复杂的项目表示高度怀疑。",
+    content: `## Terafab：Musk 的芯片帝国梦
+
+2026 年 4 月 8 日，WIRED 发表深度分析，探讨 Elon Musk 的 Terafab 芯片制造计划及其与 Intel 的合作。
+
+**Terafab 是什么：**
+- **1 太瓦（terawatt）级**超高性能芯片制造设施
+- 可能跨越多个地点
+- 由 **SpaceX 和 Tesla 联合开发**
+- 可能耗资**数十亿美元**
+- 目标：为 Musk 的汽车、机器人和数据中心生产海量芯片
+
+**Intel 的角色：**
+- Intel CEO Lip-Bu Tan：「Intel 很荣幸能成为合作伙伴，与 Elon 密切合作这个高度战略性的项目」
+- Tan 和 Musk 上周末在 Intel 标志前握手合影
+- 但具体合作方式**仍然不明朗**
+- Intel 正在寻求复苏，部分策略是向主要客户推销其制造能力
+
+**行业质疑：**
+- 芯片行业分析师对 Musk 能否完成如此复杂且资本密集的项目**高度怀疑**
+- Terafab 需要同时涉及硅逻辑、内存和封装技术的突破
+- Musk 谈论 Terafab 需求已有数月，但具体执行计划仍未清晰
+
+**Musk 的芯片需求来源：**
+- **Tesla 汽车** — Cybercab 等自动驾驶车辆
+- **机器人** — Musk 正在组建「机器人大军」
+- **数据中心** — Musk 曾提出将 AI 数据中心放到太空的设想
+
+**深层意义：**
+Terafab 如果成功，将彻底改变全球芯片制造格局。但考虑到芯片制造的极端复杂性，Musk 的雄心勃勃计划面临巨大技术挑战。Intel 的参与可能表明这家老牌芯片制造商正在寻求与科技巨头的战略合作以实现复苏。`,
+    date: "2026-04-15 16:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/5-burning-questions-about-elon-musks-terafab-chip-partnership-with-intel/",
+    href: "/news/news-175",
+  },
+  {
+    id: "news-174",
+    tag: "安全动态",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/security.jpg",
+    title: "伊朗黑客入侵美国能源和水利基础设施 — PLC 设备遭篡改造成运营中断",
+    summary: "FBI、NSA、CISA 联合警告称，伊朗政府关联黑客组织已入侵美国能源、水利等关键基础设施的工业控制系统，通过篡改 Rockwell Automation PLC 设备造成运营中断和财务损失。这是网络战从数据窃取转向物理基础设施破坏的标志性事件。",
+    content: `## 伊朗黑客攻击美国关键基础设施
+
+2026 年 4 月 7 日，WIRED 报道美国多个政府机构联合发布警告，伊朗政府关联黑客组织正在对美国关键基础设施进行网络攻击。
+
+**攻击目标：**
+- **能源部门** — 电力公司和能源设施
+- **水利设施** — 自来水和污水处理厂
+- **政府设施** — 未指定的政府机构
+
+**攻击方式：**
+- 黑客针对 **可编程逻辑控制器（PLC）** 进行攻击
+- 这些设备由工业技术公司 Rockwell Automation 制造
+- 用于数字控制物理机械
+- 黑客试图篡改工业控制系统的显示信息
+
+**已知影响：**
+- 「在少数情况下，此类活动已导致**运营中断和财务损失**」
+- 可能导致系统停机、设备损坏，甚至危险状况
+
+**响应方：**
+- **FBI**、**NSA**、**能源部**、**CISA** 联合发布建议
+- Rockwell Automation 已发布安全建议文档
+
+**专家评估：**
+Dragos（工业控制系统网络安全公司）CEO Rob Lee：
+- 「有充分记录表明，伊朗行为者将工业控制系统视为施加压力的枢纽」
+- 「我们看到伊朗国家和非国家行为者都造成了真实风险」
+- 「我完全预计他们会继续施压，攻击他们能够访问的站点」
+
+**背景：**
+- 攻击与伊朗 CyberAv3ngers 黑客组织的行动类似
+- 在特朗普威胁伊朗基础设施的同时，伊朗已进行了对等的网络报复
+
+**深层意义：**
+这标志着网络战从传统的数据窃取转向对物理基础设施的直接破坏。当黑客能够控制水处理厂和电网的 PLC 设备时，网络攻击的后果不再局限于数字领域，而是直接影响现实生活。`,
+    date: "2026-04-15 16:30",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/iran-linked-hackers-are-sabotaging-us-energy-and-water-infrastructure/",
+    href: "/news/news-174",
+  },
+  {
     id: "news-172",
     tag: "AI 监管",
     tagColor: "bg-orange-500/10 text-orange-300",
