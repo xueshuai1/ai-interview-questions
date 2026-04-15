@@ -16,6 +16,67 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-221",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "OpenAI Agents SDK 重大升级：模型原生 Harness + 沙箱执行，多供应商部署支持",
+    summary: "OpenAI 发布 Agents SDK 重大更新，引入模型原生 Agent Harness、原生沙箱执行、MCP 工具集成、Skills 渐进披露、AGENTS.md 自定义指令等标准化基础设施。支持 Blaxel、Cloudflare、Daytona、E2B、Modal、Runloop、Vercel 等多种沙箱供应商，并引入 Manifest 抽象实现跨供应商环境可移植。",
+    content: `## OpenAI Agents SDK 升级：标准化 Agent 基础设施来了
+
+2026 年 4 月 15 日，OpenAI 发布 Agents SDK 重大更新。
+
+**核心升级：**
+
+**1. 模型原生 Agent Harness**
+- 让 Agent 能够跨文件和工具在计算机上工作
+- 可配置记忆、Codex 风格的文件系统工具、标准化集成
+- 支持 MCP（Model Context Protocol）工具调用
+- 支持 Skills 渐进披露（agentskills.io）
+- 支持 AGENTS.md 自定义指令
+- 内置 Shell 工具执行命令
+- 内置 Apply Patch 工具编辑文件
+
+**2. 原生沙箱执行**
+- Agent 可在受控的计算机环境中运行
+- 自带文件、工具和依赖项
+- 支持多供应商：Blaxel、Cloudflare、Daytona、E2B、Modal、Runloop、Vercel
+- 也可自带沙箱
+
+**3. Manifest 抽象**
+- 描述 Agent 工作空间的标准化方式
+- 可挂载本地文件、定义输出目录
+- 支持 AWS S3、Google Cloud Storage、Azure Blob Storage、Cloudflare R2
+- 从原型到生产部署保持一致性
+
+**4. 安全设计**
+- Harness 与计算分离，防止提示注入和数据外泄
+- 凭证不会暴露给模型生成的代码执行环境
+
+**5. 持久化执行**
+- 内置快照和恢复机制
+- 沙箱容器失效后，Agent 状态可在新鲜容器中恢复
+- 从上次检查点继续执行
+
+**6. 可扩展性**
+- Agent 运行可使用一个或多个沙箱
+- 子 Agent 路由到隔离环境
+- 跨容器并行执行加速任务
+
+**行业意义：**
+- 填补了模型无关框架和模型提供商 SDK 之间的空白
+- 开发者可专注于领域特定逻辑而非核心基础设施
+- Harness 持续吸收前沿 Agent 模式和原语
+- 首先支持 Python，TypeScript 支持计划后续推出
+
+**定价**：通过 API 标准定价，基于 token 和工具使用
+**URL**：https://developers.openai.com/api/docs/guides/agents-sdk/`,
+    date: "2026-04-16 01:18",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+    href: "/news/news-221",
+  },
+  {
     id: "news-204",
     tag: "语音 AI",
     tagColor: "bg-indigo-500/10 text-indigo-300",
