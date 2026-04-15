@@ -1022,6 +1022,16 @@ export const tools: Tool[] = [
     price: "开源",
     icon: "🛠️",
   },
+  {
+    id: "seomachine",
+    name: "SEOMachine (TheCraigHewitt)",
+    category: "skills",
+    description: "Claude Code 专用 SEO 优化博客内容生成工作区，支持调研、写作、分析和优化内容，6,200+ stars，周增长 2,500+",
+    url: "https://github.com/TheCraigHewitt/seomachine",
+    tags: ["SEO 优化", "内容生成", "博客", "Claude Code", "6.2k stars"],
+    price: "开源",
+    icon: "📈",
+  },
 
   // ==================== 测试与质量 ====================
   {
