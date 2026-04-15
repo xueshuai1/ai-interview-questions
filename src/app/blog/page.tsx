@@ -62,8 +62,8 @@ export default function BlogPage() {
       <section className="px-4 sm:px-6 lg:px-8 pb-4">
         <div className="max-w-5xl mx-auto">
           <div className="relative">
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-slate-900 to-transparent z-10 rounded-l-xl" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-slate-900 to-transparent z-10 rounded-r-xl" />
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-slate-950 via-slate-900/80 to-transparent z-10" />
             <div className="flex gap-1.5 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center scrollbar-hide">
               {blogCategories.map((cat) => (
                 <button
