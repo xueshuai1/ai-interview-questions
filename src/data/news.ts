@@ -16,6 +16,105 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-148",
+    tag: "行业动态",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "AI 基础设施遭遇持续破坏 — 大多数抵抗是非暴力的，但风险在上升",
+    summary: "The Verge 报道指出，针对 AI 基础设施的破坏行为正在增加，从数据中心纵火到服务器切断。虽然绝大多数抵抗行动是非暴力的（抗议、请愿、公民不服从），但少数极端行为凸显了 AI 部署面临的安全风险。行业正在重新评估物理安全策略。",
+    content: `## AI 基础设施的抵抗浪潮：非暴力主流与极端风险
+
+2026 年 4 月 14 日，The Verge 发表深度报道，分析了针对 AI 基础设施的抵抗行动。
+
+**主要发现：**
+- 针对数据中心的破坏行为在 2026 年显著增加
+- 绝大多数抵抗行动是非暴力的：抗议、请愿、公民不服从、工会抵制
+- 少数极端行为包括纵火、切断服务器电源、破坏冷却系统
+- 这些行动反映了公众对 AI 快速发展速度和社会影响的担忧
+
+**行业应对：**
+- 数据中心运营商正在加强物理安全措施
+- 部分企业聘请专业安全团队评估基础设施风险
+- 行业协会呼吁建立「关键 AI 基础设施」保护标准
+
+**深层意义：**
+AI 不仅是技术问题，也是社会问题。当技术部署速度超过社会适应速度时，抵抗是必然的。行业需要在推进技术的同时，重视公众沟通和社区参与。
+
+正如报道所指出的："The vast majority of AI resistance is nonviolent, but recent attacks highlight the risk." 这提醒我们，技术变革需要考虑社会接受度。`,
+    date: "2026-04-15 11:58",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-148",
+  },
+  {
+    id: "news-149",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Anthropic 上诉失败 — 无法暂停「供应链风险」认定",
+    summary: "Anthropic 提起上诉试图暂停其被认定为「供应链风险」的决定，但法院驳回了请求。这一认定可能影响 Anthropic 与政府机构和大型企业的合作关系，对其商业前景产生重大影响。",
+    content: `## Anthropic 供应链风险认定上诉失败
+
+2026 年 4 月 9 日，Anthropic 在上诉中败诉，无法暂停其「供应链风险」认定。
+
+**背景：**
+- Anthropic 此前被认定为 AI 供应链中的关键风险点
+- 这一认定源于对其模型安全性和供应链依赖性的评估
+- Anthropic 认为该认定缺乏充分依据，提起上诉
+
+**法院裁决：**
+- 法院驳回了 Anthropic 的暂停请求
+- 认定将继续有效，可能影响政府和企业采购决策
+
+**商业影响：**
+- 政府机构在采购 Claude 相关服务时可能面临额外审查
+- 大型企业可能重新评估与 Anthropic 的合作风险
+- 这可能加速 Anthropic 在安全合规方面的投入
+
+**行业意义：**
+这是 AI 行业首次有主要企业被正式认定为「供应链风险」，标志着 AI 安全监管进入新阶段。未来类似认定可能成为常态。`,
+    date: "2026-04-15 11:58",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-149",
+  },
+  {
+    id: "news-150",
+    tag: "公司动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "2026 年对 Anthropic 和 OpenAI 是生死之年 — 融资压力与商业化挑战",
+    summary: "Nilay Patel 分析指出，Anthropic 和 OpenAI 正面临前所未有的财务压力。两家公司的烧钱速度远超收入增长，投资者要求看到清晰的盈利路径。2026 年可能是决定这两家 AI 巨头命运的关键一年。",
+    content: `## AI 巨头的财务考验：烧钱 vs 盈利
+
+2026 年 4 月 9 日，The Verge 主编 Nilay Patel 发表深度分析。
+
+**核心观点：**
+- OpenAI 和 Anthropic 的运营成本远超收入
+- 训练大模型的成本呈指数级增长
+- 投资者开始要求明确的盈利时间表
+- 2026 年可能是「make-or-break」之年
+
+**OpenAI 的处境：**
+- 已完成多轮巨额融资，但烧钱速度惊人
+- ChatGPT 用户增长放缓，企业版收入尚未达预期
+- 面临 Google、Microsoft 等巨头的激烈竞争
+
+**Anthropic 的处境：**
+- 融资规模相对较小，但同样面临盈利压力
+- Claude 企业版正在扩展，但市场份额有限
+- 供应链风险认定增加了商业不确定性
+
+**行业趋势：**
+- AI 行业正在从「增长优先」转向「盈利优先」
+- 投资者更关注实际收入而非用户数量
+- 小型 AI 公司可能面临融资困难
+
+**深层意义：**
+AI 行业的「黄金时代」可能正在结束，进入更加务实的商业化阶段。谁能先实现盈利，谁就能在下一轮竞争中占据优势。`,
+    date: "2026-04-15 11:58",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-150",
+  },
+  {
     id: "news-139",
     tag: "公司动态",
     tagColor: "bg-blue-500/10 text-blue-300",
