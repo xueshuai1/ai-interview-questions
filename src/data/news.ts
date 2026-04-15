@@ -16,6 +16,150 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-192",
+    tag: "AI 框架",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/framework.jpg",
+    title: "NousResearch hermes-agent 一周暴涨 52K stars — 可自生长的 AI Agent 框架",
+    summary: "NousResearch 的 hermes-agent 在 GitHub Trending 上以一周 +52,996 stars 的速度暴涨，总 stars 达 87,863。其核心理念是「The agent that grows with you」— Agent 能力随使用增长，个性化适应用户需求。这是本周增长最快的 AI 项目。",
+    content: `## hermes-agent：会成长的 AI Agent
+
+2026 年 4 月 15 日，NousResearch 的 hermes-agent 成为 GitHub Trending 榜首。
+
+**核心数据：**
+- 总 stars：**87,863**
+- 本周增长：**+52,996 stars**
+- 本周增长最快的 AI/ML 项目
+
+**核心理念：**
+- 「The agent that grows with you」
+- Agent 能力随使用增长
+- 个性化适应用户需求
+- 从被动工具走向主动伙伴
+
+**技术特点：**
+- 基于 NousResearch 的 Hermes 系列模型
+- 自生长机制：Agent 从交互中学习和进化
+- 支持多任务和多领域
+
+**行业意义：**
+- 可自生长的 Agent 代表了 AI Agent 的下一个阶段
+- 与 Letta Code（记忆优先 Agent）形成互补
+- Agent 从「一次性工具」变为「持续进化的伙伴」`,
+    date: "2026-04-15 20:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/NousResearch/hermes-agent",
+    href: "/news/news-192",
+  },
+  {
+    id: "news-191",
+    tag: "AI 平台",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/framework.jpg",
+    title: "multica 开源托管 Agent 平台 — 一周 +9,823 stars，将编码 Agent 变成团队成员",
+    summary: "multica-ai/multica 是开源托管 Agent 平台，允许分配任务、跟踪进度、技能复合管理。一周增长 9,823 stars，总 stars 达 13,090。这是 AI Agent 从单次执行转向平台化管理的代表。",
+    content: `## multica：AI Agent 的团队管理平台
+
+2026 年 4 月 15 日，multica 成为 GitHub Trending TypeScript 项目榜首。
+
+**核心数据：**
+- 总 stars：**13,090**
+- 本周增长：**+9,823 stars**
+
+**核心功能：**
+- **任务分配**：给 Agent 分配具体任务
+- **进度跟踪**：实时监控 Agent 任务执行状态
+- **技能复合**：管理 Agent 的技能组合和成长
+- **团队协作**：多个 Agent 协同工作
+
+**平台定位：**
+- 将编码 Agent 从「工具」升级为「团队成员」
+- 提供 Agent 管理的完整生命周期
+- 开源、可扩展
+
+**行业意义：**
+- 代表 AI Agent 从「单次执行」转向「持续管理」
+- 与 Ralph（自主 Agent 循环）、Rowboat（AI 同事）形成趋势
+- 企业需要 Agent 管理平台来规模化 AI 使用`,
+    date: "2026-04-15 20:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/multica-ai/multica",
+    href: "/news/news-191",
+  },
+  {
+    id: "news-190",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Archon — 首个开源 AI 编码 harness builder，让 AI 编码确定性和可重复",
+    summary: "Archon 是首个开源 AI 编码 harness builder，目标是让 AI 编码输出确定性和可重复。一周 +4,024 stars，总 18,094。这直接回应了当前 AI 编码 43% 需要生产调试的质量危机。",
+    content: `## Archon：确定性 AI 编码的新范式
+
+2026 年 4 月 15 日，Archon 成为 GitHub Trending 热门项目。
+
+**核心数据：**
+- 总 stars：**18,094**
+- 本周增长：**+4,024 stars**
+
+**核心定位：**
+- 「The first open-source harness builder for AI coding」
+- 让 AI 编码**确定性和可重复**
+
+**为什么需要 harness：**
+- 调查显示 43% 的 AI 生成代码需要在生产环境调试
+- 0% 的工程领导者对 AI 代码「非常有信心」
+- AI 编码输出缺乏一致性和可预测性
+- harness 提供了一种确保输出质量的方法
+
+**技术特点：**
+- 确定性 harness 构建
+- AI 编码可重复执行
+- 输出质量保证
+
+**行业意义：**
+- Harness Engineering 可能成为 AI 编码的新标准
+- 直接应对 AI 编码质量危机
+- 从「生成更快」到「生成更可靠」的范式转变`,
+    date: "2026-04-15 20:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/coleam00/Archon",
+    href: "/news/news-190",
+  },
+  {
+    id: "news-189",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "claude-mem 插件一周 +8,742 stars — Claude Code 自动会话记忆",
+    summary: "thedotmack/claude-mem 是 Claude Code 插件，自动捕获编码会话、AI 压缩上下文、注入未来会话。一周 +8,742 stars，总 56,845。与 letta-code 记忆优先 Agent 架构形成互补，标志 Agent 记忆持久化成为刚需。",
+    content: `## claude-mem：Claude Code 的记忆外挂
+
+2026 年 4 月 15 日，claude-mem 成为 GitHub Trending 高分项目。
+
+**核心数据：**
+- 总 stars：**56,845**
+- 本周增长：**+8,742 stars**
+
+**核心功能：**
+- **自动捕获**：记录 Claude 在编码会话中的所有操作
+- **AI 压缩**：使用 Claude 的 agent-sdk 压缩上下文
+- **上下文注入**：将相关上下文注入未来会话
+
+**为什么需要：**
+- AI 编码会话缺乏持久记忆
+- 每次新会话都从零开始
+- 开发者需要 Agent「记住」之前的工作
+
+**行业趋势：**
+- Agent 记忆持久化成为刚需
+- 与 letta-code（记忆优先编码 Agent）形成趋势
+- 从「上下文窗口」到「持久记忆」的范式转变`,
+    date: "2026-04-15 20:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/thedotmack/claude-mem",
+    href: "/news/news-189",
+  },
+  {
     id: "news-176",
     tag: "安全动态",
     tagColor: "bg-red-500/10 text-red-300",
