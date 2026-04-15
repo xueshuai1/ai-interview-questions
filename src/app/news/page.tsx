@@ -166,19 +166,49 @@ export default function NewsPage() {
               >
                 ← 上一页
               </button>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    page === safePage
-                      ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
-                      : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
-                  }`}
-                >
-                  {page}
-                </button>
-              ))}
+
+              <div className="flex items-center gap-1.5">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                  const show =
+                    page === 1 ||
+                    page === totalPages ||
+                    Math.abs(page - safePage) <= 1;
+                  const showEllipsisBefore =
+                    page === 2 && safePage > 3;
+                  const showEllipsisAfter =
+                    page === totalPages - 1 && safePage < totalPages - 2;
+
+                  if (!show) return null;
+                  if (showEllipsisBefore)
+                    return (
+                      <span key="ellipsis-before" className="px-1 text-slate-600">
+                        …
+                      </span>
+                    );
+                  if (showEllipsisAfter)
+                    return (
+                      <span key="ellipsis-after" className="px-1 text-slate-600">
+                        …
+                      </span>
+                    );
+
+                  const isActive = page === safePage;
+                  return (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-9 h-9 rounded-lg text-sm font-medium transition-all ${
+                        isActive
+                          ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                          : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+              </div>
+
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={safePage === totalPages}
