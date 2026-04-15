@@ -87,10 +87,10 @@ export default function KnowledgePage() {
           </div>
 
           {/* Category tabs - single-row horizontal scroll with fade edges */}
-          <div className="relative">
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent z-10" />
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-slate-950 via-slate-900/80 to-transparent z-10" />
-            <div className="flex gap-1.5 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:justify-center scrollbar-hide">
+          <div className="relative -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="pointer-events-none absolute -left-0 top-0 bottom-2 w-12 bg-gradient-to-r from-slate-950 to-transparent z-10" />
+            <div className="pointer-events-none absolute -right-0 top-0 bottom-2 w-12 bg-gradient-to-l from-slate-950 to-transparent z-10" />
+            <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide sm:justify-center">
               {categories.map((c) => {
                 const count = c.key === "all"
                   ? articles.length
