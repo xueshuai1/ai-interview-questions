@@ -13,6 +13,14 @@ export interface Tool {
   updatedAt?: string;
   /** GitHub stars (auto-populated from github-stars.json) */
   githubStars?: number;
+  /** 优点列表 */
+  pros?: string[];
+  /** 缺点/限制 */
+  cons?: string[];
+  /** 适用场景（一句话） */
+  useCase?: string;
+  /** 官方文档/教程链接 */
+  learnMore?: string;
 }
 
 export const toolCategories = [
@@ -45,6 +53,10 @@ export const tools: Tool[] = [
     tags: ["实时数据", "推理", "开源", "图像生成"],
     price: "免费+付费",
     icon: "🔥",
+    pros: ["实时接入 X(Twitter) 数据流", "编程能力强，支持代码生成", "开源模型可自部署"],
+    cons: ["生态相对封闭，仅 XAI 平台", "免费版功能有限", "中文支持一般"],
+    useCase: "实时新闻获取、代码编写、英文对话",
+    learnMore: "https://docs.x.ai/docs",
   },
   {
     id: "glm-5",
@@ -55,6 +67,10 @@ export const tools: Tool[] = [
     tags: ["开源", "中文优化", "代码生成", "推理"],
     price: "开源",
     icon: "🧬",
+    pros: ["中文理解能力顶尖", "代码生成质量高", "完全开源可商用", "128K 长上下文"],
+    cons: ["英文生态不如 GPT-4", "推理速度较慢", "多模态能力有限"],
+    useCase: "中文 NLP 任务、代码生成、本地部署",
+    learnMore: "https://github.com/zai-org/GLM-5",
   },
   {
     id: "kimi-k25",
@@ -65,6 +81,10 @@ export const tools: Tool[] = [
     tags: ["开源", "多模态", "视觉智能", "Agent", "MoE"],
     price: "开源",
     icon: "🌟",
+    pros: ["256K 超长上下文", "多模态原生支持", "Agent Swarm 协作", "完全开源免费"],
+    cons: ["MoE 架构推理延迟略高", "生态不如主流模型", "文档较少"],
+    useCase: "长文档分析、多模态理解、多智能体协作",
+    learnMore: "https://platform.moonshot.cn/docs",
   },
   {
     id: "chatgpt",
@@ -75,6 +95,10 @@ export const tools: Tool[] = [
     tags: ["对话", "文本生成", "代码"],
     price: "免费+付费",
     icon: "💬",
+    pros: ["最成熟的对话 AI 产品", "插件和 GPTs 生态丰富", "GPT-4o 支持多模态", "API 生态完善"],
+    cons: ["免费版有使用频率限制", "高峰期可能排队", "不擅长实时数据查询"],
+    useCase: "日常对话、写作辅助、代码编写、数据分析",
+    learnMore: "https://platform.openai.com/docs",
   },
   {
     id: "claude",
@@ -85,6 +109,10 @@ export const tools: Tool[] = [
     tags: ["对话", "长文本", "安全"],
     price: "免费+付费",
     icon: "🧠",
+    pros: ["长文本理解最强", "代码生成质量极高", "Claude Code 终端编程", "安全性高，不会输出有害内容"],
+    cons: ["多模态能力不如 GPT-4o", "免费版限制较多", "不支持实时联网搜索"],
+    useCase: "长文档分析、代码生成、安全敏感场景",
+    learnMore: "https://docs.anthropic.com",
   },
   {
     id: "gemini",
@@ -95,6 +123,10 @@ export const tools: Tool[] = [
     tags: ["多模态", "搜索集成", "对话"],
     price: "免费+付费",
     icon: "✨",
+    pros: ["深度集成 Google 搜索", "免费额度充足", "个人智能可访问 Gmail/Photos", "多模态原生支持"],
+    cons: ["长文本能力一般", "代码生成不如 Claude", "隐私争议（访问个人数据）"],
+    useCase: "搜索增强问答、个人助手、多模态理解",
+    learnMore: "https://ai.google.dev/docs",
   },
   {
     id: "llama",
@@ -105,6 +137,10 @@ export const tools: Tool[] = [
     tags: ["开源", "本地部署", "微调"],
     price: "开源",
     icon: "🦙",
+    pros: ["完全开源可商用", "模型尺寸丰富（1B-405B）", "微调生态最完善"],
+    cons: ["原版英文优化", "中文需要额外微调", "本地部署需要 GPU 资源"],
+    useCase: "本地部署、私有化定制、学术研究",
+    learnMore: "https://llama.meta.com/docs",
   },
   {
     id: "gemma",
@@ -208,6 +244,10 @@ export const tools: Tool[] = [
     tags: ["LLM 应用", "RAG", "Agent"],
     price: "开源",
     icon: "⛓️",
+    pros: ["生态最完善，社区活跃", "文档丰富", "支持多 LLM 提供商"],
+    cons: ["API 经常变动", "学习曲线陡峭", "抽象层过厚导致调试困难"],
+    useCase: "LLM 应用开发、RAG 系统、Agent 构建",
+    learnMore: "https://python.langchain.com/docs",
   },
   {
     id: "langgraph",
@@ -230,6 +270,10 @@ export const tools: Tool[] = [
     price: "免费+付费",
     icon: "👥",
     updatedAt: "2026-04-15",
+    pros: ["角色定义直观，上手快", "多 Agent 原型开发最快", "社区活跃"],
+    cons: ["复杂任务调试困难", "免费版功能有限", "依赖 OpenAI API"],
+    useCase: "多 Agent 协作、内容生成、研究任务自动化",
+    learnMore: "https://docs.crewai.com",
   },
   {
     id: "autogen",
@@ -241,6 +285,10 @@ export const tools: Tool[] = [
     price: "开源",
     icon: "💬",
     updatedAt: "2026-04-15",
+    pros: ["代码沙箱安全", "对话式调试直观", "微软维护稳定"],
+    cons: ["配置复杂", "非 Python 语言支持弱", "文档不够详细"],
+    useCase: "多 Agent 代码协作、复杂调试任务、自动化编程",
+    learnMore: "https://microsoft.github.io/autogen",
   },
   {
     id: "pytorch",
@@ -429,6 +477,10 @@ export const tools: Tool[] = [
     tags: ["低代码", "工作流", "可视化"],
     price: "开源",
     icon: "🔮",
+    pros: ["可视化拖拽上手简单", "内置 RAG 和 Agent 模板", "中文文档完善"],
+    cons: ["自部署需要服务器资源", "高级功能需付费版", "复杂工作流编排不够灵活"],
+    useCase: "快速搭建 AI 应用、企业内部 AI 工具、RAG 知识库",
+    learnMore: "https://docs.dify.ai",
   },
   {
     id: "hermes-agent",
@@ -573,16 +625,6 @@ export const tools: Tool[] = [
     icon: "🧑‍💻",
   },
   {
-    id: "n8n",
-    name: "n8n",
-    category: "agent",
-    description: "开源工作流自动化平台，可视化画布连接 400+ 服务节点，原生支持 AI Agent 节点，可自部署，2026 年 AI 工作流自动化首选",
-    url: "https://n8n.io",
-    tags: ["工作流", "可视化", "400+ 集成", "自部署"],
-    price: "免费+付费",
-    icon: "⚙️",
-  },
-  {
     id: "coze",
     name: "Coze (ByteDance)",
     category: "agent",
@@ -591,6 +633,10 @@ export const tools: Tool[] = [
     tags: ["零代码", "插件市场", "多平台发布", "字节跳动"],
     price: "免费+付费",
     icon: "🪢",
+    pros: ["零代码门槛，拖拽即可", "中文生态最完善", "多平台一键发布"],
+    cons: ["免费版有调用量限制", "自定义能力不如 Dify", "依赖字节跳动生态"],
+    useCase: "快速搭建 AI Bot、飞书/微信机器人、企业内部助手",
+    learnMore: "https://www.coze.com/docs",
   },
   {
     id: "v0",
@@ -1262,16 +1308,6 @@ export const tools: Tool[] = [
     tags: ["高性能", "数据分析", "Rust"],
     price: "开源",
     icon: "⚡",
-  },
-  {
-    id: "notebooklm",
-    name: "Google NotebookLM",
-    category: "data",
-    description: "Google AI 驱动的研究笔记工具，支持上传文档、网页、PDF 等来源，自动生成摘要、播客和研究报告，集成 Gemini 引擎",
-    url: "https://notebooklm.google.com",
-    tags: ["研究", "笔记", "文档分析", "Gemini"],
-    price: "免费",
-    icon: "📓",
   },
   {
     id: "firecrawl",

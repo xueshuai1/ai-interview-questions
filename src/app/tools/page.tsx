@@ -33,11 +33,9 @@ const priceColors: Record<string, string> = {
 };
 
 function ToolCard({ tool }: { tool: Tool }) {
+  const [expanded, setExpanded] = useState(false);
   return (
-    <a
-      href={tool.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       className="group block p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5 min-w-0 overflow-hidden"
     >
       {/* Header */}
@@ -66,18 +64,22 @@ function ToolCard({ tool }: { tool: Tool }) {
           </div>
           <p className="text-xs text-slate-500 mt-0.5 truncate max-w-full">{tool.url.replace("https://", "")}</p>
         </div>
-        <svg className="w-5 h-5 text-slate-600 group-hover:text-brand-400 transition-colors shrink-0 mt-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-        </svg>
       </div>
 
       {/* Description */}
-      <p className="text-slate-400 text-sm leading-relaxed mb-4 line-clamp-2">
+      <p className="text-slate-400 text-sm leading-relaxed mb-2 line-clamp-2">
         {tool.description}
       </p>
 
+      {/* Use Case */}
+      {tool.useCase && (
+        <p className="text-xs text-slate-500 mb-3 flex items-center gap-1">
+          <span className="text-brand-400">🎯</span> {tool.useCase}
+        </p>
+      )}
+
       {/* Tags */}
-      <div className="flex flex-wrap gap-1.5 overflow-hidden max-w-full">
+      <div className="flex flex-wrap gap-1.5 overflow-hidden max-w-full mb-3">
         {tool.tags.slice(0, 4).map((tag) => (
           <span key={tag} className="px-2 py-0.5 bg-white/5 rounded-md text-xs text-slate-400 whitespace-nowrap">
             #{tag}
@@ -89,7 +91,66 @@ function ToolCard({ tool }: { tool: Tool }) {
           </span>
         )}
       </div>
-    </a>
+
+      {/* Pros/Cons Toggle */}
+      {(tool.pros?.length || tool.cons?.length) && (
+        <>
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded(!expanded); }}
+            className="text-xs text-brand-400 hover:text-brand-300 transition-colors flex items-center gap-1 mb-2"
+          >
+            {expanded ? "收起" : "查看优缺点"} {expanded ? "▲" : "▼"}
+          </button>
+          {expanded && (
+            <div className="space-y-2 text-xs">
+              {tool.pros && tool.pros.length > 0 && (
+                <div>
+                  <p className="text-emerald-400 font-medium mb-1">✅ 优点</p>
+                  {tool.pros.map((p, i) => (
+                    <p key={i} className="text-slate-400 flex items-start gap-1">
+                      <span className="text-emerald-500 mt-0.5 shrink-0">•</span> {p}
+                    </p>
+                  ))}
+                </div>
+              )}
+              {tool.cons && tool.cons.length > 0 && (
+                <div>
+                  <p className="text-red-400 font-medium mb-1">⚠️ 限制</p>
+                  {tool.cons.map((c, i) => (
+                    <p key={i} className="text-slate-400 flex items-start gap-1">
+                      <span className="text-red-500 mt-0.5 shrink-0">•</span> {c}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Footer */}
+      <div className="flex items-center justify-between mt-3 pt-3 border-t border-white/5">
+        {tool.learnMore ? (
+          <a
+            href={tool.learnMore}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="text-xs text-brand-400 hover:text-brand-300 transition-colors flex items-center gap-1"
+          >
+            📖 官方文档
+          </a>
+        ) : <span />}
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs text-slate-500 hover:text-brand-400 transition-colors flex items-center gap-1"
+        >
+          访问工具 →
+        </a>
+      </div>
+    </div>
   );
 }
 
