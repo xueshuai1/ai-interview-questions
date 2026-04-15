@@ -16,6 +16,196 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-204",
+    tag: "语音 AI",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    coverImage: "/images/news/multimodal.jpg",
+    title: "NVIDIA 开源 PersonaPlex — 全双工语音到语音对话模型，支持个性化人格控制",
+    summary: "NVIDIA 开源 PersonaPlex，基于 Moshi 架构的实时全双工语音到语音对话模型。支持通过文本角色提示和音频语音控制实现个性化人格，产生自然、低延迟的口语交互。可通过 Web UI 直接交互，支持 CPU Offload 降低硬件门槛。",
+    content: `## NVIDIA PersonaPlex：AI 语音交互进入人格控制时代
+
+2026 年 4 月 15 日，NVIDIA 开源 PersonaPlex。
+
+**核心特性：**
+- **实时全双工语音**：语音到语音的实时对话，无需等待文本中间转换
+- **人格控制**：通过文本角色提示（text-based role prompts）控制 AI 对话人格
+- **语音条件化**：通过音频提示（audio-based voice conditioning）定制声音特征
+- **基于 Moshi 架构**：继承并扩展了 Kyutai 的 Moshi 开源语音模型
+
+**使用方式：**
+- 提供 Web UI，浏览器直接访问交互
+- 支持 CPU Offload，GPU 内存不足时可卸载到 CPU
+- 支持离线评估和在线交互两种模式
+- 需要 Hugging Face Token 并接受模型许可
+
+**应用场景：**
+- 客服场景：定制化人格的 AI 客服
+- 教育场景：个性化教学语音助手
+- 娱乐场景：虚拟角色扮演
+- 企业服务：标准化的品牌语音交互
+
+**行业意义：**
+- 全双工语音 AI 从研究走向开源可用
+- 人格控制让 AI 语音交互更自然、更个性化
+- 与 Google Audio Flamingo Next 形成开源语音 AI 生态
+
+**Stars**：9,345（本周 +1,642）
+**URL**：https://github.com/NVIDIA/personaplex`,
+    date: "2026-04-16 00:02",
+    source: "GitHub / NVIDIA",
+    sourceUrl: "https://github.com/NVIDIA/personaplex",
+    href: "/news/news-204",
+  },
+  {
+    id: "news-205",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "seomachine — 专为 Claude Code 打造的 SEO 内容创作引擎，一周暴涨 2.5K stars",
+    summary: "seomachine 是专为 Claude Code 设计的 SEO 优化内容创作工作空间。包含 10+ 自定义命令、26 个营销技能 Agent、GA4/SearchConsole 数据集成。将 Claude Code 从编程工具扩展为专业内容创作平台，代表 AI Agent 垂直化的新趋势。",
+    content: `## seomachine：Claude Code 变身 SEO 内容引擎
+
+2026 年 4 月 15 日，seomachine 成为 GitHub Trending Python 项目热门。
+
+**核心数据：**
+- 总 stars：**6,272**
+- 本周增长：**+2,562 stars**
+
+**核心功能：**
+
+**自定义命令（10+）：**
+- /research — 深度研究
+- /write — 内容创作
+- /rewrite — 重写优化
+- /analyze-existing — 分析现有内容
+- /optimize — SEO 优化
+- /performance-review — 性能审查
+- /publish-draft — 发布草稿
+- /article — 文章生成
+
+**26 个营销技能 Agent：**
+- 内容分析、SEO 优化、Meta 元素创建
+- 内部链接、关键词映射、编辑
+- 性能分析、标题生成、CRO 分析
+- 落地页优化
+
+**数据集成：**
+- Google Analytics 4
+- Google Search Console
+- DataForSEO API
+
+**工作流组织：**
+- 主题、研究、草稿、已发布内容的结构化目录
+
+**行业意义：**
+- 将 Claude Code 从编程工具扩展为专业内容创作平台
+- 代表 AI Agent 垂直化的新趋势
+- SEO Machine 定义了标准化的内容创作流程
+
+**Stars**：6,272（本周 +2,562）
+**URL**：https://github.com/TheCraigHewitt/seomachine`,
+    date: "2026-04-16 00:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/TheCraigHewitt/seomachine",
+    href: "/news/news-205",
+  },
+  {
+    id: "news-206",
+    tag: "AI 工具",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "HKUDS AI-Trader — 100% 全自动 Agent 原生交易系统",
+    summary: "港大 HKUDS 开发的 AI-Trader，100% 全自动 Agent 原生交易系统。与 DeepTutor 同属一个团队，代表 AI Agent 在金融交易领域的专业化应用。",
+    content: `## AI-Trader：全自动 Agent 交易
+
+2026 年 4 月 15 日，HKUDS 的 AI-Trader 在 GitHub Trending 上增长。
+
+**核心数据：**
+- 总 stars：**13,400**
+- 本周增长：**+1,035 stars**
+
+**核心特性：**
+- **100% 全自动**：无需人工干预的交易决策
+- **Agent 原生架构**：专为 Agent 设计的交易系统
+- **与 DeepTutor 同源**：由港大 HKUDS 团队开发
+
+**行业意义：**
+- Agent 原生金融交易，与 ai-hedge-fund 形成互补
+- 代表 AI Agent 在垂直领域的深化
+- 开源交易 Agent 降低了量化交易门槛
+
+**Stars**：13,400（本周 +1,035）
+**URL**：https://github.com/HKUDS/AI-Trader`,
+    date: "2026-04-16 00:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/HKUDS/AI-Trader",
+    href: "/news/news-206",
+  },
+  {
+    id: "news-207",
+    tag: "科学研究",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    coverImage: "/images/news/research.jpg",
+    title: "ByteDance 开源 Protenix — 高精度生物分子结构预测工具",
+    summary: "字节跳动开源 Protenix，高精度生物分子结构预测工具，面向蛋白质折叠等科学计算场景。这是 AI for Science 方向的最新进展，对标 AlphaFold 的开源替代方案。",
+    content: `## Protenix：字节跳动的 AlphaFold 挑战
+
+2026 年 4 月 15 日，字节跳动开源 Protenix。
+
+**核心数据：**
+- 总 stars：**1,818**
+- 本周增长：**+57 stars**
+
+**核心特性：**
+- **高精度预测**：面向生物分子结构预测
+- **蛋白质折叠**：对标 AlphaFold 的应用场景
+- **开源可用**：降低科学计算门槛
+
+**行业意义：**
+- AI for Science 方向的最新进展
+- 字节跳动布局科学计算 AI
+- 开源蛋白质预测工具生态正在壮大
+
+**Stars**：1,818（本周 +57）
+**URL**：https://github.com/bytedance/Protenix`,
+    date: "2026-04-16 00:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/bytedance/Protenix",
+    href: "/news/news-207",
+  },
+  {
+    id: "news-208",
+    tag: "算法研究",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/research.jpg",
+    title: "z-lab DFlash — Block Diffusion 闪速推测解码，加速 LLM 推理",
+    summary: "z-lab 提出 DFlash：Block Diffusion for Flash Speculative Decoding，一种加速 LLM 推理的新型解码方法。通过块扩散技术优化推测解码流程，可显著降低 LLM 推理延迟。",
+    content: `## DFlash：LLM 推理加速的新方法
+
+2026 年 4 月 15 日，z-lab 开源 DFlash。
+
+**核心数据：**
+- 总 stars：**1,299**
+- 本周增长：**+438 stars**
+
+**核心特性：**
+- **Block Diffusion**：块扩散优化推测解码
+- **闪速解码**：显著降低 LLM 推理延迟
+- **推测解码**：利用草稿模型加速主模型推理
+
+**行业意义：**
+- 推测解码优化方向的新进展
+- 本地部署 LLM 的性能瓶颈可能被突破
+- 与 Speculative Decoding、Medusa 等方法形成互补
+
+**Stars**：1,299（本周 +438）
+**URL**：https://github.com/z-lab/dflash`,
+    date: "2026-04-16 00:02",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/z-lab/dflash",
+    href: "/news/news-208",
+  },
+  {
     id: "news-194",
     tag: "工具发布",
     tagColor: "bg-green-500/10 text-green-300",
