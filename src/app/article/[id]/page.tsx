@@ -97,7 +97,7 @@ function generateContent(article: (typeof articles)[0]) {
 }
 
 /** Render a single rich content section */
-function ArticleSectionContent({ section }: { section: ArticleSection }) {
+function ArticleSectionContent({ section, headingId }: { section: ArticleSection; headingId?: string }) {
   // If title starts with "N. " or "N、", extract the number for the badge
   const numMatch = section.title.match(/^(\d+)[.、]\s*/);
   const badgeNum = numMatch ? numMatch[1] : '';
@@ -105,7 +105,7 @@ function ArticleSectionContent({ section }: { section: ArticleSection }) {
 
   return (
     <div className="mb-10">
-      <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+      <h2 id={headingId} className="text-2xl font-bold mb-4 flex items-center gap-3 scroll-mt-24">
         {badgeNum && (
           <span className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm font-bold">
             {badgeNum}
@@ -306,15 +306,13 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
                 // Article has real rich content
                 if (item.section) {
                   return (
-                    <div key={i} id={`section-${i}`} className="mb-10 scroll-mt-24">
-                      <ArticleSectionContent section={item.section} />
-                    </div>
-                  );
+                    <ArticleSectionContent key={i} section={item.section} headingId={`section-${i}`} />
+                    );
                 }
                 // Fallback: generic placeholder content
                 return (
-                  <div key={i} id={`section-${i}`} className="mb-10 scroll-mt-24">
-                    <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                  <div key={i} className="mb-10">
+                    <h2 id={`section-${i}`} className="text-2xl font-bold mb-4 flex items-center gap-3 scroll-mt-24">
                       <span className="w-8 h-8 rounded-lg bg-brand-500/10 text-brand-400 flex items-center justify-center text-sm font-bold">
                         {i + 1}
                       </span>

@@ -68,13 +68,16 @@ export default function BlogDetailContent({
 
       // Active TOC item
       const headings = article.querySelectorAll("h2, h3");
+      let found = false;
       for (let i = headings.length - 1; i >= 0; i--) {
         const h = headings[i] as HTMLElement;
-        if (h.getBoundingClientRect().top <= 120) {
+        if (h.getBoundingClientRect().top <= 100) {
           setActiveToc(h.id);
+          found = true;
           break;
         }
       }
+      if (!found) setActiveToc("");
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -85,7 +88,10 @@ export default function BlogDetailContent({
 
   const scrollToToc = (id: string) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - 96;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
   };
 
 
