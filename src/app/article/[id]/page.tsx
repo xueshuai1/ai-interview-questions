@@ -341,7 +341,7 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
             </div>
 
             {/* TOC Sidebar */}
-            <ArticleTocSidebar toc={toc} contentSelector="article" />
+            <ArticleTocSidebar toc={toc} />
           </div>
         </div>
       </section>

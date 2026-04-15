@@ -1,159 +1,149 @@
 # 📡 AI 内容研究报告
 
-**生成时间**：2026-04-15 14:02 (Asia/Shanghai)
-**来源覆盖**：Google Search、Fortune、TechCrunch、ZDNET、Anthropic Blog、GitHub Trending、Time Magazine、The Quantum Insider
+**生成时间**：2026-04-15 16:02 (Asia/Shanghai)
+**来源覆盖**：The Verge、WIRED、VentureBeat、TechCrunch、OpenAI Blog、Anthropic Blog、arXiv、GitHub Trending
 
 ---
 
 ## 🔥 TOP 5 热点新闻
 
-### 1. Anthropic Mythos 模型引发网络安全革命 — AI 发现漏洞速度远超人类修补速度
-- **来源**：Fortune
-- **日期**：2026-04-14
-- **简介**：Anthropic 的 Mythos 网络安全模型已发现数千个高危漏洞，覆盖所有主要操作系统和浏览器。**超过 99% 的漏洞尚未被修补**。AI 发现漏洞的速度已经远远超过企业修补漏洞的能力，安全专家指出"漏洞发现速度已经超过修补能力"。Anthropic 因此限制 Mythos 的访问权限，仅向少数大型科技公司开放。
-- **URL**：https://fortune.com/2026/04/14/anthropic-mythos-reveals-security-gap-ai-finds-flaws-far-faster-than-companies-can-patch-them/
-
-### 2. Anthropic 与 Google + Broadcom 签署多项吉瓦级 TPU 合作协议
-- **来源**：Anthropic Blog / TechCrunch
+### 1. Anthropic Project Glasswing — $1 亿 AI 网络安全防御计划正式启动
+- **来源**：Anthropic Blog
 - **日期**：2026-04-07
-- **简介**：Anthropic 宣布与 Google 和 Broadcom 签署新协议，获得多吉瓦级下一代 TPU 容量，用于支撑 Claude AI 模型的算力需求。这是 Anthropic 在算力基础设施上的重大投资，标志着 AI 竞赛从模型能力扩展到算力供应链。
-- **URL**：https://www.anthropic.com/news/google-broadcom-partnership-compute
+- **简介**：Anthropic 联合 AWS、Apple、Broadcom、Cisco、CrowdStrike、Google、JPMorganChase、Linux Foundation、Microsoft、NVIDIA 和 Palo Alto Networks 共 12 家巨头启动 Project Glasswing。Anthropic 投入 $1 亿 Mythos Preview 使用额度 + $400 万直接捐赠给开源安全组织。Claude Mythos Preview 已发现数千高危漏洞，覆盖所有主流操作系统和浏览器。这是 AI 安全史上最大规模的防御性联盟。
+- **URL**：https://www.anthropic.com/glasswing
 
-### 3. OpenAI 发布 GPT-5.4-Cyber — 专为网络安全防御微调的 AI 模型
-- **来源**：9to5Mac / Facebook
-- **日期**：2026-04-15
-- **简介**：OpenAI 发布 GPT-5.4-Cyber，专为防御性网络安全微调的模型，扩展可信访问计划。这是 OpenAI 在垂直领域专业化模型上的最新布局，与 Anthropic Mythos 形成竞争。
-- **URL**：https://www.facebook.com/9to5mac/posts/openai-unveils-gpt54cyber-an-ai-model-for-defensive-cybersecurityopenai-has-anno/1526958385464187/
-
-### 4. Claude 性能下降引发用户大规模反弹
-- **来源**：Fortune
+### 2. Anthropic 公开反对 OpenAI 支持的 AI 责任豁免法案（SB 3444）
+- **来源**：WIRED
 - **日期**：2026-04-14
-- **简介**：Anthropic 面临用户大规模投诉，报告 Claude AI 聊天机器人性能下降。用户指责 Anthropic 缺乏透明度，怀疑是算力紧张导致的降级。这一事件与 Anthropic-Google TPU 合作协议形成对照 — 算力瓶颈可能正在影响 Claude 的服务质量。
-- **URL**：https://fortune.com/2026/04/14/anthropic-claude-performance-decline-user-complaints-backlash-lack-of-transparency-accusations-compute-crunch/
+- **简介**：Anthropic 正式反对伊利诺伊州 SB 3444 法案——该法案由 OpenAI 支持，将使 AI 实验室在 AI 模型造成大规模伤亡或超 10 亿美元财产损失时免于责任。Anthropic 称这是"越狱卡"，积极游说修改或废除该法案。两大 AI 巨头在监管立场上公开分裂。
+- **URL**：https://www.wired.com/story/anthropic-opposes-the-extreme-ai-liability-bill-that-openai-backed/
 
-### 5. White House 发布国家 AI 政策框架 — 涵盖七大领域
-- **来源**：Consumer Finance Monitor / JD Supra
-- **日期**：2026-04-08 / 2026-03-20
-- **简介**：白宫发布《国家人工智能政策框架》，涵盖七个核心领域：儿童安全、AI 社区影响、知识产权、言论自由、创新、劳动力发展、国家安全。建议国会将 AI 培训纳入现有教育和劳动力发展计划。
-- **URL**：https://www.consumerfinancemonitor.com/2026/04/08/the-white-houses-national-policy-framework-for-artificial-intelligence-what-it-means-and-what-comes-next/
+### 3. Google Chrome AI Skills — 浏览器内 AI 自动化新范式
+- **来源**：WIRED
+- **日期**：2026-04-14
+- **简介**：Google Chrome 推出 AI 驱动的「Skills」功能，内置 50+ 预设技能，可通过斜杠命令一键执行。涵盖 YouTube 视频摘要、食谱蛋白质优化、职位评估等场景。这是浏览器 AI 功能的重要进化。
+- **URL**：https://www.wired.com/story/how-to-use-google-chrome-ai-powered-skills/
+
+### 4. Unitree R1 人形机器人登陆 AliExpress — $4,370 即可购买
+- **来源**：WIRED
+- **日期**：2026-04-13
+- **简介**：中国宇树科技的 R1 人形机器人正式上架 AliExpress 全球市场，起价仅 $4,370（约 3 万人民币）。这是首个在全球电商平台销售的消费级人形机器人，标志着人形机器人从实验室走向普通消费者。Tesla Optimus 定价目标 $20,000，Figure AI 和 Apptronik 机器人价格更高。
+- **URL**：https://www.wired.com/story/unitree-r1-humanoid-robot-for-sale-on-aliexpress/
+
+### 5. OpenAI 发布 GPT-5.4-Cyber + 回应 Axios 供应链攻击
+- **来源**：OpenAI Blog / 9to5Mac
+- **日期**：2026-04-15
+- **简介**：OpenAI 发布专为网络安全防御微调的 GPT-5.4-Cyber 模型，直接回应 Anthropic Project Glasswing。同时更新安全证书以缓解 Axios 开发者工具被劫持投毒事件的影响（ChatGPT macOS 应用曾受影响）。
+- **URL**：https://openai.com/index/axios-developer-tool-compromise/
 
 ---
 
 ## 🔬 新热点补充
 
-### 6. AI 助力量子计算突破 — Time Magazine 深度报道
-- **来源**：Time Magazine
-- **日期**：2026-04-07
-- **简介**：AI 帮助实现了量子计算的重大突破。2025 年调查显示未来十年有 39% 的概率量子计算机将变得"危险"。AI 正在加速量子纠错和量子算法优化。
-- **URL**：https://time.com/article/2026/04/07/ai-quantum-computing-advance/
-
-### 7. Sygaldry 融资 $1.39 亿打造量子加速 AI 服务器
-- **来源**：The Quantum Insider
+### 6. Microsoft MAI-Image-2-Efficient — 成本降 41%、速度提升 22%
+- **来源**：VentureBeat
 - **日期**：2026-04-14
-- **简介**：Sygaldry Technologies 在种子轮和 A 轮融资中获得 $1.39 亿，用于开发量子加速 AI 服务器。量子计算与 AI 的融合正在加速。
-- **URL**：https://thequantuminsider.com/2026/04/14/sygaldry-raises-139-million-to-build-quantum-computers-for-ai/
+- **简介**：Microsoft 发布 MAI-Image-2-Efficient，比旗舰版便宜 41%、快 22%，4 倍 GPU 吞吐量。直接对标 Google Gemini 3.1 Flash Image，延迟低 40%。不到一个月从旗舰版到高效版，是 Microsoft AI 团队最快发布周期。
+- **URL**：https://venturebeat.com/technology/microsoft-launches-mai-image-2-efficient-a-cheaper-and-faster-ai-image-model
 
-### 8. Google 加入 OpenAI 阵营 — 采用 Anthropic 的 MCP 协议连接 AI Agent
-- **来源**：ZDNET
-- **日期**：2026-04
-- **简介**：Google 通过 X 宣布将支持 Anthropic 的 Model Context Protocol (MCP)。MCP 协议让 AI 系统（包括 Agent）能够访问外部数据源。Google 和 OpenAI 同时采用 MCP 标志着该协议成为 AI Agent 互联的行业标准。
-- **URL**：https://www.zdnet.com/article/google-joins-openai-in-adopting-anthropics-protocol-for-connecting-ai-agents-why-it-matters/
-
-### 9. Google Agent Development Kit (ADK) — 开源多 Agent 开发框架
-- **来源**：Google Developers Blog
-- **日期**：2025-04-09
-- **简介**：Google 开源 Agent Development Kit (ADK)，GitHub 已有 17,800 stars，月下载量 330 万。模块化框架集成 Gemini 和 Vertex AI，支持分层 Agent 组合和自定义工具。Google Cloud Next '25 上还发布了 Agent2Agent (A2A) 协议。
-- **URL**：https://developers.googleblog.com/en/agent-development-kit-easy-to-build-multi-agent-applications/
-
-### 10. American Express 发布 AI 支付工具 — 为 AI Agent 提供购买保护
-- **来源**：Fortune
+### 7. 调查：43% 的 AI 生成代码需要生产环境调试
+- **来源**：VentureBeat
 - **日期**：2026-04-14
-- **简介**：American Express 发布 AI 支付工具，允许开发者为 AI Agent 集成支付能力，并承诺如果 Agent 出错由 AmEx 承担损失。这是 AI Agent 商业化的重要一步。
-- **URL**：https://fortune.com/2026/04/14/american-express-ai-payments-developers-purchase-protection/
+- **简介**：最新调查显示，AI 生成的代码变更中有 43% 在生产环境中需要调试修复。这引发了对 AI 编码工具实际效能的质疑。
+- **URL**：https://venturebeat.com/technology/43-of-ai-generated-code-changes-need-debugging-in-production-survey-finds
+
+### 8. Meta 暂停与 Mercor 合作 — AI 数据供应链安全危机
+- **来源**：WIRED
+- **日期**：2026-04-03
+- **简介**：Meta 无限期暂停与 AI 数据供应商 Mercor 的合作。LiteLLM 供应链攻击波及 Mercor，可能暴露了 OpenAI、Anthropic 等 AI 实验室的核心训练数据。这是 AI 数据供应链安全的重大事件。
+- **URL**：https://www.wired.com/story/meta-pauses-work-with-mercor-after-data-breach-puts-ai-industry-secrets-at-risk/
+
+### 9. arXiv 最新论文趋势
+- **PAL (Personal Adaptive Learner)** — AI 驱动的个性化学习平台，将讲座视频转化为交互式学习体验（arXiv:2604.13017）
+- **CCS (Cycle-Consistent Search)** — 无需黄金监督的搜索 Agent 训练框架，利用循环一致性原理（arXiv:2604.12967）
+- **BEAM** — 双层记忆自适应算法进化，用于 LLM 驱动的启发式设计（arXiv:2604.12898）
+- **Text2Model** — 面向组合优化问题的文本到模型翻译 Co-pilot 套件（arXiv:2604.12955）
+
+### 10. GitHub Trending 本周亮点（AI/ML 相关）
+- **n8n** (184K stars, +1,406/周) — 工作流自动化平台，持续高增长
+- **huggingface/transformers** — 模型定义框架，AI 基础设施核心
+- **DeepSpeed** (42K stars, +112/周) — 深度学习优化库
+- **immich** (97K stars, +744/周) — 高性能自托管照片视频管理
 
 ---
 
 ## 🆕 新 AI 工具/框架/平台发现
 
-### GitHub Trending 本周新发现（不在现有工具库中）
+### 本轮新增（不在现有工具库中）
 
-| 项目 | Stars | 周增长 | 简介 | URL |
-|------|-------|--------|------|-----|
-| **NousResearch/hermes-agent** | 86,026 | **+52,996** 🚀 | "与你一起成长的 Agent" — NousResearch 的全能 AI Agent 平台 | https://github.com/NousResearch/hermes-agent |
-| **multica-ai/multica** | 12,731 | **+9,823** 🚀 | 开源托管 Agent 平台 — 将编码 Agent 变成真正的队友，分配任务、跟踪进度、累积技能 | https://github.com/multica-ai/multica |
-| **coleam00/Archon** | 18,014 | **+4,024** | 首个开源 AI 编码 harness builder — 让 AI 编码变得确定性和可重复 | https://github.com/coleam00/Archon |
-| **HKUDS/DeepTutor** | 18,209 | **+6,401** | Agent 原生个性化学习助手 — AI 教育新范式 | https://github.com/HKUDS/DeepTutor |
-| **virattt/ai-hedge-fund** | 54,400 | **+3,402** | AI 对冲基金团队 — 用 AI Agent 模拟对冲基金运作 | https://github.com/virattt/ai-hedge-fund |
-| **thedotmack/claude-mem** | 56,286 | **+8,742** | Claude Code 自动记忆插件 — 自动捕获、压缩、注入上下文 | https://github.com/thedotmack/claude-mem |
-| **NVIDIA/personaplex** | 9,320 | **+1,642** | NVIDIA  PersonaPlex 代码 — 个性化 AI 助手框架 | https://github.com/NVIDIA/personaplex |
-| **jo-inc/camofox-browser** | 2,425 | **+883** | AI Agent 无头浏览器自动化服务器 — 访问通常被屏蔽的网站 | https://github.com/jo-inc/camofox-browser |
+| 项目 | 简介 | URL |
+|------|------|-----|
+| **Unitree R1** | 消费级人形机器人，$4,370 AliExpress 全球首发，支持多种动作 | https://www.aliexpress.us/ |
 
-### 其他值得关注的项目
-- **microsoft/markitdown** (108,785 stars, +14,615) — 文件/文档转 Markdown 工具（已收录）
-- **TapXWorld/ChinaTextbook** (69,393 stars) — 小初高大学 PDF 教材
-- **google-ai-edge/gallery** (21,081 stars) — Google 设备端 ML 用例展示
+### 已有工具（本轮确认存在，更新 stars）
+
+| 项目 | 现有 Stars | 最新 Stars | 状态 |
+|------|-----------|-----------|------|
+| hermes-agent | 86,026 | ~86,000 | ✅ 已存在 |
+| multica | 12,731 | ~13,000 | ✅ 已存在 |
+| archon | 18,014 | ~18,000 | ✅ 已存在 |
+| claude-mem | 56,286 | ~56,000 | ✅ 已存在 |
+| personaplex | 9,320 | ~9,300 | ✅ 已存在 |
+| ai-hedge-fund | 54,400 | ~54,000 | ✅ 已存在 |
+| camofox-browser | 2,425 | ~2,400 | ✅ 已存在 |
+| deep-tutor | 18,209 | ~18,000 | ✅ 已存在 |
 
 ---
 
 ## 🧠 新概念/新趋势发现
 
-### 1. **AI 安全攻防失衡** (NEW - 未覆盖)
-- Mythos 发现数千漏洞，99% 未修补
-- OpenAI GPT-5.4-Cyber 专注防御
-- 趋势：AI 安全从"被动防御"转向"主动攻防对抗"
-- 影响：企业需要 AI 驱动的自动修补系统
+### 1. **AI 安全防御联盟化** (扩展)
+- Project Glasswing 是首个大规模 AI 安全防御联盟
+- 12 家科技巨头 + 40+ 额外组织参与
+- 趋势：AI 安全从单一公司行动转向行业联盟
+- 影响：开源安全基础设施将获得大量资金支持
 
-### 2. **AI Agent 基础设施化** (NEW - 未覆盖)
-- hermes-agent 一周增长 52,996 stars
-- multica 提供 Agent 任务管理和技能累积
-- Archon 让 AI 编码确定性和可重复
-- 趋势：AI Agent 从实验工具变为生产基础设施
-- 影响：Agent 管理平台、监控、编排成为刚需
+### 2. **AI 监管立场分裂** (NEW - 未覆盖)
+- OpenAI vs Anthropic 在 SB 3444 法案上公开对立
+- OpenAI 支持责任豁免，Anthropic 反对
+- 趋势：AI 巨头在监管上的利益分化将加剧
+- 影响：各国 AI 立法将面临更多利益博弈
 
-### 3. **量子计算 × AI 融合** (NEW - 未覆盖)
-- AI 助力量子计算突破
-- Sygaldry $139M 融资打造量子加速 AI 服务器
-- 趋势：AI 和量子计算正在交叉加速
-- 影响：量子 AI 可能在未来 5-10 年成为新范式
+### 3. **消费级人形机器人时代开启** (NEW - 未覆盖)
+- Unitree R1 $4,370 上架 AliExpress
+- 价格远低于 Tesla Optimus ($20K) 和 Figure AI
+- 趋势：人形机器人从工业/实验室走向消费者
+- 影响：AI + 机器人的硬件消费时代可能提前到来
 
-### 4. **AI Agent 商业化落地** (NEW - 未覆盖)
-- American Express 为 AI Agent 提供支付能力
-- Google ADK + A2A 协议推动 Agent 互操作
-- MCP 协议成为 Google + OpenAI 共同标准
-- 趋势：AI Agent 从技术实验走向商业应用
-
-### 5. **算力竞赛白热化** (扩展)
-- Anthropic 签署多吉瓦 TPU 协议
-- Claude 性能下降疑因算力瓶颈
-- 趋势：算力成为 AI 竞争的核心瓶颈
-- 影响：算力基础设施投资将持续增长
+### 4. **AI 编码工具效能争议** (扩展)
+- 43% 的 AI 生成代码需要生产环境调试
+- 趋势：对 AI 编码工具的期望回归理性
+- 影响：AI 编码工具需要更好的测试和验证机制
 
 ---
 
 ## 🕳️ 知识空白
 
-1. **Mythos 技术细节** — 如何发现漏洞？使用了什么方法？
-2. **multica 平台架构** — 如何实现 Agent 技能累积和任务分配？
-3. **Archon harness builder** — 如何让 AI 编码"确定性"和"可重复"？
-4. **Google A2A 协议详情** — Agent2Agent 协议的技术规范
-5. **claude-mem 记忆机制** — 如何压缩和注入上下文？
-6. **Sygaldry 量子 AI 服务器** — 量子加速 AI 的具体架构
-7. **American Express AI 支付 API** — 开发者如何集成？
+1. **Project Glasswing 技术细节** — Mythos Preview 如何发现漏洞？扫描机制是什么？
+2. **SB 3444 法案全文** — 具体免责条款和安全报告要求
+3. **Unitree R1 技术规格** — 传感器、算力、编程语言、开发接口
+4. **43% AI 代码调试率** — 调查样本、方法论、对比基线
+5. **Mercor 数据泄露影响** — 具体哪些训练数据可能暴露
 
 ---
 
 ## 💡 给开发的建议
 
 ### 高优先级
-1. **新增新闻条目**：Mythos 网络安全、Anthropic-Google TPU 合作、GPT-5.4-Cyber、Claude 性能下降、White House AI 框架、量子 AI 突破、Sygaldry 融资
-2. **添加工具**：hermes-agent、multica、Archon、claude-mem、ai-hedge-fund、personaplex、camofox-browser
-3. **更新 GitHub Stars**：所有 trending 项目的最新星数
+1. **新增新闻**：Unitree R1 人形机器人（news-170）、Project Glasswing 详细信息（news-171）、AI 监管分裂 SB 3444（news-172）
+2. **新增工具**：Unitree R1 作为"机器人"类别工具
+3. **去重检查**：news-134/164 (GPT-5.4-Cyber 重复)、news-135/145 (Claude Code 重设计重复)、news-136/146 (SoftBank 物理 AI 重复)、news-137/157 (OpenAI 高管变动重复)、news-147/155 (Chrome Skills 重复)
 
 ### 中优先级
-4. **新增知识库**：AI 安全攻防失衡专题
-5. **新增知识库**：AI Agent 基础设施化趋势
-6. **新增知识库**：量子计算 × AI 融合
+4. **更新 GitHub Stars** 数据（news.ts 和 tools.ts 中的 star 数）
+5. **清理重复新闻条目**（5 组重复，建议保留较新的编号）
 
 ### 低优先级
-7. **关注 MCP 协议** — Google + OpenAI 共同采用，值得写介绍文章
-8. **关注 AI Agent 支付** — AmEx 的创新，可写分析文章
+6. **关注人形机器人趋势** — 值得写一篇深度分析
+7. **关注 AI 编码工具效能** — 可作为博客话题
