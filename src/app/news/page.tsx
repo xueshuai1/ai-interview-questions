@@ -120,7 +120,7 @@ export default function NewsPage() {
           {/* Filter Bar */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
-              最近 3 天 <span className="text-brand-400 font-medium">{filteredNews.length}</span> 条动态
+              筛选结果 <span className="text-brand-400 font-medium">{filteredNews.length}</span> 条
             </p>
             {allTags.length > 1 && (
               <CategoryFilter
