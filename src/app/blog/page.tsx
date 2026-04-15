@@ -81,9 +81,6 @@ export default function BlogPage() {
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               找到 <span className="text-brand-400 font-medium">{filteredPosts.length}</span> 篇文章
-              {totalPages > 1 && (
-                <span>，第 <span className="text-brand-400 font-medium">{safePage}</span> / {totalPages} 页</span>
-              )}
             </p>
             <CategoryFilter
               categories={blogCategoryData}

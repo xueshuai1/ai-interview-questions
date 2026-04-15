@@ -121,9 +121,6 @@ export default function NewsPage() {
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               最近 3 天 <span className="text-brand-400 font-medium">{filteredNews.length}</span> 条动态
-              {totalPages > 1 && (
-                <span>，第 <span className="text-brand-400 font-medium">{safePage}</span> / {totalPages} 页</span>
-              )}
             </p>
             {allTags.length > 1 && (
               <CategoryFilter

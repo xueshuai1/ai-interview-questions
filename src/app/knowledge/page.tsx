@@ -97,9 +97,6 @@ export default function KnowledgePage() {
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               找到 <span className="text-brand-400 font-medium">{filteredArticles.length}</span> 篇文章
-              {totalPages > 1 && (
-                <span>，第 <span className="text-brand-400 font-medium">{safePage}</span> / {totalPages} 页</span>
-              )}
             </p>
             <div className="flex items-center gap-2">
               <CategoryFilter
