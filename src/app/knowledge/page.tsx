@@ -8,11 +8,13 @@ import ArticleCard from "@/components/ArticleCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import CategoryFilter from "@/components/CategoryFilter";
+import LearningPathSection from "@/components/LearningPathSection";
 
 const PAGE_SIZE = 9;
 const levelOrder: Record<string, number> = { 入门: 1, 进阶: 2, 高级: 3 };
 
 export default function KnowledgePage() {
+  const [mode, setMode] = useState<"all" | "path">("all");
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState<"default" | "level-asc" | "level-desc">("level-asc");
@@ -72,25 +74,64 @@ export default function KnowledgePage() {
         </div>
       </section>
 
-      {/* Search */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-6">
+      {/* Mode Toggle */}
+      <section className="px-4 sm:px-6 lg:px-8 pb-4">
         <div className="max-w-5xl mx-auto">
-          <div className="relative">
-            <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-            <input
-              type="text"
-              placeholder="搜索文章、标签..."
-              value={searchQuery}
-              onChange={(e) => handleFilterChange(setSearchQuery, e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all"
-            />
+          <div className="flex justify-center">
+            <div className="inline-flex rounded-xl bg-white/5 border border-white/10 p-1">
+              <button
+                onClick={() => setMode("all")}
+                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
+                  mode === "all"
+                    ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                📋 全部文章
+              </button>
+              <button
+                onClick={() => setMode("path")}
+                className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
+                  mode === "path"
+                    ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                📖 学习路线
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Articles Grid */}
+      {/* Learning Path Mode */}
+      {mode === "path" && <LearningPathSection />}
+
+      {/* All Articles Mode */}
+      {mode === "all" && (
+        <>
+          {/* Search */}
+          <section className="px-4 sm:px-6 lg:px-8 pb-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="relative">
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  placeholder="搜索文章、标签..."
+                  value={searchQuery}
+                  onChange={(e) => handleFilterChange(setSearchQuery, e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all"
+                />
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* Articles Grid (all mode) */}
+      {mode === "all" && (
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
           {/* Filter Bar */}
@@ -186,6 +227,7 @@ export default function KnowledgePage() {
           )}
         </div>
       </section>
+      )}
 
       <Footer />
     </main>
