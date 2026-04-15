@@ -1571,4 +1571,14 @@ export const tools: Tool[] = [
     price: "开源",
     icon: "🎭",
   },
+  {
+    id: "personaplex",
+    name: "PersonaPlex (NVIDIA)",
+    category: "framework",
+    description: "NVIDIA 开源的个性化 AI 助手框架（GitHub 9.3k 星），支持多模态交互和个性化上下文管理，是 NVIDIA 在 Agent 原生应用领域的最新布局",
+    url: "https://github.com/NVIDIA/personaplex",
+    tags: ["开源", "NVIDIA", "个性化 AI", "多模态"],
+    price: "开源",
+    icon: "🌐",
+  },
 ];

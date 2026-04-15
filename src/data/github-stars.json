@@ -99,18 +99,18 @@
       "fetchedAt": "2026-04-15T03:47:57.787Z"
     },
     "archon": {
-      "stars": 17990,
-      "forks": 2827,
+      "stars": 18014,
+      "forks": 2828,
       "language": "TypeScript",
-      "updatedAt": "2026-04-15T03:47:51Z",
-      "fetchedAt": "2026-04-15T03:48:00.217Z"
+      "updatedAt": "2026-04-15T06:04:00Z",
+      "fetchedAt": "2026-04-15T06:04:00.000Z"
     },
     "hermes-agent": {
-      "stars": 85473,
-      "forks": 11577,
+      "stars": 86026,
+      "forks": 11654,
       "language": "Python",
-      "updatedAt": "2026-04-15T03:47:48Z",
-      "fetchedAt": "2026-04-15T03:48:02.634Z"
+      "updatedAt": "2026-04-15T06:04:00Z",
+      "fetchedAt": "2026-04-15T06:04:00.000Z"
     },
     "goose": {
       "stars": 42062,
@@ -153,6 +153,13 @@
       "language": "Python",
       "updatedAt": "2026-04-15T03:46:29Z",
       "fetchedAt": "2026-04-15T03:48:39.851Z"
+    },
+    "personaplex": {
+      "stars": 9320,
+      "forks": 1305,
+      "language": "Python",
+      "updatedAt": "2026-04-15T06:04:00Z",
+      "fetchedAt": "2026-04-15T06:04:00.000Z"
     }
   }
 }

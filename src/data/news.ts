@@ -16,6 +16,212 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-166",
+    tag: "安全动态",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Anthropic Mythos 发现数千高危漏洞 — 99% 未修补，AI 攻防速度严重失衡",
+    summary: "Fortune 报道 Anthropic 的 Mythos 模型已发现数千个高危漏洞，覆盖所有主要操作系统和浏览器，超过 99% 尚未修补。安全专家警告 AI 发现漏洞的速度已远超企业修补能力，网络安全进入攻防失衡新阶段。",
+    content: `## Mythos 引发的网络安全革命
+
+2026 年 4 月 14 日，Fortune 深度报道 Anthropic Mythos 模型对网络安全行业的冲击。
+
+**核心发现：**
+- Mythos 已发现数千个高危漏洞，覆盖所有主流操作系统和浏览器
+- 超过 99% 的漏洞尚未被修补
+- Anthropic 限制 Mythos 访问权限，仅向少数大型科技公司开放
+
+**行业反应：**
+- RunSafe Security CTO："漏洞发现速度已经超过修补能力"
+- Remedio 创始人："AI 是极其昂贵的警报器——发现风险但无法修复不等于更安全"
+- 企业需要从被动防御转向 AI 驱动的自动修补系统
+
+**深远影响：**
+- 网络安全行业面临范式转变
+- 自动漏洞修补成为刚需
+- AI 攻防对抗将加速升级`,
+    date: "2026-04-15 14:02",
+    source: "Fortune",
+    sourceUrl: "https://fortune.com/2026/04/14/anthropic-mythos-reveals-security-gap-ai-finds-flaws-far-faster-than-companies-can-patch-them/",
+    href: "/news/news-166",
+  },
+  {
+    id: "news-165",
+    tag: "公司动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Anthropic 与 Google + Broadcom 签署多吉瓦级 TPU 合作协议 — 算力竞赛白热化",
+    summary: "Anthropic 宣布与 Google 和 Broadcom 签署新协议，获得多吉瓦级下一代 TPU 容量。这是 Anthropic 在算力基础设施上的重大投资，与此同时 Claude 性能下降引发用户反弹，算力瓶颈可能正在影响服务质量。",
+    content: `## Anthropic 算力大扩张：多吉瓦 TPU 协议
+
+2026 年 4 月 7 日，Anthropic 宣布算力基础设施重大投资。
+
+**协议内容：**
+- 与 Google 和 Broadcom 签署多吉瓦级下一代 TPU 容量协议
+- 用于支撑 Claude AI 模型的算力需求
+- 预计未来几年陆续上线
+
+**背景：**
+- Claude 近期出现性能下降，用户大规模投诉
+- Anthropic 面临算力紧张质疑
+- AI 竞赛从模型能力扩展到算力供应链
+
+**行业意义：**
+- 算力成为 AI 竞争的核心瓶颈
+- 科技巨头竞相锁定算力资源
+- 算力基础设施投资将持续增长`,
+    date: "2026-04-15 14:02",
+    source: "Anthropic / TechCrunch",
+    sourceUrl: "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+    href: "/news/news-165",
+  },
+  {
+    id: "news-164",
+    tag: "产品发布",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "OpenAI 发布 GPT-5.4-Cyber — 专为网络安全防御微调的垂直领域模型",
+    summary: "OpenAI 发布 GPT-5.4-Cyber，专为防御性网络安全微调的 AI 模型，扩展可信访问计划。这是 OpenAI 在垂直领域专业化模型上的最新布局，与 Anthropic Mythos 形成直接竞争。",
+    content: `## GPT-5.4-Cyber：OpenAI 的网络安全模型
+
+2026 年 4 月 15 日，OpenAI 发布网络安全专用模型。
+
+**模型特点：**
+- 专为防御性网络安全微调
+- 扩展可信访问计划
+- 与 Anthropic Mythos 形成竞争
+
+**战略意义：**
+- OpenAI 加速垂直领域模型布局
+- 网络安全成为 AI 重要应用方向
+- AI 安全攻防对抗加速升级`,
+    date: "2026-04-15 14:02",
+    source: "9to5Mac",
+    sourceUrl: "https://www.facebook.com/9to5mac/posts/openai-unveils-gpt54cyber-an-ai-model-for-defensive-cybersecurityopenai-has-anno/1526958385464187/",
+    href: "/news/news-164",
+  },
+  {
+    id: "news-163",
+    tag: "行业趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "White House 发布国家 AI 政策框架 — 涵盖儿童安全、知识产权、国家安全等七大领域",
+    summary: "白宫发布《国家人工智能政策框架》，涵盖儿童安全、AI 社区影响、知识产权、言论自由、创新、劳动力发展、国家安全七个核心领域。建议国会将 AI 培训纳入现有教育体系。",
+    content: `## 白宫国家 AI 政策框架：七大领域全面覆盖
+
+2026 年 3 月 20 日发布，4 月 8 日详细解读。
+
+**框架内容：**
+- 儿童安全：保护未成年人免受 AI 潜在风险
+- AI 社区影响：评估 AI 对社区的正面和负面影响
+- 知识产权：AI 生成内容的版权和专利保护
+- 言论自由：平衡 AI 内容审核与表达自由
+- 创新：鼓励 AI 技术研发和应用
+- 劳动力发展：将 AI 培训纳入教育体系
+- 国家安全：AI 在国防和安全领域的应用与管控
+
+**政策影响：**
+- 为 AI 行业提供明确的监管方向
+- 可能推动相关立法
+- 影响全球 AI 治理格局`,
+    date: "2026-04-15 14:02",
+    source: "Consumer Finance Monitor",
+    sourceUrl: "https://www.consumerfinancemonitor.com/2026/04/08/the-white-houses-national-policy-framework-for-artificial-intelligence-what-it-means-and-what-comes-next/",
+    href: "/news/news-163",
+  },
+  {
+    id: "news-162",
+    tag: "科技突破",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "AI 助力量子计算重大突破 — 未来十年 39% 概率量子计算机将变得「危险」",
+    summary: "Time Magazine 报道 AI 在量子计算领域的突破性贡献。AI 正在加速量子纠错和量子算法优化，2025 年调查显示未来十年有 39% 概率量子计算将变得足以威胁现有加密体系。",
+    content: `## AI × 量子计算：加速突破的时代
+
+2026 年 4 月 7 日，Time Magazine 深度报道。
+
+**关键发现：**
+- AI 帮助实现量子计算重大突破
+- 2025 年调查：39% 概率未来十年量子计算机将变得「危险」
+- AI 正在加速量子纠错和算法优化
+
+**趋势：**
+- AI 和量子计算正在交叉加速
+- 量子 AI 可能在未来 5-10 年成为新范式
+- 现有加密体系面临潜在威胁`,
+    date: "2026-04-15 14:02",
+    source: "Time Magazine",
+    sourceUrl: "https://time.com/article/2026/04/07/ai-quantum-computing-advance/",
+    href: "/news/news-162",
+  },
+  {
+    id: "news-161",
+    tag: "融资动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Sygaldry 融资 $1.39 亿打造量子加速 AI 服务器 — 量子计算与 AI 融合加速",
+    summary: "Sygaldry Technologies 在种子轮和 A 轮融资中获得 $1.39 亿，用于开发量子加速 AI 服务器。这是量子计算与 AI 融合趋势的最新标志性投资事件。",
+    content: `## Sygaldry $1.39 亿融资：量子加速 AI 服务器
+
+2026 年 4 月 14 日，The Quantum Insider 报道。
+
+**融资详情：**
+- 种子轮 + A 轮共 $1.39 亿
+- 用于开发量子加速 AI 服务器
+- 目标：利用量子计算加速 AI 推理和训练
+
+**行业意义：**
+- 量子 AI 赛道获得资本认可
+- 量子计算从实验室走向商业化
+- 可能催生新的 AI 计算范式`,
+    date: "2026-04-15 14:02",
+    source: "The Quantum Insider",
+    sourceUrl: "https://thequantuminsider.com/2026/04/14/sygaldry-raises-139-million-to-build-quantum-computers-for-ai/",
+    href: "/news/news-161",
+  },
+  {
+    id: "news-160",
+    tag: "行业动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Google 采用 Anthropic MCP 协议 — 与 OpenAI 共同推动 AI Agent 互联标准",
+    summary: "Google 宣布支持 Anthropic 的 Model Context Protocol (MCP)，与 OpenAI 共同推动该协议成为 AI Agent 互联的行业标准。MCP 让 AI 系统能够访问外部数据源，是 Agent 生态的关键基础设施。",
+    content: `## MCP 协议成为 AI Agent 互联标准
+
+2026 年 4 月，Google 通过 X 宣布支持 MCP 协议。
+
+**MCP 协议：**
+- 由 Anthropic 提出的 Model Context Protocol
+- 让 AI 系统（包括 Agent）访问外部数据源
+- Google 和 OpenAI 同时采用，标志成为行业标准
+
+**生态意义：**
+- AI Agent 互操作性大幅提升
+- 开发者可以构建跨平台的 Agent 应用
+- 推动 Agent 生态标准化`,
+    date: "2026-04-15 14:02",
+    source: "ZDNET",
+    sourceUrl: "https://www.zdnet.com/article/google-joins-openai-in-adopting-anthropics-protocol-for-connecting-ai-agents-why-it-matters/",
+    href: "/news/news-160",
+  },
+  {
+    id: "news-159",
+    tag: "商业应用",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "American Express 发布 AI 支付工具 — 为 AI Agent 提供支付能力与购买保护",
+    summary: "American Express 发布 AI 支付工具，允许开发者为 AI Agent 集成支付能力，并承诺如果 Agent 出错由 AmEx 承担损失。这是 AI Agent 商业化的重要里程碑。",
+    content: `## AmEx AI 支付：Agent 商业化的关键一步
+
+2026 年 4 月 14 日，Fortune 报道。
+
+**产品特性：**
+- 为 AI Agent 提供支付 API
+- AmEx 承诺承担 Agent 出错的损失
+- 开发者可以集成到各类 Agent 应用中
+
+**商业意义：**
+- AI Agent 从工具走向商业应用
+- 支付是 Agent 自主执行任务的关键能力
+- 金融机构正在积极布局 AI Agent 经济`,
+    date: "2026-04-15 14:02",
+    source: "Fortune",
+    sourceUrl: "https://fortune.com/2026/04/14/american-express-ai-payments-developers-purchase-protection/",
+    href: "/news/news-159",
+  },
+  {
     id: "news-158",
     tag: "安全动态",
     tagColor: "bg-red-500/10 text-red-300",
