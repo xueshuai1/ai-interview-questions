@@ -6,6 +6,7 @@ import { tools, toolCategories, Tool } from "@/data/tools";
 import githubStars from "@/data/github-stars.json";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import CategoryFilter from "@/components/CategoryFilter";
 
 // Merge GitHub stars + AlternativeTo likes into tools
 const toolsWithPopularity: Tool[] = tools.map(t => {
@@ -111,7 +112,6 @@ export default function ToolsPage() {
       return matchCategory && matchSearch;
     });
 
-    // 按 GitHub stars 排序：有 stars 的在前（降序），没有 stars 的排最后
     if (sortBy === "stars") {
       result = [...result].sort((a, b) => {
         const aStars = a.githubStars != null && a.githubStars > 0 ? a.githubStars : 0;
@@ -123,7 +123,6 @@ export default function ToolsPage() {
     return result;
   }, [activeCategory, searchQuery, sortBy]);
 
-  // Reset page when filters change
   const totalPages = Math.max(1, Math.ceil(filteredTools.length / TOOLS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
   const paginatedTools = filteredTools.slice(
@@ -131,13 +130,17 @@ export default function ToolsPage() {
     safePage * TOOLS_PER_PAGE
   );
 
-  const handleFilterChange = () => {
-    setCurrentPage(1);
-  };
+  const handleFilterChange = () => setCurrentPage(1);
+
+  const categoryData = toolCategories.map((c) => ({
+    key: c.key,
+    icon: c.icon,
+    label: c.label,
+    count: c.key === "all" ? toolsWithPopularity.length : toolsWithPopularity.filter((t) => t.category === c.key).length,
+  }));
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
-      {/* Navigation */}
       <Navbar activePath="/tools" />
 
       {/* Hero */}
@@ -152,10 +155,10 @@ export default function ToolsPage() {
         </div>
       </section>
 
-      {/* Search & Filter */}
+      {/* Search */}
       <section className="px-4 sm:px-6 lg:px-8 pb-6">
         <div className="max-w-5xl mx-auto">
-          <div className="relative mb-6">
+          <div className="relative">
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
@@ -173,6 +176,7 @@ export default function ToolsPage() {
       {/* Tools Grid */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
+          {/* Filter Bar */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               找到 <span className="text-brand-400 font-medium">{filteredTools.length}</span> 个工具
@@ -181,28 +185,17 @@ export default function ToolsPage() {
               )}
             </p>
             <div className="flex items-center gap-2">
-              {/* Category Filter Dropdown */}
-              <select
-                value={activeCategory}
-                onChange={(e) => { setActiveCategory(e.target.value); handleFilterChange(); }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
-              >
-                {toolCategories.map((c) => {
-                  const count = c.key === "all" ? toolsWithPopularity.length : toolsWithPopularity.filter((t) => t.category === c.key).length;
-                  return (
-                    <option key={c.key} value={c.key}>
-                      {c.icon} {c.label} ({count})
-                    </option>
-                  );
-                })}
-              </select>
-              {/* Sort Dropdown */}
+              <CategoryFilter
+                categories={categoryData}
+                activeCategory={activeCategory}
+                onChange={(key) => { setActiveCategory(key); handleFilterChange(); }}
+              />
               <select
                 value={sortBy}
                 onChange={(e) => { setSortBy(e.target.value as typeof sortBy); setCurrentPage(1); }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
               >
-                <option value="default">默认排序</option>
+                <option value="default">排序</option>
                 <option value="stars">⭐ 热门（stars 降序）</option>
               </select>
             </div>
@@ -210,44 +203,44 @@ export default function ToolsPage() {
 
           {filteredTools.length > 0 ? (
             <>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 overflow-hidden">
-              {paginatedTools.map((tool) => (
-                <ToolCard key={tool.id} tool={tool} />
-              ))}
-            </div>
-
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-10">
-                <button
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={safePage === 1}
-                  className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                >
-                  ← 上一页
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
-                      page === safePage
-                        ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
-                        : "bg-white/5 border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white"
-                    }`}
-                  >
-                    {page}
-                  </button>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 overflow-hidden">
+                {paginatedTools.map((tool) => (
+                  <ToolCard key={tool.id} tool={tool} />
                 ))}
-                <button
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  disabled={safePage === totalPages}
-                  className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                >
-                  下一页 →
-                </button>
               </div>
-            )}
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-10">
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    disabled={safePage === 1}
+                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  >
+                    ← 上一页
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${
+                        page === safePage
+                          ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
+                          : "bg-white/5 border border-white/10 text-slate-400 hover:bg-white/10 hover:text-white"
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                    disabled={safePage === totalPages}
+                    className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-medium text-slate-400 hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  >
+                    下一页 →
+                  </button>
+                </div>
+              )}
             </>
           ) : (
             <div className="text-center py-20">
@@ -255,12 +248,7 @@ export default function ToolsPage() {
               <h3 className="text-xl font-semibold text-slate-300 mb-2">没有找到相关工具</h3>
               <p className="text-slate-500">试试其他关键词或切换分类</p>
               <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("all");
-                  setSortBy("default");
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSearchQuery(""); setActiveCategory("all"); setSortBy("default"); setCurrentPage(1); }}
                 className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all"
               >
                 重置筛选

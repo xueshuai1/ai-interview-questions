@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { news } from "@/data/news";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import CategoryFilter from "@/components/CategoryFilter";
 
 const NEWS_PER_PAGE = 9;
 
@@ -15,7 +16,6 @@ function getLast3DaysNews() {
   threeDaysAgo.setHours(0, 0, 0, 0);
 
   return news.filter((n) => {
-    // date 格式: "YYYY-MM-DD" 或 "YYYY-MM-DD HH:mm"，取日期部分
     const datePart = n.date.split(" ")[0];
     const d = new Date(datePart + "T00:00:00");
     return d >= threeDaysAgo;
@@ -24,7 +24,6 @@ function getLast3DaysNews() {
 
 function formatNewsTime(dateStr: string): string {
   const now = new Date();
-  // 支持两种格式："YYYY-MM-DD HH:mm" 和 "YYYY-MM-DD"
   const parts = dateStr.split(" ");
   const d = parts.length === 2
     ? new Date(parts[0] + "T" + parts[1] + ":00")
@@ -42,18 +41,28 @@ function formatNewsTime(dateStr: string): string {
   return dateStr;
 }
 
+// Tag icon mapping
+const tagIcons: Record<string, string> = {
+  "行业动态": "📡",
+  "政策法规": "⚖️",
+  "学术研究": "🔬",
+  "产品发布": "🚀",
+  "企业动态": "🏢",
+  "安全隐私": "🔒",
+  "军事AI": "🎖️",
+  "AI伦理": "🤝",
+};
+
 export default function NewsPage() {
   const recentNews = useMemo(() => getLast3DaysNews(), []);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTag, setActiveTag] = useState<string>("全部");
 
-  // 获取所有标签
   const allTags = useMemo(() => {
     const tags = Array.from(new Set(recentNews.map(n => n.tag)));
     return ["全部", ...tags.sort()];
   }, [recentNews]);
 
-  // 按标签筛选
   const filteredNews = useMemo(() => {
     if (activeTag === "全部") return recentNews;
     return recentNews.filter(n => n.tag === activeTag);
@@ -64,7 +73,6 @@ export default function NewsPage() {
     [filteredNews]
   );
 
-  // 切换标签时重置页码
   const handleTagChange = (tag: string) => {
     setActiveTag(tag);
     setCurrentPage(1);
@@ -74,6 +82,13 @@ export default function NewsPage() {
   const safePage = Math.min(currentPage, totalPages);
   const startIndex = (safePage - 1) * NEWS_PER_PAGE;
   const paginatedNews = sortedNews.slice(startIndex, startIndex + NEWS_PER_PAGE);
+
+  const tagCategoryData = allTags.map((tag) => ({
+    key: tag,
+    icon: tag === "全部" ? "🏷️" : (tagIcons[tag] || "📌"),
+    label: tag,
+    count: tag === "全部" ? recentNews.length : recentNews.filter((n) => n.tag === tag).length,
+  }));
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
@@ -99,7 +114,7 @@ export default function NewsPage() {
       {/* News List */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
-          {/* Tag Filter & Stats */}
+          {/* Filter Bar */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               最近 3 天 <span className="text-brand-400 font-medium">{filteredNews.length}</span> 条动态
@@ -108,15 +123,11 @@ export default function NewsPage() {
               )}
             </p>
             {allTags.length > 1 && (
-              <select
-                value={activeTag}
-                onChange={(e) => handleTagChange(e.target.value)}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
-              >
-                {allTags.map(tag => (
-                  <option key={tag} value={tag}>{tag}</option>
-                ))}
-              </select>
+              <CategoryFilter
+                categories={tagCategoryData}
+                activeCategory={activeTag}
+                onChange={handleTagChange}
+              />
             )}
           </div>
 
@@ -134,7 +145,6 @@ export default function NewsPage() {
                   href={item.href}
                   className="group flex flex-col sm:flex-row gap-5 p-5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-brand-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-500/5"
                 >
-                  {/* Content */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                       <span className={`px-2.5 py-0.5 ${item.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-xs font-medium`}>
@@ -168,32 +178,17 @@ export default function NewsPage() {
               >
                 ← 上一页
               </button>
-
               <div className="flex items-center gap-1.5">
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                   const show =
                     page === 1 ||
                     page === totalPages ||
                     Math.abs(page - safePage) <= 1;
-                  const showEllipsisBefore =
-                    page === 2 && safePage > 3;
-                  const showEllipsisAfter =
-                    page === totalPages - 1 && safePage < totalPages - 2;
-
+                  const showEllipsisBefore = page === 2 && safePage > 3;
+                  const showEllipsisAfter = page === totalPages - 1 && safePage < totalPages - 2;
                   if (!show) return null;
-                  if (showEllipsisBefore)
-                    return (
-                      <span key="ellipsis-before" className="px-1 text-slate-600">
-                        …
-                      </span>
-                    );
-                  if (showEllipsisAfter)
-                    return (
-                      <span key="ellipsis-after" className="px-1 text-slate-600">
-                        …
-                      </span>
-                    );
-
+                  if (showEllipsisBefore) return <span key="eb" className="px-1 text-slate-600">…</span>;
+                  if (showEllipsisAfter) return <span key="ea" className="px-1 text-slate-600">…</span>;
                   const isActive = page === safePage;
                   return (
                     <button
@@ -210,7 +205,6 @@ export default function NewsPage() {
                   );
                 })}
               </div>
-
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={safePage === totalPages}

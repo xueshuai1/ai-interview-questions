@@ -5,6 +5,7 @@ import { useState, useMemo } from "react";
 import { blogs } from "@/data/blogs";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import CategoryFilter from "@/components/CategoryFilter";
 
 const blogPosts = blogs
   .map((b) => ({
@@ -19,7 +20,22 @@ const blogPosts = blogs
   }))
   .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0));
 
-const blogCategories = ["全部", ...Array.from(new Set(blogs.flatMap((b) => b.tags.slice(0, 1))))];
+// Build categories with icons (map from tag name)
+const categoryIcons: Record<string, string> = {
+  "行业洞察": "💡",
+  "技术对比": "⚖️",
+  "实战经验": "🛠️",
+  "前沿动态": "🚀",
+  "论文解读": "📄",
+  "教程指南": "📖",
+};
+
+const blogCategoryData = ["全部", ...Array.from(new Set(blogs.flatMap((b) => b.tags.slice(0, 1))))].map((cat) => ({
+  key: cat,
+  icon: cat === "全部" ? "🏷️" : (categoryIcons[cat] || "📌"),
+  label: cat,
+  count: cat === "全部" ? blogPosts.length : blogPosts.filter((p) => p.category === cat).length,
+}));
 
 const POSTS_PER_PAGE = 9;
 
@@ -61,6 +77,7 @@ export default function BlogPage() {
       {/* Blog Posts */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
+          {/* Filter Bar */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               找到 <span className="text-brand-400 font-medium">{filteredPosts.length}</span> 篇文章
@@ -68,16 +85,13 @@ export default function BlogPage() {
                 <span>，第 <span className="text-brand-400 font-medium">{safePage}</span> / {totalPages} 页</span>
               )}
             </p>
-            <select
-              value={activeCategory}
-              onChange={(e) => handleCategoryChange(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
-            >
-              {blogCategories.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
+            <CategoryFilter
+              categories={blogCategoryData}
+              activeCategory={activeCategory}
+              onChange={handleCategoryChange}
+            />
           </div>
+
           <div className="space-y-6">
             {paginatedPosts.map((post, index) => (
               <Link

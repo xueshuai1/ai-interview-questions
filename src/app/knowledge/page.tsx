@@ -7,9 +7,9 @@ import { LAST_UPDATE_TIME } from "@/data/update-time";
 import ArticleCard from "@/components/ArticleCard";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import CategoryFilter from "@/components/CategoryFilter";
 
 const PAGE_SIZE = 9;
-
 const levelOrder: Record<string, number> = { 入门: 1, 进阶: 2, 高级: 3 };
 
 export default function KnowledgePage() {
@@ -20,8 +20,7 @@ export default function KnowledgePage() {
 
   const filteredArticles = useMemo(() => {
     let result = articles.filter((a) => {
-      const matchCategory =
-        activeCategory === "all" || a.category === activeCategory;
+      const matchCategory = activeCategory === "all" || a.category === activeCategory;
       const matchSearch =
         !searchQuery ||
         a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -37,13 +36,11 @@ export default function KnowledgePage() {
     return result;
   }, [activeCategory, searchQuery, sortBy]);
 
-  // Reset page when filters change
   const handleFilterChange = (setter: (v: string) => void, value: string) => {
     setter(value);
     setCurrentPage(1);
   };
 
-  // Paginated articles
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / PAGE_SIZE));
   const safePage = Math.min(currentPage, totalPages);
   const paginatedArticles = filteredArticles.slice(
@@ -51,9 +48,15 @@ export default function KnowledgePage() {
     safePage * PAGE_SIZE
   );
 
+  const categoryData = categories.map((c) => ({
+    key: c.key,
+    icon: c.icon,
+    label: c.label,
+    count: c.key === "all" ? articles.length : articles.filter((a) => a.category === c.key).length,
+  }));
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-brand-950 text-white">
-      {/* Navigation */}
       <Navbar activePath="/knowledge" />
 
       {/* Hero */}
@@ -90,6 +93,7 @@ export default function KnowledgePage() {
       {/* Articles Grid */}
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
+          {/* Filter Bar */}
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">
               找到 <span className="text-brand-400 font-medium">{filteredArticles.length}</span> 篇文章
@@ -98,30 +102,19 @@ export default function KnowledgePage() {
               )}
             </p>
             <div className="flex items-center gap-2">
-              {/* Category Filter Dropdown */}
-              <select
-                value={activeCategory}
-                onChange={(e) => { handleFilterChange(setActiveCategory, e.target.value); }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
-              >
-                {categories.map((c) => {
-                  const count = c.key === "all" ? articles.length : articles.filter((a) => a.category === c.key).length;
-                  return (
-                    <option key={c.key} value={c.key}>
-                      {c.icon} {c.label} ({count})
-                    </option>
-                  );
-                })}
-              </select>
-              {/* Sort Dropdown */}
+              <CategoryFilter
+                categories={categoryData}
+                activeCategory={activeCategory}
+                onChange={(key) => handleFilterChange(setActiveCategory, key)}
+              />
               <select
                 value={sortBy}
                 onChange={(e) => { setSortBy(e.target.value as typeof sortBy); setCurrentPage(1); }}
                 className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
               >
-                <option value="default">默认排序</option>
-                <option value="level-asc">难度 ↑ 入门→高级</option>
-                <option value="level-desc">难度 ↓ 高级→入门</option>
+                <option value="default">排序</option>
+                <option value="level-asc">难度 ↑</option>
+                <option value="level-desc">难度 ↓</option>
               </select>
             </div>
           </div>
@@ -144,32 +137,17 @@ export default function KnowledgePage() {
                   >
                     ← 上一页
                   </button>
-
                   <div className="flex items-center gap-1.5">
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                       const show =
                         page === 1 ||
                         page === totalPages ||
                         Math.abs(page - safePage) <= 1;
-                      const showEllipsisBefore =
-                        page === 2 && safePage > 3;
-                      const showEllipsisAfter =
-                        page === totalPages - 1 && safePage < totalPages - 2;
-
+                      const showEllipsisBefore = page === 2 && safePage > 3;
+                      const showEllipsisAfter = page === totalPages - 1 && safePage < totalPages - 2;
                       if (!show) return null;
-                      if (showEllipsisBefore)
-                        return (
-                          <span key="ellipsis-before" className="px-1 text-slate-600">
-                            …
-                          </span>
-                        );
-                      if (showEllipsisAfter)
-                        return (
-                          <span key="ellipsis-after" className="px-1 text-slate-600">
-                            …
-                          </span>
-                        );
-
+                      if (showEllipsisBefore) return <span key="eb" className="px-1 text-slate-600">…</span>;
+                      if (showEllipsisAfter) return <span key="ea" className="px-1 text-slate-600">…</span>;
                       const isActive = page === safePage;
                       return (
                         <button
@@ -186,7 +164,6 @@ export default function KnowledgePage() {
                       );
                     })}
                   </div>
-
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={safePage === totalPages}
@@ -203,11 +180,7 @@ export default function KnowledgePage() {
               <h3 className="text-xl font-semibold text-slate-300 mb-2">没有找到相关文章</h3>
               <p className="text-slate-500">试试其他关键词或切换分类</p>
               <button
-                onClick={() => {
-                  setSearchQuery("");
-                  setActiveCategory("all");
-                  setCurrentPage(1);
-                }}
+                onClick={() => { setSearchQuery(""); setActiveCategory("all"); setCurrentPage(1); }}
                 className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all"
               >
                 重置筛选

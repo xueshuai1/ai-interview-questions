@@ -143,6 +143,7 @@ async function main() {
     }
   } else {
     console.log('No GITHUB_TOKEN set, using REST API (slower, rate-limited)');
+    let rateLimitHits = 0;
     for (const repo of repos) {
       console.log(`Fetching ${repo.id}...`);
       const data = await fetchStarREST(repo.owner, repo.repo);
@@ -155,12 +156,15 @@ async function main() {
           fetchedAt: new Date().toISOString(),
         };
         console.log(`  ✅ ${repo.id}: ${data.stargazerCount.toLocaleString()} ⭐`);
+        rateLimitHits = 0;
       } else {
         console.log(`  ⚠️ ${repo.id}: failed`);
         errors.push(repo.id);
+        rateLimitHits++;
       }
-      // GitHub REST API: 60 req/hr without token, wait 65s between requests
-      await new Promise(r => setTimeout(r, 65000));
+      // Adaptive delay: start at 2s, increase on consecutive failures
+      const delayMs = rateLimitHits > 0 ? Math.min(rateLimitHits * 10000, 70000) : 2000;
+      await new Promise(r => setTimeout(r, delayMs));
     }
   }
 
