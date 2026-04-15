@@ -44,13 +44,16 @@ function formatNewsTime(dateStr: string): string {
 // Tag icon mapping
 const tagIcons: Record<string, string> = {
   "行业动态": "📡",
-  "政策法规": "⚖️",
+  "AI 安全": "🔒",
+  "AI 工具": "🛠️",
   "学术研究": "🔬",
-  "产品发布": "🚀",
-  "企业动态": "🏢",
-  "安全隐私": "🔒",
-  "军事AI": "🎖️",
-  "AI伦理": "🤝",
+  "公司动态": "🏢",
+  "产品动态": "📦",
+  "模型发布": "🧠",
+  "AI 硬件": "🤖",
+  "融资": "💰",
+  "AI 框架": "🏗️",
+  "军事科技": "🎖️",
 };
 
 export default function NewsPage() {
