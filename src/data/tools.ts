@@ -1622,4 +1622,14 @@ export const tools: Tool[] = [
     price: "免费",
     icon: "💻",
   },
+  {
+    id: "n8n",
+    name: "n8n",
+    category: "agent",
+    description: "公平代码工作流自动化平台，原生 AI 能力。结合可视化构建与自定义代码，支持自托管和云端部署，400+ 集成。GitHub 本周增长 1,406 stars，总计 184K stars，是最受欢迎的开源工作流自动化平台之一",
+    url: "https://github.com/n8n-io/n8n",
+    tags: ["工作流自动化", "开源", "AI 集成", "400+ 集成"],
+    price: "开源",
+    icon: "⚡",
+  },
 ];
