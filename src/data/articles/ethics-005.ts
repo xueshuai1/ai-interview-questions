@@ -336,7 +336,7 @@ for epoch in range(num_epochs):
     P->>R: 计算 KL 散度约束
     R-->>P: 防止偏离太远
     P->>P: PPO 策略更新
-    Note over P: 生成更符合<br/>人类偏好的输出`,
+    Note over P: 生成更符合<br>人类偏好的输出`,
             tip: "KL 系数是 RLHF 中最重要的超参数之一。太大则模型几乎不变化，太小则可能奖励黑客。通常从 0.1 开始调。",
             warning: "RLHF 可能让模型变得过度讨好（sycophancy）——模型学会附和用户的错误观点而非纠正它们。这是当前的研究热点。"
         },

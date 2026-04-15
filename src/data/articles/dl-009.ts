@@ -224,17 +224,17 @@ for drop_rate in [0.0, 0.3, 0.5]:
           ],
         },
         mermaid: `graph LR
-    A["输入层"] --> B["隐藏层 1<br/>Dropout p=0.2"]
-    B --> C["隐藏层 2<br/>Dropout p=0.5"]
-    C --> D["隐藏层 3<br/>Dropout p=0.5"]
-    D --> E["输出层<br/>无 Dropout"]
+    A["输入层"] --> B["隐藏层 1<br>Dropout p=0.2"]
+    B --> C["隐藏层 2<br>Dropout p=0.5"]
+    C --> D["隐藏层 3<br>Dropout p=0.5"]
+    D --> E["输出层<br>无 Dropout"]
     
     subgraph "训练时"
         F["随机选择 50% 神经元置零"]
     end
     
     subgraph "推理时"
-        G["所有神经元激活<br/>Inverted Dropout 无需调整"]
+        G["所有神经元激活<br>Inverted Dropout 无需调整"]
     end
     
     style F fill:#fff3e0
@@ -371,7 +371,7 @@ train_with_and_without_bn()`,
     D --> E["缩放偏移: y = γ · x̂ + β"]
     E --> F["输出到下一层"]
     
-    G["移动平均更新<br/>running_mean<br/>running_var"] -.-> B
+    G["移动平均更新<br>running_mean<br>running_var"] -.-> B
     G -.-> C
     
     style D fill:#bbdefb
@@ -504,13 +504,13 @@ for mode in ["Pre-LN", "Post-LN"]:
         A1["样本1 [c1, c2, c3]"] --> BN
         A2["样本2 [c1, c2, c3]"] --> BN
         A3["样本3 [c1, c2, c3]"] --> BN
-        BN["沿 batch 维度<br/>统计每个特征"]
+        BN["沿 batch 维度<br>统计每个特征"]
     end
     
     subgraph "Layer Normalization"
         direction LR
         B1["样本1 [c1, c2, c3]"] --> LN
-        LN["沿特征维度<br/>统计每个样本"]
+        LN["沿特征维度<br>统计每个样本"]
     end
     
     style BN fill:#bbdefb
@@ -616,8 +616,8 @@ print("  - Mask R-CNN + GN 比 + BN 在 COCO 上 mAP 高 2-3%")`,
         mermaid: `graph LR
     A["归一化方法选择"] --> B{"任务类型"}
     
-    B -->|"图像分类<br/>大 batch"| C["BatchNorm"]
-    B -->|"检测/分割<br/>小 batch"| D["GroupNorm"]
+    B -->|"图像分类<br>大 batch"| C["BatchNorm"]
+    B -->|"检测/分割<br>小 batch"| D["GroupNorm"]
     B -->|"风格迁移"| E["InstanceNorm"]
     B -->|"序列模型"| F["LayerNorm"]
     B -->|"分布式训练"| G["SyncBN"]
@@ -750,8 +750,8 @@ print(f"  差异:   {np.linalg.norm(w1 - w2):.6f}")`,
     C --> E["L2: λ/2·w²"]
     C --> F["Elastic Net: α·L1 + (1-α)·L2"]
     
-    D --> G["稀疏解<br/>特征选择"]
-    E --> H["小权重<br/>泛化更好"]
+    D --> G["稀疏解<br>特征选择"]
+    E --> H["小权重<br>泛化更好"]
     F --> I["兼顾稀疏和小权重"]
     
     style E fill:#c8e6c9
@@ -912,9 +912,9 @@ for arch in ["ResNet (CNN)", "Transformer (NLP)", "Vision Transformer", "RNN/LST
     B -->|"RNN/LSTM"| E["LayerNorm + 层间 Dropout"]
     B -->|"小全连接网络"| F["Dropout (0.5) + L2"]
     
-    C --> G["数据增强<br/>Cosine LR"]
-    D --> H["Warmup + 强数据增强<br/>Mixup/CutMix"]
-    E --> I["梯度裁剪<br/>ReduceLROnPlateau"]
+    C --> G["数据增强<br>Cosine LR"]
+    D --> H["Warmup + 强数据增强<br>Mixup/CutMix"]
+    E --> I["梯度裁剪<br>ReduceLROnPlateau"]
     F --> J["早停 Early Stopping"]
     
     style C fill:#c8e6c9

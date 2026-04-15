@@ -478,11 +478,11 @@ for head_idx, children in adj.items():
                 ],
             },
             mermaid: `graph TD
-    A["句子结构分析"] --> B["成分分析<br/>Constituency"]
-    A --> C["依存分析<br/>Dependency"]
-    B --> D["短语递归<br/>NP/VP/PP"]
+    A["句子结构分析"] --> B["成分分析<br>Constituency"]
+    A --> C["依存分析<br>Dependency"]
+    B --> D["短语递归<br>NP/VP/PP"]
     B --> E["Penn Treebank"]
-    C --> F["二元关系<br/>head-dependent"]
+    C --> F["二元关系<br>head-dependent"]
     C --> G["Universal Dependencies"]
     D --> H["优点：短语边界清晰"]
     E --> I["缺点：标注成本高"]

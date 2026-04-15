@@ -429,7 +429,7 @@ print(f"FFN 参数量: {sum(p.numel() for p in ffn.parameters()):,}")`,
         mermaid: `graph TD
     A["选择序列模型"] --> B{"序列长度？"}
     B -->|< 512| C{"需要什么能力？"}
-    B -->|> 4096| D["高效 Transformer<br/>Flash Attention / Linear Attn"]
+    B -->|> 4096| D["高效 Transformer<br>Flash Attention / Linear Attn"]
     B -->|512-4096| E["标准 Transformer"]
     C -->|"流式/低延迟"| F["RNN/LSTM"]
     C -->|"局部模式"| G["CNN / Convolutions"]
