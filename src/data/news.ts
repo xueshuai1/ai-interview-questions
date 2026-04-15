@@ -16,6 +16,178 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-139",
+    tag: "公司动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/openai.jpg",
+    title: "OpenAI 发布「企业 AI 下一阶段」计划 — 推动大规模企业 AI 部署与行业整合",
+    summary: "OpenAI 发表长文阐述企业 AI 的下一阶段发展路径，强调从单点应用向全企业级 AI 基础设施转型。涵盖多代理编排、行业定制模型、安全合规框架和数据治理体系。",
+    content: `## OpenAI 企业 AI 下一阶段：从单点应用到全企业基础设施
+
+2026 年 4 月 8 日，OpenAI 发布「企业 AI 下一阶段」战略文件。
+
+**核心方向：**
+- 从单点 AI 应用向全企业级 AI 基础设施转型
+- 多代理编排：多个 AI 代理协同完成复杂业务流程
+- 行业定制模型：针对金融、医疗、制造等垂直行业训练专用模型
+- 安全合规框架：内置数据治理、审计追踪和合规检查
+
+**行业整合趋势：**
+- OpenAI 正在推动企业从「试用 AI」走向「全面部署 AI」
+- 强调 AI 不是替代人类，而是增强整个组织的协作效率
+- 安全合规被提升到与功能同等重要的地位
+
+**竞争格局：**
+- Google Cloud 和 Microsoft Azure 都在推类似的企业 AI 平台
+- Anthropic Claude Enterprise 也在争夺大型企业客户
+- 企业 AI 市场正从「谁能做出好模型」转向「谁能做好企业级交付」` ,
+    date: "2026-04-15 10:16",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/next-phase-of-enterprise-ai/",
+    href: "/news/news-139",
+  },
+  {
+    id: "news-140",
+    tag: "行业趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/industry.jpg",
+    title: "Anthropic 公开反对 OpenAI 支持的极端 AI 责任法案 — 两大巨头立场分裂",
+    summary: "WIRED 报道揭示 Anthropic 与 OpenAI 在 AI 责任立法上的根本分歧：OpenAI 支持限制 AI 公司责任豁免的法案，Anthropic 认为该法案过于极端，会阻碍安全研究和技术进步。这标志着 AI 行业内部首次公开在监管问题上产生分裂。",
+    content: `## AI 巨头的监管分裂：OpenAI 与 Anthropic 的立场对决
+
+2026 年 4 月，WIRED 报道了 AI 行业在责任立法问题上的重大分歧。
+
+**OpenAI 的立场：**
+- 支持一项限制 AI 公司责任的法案
+- 该法案可能豁免 AI 企业在某些场景下的法律责任
+- 包括「AI _enabled 大规模死亡或金融灾难」场景下的责任豁免
+
+**Anthropic 的反对：**
+- 公开批评该法案为「极端 AI 责任法案」
+- 认为过度豁免会削弱企业的安全投入动力
+- 主张 AI 公司应对其模型的输出和行为承担合理责任
+
+**行业影响：**
+- 这是 AI 行业内部首次在监管问题上公开分裂
+- 可能导致国会立法进程更加复杂
+- 反映了 OpenAI 和 Anthropic 在商业策略上的根本差异
+
+**深层意义：**
+AI 责任立法正在成为 2026 年最重要的科技政策议题之一。两大巨头的对立表明，行业自我监管的共识正在破裂，政府监管的必要性日益凸显。` ,
+    date: "2026-04-15 10:16",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/anthropic-opposes-the-extreme-ai-liability-bill-that-openai-backed/",
+    href: "/news/news-140",
+  },
+  {
+    id: "news-141",
+    tag: "军事科技",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/security.jpg",
+    title: "美国陆军开发「Victor」AI 战斗聊天机器人 — 为士兵提供战场决策支持",
+    summary: "WIRED 报道美国陆军正在开发名为「Victor」的 AI 聊天机器人系统，旨在为战场士兵提供实时决策支持。这是军事 AI 从后勤保障走向前线作战的标志性进展，引发关于 AI 武器化和伦理的广泛讨论。",
+    content: `## 美国陆军 Victor AI：战场上的 AI 助手
+
+2026 年 4 月，WIRED 独家报道美国陆军的「Victor」AI 战斗系统。
+
+**Victor 系统功能：**
+- 为士兵提供实时战场决策支持
+- AI 聊天界面，士兵可通过自然语言询问战术建议
+- 整合情报数据、地形分析和敌情评估
+- 目标是减少士兵在高压环境下的决策时间
+
+**开发背景：**
+- 美国陆军正在加速 AI 在军事领域的应用
+- 从后勤优化走向前线作战支持
+- 与 DARPA、国防承包商合作开发
+
+**伦理争议：**
+- AI 在战场决策中的角色引发广泛伦理讨论
+- 关键问题：AI 建议的可靠性如何验证？
+- 责任归属：如果 AI 建议导致错误决策，谁负责？
+- 国际法是否适用于 AI 辅助军事行动？
+
+**行业背景：**
+- 全球军事 AI 投资正在快速增长
+- 中国、俄罗斯也在开发类似的军事 AI 系统
+- AI 武器化可能成为下一代军备竞赛的核心` ,
+    date: "2026-04-15 10:16",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/army-developing-ai-system-victor-chatbot-soldiers/",
+    href: "/news/news-141",
+  },
+  {
+    id: "news-142",
+    tag: "安全动态",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/security.jpg",
+    title: "Meta 暂停与 Mercor 合作 — AI 招聘平台数据泄露暴露行业机密",
+    summary: "Meta 宣布暂停与 AI 招聘平台 Mercor 的合作关系，原因是 Mercor 发生严重数据泄露，导致 AI 行业内部敏感信息暴露。事件涉及模型架构、训练数据和商业策略等核心机密，引发 AI 行业数据安全信任危机。",
+    content: `## Meta-Mercor 数据泄露：AI 行业机密安全警钟
+
+2026 年 4 月，WIRED 报道 Meta 因数据泄露事件暂停与 Mercor 的合作。
+
+**事件经过：**
+- AI 招聘平台 Mercor 发生严重数据泄露
+- 泄露内容包括 AI 行业的敏感信息：模型架构、训练数据、商业策略
+- Meta 率先宣布暂停合作关系
+- 多家 AI 公司可能受到影响
+
+**Mercor 背景：**
+- AI 驱动的招聘平台，专注于技术人才招聘
+- 使用 AI 评估候选人技能和匹配度
+- 服务于硅谷多家知名科技公司
+
+**行业影响：**
+- AI 公司的内部信息（模型架构、训练策略）通过招聘流程泄露
+- 暴露了 AI 行业在人才招聘环节的安全漏洞
+- 可能促使 AI 公司重新评估招聘流程中的信息安全管控
+
+**安全启示：**
+- AI 行业竞争白热化，核心机密成为高价值目标
+- 招聘平台可能成为供应链攻击的新入口
+- AI 公司需要加强人才流程中的信息分级和访问控制` ,
+    date: "2026-04-15 10:16",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/meta-pauses-work-with-mercor-after-data-breach-puts-ai-industry-secrets-at-risk/",
+    href: "/news/news-142",
+  },
+  {
+    id: "news-143",
+    tag: "工具发布",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Black Forest Labs — 70 人 AI 图像初创公司挑战硅谷巨头的图像生成帝国",
+    summary: "WIRED 深度报道 Black Forest Labs，这家仅 70 人的 AI 图像生成初创公司正在挑战 DALL-E、Midjourney 和 Stable Diffusion 的市场地位。凭借开源策略和技术创新，成为 AI 图像领域最具威胁的新玩家。",
+    content: `## Black Forest Labs：小团队挑战 AI 图像巨头
+
+2026 年 4 月，WIRED 发表 Black Forest Labs 深度报道。
+
+**公司概况：**
+- 仅 70 人的小型团队
+- 专注于 AI 图像生成技术
+- 直接挑战 OpenAI DALL-E、Midjourney、Stable Diffusion 等巨头
+
+**技术优势：**
+- 开源策略：部分模型开源，吸引开发者社区
+- 技术创新：在图像质量和生成速度上达到业界领先水平
+- 商业模式：提供商业授权和 API 服务
+
+**市场竞争：**
+- AI 图像生成市场已被 DALL-E、Midjourney 和 Stable Diffusion 瓜分
+- Black Forest Labs 凭借开源和技术差异化切入市场
+- 开源策略降低了中小企业使用 AI 图像生成的门槛
+
+**行业意义：**
+- 证明了小团队也能在 AI 图像领域与巨头竞争
+- 开源 vs 闭源的路线之争正在 AI 图像领域重演
+- AI 图像生成的创新门槛正在降低，更多玩家进入市场` ,
+    date: "2026-04-15 10:16",
+    source: "WIRED",
+    sourceUrl: "https://www.wired.com/story/black-forest-labs-ai-image-generation/",
+    href: "/news/news-143",
+  },
+  {
     id: "news-134",
     tag: "安全动态",
     tagColor: "bg-red-500/10 text-red-300",
