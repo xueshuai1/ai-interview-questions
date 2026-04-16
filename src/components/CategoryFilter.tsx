@@ -13,9 +13,11 @@ interface CategoryFilterProps {
   categories: CategoryItem[];
   activeCategory: string;
   onChange: (key: string) => void;
+  sortBy?: string;
+  onSortChange?: (sort: string) => void;
 }
 
-export default function CategoryFilter({ categories, activeCategory, onChange }: CategoryFilterProps) {
+export default function CategoryFilter({ categories, activeCategory, onChange, sortBy, onSortChange }: CategoryFilterProps) {
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -138,6 +140,35 @@ export default function CategoryFilter({ categories, activeCategory, onChange }:
                 );
               })}
             </div>
+
+            {/* Sort section (mobile only, inside panel) */}
+            {onSortChange && (
+              <div className="border-t border-white/5 px-4 py-2.5">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-widest">排序</span>
+                <div className="flex gap-2 mt-2">
+                  <button
+                    onClick={() => onSortChange("default")}
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      sortBy === "default"
+                        ? "bg-brand-500/20 text-brand-300"
+                        : "bg-white/5 text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    默认
+                  </button>
+                  <button
+                    onClick={() => onSortChange("stars")}
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                      sortBy === "stars"
+                        ? "bg-brand-500/20 text-brand-300"
+                        : "bg-white/5 text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    ⭐ 热门
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </>
       )}

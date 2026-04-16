@@ -247,14 +247,16 @@ export default function ToolsPage() {
                 categories={categoryData}
                 activeCategory={activeCategory}
                 onChange={(key) => { setActiveCategory(key); handleFilterChange(); }}
+                sortBy={sortBy}
+                onSortChange={(sort) => { setSortBy(sort as typeof sortBy); setCurrentPage(1); }}
               />
               <select
                 value={sortBy}
                 onChange={(e) => { setSortBy(e.target.value as typeof sortBy); setCurrentPage(1); }}
-                className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
+                className="hidden sm:block px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
               >
                 <option value="default">排序</option>
-                <option value="stars">⭐ 热门（stars 降序）</option>
+                <option value="stars">⭐ 热门</option>
               </select>
             </div>
           </div>
