@@ -16,6 +16,214 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-260",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Claude Code 桌面端重新设计：多 Agent 并行管理，侧边栏会话 + 拖拽布局 + 集成终端",
+    summary: "Anthropic 重新设计 Claude Code 桌面应用，新增侧边栏管理多个并行会话、拖拽布局自定义工作区、集成终端和文件编辑器、更快的 Diff 查看器，以及三种视图模式（详细/普通/摘要）。内置 SSH 支持（Mac + Linux），插件系统与 CLI 保持一致。面向 Pro、Max、Team、Enterprise 用户开放。",
+    content: `## Claude Code 桌面端重新设计：为多 Agent 并行而生
+
+2026 年 4 月 15 日，Anthropic 发布 Claude Code 桌面端重新设计。
+
+**核心理念：**
+- Agentic Coding 已从「单任务等待」变为「多任务并行编排」
+- 开发者需要在多个 repo 之间同时启动重构、修复、测试编写等工作
+- 新应用设计为「编排者」角色而非「操作者」角色
+
+**核心功能：**
+
+**1. 并行会话管理**
+- 新侧边栏集中展示所有活跃和近期会话
+- 按状态、项目或环境过滤
+- 按项目分组快速查找和恢复会话
+- 会话的 PR 合并或关闭后自动归档
+- 支持侧边聊天（⌘ + ; / Ctrl + ;），从主线程分支提问
+
+**2. 应用内审查与发布**
+- 集成终端：直接运行测试或构建
+- 应用内文件编辑器：打开文件、做临时编辑并保存
+- 更快的 Diff 查看器：针对大型变更集重建性能
+- 扩展预览：支持 HTML 文件和 PDF 在应用内查看
+- 所有面板支持拖拽排列
+
+**3. 与现有工具栈兼容**
+- 桌面应用与 CLI 插件完全兼容
+- 组织集中管理的插件在桌面端同样生效
+- 支持本地和云端会话运行
+- SSH 支持扩展至 Mac（此前仅 Linux）
+
+**4. 自定义工作模式**
+- 三种视图模式：详细（完整工具调用透明度）、普通、摘要（仅看结果）
+- 新键盘快捷键覆盖会话切换、生成和导航
+- 使用情况按钮显示上下文窗口和会话用量
+- 底层重写提升可靠性和速度，响应流式输出
+
+**行业意义：**
+- AI 编程工具从「单轮对话」进化到「多任务并行编排」
+- 开发者角色从「写代码」进一步转向「管理多个 AI Agent」
+- 与 Anthropic Agentic Coding 报告的趋势一致：软件工程正在变成 Agent 编排`,
+    date: "2026-04-16 20:01",
+    source: "Claude Blog",
+    sourceUrl: "https://claude.com/blog/claude-code-desktop-redesign",
+    href: "/news/news-260",
+  },
+  {
+    id: "news-259",
+    tag: "智能体平台",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/agent.jpg",
+    title: "SmolAgents 实战：用 HuggingFace 轻量框架搭建多 Agent 系统——代码执行、工具调用、动态编排一站式教程",
+    summary: "HuggingFace SmolAgents（v1.24.0）是极简 Agent 框架，支持 CodeAgent 和 ToolCallingAgent 两种范式。教程演示自定义工具构建、动态工具管理、多 Agent 编排（直接通过 managed_agents 传入子 Agent），以及内存存储、Web 搜索等能力。CodeAgent 执行循环：LLM 写 Python → 沙箱执行 → 观察结果 → 重复至 max_steps。",
+    content: `## SmolAgents 多 Agent 系统实战：轻量级 Agent 框架全解析
+
+2026 年 4 月 15 日，MarkTechPost 发布详细实战教程。
+
+**SmolAgents 核心架构：**
+- **Tool**：自定义工具的基本抽象
+- **agent.tools (dict)**：动态工具管理字典
+- **ToolCollection**：工具集合管理
+- **LiteLLMModel**：支持多种 LLM 后端
+- **CodeAgent**：LLM 写 Python 代码 → 沙箱执行 → 观察结果
+- **ToolCallingAgent**：LLM 直接调用工具
+
+**CodeAgent 执行循环：**
+1. 任务输入
+2. LLM 编写 Python 代码
+3. 沙箱执行代码
+4. 观察结果（工具输出或异常）
+5. 重复至 max_steps，然后调用 final_answer
+
+**多 Agent 编排（v1.8+ API）：**
+- 子 Agent 直接通过 managed_agents=[sub_agent] 传入
+- 子 Agent 初始化时需要设置 name= 和 description=
+- ManagedAgent 包装类已在 v1.8.0 移除，API 更简洁
+
+**自定义工具示例：**
+- 数学工具（质数检测、温度转换）
+- 内存存储工具
+- Web 搜索工具（DuckDuckGo）
+- Wikipedia 查询工具
+
+**行业意义：**
+- SmolAgents 代表「轻量级 Agent 框架」趋势
+- 与 LangChain 等重量级框架形成互补
+- CodeAgent 范式让 Agent 能够自主编写和执行代码
+- 多 Agent 编排降低了复杂系统的开发门槛`,
+    date: "2026-04-16 20:02",
+    source: "MarkTechPost",
+    sourceUrl: "https://www.marktechpost.com/2026/04/15/a-coding-implementation-to-build-multi-agent-ai-systems-with-smolagents-using-code-execution-tool-calling-and-dynamic-orchestration/",
+    href: "/news/news-259",
+  },
+  {
+    id: "news-258",
+    tag: "智能体平台",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/agent.jpg",
+    title: "Mem0 + OpenAI 构建 AI Agent 通用长期记忆层——结构化记忆提取、语义存储、智能检索、用户级隔离",
+    summary: "基于 Mem0（mem0ai）、OpenAI 模型和 ChromaDB 构建 AI Agent 的通用长期记忆系统。支持从自然对话中提取结构化记忆、语义存储、智能检索、个性化 Agent 响应集成。实现持久化用户级记忆、完整 CRUD 控制、多用户隔离和自定义配置，超越简单聊天历史，迈向上下文连续的智能化 Agent。",
+    content: `## Mem0 通用长期记忆层：让 AI Agent 拥有真正的记忆
+
+2026 年 4 月 15 日，MarkTechPost 发布详细教程。
+
+**核心架构：**
+- **LLM**：gpt-4.1-nano（OpenAI）
+- **向量存储**：ChromaDB（本地部署）
+- **嵌入模型**：text-embedding-3-small
+- **记忆框架**：Mem0（mem0ai）
+
+**核心能力：**
+
+**1. 结构化记忆提取**
+- 从自然对话中自动提取关键信息
+- 区分用户偏好、事实、兴趣等不同类型记忆
+- 示例：从对话中提取「Alice 是软件工程师、喜欢 Python 和 ML、使用 VS Code 暗色模式」
+
+**2. 语义存储与检索**
+- 基于向量相似度的语义搜索
+- 按 user_id 实现用户级隔离
+- 支持完整 CRUD 操作（增删改查）
+
+**3. 记忆增强 Agent**
+- 将检索到的记忆直接注入 Agent 上下文
+- 实现个性化响应，而非无状态的单次对话
+- 支持上下文连续性推理
+
+**技术栈：**
+- Mem0 负责记忆的提取、存储和检索
+- ChromaDB 提供本地向量存储
+- OpenAI 嵌入模型提供语义理解
+- OpenAI LLM 提供推理能力
+
+**行业意义：**
+- 长期记忆是 AI Agent 从「工具」到「助手」的关键差距
+- Mem0 提供了一种开箱即用的记忆层方案
+- 用户级隔离为多租户 Agent 系统奠定基础
+- 从「无状态对话」到「上下文连续」的范式转变`,
+    date: "2026-04-16 20:03",
+    source: "MarkTechPost",
+    sourceUrl: "https://www.marktechpost.com/2026/04/15/how-to-build-a-universal-long-term-memory-layer-for-ai-agents-using-mem0-and-openai/",
+    href: "/news/news-258",
+  },
+  {
+    id: "news-257",
+    tag: "大语言模型",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/llm.jpg",
+    title: "现代 LLM 训练全流程深潜：预训练 → SFT → LoRA/QLoRA → RLHF → GRPO → 部署，一文读懂每个阶段",
+    summary: "MarkTechPost 发布 LLM 训练完整技术指南，涵盖从预训练到部署的全部阶段：预训练学习语言规律、SFT 用标注数据调整行为、LoRA/QLoRA 实现参数高效微调、RLHF 对齐人类偏好、GRPO 增强结构化推理、最终优化部署。揭示现代 LLM 不只是单次训练，而是精心编排的多阶段流水线。",
+    content: `## 现代 LLM 训练全流程：从原始数据到生产级智能系统
+
+2026 年 4 月 15 日，MarkTechPost 发布技术深潜文章。
+
+**完整训练流水线：**
+
+**1. 预训练（Pre-Training）**
+- 在海量文本数据（书籍、网站、代码）上学习语言模式
+- 目标：通用理解能力（语法、上下文、推理、世界知识）
+- 方法：下一个 token 预测 / 掩码语言建模
+- 核心意义：定义模型的基础能力上限
+
+**2. 监督微调（SFT）**
+- 使用高质量标注数据集调整模型行为
+- 从原始文本学习转向任务特定学习
+- 让模型学会遵循指令、执行特定任务
+
+**3. LoRA（低秩适应）**
+- 参数高效微调技术
+- 只更新一小部分参数，而非全量微调
+- 大幅降低计算成本和存储需求
+
+**4. QLoRA（量化 LoRA）**
+- 在 LoRA 基础上加入量化
+- 进一步降低资源门槛
+- 让消费级 GPU 也能微调大模型
+
+**5. RLHF（人类反馈强化学习）**
+- 通过人类偏好对齐模型输出
+-  refinement 安全性、可用性和质量标准
+- 让模型输出更符合人类期望
+
+**6. GRPO（群组相对策略优化）**
+- 推理聚焦的最新优化方法
+- 增强结构化思维和多步骤问题解决能力
+- 提升模型的推理质量
+
+**7. 部署**
+- 模型优化、扩展和集成到真实系统
+- 推理加速、量化、服务化
+
+**行业意义：**
+- 现代 LLM 训练是多阶段精心编排的流水线
+- 每个阶段决定模型的不同维度能力
+- 理解全流程对于模型选择、微调和部署至关重要
+- LoRA/QLoRA 让定制化训练民主化`,
+    date: "2026-04-16 20:04",
+    source: "MarkTechPost",
+    sourceUrl: "https://www.marktechpost.com/2026/04/15/a-technical-deep-dive-into-the-essential-stages-of-modern-large-language-model-training-alignment-and-deployment/",
+    href: "/news/news-257",
+  },
+  {
     id: "news-221",
     tag: "开发工具",
     tagColor: "bg-green-500/10 text-green-300",
