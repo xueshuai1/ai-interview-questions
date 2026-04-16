@@ -239,7 +239,7 @@ const foundationRoute: RouteDef = {
 // 🛡️ AI 安全路线
 const securityRoute: RouteDef = {
   id: "security",
-  name: "AI 安全与防护",
+  name: "AI 安全与隐私",
   emoji: "🛡️",
   duration: "1-2 月",
   description: "学习 AI 伦理、隐私保护、对抗攻击与防御 — 守护 AI 世界的安全底线",
@@ -310,7 +310,7 @@ const securityRoute: RouteDef = {
 // 🔧 工程师路线
 const engineerRoute: RouteDef = {
   id: "engineer",
-  name: "AI 工程化与部署",
+  name: "AI 工程与部署",
   emoji: "🔧",
   duration: "2-4 月",
   description: "从模型训练到生产部署全流程 — 掌握 MLOps、模型优化与服务化",
@@ -395,7 +395,7 @@ const engineerRoute: RouteDef = {
 // 🎨 创意 AI 路线
 const creativeRoute: RouteDef = {
   id: "creative",
-  name: "AI 创意与内容生成",
+  name: "AI 内容创作",
   emoji: "🎨",
   duration: "1-2 月",
   description: "掌握 AI 绘画、音乐、视频生成技术 — 用 AI 释放创造力",
