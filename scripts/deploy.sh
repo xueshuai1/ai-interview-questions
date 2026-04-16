@@ -4,18 +4,12 @@
 
 MESSAGE=${1:-"update: 内容更新"}
 
-# 获取当前时间（北京时间）
-BJ_TIME=$(date +"%Y-%m-%d %H:%M")
-
-# 更新首页时间戳
-cat > src/data/update-time.ts << EOF
-// 此文件由部署脚本自动生成，记录最后内容更新时间
-export const LAST_UPDATE_TIME = "${BJ_TIME}";
-EOF
+# 使用统一的生成脚本更新时间
+node scripts/generate-update-time.mjs
 
 # git add + commit + push
 git add -A
 git commit -m "${MESSAGE}"
 git push
 
-echo "✅ 已更新首页时间为 ${BJ_TIME}，提交并推送完成"
+echo "✅ 提交并推送完成"
