@@ -18,7 +18,7 @@ export default function ReadingProgressBar() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 z-50 w-full">
+    <div className="fixed top-0 left-0 z-[60] w-full">
       {/* 进度条轨道 */}
       <div className="h-1 bg-brand-500/20 w-full">
         <div
