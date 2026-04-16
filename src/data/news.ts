@@ -5375,6 +5375,123 @@ Crawl4AI 是专为 AI Agent 设计的开源 Web 爬取框架。
     href: "/news/news-232",
   },
   {
+    id: "news-233",
+    tag: "强化学习",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/training.jpg",
+    title: "TEPO：将组级奖励链接到 Token 级聚合——数学推理训练收敛速度提升 50%，超越 GRPO/DAPO",
+    summary: "TEPO 提出新的 Token 级 RL 框架：(1) 利用序列级似然将组级奖励与单个 token 通过 Token 级聚合链接；(2) 引入 Token 级 KL 散度掩码约束，针对具有正优势和递减熵的 token，缓解策略突变。在数学推理基准上达到 SOTA，训练收敛时间比 GRPO/DAPO 减少 50%。（arXiv:2604.12736）",
+    content: `## TEPO：Token 级强化学习的数学推理加速
+
+2026 年 4 月 14 日，arXiv 发表论文（arXiv:2604.12736）。
+
+**核心问题：**
+- GRPO 和相关熵正则化方法在 Token 级稀疏奖励下表现不佳
+- 这是链式思维（CoT）推理的内在挑战
+- 无差别的 Token 级熵正则化容易导致熵崩溃或模型退化
+
+**TEPO 方案：**
+
+**1. 序列级似然链接组级奖励：**
+- 通过 Token 级聚合将组级奖励与单个 Token 关联
+- 每个 Token 获得与其对最终结果贡献匹配的奖励信号
+
+**2. Token 级 KL 散度掩码约束：**
+- 仅针对具有正优势和递减熵的 Token
+- 缓解策略突变，提升训练稳定性
+
+**实验结果：**
+- 数学推理基准上达到 **SOTA**
+- 训练收敛时间比 GRPO/DAPO **减少 50%**
+- 显著提升训练稳定性
+
+**行业意义：**
+- GRPO 的 Token 级改进方向
+- 为 CoT 推理训练提供更稳定的优化路径
+- 50% 收敛加速对大规模训练有实际意义
+`,
+    date: "2026-04-16 10:16",
+    source: "arXiv 2604.12736",
+    sourceUrl: "https://arxiv.org/abs/2604.12736",
+    href: "/news/news-233",
+  },
+  {
+    id: "news-234",
+    tag: "知识图谱",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/knowledge.jpg",
+    title: "RALP：用 Chain-of-Thought Prompt 预测知识图谱实体、关系和字面量——无需梯度访问，30 个样本即可学习",
+    summary: "RALP 将知识图谱链接预测重构为 Prompt 学习问题，学习基于字符串的 CoT Prompt 作为三元组评分函数。使用 MIPRO 算法的贝叶斯优化，无需梯度访问即可从少于 30 个训练样本中识别有效 Prompt。在转换、数值和 OWL 实例检索基准上，RALP 比 SOTA KGE 模型提升超过 5% MRR。（arXiv:2604.12651）",
+    content: `## RALP：Prompt 驱动的知识图谱推理
+
+2026 年 4 月 14 日，arXiv 发表论文（arXiv:2604.12651）。
+
+**核心问题：**
+- KGE 模型在链接预测上表现好，但对未见实体、关系和字面量泛化差
+- 动态、异构图中 KGE 的适用性受限
+- LLM 通过 Prompt 泛化更有效
+
+**RALP 方案：**
+- 将链接预测重构为 **Prompt 学习问题**
+- 学习基于字符串的 **CoT Prompt 作为三元组评分函数**
+- 使用 **MIPRO 算法的贝叶斯优化**
+- **无需梯度访问**，从 **< 30 个训练样本** 中识别有效 Prompt
+
+**实验结果：**
+- 比 SOTA KGE 模型提升 **> 5% MRR**
+- OWL 推理任务（复杂类表达式）达到 **> 88% Jaccard 相似度**
+- 增强泛化能力通过高质量推理三元组
+
+**行业意义：**
+- 基于 Prompt 的 LLM 推理成为 KGE 的灵活替代方案
+- 低样本需求使知识图谱推理更易部署
+- 开源实现：https://github.com/dice-group/RALP
+`,
+    date: "2026-04-16 10:18",
+    source: "arXiv 2604.12651",
+    sourceUrl: "https://arxiv.org/abs/2604.12651",
+    href: "/news/news-234",
+  },
+  {
+    id: "news-235",
+    tag: "多语言",
+    tagColor: "bg-pink-500/10 text-pink-300",
+    coverImage: "/images/news/language.jpg",
+    title: "百万级多语言情绪分类：23 种语言、100 万+合成样本，XLM-R-Large 达 0.868 F1，超越英语专用模型",
+    summary: "构建了 100 万+多标签多语言情绪分类合成训练集（23 种语言，每种 5 万样本），覆盖 11 种情绪类别。XLM-R-Large 在域内测试集达 0.868 F1-micro。在 GoEmotions 和 SemEval-2018 上零样本评估时，XLM-R-Large 与英语专用模型持平甚至超越（AUC-micro 0.810 vs 0.787），同时原生支持全部 23 种语言。（arXiv:2604.12633）",
+    content: `## 大规模多语言情绪分类的突破
+
+2026 年 4 月 14 日，arXiv 发表论文（arXiv:2604.12633）。
+
+**问题背景：**
+- 多语言情绪分类受限于标注数据稀缺
+- 现有语料库主要是英语、单标签、语言覆盖少
+
+**数据集构建：**
+- **100 万+** 多标签合成样本
+- **23 种语言**（每种 5 万样本）
+- **11 种情绪类别**
+- 文化适配生成 + 编程质量过滤
+- 语言覆盖：阿拉伯语、孟加拉语、荷兰语、英语、法语、德语、印地语、印尼语、意大利语、日语、韩语、普通话、波兰语、葡萄牙语、旁遮普语、俄语、西班牙语、斯瓦希里语、泰米尔语、土耳其语、乌克兰语、乌尔都语、越南语
+
+**实验结果：**
+- XLM-R-Large 域内：**0.868 F1-micro**，**0.987 AUC-micro**
+- GoEmotions 零样本：与英语专用模型**持平**
+- SemEval-2018 零样本：**超越**英语专用模型（AUC-micro 0.810 vs 0.787）
+- **原生支持全部 23 种语言**
+
+**行业意义：**
+- 合成数据在多语言 NLP 中的有效性得到验证
+- 低资源语言的情绪分析能力大幅提升
+- 模型开源：https://huggingface.co/tabularisai/multilingual-emotion-classification
+`,
+    date: "2026-04-16 10:20",
+    source: "arXiv 2604.12633",
+    sourceUrl: "https://arxiv.org/abs/2604.12633",
+    href: "/news/news-235",
+  },
+
+  {
     id: "news-222",
     tag: "LLM 安全",
     tagColor: "bg-red-500/10 text-red-300",
