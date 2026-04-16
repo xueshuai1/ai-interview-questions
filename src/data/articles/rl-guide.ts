@@ -4,7 +4,7 @@ export const article: Article = {
     id: "rl-guide",
     title: "强化学习学习导览",
     category: "rl",
-    tags: ["强化学习","学习导览","Q-Learning","DQN"],
+    tags: ["强化学习", "学习导览", "Q-Learning", "DQN"],
     summary: "学习 AI 如何通过与环境交互来学习。从 MDP、Q-Learning 到策略梯度和 DQN，理解 AlphaGo、机器人控制、游戏 AI 的核心技术。",
     date: "2026-04-16",
     readTime: "15 min",
@@ -16,22 +16,19 @@ export const article: Article = {
 无监督学习：没答案，你找模式。
 **强化学习：没答案，你试错，做对了给奖励。**
 
-就像教狗握手——做对了给零食，做错了不给。狗自己学会。`,
+就像教狗握手——做对了给零食，做错了不给。狗自己学会。`
         },
         {
             title: "1. 学习路线",
-            body: `**┌─ MDP（马尔可夫决策过程） ──────────┐**
-│  状态、动作、奖励、转移概率          │
-**├────────────────────────────┤**
-**│  Q-Learning                         │**
-│  值函数、Bellman 方程、ε-greedy     │
-**├────────────────────────────┤**
-**│  策略梯度                            │**
-│  REINFORCE、Actor-Critic            │
-**├────────────────────────────┤**
-**│  DQN（深度 Q 网络）                  │**
-│  经验回放、目标网络                  │
-**└────────────────────────────┘**`,
+            body: `强化学习的学习路线：
+
+**MDP（马尔可夫决策过程）** — 状态、动作、奖励、转移概率
+
+**Q-Learning** — 值函数、Bellman 方程
+
+**策略梯度** — REINFORCE、Actor-Critic
+
+**DQN（深度 Q 网络）** — 经验回放、目标网络`
         },
         {
             title: "2. 学习建议",
@@ -39,7 +36,7 @@ export const article: Article = {
 - 用 Q-Learning 让 Agent 学会走迷宫
 - 用 DQN 玩 Atari 游戏
 
-**前置要求：** 学过 Python、线性代数、概率论基础`,
+**前置要求：** 学过 Python、线性代数、概率论基础`
         }
     ]
 };
