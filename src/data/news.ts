@@ -6211,4 +6211,122 @@ Microsoft markitdown 本周增长 14,615 stars，总 stars 达 109,220。
     sourceUrl: "https://github.com/trending?since=weekly",
     href: "/news/news-240",
   },
+  {
+    id: "news-241",
+    tag: "语音 AI",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    coverImage: "/images/news/multimodal.jpg",
+    title: "UAS 统一音频模式：腾讯开源 AudioLLM 感知增强框架，细粒度声学感知提升 10.9%",
+    summary: "UAS 提出统一的音频监督框架，将音频信息组织为转录、副语言和非语言事件三个显式组件。在 MMSU 上比同规模 SOTA 模型提升 10.9% 细粒度感知，同时保持强大推理能力。ACL 2026 Findings。（arXiv:2604.12506）",
+    content: `## UAS：AudioLLM 的感知-推理统一框架
+
+2026 年 4 月 14 日，ACL 2026 Findings 论文（arXiv:2604.12506）。
+
+**核心问题：**
+- AudioLLM 在复杂推理任务上表现优异，但在细粒度声学感知上持续落后
+- ASR 中心训练提供精确语言目标，但隐式教导模型抑制副语言线索和声学事件
+
+**UAS 方案：**
+- **统一 JSON 格式**组织音频信息为三个组件：
+  1. **Transcription**（转录）：语言内容
+  2. **Paralinguistics**（副语言）：语调、情感、说话人特征
+  3. **Non-linguistic Events**（非语言事件）：环境音、音乐、噪声
+
+**验证：**
+- 应用于离散和连续 AudioLLM 架构
+- MMSU、MMAR、MMAU 基准测试
+
+**实验结果：**
+- MMSU 细粒度感知提升 **10.9%**
+- 同时保持强大推理能力
+
+**行业意义：**
+- 从「仅转录」到「全音频感知」的范式转变
+- 为 AudioLLM 提供全面的声学覆盖
+- 开源：https://github.com/Tencent/Unified_Audio_Schema
+`,
+    date: "2026-04-16 12:08",
+    source: "arXiv 2604.12506",
+    sourceUrl: "https://arxiv.org/abs/2604.12506",
+    href: "/news/news-241",
+  },
+  {
+    id: "news-242",
+    tag: "AI 认知",
+    tagColor: "bg-violet-500/10 text-violet-300",
+    coverImage: "/images/news/cognitive.jpg",
+    title: "潜在规划随规模涌现：ICLR 2026 揭示 LLM 内部规划机制如何随参数量增长",
+    summary: "ICLR 2026 论文首次定义并测量 LLM 的「潜在规划」能力——模型内部存在规划表征，能够导致特定未来 token 的生成并塑造前文上下文。研究 Qwen-3 家族（0.6B-14B）发现潜在规划能力随规模增长。大模型拥有表征计划中单词的特征，甚至能提前识别押韵词。（arXiv:2604.12493）",
+    content: `## 潜在规划：LLM 如何在内部「计划」未来
+
+2026 年 4 月 14 日，ICLR 2026 论文（arXiv:2604.12493）。
+
+**核心问题：**
+- LLM 能完成看似需要规划的任务（写故事、生成代码），但是否真的在内部规划？
+
+**潜在规划定义：**
+- 模型内部存在规划表征，满足：
+  1. **导致**特定未来 token 或概念的生成
+  2. **塑造**前文上下文以许可该未来 token
+
+**研究方法：**
+- 研究 Qwen-3 家族（0.6B-14B）
+- 简单规划任务 + 复杂押韵对完成
+
+**关键发现：**
+1. **潜在规划能力随规模增长**
+2. 大模型拥有表征计划中单词的特征（如「accountant」）
+3. 能导致输出「an」而非「a」——证明提前规划
+4. 押韵任务中模型经常提前识别押韵词
+5. 即使大型模型也很少做远距离规划
+6. 引导模型朝向计划词时，规划能力可被激发且随规模增长
+
+**行业意义：**
+- 首次提供 LLM 内部规划的机制性证据
+- 为理解模型「思考」过程提供新框架
+- 规模不仅是性能提升，更是能力涌现
+`,
+    date: "2026-04-16 12:10",
+    source: "arXiv 2604.12493",
+    sourceUrl: "https://arxiv.org/abs/2604.12493",
+    href: "/news/news-242",
+  },
+  {
+    id: "news-243",
+    tag: "AI 对齐",
+    tagColor: "bg-rose-500/10 text-rose-300",
+    coverImage: "/images/news/alignment.jpg",
+    title: "PFT 偏好配对微调：解决冲突人类价值观的新方法，有限用户历史数据下偏好对齐提升 44.76%",
+    summary: "PFT 提出新的偏好配对微调框架，使 LLM 能够适应矛盾且演化的个体偏好。提出 Value Conflict Dilemma (VCD) 数据集。PFT 在多项选择分类中达 96.6% 准确率，开放生成得分 8.69。在有限用户历史数据下，模型可快速推断偏好向量，用户特定偏好对齐比单一偏好模型提升 44.76%。（arXiv:2604.12479）",
+    content: `## PFT：让 AI 适应矛盾的个体偏好
+
+2026 年 4 月 14 日，arXiv 发表论文（arXiv:2604.12479）。
+
+**核心问题：**
+- LLM 对齐已从通用人类偏好转向个体偏好
+- 个体偏好不仅多样，而且**动态变化**
+- 现有方法无法处理冲突偏好
+
+**PFT 方案：**
+- **Preference-Paired Fine-Tuning**（偏好配对微调）
+- 新数据集 **Value Conflict Dilemma (VCD)**
+  - 包含涉及冲突人类偏好的场景
+  - 用于评估冲突偏好解决能力
+
+**实验结果：**
+- 多项选择分类：**96.6% 准确率**
+- 开放生成得分：**8.69**（最高）
+- 显著优于 DPO、SFT 和传统训练方法
+- 有限用户历史下：**+44.76%** 用户特定偏好对齐
+
+**行业意义：**
+- 个性化 AI 助理的关键一步
+- 解决「同一用户在不同情境下有冲突偏好」的难题
+- 为动态偏好适应提供可行路径
+`,
+    date: "2026-04-16 12:12",
+    source: "arXiv 2604.12479",
+    sourceUrl: "https://arxiv.org/abs/2604.12479",
+    href: "/news/news-243",
+  },
 ];
