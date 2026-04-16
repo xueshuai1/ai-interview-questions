@@ -45,6 +45,20 @@ const fastRoute: RouteDef = {
   phases: [
     {
       phase: 1,
+      title: "认识 AI",
+      duration: "30 分钟",
+      icon: "🌍",
+      color: "from-white/10 to-slate-500/10",
+      borderColor: "border-white/20",
+      badgeColor: "bg-white/10 text-white",
+      steps: [
+        { title: "AI 是什么？", desc: "从概念到实践的全景导览——AI 的三次浪潮、AI/ML/DL 的关系、2026 年主流技术栈", tags: ["AI 入门", "技术全景"] },
+        { title: "2026 年 AI 能做什么", desc: "编程、创作、研究、工作流的真实案例与工具推荐", tags: ["应用场景", "工具"] },
+        { title: "学习路线规划", desc: "速成 vs 基础路线对比、三个黄金学习原则", tags: ["学习路线", "方法论"] },
+      ],
+    },
+    {
+      phase: 2,
       title: "Prompt Engineering",
       duration: "1-2 天",
       icon: "✏️",
@@ -58,7 +72,7 @@ const fastRoute: RouteDef = {
       ],
     },
     {
-      phase: 2,
+      phase: 3,
       title: "大语言模型应用",
       duration: "3-5 天",
       icon: "🤖",
@@ -73,7 +87,7 @@ const fastRoute: RouteDef = {
       ],
     },
     {
-      phase: 3,
+      phase: 4,
       title: "AI Agent 实战",
       duration: "1 周",
       icon: "🦾",
@@ -87,7 +101,7 @@ const fastRoute: RouteDef = {
       ],
     },
     {
-      phase: 4,
+      phase: 5,
       title: "AI 工程化实践",
       duration: "1-2 周",
       icon: "🚀",
@@ -116,6 +130,20 @@ const foundationRoute: RouteDef = {
   phases: [
     {
       phase: 1,
+      title: "认识 AI",
+      duration: "30 分钟",
+      icon: "🌍",
+      color: "from-white/10 to-slate-500/10",
+      borderColor: "border-white/20",
+      badgeColor: "bg-white/10 text-white",
+      steps: [
+        { title: "AI 是什么？", desc: "从概念到实践的全景导览——AI 的三次浪潮、AI/ML/DL 的关系、2026 年主流技术栈", tags: ["AI 入门", "技术全景"] },
+        { title: "2026 年 AI 能做什么", desc: "编程、创作、研究、工作流的真实案例与工具推荐", tags: ["应用场景", "工具"] },
+        { title: "学习路线规划", desc: "速成 vs 基础路线对比、三个黄金学习原则", tags: ["学习路线", "方法论"] },
+      ],
+    },
+    {
+      phase: 7,
       title: "入门基础",
       duration: "4-6 周",
       icon: "🌱",
@@ -130,7 +158,7 @@ const foundationRoute: RouteDef = {
       ],
     },
     {
-      phase: 2,
+      phase: 7,
       title: "机器学习进阶",
       duration: "6-8 周",
       icon: "📊",
@@ -145,7 +173,7 @@ const foundationRoute: RouteDef = {
       ],
     },
     {
-      phase: 3,
+      phase: 7,
       title: "深度学习",
       duration: "8-10 周",
       icon: "🧠",
@@ -161,7 +189,7 @@ const foundationRoute: RouteDef = {
       ],
     },
     {
-      phase: 4,
+      phase: 7,
       title: "专业方向",
       duration: "8-12 周",
       icon: "🎯",
@@ -176,7 +204,7 @@ const foundationRoute: RouteDef = {
       ],
     },
     {
-      phase: 5,
+      phase: 7,
       title: "大语言模型",
       duration: "6-8 周",
       icon: "🤖",
@@ -191,7 +219,7 @@ const foundationRoute: RouteDef = {
       ],
     },
     {
-      phase: 6,
+      phase: 7,
       title: "AI Agent 与前沿",
       duration: "持续学习",
       icon: "🚀",
@@ -222,6 +250,20 @@ const securityRoute: RouteDef = {
   phases: [
     {
       phase: 1,
+      title: "认识 AI",
+      duration: "30 分钟",
+      icon: "🌍",
+      color: "from-white/10 to-slate-500/10",
+      borderColor: "border-white/20",
+      badgeColor: "bg-white/10 text-white",
+      steps: [
+        { title: "AI 是什么？", desc: "从概念到实践的全景导览——AI 的三次浪潮、AI/ML/DL 的关系、2026 年主流技术栈", tags: ["AI 入门", "技术全景"] },
+        { title: "2026 年 AI 能做什么", desc: "编程、创作、研究、工作流的真实案例与工具推荐", tags: ["应用场景", "工具"] },
+        { title: "学习路线规划", desc: "速成 vs 基础路线对比、三个黄金学习原则", tags: ["学习路线", "方法论"] },
+      ],
+    },
+    {
+      phase: 3,
       title: "AI 伦理与公平性",
       duration: "1-2 周",
       icon: "⚖️",
@@ -235,7 +277,7 @@ const securityRoute: RouteDef = {
       ],
     },
     {
-      phase: 2,
+      phase: 3,
       title: "隐私保护 ML",
       duration: "2-3 周",
       icon: "🔒",
@@ -249,7 +291,7 @@ const securityRoute: RouteDef = {
       ],
     },
     {
-      phase: 3,
+      phase: 4,
       title: "对抗攻击与防御",
       duration: "2-3 周",
       icon: "🛡️",
@@ -279,6 +321,20 @@ const engineerRoute: RouteDef = {
   phases: [
     {
       phase: 1,
+      title: "认识 AI",
+      duration: "30 分钟",
+      icon: "🌍",
+      color: "from-white/10 to-slate-500/10",
+      borderColor: "border-white/20",
+      badgeColor: "bg-white/10 text-white",
+      steps: [
+        { title: "AI 是什么？", desc: "从概念到实践的全景导览——AI 的三次浪潮、AI/ML/DL 的关系、2026 年主流技术栈", tags: ["AI 入门", "技术全景"] },
+        { title: "2026 年 AI 能做什么", desc: "编程、创作、研究、工作流的真实案例与工具推荐", tags: ["应用场景", "工具"] },
+        { title: "学习路线规划", desc: "速成 vs 基础路线对比、三个黄金学习原则", tags: ["学习路线", "方法论"] },
+      ],
+    },
+    {
+      phase: 2,
       title: "机器学习工程化",
       duration: "3-4 周",
       icon: "📊",
@@ -292,7 +348,7 @@ const engineerRoute: RouteDef = {
       ],
     },
     {
-      phase: 2,
+      phase: 3,
       title: "深度学习工程化",
       duration: "3-4 周",
       icon: "🧠",
@@ -306,7 +362,7 @@ const engineerRoute: RouteDef = {
       ],
     },
     {
-      phase: 3,
+      phase: 4,
       title: "MLOps 与部署",
       duration: "3-4 周",
       icon: "🚀",
@@ -320,7 +376,7 @@ const engineerRoute: RouteDef = {
       ],
     },
     {
-      phase: 4,
+      phase: 5,
       title: "真实项目实战",
       duration: "2-4 周",
       icon: "🌍",
@@ -350,6 +406,20 @@ const creativeRoute: RouteDef = {
   phases: [
     {
       phase: 1,
+      title: "认识 AI",
+      duration: "30 分钟",
+      icon: "🌍",
+      color: "from-white/10 to-slate-500/10",
+      borderColor: "border-white/20",
+      badgeColor: "bg-white/10 text-white",
+      steps: [
+        { title: "AI 是什么？", desc: "从概念到实践的全景导览——AI 的三次浪潮、AI/ML/DL 的关系、2026 年主流技术栈", tags: ["AI 入门", "技术全景"] },
+        { title: "2026 年 AI 能做什么", desc: "编程、创作、研究、工作流的真实案例与工具推荐", tags: ["应用场景", "工具"] },
+        { title: "学习路线规划", desc: "速成 vs 基础路线对比、三个黄金学习原则", tags: ["学习路线", "方法论"] },
+      ],
+    },
+    {
+      phase: 2,
       title: "生成式 AI 基础",
       duration: "2-3 周",
       icon: "🎨",
@@ -363,7 +433,7 @@ const creativeRoute: RouteDef = {
       ],
     },
     {
-      phase: 2,
+      phase: 3,
       title: "多模态学习",
       duration: "2-3 周",
       icon: "🔗",
@@ -377,7 +447,7 @@ const creativeRoute: RouteDef = {
       ],
     },
     {
-      phase: 3,
+      phase: 4,
       title: "LLM 创意应用",
       duration: "1-2 周",
       icon: "✏️",
