@@ -6594,4 +6594,80 @@ Microsoft markitdown 本周增长 14,615 stars，总 stars 达 109,220。
     sourceUrl: "https://arxiv.org/abs/2604.12357",
     href: "/news/news-252",
   },
+  {
+    id: "news-253",
+    tag: "论文",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/research.jpg",
+    title: "UCSD 与 Together AI 提出 Parcae：稳定循环 Transformer 架构，用一半参数量达到同等质量",
+    summary: "Parcae 通过控制论视角重新设计循环语言模型，将残差流建模为非线性时变动力系统，通过负对角矩阵约束确保训练稳定性。770M 参数模型质量匹敌 1.3B 标准 Transformer，首次建立循环缩放的计算最优缩放定律。（arXiv:2604.12946）",
+    content: `## Parcae：用一半参数量达到 Transformer 两倍质量的循环架构
+
+2026 年 4 月 16 日，UC San Diego 与 Together AI 联合发表论文（arXiv:2604.12946）。
+
+**核心问题：**
+自 Chinchilla 时代以来，提升语言模型质量的范式始终是：更多 FLOPs、更多参数、更多训练数据。但随着推理部署消耗越来越多算力，研究人员开始追问一个更根本的问题——能否在不增加内存占用的情况下提升质量？
+
+**Parcae 方案：**
+
+**循环 Transformer 架构设计：**
+Parcae 采用**中间循环（middle-looped）**设计，将架构分为三个功能模块：
+1. **Prelude（前奏 P）**：将输入序列嵌入潜在状态 e
+2. **Recurrent Block（循环块 R）**：对隐藏状态进行 T 次迭代更新，每次迭代都注入 e 以保持输入影响
+3. **Coda（尾声 C）**：处理最终隐藏状态并产生输出
+
+这种设计让模型在内存中保持紧凑（适合端侧部署），同时每次前向传播能执行更多计算。
+
+**关键创新：控制论视角确保训练稳定性**
+
+此前循环 Transformer 的主要问题是**残差状态爆炸**和**损失尖峰**，训练极其困难。Parcae 团队的关键洞察是将循环模型的前向传播重新建模为非线性时变动力系统：
+
+\`\`\`
+ht+1 = Ā·ht + B̄·e + R̄(ht, e)
+\`\`\`
+
+其中 Ā 控制历史与当前残差状态的平衡，B̄ 注入输入信号，R̄ 是 Transformer 块的非线性贡献。根据经典控制理论，系统稳定的条件是谱半径 ρ(Ā) < 1。
+
+**Parcae 的稳定性保证：**
+- 不直接参数化 Ā，而是采用连续形式并通过零阶保持（ZOH）和 Euler 离散化
+- 引入可学习步长 Δ，得到 Ā = exp(ΔA)
+- 将连续矩阵 A 约束为负对角矩阵：A := Diag(−exp(logA))
+- **因此谱半径约束始终由构造保证，无需超参数微调**
+
+**实验结果：**
+
+**对比循环模型（RDM）：**
+- 在 Huginn 数据集上，Parcae 验证困惑度最多降低 **6.3%**（350M 规模）
+- WikiText 困惑度最多改善 **9.1%**
+- 下游零样本基准准确率最多提升 **1.8 分**
+
+**对比标准固定深度 Transformer：**
+- **770M Parcae 模型质量 ≈ 1.3B Transformer**（约一半参数）
+- Core 基准：1.3B Parcae 超出同参数 Transformer **2.99 分**
+- 实现参数量效率：达到两倍大小 Transformer 质量的 **87.5%**
+
+**首次建立循环缩放定律：**
+
+这是该研究的第二大贡献——首次为层循环建立可预测的缩放定律：
+- 最优平均循环次数 μrec 按 C^0.40 缩放
+- 最优训练 token 数按 C^0.78 缩放
+- 循环是计算扩展的**第三个正交维度**（除了参数和数据）
+- 测试时循环次数存在硬性上限：增益在 μrec 附近饱和
+
+**行业意义：**
+- **端侧部署**：用更少内存达到相同质量，适合手机、IoT 等资源受限场景
+- **推理成本**：参数减半意味着显存占用和推理成本大幅降低
+- **扩展新维度**：循环为 AI 研究提供了不依赖更多硬件的第三条扩展路径
+- **训练可靠性**：解决了循环 Transformer 训练不稳定的长期难题
+
+**资源**：
+- [论文](https://arxiv.org/pdf/2604.12946)
+- [模型权重](https://huggingface.co/collections/SandyResearch/parcae)
+- [技术博客](https://www.together.ai/blog/parcae)
+`,
+    date: "2026-04-16 18:01",
+    source: "arXiv 2604.12946 / MarkTechPost / Together AI",
+    sourceUrl: "https://arxiv.org/abs/2604.12946",
+    href: "/news/news-253",
+  },
 ];
