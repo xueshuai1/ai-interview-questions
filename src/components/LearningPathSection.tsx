@@ -21,6 +21,18 @@ interface PhaseConfig {
 // 🚀 速成路线
 const fastPhases: PhaseConfig[] = [
   {
+    id: "fast-intro",
+    title: "认识 AI",
+    emoji: "🌍",
+    duration: "30 分钟",
+    description: "全面了解 AI 是什么、能做什么、主流技术栈和工具生态，以及你的学习路线",
+    categoryKeys: ["ai"],
+    levels: ["入门"],
+    borderColor: "border-l-white",
+    bgGradient: "from-white/5 to-transparent",
+    dotColor: "bg-white",
+  },
+  {
     id: "fast-prompt",
     title: "Prompt Engineering",
     emoji: "✏️",
@@ -72,6 +84,18 @@ const fastPhases: PhaseConfig[] = [
 
 // 📚 基础路线
 const foundationPhases: PhaseConfig[] = [
+  {
+    id: "foundation-intro",
+    title: "认识 AI",
+    emoji: "🌍",
+    duration: "30 分钟",
+    description: "全面了解 AI 是什么、能做什么、主流技术栈和工具生态，以及你的学习路线",
+    categoryKeys: ["ai"],
+    levels: ["入门"],
+    borderColor: "border-l-white",
+    bgGradient: "from-white/5 to-transparent",
+    dotColor: "bg-white",
+  },
   {
     id: "foundation",
     title: "入门基础",
