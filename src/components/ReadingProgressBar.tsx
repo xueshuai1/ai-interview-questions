@@ -26,10 +26,7 @@ export default function ReadingProgressBar() {
           style={{ width: `${progress}%` }}
         />
       </div>
-      {/* 百分比标签 — 移动端可见 */}
-      <div className="sm:hidden fixed top-2 right-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-mono px-1.5 py-0.5 rounded-full opacity-80">
-        {Math.round(progress)}%
-      </div>
+
     </div>
   );
 }
