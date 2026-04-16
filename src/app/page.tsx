@@ -53,7 +53,7 @@ const features = [
 const sortedByDate = <T extends { date: string }>(items: T[]): T[] =>
   [...items].sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0));
 
-const sortedNews = sortedByDate(news);
+const sortedNews = sortedByDate(news).reverse(); // 时间倒序：最新在前
 const homeNews = sortedNews.slice(0, 6);
 const tickerNews = sortedNews.slice(6, 12);   // 滚动条：第 7-12 条新闻（与卡片区不重复）
 const previewBlogs = sortedByDate(blogs).slice(0, 6);  // 博客预览：最新 6 篇（时间倒序）
