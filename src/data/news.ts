@@ -16,6 +16,52 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-272",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/policy.jpg",
+    title: "Bernie Sanders 联合工会领袖推动 AI 工人保护法案 — 呼吁暂停 AI 数据中心建设",
+    summary: "美国参议员 Bernie Sanders 与多位工会领袖联合集会，推动 AI 工人就业保护立法，同时与 AOC 共同提出《AI 数据中心暂停法案》，要求在建立安全保护措施前暂停新建 AI 数据中心。Sanders 公开批评科技寡头，呼吁「严肃的公共辩论和民主监督」。",
+    content: `## Bernie Sanders 推动 AI 工人保护与数据中心暂停法案
+
+2026 年 4 月 17 日，The Verge 报道 Bernie Sanders 联合工会领袖推动 AI 工人保护。
+
+**核心信息：**
+
+**Sanders 与工会领袖联合集会：**
+- Bernie Sanders 与多个行业的工会领袖联合集会
+- 推动 AI 技术发展中的就业保护立法
+- Sanders 公开表示：「如果任由 unchecked，十年后制造业岗位将不复存在」
+- 呼吁科技寡头「Go to hell」
+
+**《AI 数据中心暂停法案》（AI Data Center Moratorium Act）：**
+- Sanders 与 AOC（Alexandria Ocasio-Cortez）共同提出
+- 要求在建立强大的国家安全保障措施之前，**立即暂停**新建 AI 数据中心
+- 确保 AI 安全有效，防止科技公司发布有害产品
+- 确保 AI 经济收益惠及工人而非仅科技富豪
+- 防止 AI 增加电费、损害社区或破坏环境
+
+**行业领袖态度：**
+- 2023 年，包括 Elon Musk、Yoshua Bengio、Stuart Russell 在内的 1000+ 行业领袖和科学家呼吁 AI 实验室「立即暂停至少 6 个月」
+- Elon Musk（xAI 负责人）表示如果有能力，他「肯定会减缓 AI 和机器人技术发展」
+- Google DeepMind 负责人 Demis Hassabis 表示如果其他国家也暂停，他支持 AI 暂停
+- Anthropic 负责人 Dario Amodei 表示「绝对赞成尝试」减缓 AI 发展
+
+**地方行动：**
+- 全美 100+ 地方社区已对数据中心实施暂停令
+- 12 个州正在推动全州范围的暂停提案
+
+**行业意义：**
+- AI 监管正从技术伦理扩展到劳动保护和环境影响
+- 政治层面的 AI 监管压力持续升级
+- 可能影响 AI 基础设施建设的速度和规模
+- 反映了公众对 AI 快速发展的深层担忧`,
+    date: "2026-04-17 06:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-272",
+  },
+  {
     id: "news-271",
     tag: "开发工具",
     tagColor: "bg-green-500/10 text-green-300",
