@@ -6038,4 +6038,177 @@ Microsoft markitdown 本周增长 14,615 stars，总 stars 达 109,220。
     sourceUrl: "https://arxiv.org/abs/2604.12573",
     href: "/news/news-203",
   },
+  {
+    id: "news-236",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Andrej Karpathy Skills — CLAUDE.md 文件集合，将 Karpathy 的 LLM 编码洞察注入 Claude Code",
+    summary: "开源项目 andrej-karpathy-skills 提供一个 CLAUDE.md 文件，汇集 Andrej Karpathy 关于 LLM 编码陷阱的观察，用于改善 Claude Code 的行为。本周快速登上 GitHub Trending，代表 AI 编码经验结构化的新趋势。",
+    content: `## Andrej Karpathy Skills：将大师经验注入 AI 编码工具
+
+2026 年 4 月 16 日，andrej-karpathy-skills 登上 GitHub Trending。
+
+**核心内容：**
+- 一个精心编写的 **CLAUDE.md** 文件
+- 汇集 Andrej Karpathy 对 LLM 编码陷阱的观察
+- 用于改善 Claude Code 的行为和输出质量
+
+**为什么重要：**
+- Karpathy 是 AI 领域最受尊敬的工程师之一
+- 他对 LLM 编码能力的洞察经过大量实验验证
+- 将这些洞察结构化为 CLAUDE.md，让 Claude Code 能直接学习
+
+**行业趋势：**
+- 代表 AI 编码经验从「口耳相传」走向「结构化注入」
+- CLAUDE.md / AGENTS.md 正在成为 AI 编码的标准配置
+- 与 Archon（确定性 AI 编码 harness）形成互补
+
+**URL**：https://github.com/forrestchang/andrej-karpathy-skills`,
+    date: "2026-04-16 12:01",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/forrestchang/andrej-karpathy-skills",
+    href: "/news/news-236",
+  },
+  {
+    id: "news-237",
+    tag: "AI 技能",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/agent.jpg",
+    title: "Addy Osmani 发布 agent-skills — 生产级 AI 编码工程技能库，一周暴涨 6.7K stars",
+    summary: "Google 工程师 Addy Osmani 发布 agent-skills，提供生产级工程技能供 AI 编码代理使用。涵盖代码审查、测试策略、性能优化等实用技能。一周增长 6,693 stars，总 stars 达 15,987。代表 AI Agent 技能生态的新方向。",
+    content: `## agent-skills：AI 编码代理的生产级技能库
+
+2026 年 4 月 16 日，Addy Osmani 的 agent-skills 成为 GitHub Trending 热门项目。
+
+**核心数据：**
+- 总 stars：**15,987**
+- 本周增长：**+6,693 stars**
+
+**核心内容：**
+- 生产级工程技能集合
+- 专为 AI 编码代理（Claude Code、Cursor 等）设计
+- 涵盖代码审查、测试策略、性能优化、安全最佳实践
+
+**作者背景：**
+- Addy Osmani 是 Google Chrome 团队工程师
+- 长期致力于 Web 性能和开发者工具
+- 此前发布过多个影响深远的开源项目
+
+**行业意义：**
+- AI 编码代理需要「工程纪律」而非只是代码生成能力
+- agent-skills 将人类工程师的最佳实践注入 AI 代理
+- 与 Karpathy Skills 形成互补：一个侧重洞察，一个侧重实践
+
+**URL**：https://github.com/addyosmani/agent-skills`,
+    date: "2026-04-16 12:01",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/addyosmani/agent-skills",
+    href: "/news/news-237",
+  },
+  {
+    id: "news-238",
+    tag: "基础设施",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/industry.jpg",
+    title: "美国能源部将强制要求数据中心完成能源使用调查 — AI 算力扩张面临监管收紧",
+    summary: "据 Wired 报道，美国能源信息管理局（EIA）计划在完成德克萨斯州、华盛顿州等数据中心密集地区的试点调查后，启动全国性数据中心能源使用调查。这是对 AI 数据中心能源消耗快速增长的监管回应，可能影响未来数据中心建设和运营。",
+    content: `## 数据中心能源调查：AI 扩张面临监管
+
+2026 年 4 月 15 日，Wired 报道美国能源信息管理局（EIA）将启动全国性数据中心能源使用调查。
+
+**调查计划：**
+- 先在数据中心密集地区完成试点调查
+- 覆盖区域：**德克萨斯州、华盛顿州、华盛顿特区、北弗吉尼亚**
+- 试点完成后启动**全国性强制调查**
+
+**背景：**
+- AI 训练和推理需求爆炸式增长
+- 数据中心能源消耗急剧上升
+- 两党参议员 Warren 和 Hawley 推动 EIA 调查
+
+**行业影响：**
+- Google 在德州的 Goodnight 数据中心使用天然气涡轮机供电，年排放超 450 万吨温室气体
+- xAI Colossus 2 项目被 NAACP 起诉，指控无证运行 27 台燃气轮机
+- AI 公司可能面临更严格的能源披露要求
+
+**深层意义：**
+- AI 算力扩张不再只是技术问题，而是能源和环境问题
+- 强制调查可能为未来的能源监管政策提供数据基础
+- 科技巨头需要在算力需求和可持续性之间找到平衡
+
+**来源**：Wired / EIA`,
+    date: "2026-04-16 12:01",
+    source: "Wired",
+    sourceUrl: "https://www.wired.com/story/data-centers-energy-surveys/",
+    href: "/news/news-238",
+  },
+  {
+    id: "news-239",
+    tag: "AI 工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Google 桌面端 Gemini 支持窗口共享 — 从侧边栏到全屏的 AI 助手进化",
+    summary: "Google 宣布 Gemini 桌面应用支持窗口共享功能，用户可以从任何地方在桌面上访问 Gemini，并共享窗口内容进行分析。这标志着 AI 助手从聊天侧边栏进化为可与整个桌面交互的伴侣。",
+    content: `## Gemini 桌面端窗口共享：AI 助手进化
+
+2026 年 4 月 15 日，Google 宣布 Gemini 桌面应用重大更新。
+
+**新功能：**
+- **窗口共享**：AI 可以看到并分析用户共享的窗口内容
+- **桌面级访问**：从任何位置调用 Gemini，不限于浏览器
+- **全屏模式**：从侧边栏扩展到全屏工作模式
+
+**使用场景：**
+- 共享代码编辑器让 Gemini 审查代码
+- 共享文档让 Gemini 提供写作建议
+- 共享数据表格让 Gemini 进行分析
+
+**行业趋势：**
+- AI 助手从「聊天框」走向「桌面伴侣」
+- 与 Claude Code 桌面端、Cursor 等形成竞争
+- 操作系统级 AI 集成加速
+
+**来源**：The Verge`,
+    date: "2026-04-16 12:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-239",
+  },
+  {
+    id: "news-240",
+    tag: "GitHub 趋势",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/github.jpg",
+    title: "GitHub Trending 本周更新：claude-mem 暴涨 10.8K stars 至 58K，ChinaTextbook 教材库达 69.5K stars",
+    summary: "GitHub Trending 周榜最新数据：claude-mem 本周 +10,779 stars 达 58,071；markitdown +15,790 达 109,641；multica +10,864 达 13,771；ChinaTextbook（中国小初高大学教材 PDF 合集）+2,756 达 69,535；Kronos 金融模型 +6,486 达 18,312；DeepTutor +5,500 达 18,493。",
+    content: `## GitHub Trending 周榜 AI/ML 最新数据
+
+2026 年 4 月 16 日 GitHub Trending 周榜更新：
+
+**🔥 本周增长最快的项目：**
+
+| 项目 | Stars | 周增长 | 说明 |
+|------|-------|--------|------|
+| markitdown | 109,641 | **+15,790** | 文档转 Markdown 基础设施 |
+| multica | 13,771 | **+10,864** | 开源托管 Agent 平台 |
+| claude-mem | 58,071 | **+10,779** | Claude Code 自动记忆插件 |
+| agent-skills | 15,987 | **+6,693** | Addy Osmani 的 AI 编码技能库 |
+| Kronos | 18,312 | **+6,486** | 金融基础模型 |
+| DeepTutor | 18,493 | **+5,500** | Agent 原生学习助手 |
+| ai-hedge-fund | 55,204 | **+4,314** | AI 对冲基金团队 |
+| Archon | 18,250 | **+4,263** | AI 编码 harness builder |
+| ChinaTextbook | 69,535 | **+2,756** | 中国全阶段教材 PDF 合集 |
+
+**趋势分析：**
+- **Agent 记忆/技能**：claude-mem、agent-skills 持续高增长
+- **文档处理**：markitdown 突破 109K，MCP Server 集成推动增长
+- **金融 AI**：Kronos + ai-hedge-fund 双星闪耀
+- **教育**：DeepTutor + ChinaTextbook 代表 AI + 教育方向
+- **确定性 AI 编码**：Archon 解决 AI 编码不可重复的痛点`,
+    date: "2026-04-16 12:01",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-240",
+  },
 ];
