@@ -1,6 +1,7 @@
 import { Article } from '../knowledge';
 
 const CDN = "http://tdewkptsq.hd-bkt.clouddn.com/images/articles";
+const C = CDN; // 短别名，内容里用 ${C}
 
 export const article: Article = {
     id: "ai-000",
@@ -22,7 +23,7 @@ export const article: Article = {
 
 > **这篇文档是你 AI 学习之旅的起点。** 它不是教科书，也不是技术手册，而是一张全景地图——告诉你 AI 是什么、能做什么、你应该学什么、从哪里开始。
 
-![AI 正在改变各行各业](https://tdewkptsq.hd-bkt.clouddn.com/images/articles/ai-future.jpg)
+![AI 正在改变各行各业](${C}/ai-future.jpg)
 
 让我们从最根本的问题开始。`,
             tip: "本文适合零基础读者，也适合有一定经验但想系统梳理 AI 全貌的学习者。如果你已经熟悉 AI 基础概念，可以直接跳到「学习路线」部分。"
@@ -55,7 +56,7 @@ AI 不是一夜之间冒出来的。它经历了三次浪潮：
 - 结果：**全面突破**——图像识别超越人类、自然语言理解达到实用级别、代码生成成为可能
 - 当前阶段：我们正处于第三次浪潮的**加速期**
 
-![从符号 AI 到深度学习的演进历程](https://tdewkptsq.hd-bkt.clouddn.com/images/articles/ai-intro.jpg)
+![从符号 AI 到深度学习的演进历程](${C}/ai-intro.jpg)
 
 ### 1.2 AI、机器学习、深度学习：三者的关系
 
@@ -173,7 +174,7 @@ AI 不是一夜之间冒出来的。它经历了三次浪潮：
             title: "3. AI 技术栈全景图",
             body: `要系统学习 AI，你需要了解整个技术栈的层次结构。下面这张图展示了从底层到应用层的完整技术栈：
 
-![AI 技术栈全景图](https://tdewkptsq.hd-bkt.clouddn.com/images/articles/ai-neural.jpg)
+![AI 技术栈全景图](${C}/ai-neural.jpg)
 
 ### 3.1 基础设施层
 
