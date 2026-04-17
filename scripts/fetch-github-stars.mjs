@@ -95,6 +95,26 @@ async function fetchStarREST(owner, repo) {
   };
 }
 
+const outputPath = join(__dirname, '..', 'src', 'data', 'github-stars.json');
+
+function saveData(starData, errors, repos) {
+  writeFileSync(
+    outputPath,
+    JSON.stringify(
+      {
+        fetchedAt: new Date().toISOString(),
+        totalRepos: repos.length,
+        successCount: Object.keys(starData).length,
+        errors,
+        stars: starData,
+      },
+      null,
+      2,
+    ),
+    'utf-8',
+  );
+}
+
 async function main() {
   const repos = extractGithubRepos();
   console.log(`Found ${repos.length} GitHub repos to check`);
@@ -162,29 +182,16 @@ async function main() {
         errors.push(repo.id);
         rateLimitHits++;
       }
-      // Adaptive delay: start at 2s, increase on consecutive failures
-      const delayMs = rateLimitHits > 0 ? Math.min(rateLimitHits * 10000, 70000) : 2000;
+      // Adaptive delay: start at 1s, increase gently on consecutive failures (max 10s)
+      const delayMs = rateLimitHits > 0 ? Math.min(rateLimitHits * 2000, 10000) : 1000;
       await new Promise(r => setTimeout(r, delayMs));
+      // Save incrementally so we don't lose data on interrupt
+      saveData(starData, errors, repos);
     }
   }
 
   // Write to JSON
-  const outputPath = join(__dirname, '..', 'src', 'data', 'github-stars.json');
-  writeFileSync(
-    outputPath,
-    JSON.stringify(
-      {
-        fetchedAt: new Date().toISOString(),
-        totalRepos: repos.length,
-        successCount: Object.keys(starData).length,
-        errors,
-        stars: starData,
-      },
-      null,
-      2,
-    ),
-    'utf-8',
-  );
+  saveData(starData, errors, repos);
 
   console.log(`\n✅ Saved to github-stars.json`);
   console.log(`   Success: ${Object.keys(starData).length}/${repos.length}`);
