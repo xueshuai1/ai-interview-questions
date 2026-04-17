@@ -2779,4 +2779,18 @@ export const tools: Tool[] = [
     useCase: "LLM 推理性能优化、高吞吐推理场景、学术研究",
     learnMore: "https://github.com/z-lab/dflash",
   },
+  {
+    id: "rowboat",
+    name: "Rowboat (rowboatlabs)",
+    category: "agent",
+    description: "开源 AI 协作者（AI Coworker），连接 Gmail、Google Calendar 和会议笔记，自动构建长期知识图谱，基于上下文帮助起草邮件、准备会议、生成简报和 PDF 幻灯片。本地优先设计，所有数据以 Markdown 存储在本地 Obsidian 兼容的 vault 中，支持语音备忘录自动提取关键信息、Exa 研究搜索、MCP 工具扩展。Y Combinator 孵化项目，GitHub 12.6K stars，本周 +1,603 stars",
+    url: "https://github.com/rowboatlabs/rowboat",
+    tags: ["开源", "知识图谱", "AI 协作者", "本地优先", "Y Combinator", "Markdown"],
+    price: "开源",
+    icon: "🤝",
+    pros: ["本地优先，数据完全私有", "知识图谱随时间积累，越用越聪明", "Obsidian 兼容，笔记可编辑可追溯", "自动从邮件和会议中提取上下文", "支持语音输入和语音输出", "可集成 Exa 搜索和 MCP 工具"],
+    cons: ["依赖 Google 生态（Gmail/Calendar/Drive）", "需要配置 API 密钥（Deepgram、ElevenLabs 等）", "相对较新，生态不如成熟产品", "Windows/Linux 版本可能不如 Mac 稳定"],
+    useCase: "个人知识管理、会议准备、邮件起草、项目上下文追踪、语音备忘录智能整理",
+    learnMore: "https://www.rowboatlabs.com/",
+  },
 ];
