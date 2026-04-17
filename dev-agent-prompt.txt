@@ -113,11 +113,18 @@ npm run build
 - build 失败 → 修复到通过为止
 - build 通过 → 继续
 
+**验证脚本自动执行**（npm run build 前会先跑 `scripts/validate-data.mjs`）：
+- ✅ 所有文章分类 key 必须合法
+- ✅ 所有工具分类 key 必须在 toolCategories 中定义
+- ✅ 分类定义与 TypeScript 类型声明一致
+- 验证失败直接阻止 build，必须修复
+
 ### 第五步：QA 自测
 
 用 browser 打开网站：
 - 打开你改动的页面，截图确认
 - 测试相关交互功能
+- **重点检查：分类筛选、学习路线阶段排序、数据关联**
 - 有问题就回去修
 - 没问题就继续
 
@@ -138,5 +145,18 @@ git add . && git commit -m 'auto: 一句话描述做了什么' && git push origi
 - **build 不通过不能推送**
 - **自测没通过不能推送**
 - **每次改动都要经过：深度分析 → 决策 → 执行 → build → 自测 → 推送**
+
+## 🛡️ 数据质量规则（防止脏数据进入生产环境）
+
+**分类 key 铁律：**
+- 文章分类只能使用 `CategoryKey` 中定义的值
+- 禁止使用中文分类名（如 "AI 安全"）作为 key
+- 禁止使用缩写不在定义中（如 "mm" 代替 "multimodal"）
+- 工具分类必须在 `toolCategories` 中预先定义
+- 新增分类 → 必须同时更新：`categories` 数组 + `CategoryKey` 类型 + 分类 UI
+
+**验证脚本：** `scripts/validate-data.mjs`
+- 每次 `npm run build` 自动执行，失败即中断
+- 新增文章或工具后如果分类 key 错误，构建会直接失败并提示具体错误位置
 
 现在开始工作。
