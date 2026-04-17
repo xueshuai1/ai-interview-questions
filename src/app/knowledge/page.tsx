@@ -17,7 +17,7 @@ export default function KnowledgePage() {
   const [mode, setMode] = useState<"all" | "path">("all");
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<"default" | "level-asc" | "level-desc">("level-asc");
+  const [sortBy, setSortBy] = useState<"default" | "level-asc" | "level-desc" | "date-desc" | "date-asc">("level-asc");
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArticles = useMemo(() => {
@@ -34,6 +34,10 @@ export default function KnowledgePage() {
       result = [...result].sort((a, b) => levelOrder[a.level] - levelOrder[b.level]);
     } else if (sortBy === "level-desc") {
       result = [...result].sort((a, b) => levelOrder[b.level] - levelOrder[a.level]);
+    } else if (sortBy === "date-desc") {
+      result = [...result].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    } else if (sortBy === "date-asc") {
+      result = [...result].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     }
     return result;
   }, [activeCategory, searchQuery, sortBy]);
@@ -153,6 +157,8 @@ export default function KnowledgePage() {
                 <option value="default">排序</option>
                 <option value="level-asc">难度 ↑</option>
                 <option value="level-desc">难度 ↓</option>
+                <option value="date-desc">时间最新</option>
+                <option value="date-asc">时间最早</option>
               </select>
             </div>
           </div>

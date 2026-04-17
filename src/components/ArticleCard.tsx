@@ -7,7 +7,15 @@ const levelColors: Record<string, string> = {
   高级: "bg-rose-500/10 text-rose-300 border-rose-500/20",
 };
 
+/** Check if the article date (YYYY-MM-DD) is within 24 hours of now */
+function isRecentlyPublished(dateStr: string): boolean {
+  const articleTime = new Date(dateStr).getTime();
+  const now = Date.now();
+  return now - articleTime <= 24 * 60 * 60 * 1000;
+}
+
 export default function ArticleCard({ article }: { article: Article }) {
+  const isNew = isRecentlyPublished(article.date);
   return (
     <Link
       href={`/article/${article.id}`}
@@ -18,11 +26,18 @@ export default function ArticleCard({ article }: { article: Article }) {
         <h3 className="text-lg font-semibold group-hover:text-brand-300 transition-colors leading-snug line-clamp-2">
           {article.title}
         </h3>
-        <span
-          className={`shrink-0 px-2.5 py-0.5 rounded-full text-xs font-medium border ${levelColors[article.level]}`}
-        >
-          {article.level}
-        </span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          {isNew && (
+            <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-red-500/20 text-red-300 border border-red-500/30 animate-pulse">
+              NEW
+            </span>
+          )}
+          <span
+            className={`px-2.5 py-0.5 rounded-full text-xs font-medium border ${levelColors[article.level]}`}
+          >
+            {article.level}
+          </span>
+        </div>
       </div>
 
       {/* Summary */}
