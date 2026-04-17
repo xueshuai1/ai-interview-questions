@@ -16,6 +16,213 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-277",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/policy.jpg",
+    title: "OpenAI 向五角大楼妥协 AI 监控条款 — Sam Altman 声称保留安全红线，实际合同允许「任何合法用途」",
+    summary: "在 Anthropic 因拒绝五角大楼无条件使用 AI 的要求而遭黑名单威胁之际，OpenAI CEO Sam Altman 宣布公司与五角大楼达成新协议。Altman 声称协议保留了禁止大规模监控和自主武器的安全红线，但据 The Verge 报道，五角大楼从未让步，OpenAI 实际上接受了「任何合法用途」条款，这意味着美国政府过去几十年用来进行大规模监控的法律依据同样适用于 OpenAI 技术。OpenAI 前政策研究负责人 Miles Brundage 公开表示：「OpenAI 妥协了，还把它包装成没有妥协，并且坑了 Anthropic。」",
+    content: `## OpenAI 五角大楼协议：安全红线还是公关包装？
+
+2026 年 4 月 17 日，The Verge 报道 OpenAI 与五角大楼的最新协议争议。
+
+**事件背景：**
+
+**Anthropic 拒绝五角大楼要求：**
+- 五角大楼要求 AI 公司取消所有使用限制
+- Anthropic 坚守两条红线：不大规模监控美国人、不用于致命自主武器
+- 五角大楼因此将 Anthropic 列入黑名单威胁，国防部长 Hegseth 发出最后通牒
+- Anthropic CEO Dario Amodei 公开拒绝：「我们不能昧着良心答应他们的要求」
+
+**OpenAI 的协议：**
+- Sam Altman 在 Anthropic 被威胁的同一晚宣布与五角大楼达成新协议
+- Altman 声称：「我们最重要的安全原则包括禁止国内大规模监控和对武力的人类责任」
+- Altman 声称五角大楼「同意这些原则，将其反映在法律和政策中，我们将其写入协议」
+
+**实际情况（The Verge 报道）：**
+- **五角大楼从未让步**，OpenAI 实际上妥协了
+- 协议核心是三个词：**「任何合法用途」（any lawful use）
+- 了解谈判的消息人士确认，OpenAI 的协议比 Anthropic 推动的软得多
+- 如果逐行分析 OpenAI 条款，每个方面都归结为：「如果技术上合法，军方就可以用」
+- 过去几十年，美国政府已将「技术上合法」的定义扩展到涵盖大规模监控项目
+
+**行业反应：**
+- OpenAI 前政策研究负责人 Miles Brundage 在 X 上公开表示：「鉴于外部律师和五角大楼的说法，OpenAI 员工的默认假设应该是：OpenAI 妥协了 + 把它包装成没有妥协，并且坑了 Anthropic」
+- 社交媒体和 AI 行业人士立即质疑 Altman 的说法
+- 人们反问：为什么五角大楼会突然同意这些红线，而他们此前明确表示永远不会？
+
+**深层意义：**
+- AI 安全承诺与商业利益之间的冲突公开化
+- 「任何合法用途」条款成为 AI 军事合同的标准模式
+- OpenAI 与 Anthropic 在 AI 安全立场上的分歧进一步加深
+- 公众对 AI 公司自我监管能力的信任进一步下降`,
+    date: "2026-04-17 08:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence/887309/openai-anthropic-dod-military-pentagon-contract-sam-altman-hegseth",
+    href: "/news/news-277",
+  },
+  {
+    id: "news-276",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/policy.jpg",
+    title: "Anthropic 正式拒绝五角大楼最后通牒 — 坚守不用于大规模监控和致命自主武器两条红线",
+    summary: "在五角大楼发出最后通牒后，Anthropic CEO Dario Amodei 发表声明正式拒绝取消 AI 使用限制的要求。Anthropic 坚守两条红线：不对美国人进行大规模监控，不用于致命自主武器系统。Amodei 表示「我们不能昧着良心答应他们的要求」，并承诺如果五角大楼选择终止合作，将协助平稳过渡。此举被视为 AI 公司在军事 AI 伦理问题上的最重要立场声明。",
+    content: `## Anthropic 拒绝五角大楼：AI 伦理的重要时刻
+
+2026 年 4 月 17 日，The Verge 报道 Anthropic 正式拒绝五角大楼的要求。
+
+**最后通牒背景：**
+- 国防部长 Pete Hegseth 要求重新谈判所有 AI 实验室与军方的合同
+- 要求取消对军事使用的所有限制
+- Anthropic 被给予周五下班前的最后期限
+
+**Anthropic 的立场：**
+- CEO Dario Amodei 发表公开声明拒绝
+- 两条红线：不大规模监控美国人、不用于致命自主武器
+- Amodei：「我相信用 AI 保卫美国和其他民主国家的存在重要性」
+- 「但在某些情况下，我们认为 AI 可能破坏而非捍卫民主价值观」
+- 「我们不能昧着良心答应他们的要求」
+
+**五角大楼的施压：**
+- 已要求主要国防承包商评估对 Anthropic Claude 的依赖程度
+- 这可能被指定为「供应链风险」
+- 考虑援引《国防生产法》强制 Anthropic 服从
+- 将 Anthropic 列入黑名单威胁
+
+**Amodei 的补充说明：**
+- 部分自主武器「对民主防御至关重要」
+- 完全自主武器未来可能「对国家防御至关重要」
+- 但「今天的前沿 AI 系统还不可靠到足以支持完全自主武器」
+- 如果五角大楼选择终止合作，将协助平稳过渡
+
+**行业对比：**
+- OpenAI 和 xAI 据报已同意新条款
+- Anthropic 是唯一公开拒绝的主要 AI 公司
+- Dario Amodei 本周被召至白宫与 Hegseth 会面
+
+**深层意义：**
+- AI 公司在军事伦理问题上的首次重大公开对抗
+- 科技公司与军方关系的转折点
+- AI 安全承诺在政治压力下的考验
+- 可能影响未来 AI 公司与政府的合作模式`,
+    date: "2026-04-17 08:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/news/885773/anthropic-department-of-defense-dod-pentagon-refusal-terms-hegseth-dario-amodei",
+    href: "/news/news-276",
+  },
+  {
+    id: "news-275",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    coverImage: "/images/news/policy.jpg",
+    title: "白宫 reportedly 准备接入 Anthropic Mythos 模型 — 网络安全 AI 引发政府关注",
+    summary: "据最新报道，白宫正在准备接入 Anthropic 的 Mythos 模型——一款专注于网络安全的高级 AI 模型。该模型已被 Nvidia、Apple 和 JPMorgan Chase 等大型企业用于修复高风险系统漏洞。Mythos 的私有部署和强大的网络安全能力引起了政府高层的浓厚兴趣。",
+    content: `## 白宫准备接入 Anthropic Mythos 网络安全 AI
+
+2026 年 4 月 17 日，The Verge 报道白宫对 Anthropic Mythos 模型的关注。
+
+**Mythos 模型简介：**
+- Anthropic 的私有网络安全专用 AI 模型
+- 已被 Nvidia、Apple、JPMorgan Chase 等大型企业采用
+- 用于修复高风险系统漏洞
+- 专注于网络安全领域的高级 AI 能力
+
+**政府关注：**
+- 白宫 reportedly 正在准备接入 Mythos
+- 显示政府对 AI 网络安全能力的重视
+- 可能与五角大楼对 AI 公司的需求相关
+
+**行业背景：**
+- AI 在网络安全领域的应用快速增长
+- 企业越来越依赖 AI 来检测和修复安全漏洞
+- Anthropic 在网络安全 AI 领域建立了竞争优势
+
+**深层意义：**
+- 政府级 AI 网络安全能力建设加速
+- Mythos 可能成为政府网络防御的关键工具
+- AI 网络安全从企业级向政府级扩展`,
+    date: "2026-04-17 08:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-275",
+  },
+  {
+    id: "news-274",
+    tag: "开发工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    coverImage: "/images/news/tools.jpg",
+    title: "Chrome AI Mode 升级 — 现在可以搜索你的标签页，跨标签 AI 工作流再升级",
+    summary: "Google Chrome 的 AI Mode 迎来重要更新，现在可以搜索用户打开的所有标签页内容。这意味着 AI 不再只能回答通用问题，而是能理解用户当前的浏览上下文，跨标签页进行信息整合和搜索。这是浏览器原生 AI 从「一次性对话」向「上下文感知助手」的重要进化。",
+    content: `## Chrome AI Mode 升级：标签页搜索能力
+
+2026 年 4 月 17 日，The Verge 报道 Chrome AI Mode 新功能。
+
+**新功能：**
+- AI Mode 现在可以**搜索用户打开的所有标签页**
+- 不再只能回答通用问题，而是理解当前浏览上下文
+- 跨标签页信息整合和搜索
+
+**使用场景：**
+- 在多个研究标签页中快速定位关键信息
+- 跨标签页对比和分析内容
+- AI 基于用户当前浏览上下文提供精准回答
+
+**技术实现：**
+- AI 分析当前打开的标签页内容
+- 建立跨标签页的上下文理解
+- 基于用户浏览历史提供个性化搜索
+
+**行业意义：**
+- 浏览器 AI 从「通用问答」进化到「上下文感知」
+- 与 Chrome AI Skills（可复用工作流）形成互补
+- 预示浏览器将成为 AI 代理的核心操作界面
+- 用户浏览数据的 AI 利用引发隐私讨论`,
+    date: "2026-04-17 08:01",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-274",
+  },
+  {
+    id: "news-273",
+    tag: "融资动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    coverImage: "/images/news/funding.jpg",
+    title: "AI 数据中心能源监管升级 — 数据中心将必须完成强制性能源使用调查",
+    summary: "据 Wired 披露的信件显示，美国能源信息署（EIA）计划要求数据中心完成强制性能源使用调查。这是在参议员 Warren 和 Hawley 两党推动下的举措，旨在了解数据中心消耗多少能源。与此同时，全已有 100+ 地方社区对数据中心实施暂停令，12 个州正在推动全州范围的暂停提案。AI 基础设施的环境影响正成为监管焦点。",
+    content: `## AI 数据中心能源监管升级
+
+2026 年 4 月 17 日，Wired 和美国能源信息署报道数据中心能源监管最新动态。
+
+**新监管要求：**
+- 能源信息署（EIA）计划要求数据中心完成**强制性**能源使用调查
+- 回应参议员 Warren 和 Hawley 的两党推动
+- 旨在了解数据中心消耗多少能源
+
+**地方行动：**
+- 全美 100+ 地方社区已对数据中心实施暂停令
+- 12 个州正在推动全州范围的暂停提案
+
+**背景数据：**
+- AI 数据中心能耗急剧增长
+- 27 台燃气轮机在未取得空气许可的情况下运行（NAACP 起诉 xAI 案例）
+- 公众对 AI 基础设施环境影响的担忧日益增加
+
+**监管趋势：**
+- AI 监管从技术伦理扩展到环境影响
+- 能源透明度成为新的监管重点
+- 地方社区在 AI 基础设施建设中的话语权增强
+
+**行业意义：**
+- AI 公司可能需要公开更多能源使用数据
+- 数据中心建设可能面临更严格的环保审查
+- 能源成本可能成为 AI 发展的重要制约因素`,
+    date: "2026-04-17 08:01",
+    source: "Wired / The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-273",
+  },
+  {
     id: "news-272",
     tag: "行业动态",
     tagColor: "bg-yellow-500/10 text-yellow-300",
