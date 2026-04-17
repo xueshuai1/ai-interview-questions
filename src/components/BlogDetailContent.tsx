@@ -6,6 +6,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import MermaidChartWithActions from "@/components/MermaidChartWithActions";
+import CopyButton from "@/components/CopyButton";
 
 // Extract TOC items from markdown content
 function extractToc(content: string) {
@@ -225,6 +227,41 @@ export default function BlogDetailContent({
                     td: ({ children, ...props }: any) => (
                       <td className="px-4 py-3 text-slate-300 border-b border-white/5" {...props}>{children}</td>
                     ),
+                    code: ({ className, children, ...props }: any) => {
+                      const match = /language-(\w+)/.exec(className || '');
+                      const codeStr = String(children).replace(/\n$/, '');
+                      const isBlock = className && className.startsWith('language-');
+                      if (isBlock && match) {
+                        // Mermaid code blocks → render chart
+                        if (match[1] === 'mermaid') {
+                          return (
+                            <div className="my-6 p-6 rounded-xl bg-white/5 border border-white/10">
+                              <MermaidChartWithActions chart={codeStr} />
+                            </div>
+                          );
+                        }
+                        // Regular code block with copy button
+                        return (
+                          <div className="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10 my-4">
+                            <div className="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400">
+                              <span className="font-mono">{match[1]}</span>
+                              <CopyButton text={codeStr} />
+                            </div>
+                            <pre className="p-4 overflow-x-auto text-sm">
+                              <code className="text-slate-300 font-mono whitespace-pre" {...props}>
+                                {children}
+                              </code>
+                            </pre>
+                          </div>
+                        );
+                      }
+                      // Inline code — keep default prose styling (browser native copy)
+                      return (
+                        <code className="text-pink-300 bg-white/10 px-1.5 py-0.5 rounded" {...props}>
+                          {children}
+                        </code>
+                      );
+                    },
                   }}
                 >{post.content}</ReactMarkdown>
               </article>

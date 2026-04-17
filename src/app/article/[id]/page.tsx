@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import ReadingProgressBar from "@/components/ReadingProgressBar";
 import MermaidChart from "@/components/MermaidChart";
+import MermaidChartWithActions from "@/components/MermaidChartWithActions";
+import CopyButton from "@/components/CopyButton";
 import ArticleTocSidebar from "@/components/ArticleTocSidebar";
 import { marked } from "marked";
 
@@ -132,7 +134,10 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
             <div key={idx} className="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10">
               <div className="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400">
                 <span className="font-mono">{block.lang}</span>
-                {block.filename && <span>{block.filename}</span>}
+                <div className="flex items-center gap-2">
+                  {block.filename && <span>{block.filename}</span>}
+                  <CopyButton text={block.code} />
+                </div>
               </div>
               <pre className="p-4 overflow-x-auto text-sm">
                 <code className="text-slate-300 font-mono whitespace-pre">{block.code}</code>
@@ -144,7 +149,7 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
 
       {section.mermaid && (
         <div className="my-6 p-6 rounded-xl bg-white/5 border border-white/10">
-          <MermaidChart chart={section.mermaid} />
+          <MermaidChartWithActions chart={section.mermaid} />
         </div>
       )}
 

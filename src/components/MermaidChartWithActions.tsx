@@ -1,0 +1,105 @@
+'use client';
+
+import { useState, useCallback } from 'react';
+import MermaidChart from './MermaidChart';
+
+interface MermaidChartWithActionsProps {
+  chart: string;
+}
+
+export default function MermaidChartWithActions({ chart }: MermaidChartWithActionsProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [svgContent, setSvgContent] = useState<string>('');
+
+  // Capture SVG content after Mermaid renders
+  const handleSvgReady = useCallback((svg: string) => {
+    setSvgContent(svg);
+  }, []);
+
+  // Download SVG
+  const handleDownload = useCallback(() => {
+    if (!svgContent) return;
+    const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mermaid-chart.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [svgContent]);
+
+  // Open in modal
+  const handleZoom = useCallback(() => {
+    setShowModal(true);
+  }, []);
+
+  return (
+    <>
+      {/* Chart container with action buttons */}
+      <div className="relative group">
+        {/* Action buttons - top right, visible on hover */}
+        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+          <button
+            onClick={handleDownload}
+            disabled={!svgContent}
+            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            title="下载 SVG"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </button>
+          <button
+            onClick={handleZoom}
+            disabled={!svgContent}
+            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            title="放大查看"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+            </svg>
+          </button>
+        </div>
+
+        <MermaidChart chart={chart} onSvgReady={handleSvgReady} />
+      </div>
+
+      {/* Zoom Modal */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex flex-col bg-slate-900 rounded-2xl border border-white/10 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
+              <span className="text-sm text-slate-400">Mermaid 图表</span>
+              <button
+                onClick={() => setShowModal(false)}
+                className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all"
+                title="关闭"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal content */}
+            <div className="flex-1 overflow-auto p-6 flex items-center justify-center">
+              <div
+                className="w-full h-full flex items-center justify-center [&>svg]:max-w-none"
+                dangerouslySetInnerHTML={{ __html: svgContent }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}

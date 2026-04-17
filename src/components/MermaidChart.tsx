@@ -2,7 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export default function MermaidChart({ chart }: { chart: string }) {
+interface MermaidChartProps {
+  chart: string;
+  onSvgReady?: (svg: string) => void;
+}
+
+export default function MermaidChart({ chart, onSvgReady }: MermaidChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [svg, setSvg] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -22,7 +27,10 @@ export default function MermaidChart({ chart }: { chart: string }) {
 
         const id = `mermaid-${Math.random().toString(36).substring(2, 9)}`;
         const { svg } = await mermaid.render(id, chart);
-        if (mounted) setSvg(svg);
+        if (mounted) {
+          setSvg(svg);
+          onSvgReady?.(svg);
+        }
       } catch (e) {
         if (mounted) setError('图表渲染失败');
       }
