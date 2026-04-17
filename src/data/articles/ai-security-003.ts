@@ -6,7 +6,7 @@ import { Article } from "../knowledge";
 export const article: Article = {
   id: "ai-security-003",
   title: "Claude Mythos 网络安全危机：当 AI 发现人类无法发现的漏洞",
-  category: "AI 安全",
+  category: "ethics",
   tags: ["Claude Mythos", "网络安全", "漏洞挖掘", "AI 安全", "Anthropic", "Project Glasswing"],
   summary: "2026 年 4 月，Anthropic 的 Claude Mythos 模型展示了超越人类安全研究人员的漏洞发现能力，引发全球金融系统级别的紧急响应。本文深入分析这一事件的技术细节、行业影响和未来防御策略。",
   date: "2026-04-13",

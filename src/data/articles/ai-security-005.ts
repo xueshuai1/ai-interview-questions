@@ -5,7 +5,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
   id: "ai-security-005",
   title: "自动化对齐研究：当 Claude 自主发现对齐方法并超越人类研究者",
-  category: "AI 伦理与安全",
+  category: "ethics",
   tags: ["AI 安全", "模型对齐", "自动化研究", "可扩展监督", "弱到强监督", "Anthropic", "AAR"],
   summary: "2026 年 4 月，Anthropic 发布突破性研究：9 个 Claude Opus 4.6 实例作为自动化对齐研究者（AAR），在 5 天内将弱到强监督的性能差距恢复率从人类的 0.23 提升至 0.97。这标志着 AI 安全研究从「人类保护 AI」转向「AI 帮助对齐 AI」的范式转变。",
   date: "2026-04-17",

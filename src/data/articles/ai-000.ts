@@ -3,7 +3,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
     id: "ai-000",
     title: "认识 AI：从概念到实践的全景导览",
-    category: "ai",
+    category: "practice",
     tags: ["AI 入门", "学习路线", "技术全景", "大语言模型", "AI Agent", "AI 工具"],
     summary: "全面介绍人工智能是什么、它能做什么、主流技术栈和工具生态，以及你应该如何系统学习 AI。这是你 AI 学习之旅的第一站。",
     date: "2026-04-16",

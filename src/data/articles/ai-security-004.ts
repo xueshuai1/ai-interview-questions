@@ -3,7 +3,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
   id: "ai-security-004",
   title: "AI 模型安全：从 Mythos 漏洞挖掘事件看前沿模型的安全挑战",
-  category: "AI 伦理与安全",
+  category: "ethics",
   tags: ["AI 安全", "模型对齐", "红队测试", "漏洞挖掘", "Anthropic", "Mythos"],
   summary: "2026 年 4 月，Anthropic Claude Mythos 模型展现了前所未有的漏洞挖掘能力，引发了关于前沿 AI 模型安全性的深度讨论。本文系统梳理 AI 模型安全的核心概念、已知风险类型、防御策略和未来方向。",
   date: "2026-04-13",
