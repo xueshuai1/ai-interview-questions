@@ -115,7 +115,7 @@ export default function BlogDetailContent({
 
       {/* Article Header */}
       <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-sm text-slate-500 mb-6">
             <Link href="/" className="hover:text-slate-300 transition-colors">
