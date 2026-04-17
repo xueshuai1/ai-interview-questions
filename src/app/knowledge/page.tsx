@@ -132,25 +132,25 @@ export default function KnowledgePage() {
             </div>
           </section>
 
-          {/* Tiled Category Grid — PC only */}
-          <section className="hidden lg:block px-4 sm:px-6 lg:px-8 pb-6">
+          {/* Tiled Category Pills — PC only */}
+          <section className="hidden lg:block px-4 sm:px-6 lg:px-8 pb-4">
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-6 gap-3">
+              <div className="flex flex-wrap gap-2">
                 {categoryData.map((c) => {
                   const isActive = activeCategory === c.key;
                   return (
                     <button
                       key={c.key}
                       onClick={() => handleFilterChange(setActiveCategory, c.key)}
-                      className={`flex flex-col items-center gap-1.5 p-4 rounded-xl border transition-all cursor-pointer ${
+                      className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm border transition-all cursor-pointer ${
                         isActive
-                          ? "bg-brand-500/10 border-brand-500/30 shadow-lg shadow-brand-500/10 scale-[1.02]"
-                          : "bg-white/5 border-white/10 hover:border-brand-500/30 hover:bg-white/8 hover:scale-[1.02]"
+                          ? "bg-brand-500/15 border-brand-500/40 text-brand-300 shadow-sm shadow-brand-500/10"
+                          : "bg-white/5 border-white/10 text-slate-400 hover:border-brand-500/30 hover:text-white"
                       }`}
                     >
-                      <span className="text-2xl">{c.icon}</span>
-                      <span className="text-sm font-medium text-slate-200">{c.label}</span>
-                      <span className="text-xs text-slate-500">{c.count} 篇</span>
+                      <span>{c.icon}</span>
+                      <span className="font-medium">{c.label}</span>
+                      <span className="text-xs opacity-60">{c.count}</span>
                     </button>
                   );
                 })}
