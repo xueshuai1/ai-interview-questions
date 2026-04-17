@@ -7,6 +7,7 @@ import ReadingProgressBar from "@/components/ReadingProgressBar";
 import MermaidChart from "@/components/MermaidChart";
 import MermaidChartWithActions from "@/components/MermaidChartWithActions";
 import CopyButton from "@/components/CopyButton";
+import PythonCodeBlock from "@/components/PythonCodeBlock";
 import ArticleTocSidebar from "@/components/ArticleTocSidebar";
 import { marked } from "marked";
 
@@ -130,20 +131,34 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
 
       {section.code && section.code.length > 0 && (
         <div className="space-y-4 my-6">
-          {section.code.map((block, idx) => (
-            <div key={idx} className="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10">
-              <div className="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400">
-                <span className="font-mono">{block.lang}</span>
-                <div className="flex items-center gap-2">
-                  {block.filename && <span>{block.filename}</span>}
-                  <CopyButton text={block.code} />
+          {section.code.map((block, idx) => {
+            const isPython = block.lang === 'python' || block.lang === 'py';
+            if (isPython) {
+              return (
+                <PythonCodeBlock
+                  key={idx}
+                  code={block.code}
+                  lang={block.lang}
+                  filename={block.filename}
+                  CopyButtonComponent={CopyButton}
+                />
+              );
+            }
+            return (
+              <div key={idx} className="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10">
+                <div className="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400">
+                  <span className="font-mono">{block.lang}</span>
+                  <div className="flex items-center gap-2">
+                    {block.filename && <span>{block.filename}</span>}
+                    <CopyButton text={block.code} />
+                  </div>
                 </div>
+                <pre className="p-4 overflow-x-auto text-sm">
+                  <code className="text-slate-300 font-mono whitespace-pre">{block.code}</code>
+                </pre>
               </div>
-              <pre className="p-4 overflow-x-auto text-sm">
-                <code className="text-slate-300 font-mono whitespace-pre">{block.code}</code>
-              </pre>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

@@ -66,37 +66,35 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
         <MermaidChart chart={chart} onSvgReady={handleSvgReady} />
       </div>
 
-      {/* Zoom Modal */}
+      {/* Zoom Modal — 全屏展示，支持双向滚动 */}
       {showModal && (
         <div
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col"
           onClick={() => setShowModal(false)}
         >
+          {/* Modal header */}
+          <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-slate-900/50 shrink-0">
+            <span className="text-sm text-slate-400">Mermaid 图表 — 可滚动查看</span>
+            <button
+              onClick={() => setShowModal(false)}
+              className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all"
+              title="关闭"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Modal content — 完整 SVG，双向滚动，不被截断 */}
           <div
-            className="relative max-w-[90vw] max-h-[90vh] w-full h-full flex flex-col bg-slate-900 rounded-2xl border border-white/10 overflow-hidden"
+            className="flex-1 overflow-auto p-4"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal header */}
-            <div className="flex items-center justify-between px-6 py-3 border-b border-white/10">
-              <span className="text-sm text-slate-400">Mermaid 图表</span>
-              <button
-                onClick={() => setShowModal(false)}
-                className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all"
-                title="关闭"
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal content */}
-            <div className="flex-1 overflow-auto p-6 flex items-center justify-center">
-              <div
-                className="w-full h-full flex items-center justify-center [&>svg]:max-w-none"
-                dangerouslySetInnerHTML={{ __html: svgContent }}
-              />
-            </div>
+            <div
+              className="min-w-min [&>svg]:block [&>svg]:max-w-none [&>svg]:h-auto [&>svg]:w-auto"
+              dangerouslySetInnerHTML={{ __html: svgContent }}
+            />
           </div>
         </div>
       )}

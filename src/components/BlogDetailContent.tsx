@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import MermaidChartWithActions from "@/components/MermaidChartWithActions";
 import CopyButton from "@/components/CopyButton";
+import PythonCodeBlock from "@/components/PythonCodeBlock";
 
 // Extract TOC items from markdown content
 function extractToc(content: string) {
@@ -237,6 +238,18 @@ export default function BlogDetailContent({
                           return (
                             <div className="my-6 p-6 rounded-xl bg-white/5 border border-white/10">
                               <MermaidChartWithActions chart={codeStr} />
+                            </div>
+                          );
+                        }
+                        // Python code blocks → run button + copy
+                        if (match[1] === 'python' || match[1] === 'py') {
+                          return (
+                            <div className="my-4">
+                              <PythonCodeBlock
+                                code={codeStr}
+                                lang={match[1]}
+                                CopyButtonComponent={CopyButton}
+                              />
                             </div>
                           );
                         }
