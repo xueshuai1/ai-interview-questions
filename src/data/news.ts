@@ -16,6 +16,100 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-285",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    coverImage: "/images/news/safety.jpg",
+    title: "最新研究揭示 LLM-as-Judge 可靠性危机：33-67% 的评估存在逻辑矛盾",
+    summary: "2026 年 4 月最新论文通过保形预测和传递性分析发现，广泛使用的 LLM-as-Judge 评估框架中，33-67% 的文档存在逻辑矛盾（A>B>C 但 C>A），流畅性和一致性评估几乎不可靠，而评估标准的选择比评委模型更重要。",
+    content: `## LLM-as-Judge 可靠性危机
+
+2026 年 4 月 16 日，一篇题为「Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations」的论文在 arXiv 发布，对广泛使用的 LLM-as-Judge 评估框架提出了严峻质疑。
+
+**核心发现：**
+
+**1. 传递性违反的逐例普遍性**
+- 33-67% 的文档存在至少一个定向三元环（A>B>C 但 C>A）
+- 聚合违反率仅 0.8-4.1%，掩盖了严重的逐例不可靠性
+- 这意味着约三分之二的文档上，LLM 评委的判断存在逻辑矛盾
+
+**2. 保形预测集宽度 = 逐例可靠性指标**
+- 预测集宽度与可靠性强相关（ρ = 0.576, p < 10⁻¹⁰⁰）
+- 跨评委一致性证明其捕捉的是文档难度而非模型噪声
+
+**3. 标准优先于评委**
+- 相关性评估最可靠（平均预测集大小 ≈ 3.0）
+- 连贯性中等（≈ 3.9）
+- 流畅性和一致性几乎不可靠（≈ 4.9）
+
+**行业影响：**
+- 过去两年基于 LLM-as-Judge 的数百篇论文可能需要重新审视
+- 研究者被建议同时报告聚合相关性和逐例可靠性
+- 生产环境中应当对低可靠性样本自动触发人工审核`,
+    date: "2026-04-17 20:01",
+    source: "arXiv:2604.15302",
+    sourceUrl: "https://arxiv.org/abs/2604.15302",
+    href: "/news/news-285",
+  },
+  {
+    id: "news-286",
+    tag: "AI 医疗",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    coverImage: "/images/news/healthcare.jpg",
+    title: "RadAgent：使用工具的智能体实现逐步可解释的胸部 CT 影像分析",
+    summary: "Stanford 等团队发布 RadAgent，一个使用工具的 AI Agent，通过逐步、可解释的流程生成胸部 CT 报告。相比 3D VLM 基线，宏观 F1 提升 6.0 点（36.4% 相对提升），对抗鲁棒性提升 24.7 点，忠实度评分 37.0%。每条报告附带完整可检查的推理链路。",
+    content: `## RadAgent：可解释的 AI 医疗影像分析
+
+2026 年 4 月 16 日，Stanford 大学 Michael Moor 团队在 arXiv 发布 RadAgent。
+
+**核心创新：**
+- Agent 通过分步、可检查的推理流程生成报告
+- 每条报告附带完整的中间决策和工具交互记录
+- 医生可以逐层审查、验证和修正推理过程
+
+**性能提升（vs CT-Chat 3D VLM）：**
+- 临床准确性：宏观 F1 +6.0 点（+36.4%），微观 F1 +5.4 点（+19.6%）
+- 对抗鲁棒性：+24.7 点（+41.9%）
+- 忠实度评分：37.0%
+
+**意义：**
+- 医疗 AI 从「黑箱输出」走向「可审计推理」`,
+    date: "2026-04-17 20:02",
+    source: "arXiv:2604.15231",
+    sourceUrl: "https://arxiv.org/abs/2604.15231",
+    href: "/news/news-286",
+  },
+  {
+    id: "news-287",
+    tag: "学术研究",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    coverImage: "/images/news/research.jpg",
+    title: "ACL 2026 论文：LLM 和 VLM 在纯文本视角旋转理解中存在根本性空间智能缺陷",
+    summary: "ACL 2026 主会论文发现，在没有视觉信息的情况下，LLM 和 VLM 在视角旋转理解（VRU）任务上表现极差，人类可达到 100% 准确率而模型差距巨大。层探测分析揭示模型虽在隐藏状态中编码了视角信息，但最终层出现绑定失败导致幻觉。选择性微调关键注意力头可在避免灾难性遗忘的同时提升性能。",
+    content: `## LLM 空间智能的根本性缺陷
+
+ACL 2026 主会论文「How Do LLMs and VLMs Understand Viewpoint Rotation Without Vision? An Interpretability Study」揭示了 AI 空间智能的一个深层问题。
+
+**核心发现：**
+- 纯文本输入下，LLM 和 VLM 在视角旋转理解任务上表现极差
+- 人类可轻松达到 100% 准确率，模型差距巨大
+- 模型虽在隐藏状态中编码了视角信息，但最终层出现「视角-观察绑定失败」导致幻觉
+
+**可解释性分析：**
+- 层探测分析发现视角信息在中间层存在
+- 因果干预定位到关键的注意力头
+- 选择性微调这些注意力头可提升性能且不导致灾难性遗忘
+
+**意义：**
+- 空间智能不仅是视觉问题，也是语言理解的根本挑战
+- 模型的「空间推理」可能是表面模仿而非真正理解
+- 为改进 LLM 空间智能提供了可解释性指导`,
+    date: "2026-04-17 20:03",
+    source: "arXiv:2604.15294 (ACL 2026)",
+    sourceUrl: "https://arxiv.org/abs/2604.15294",
+    href: "/news/news-287",
+  },
+  {
     id: "news-283",
     tag: "开发工具",
     tagColor: "bg-green-500/10 text-green-300",
