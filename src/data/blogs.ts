@@ -15,7 +15,6 @@ import { blog as blog020 } from './blogs/blog-020';
 import { blog as blog017 } from './blogs/blog-017';
 import { blog as blog022 } from './blogs/blog-022';
 import { blog as blog024 } from './blogs/blog-024';
-import { blog as blog25 } from './blogs/blog-25';
 import { blog as blog026 } from './blogs/blog-026';
 import { blog as blog027 } from './blogs/blog-027';
 

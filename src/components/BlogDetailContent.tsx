@@ -12,34 +12,12 @@ import { BlogPost, ArticleSection } from "@/data/blogs/blog-types";
 
 marked.setOptions({ breaks: true, gfm: true });
 
-// Extract TOC items from sections
 function extractToc(sections: ArticleSection[]) {
-  return sections.map((s, i) => ({
-    id: `section-${i}`,
-    text: s.title,
-  }));
+  return sections.map((s, i) => ({ id: `section-${i}`, text: s.title }));
 }
 
-/** Render markdown text with prose styling */
-function MarkdownBody({ text }: { text: string }) {
-  const html = marked.parse(text) as string;
-  return (
-    <div
-      className="prose prose-invert max-w-none
-        prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
-        prose-strong:text-white prose-strong:font-semibold
-        prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-        prose-a:text-brand-400 hover:prose-a:underline
-        [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
-        [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:text-slate-300
-        [&_li]:leading-relaxed"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
-}
-
-/** Render a single section */
-function SectionContent({ section, headingId }: { section: ArticleSection; headingId: string }) {
+/** 完全复用知识库的 ArticleSectionContent 渲染逻辑 */
+function ArticleSectionContent({ section, headingId }: { section: ArticleSection; headingId: string }) {
   const numMatch = section.title.match(/^(\d+)[.、]\s*/);
   const badgeNum = numMatch ? numMatch[1] : '';
   const cleanTitle = numMatch ? section.title.replace(/^\d+[.、]\s*/, '') : section.title;
@@ -56,9 +34,15 @@ function SectionContent({ section, headingId }: { section: ArticleSection; headi
       </h2>
 
       {section.body && (
-        <div className="text-base sm:text-lg mb-4 overflow-x-auto">
-          <MarkdownBody text={section.body} />
-        </div>
+        <div className="prose prose-invert max-w-none text-base sm:text-lg mb-4 overflow-x-auto
+          prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
+          prose-strong:text-white prose-strong:font-semibold
+          prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          prose-a:text-brand-400 hover:prose-a:underline
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
+          [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:text-slate-300
+          [&_li]:leading-relaxed
+          [&_p]:break-words [&_p]:whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: marked.parse(section.body) as string }} />
       )}
 
       {section.code && section.code.length > 0 && (
@@ -154,13 +138,7 @@ function SectionContent({ section, headingId }: { section: ArticleSection; headi
   );
 }
 
-export default function BlogDetailContent({
-  post,
-  relatedPosts,
-}: {
-  post: BlogPost;
-  relatedPosts: BlogPost[];
-}) {
+export default function BlogDetailContent({ post, relatedPosts }: { post: BlogPost; relatedPosts: BlogPost[] }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeToc, setActiveToc] = useState("");
 
@@ -210,10 +188,7 @@ export default function BlogDetailContent({
 
       {scrollProgress > 0 && (
         <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-transparent">
-          <div
-            className="h-full bg-gradient-to-r from-brand-500 to-brand-300 transition-all duration-150"
-            style={{ width: `${scrollProgress}%` }}
-          />
+          <div className="h-full bg-gradient-to-r from-brand-500 to-brand-300 transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
         </div>
       )}
 
@@ -264,7 +239,7 @@ export default function BlogDetailContent({
             <div className={showToc ? "flex-1 min-w-0" : "max-w-4xl mx-auto w-full"}>
               <article>
                 {post.content.map((section, i) => (
-                  <SectionContent key={i} section={section} headingId={`section-${i}`} />
+                  <ArticleSectionContent key={i} section={section} headingId={`section-${i}`} />
                 ))}
               </article>
 
@@ -273,10 +248,7 @@ export default function BlogDetailContent({
                 <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">标签</h3>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-full text-sm text-slate-300 transition-colors cursor-pointer"
-                    >
+                    <span key={tag} className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-full text-sm text-slate-300 transition-colors cursor-pointer">
                       #{tag}
                     </span>
                   ))}
