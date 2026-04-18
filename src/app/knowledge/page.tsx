@@ -17,38 +17,48 @@ const levelOrder: Record<string, number> = { 入门: 1, 进阶: 2, 高级: 3 };
 export default function KnowledgePage() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   type SortKey = "default" | "level-asc" | "level-desc" | "date-desc" | "date-asc";
 
-  // Read directly from window.location.search on EVERY render
-  // This catches browser back/forward navigation where Next.js might not update searchParams
-  const readUrlParams = () => {
-    const p = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-    return {
-      mode: (p.get("mode") as "all" | "path") || "all",
-      cat: p.get("cat") || "all",
-      q: p.get("q") || "",
-      sort: (p.get("sort") as SortKey) || "level-asc",
-      page: parseInt(p.get("page") || "1") || 1,
-    };
-  };
+  // Primary source of truth: sessionStorage (survives browser back/forward)
+  const savedMode = typeof window !== 'undefined' ? sessionStorage.getItem('knowledge-mode') : null;
+  const spMode = (searchParams.get("mode") as "all" | "path") || savedMode || "all";
+  const spCat = searchParams.get("cat") || "all";
+  const spQ = searchParams.get("q") || "";
+  const spSort = (searchParams.get("sort") as SortKey) || "level-asc";
+  const spPage = parseInt(searchParams.get("page") || "1") || 1;
 
-  const urlP = readUrlParams();
-  const [mode, setMode] = useState<"all" | "path">(urlP.mode);
-  const [activeCategory, setActiveCategory] = useState(urlP.cat);
-  const [searchQuery, setSearchQuery] = useState(urlP.q);
-  const [sortBy, setSortBy] = useState<SortKey>(urlP.sort);
-  const [currentPage, setCurrentPage] = useState(urlP.page);
+  const [mode, setMode] = useState<"all" | "path">(spMode);
+  const [activeCategory, setActiveCategory] = useState(spCat);
+  const [searchQuery, setSearchQuery] = useState(spQ);
+  const [sortBy, setSortBy] = useState<SortKey>(spSort);
+  const [currentPage, setCurrentPage] = useState(spPage);
 
-  // On every render, check if URL changed (catches browser back/forward)
+  // Sync state whenever searchParams changes
   useEffect(() => {
-    const p = readUrlParams();
-    setMode(p.mode);
-    setActiveCategory(p.cat);
-    setSearchQuery(p.q);
-    setSortBy(p.sort);
-    setCurrentPage(p.page);
-  });
+    const m = (searchParams.get("mode") as "all" | "path") || sessionStorage.getItem('knowledge-mode') || "all";
+    setMode(m);
+    setActiveCategory(searchParams.get("cat") || "all");
+    setSearchQuery(searchParams.get("q") || "");
+    setSortBy((searchParams.get("sort") as SortKey) || "level-asc");
+    setCurrentPage(parseInt(searchParams.get("page") || "1") || 1);
+  }, [searchParams]);
+
+  // Also handle browser back/forward via popstate
+  useEffect(() => {
+    const onPopState = () => {
+      const saved = sessionStorage.getItem('knowledge-mode');
+      const p = new URLSearchParams(window.location.search);
+      setMode((saved || p.get("mode") || "all") as "all" | "path");
+      setActiveCategory(p.get("cat") || "all");
+      setSearchQuery(p.get("q") || "");
+      setSortBy((p.get("sort") as SortKey) || "level-asc");
+      setCurrentPage(parseInt(p.get("page") || "1") || 1);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   // Sync state → URL (skip first render, we already init from URL)
   const isInitialMount = useRef(true);
@@ -77,15 +87,15 @@ export default function KnowledgePage() {
   }, [mode, activeCategory, searchQuery, sortBy, currentPage, pathname]);
 
   const syncModeToUrl = (newMode: "all" | "path") => {
-    setMode(newMode);
-    // Use sessionStorage to survive page navigation
+    // Update sessionStorage FIRST so it's available before navigation
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('knowledge-mode', newMode);
     }
+    setMode(newMode);
     const params = new URLSearchParams();
     if (newMode === "path") params.set("mode", "path");
     const url = params.toString() ? `${pathname}?${params.toString()}` : pathname;
-    router.replace(url, { scroll: false });
+    router.push(url, { scroll: false });
   };
 
   const filteredArticles = useMemo(() => {
