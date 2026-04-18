@@ -16,6 +16,44 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-303",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "亲特朗普 AI 虚拟账号泛滥社交媒体 — Instagram、TikTok、Facebook 出现数百个 AI 生成的政治影响者账号",
+    summary: "纽约时报调查发现，Instagram、TikTok 和 Facebook 上出现数百个亲特朗普的 AI 虚拟账号，使用相同文案和僵硬措辞，疑似中期选举前的动员行动。账号创建者身份不明，AI 生成内容的政治操纵风险凸显。",
+    content: `## AI 政治影响者：社交媒体的新型操纵手段
+
+2026 年 4 月 18 日，纽约时报调查报道揭示 AI 政治账号泛滥现象。
+
+**调查发现：**
+- Instagram、TikTok、Facebook 上发现数百个亲特朗普 AI 虚拟账号
+- 账号经常使用相同的文案和僵硬措辞
+- 疑似中期选举前的保守选民动员行动
+- 账号创建者身份不明
+
+**技术特征：**
+- AI 生成的头像和照片
+- 自动发布政治内容
+- 批量操作多个平台
+- 使用相似的语言模式和措辞
+
+**风险与影响：**
+- **信息操纵**：AI 可以大规模生成看似真实的政治内容
+- **选民影响**：可能在关键选举期间影响公众意见
+- **平台治理**：社交媒体平台难以检测和删除 AI 生成账号
+- **透明度危机**：用户无法分辨内容是真人还是 AI 生成
+
+**行业背景：**
+- 2024 年美国大选期间已出现类似 AI 操纵案例
+- AI 内容检测技术仍在发展中
+- 各平台政策执行力度不一
+- 引发了关于 AI 生成内容标签要求的讨论`,
+    date: "2026-04-19 07:25",
+    source: "The New York Times / The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-303",
+  },
+  {
     id: "news-302",
     tag: "AI 基础设施",
     tagColor: "bg-purple-500/10 text-purple-300",
