@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { blogs } from "@/data/blogs";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -20,7 +21,6 @@ const blogPosts = blogs
   }))
   .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0));
 
-// Build categories with icons (map from tag name)
 const categoryIcons: Record<string, string> = {
   "行业洞察": "💡",
   "技术对比": "⚖️",
@@ -40,8 +40,23 @@ const blogCategoryData = ["全部", ...Array.from(new Set(blogs.flatMap((b) => b
 const POSTS_PER_PAGE = 9;
 
 export default function BlogPage() {
-  const [activeCategory, setActiveCategory] = useState("全部");
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const [activeCategory, setActiveCategory] = useState(searchParams.get("cat") || "全部");
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
+
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) { isInitialMount.current = false; return; }
+    const params = new URLSearchParams();
+    if (activeCategory !== "全部") params.set("cat", activeCategory);
+    if (currentPage > 1) params.set("page", String(currentPage));
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }, [activeCategory, currentPage, pathname, router]);
 
   const filteredPosts = useMemo(() => {
     if (activeCategory === "全部") return blogPosts;

@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { news } from "@/data/news";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -41,7 +42,6 @@ function formatNewsTime(dateStr: string): string {
   return dateStr;
 }
 
-// Tag icon mapping
 const tagIcons: Record<string, string> = {
   "行业动态": "📡",
   "AI 安全": "🔒",
@@ -57,9 +57,24 @@ const tagIcons: Record<string, string> = {
 };
 
 export default function NewsPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const recentNews = useMemo(() => getLast3DaysNews(), []);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [activeTag, setActiveTag] = useState<string>("全部");
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
+  const [activeTag, setActiveTag] = useState(searchParams.get("tag") || "全部");
+
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    if (isInitialMount.current) { isInitialMount.current = false; return; }
+    const params = new URLSearchParams();
+    if (activeTag !== "全部") params.set("tag", activeTag);
+    if (currentPage > 1) params.set("page", String(currentPage));
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+  }, [activeTag, currentPage, pathname, router]);
 
   const allTags = useMemo(() => {
     const tags = Array.from(new Set(recentNews.map(n => n.tag)));
