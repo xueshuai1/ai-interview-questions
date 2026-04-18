@@ -217,6 +217,16 @@ export default function BlogDetailContent({
                       const headingId = text.toLowerCase().replace(/[\s]+/g, '-').replace(/[^\w\-]/g, '');
                       return headingId ? <h3 id={headingId} {...props}>{children}</h3> : <h3 {...props}>{children}</h3>;
                     },
+                    pre: ({ children, ...props }: any) => {
+                      // 检查 pre 的子元素是否是自定义代码组件（不是 <code> 标签）
+                      // react-markdown 的 code 自定义渲染器如果返回了自定义组件，
+                      // children 就不再是 <code> 元素，此时 pre 应该直接透传
+                      if (children && typeof children === 'object' && 
+                          children.type !== 'code' && children.type !== 'CODE') {
+                        return children;
+                      }
+                      return <pre {...props}>{children}</pre>;
+                    },
                     table: ({ children, ...props }: any) => (
                       <div className="overflow-x-auto my-6 rounded-xl border border-white/10">
                         <table className="w-full text-sm" {...props}>{children}</table>
@@ -233,24 +243,18 @@ export default function BlogDetailContent({
                       const codeStr = String(children).replace(/\n$/, '');
                       const isBlock = className && className.startsWith('language-');
                       if (isBlock && match) {
-                        // Mermaid code blocks → render chart
+                        // Mermaid code blocks → render chart directly (no extra wrapper)
                         if (match[1] === 'mermaid') {
-                          return (
-                            <div className="my-6 p-6 rounded-xl bg-white/5 border border-white/10">
-                              <MermaidChartWithActions chart={codeStr} />
-                            </div>
-                          );
+                          return <MermaidChartWithActions chart={codeStr} />;
                         }
-                        // Python code blocks → run button + copy
+                        // Python code blocks → run button + copy (component has its own wrapper)
                         if (match[1] === 'python' || match[1] === 'py') {
                           return (
-                            <div className="my-4">
-                              <PythonCodeBlock
-                                code={codeStr}
-                                lang={match[1]}
-                                CopyButtonComponent={CopyButton}
-                              />
-                            </div>
+                            <PythonCodeBlock
+                              code={codeStr}
+                              lang={match[1]}
+                              CopyButtonComponent={CopyButton}
+                            />
                           );
                         }
                         // Regular code block with copy button
