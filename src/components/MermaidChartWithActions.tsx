@@ -137,6 +137,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     lastTouchX: 0,
     lastTouchY: 0,
     lastTapTime: 0,
+    isPinching: false,
   });
 
   const getTouchDistance = (t1: React.Touch, t2: React.Touch) => {
@@ -148,35 +149,26 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     const ts = touchState.current;
 
     if (e.touches.length === 2) {
-      // Pinch start
       e.preventDefault();
       ts.initialDistance = getTouchDistance(e.touches[0], e.touches[1]);
       ts.initialZoom = zoom;
       ts.lastTouchX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
       ts.lastTouchY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-    } else if (e.touches.length === 1) {
-      // Double tap detection
+      ts.isPinching = true;
+    } else if (e.touches.length === 1 && !ts.isPinching) {
       const now = Date.now();
       if (now - ts.lastTapTime < 300) {
-        // Double tap — zoom in or reset
+        // Double tap — zoom in/out
         if (zoom > 1.2) {
           setZoom(1);
           setPanX(0);
           setPanY(0);
         } else {
           setZoom(2.5);
-          // Zoom toward tap position
-          const touch = e.touches[0];
-          const rect = (e.target as HTMLElement).getBoundingClientRect();
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          setPanX((centerX - touch.clientX + rect.left) * 0.5);
-          setPanY((centerY - touch.clientY + rect.top) * 0.5);
         }
         ts.lastTapTime = 0;
       } else {
         ts.lastTapTime = now;
-        // Pan start
         ts.lastTouchX = e.touches[0].clientX;
         ts.lastTouchY = e.touches[0].clientY;
       }
@@ -188,36 +180,51 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     const ts = touchState.current;
 
     if (e.touches.length === 2) {
-      // Pinch zoom
       e.preventDefault();
       const dist = getTouchDistance(e.touches[0], e.touches[1]);
       const scale = dist / ts.initialDistance;
       const newZoom = Math.max(0.25, Math.min(5, ts.initialZoom * scale));
       setZoom(newZoom);
 
-      // Also pan during pinch
+      // Pan during pinch — move delta directly (no zoom multiplier needed for pinch)
       const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
       const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
       setPanX(p => p + (midX - ts.lastTouchX));
       setPanY(p => p + (midY - ts.lastTouchY));
       ts.lastTouchX = midX;
       ts.lastTouchY = midY;
-    } else if (e.touches.length === 1 && zoom > 1.2) {
-      // Pan (only when zoomed in)
+    } else if (e.touches.length === 1 && !ts.isPinching) {
+      // Single finger pan
       const dx = e.touches[0].clientX - ts.lastTouchX;
       const dy = e.touches[0].clientY - ts.lastTouchY;
-      setPanX(p => p + dx);
-      setPanY(p => p + dy);
-      ts.lastTouchX = e.touches[0].clientX;
-      ts.lastTouchY = e.touches[0].clientY;
+      // Only pan if moved more than 5px (avoid conflict with double-tap)
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+        e.preventDefault();
+        // Move at 1:1 ratio for natural feel
+        setPanX(p => p + dx);
+        setPanY(p => p + dy);
+        ts.lastTouchX = e.touches[0].clientX;
+        ts.lastTouchY = e.touches[0].clientY;
+      }
     }
-  }, [showModal, zoom]);
+  }, [showModal]);
 
   const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     if (!showModal) return;
-    // Prevent default to avoid ghost clicks
-    e.preventDefault();
-  }, [showModal]);
+    const ts = touchState.current;
+    if (e.touches.length < 2) {
+      ts.isPinching = false;
+      // Reset pinch baseline when going from 2 fingers to 1
+      if (e.touches.length === 1) {
+        ts.initialZoom = zoom;
+        ts.lastTouchX = e.touches[0].clientX;
+        ts.lastTouchY = e.touches[0].clientY;
+      }
+    }
+    if (e.touches.length === 0) {
+      e.preventDefault();
+    }
+  }, [showModal, zoom]);
 
   const handleZoom = useCallback(() => {
     setZoom(1);
@@ -327,8 +334,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
           >
             <div
               ref={zoomRef}
-              className="transition-transform duration-100"
-              style={{ transform: `translate(${panX}px, ${panY}px) scale(${zoom})` }}
+              style={{ transform: `translate3d(${panX}px, ${panY}px, 0) scale(${zoom})` }}
               dangerouslySetInnerHTML={{ __html: svgContent }}
             />
           </div>

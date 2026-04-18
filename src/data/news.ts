@@ -16,6 +16,194 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-297",
+    tag: "AI 产品",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "OpenAI 发布 Agents SDK 下一代进化：更灵活的多 Agent 协作与工具调用",
+    summary: "OpenAI 宣布 Agents SDK 迎来下一代重大升级，AI Agent 编排能力大幅增强，支持更灵活的多 Agent 协作模式、改进的工具调用和状态管理，进一步降低构建复杂 AI 工作流的开发门槛。",
+    content: `## OpenAI Agents SDK 下一代进化
+
+2026 年 4 月 15 日，OpenAI 发布 Agents SDK 重大更新。
+
+**核心升级：**
+
+**1. 多 Agent 协作增强**
+- 更灵活的 Agent 间通信模式
+- 支持动态编排和运行时调整
+- 改进的 Agent 生命周期管理
+
+**2. 工具调用升级**
+- 更智能的工具选择和调用
+- 支持复杂工具链的组合执行
+- 改进的错误处理和重试机制
+
+**3. 状态管理改进**
+- 更细粒度的会话状态控制
+- 支持长时间运行的复杂工作流
+- 改进的上下文窗口管理
+
+**4. 开发体验优化**
+- 简化的 API 设计
+- 更好的调试和可观测性工具
+- 降低构建多 Agent 系统的门槛
+
+**行业意义：**
+- Agent 编排成为 AI 基础设施的核心能力
+- 与 Claude Managed Agents 形成竞争
+- 多 Agent 系统开发门槛进一步降低
+- 推动 AI Agent 从实验走向生产环境`,
+    date: "2026-04-18 13:56",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+    href: "/news/news-297",
+  },
+  {
+    id: "news-296",
+    tag: "AI 科研",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "OpenAI 发布 GPT-Rosalind：专为生命科学研究设计的 AI 模型，覆盖基因组学与药物发现",
+    summary: "OpenAI 发布 GPT-Rosalind，以 DNA 结构发现者 Rosalind Franklin 命名的生命科学专用 AI 模型。覆盖基因组学、蛋白质组学、药物发现等领域，能够理解和分析生物医学数据，标志着 AI 从通用模型向垂直专业领域深入拓展。",
+    content: `## GPT-Rosalind：AI 深入生命科学研究
+
+2026 年 4 月 16 日，OpenAI 发布 GPT-Rosalind。
+
+**核心能力：**
+- 专为生命科学研究场景设计
+- 覆盖基因组学、蛋白质组学、药物发现
+- 能够理解和分析生物医学数据
+- 以 DNA 结构发现者 Rosalind Franklin 命名
+
+**应用场景：**
+- **基因组学**：基因序列分析、变异检测
+- **蛋白质组学**：蛋白质结构预测、相互作用分析
+- **药物发现**：靶点识别、分子筛选、临床试验设计辅助
+- **生物医学数据分析**：文献挖掘、实验设计
+
+**行业意义：**
+- AI 正在深入垂直领域，从通用走向专业
+- 与 RadAgent（AI 医疗影像）形成互补
+- 生命科学是 AI 最具潜力的应用领域之一
+- 可能加速新药研发和精准医疗发展`,
+    date: "2026-04-18 13:56",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/introducing-gpt-rosalind/",
+    href: "/news/news-296",
+  },
+  {
+    id: "news-295",
+    tag: "AI 身份",
+    tagColor: "bg-violet-500/10 text-violet-300",
+    title: "World ID 扩展到 Tinder、Zoom 和 Docusign — Orb 身份验证进入主流应用场景",
+    summary: "Tools for Humanity 的 World ID 应用（基于 Orb 生物特征验证）扩展到新场景：Tinder 个人资料验证、Zoom 会议身份确认、Docusign 文档签名验证。这是去中心化身份验证从加密货币领域走向日常消费和企业应用的重要一步。",
+    content: `## World ID 扩展：Orb 生物特征验证进入主流
+
+2026 年 4 月 17 日，The Verge 报道 World ID 的新应用。
+
+**新应用场景：**
+
+**1. Tinder 个人资料验证**
+- 通过 World ID 验证真实身份
+- 减少虚假资料和诈骗
+- 提升约会平台信任度
+
+**2. Zoom 会议身份确认**
+- 会议参与者身份验证
+- 防止未授权访问
+- 适用于企业级安全会议
+
+**3. Docusign 文档签名验证**
+- 电子签名身份绑定
+- 确保签名者身份真实性
+- 提升法律文件的可信度
+
+**技术背景：**
+- World ID 使用 Orb 设备进行虹膜扫描
+- 生成唯一的世界 ID 标识符
+- 基于零知识证明保护隐私
+- 由 Tools for Humanity（Sam Altman 投资）开发
+
+**行业意义：**
+- 生物特征身份验证从加密领域走向日常应用
+- 去中心化身份（DID）开始被主流平台采用
+- 隐私保护的在线身份验证成为可能
+- 可能影响未来数字身份标准`,
+    date: "2026-04-18 13:56",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-295",
+  },
+  {
+    id: "news-294",
+    tag: "AI 数据",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "SimpleClosure：出售已倒闭企业的数据用于 AI 训练，催生强化学习健身房新产业",
+    summary: "SimpleClosure 帮助 struggling 企业关停的同时，推出新工具让企业将旧代码、Slack 消息、邮件和_workspace 信息出售给 AI 公司。真实企业数据需求催生了「强化学习健身房」产业，专门用已倒闭公司数据构建模拟环境训练 AI Agent。",
+    content: `## SimpleClosure：已倒闭企业数据成为 AI 训练新金矿
+
+2026 年 4 月 17 日，Forbes 报道 SimpleClosure 新业务模式。
+
+**核心业务：**
+- 帮助 struggling 企业有序关停
+- 推出工具让企业出售旧代码、Slack 消息、邮件、workspace 信息
+- 买方：对真实企业数据饥渴的 AI 公司
+
+**新产业："强化学习健身房"**
+- 专门用已倒闭公司数据构建模拟环境
+- AI Agent 在这些环境中练习导航真实工作场景
+- 提供真实的业务流程、决策路径、组织结构数据
+
+**为什么有价值：**
+- 企业真实运营数据极度稀缺
+- 公开数据集无法反映真实工作流程
+- 已倒闭公司的历史数据无竞争敏感性
+- 可用于训练企业级 AI Agent
+
+**行业意义：**
+- AI 训练数据从「公开数据」走向「企业私有数据」
+- 已倒闭公司数据从「资产清算」变为「高价值商品」
+- 可能引发数据隐私和所有权争议
+- 代表 AI Agent 训练进入真实企业场景阶段`,
+    date: "2026-04-18 13:55",
+    source: "Forbes / The Verge",
+    sourceUrl: "https://www.forbes.com/sites/annatong/2026/04/16/ais-new-training-data-your-old-work-slacks-and-emails/",
+    href: "/news/news-294",
+  },
+  {
+    id: "news-293",
+    tag: "AI 产品",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Chrome AI Mode 升级：可搜索已打开的标签页，浏览器 AI 从「通用问答」进化到「上下文感知」",
+    summary: "Google Chrome 的 AI Mode 迎来重要更新，现在可以搜索用户当前打开的所有标签页内容。AI 不再只能回答通用问题，而是能理解用户当前的浏览上下文，跨标签页进行信息整合。这是浏览器原生 AI 从「一次性对话」向「上下文感知助手」的重要进化。",
+    content: `## Chrome AI Mode 升级：标签页搜索能力
+
+2026 年 4 月 17 日，The Verge 报道 Chrome AI Mode 新功能。
+
+**新功能：**
+- AI Mode 现在可以**搜索用户打开的所有标签页**
+- 不再只能回答通用问题，而是理解当前浏览上下文
+- 跨标签页信息整合和搜索
+
+**使用场景：**
+- 在多个研究标签页中快速定位关键信息
+- 跨标签页对比和分析内容
+- AI 基于用户当前浏览上下文提供精准回答
+
+**技术实现：**
+- AI 分析当前打开的标签页内容
+- 建立跨标签页的上下文理解
+- 基于用户浏览历史提供个性化搜索
+
+**行业意义：**
+- 浏览器 AI 从「通用问答」进化到「上下文感知」
+- 与 Chrome AI Skills（可复用工作流）形成互补
+- 预示浏览器将成为 AI 代理的核心操作界面
+- 用户浏览数据的 AI 利用引发隐私讨论`,
+    date: "2026-04-18 13:54",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-293",
+  },
+  {
     id: "news-290",
     tag: "AI 人事",
     tagColor: "bg-yellow-500/10 text-yellow-300",
