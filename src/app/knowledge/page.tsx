@@ -36,13 +36,15 @@ export default function KnowledgePage() {
       isInitialMount.current = false;
       return;
     }
-    if (mode !== "all") return;
 
     const params = new URLSearchParams();
-    if (activeCategory !== "all") params.set("cat", activeCategory);
-    if (searchQuery) params.set("q", searchQuery);
-    if (sortBy !== "level-asc") params.set("sort", sortBy);
-    if (currentPage > 1) params.set("page", String(currentPage));
+    if (mode === "path") params.set("mode", "path");
+    if (mode === "all") {
+      if (activeCategory !== "all") params.set("cat", activeCategory);
+      if (searchQuery) params.set("q", searchQuery);
+      if (sortBy !== "level-asc") params.set("sort", sortBy);
+      if (currentPage > 1) params.set("page", String(currentPage));
+    }
 
     const query = params.toString();
     const url = query ? `${pathname}?${query}` : pathname;
