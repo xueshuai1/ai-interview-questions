@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const footerLinks = {
   learning: [
-    { label: "机器学习基础", href: "/knowledge" },
-    { label: "深度学习实战", href: "/knowledge" },
-    { label: "NLP 教程", href: "/knowledge" },
-    { label: "计算机视觉", href: "/knowledge" },
+    { label: "📊 机器学习", href: "/knowledge?cat=ml" },
+    { label: "🧠 深度学习", href: "/knowledge?cat=dl" },
+    { label: "💬 NLP", href: "/knowledge?cat=nlp" },
+    { label: "👁️ 计算机视觉", href: "/knowledge?cat=cv" },
   ],
   about: [
     { label: "关于我们", href: "/about" },

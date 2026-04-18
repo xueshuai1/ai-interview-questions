@@ -7,12 +7,6 @@ import { news } from "@/data/news";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
-// Configure marked for better output
-marked.setOptions({
-  breaks: true,
-  gfm: true,
-});
-
 function MarkdownContent({ content }: { content: string }) {
   const html = marked.parse(content) as string;
   return (
@@ -57,7 +51,7 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
               ← 首页
             </Link>
             <span>/</span>
-            <Link href="/#news" className="hover:text-brand-300 transition-colors">
+            <Link href="/news" className="hover:text-brand-300 transition-colors">
               AI 动态
             </Link>
           </div>
@@ -93,11 +87,38 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
               href={item.sourceUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-400 hover:text-brand-300 transition-colors break-all"
+              className="text-brand-400 hover:text-brand-300 transition-colors break-all text-sm"
             >
               {item.sourceUrl}
             </a>
           </div>
+
+          {/* Prev/Next Navigation */}
+          {(() => {
+            const sorted = [...news].sort((a, b) => b.date.localeCompare(a.date));
+            const idx = sorted.findIndex(n => n.id === item.id);
+            const prev = idx > 0 ? sorted[idx - 1] : null;
+            const next = idx < sorted.length - 1 ? sorted[idx + 1] : null;
+            if (!prev && !next) return null;
+            return (
+              <div className="mt-8 pt-8 border-t border-white/5">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {prev ? (
+                    <Link href={prev.href} className="flex-1 group p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand-500/30 transition-all">
+                      <p className="text-xs text-slate-500 mb-1">← 上一篇</p>
+                      <p className="text-sm font-medium group-hover:text-brand-300 transition-colors line-clamp-1">{prev.title}</p>
+                    </Link>
+                  ) : <div className="flex-1" />}
+                  {next ? (
+                    <Link href={next.href} className="flex-1 group p-4 rounded-xl bg-white/5 border border-white/10 hover:border-brand-500/30 transition-all text-right">
+                      <p className="text-xs text-slate-500 mb-1">下一篇 →</p>
+                      <p className="text-sm font-medium group-hover:text-brand-300 transition-colors line-clamp-1">{next.title}</p>
+                    </Link>
+                  ) : <div className="flex-1" />}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
