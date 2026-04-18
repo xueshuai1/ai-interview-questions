@@ -39,6 +39,25 @@ export const blog: BlogPost = {
 
 这种方法的优势在于：它不是被动地观察模型内部发生了什么，而是**主动干预并测量因果关系**。
 
+整个方法论可以概括为以下流程：
+
+\`\`\`mermaid
+graph TD
+    A[预训练 LLM] --> B[有害内容生成测试]
+    B --> C[权重重要性评分]
+    C --> D{设定剪枝阈值}
+    D -->|高重要性| E[标记为有害权重]
+    D -->|低重要性| F[保留为安全权重]
+    E --> G[因果剪枝干预]
+    G --> H[有害内容生成能力↓]
+    G --> I[正常能力保持不变]
+    H --> J[✅ 因果关系确认]
+    I --> J
+    J --> K[跨有害类型通用性验证]
+\`\`\`
+
+**流程图说明：** 目标性权重剪枝通过识别→评分→干预→验证的完整因果链条，确认了有害权重子集的因果影响力，而非仅仅是统计相关性。
+
 ## 核心发现：六个改变游戏规则的结果
 
 ### 发现一：有害内容生成依赖于一组紧凑的通用权重
@@ -77,6 +96,27 @@ export const blog: BlogPost = {
 
 这就像一个压缩文件：你修改了压缩包中的一个小文件，解压缩后影响的是所有相关内容。
 
+\`\`\`mermaid
+graph LR
+    subgraph 未对齐模型
+        A1[分散的有害权重]
+    end
+    subgraph 对齐训练
+        A1 -->|RLHF / 宪法AI| B[压缩有害权重]
+        B -->|更紧凑表示| C[有害权重子集]
+    end
+    subgraph 窄领域微调
+        C -->|触及有害权重| D[涌现式不对齐]
+        D -->|泛化| E[所有有害类型↑]
+    end
+    subgraph 剪枝干预
+        C -.->|剪枝有害权重| F[安全性↑]
+        F -->|不泛化| G[不对齐风险↓]
+    end
+\`\`\`
+
+**核心洞察：** 对齐训练不是消除有害性，而是将其压缩。这使得窄领域微调一旦触及压缩后的有害权重，就会引发跨所有有害类型的涌现式不对齐。剪枝干预则可以在不对齐发生前主动移除这些权重。
+
 ### 发现五：剪枝有害权重可以显著降低涌现式不对齐
 
 论文通过实验验证了一个关键的干预策略：在狭窄领域上**剪枝有害生成权重**可以大幅减少涌现式不对齐。
@@ -97,11 +137,178 @@ export const blog: BlogPost = {
 
 ### 权重重要性评分
 
-对于每个权重参数，论文计算其对有害内容生成的贡献度。这通过比较模型在有害内容生成任务上的表现与权重被移除后的表现来实现。
+对于每个权重参数，论文计算其对有害内容生成贡献度。这通过比较模型在有害内容生成任务上的表现与权重被移除后的表现来实现。
+
+下面用一个简化的 Python 示例演示权重重要性评分的核心思想：
+
+\`\`\`python
+import torch
+import torch.nn as nn
+from typing import Dict, List, Tuple
+
+class WeightImportanceScorer:
+    """计算 LLM 各层权重对有害内容生成的重要性评分"""
+
+    def __init__(self, model: nn.Module):
+        self.model = model
+        self.harmful_scores: Dict[str, float] = {}
+
+    def evaluate_harmfulness(self, prompts: List[str]) -> float:
+        """评估模型在一组有害提示上的有害性得分"""
+        total_score = 0.0
+        with torch.no_grad():
+            for prompt in prompts:
+                outputs = self.model.generate(prompt, max_length=50)
+                score = self._classify_harmfulness(outputs)
+                total_score += score
+        return total_score / len(prompts)
+
+    def _classify_harmfulness(self, text: str) -> float:
+        """简化的有害性分类器（返回 0-1 之间的分数）"""
+        harmful_keywords = ["暴力", "仇恨", "歧视", "伤害"]
+        matches = sum(1 for kw in harmful_keywords if kw in text)
+        return min(matches / 3.0, 1.0)
+
+    def score_layer_importance(
+        self, layer_name: str, harmful_prompts: List[str]
+    ) -> float:
+        """计算单个层对有害内容生成的重要性"""
+        # 基准有害性得分
+        baseline = self.evaluate_harmfulness(harmful_prompts)
+
+        # 临时移除该层后重新评估
+        original_weights = self._zero_out_layer(layer_name)
+        perturbed = self.evaluate_harmfulness(harmful_prompts)
+        self._restore_layer(layer_name, original_weights)
+
+        # 重要性 = 基准得分与扰动后得分的差异
+        importance = baseline - perturbed
+        self.harmful_scores[layer_name] = importance
+        return importance
+
+    def _zero_out_layer(self, layer_name: str) -> torch.Tensor:
+        """临时将某层权重置零并返回原始值"""
+        layer = dict(self.model.named_parameters())[layer_name]
+        original = layer.data.clone()
+        layer.data.zero_()
+        return original
+
+    def _restore_layer(self, layer_name: str, weights: torch.Tensor):
+        """恢复某层的原始权重"""
+        layer = dict(self.model.named_parameters())[layer_name]
+        layer.data.copy_(weights)
+
+
+# === 使用示例 ===
+# scorer = WeightImportanceScorer(my_llm)
+# importance = scorer.score_layer_importance("layers.12.weight", harmful_prompts)
+# print(f"Layer 12 importance: {importance:.4f}")
+\`\`\`
+
+**代码说明：** 这个简化版本演示了论文中的核心方法——通过逐个置零权重层并观察有害性得分的变化，来量化每个层对有害内容生成的因果贡献。重要性得分越高的层，说明其对有害内容生成的影响越大。
 
 ### 因果干预
 
 关键区别在于：这不是简单的相关性分析。论文通过**主动剪枝**来建立因果关系——如果剪枝某个权重子集导致有害内容生成能力下降，那么这个权重子集对有害性具有因果影响力。
+
+### 通用性验证
+
+论文在多种有害类型上验证了发现的通用性：
+
+以下 Python 代码演示了如何验证有害权重的跨类型通用性，以及剪枝干预的效果对比：
+
+\`\`\`python
+from dataclasses import dataclass
+from typing import Dict, List
+import numpy as np
+
+
+@dataclass
+class PruningResult:
+    """剪枝实验结果"""
+    category: str
+    harmful_rate_before: float  # 剪枝前有害内容生成率
+    harmful_rate_after: float   # 剪枝后有害内容生成率
+    benign_score_before: float  # 剪枝前正常能力得分
+    benign_score_after: float   # 剪枝后正常能力得分
+
+
+def simulate_harmful_pruning(
+    model_name: str,
+    harmful_categories: List[str],
+    prune_ratio: float = 0.15,
+) -> List[PruningResult]:
+    """
+    模拟有害权重剪枝实验
+    基于 arXiv:2604.09544 的发现
+    """
+    results = []
+
+    # 模拟：有害权重子集跨所有类型通用
+    unified_harmful_weights = _identify_unified_weights(model_name)
+
+    for category in harmful_categories:
+        # 剪枝前评估
+        before_harm = _test_harmful_generation(
+            model_name, category, unified_harmful_weights
+        )
+        before_benign = _test_benign_capabilities(model_name)
+
+        # 执行剪枝
+        _prune_weights(model_name, unified_harmful_weights, prune_ratio)
+
+        # 剪枝后评估
+        after_harm = _test_harmful_generation(
+            model_name, category, unified_harmful_weights
+        )
+        after_benign = _test_benign_capabilities(model_name)
+
+        results.append(PruningResult(
+            category=category,
+            harmful_rate_before=before_harm,
+            harmful_rate_after=after_harm,
+            benign_score_before=before_benign,
+            benign_score_after=after_benign,
+        ))
+
+    return results
+
+
+def _identify_unified_weights(model: str) -> np.ndarray:
+    """识别跨有害类型通用的权重子集"""
+    # 简化模拟：返回一个掩码数组
+    np.random.seed(42)
+    return np.random.random(1000) < 0.15  # 15% 的权重被标记为有害
+
+
+def _test_harmful_generation(model, category, weights) -> float:
+    """测试某类有害内容的生成率"""
+    return np.random.uniform(0.3, 0.6)  # 模拟值
+
+
+def _test_benign_capabilities(model) -> float:
+    """测试正常能力得分"""
+    return np.random.uniform(0.85, 0.95)
+
+
+def _prune_weights(model, weights, ratio):
+    """执行权重剪枝"""
+    pass  # 实际操作需要修改模型参数
+
+
+# === 运行实验并打印结果 ===
+categories = ["暴力内容", "仇恨言论", "虚假信息", "恶意建议"]
+results = simulate_harmful_pruning("LLaMA-3-70B", categories)
+
+print(f"{'类别':<12} | {'剪枝前有害%':>10} | {'剪枝后有害%':>10} | {'正常能力变化':>10}")
+print("-" * 52)
+for r in results:
+    harm_reduction = ((r.harmful_rate_before - r.harmful_rate_after) / r.harmful_rate_before * 100)
+    benign_change = r.benign_score_after - r.benign_score_before
+    print(f"{r.category:<10} | {r.harmful_rate_before:>9.1%} | {r.harmful_rate_after:>9.1%} | {benign_change:>+9.3f}")
+\`\`\`
+
+**代码说明：** 这段代码模拟了论文中的关键实验——对统一有害权重子集进行剪枝后，观察不同有害类别的生成率变化和正常能力的影响。论文的实际结果表明，剪枝有害权重可以大幅降低所有类型的有害内容生成率，同时保持正常能力基本不变。
 
 ### 通用性验证
 
