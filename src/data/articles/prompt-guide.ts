@@ -3,7 +3,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
     id: "prompt-guide",
     title: "Prompt Engineering 学习导览",
-    category: "llm",
+    category: "prompt",
     tags: ["Prompt","学习导览","提示词","入门指南"],
     summary: "Prompt Engineering 是 AI 学习之旅的第一步。本文带你了解什么是 Prompt、为什么它如此重要，以及如何系统掌握提示词编写技巧。",
     date: "2026-04-16",

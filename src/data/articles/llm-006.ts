@@ -3,7 +3,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
     id: "llm-006",
     title: "Prompt Engineering 进阶指南：自洽性与结构化输出",
-    category: "llm",
+    category: "prompt",
     tags: ["Prompt", "工程实践", "LLM应用"],
     summary: "从零样本到思维链，掌握与大语言模型高效交互的艺术",
     date: "2026-04-12",

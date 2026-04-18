@@ -3,7 +3,7 @@ import { Article } from '../knowledge';
 export const article: Article = {
     id: "llm-002",
     title: "Prompt Engineering 最佳实践",
-    category: "llm",
+    category: "prompt",
     tags: ["Prompt", "技巧", "实战"],
     summary: "系统学习 CoT、Few-shot、ReAct 等 Prompt 设计模式与技巧",
     date: "2026-04-08",

@@ -2,7 +2,7 @@
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
-const VALID_CATEGORIES = ["ml", "dl", "nlp", "cv", "llm", "agent", "rl", "genai", "multimodal", "aieng", "practice", "mlops", "ethics", "math"];
+const VALID_CATEGORIES = ["ml", "dl", "nlp", "cv", "llm", "agent", "rl", "genai", "multimodal", "aieng", "practice", "mlops", "ethics", "math", "prompt"];
 const ARTICLES_DIR = './src/data/articles';
 
 let errors = [];
