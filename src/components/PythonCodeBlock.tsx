@@ -58,6 +58,13 @@ function extractMissingModule(errorMessage: string): string | null {
   return match ? match[1] : null;
 }
 
+/** Pyodide 不支持的大型包（有 C 扩展 / WASM 不兼容） */
+const UNSUPPORTED_IN_PYODIDE = new Set([
+  'torch', 'tensorflow', 'tf', 'tensorflowjs',
+  'opencv-python', 'cv2', 'dlib', 'faiss',
+  'llama-cpp', 'transformers', 'onnxruntime',
+]);
+
 /** 将 import 名映射到 pip 包名（取顶级） */
 function importToPipPackage(moduleName: string): string {
   const topLevel = moduleName.split('.')[0];
@@ -68,9 +75,14 @@ function importToPipPackage(moduleName: string): string {
     'yaml': 'pyyaml',
     'bs4': 'beautifulsoup4',
     'dateutil': 'python-dateutil',
-    'torch': 'torch',
   };
   return pipMappings[topLevel] || topLevel;
+}
+
+/** 检查模块是否在 Pyodide 不支持列表中 */
+function isUnsupportedInPyodide(moduleName: string): boolean {
+  const topLevel = moduleName.split('.')[0];
+  return UNSUPPORTED_IN_PYODIDE.has(topLevel) || UNSUPPORTED_IN_PYODIDE.has(moduleName);
 }
 
 /** 从 Python 代码中提取 import 的模块名 */
@@ -212,6 +224,14 @@ async function installMissingAndRun(
         return { success: false, error: errMsg };
       }
 
+      // 检查是否是 Pyodide 不支持的包（如 torch、tensorflow）
+      if (isUnsupportedInPyodide(missingModule)) {
+        return {
+          success: false,
+          error: `「${missingModule}」不支持在浏览器中运行。\n\n该包依赖底层 C/C++ 扩展，Pyodide（WASM 环境）无法兼容。\n\n建议在本地 Python 环境中运行此代码。`,
+        };
+      }
+
       // 映射到 pip 包名
       const pipPackage = importToPipPackage(missingModule);
       setStatusMessage(`📦 正在安装 ${pipPackage}...（第 ${attempt} 次）`);
@@ -226,11 +246,11 @@ async function installMissingAndRun(
           if (!retryResult.success) {
             return {
               success: false,
-              error: `无法安装 ${missingModule}`,
+              error: `无法安装 ${missingModule}\n\n该包可能不支持 Pyodide（WASM）环境。`,
             };
           }
         } else {
-          return { success: false, error: `无法安装 ${pipPackage}` };
+          return { success: false, error: `无法安装 ${pipPackage}\n\n该包可能不支持 Pyodide（WASM）环境。` };
         }
       }
 
