@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
@@ -465,8 +466,31 @@ const creativeRoute: RouteDef = {
 const allRoutes: RouteDef[] = [fastRoute, foundationRoute, securityRoute, engineerRoute, creativeRoute];
 
 export default function RoadmapPage() {
-  const [activeRoute, setActiveRoute] = useState<string>("fast");
-  const [expandedPhase, setExpandedPhase] = useState<number | null>(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // 从 URL 参数恢复状态，支持后退/刷新保留
+  const initialRoute = searchParams.get("route") || "fast";
+  const initialPhase = searchParams.get("phase");
+  const initialExpanded = initialPhase !== null ? Number(initialPhase) : 1;
+
+  const [activeRoute, setActiveRoute] = useState<string>(initialRoute);
+  const [expandedPhase, setExpandedPhase] = useState<number | null>(initialExpanded);
+
+  // 同步状态到 URL，实现后退保留
+  const syncToURL = useCallback((route: string, phase: number | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (route !== "fast") params.set("route", route);
+    else params.delete("route");
+    if (phase !== null) params.set("phase", String(phase));
+    else params.delete("phase");
+    const query = params.toString();
+    router.replace(query ? `/roadmap?${query}` : "/roadmap", { scroll: false });
+  }, [router, searchParams]);
+
+  useEffect(() => {
+    syncToURL(activeRoute, expandedPhase);
+  }, [activeRoute, expandedPhase, syncToURL]);
 
   const route = allRoutes.find((r) => r.id === activeRoute) || fastRoute;
 
@@ -493,7 +517,7 @@ export default function RoadmapPage() {
             {allRoutes.map((r) => (
               <button
                 key={r.id}
-                onClick={() => { setActiveRoute(r.id); setExpandedPhase(1); }}
+                onClick={() => { setActiveRoute(r.id); setExpandedPhase(1); syncToURL(r.id, 1); }}
                 className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all border ${
                   activeRoute === r.id
                     ? `${r.badgeColor} ${r.borderColor} shadow-lg`

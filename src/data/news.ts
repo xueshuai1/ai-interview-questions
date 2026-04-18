@@ -16,6 +16,215 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-302",
+    tag: "AI 基础设施",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "存储芯片巨头预警：到 2027 年底仅能满足 60% 的 AI 内存需求，HBM 供应危机加剧",
+    summary: "全球存储芯片制造商发出警告，预计到 2027 年底也只能满足 AI 行业 60% 的高带宽内存（HBM）需求。HBM 已成为 AI 算力的战略瓶颈，SK 海力士、三星、美光三家寡头的产能直接决定全球 AI 发展速度。",
+    content: `## HBM 内存危机：AI 算力的「卡脖子」时刻
+
+2026 年 4 月 18 日，存储行业传来重磅消息：全球主要存储芯片制造商预计，**到 2027 年底也只能满足 AI 行业 60% 的高带宽内存（HBM）需求**。
+
+**这意味着什么？**
+
+HBM（High Bandwidth Memory）是 AI GPU 的核心内存技术。NVIDIA H100 配备 80GB HBM3，B200 配备 192GB HBM3E。没有足够的 HBM，GPU 就只是空壳——算力再强也无法发挥作用。
+
+**供应危机的核心原因：**
+
+**1. 需求爆炸式增长**
+- 大模型参数量从 7B 飙升至 1T+
+- 推理部署量指数级增长，每个 GPU 都需要 HBM
+- 云厂商疯狂采购 GPU，带动 HBM 需求井喷
+
+**2. 产能瓶颈**
+- HBM 制造需要精密的 3D 堆叠和 TSV（硅通孔）技术
+- 台积电的 CoWoS 封装产能虽已扩大 2-3 倍，仍然供不应求
+- HBM 测试时间是传统 DRAM 的 3-5 倍
+
+**3. 三家寡头垄断**
+- SK 海力士：技术领先，NVIDIA 核心供应商
+- 三星电子：产能最大，但良率长期落后
+- 美光科技：起步最晚，功耗和散热有优势
+
+**行业影响：**
+- 大型云厂商通过长期合同锁定供应，中小公司面临「无芯可用」
+- 推动 MoE、量化等节省内存的技术加速发展
+- HBM 价格持续上涨，推高 AI 服务的单位成本
+- 韩国在全球 AI 地缘政治中的话语权显著增强`,
+    date: "2026-04-19 04:00",
+    source: "Reuters / The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-302",
+  },
+  {
+    id: "news-301",
+    tag: "AI 开发",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Google 发布 Android AI Agent 开发工具包 — 让 AI 代理自主操作 Android 应用",
+    summary: "Google 推出 Android AI Agent 开发工具包，包含升级的 Android CLI、Android Skills GitHub 仓库和 Android Knowledge Base。开发者可以训练 AI 代理自主操作 Android 应用，实现从 AI 辅助编码到 AI 自主执行的跨越。",
+    content: `## Android 成为 AI Agent 的新平台
+
+2026 年 4 月 18 日，Google 发布了 Android AI Agent 开发工具包，标志着移动操作系统正式拥抱 AI Agent 范式。
+
+**工具包内容：**
+
+**1. Android CLI 升级**
+- 增强的命令行工具，支持 AI Agent 与 Android 设备交互
+- 支持应用安装、权限管理、UI 自动化操作
+
+**2. Android Skills GitHub 仓库**
+- 开源的 Android 操作技能库
+- 包含 100+ 预定义操作模板
+- AI Agent 可以直接调用的标准化接口
+
+**3. Android Knowledge Base**
+- 结构化的 Android 系统知识
+- 帮助 AI Agent 理解应用生命周期、UI 层级、系统 API
+
+**技术意义：**
+
+这不是简单的「AI 辅助编码」工具，而是让 AI Agent 能够**自主操作 Android 设备**——安装应用、配置权限、执行 UI 操作、测试应用功能。
+
+**与竞品的对比：**
+
+- **vs Apple 的 Appium**：Google 的方案更原生，深度集成 Android 系统
+- **vs OpenAI Codex macOS 操作**：从桌面扩展到移动，覆盖更广泛的场景
+- **vs 传统 UI 自动化**：AI Agent 能理解意图，而不是机械执行脚本
+
+**应用场景：**
+- 自动化应用测试：AI Agent 自主探索应用，发现 bug
+- 个性化设备配置：AI 根据用户习惯自动优化手机设置
+- 批量设备管理：企业 IT 部门用 AI 管理成百上千台 Android 设备`,
+    date: "2026-04-19 02:00",
+    source: "Google Developer Blog / The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-301",
+  },
+  {
+    id: "news-300",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "白宫 reportedly 正准备访问 Anthropic Mythos — 最强网络安全 AI 模型进入政府视野",
+    summary: "据报道，白宫正在准备访问 Anthropic 的 Mythos 模型——目前已知最强的网络安全专用 AI。Mythos 已自主发现数千个高危漏洞，覆盖所有主流操作系统和浏览器。政府级访问意味着 AI 网络安全将从企业防御扩展到国家基础设施保护。",
+    content: `## Mythos：强大到可能改变网络安全格局的 AI 模型
+
+2026 年 4 月 18 日，据多家媒体报道，**白宫正在准备访问 Anthropic 的 Claude Mythos 模型**。
+
+**Mythos 是什么？**
+
+Mythos 是 Anthropic 开发的**专注网络安全的最强模型**，其能力远超任何公开的 AI 系统：
+
+- 已**自主发现数千个高危漏洞**
+- 包括一个 **17 年历史的 FreeBSD 远程代码执行漏洞**
+- 能够自主将 N-Day 漏洞转化为**复杂利用代码**
+- 在编码、推理和安全相关工作中全面超越此前所有系统
+
+**为什么政府需要 Mythos？**
+
+**1. 国家基础设施保护**
+- 电力系统、通信网络、金融系统都面临网络攻击威胁
+- Mythos 可以主动扫描和修复关键基础设施的漏洞
+
+**2. 攻防能力不对等**
+- 攻击者也在使用 AI 寻找漏洞
+- 防御方需要同等甚至更强的 AI 能力来应对
+
+**3. Glasswing 计划**
+- Anthropic 已启动 Glasswing 网络安全计划
+- 40+ 科技巨头加入（AWS、Apple、Google、Microsoft、Nvidia 等）
+- 投入 1 亿美元使用额度 + 400 万美元捐赠给开源安全组织
+
+**潜在风险：**
+- Mythos 的能力过于强大，可能被用于攻击而非防御
+- 政府访问意味着军事用途的可能性
+- 需要建立严格的使用规范和监督机制`,
+    date: "2026-04-19 00:00",
+    source: "The Verge / Vox Media",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-300",
+  },
+  {
+    id: "news-299",
+    tag: "AI 政策",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Sanders 联合劳工领袖呼吁 AI 就业保护 — 要求暂停数据中心建设",
+    summary: "Bernie Sanders 联合跨行业工会领袖发布 AI 就业保护倡议，呼吁对 AI 数据中心建设实施暂停令。Sanders 警告如果不加管控，十年内「制造业岗位将不复存在」。这是美国政界对 AI 就业影响最强烈的干预信号。",
+    content: `## AI 与就业：政治干预正在加速
+
+2026 年 4 月 18 日，参议员 Bernie Sanders 联合多个行业的工会领袖，发布了一份全面的 AI 就业保护倡议。
+
+**核心诉求：**
+
+**1. 暂停数据中心建设**
+- Sanders 已提出《AI 数据中心暂停法案》
+- 要求对新建 AI 数据中心进行环境和就业影响评估
+- 与 AOC 联合推动立法
+
+**2. 就业保护条款**
+- 要求 AI 公司在部署自动化系统前进行就业影响评估
+- 为受 AI 影响的工人提供再培训和过渡支持
+- 建立 AI 自动化部署的劳工协商机制
+
+**3. 跨行业联盟**
+- 制造业工会：担心 AI 取代工厂岗位
+- 服务业工会：关注客服、收银等岗位
+- 科技行业工会：担心 AI 编程工具取代开发者
+
+**行业反应：**
+- AI 公司认为这将阻碍技术创新和竞争力
+- 劳工组织认为这是保护工人权益的必要措施
+- 学术界对双方的论点都有支持证据
+
+**深层含义：**
+
+这是美国政界对 AI 就业影响最强烈的一次干预。如果立法通过，将对 AI 基础设施建设和应用部署产生深远影响。
+
+值得注意的是，AI 数据中心的**能源消耗**也成为争议焦点——大型数据中心耗电量相当于一个小城市，在电力供应紧张的地区引发社区反对。`,
+    date: "2026-04-18 22:00",
+    source: "The Verge / Reuters",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-299",
+  },
+  {
+    id: "news-298",
+    tag: "AI 产品",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Google 正与五角大楼洽谈 Gemini 机密环境使用 — 逆转军事合作立场",
+    summary: "据 The Information 报道，Google 正与美国国防部洽谈在机密环境中使用 Gemini 的方案。这标志着 Google 对军事 AI 合作的立场发生重大逆转——此前 Google 仅允许国防部在非机密场景使用 Gemini，且合同限定为「所有合法用途」。",
+    content: `## Google 重返军事 AI：Gemini 进入五角大楼机密网络
+
+2026 年 4 月 18 日，据 The Information 独家报道，Google 正在与美国国防部谈判，**允许在机密环境中使用 Gemini AI 模型**。
+
+**立场逆转：**
+
+Google 在军事 AI 合作上的立场经历了戏剧性的变化：
+
+- **2018 年**：Google 员工抗议 Project Maven（AI 用于无人机图像分析），公司承诺不将 AI 用于武器
+- **2023 年**：Google 允许国防部在非机密场景使用 Gemini
+- **2026 年**：谈判扩展到**机密环境**
+
+**合同细节：**
+
+- 提议的合同语言与 OpenAI 此前与五角大楼签署的协议类似
+- 关键条款：技术可用于"所有合法用途"
+- 律师指出，这一措辞虽然看似排除了自主致命武器和大规模国内监控，但实际上可能为这些应用留下空间
+
+**行业背景：**
+
+- OpenAI 已于 2026 年初与五角大楼签署 AI 合作协议
+- Anthropic 也参与了国防部的 AI 安全项目
+- AI 公司从「拒绝军事合作」到「积极拥抱国防」的转变正在加速
+
+**争议焦点：**
+- 伦理问题：AI 公司是否应该参与军事应用
+- 透明度问题：机密环境下的 AI 使用缺乏公众监督
+- 人才流失：部分 Google 员工可能因军事合作而离职`,
+    date: "2026-04-18 20:00",
+    source: "The Information / The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-298",
+  },
+  {
     id: "news-297",
     tag: "AI 产品",
     tagColor: "bg-blue-500/10 text-blue-300",
