@@ -52,34 +52,37 @@ const PYODIDE_PACKAGES: Record<string, string> = {
   packaging: 'packaging',
 };
 
-/** 动态加载 CDN script 标签 */
-function loadScript(src: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    if (document.querySelector(`script[src="${src}"]`)) {
-      resolve();
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = src;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-    document.head.appendChild(script);
-  });
+/** 从 ModuleNotFoundError 中提取缺失的模块名 */
+function extractMissingModule(errorMessage: string): string | null {
+  const match = errorMessage.match(/No module named '([^']+)'/);
+  return match ? match[1] : null;
+}
+
+/** 将 import 名映射到 pip 包名（取顶级） */
+function importToPipPackage(moduleName: string): string {
+  const topLevel = moduleName.split('.')[0];
+  const pipMappings: Record<string, string> = {
+    'sklearn': 'scikit-learn',
+    'PIL': 'pillow',
+    'cv2': 'opencv-python',
+    'yaml': 'pyyaml',
+    'bs4': 'beautifulsoup4',
+    'dateutil': 'python-dateutil',
+    'torch': 'torch',
+  };
+  return pipMappings[topLevel] || topLevel;
 }
 
 /** 从 Python 代码中提取 import 的模块名 */
 function extractImports(code: string): string[] {
   const imports = new Set<string>();
 
-  // 匹配 import X, import X.Y, import X as Z
   const importRegex = /^import\s+([a-zA-Z0-9_.]+)/gm;
   let match;
   while ((match = importRegex.exec(code)) !== null) {
     imports.add(match[1]);
   }
 
-  // 匹配 from X import Y
   const fromRegex = /^from\s+([a-zA-Z0-9_.]+)\s+import/gm;
   while ((match = fromRegex.exec(code)) !== null) {
     imports.add(match[1]);
@@ -94,13 +97,11 @@ function resolvePackages(code: string): string[] {
   const packages = new Set<string>();
 
   for (const imp of importNames) {
-    // 直接匹配
     if (PYODIDE_PACKAGES[imp]) {
       packages.add(PYODIDE_PACKAGES[imp]);
       continue;
     }
 
-    // 尝试匹配前缀（如 numpy.linalg → numpy）
     let found = false;
     for (const [key, pkg] of Object.entries(PYODIDE_PACKAGES)) {
       if (imp.startsWith(key + '.')) {
@@ -110,16 +111,29 @@ function resolvePackages(code: string): string[] {
       }
     }
 
-    // 如果没找到，尝试包名本身（纯 Python 包，后续用 micropip）
-    if (!found && importNames.length > 0) {
-      // 取顶级包名（requests, flask 等）
+    if (!found) {
       const topLevel = imp.split('.')[0];
-      // 不在内置列表中，稍后可能需要 micropip
       packages.add(topLevel);
     }
   }
 
   return Array.from(packages);
+}
+
+/** 动态加载 CDN script 标签 */
+function loadScript(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.async = true;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+    document.head.appendChild(script);
+  });
 }
 
 async function getPyodide(): Promise<any> {
@@ -143,6 +157,91 @@ async function getPyodide(): Promise<any> {
   return loadingPromise;
 }
 
+/** 安装单个包（返回是否成功） */
+async function installPackageViaMicropip(
+  pyodide: any,
+  packageName: string,
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    await pyodide.runPythonAsync(`
+      import micropip
+      await micropip.install("${packageName}")
+    `);
+    return { success: true };
+  } catch (e: any) {
+    return { success: false, error: e.message || String(e) };
+  }
+}
+
+/**
+ * 智能安装依赖：尝试安装缺失模块，最多重试 N 次
+ * 每次安装后重新执行代码，可能发现新的缺失依赖
+ */
+async function installMissingAndRun(
+  pyodide: any,
+  code: string,
+  setOutput: React.Dispatch<React.SetStateAction<string[]>>,
+  setStatusMessage: React.Dispatch<React.SetStateAction<string>>,
+  maxRetries: number = 5,
+): Promise<{ success: boolean; error?: string }> {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      setOutput([]);
+
+      pyodide.setStdout({
+        batched: (msg: string) => {
+          setOutput((prev) => [...prev, msg]);
+        },
+      });
+      pyodide.setStderr({
+        batched: (msg: string) => {
+          setOutput((prev) => [...prev, msg]);
+        },
+      });
+
+      // 尝试执行
+      await pyodide.runPythonAsync(code);
+      return { success: true }; // 执行成功！
+    } catch (err: any) {
+      const errMsg = err.message || String(err);
+
+      // 检查是否是 ModuleNotFoundError
+      const missingModule = extractMissingModule(errMsg);
+      if (!missingModule) {
+        // 不是模块缺失，直接返回错误
+        return { success: false, error: errMsg };
+      }
+
+      // 映射到 pip 包名
+      const pipPackage = importToPipPackage(missingModule);
+      setStatusMessage(`📦 正在安装 ${pipPackage}...（第 ${attempt} 次）`);
+
+      const installResult = await installPackageViaMicropip(pyodide, pipPackage);
+
+      if (!installResult.success) {
+        // 如果包安装失败，尝试用缺失的 import 名安装
+        if (pipPackage !== missingModule) {
+          setStatusMessage(`📦 ${pipPackage} 安装失败，尝试安装 ${missingModule}...`);
+          const retryResult = await installPackageViaMicropip(pyodide, missingModule);
+          if (!retryResult.success) {
+            return {
+              success: false,
+              error: `无法安装 ${missingModule}`,
+            };
+          }
+        } else {
+          return { success: false, error: `无法安装 ${pipPackage}` };
+        }
+      }
+
+      setStatusMessage(`✅ ${pipPackage} 安装完成，正在执行...`);
+      // 继续下一轮循环（重新执行代码）
+    }
+  }
+
+  return { success: false, error: '超过最大重试次数' };
+}
+
 interface PythonCodeBlockProps {
   code: string;
   lang: string;
@@ -160,7 +259,6 @@ export default function PythonCodeBlock({ code, lang, filename, CopyButtonCompon
   const outputRef = useRef<HTMLDivElement>(null);
 
   const handleRun = useCallback(async () => {
-    // 已有结果则切换显示/隐藏
     if (showResult && !running && !loading) {
       setShowResult(false);
       return;
@@ -183,80 +281,49 @@ export default function PythonCodeBlock({ code, lang, filename, CopyButtonCompon
 
       const pyodide = await getPyodide();
 
-      // 检测需要预加载的包
+      // 先用 pyodide.loadPackage 预加载已知内置包（更快）
       const packages = resolvePackages(code);
-      const builtInPackages = packages.filter(
-        (p) => PYODIDE_PACKAGES[p] || Object.values(PYODIDE_PACKAGES).includes(p)
+      const knownPackages = packages.filter(
+        (p) => Object.values(PYODIDE_PACKAGES).includes(p),
       );
 
-      if (builtInPackages.length > 0) {
-        setStatusMessage(`正在安装依赖：${builtInPackages.join(', ')}...`);
+      if (knownPackages.length > 0) {
+        setStatusMessage(`📦 预加载依赖：${knownPackages.join(', ')}...`);
         try {
-          await pyodide.loadPackage(builtInPackages);
+          await pyodide.loadPackage(knownPackages);
         } catch (e: any) {
-          // 预加载失败不影响执行，可能在 micropip 中安装
           console.warn('Pyodide package load failed:', e);
         }
       }
 
+      // 智能安装 + 执行：自动检测缺失模块 → micropip 安装 → 重新执行
       setLoading(false);
-      setStatusMessage('正在执行...');
+      const result = await installMissingAndRun(
+        pyodide,
+        code,
+        setOutput,
+        setStatusMessage,
+      );
 
-      // 捕获 stdout/stderr
-      pyodide.setStdout({
-        batched: (msg: string) => {
-          setOutput((prev) => [...prev, msg]);
-        },
-      });
-      pyodide.setStderr({
-        batched: (msg: string) => {
-          setOutput((prev) => [...prev, msg]);
-        },
-      });
-
-      await pyodide.runPythonAsync(code);
+      if (!result.success) {
+        const cleanError = result.error || '执行失败';
+        if (cleanError.includes('No module named')) {
+          const missingModule = extractMissingModule(cleanError);
+          setError(
+            `缺少模块「${missingModule || '未知'}」，无法自动安装。\n\n` +
+            `可能原因：\n` +
+            `• 该包不包含 Pyodide/WASM 版本\n` +
+            `• 包名与 PyPI 名称不一致`,
+          );
+        } else if (cleanError.includes('micropip') || cleanError.includes('install')) {
+          setError(`依赖安装失败：\n${cleanError}\n\n该包可能不支持 Pyodide 环境。`);
+        } else {
+          setError(cleanError);
+        }
+      }
       setStatusMessage('');
     } catch (err: any) {
       const errMsg = err.message || String(err);
-
-      // 如果是因为模块未安装，自动尝试用 micropip 安装
-      if (errMsg.includes('micropip.install') || errMsg.includes('not installed')) {
-        const moduleNameMatch = errMsg.match(/'([^']+)'/);
-        if (moduleNameMatch) {
-          const missingModule = moduleNameMatch[1];
-          setStatusMessage(`正在自动安装 ${missingModule}...`);
-
-          try {
-            const pyodide = await getPyodide();
-            await pyodide.runPythonAsync(`
-              import micropip
-              await micropip.install("${missingModule}")
-            `);
-            setStatusMessage(`${missingModule} 安装完成，正在执行...`);
-
-            // 重新设置 stdout/stderr
-            pyodide.setStdout({
-              batched: (msg: string) => {
-                setOutput((prev) => [...prev, msg]);
-              },
-            });
-            pyodide.setStderr({
-              batched: (msg: string) => {
-                setOutput((prev) => [...prev, msg]);
-              },
-            });
-
-            // 重新执行
-            await pyodide.runPythonAsync(code);
-            setStatusMessage('');
-            return;
-          } catch (retryErr: any) {
-            setError(`自动安装 ${missingModule} 失败：${retryErr.message || String(retryErr)}`);
-            setStatusMessage('');
-          }
-        }
-      }
-
       if (!error) {
         setError(errMsg);
       }
@@ -337,17 +404,8 @@ export default function PythonCodeBlock({ code, lang, filename, CopyButtonCompon
             </button>
           </div>
           <div className="p-4 font-mono text-sm min-h-[2rem] max-h-96 overflow-y-auto">
-            {loading && statusMessage && (
+            {(loading || (running && statusMessage)) && (
               <div className="flex items-center gap-2 text-amber-400">
-                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                <span>{statusMessage}</span>
-              </div>
-            )}
-            {running && !loading && statusMessage && (
-              <div className="flex items-center gap-2 text-brand-400">
                 <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -363,8 +421,14 @@ export default function PythonCodeBlock({ code, lang, filename, CopyButtonCompon
                   </div>
                 ))}
                 {error && (
-                  <div className="text-red-400 whitespace-pre-wrap break-words leading-relaxed">
-                    ❌ {error}
+                  <div className="rounded-lg bg-red-500/10 border border-red-500/20 p-3 text-red-300 whitespace-pre-wrap break-words leading-relaxed">
+                    <div className="flex items-start gap-2">
+                      <span className="text-lg flex-shrink-0">⚠️</span>
+                      <div className="flex-1">
+                        <div className="font-semibold text-red-200 mb-1">运行出错</div>
+                        <div className="text-sm text-red-300 whitespace-pre-wrap">{error}</div>
+                      </div>
+                    </div>
                   </div>
                 )}
                 {output.length === 0 && !error && (
