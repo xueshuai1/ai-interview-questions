@@ -17,20 +17,41 @@ const levelOrder: Record<string, number> = { 入门: 1, 进阶: 2, 高级: 3 };
 export default function KnowledgePage() {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
-  // Initialize state from URL query params
-  const [mode, setMode] = useState<"all" | "path">((searchParams.get("mode") as "all" | "path") || "all");
-  const [activeCategory, setActiveCategory] = useState(searchParams.get("cat") || "all");
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   type SortKey = "default" | "level-asc" | "level-desc" | "date-desc" | "date-asc";
-  const [sortBy, setSortBy] = useState<SortKey>((searchParams.get("sort") as SortKey) || "level-asc");
-  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
 
-  // Flag to skip initial URL sync (we already init from URL)
+  // Read directly from window.location.search on EVERY render
+  // This catches browser back/forward navigation where Next.js might not update searchParams
+  const readUrlParams = () => {
+    const p = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
+    return {
+      mode: (p.get("mode") as "all" | "path") || "all",
+      cat: p.get("cat") || "all",
+      q: p.get("q") || "",
+      sort: (p.get("sort") as SortKey) || "level-asc",
+      page: parseInt(p.get("page") || "1") || 1,
+    };
+  };
+
+  const urlP = readUrlParams();
+  const [mode, setMode] = useState<"all" | "path">(urlP.mode);
+  const [activeCategory, setActiveCategory] = useState(urlP.cat);
+  const [searchQuery, setSearchQuery] = useState(urlP.q);
+  const [sortBy, setSortBy] = useState<SortKey>(urlP.sort);
+  const [currentPage, setCurrentPage] = useState(urlP.page);
+
+  // On every render, check if URL changed (catches browser back/forward)
+  useEffect(() => {
+    const p = readUrlParams();
+    setMode(p.mode);
+    setActiveCategory(p.cat);
+    setSearchQuery(p.q);
+    setSortBy(p.sort);
+    setCurrentPage(p.page);
+  });
+
+  // Sync state → URL (skip first render, we already init from URL)
   const isInitialMount = useRef(true);
-
-  // Sync state → URL
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -48,15 +69,24 @@ export default function KnowledgePage() {
 
     const query = params.toString();
     const url = query ? `${pathname}?${query}` : pathname;
-    router.replace(url, { scroll: false });
-  }, [mode, activeCategory, searchQuery, sortBy, currentPage, pathname, router]);
-
-  // When switching to path mode, clear URL params
-  useEffect(() => {
-    if (mode === "path") {
-      router.replace(pathname, { scroll: false });
+    window.history.replaceState(null, '', url);
+    // Also sync mode to sessionStorage for navigation persistence
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('knowledge-mode', mode);
     }
-  }, [mode, pathname, router]);
+  }, [mode, activeCategory, searchQuery, sortBy, currentPage, pathname]);
+
+  const syncModeToUrl = (newMode: "all" | "path") => {
+    setMode(newMode);
+    // Use sessionStorage to survive page navigation
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('knowledge-mode', newMode);
+    }
+    const params = new URLSearchParams();
+    if (newMode === "path") params.set("mode", "path");
+    const url = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+    router.replace(url, { scroll: false });
+  };
 
   const filteredArticles = useMemo(() => {
     let result = articles.filter((a) => {
@@ -122,7 +152,7 @@ export default function KnowledgePage() {
           <div className="flex justify-center">
             <div className="inline-flex rounded-xl bg-white/5 border border-white/10 p-1">
               <button
-                onClick={() => setMode("all")}
+                onClick={() => syncModeToUrl("all")}
                 className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
                   mode === "all"
                     ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
@@ -132,7 +162,7 @@ export default function KnowledgePage() {
                 📋 全部文章
               </button>
               <button
-                onClick={() => setMode("path")}
+                onClick={() => syncModeToUrl("path")}
                 className={`px-5 py-2 rounded-lg text-sm font-medium transition-all ${
                   mode === "path"
                     ? "bg-brand-600 text-white shadow-lg shadow-brand-500/25"
