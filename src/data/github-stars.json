@@ -1,7 +1,7 @@
 {
-  "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
-  "totalRepos": 84,
-  "successCount": 83,
+  "fetchedAt": "2026-04-19T10:00:16.594Z",
+  "totalRepos": 82,
+  "successCount": 0,
   "errors": {},
   "stars": {
     "n8n": {
@@ -10,9 +10,9 @@
       "language": "TypeScript",
       "createdAt": "2019-06-22T09:24:21Z",
       "updatedAt": "2026-04-19T08:54:10Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 184655,
-      "delta": 1
+      "delta": 0
     },
     "auto-gpt": {
       "stars": 183550,
@@ -20,7 +20,7 @@
       "language": "Python",
       "createdAt": "2023-03-16T09:21:07Z",
       "updatedAt": "2026-04-19T08:46:11Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 183550,
       "delta": 0
     },
@@ -30,7 +30,7 @@
       "language": "Go",
       "createdAt": "2023-06-26T19:39:32Z",
       "updatedAt": "2026-04-19T08:58:58Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 169403,
       "delta": 0
     },
@@ -40,7 +40,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:08:40.915Z",
       "updatedAt": "2026-04-19T09:08:40.915Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 160656,
       "delta": 0
     },
@@ -50,9 +50,9 @@
       "language": "Shell",
       "createdAt": "2025-10-09T19:45:18Z",
       "updatedAt": "2026-04-19T09:07:48Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 159269,
-      "delta": 1
+      "delta": 0
     },
     "github-copilot": {
       "stars": 150000,
@@ -60,7 +60,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:08:44.678Z",
       "updatedAt": "2026-04-19T09:08:44.678Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 150000,
       "delta": 0
     },
@@ -70,7 +70,7 @@
       "language": "Python",
       "createdAt": "2023-02-08T22:28:03Z",
       "updatedAt": "2026-04-19T08:45:54Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 147097,
       "delta": 0
     },
@@ -80,7 +80,7 @@
       "language": "TypeScript",
       "createdAt": "2023-04-12T07:40:24Z",
       "updatedAt": "2026-04-19T08:53:42Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 138278,
       "delta": 0
     },
@@ -90,7 +90,7 @@
       "language": "Python",
       "createdAt": "2022-10-17T02:58:36Z",
       "updatedAt": "2026-04-19T08:57:40Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 134015,
       "delta": 0
     },
@@ -100,7 +100,7 @@
       "language": "Python",
       "createdAt": "2023-10-06T22:08:27Z",
       "updatedAt": "2026-04-19T09:01:53Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 132595,
       "delta": 0
     },
@@ -110,7 +110,7 @@
       "language": "Shell",
       "createdAt": "2025-02-22T17:41:21Z",
       "updatedAt": "2026-04-19T09:05:09Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 115676,
       "delta": 0
     },
@@ -120,9 +120,9 @@
       "language": "Python",
       "createdAt": "2024-11-13T19:56:40Z",
       "updatedAt": "2026-04-19T09:08:30Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 112259,
-      "delta": 2
+      "delta": 0
     },
     "firecrawl": {
       "stars": 110675,
@@ -130,7 +130,7 @@
       "language": "TypeScript",
       "createdAt": "2024-04-15T21:02:29Z",
       "updatedAt": "2026-04-19T09:08:47Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 110675,
       "delta": 0
     },
@@ -140,7 +140,7 @@
       "language": "TypeScript",
       "createdAt": "2025-04-17T17:04:31Z",
       "updatedAt": "2026-04-19T09:03:31Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 101730,
       "delta": 0
     },
@@ -150,9 +150,9 @@
       "language": "Python",
       "createdAt": "2025-07-22T22:22:28Z",
       "updatedAt": "2026-04-19T09:07:54Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 100426,
-      "delta": 3
+      "delta": 0
     },
     "browser-use": {
       "stars": 88509,
@@ -160,7 +160,7 @@
       "language": "Python",
       "createdAt": "2024-10-31T16:00:56Z",
       "updatedAt": "2026-04-19T09:05:10Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 88509,
       "delta": 0
     },
@@ -170,9 +170,9 @@
       "language": "Python",
       "createdAt": "2024-03-13T03:33:31Z",
       "updatedAt": "2026-04-19T08:56:43Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 71467,
-      "delta": -2
+      "delta": 0
     },
     "whisper": {
       "stars": 70000,
@@ -180,9 +180,9 @@
       "language": "Python",
       "createdAt": "2022-09-16T20:02:54Z",
       "updatedAt": "2026-04-19T09:06:39Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 98015,
-      "delta": -28015
+      "delta": 0
     },
     "china-textbook": {
       "stars": 69999,
@@ -190,9 +190,9 @@
       "language": "Roff",
       "createdAt": "2020-01-05T04:11:06Z",
       "updatedAt": "2026-04-19T09:03:05Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 70002,
-      "delta": -3
+      "delta": 0
     },
     "karpathy-skills": {
       "stars": 59083,
@@ -200,7 +200,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:09:12.248Z",
       "updatedAt": "2026-04-19T09:09:12.248Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 59083,
       "delta": 0
     },
@@ -210,9 +210,9 @@
       "language": "Python",
       "createdAt": "2025-10-23T12:45:00Z",
       "updatedAt": "2026-04-19T09:00:02Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 13525,
-      "delta": 45558
+      "delta": 0
     },
     "autogen": {
       "stars": 57201,
@@ -220,7 +220,7 @@
       "language": "Python",
       "createdAt": "2023-08-18T11:43:45Z",
       "updatedAt": "2026-04-19T07:55:03Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 57201,
       "delta": 0
     },
@@ -230,9 +230,9 @@
       "language": "Python",
       "createdAt": "2025-12-28T15:35:54Z",
       "updatedAt": "2026-04-19T09:08:56Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 19885,
-      "delta": 37316
+      "delta": 0
     },
     "ai-hedge-fund": {
       "stars": 56211,
@@ -240,9 +240,9 @@
       "language": "Python",
       "createdAt": "2024-11-29T16:30:01Z",
       "updatedAt": "2026-04-19T09:08:25Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 56221,
-      "delta": -10
+      "delta": 0
     },
     "crawl4ai": {
       "stars": 48200,
@@ -250,9 +250,9 @@
       "language": "Python",
       "createdAt": "2024-05-09T09:48:50Z",
       "updatedAt": "2026-04-19T08:51:56Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 64258,
-      "delta": -16058
+      "delta": 0
     },
     "mem-ai": {
       "stars": 47929,
@@ -260,9 +260,9 @@
       "language": "Python",
       "createdAt": "2026-04-05T01:12:07Z",
       "updatedAt": "2026-04-19T09:01:20Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 47936,
-      "delta": -7
+      "delta": 0
     },
     "cc-switch": {
       "stars": 47011,
@@ -270,9 +270,9 @@
       "language": "Rust",
       "createdAt": "2025-08-04T14:16:16Z",
       "updatedAt": "2026-04-19T08:59:58Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 47028,
-      "delta": -17
+      "delta": 0
     },
     "jest": {
       "stars": 45334,
@@ -280,7 +280,7 @@
       "language": "TypeScript",
       "createdAt": "2013-12-10T00:18:04Z",
       "updatedAt": "2026-04-19T04:40:12Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 45334,
       "delta": 0
     },
@@ -290,7 +290,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:09:29.680Z",
       "updatedAt": "2026-04-19T09:09:29.680Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 42664,
       "delta": 0
     },
@@ -300,9 +300,9 @@
       "language": "Python",
       "createdAt": "2025-04-19T20:55:59Z",
       "updatedAt": "2026-04-19T09:03:15Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 39647,
-      "delta": -4
+      "delta": 0
     },
     "aichat": {
       "stars": 28900,
@@ -310,9 +310,9 @@
       "language": "Rust",
       "createdAt": "2023-03-03T00:29:39Z",
       "updatedAt": "2026-04-19T07:40:25Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 9861,
-      "delta": 19039
+      "delta": 0
     },
     "llama-stack": {
       "stars": 26726,
@@ -320,7 +320,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:09:35.492Z",
       "updatedAt": "2026-04-19T09:09:35.492Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 26726,
       "delta": 0
     },
@@ -330,7 +330,7 @@
       "language": "Python",
       "createdAt": "2024-12-05T11:28:04Z",
       "updatedAt": "2026-04-19T07:58:16Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 26726,
       "delta": 0
     },
@@ -340,7 +340,7 @@
       "language": "Rust",
       "createdAt": "2026-03-02T19:46:06Z",
       "updatedAt": "2026-04-19T08:03:57Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 25013,
       "delta": 0
     },
@@ -350,7 +350,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:09:41.524Z",
       "updatedAt": "2026-04-19T09:09:41.524Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 24900,
       "delta": 0
     },
@@ -360,7 +360,7 @@
       "language": "Go",
       "createdAt": "2018-03-02T11:41:14Z",
       "updatedAt": "2026-04-19T07:33:55Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 23595,
       "delta": 0
     },
@@ -370,9 +370,9 @@
       "language": "Java",
       "createdAt": "2018-05-12T09:57:56Z",
       "updatedAt": "2026-04-19T08:17:46Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 26135,
-      "delta": -2935
+      "delta": 0
     },
     "argo-cd": {
       "stars": 22643,
@@ -380,9 +380,9 @@
       "language": "Go",
       "createdAt": "2018-02-09T11:12:01Z",
       "updatedAt": "2026-04-19T08:35:11Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 22644,
-      "delta": -1
+      "delta": 0
     },
     "openviking": {
       "stars": 22538,
@@ -390,9 +390,9 @@
       "language": "Python",
       "createdAt": "2026-01-05T07:11:17Z",
       "updatedAt": "2026-04-19T09:06:46Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 22541,
-      "delta": -3
+      "delta": 0
     },
     "promptfoo": {
       "stars": 20275,
@@ -400,9 +400,9 @@
       "language": "TypeScript",
       "createdAt": "2023-04-28T15:48:49Z",
       "updatedAt": "2026-04-19T08:55:26Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 20276,
-      "delta": -1
+      "delta": 0
     },
     "owl-camel": {
       "stars": 19665,
@@ -410,9 +410,9 @@
       "language": "Python",
       "createdAt": "2025-03-03T15:42:51Z",
       "updatedAt": "2026-04-19T08:57:10Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 19666,
-      "delta": -1
+      "delta": 0
     },
     "google-adk": {
       "stars": 19103,
@@ -420,9 +420,9 @@
       "language": "Python",
       "createdAt": "2025-04-01T20:44:40Z",
       "updatedAt": "2026-04-19T08:47:27Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 19104,
-      "delta": -1
+      "delta": 0
     },
     "archon": {
       "stars": 18828,
@@ -430,9 +430,9 @@
       "language": "TypeScript",
       "createdAt": "2025-02-07T21:04:12Z",
       "updatedAt": "2026-04-19T09:09:44Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 18840,
-      "delta": -12
+      "delta": 0
     },
     "agent-skills": {
       "stars": 17648,
@@ -440,9 +440,9 @@
       "language": "Shell",
       "createdAt": "2026-02-15T20:20:26Z",
       "updatedAt": "2026-04-19T09:07:50Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 17669,
-      "delta": -21
+      "delta": 0
     },
     "domain-driven-hexagon": {
       "stars": 17500,
@@ -450,7 +450,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:00.855Z",
       "updatedAt": "2026-04-19T09:10:00.855Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 17500,
       "delta": 0
     },
@@ -460,7 +460,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:02.461Z",
       "updatedAt": "2026-04-19T09:10:02.461Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 16380,
       "delta": 0
     },
@@ -470,7 +470,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:04.076Z",
       "updatedAt": "2026-04-19T09:10:04.076Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 15604,
       "delta": 0
     },
@@ -480,7 +480,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:05.685Z",
       "updatedAt": "2026-04-19T09:10:05.685Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 14371,
       "delta": 0
     },
@@ -490,7 +490,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:07.291Z",
       "updatedAt": "2026-04-19T09:10:07.291Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 13200,
       "delta": 0
     },
@@ -500,7 +500,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:08.900Z",
       "updatedAt": "2026-04-19T09:10:08.900Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 12834,
       "delta": 0
     },
@@ -510,7 +510,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:10.514Z",
       "updatedAt": "2026-04-19T09:10:10.514Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 10378,
       "delta": 0
     },
@@ -520,7 +520,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:12.123Z",
       "updatedAt": "2026-04-19T09:10:12.123Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 9520,
       "delta": 0
     },
@@ -530,7 +530,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:13.732Z",
       "updatedAt": "2026-04-19T09:10:13.732Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 9449,
       "delta": 0
     },
@@ -540,7 +540,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:15.343Z",
       "updatedAt": "2026-04-19T09:10:15.343Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 9057,
       "delta": 0
     },
@@ -550,7 +550,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:16.955Z",
       "updatedAt": "2026-04-19T09:10:16.955Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 8700,
       "delta": 0
     },
@@ -560,7 +560,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:18.571Z",
       "updatedAt": "2026-04-19T09:10:18.571Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 7566,
       "delta": 0
     },
@@ -570,7 +570,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:20.186Z",
       "updatedAt": "2026-04-19T09:10:20.186Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 6912,
       "delta": 0
     },
@@ -580,7 +580,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:21.794Z",
       "updatedAt": "2026-04-19T09:10:21.794Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 6870,
       "delta": 0
     },
@@ -590,7 +590,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:23.400Z",
       "updatedAt": "2026-04-19T09:10:23.400Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 6696,
       "delta": 0
     },
@@ -600,7 +600,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:25.018Z",
       "updatedAt": "2026-04-19T09:10:25.018Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 6415,
       "delta": 0
     },
@@ -610,7 +610,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:26.626Z",
       "updatedAt": "2026-04-19T09:10:26.626Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5914,
       "delta": 0
     },
@@ -620,7 +620,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:28.238Z",
       "updatedAt": "2026-04-19T09:10:28.238Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5887,
       "delta": 0
     },
@@ -630,7 +630,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:29.851Z",
       "updatedAt": "2026-04-19T09:10:29.851Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5449,
       "delta": 0
     },
@@ -640,7 +640,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:31.459Z",
       "updatedAt": "2026-04-19T09:10:31.459Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5415,
       "delta": 0
     },
@@ -650,7 +650,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:33.076Z",
       "updatedAt": "2026-04-19T09:10:33.076Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5400,
       "delta": 0
     },
@@ -660,7 +660,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:34.695Z",
       "updatedAt": "2026-04-19T09:10:34.695Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 5311,
       "delta": 0
     },
@@ -670,7 +670,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:36.315Z",
       "updatedAt": "2026-04-19T09:10:36.315Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 4609,
       "delta": 0
     },
@@ -680,7 +680,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:37.924Z",
       "updatedAt": "2026-04-19T09:10:37.924Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 4132,
       "delta": 0
     },
@@ -690,7 +690,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:39.542Z",
       "updatedAt": "2026-04-19T09:10:39.542Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 4100,
       "delta": 0
     },
@@ -700,7 +700,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:41.149Z",
       "updatedAt": "2026-04-19T09:10:41.149Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 3473,
       "delta": 0
     },
@@ -710,18 +710,8 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:42.756Z",
       "updatedAt": "2026-04-19T09:10:42.756Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 3400,
-      "delta": 0
-    },
-    "minimax-m2-7": {
-      "stars": 3200,
-      "forks": 0,
-      "language": "unknown",
-      "createdAt": "2026-04-19T09:10:44.257Z",
-      "updatedAt": "2026-04-19T09:10:44.257Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
-      "previousStars": 3200,
       "delta": 0
     },
     "fastapi-realworld": {
@@ -730,7 +720,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:45.873Z",
       "updatedAt": "2026-04-19T09:10:45.873Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 3104,
       "delta": 0
     },
@@ -740,7 +730,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:48.989Z",
       "updatedAt": "2026-04-19T09:10:48.989Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 2800,
       "delta": 0
     },
@@ -750,7 +740,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:50.607Z",
       "updatedAt": "2026-04-19T09:10:50.607Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 2798,
       "delta": 0
     },
@@ -760,7 +750,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:52.223Z",
       "updatedAt": "2026-04-19T09:10:52.223Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 2400,
       "delta": 0
     },
@@ -770,7 +760,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:53.840Z",
       "updatedAt": "2026-04-19T09:10:53.840Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 2374,
       "delta": 0
     },
@@ -780,7 +770,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:55.447Z",
       "updatedAt": "2026-04-19T09:10:55.447Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 2100,
       "delta": 0
     },
@@ -790,7 +780,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:57.063Z",
       "updatedAt": "2026-04-19T09:10:57.063Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 1914,
       "delta": 0
     },
@@ -800,7 +790,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:10:58.686Z",
       "updatedAt": "2026-04-19T09:10:58.686Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 1823,
       "delta": 0
     },
@@ -810,7 +800,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:11:00.302Z",
       "updatedAt": "2026-04-19T09:11:00.302Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 1300,
       "delta": 0
     },
@@ -820,7 +810,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:11:01.923Z",
       "updatedAt": "2026-04-19T09:11:01.923Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 900,
       "delta": 0
     },
@@ -830,7 +820,7 @@
       "language": "unknown",
       "createdAt": "2026-04-19T09:11:03.530Z",
       "updatedAt": "2026-04-19T09:11:03.530Z",
-      "fetchedAt": "2026-04-19T09:11:05.595260+00:00",
+      "fetchedAt": "2026-04-19T10:00:16.594Z",
       "previousStars": 419,
       "delta": 0
     }
