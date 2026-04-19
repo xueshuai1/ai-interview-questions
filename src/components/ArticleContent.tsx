@@ -215,16 +215,17 @@ function MermaidDiagram({ chart }: { chart: string }) {
           theme: "dark",
           securityLevel: "loose",
           fontFamily: "system-ui, sans-serif",
+          suppressErrorRendering: true,
         });
-        const id = `mermaid-${Math.random().toString(36).slice(2, 8)}`;
+        const id = `mermaid-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
         const { svg } = await mermaid.render(id, chart);
         if (containerRef.current && mounted) {
           containerRef.current.innerHTML = svg;
         }
       } catch {
-        // Mermaid rendering failed, show raw text
+        // Silently fail — suppressErrorRendering prevents bomb icon
         if (containerRef.current && mounted) {
-          containerRef.current.innerHTML = `<pre class="text-xs text-slate-500 overflow-x-auto">${chart}</pre>`;
+          containerRef.current.innerHTML = '';
         }
       }
     };
