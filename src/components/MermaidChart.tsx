@@ -24,7 +24,7 @@ export default function MermaidChart({ chart, onSvgReady }: MermaidChartProps) {
           securityLevel: 'loose',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           themeVariables: {
-            fontSize: '18px',
+            fontSize: '20px',
             primaryColor: '#1e3a5f',
             primaryTextColor: '#e2e8f0',
             primaryBorderColor: '#3b82f6',

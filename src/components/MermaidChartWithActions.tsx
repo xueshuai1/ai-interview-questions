@@ -149,7 +149,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     
     try {
       // Use SVG directly with proper high-DPI rendering
-      const SCALE = 4;
+      const SCALE = 6; // 6x for ultra-high-res PNG
       
       // Parse the SVG to get dimensions and inject explicit width/height
       const parser = new DOMParser();
@@ -164,6 +164,11 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
         setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
         return;
       }
+      
+      // Force anti-aliasing on all SVG elements
+      svgEl.setAttribute('shape-rendering', 'geometricPrecision');
+      svgEl.setAttribute('text-rendering', 'geometricPrecision');
+      svgEl.setAttribute('image-rendering', 'high-quality');
       
       // Extract viewBox
       const vb = svgEl.getAttribute('viewBox');
