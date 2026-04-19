@@ -104,11 +104,11 @@ export default function ToolsPage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  type SortKey = "default" | "stars";
+  type SortKey = "stars" | "newest";
   const [activeCategory, setActiveCategory] = useState(searchParams.get("cat") || "all");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
-  const [sortBy, setSortBy] = useState<SortKey>((searchParams.get("sort") as SortKey) || "default");
+  const [sortBy, setSortBy] = useState<SortKey>((searchParams.get("sort") as SortKey) || "stars");
 
   const isInitialMount = useRef(true);
 
@@ -117,7 +117,7 @@ export default function ToolsPage() {
     const params = new URLSearchParams();
     if (activeCategory !== "all") params.set("cat", activeCategory);
     if (searchQuery) params.set("q", searchQuery);
-    if (sortBy !== "default") params.set("sort", sortBy);
+    if (sortBy !== "stars") params.set("sort", sortBy);
     if (currentPage > 1) params.set("page", String(currentPage));
     const query = params.toString();
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
@@ -134,6 +134,15 @@ export default function ToolsPage() {
         const aStars = a.githubStars != null && a.githubStars > 0 ? a.githubStars : 0;
         const bStars = b.githubStars != null && b.githubStars > 0 ? b.githubStars : 0;
         return bStars - aStars;
+      });
+    } else if (sortBy === "newest") {
+      result = [...result].sort((a, b) => {
+        const aDate = (a as any).repoCreatedAt || (a as any).createdAt || '';
+        const bDate = (b as any).repoCreatedAt || (b as any).createdAt || '';
+        if (!aDate && !bDate) return 0;
+        if (!aDate) return 1;
+        if (!bDate) return -1;
+        return bDate.localeCompare(aDate);
       });
     }
     return result;
@@ -199,7 +208,7 @@ export default function ToolsPage() {
               </div>
               <div className="hidden lg:block">
                 <select value={sortBy} onChange={(e) => { setSortBy(e.target.value as SortKey); setCurrentPage(1); }} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
-                  <option value="default">排序</option><option value="stars">⭐ 热门</option>
+                  <option value="stars">⭐ 热门</option><option value="newest">🕐 最新</option>
                 </select>
               </div>
             </div>
@@ -225,7 +234,7 @@ export default function ToolsPage() {
               <div className="text-5xl mb-4">🔍</div>
               <h3 className="text-xl font-semibold text-slate-300 mb-2">没有找到相关工具</h3>
               <p className="text-slate-500">试试其他关键词或切换分类</p>
-              <button onClick={() => { setSearchQuery(""); setActiveCategory("all"); setSortBy("default"); setCurrentPage(1); }} className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all">重置筛选</button>
+              <button onClick={() => { setSearchQuery(""); setActiveCategory("all"); setSortBy("stars"); setCurrentPage(1); }} className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all">重置筛选</button>
             </div>
           )}
         </div>
