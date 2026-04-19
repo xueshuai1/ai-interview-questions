@@ -16,6 +16,154 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-311",
+    tag: "AI Agent",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Simon Willison 深度解析：Claude Opus 4.6 到 4.7 系统提示词演进轨迹",
+    summary: "Simon Willison 利用 Anthropic 公开的 Claude 系统提示词历史（可追溯至 Claude 3），通过 Git 版本化对比深入分析了 Opus 4.6 到 4.7 的变化。发现 Opus 4.7 在工具调用、错误恢复和多步推理方面做了大量优化，反映了 Anthropic 对 Agent 能力的持续强化。",
+    content: `## Claude 系统提示词的 Git 时间线
+
+Anthropic 是唯一一家公开发布其用户聊天系统提示词的主要 AI 实验室。其系统提示词档案现已回溯至 2024 年 7 月的 Claude 3，成为研究 AI 模型演进的宝贵资源。
+
+**Simon Willison 的分析方法：**
+
+Simon Willison 使用 Claude Code 将 Anthropic 公开的单体 Markdown 系统提示词页面转化为按模型、模型家族和版本拆分的 Git 仓库结构。通过虚构的 Git 提交时间戳，研究者可以使用 \`git log\`、\`diff\` 和 \`blame\` 来追溯提示词演变。
+
+**Opus 4.6 → 4.7 的关键变化：**
+
+1. **工具调用能力增强**：Opus 4.7 对工具调用的指导更精确，减少了误调用和遗漏
+2. **错误恢复机制改进**：新增了对失败操作的自我修正策略，Agent 在遇到错误时不再轻易放弃
+3. **多步推理优化**：复杂任务的分解和执行流程更清晰，减少了推理链断裂
+4. **安全约束微调**：在保持能力的同时，安全边界的定义更精细
+
+**llm-anthropic 0.25 同步发布：**
+
+Simon Willison 还发布了 llm-anthropic 0.25，正式支持 claude-opus-4.7 模型，新增 thinking_effort: xhigh 参数、thinking_display 和 thinking_adaptive 选项，并将默认 max_tokens 提升至各模型允许的最大值。
+
+**为什么值得关注：**
+
+系统提示词的演变直接反映了模型设计者的意图和优先级。Opus 4.7 的提示词变化清晰表明 Anthropic 正全力强化 Agent 能力——工具调用、错误恢复和多步推理正是构建自主 AI Agent 的三大基石。对于开发者和研究者来说，这些变化预示了下一代 Agent 的能力方向。
+
+**相关项目：**
+
+Simon Willison 将系统提示词分析开源为 [GitHub 仓库](https://github.com/simonw/research/tree/main/extract-system-prompts)，任何人都可以用 Git 工具探索 Claude 提示词的演变历程。
+
+**对 AI Master 读者的启示：**
+
+理解系统提示词的演变，有助于更好地设计 Agent 架构和优化提示词策略。AI 实验室公开这些信息，也反映了 AI 领域向透明化发展的趋势。
+`,
+    date: "2026-04-20",
+    source: "Simon Willison's Weblog",
+    sourceUrl: "https://simonwillison.net/2026/Apr/18/opus-system-prompt/",
+    href: "/news/news-311",
+  },
+  {
+    id: "news-312",
+    tag: "AI Agent",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Multica 开源多 Agent 平台单周暴涨 8,756 星——编程 Agent 团队化时代到来",
+    summary: "Multica 是一个开源的 Managed Agents 平台，可以将编程 Agent 变为真正的团队成员——分配任务、追踪进度、累积技能。一周内增长 8,756 stars，总计 16,648 stars，代表了从单一 Agent 到 Agent 团队的范式转变。",
+    content: `## Multica：从「一个 AI 助手」到「一个 AI 团队」
+
+2026 年 4 月，Multica 以惊人的速度在 GitHub 上增长，单周增加 8,756 stars，总星数达到 16,648。这个项目的核心命题是：AI Agent 不应只是单个助手，而应该是一整个团队。
+
+**核心理念：Agent 团队化管理**
+
+Multica 解决了单个 AI Agent 的固有限制——复杂工程任务需要多角色协作：
+
+- **任务分配**：将复杂工程拆解为子任务，分配给不同专长的 Agent
+- **进度追踪**：实时监控每个 Agent 的任务状态和完成质量
+- **技能沉淀**：Agent 在执行中积累的技能可被团队共享和复用
+- **角色分工**：代码审查、测试编写、文档生成等角色各司其职
+
+**技术架构：**
+
+1. **Agent 编排器**：负责任务拆解、Agent 调度和结果聚合
+2. **技能注册中心**：管理所有 Agent 的技能清单和能力边界
+3. **状态追踪系统**：实时追踪每个任务的进度和质量
+4. **知识沉淀层**：将 Agent 经验转化为可复用的团队知识
+
+**为什么 Agent 团队化是必然趋势？**
+
+当前主流的 Claude Code、Codex 等 Agent 虽然能完成单点任务，但面对「重构整个项目架构」或「从零构建一个产品」这样的复杂需求时，单 Agent 的上下文限制和规划能力瓶颈就暴露出来了。Multica 的思路是将大任务拆解后并行处理，类似于人类团队的项目管理。
+
+**与同类项目对比：**
+
+| 项目 | 定位 | Stars | 本周增长 |
+|------|------|-------|----------|
+| Multica | 多 Agent 团队管理 | 16,648 | +8,756 |
+| Hermes Agent | 可成长单 Agent | 101,604 | +42,612 |
+| GenericAgent | 自进化单 Agent | 4,463 | +3,218 |
+| OpenHands | 自主编码 Agent | 71,000 | +15 |
+
+**影响：**
+
+Multica 的爆发验证了一个判断：2026 年 AI Agent 的核心竞争将从「单个 Agent 多聪明」转向「多个 Agent 如何协作」。对于软件工程团队来说，这可能意味着开发模式的根本性变革。
+`,
+    date: "2026-04-20",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-312",
+  },
+  {
+    id: "news-313",
+    tag: "AI 基础设施",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Microsoft MarkItDown 本周增 10,759 星——AI 数据预处理的瑞士军刀突破 112K",
+    summary: "微软开源的 MarkItDown 工具本周增长 10,759 stars，总星数达 112,514。这个通用文件转 Markdown 工具支持 PDF、Word、PPT、Excel、HTML、音频、图片 OCR 等数十种格式，是 LLM 和 RAG 系统数据预处理的必备工具。",
+    content: `## MarkItDown：AI 时代的数据预处理利器
+
+在 LLM 和 RAG 系统中，数据预处理是最耗时也最关键的环节之一。微软的 MarkItDown 提供了一站式解决方案：任何格式文件 → Markdown，专为 AI 消费优化。
+
+**支持格式一览：**
+
+- **办公文档**：Word (.docx)、PowerPoint (.pptx)、Excel (.xlsx)、PDF
+- **网页**：HTML → Markdown 精准转换
+- **多媒体**：音频转录（Whisper 集成）、图片 OCR
+- **代码**：源代码文件带语法高亮的 Markdown 输出
+- **邮件**：EML/MSG 格式
+- **电子书**：EPUB
+
+**核心优势：**
+
+1. **插件系统可扩展**：社区可以编写自定义转换器
+2. **LLM 优化输出**：生成的 Markdown 格式专为 LLM 理解优化
+3. **MIT 协议**：完全免费，商业友好
+4. **Python 生态**：pip install 即用，API 简洁
+
+**为什么如此重要？**
+
+在 RAG（检索增强生成）系统中，数据质量直接决定 AI 输出质量。MarkItDown 解决了 RAG 系统最常见的痛点：如何把各种格式的非结构化数据转化为 LLM 可以高效处理的格式。
+
+**本周增长分析：**
+
+10,759 stars 的周增长说明企业对 AI 数据管道的需求正在爆发。越来越多的公司开始部署 RAG 系统和企业内部知识库，MarkItDown 成为了这个基础设施中不可或缺的一环。
+
+**使用示例：**
+
+\`\`\`python
+from markitdown import MarkItDown
+
+md = MarkItDown()
+# 转换 PDF
+result = md.convert("report.pdf")
+print(result.text_content)
+
+# 转换 Excel（保留表格结构）
+result = md.convert("data.xlsx")
+print(result.text_content)
+\`\`\`
+
+**在 AI Master 工具集中的地位：**
+
+MarkItDown 是 AI 工程化（AI Engineering）方向的核心工具之一，与 Crawl4AI（数据采集）、LangChain（应用构建）、Ollama（本地推理）共同构成了完整的 AI 应用开发工具链。
+`,
+    date: "2026-04-20",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/microsoft/markitdown",
+    href: "/news/news-313",
+  },
+  {
     id: "news-309",
     tag: "AI Agent",
     tagColor: "bg-blue-500/10 text-blue-300",
