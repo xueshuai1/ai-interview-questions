@@ -49,13 +49,13 @@ const features = [
   },
 ];
 
-// 首页展示：6 条新闻卡片 + 6 条新闻滚动 + 6 篇博客预览
+// 首页展示：6 条动态卡片 + 6 条动态滚动 + 6 篇博客预览
 const sortedByDate = <T extends { date: string }>(items: T[]): T[] =>
   [...items].sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0));
 
 const sortedNews = sortedByDate(news); // 时间倒序：最新在前
 const homeNews = sortedNews.slice(0, 6);
-const tickerNews = sortedNews.slice(6, 12);   // 滚动条：第 7-12 条新闻（与卡片区不重复）
+const tickerNews = sortedNews.slice(6, 12);   // 滚动条：第 7-12 条动态（与卡片区不重复）
 const previewBlogs = sortedByDate(blogs).slice(0, 6);  // 博客预览：最新 6 篇（时间倒序）
 
 function formatNewsTime(dateStr: string): string {
@@ -141,7 +141,7 @@ export default function Home() {
             {[
               { num: `${articles.length}+`, label: "篇教程", icon: "📚", trend: "持续更新" },
               { num: `${tools.length}+`, label: "个工具", icon: "🛠️", trend: "精选收录" },
-              { num: `${news.length}+`, label: "条新闻", icon: "⚡", trend: "实时更新" },
+              { num: `${news.length}+`, label: "条动态", icon: "⚡", trend: "实时更新" },
               { num: "100%", label: "免费", icon: "❤️", trend: "永远免费" },
             ].map((stat) => (
               <div key={stat.label} className="flex flex-col items-center gap-2 p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-brand-500/30 transition-all">
