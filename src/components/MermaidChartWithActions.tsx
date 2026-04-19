@@ -148,15 +148,11 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     setDlStatus('loading');
     
     try {
-      // Use SVG directly with proper high-DPI rendering
-      const SCALE = 4; // 4x for high-res PNG
-      
-      // Parse the SVG to get dimensions and inject explicit width/height
+      const SCALE = 4;
       const parser = new DOMParser();
       const doc = parser.parseFromString(svgContent, 'image/svg+xml');
       const svgEl = doc.querySelector('svg');
       if (!svgEl) {
-        // Fallback to SVG download
         const blob = new Blob([svgContent], { type: 'image/svg+xml' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a'); a.href = url; a.download = 'chart.svg';
@@ -165,12 +161,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
         return;
       }
       
-      // Strategy for high-quality PNG:
-      // 1. Inject CSS to make strokes/fonts thicker in the SVG (prevents thin lines looking jagged)
-      // 2. Ensure SVG has explicit width/height from viewBox
-      // 3. Draw SVG on a large canvas — browser rasterizes vector at canvas resolution
-      
-      // Inject CSS to thicken all SVG elements
+      // Inject CSS to thicken strokes and fonts in the SVG
       const styleEl = doc.createElementNS('http://www.w3.org/2000/svg', 'style');
       styleEl.textContent = `
         * { shape-rendering: geometricPrecision !important; text-rendering: geometricPrecision !important; }
@@ -178,7 +169,6 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
           stroke-linecap: round !important;
           stroke-linejoin: round !important;
         }
-        /* Thicker strokes — these look crisp at 4x resolution */
         .edgePath .path { stroke-width: 3px !important; }
         .node rect, .node circle, .node polygon, .node ellipse { stroke-width: 2.5px !important; }
         .cluster rect { stroke-width: 2px !important; }
@@ -188,32 +178,27 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       if (svgEl.firstChild) svgEl.insertBefore(styleEl, svgEl.firstChild);
       else svgEl.appendChild(styleEl);
       
-      // Ensure explicit width/height from viewBox
-      let w = parseFloat(svgEl.getAttribute('width') || '0');
-      let h = parseFloat(svgEl.getAttribute('height') || '0');
-      const vb = svgEl.getAttribute('viewBox');
-      if (vb && (w === 0 || h === 0)) {
-        const parts = vb.split(/[\s,]+/).filter(Boolean).map(Number);
+      // Get dimensions from viewBox or attributes
+      let svgW = parseFloat(svgEl.getAttribute('width') || '0');
+      let svgH = parseFloat(svgEl.getAttribute('height') || '0');
+      const viewBox = svgEl.getAttribute('viewBox');
+      if (viewBox && (svgW === 0 || svgH === 0)) {
+        const parts = viewBox.split(/[\s,]+/).filter(Boolean).map(Number);
         if (parts.length >= 4) {
-          w = parts[2];
-          h = parts[3];
-          svgEl.setAttribute('width', String(w));
-          svgEl.setAttribute('height', String(h));
+          svgW = parts[2];
+          svgH = parts[3];
         }
       }
+      if (svgW < 600) svgW = 600;
+      if (svgH < 400) svgH = 400;
+      svgEl.setAttribute('width', String(svgW));
+      svgEl.setAttribute('height', String(svgH));
       
-      // Minimum dimensions
-      if (w < 600) w = 600;
-      if (h < 400) h = 400;
-      
-      // Serialize the modified SVG
       const serializer = new XMLSerializer();
       const modifiedSvg = serializer.serializeToString(svgEl);
+      const canvasW = Math.round(svgW * SCALE);
+      const canvasH = Math.round(svgH * SCALE);
       
-      const canvasW = Math.round(w * SCALE);
-      const canvasH = Math.round(h * SCALE);
-      
-      // Create blob from modified SVG
       const svgBlob = new Blob([modifiedSvg], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(svgBlob);
       
@@ -223,26 +208,16 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
         canvas.width = canvasW;
         canvas.height = canvasH;
         const ctx = canvas.getContext('2d', { alpha: false })!;
-        
-        // High quality rendering
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = 'high';
-        
-        // Fill background
         ctx.fillStyle = '#0f172a';
         ctx.fillRect(0, 0, canvasW, canvasH);
-        
-        // Draw at high resolution
         ctx.drawImage(img, 0, 0, canvasW, canvasH);
         URL.revokeObjectURL(url);
         
-        // Export as high-quality PNG
         canvas.toBlob((blob) => {
           if (!blob) {
-            // Fallback
-            const a = document.createElement('a'); a.href = url; a.download = 'chart.svg';
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-            setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
+            setDlStatus('idle');
             return;
           }
           const pngUrl = URL.createObjectURL(blob);
@@ -254,15 +229,11 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       };
       
       img.onerror = () => {
-        // Fallback to SVG download
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'chart.svg';
+        const a = document.createElement('a'); a.href = url; a.download = 'chart.svg';
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
         URL.revokeObjectURL(url);
         setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
       };
-      
       img.src = url;
     } catch {
       setDlStatus('idle');
