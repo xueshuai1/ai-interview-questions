@@ -10,13 +10,15 @@ import Navbar from "@/components/Navbar";
 import CategoryFilter from "@/components/CategoryFilter";
 
 const toolsWithPopularity: Tool[] = tools.map(t => {
-  const ghData = (githubStars as any).githubStars?.[t.id] || (githubStars as any).stars?.[t.id];
+  const ghData = (githubStars as any).stars?.[t.id];
   const altData = (githubStars as any).alternativeTo?.[t.id];
   return {
     ...t,
     githubStars: ghData?.stars ?? t.githubStars ?? null,
     altToLikes: altData?.likes ?? null,
     repoCreatedAt: ghData?.createdAt ?? (t as any).createdAt ?? null,
+    delta: ghData?.delta ?? null,
+    previousStars: ghData?.previousStars ?? null,
   };
 });
 
@@ -44,7 +46,15 @@ function ToolCard({ tool }: { tool: Tool }) {
             <h3 className="text-lg font-semibold group-hover:text-brand-300 transition-colors">{tool.name}</h3>
             <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${priceColors[tool.price]}`}>{tool.price}</span>
             {tool.githubStars != null && tool.githubStars > 0 && (
-              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-300 flex items-center gap-0.5">⭐ {formatPopularity(tool.githubStars)}</span>
+              <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-300 flex items-center gap-0.5">
+                ⭐ {formatPopularity(tool.githubStars)}
+                {(tool as any).delta != null && (tool as any).delta > 0 && (
+                  <span className="text-green-400 ml-0.5">↑+{formatPopularity((tool as any).delta)}</span>
+                )}
+                {(tool as any).delta != null && (tool as any).delta < 0 && (
+                  <span className="text-red-400 ml-0.5">↓{formatPopularity(Math.abs((tool as any).delta))}</span>
+                )}
+              </span>
             )}
             {tool.githubStars == null && (tool as any).altToLikes != null && (tool as any).altToLikes > 0 && (
               <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-500/10 text-orange-300 flex items-center gap-0.5">🔥 {formatPopularity((tool as any).altToLikes)}</span>
