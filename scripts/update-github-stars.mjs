@@ -14,20 +14,40 @@
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const ROOT = process.cwd();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, '..');
+
+// Load .env.local for GITHUB_TOKEN
+const envPath = path.join(ROOT, '.env.local');
+let GITHUB_TOKEN = process.env.GITHUB_TOKEN || '';
+try {
+  const envContent = fs.readFileSync(envPath, 'utf8');
+  const match = envContent.match(/GITHUB_TOKEN=(.+)/);
+  if (match) GITHUB_TOKEN = match[1].trim();
+} catch {}
+const HAS_TOKEN = GITHUB_TOKEN.startsWith('ghp_') || GITHUB_TOKEN.startsWith('gho_');
+const REQUEST_DELAY = HAS_TOKEN ? 200 : 1500; // 5000/hr with token, 60/hr without
+
 const TOOLS_FILE = path.join(ROOT, 'src/data/tools.ts');
 const STARS_FILE = path.join(ROOT, 'src/data/github-stars.json');
 const HISTORY_FILE = path.join(ROOT, 'src/data/github-stars-history.json');
-const REQUEST_DELAY = 1500;
 
 function fetchRepoInfo(repo) {
   return new Promise((resolve) => {
+    const headers = {
+      'User-Agent': 'ai-master-site',
+      'Accept': 'application/vnd.github.v3+json'
+    };
+    if (HAS_TOKEN) {
+      headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+    }
     const options = {
       hostname: 'api.github.com',
       path: `/repos/${repo}`,
-      headers: { 'User-Agent': 'ai-master-site' },
-      timeout: 8000
+      headers,
+      timeout: 10000
     };
     https.get(options, (res) => {
       let data = '';
