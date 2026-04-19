@@ -148,105 +148,84 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
     setDlStatus('loading');
     
     try {
-      // Ultra-high-res PNG: use a very large canvas so vector rasterization is crisp
-      const SCALE = 10;
+      const SCALE = 3;
       const parser = new DOMParser();
       const doc = parser.parseFromString(svgContent, 'image/svg+xml');
       const svgEl = doc.querySelector('svg');
       if (!svgEl) {
-        const blob = new Blob([svgContent], { type: 'image/svg+xml' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = 'chart.svg';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-        setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
-        return;
+        throw new Error('No SVG element');
       }
       
-      // Anti-aliasing on SVG root
-      svgEl.setAttribute('shape-rendering', 'geometricPrecision');
-      svgEl.setAttribute('text-rendering', 'geometricPrecision');
-      
-      // Thicken ALL strokes 4x and fonts 1.8x — KEY FIX for jagged edges
-      const allEls = svgEl.querySelectorAll('*');
-      allEls.forEach((el) => {
-        const tag = el.tagName.toLowerCase();
-        if (['path', 'line', 'rect', 'circle', 'polygon', 'polyline', 'ellipse'].includes(tag)) {
-          const sw = el.getAttribute('stroke-width');
-          if (sw) {
-            const val = parseFloat(sw);
-            if (val > 0 && val < 20) {
-              el.setAttribute('stroke-width', String(Math.round(val * 4 * 10) / 10));
-            }
-          }
-          el.setAttribute('stroke-linecap', 'round');
-          el.setAttribute('stroke-linejoin', 'round');
-        }
-        if (tag === 'text' || tag === 'tspan') {
-          const fs = el.getAttribute('font-size');
-          if (fs) {
-            const val = parseFloat(fs);
-            if (val > 0 && val < 100) {
-              el.setAttribute('font-size', String(Math.round(val * 1.8 * 10) / 10));
-            }
-          }
-        }
-      });
-      
-      // Get final dimensions
+      // Get dimensions from viewBox or width/height
       let svgW = parseFloat(svgEl.getAttribute('width') || '0');
       let svgH = parseFloat(svgEl.getAttribute('height') || '0');
       if (svgW === 0 || svgH === 0) {
-        const vb2 = svgEl.getAttribute('viewBox');
-        if (vb2) {
-          const parts = vb2.split(/[\s,]+/).filter(Boolean).map(Number);
+        const vb = svgEl.getAttribute('viewBox');
+        if (vb) {
+          const parts = vb.split(/[\s,]+/).filter(Boolean).map(Number);
           if (parts.length >= 4) { svgW = parts[2]; svgH = parts[3]; }
         }
       }
-      if (svgW < 600) svgW = 600;
-      if (svgH < 400) svgH = 400;
-      svgEl.setAttribute('width', String(svgW));
-      svgEl.setAttribute('height', String(svgH));
+      if (svgW < 400) svgW = 400;
+      if (svgH < 300) svgH = 300;
       
-      const serializer = new XMLSerializer();
-      const modifiedSvg = serializer.serializeToString(svgEl);
-      const canvasW = Math.round(svgW * SCALE);
-      const canvasH = Math.round(svgH * SCALE);
+      const canvasW = Math.min(4000, Math.round(svgW * SCALE));
+      const canvasH = Math.min(3000, Math.round(svgH * SCALE));
       
-      const svgBlob = new Blob([modifiedSvg], { type: 'image/svg+xml;charset=utf-8' });
+      const svgBlob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
       const url = URL.createObjectURL(svgBlob);
       
       const img = new Image();
       img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = canvasW;
-        canvas.height = canvasH;
-        const ctx = canvas.getContext('2d', { alpha: false })!;
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(0, 0, canvasW, canvasH);
-        ctx.drawImage(img, 0, 0, canvasW, canvasH);
-        URL.revokeObjectURL(url);
-        
-        canvas.toBlob((blob) => {
-          if (!blob) {
-            setDlStatus('idle');
-            return;
-          }
-          const pngUrl = URL.createObjectURL(blob);
-          const a = document.createElement('a'); a.href = pngUrl; a.download = `chart-${canvasW}x${canvasH}.png`;
-          document.body.appendChild(a); a.click(); document.body.removeChild(a);
-          setTimeout(() => URL.revokeObjectURL(pngUrl), 1000);
-          setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
-        }, 'image/png', 1.0);
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = canvasW;
+          canvas.height = canvasH;
+          const ctx = canvas.getContext('2d', { alpha: false });
+          if (!ctx) { throw new Error('No canvas context'); }
+          
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 0, canvasW, canvasH);
+          ctx.drawImage(img, 0, 0, canvasW, canvasH);
+          URL.revokeObjectURL(url);
+          
+          canvas.toBlob((blob) => {
+            if (!blob) {
+              setDlStatus('idle');
+              return;
+            }
+            const pngUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = pngUrl;
+            a.download = 'chart.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(pngUrl), 1000);
+            setDlStatus('done');
+            setTimeout(() => setDlStatus('idle'), 2000);
+          }, 'image/png', 1.0);
+        } catch {
+          setDlStatus('idle');
+        }
       };
       
       img.onerror = () => {
-        const a = document.createElement('a'); a.href = url; a.download = 'chart.svg';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        setDlStatus('done'); setTimeout(() => setDlStatus('idle'), 2000);
+        // Fallback: download as SVG
+        const svgBlob2 = new Blob([svgContent], { type: 'image/svg+xml' });
+        const svgUrl = URL.createObjectURL(svgBlob2);
+        const a = document.createElement('a');
+        a.href = svgUrl;
+        a.download = 'chart.svg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(svgUrl);
+        setDlStatus('done');
+        setTimeout(() => setDlStatus('idle'), 2000);
       };
+      
       img.src = url;
     } catch {
       setDlStatus('idle');
