@@ -18,16 +18,21 @@
 3. 检查热门主题（LLM/Agent/RAG）的已有文章是否需要更新
 4. 发现缺失 → 立即生成新文章 或 更新旧文章
 
-### P1 — 工具巡检（必做）
-1. 搜索新 AI 工具（GitHub Trending + **Topics 扫描** + HuggingFace、Product Hunt AI）
-2. 检查已有工具信息是否需要更新（版本、定价、功能变化）
-3. 发现值得收录的新工具 → 更新 tools.ts
-4. 🔴 **Topics 扫描机制（新增）**：
-   - 读取 `data/ai-topics.json` 中的 AI 相关 topics 列表
-   - 对每个 topic 用 GitHub API 搜索 `topic:xxx stars:>minStars` 的高星项目
-   - 对比 tools.ts 已有项目，发现遗漏立即收录
-   - 发现新 topic → 更新 ai-topics.json 本地库
-5. 🔴 **全量比对机制**：用 GitHub API 搜索 `stars:>50K language:Python topic:artificial-intelligence` 等关键词，对比 tools.ts 已有 ID，发现遗漏的高星项目必须收录
+### P1 — 工具巡检（必做，两个渠道并行收集）
+1. 🔴 **GitHub Trending 扫描**（每周增长快的项目）：
+   - 访问 https://github.com/trending?since=weekly
+   - 筛选 AI/ML/LLM/Agent 相关项目
+   - 发现周增 >1000 stars 的新项目 → 收录
+2. 🔴 **GitHub Topics 扫描**（总星数高的项目，与 Trending 并行！）：
+   - 运行 `node scripts/discover-topic-projects.mjs`
+   - 该脚本读取 `data/ai-topics.json`（50 个 AI topics）
+   - 对每个 topic 搜索 `topic:xxx stars:>minStars`（门槛 5000-10000）
+   - 对比 tools.ts 已有项目，输出遗漏列表到 `data/missing-projects-report.json`
+   - 发现遗漏的高星项目 → 立即收录到 tools.ts
+   - 发现新 AI topic → 更新 ai-topics.json
+3. 检查已有工具信息是否需要更新（版本、定价、功能变化）
+4. 其他来源：HuggingFace 新模型、Product Hunt AI
+5. 🔴 **全量比对机制**：用 GitHub API 搜索 `stars:>50K topic:artificial-intelligence` 等关键词，对比 tools.ts 已有 ID，发现遗漏必须收录
 
 ### P2 — 首页新闻（选做，不要花太多时间）
 - 🔴 **先运行 `node scripts/clean-old-news.mjs` 清理 3 天以外旧数据**
@@ -53,9 +58,10 @@
 | GitHub API | trending 项目（需 token）+ **搜索高星项目** |
 | arXiv RSS | arxiv.org/rss/cs.AI |
 
-**🔴 工具收录双机制：**
+**🔴 工具收录三机制（并行执行）：**
 1. **Trending 机制**：每周看 GitHub Trending，发现快速增长的新项目
-2. **全量比对机制**：用 GitHub API 搜索 `stars:>50K language:Python topic:artificial-intelligence` 等关键词，拿到高星项目列表，对比 tools.ts 已有 ID 发现遗漏
+2. **Topics 扫描机制**：按 50 个 AI topics 扫描高星项目，发现总星数高但增长不高的优质项目
+3. **全量比对机制**：用 GitHub API 搜索 `stars:>50K topic:xxx` 关键词，发现遗漏
 
 **铁律：如果某个渠道不可用，立即换另一个，不要报错说"无法获取"。**
 

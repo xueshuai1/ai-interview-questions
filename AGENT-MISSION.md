@@ -33,11 +33,17 @@
 ### P1 — 工具集紧跟时代
 **AI 工具每天冒出来，工具集必须是活的。**
 
-- **发现新工具**：每天搜索新发布的 AI 工具、框架、平台
-  - GitHub trending AI 项目
-  - HuggingFace 新模型/新空间
-  - Product Hunt AI 分类
-  - 各公司官方博客（OpenAI、Anthropic、Google、Meta）
+- **发现新工具（两个渠道并行收集）：**
+  1. **GitHub Trending**：每周看 trending AI 项目（周增 >1000 stars）
+  2. **🔴 GitHub Topics 扫描（每次必做！）**：
+     - 运行 `node scripts/discover-topic-projects.mjs`
+     - 脚本读取 `data/ai-topics.json`（50 个 AI topics）
+     - 对比 tools.ts 已有项目，输出遗漏列表
+     - 发现遗漏的高星项目 → 立即收录到 tools.ts
+     - 发现新 AI topic → 更新 ai-topics.json
+  3. HuggingFace 新模型/新空间
+  4. Product Hunt AI 分类
+  5. 各公司官方博客（OpenAI、Anthropic、Google、Meta）
 - **更新老工具信息**：工具的版本、功能、定价会变，定期更新（至少每季度检查一次主流工具）
 - **质量标准**：每个工具至少包含 pros、cons、useCase、learnMore，不能只有一句话 description
 
