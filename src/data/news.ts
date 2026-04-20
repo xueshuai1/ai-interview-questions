@@ -16,6 +16,44 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-325",
+    tag: "AI Agent",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "AI 对冲基金 56K 星：Multi-Agent 金融决策系统正在重塑量化投资",
+    summary: "virattt/ai-hedge-fund 突破 56K stars，将多个 AI Agent 组织成完整对冲基金团队——分析师、风险经理、交易员各司其职，通过结构化通信协作产出投资建议。AI Master 知识库新增深度解读文章，包含完整 Python 实现。",
+    content: `## AI 对冲基金：当 Multi-Agent 遇上华尔街
+
+2026 年 4 月，[virattt/ai-hedge-fund](https://github.com/virattt/ai-hedge-fund) 以 56,548 stars 成为 GitHub 上最受关注的 AI + Finance 项目，本周增长 4,458 星。
+
+**这不是简单的「AI 预测股价」工具**，而是将多个 AI Agent 组织成一个完整的对冲基金团队：
+
+- **基本面分析师 Agent**：研究财报、行业趋势，给出长期估值判断
+- **技术分析师 Agent**：分析价格走势、技术指标，判断短期趋势
+- **情绪分析师 Agent**：分析新闻、社交媒体情绪，评估市场情绪面
+- **风险经理 Agent**：评估风险收益比，设置止损，有一票否决权
+- **投资组合经理 Agent**：综合各方意见，做出最终交易决策
+
+**核心理念：角色分离 + 结构化协作 = 更理性的投资决策**
+
+> "单个 AI Agent 就像聪明但经验不足的分析师；多个 AI Agent 协作则像成熟的投资团队——有不同视角、相互制衡、集体决策。"
+
+**AI Master 知识库已收录深度文章：** 包含完整架构解析、三个 Agent 角色的深度分析、与传统量化基金的全面对比、以及完整的 Python 多 Agent 金融决策系统实现代码（可运行，支持 yfinance 实时数据）。
+
+**为什么值得关注：**
+- 将 AI 从「辅助分析」提升到「自主决策」层面
+- 每个决策都有完整推理链，可追溯、可审计
+- 消除了人类基金经理的情绪偏差（贪婪、恐惧、确认偏误）
+- 开发门槛大幅降低——从 $500K+ 量化团队到 $50K API 成本
+
+**风险提示：** LLM 的不确定性、幻觉问题、回测困难、监管灰色地带——AI 不是稳赚不赔的魔法。
+
+📖 完整文章：AI Master 知识库 → 实践应用 → "AI 对冲基金与多智能体金融决策系统"`,
+    date: "2026-04-21 04:00",
+    source: "AI Master 知识库 / GitHub Trending",
+    sourceUrl: "https://github.com/virattt/ai-hedge-fund",
+    href: "/article/finance-001",
+  },
+{
     id: "news-324",
     tag: "大模型",
     tagColor: "bg-purple-500/10 text-purple-300",
