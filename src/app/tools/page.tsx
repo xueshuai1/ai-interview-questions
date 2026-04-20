@@ -273,7 +273,7 @@ export default function ToolsPage() {
       <section className="pt-28 pb-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold mb-4">🛠️ <span className="text-gradient">GitHub AI 精选</span></h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">精选最实用的 GitHub AI 项目与框架，提升你的开发效率</p>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto">精选最实用的 GitHub 开源 AI 项目，发现优质框架、模型与工具</p>
         </div>
       </section>
 
@@ -283,7 +283,7 @@ export default function ToolsPage() {
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <input type="text" placeholder="搜索工具、标签..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all" />
+            <input type="text" placeholder="搜索项目、标签..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all" />
           </div>
         </div>
       </section>
@@ -306,7 +306,7 @@ export default function ToolsPage() {
       <section className="px-4 sm:px-6 lg:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6">
-            <p className="text-sm text-slate-500">找到 <span className="text-brand-400 font-medium">{filteredTools.length}</span> 个工具</p>
+            <p className="text-sm text-slate-500">收录 <span className="text-brand-400 font-medium">{filteredTools.length}</span> 个开源项目</p>
             <div className="flex items-center gap-2">
               {/* Mobile: category + sort tabs */}
               <div className="lg:hidden flex items-center gap-2">
@@ -358,7 +358,7 @@ export default function ToolsPage() {
           ) : (
             <div className="text-center py-20">
               <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-slate-300 mb-2">没有找到相关工具</h3>
+              <h3 className="text-xl font-semibold text-slate-300 mb-2">没有找到相关项目</h3>
               <p className="text-slate-500">试试其他关键词或切换分类</p>
               <button onClick={() => { setSearchQuery(""); setActiveCategory("all"); setSortBy("stars"); setCurrentPage(1); }} className="mt-4 px-6 py-2 bg-brand-600 hover:bg-brand-500 rounded-lg font-medium transition-all">重置筛选</button>
             </div>

@@ -428,13 +428,13 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
         <div className="max-w-6xl mx-auto">
           <div className="text-center p-10 rounded-3xl bg-gradient-to-r from-brand-600/10 to-accent-600/10 border border-brand-500/20">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">继续你的 AI 学习之旅</h2>
-            <p className="text-slate-400 mb-8 max-w-lg mx-auto">浏览更多 AI 知识库文章，或者探索实用的 AI 工具</p>
+            <p className="text-slate-400 mb-8 max-w-lg mx-auto">浏览更多 AI 知识库文章，或者探索 GitHub 上的优质 AI 项目</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/knowledge" className="px-8 py-3 bg-brand-600 hover:bg-brand-500 rounded-xl font-semibold transition-all hover:shadow-lg hover:shadow-brand-500/25 hover:-translate-y-0.5">
                 📚 浏览知识库
               </Link>
               <Link href="/tools" className="px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold transition-all hover:-translate-y-0.5">
-                🛠️ 探索 AI 工具
+                🛠️ 探索 GitHub AI 精选
               </Link>
             </div>
           </div>

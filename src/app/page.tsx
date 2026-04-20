@@ -19,8 +19,8 @@ const features = [
   },
   {
     icon: "🛠️",
-    title: "AI 工具",
-    desc: "精选最实用的 AI 工具与框架，从 ChatGPT 到 LangChain 一应俱全",
+    title: "GitHub AI 精选",
+    desc: "精选最实用的 GitHub 开源 AI 项目，发现优质框架与工具",
     href: "/tools",
   },
   {
@@ -132,7 +132,7 @@ export default function Home() {
               🚀 立即开始
             </Link>
             <Link href="/tools" className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold text-lg transition-all hover:-translate-y-0.5 w-full sm:w-auto text-center">
-              🛠️ 探索 AI 工具
+              🛠️ 探索 GitHub AI 精选
             </Link>
           </div>
 

@@ -667,7 +667,7 @@ export default function RoadmapPage() {
                 href="/tools"
                 className="px-8 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-semibold transition-all hover:-translate-y-0.5"
               >
-                🛠️ 探索 AI 工具
+                🛠️ 探索 GitHub AI 精选
               </Link>
             </div>
           </div>
