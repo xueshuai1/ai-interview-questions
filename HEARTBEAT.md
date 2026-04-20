@@ -22,6 +22,8 @@
 1. 搜索新 AI 工具（GitHub trending、HuggingFace、Product Hunt AI）
 2. 检查已有工具信息是否需要更新（版本、定价、功能变化）
 3. 发现值得收录的新工具 → 更新 tools.ts
+4. 🔴 **遗漏检查（新增）**：用 GitHub API 搜索 stars>50K 的 AI 项目，对比 tools.ts 已有 ID，发现漏掉的高星项目必须收录
+4. 🔴 **遗漏检查（新增）**：用 GitHub API 搜索 stars>50K 的 AI 项目，对比 tools.ts 已有 ID，发现漏掉的高星项目必须收录
 
 ### P2 — 首页新闻（选做，不要花太多时间）
 - 2-5 条最新动态即可
@@ -43,8 +45,12 @@
 |------|------|
 | `web_fetch` 直接抓取 | 最可靠，不依赖 API key |
 | 浏览器 | 需要 JS 渲染的页面 |
-| GitHub API | trending 项目（需 token） |
+| GitHub API | trending 项目（需 token）+ **搜索高星项目** |
 | arXiv RSS | arxiv.org/rss/cs.AI |
+
+**🔴 工具收录双机制：**
+1. **Trending 机制**：每周看 GitHub Trending，发现快速增长的新项目
+2. **全量比对机制**：用 GitHub API 搜索 `stars:>50K language:Python topic:artificial-intelligence` 等关键词，拿到高星项目列表，对比 tools.ts 已有 ID 发现遗漏
 
 **铁律：如果某个渠道不可用，立即换另一个，不要报错说"无法获取"。**
 
