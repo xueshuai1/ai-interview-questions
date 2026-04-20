@@ -23,6 +23,10 @@ export interface Tool {
   useCase?: string;
   /** 官方文档/教程链接 */
   learnMore?: string;
+  /** GitHub forks 数 */
+  forks?: number;
+  /** 主要编程语言 */
+  language?: string;
 }
 
 export const toolCategories = [
@@ -90,6 +94,9 @@ export const tools: Tool[] = [
       learnMore: "https://docs.n8n.io",
       githubStars: 184801,
     updatedAt: "2026-04-20",
+    forks: 73614,
+language: "TypeScript",
+createdAt: "2025-11-24T10:16:47Z",
     },
   {
     id: "auto-gpt",
@@ -146,6 +153,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/nicholasgriffintn/superpowers",
       githubStars: 160777,
     updatedAt: "2026-04-20",
+    forks: 46215,
+language: "Python",
+createdAt: "2023-03-16T09:21:07Z",
     },
     /* REMOVED: duplicate everything-claude-code (nicholasgriffintn) — affaan-m 版本保留 */
   {
@@ -163,6 +173,7 @@ export const tools: Tool[] = [
       learnMore: "https://docs.github.com/en/copilot",
       githubStars: 150000,
     updatedAt: "2026-04-20",
+    createdAt: "2023-01-01T00:00:00Z",
     },
   {
     id: "langflow",
@@ -267,6 +278,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/microsoft/markitdown",
       githubStars: 113057,
       updatedAt: "2026-04-19",
+    forks: 8805,
+language: "Python",
+createdAt: "2023-02-08T22:28:03Z",
     },
   {
     id: "firecrawl",
@@ -299,6 +313,9 @@ export const tools: Tool[] = [
       useCase: "可成长 AI Agent 研究、持续学习任务、Agent 能力演进",
       learnMore: "https://github.com/NousResearch/hermes-agent",
       githubStars: 103867,
+    forks: 7081,
+language: "TypeScript",
+createdAt: "2024-04-15T21:02:29Z",
     },
   {
       id: "gemini-cli",
@@ -315,6 +332,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/google-gemini/gemini-cli",
       githubStars: 101861,
     updatedAt: "2026-04-20",
+    forks: 13229,
+language: "TypeScript",
+createdAt: "2025-04-17T17:04:31Z",
     },
   {
       id: "whisper",
@@ -339,6 +359,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/openai/whisper",
       githubStars: 98062,
     updatedAt: "2026-04-20",
+    forks: 12068,
+language: "Python",
+createdAt: "2022-09-16T20:02:54Z",
     },
   {
     id: "browser-use",
@@ -371,6 +394,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/OpenHands/OpenHands",
       githubStars: 71548,
     updatedAt: "2026-04-20",
+    forks: 10172,
+language: "Python",
+createdAt: "2024-10-31T16:00:56Z",
     },
   {
       id: "china-textbook",
@@ -395,6 +421,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/chenyangMl/china-textbook",
       githubStars: 70080,
     updatedAt: "2026-04-20",
+    forks: 15663,
+language: "Roff",
+createdAt: "2020-01-05T04:11:06Z",
     },
   {
       id: "crawl4ai",
@@ -411,6 +440,9 @@ export const tools: Tool[] = [
       learnMore: "https://docs.crawl4ai.com",
       githubStars: 64316,
     updatedAt: "2026-04-20",
+    forks: 6589,
+language: "Python",
+createdAt: "2024-05-09T09:48:50Z",
     },
   {
       id: "karpathy-skills",
@@ -427,6 +459,9 @@ export const tools: Tool[] = [
       useCase: "LLM 辅助编程最佳实践学习、Claude Code 行为优化",
       learnMore: "https://github.com/forrestchang/andrej-karpathy-skills",
       githubStars: 63775,
+    forks: 5560,
+language: "Python",
+createdAt: "2026-01-27T03:53:13Z",
     },
   {
       id: "claude-mem",
@@ -452,6 +487,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/thedotmack/claude-mem",
       githubStars: 63839,
       updatedAt: "2026-04-20",
+    forks: 5355,
+language: "TypeScript",
+createdAt: "2025-08-31T20:50:03Z",
     },
   {
       id: "autogen",
@@ -468,6 +506,9 @@ export const tools: Tool[] = [
       useCase: "多 Agent 代码协作、复杂调试任务、自动化编程",
       learnMore: "https://microsoft.github.io/autogen",
       githubStars: 57227,
+    forks: 8624,
+language: "Python",
+createdAt: "2023-08-18T11:43:45Z",
     },
   {
       id: "ai-hedge-fund",
@@ -494,6 +535,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/virattt/ai-hedge-fund",
       githubStars: 56461,
     updatedAt: "2026-04-20",
+    forks: 9806,
+language: "Python",
+createdAt: "2024-11-29T16:30:01Z",
     },
   {
       id: "mem-ai",
@@ -510,6 +554,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/MemPalace/mempalace",
       githubStars: 48312,
     updatedAt: "2026-04-20",
+    forks: 6322,
+language: "Python",
+createdAt: "2026-04-05T01:12:07Z",
     },
   {
       id: "cc-switch",
@@ -526,6 +573,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/farion1231/cc-switch",
       githubStars: 47611,
     updatedAt: "2026-04-20",
+    forks: 3041,
+language: "Rust",
+createdAt: "2025-08-04T14:16:16Z",
     },
     /* REMOVED: jest — 非 AI 工具 */
   {
@@ -543,6 +593,8 @@ export const tools: Tool[] = [
       learnMore: "https://block.github.io/goose",
       githubStars: 42664,
     updatedAt: "2026-04-20",
+    language: "Rust",
+createdAt: "2025-01-01T00:00:00Z",
     },
   {
       id: "awesome-claude-code",
@@ -567,6 +619,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/nicholasgriffintn/awesome-claude-code",
       githubStars: 39830,
     updatedAt: "2026-04-20",
+    forks: 3293,
+language: "Python",
+createdAt: "2025-04-19T20:55:59Z",
     },
   {
       id: "antigravity-skills",
@@ -591,6 +646,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/nicholasgriffintn/antigravity-skills",
       githubStars: 34070,
     updatedAt: "2026-04-20",
+    forks: 5630,
+language: "Python",
+createdAt: "2026-01-14T17:48:09Z",
     },
   {
       id: "smolagents",
@@ -607,6 +665,9 @@ export const tools: Tool[] = [
       learnMore: "https://huggingface.co/docs/smolagents",
       githubStars: 26746,
     updatedAt: "2026-04-20",
+    forks: 2502,
+language: "Python",
+createdAt: "2024-12-05T11:28:04Z",
     },
   {
       id: "llama-stack",
@@ -623,6 +684,8 @@ export const tools: Tool[] = [
       learnMore: "https://llama-stack.readthedocs.io",
       githubStars: 26726,
     updatedAt: "2026-04-20",
+    language: "Python",
+createdAt: "2025-01-01T00:00:00Z",
     },
     /* REMOVED: openapi-generator — 非 AI 工具 */
     /* REMOVED: googleworkspace-cli — 非 AI 工具 */
@@ -641,6 +704,8 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/microsoft/DeerFlow",
       githubStars: 24900,
     updatedAt: "2026-04-20",
+    language: "Python",
+createdAt: "2025-01-01T00:00:00Z",
     },
     /* REMOVED: learn-go-with-tests — 非 AI 工具 */
     /* REMOVED: argo-cd — 非 AI 工具 */
@@ -667,6 +732,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/openviking/openviking",
       githubStars: 22620,
     updatedAt: "2026-04-20",
+    forks: 1647,
+language: "Python",
+createdAt: "2026-01-05T07:11:17Z",
     },
   {
       id: "voicebox",
@@ -683,6 +751,9 @@ export const tools: Tool[] = [
       learnMore: `https://github.com/jamiepine/voicebox`,
       githubStars: 21460,
     updatedAt: "2026-04-20",
+    forks: 2463,
+language: "TypeScript",
+createdAt: "2026-01-25T12:27:03Z",
     },
   {
       id: "promptfoo",
@@ -707,6 +778,9 @@ export const tools: Tool[] = [
       learnMore: "https://www.promptfoo.dev/docs",
       githubStars: 20329,
     updatedAt: "2026-04-20",
+    forks: 1761,
+language: "TypeScript",
+createdAt: "2023-04-28T15:48:49Z",
     },
   {
       id: "deep-tutor",
@@ -731,6 +805,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/deep-tutor/deep-tutor",
       githubStars: 20328,
     updatedAt: "2026-04-20",
+    forks: 2740,
+language: "Python",
+createdAt: "2025-12-28T15:35:54Z",
     },
     /* REMOVED: kronos — 非 AI 工具 */
   {
@@ -748,6 +825,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/camel-ai/owl",
       githubStars: 19671,
     updatedAt: "2026-04-20",
+    forks: 2272,
+language: "Python",
+createdAt: "2025-03-03T15:42:51Z",
     },
   {
       id: "google-adk",
@@ -764,6 +844,9 @@ export const tools: Tool[] = [
       learnMore: "https://google.github.io/adk-docs",
       githubStars: 19130,
     updatedAt: "2026-04-20",
+    forks: 3260,
+language: "Python",
+createdAt: "2025-04-01T20:44:40Z",
     },
   {
       id: "archon",
@@ -780,6 +863,9 @@ export const tools: Tool[] = [
       useCase: "规范化 AI 编程流程、确保代码质量一致性、团队协作开发",
       learnMore: "https://github.com/coleam00/Archon",
       githubStars: 19000,
+    forks: 2938,
+language: "TypeScript",
+createdAt: "2025-02-07T21:04:12Z",
     },
   {
       id: "agent-skills",
@@ -804,6 +890,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/nicholasgriffintn/agent-skills",
       githubStars: 18125,
     updatedAt: "2026-04-20",
+    forks: 2256,
+language: "Shell",
+createdAt: "2026-02-15T20:20:26Z",
     },
   {
       id: "multica",
@@ -820,6 +909,9 @@ export const tools: Tool[] = [
       useCase: "开发团队 AI Agent 协作、任务分配管理、Agent 能力追踪",
       learnMore: "https://github.com/multica-ai/multica",
       githubStars: 17207,
+    forks: 2114,
+language: "TypeScript",
+createdAt: "2026-01-13T17:59:46Z",
     },
     /* REMOVED: vitest — 非 AI 工具 */
   {
@@ -837,6 +929,8 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/agentscope-ai/CoPaw",
       githubStars: 15604,
     updatedAt: "2026-04-20",
+    language: "Python",
+createdAt: "2025-01-01T00:00:00Z",
     },
   {
       id: "voxcpm",
@@ -861,6 +955,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/voxcpm/voxcpm",
       githubStars: 14978,
     updatedAt: "2026-04-20",
+    forks: 1775,
+language: "Python",
+createdAt: "2025-09-16T03:41:49Z",
     },
     /* REMOVED: domain-driven-hexagon — 非 AI 工具 */
     /* REMOVED: pytest — 非 AI 工具 */
@@ -880,6 +977,9 @@ export const tools: Tool[] = [
       learnMore: "https://www.rowboatlabs.com/",
       githubStars: 12894,
     updatedAt: "2026-04-20",
+    forks: 1239,
+language: "TypeScript",
+createdAt: "2025-01-13T09:30:40Z",
     },
   {
       id: "mcp-chrome",
@@ -896,6 +996,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/hangwin/mcp-chrome",
       githubStars: 11267,
     updatedAt: "2026-04-20",
+    forks: 997,
+language: "TypeScript",
+createdAt: "2025-06-09T09:07:06Z",
     },
   {
       id: "openharness",
@@ -912,6 +1015,9 @@ export const tools: Tool[] = [
       useCase: "Agent 行为分析、调试和可观测性、生产 Harness 监控",
       learnMore: "https://github.com/HKUDS/OpenHarness",
       githubStars: 10519,
+    forks: 1787,
+language: "Python",
+createdAt: "2026-04-01T15:37:13Z",
     },
   {
       id: "aichat",
@@ -928,6 +1034,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/sigoden/aichat",
       githubStars: 9865,
     updatedAt: "2026-04-20",
+    forks: 686,
+language: "Rust",
+createdAt: "2023-03-03T00:29:39Z",
     },
     /* REMOVED: leantime — 非 AI 工具 */
   {
@@ -945,6 +1054,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/NVIDIA/personaplex",
       githubStars: 9481,
     updatedAt: "2026-04-20",
+    forks: 1334,
+language: "Python",
+createdAt: "2026-01-05T19:10:35Z",
     },
     /* REMOVED: mac-cli — 非 AI 工具 */
   {
@@ -970,6 +1082,9 @@ export const tools: Tool[] = [
       learnMore: "https://open.feishu.cn",
       githubStars: 8282,
     updatedAt: "2026-04-20",
+    forks: 534,
+language: "Go",
+createdAt: "2026-03-25T07:13:30Z",
     },
   {
       id: "garak",
@@ -994,6 +1109,8 @@ export const tools: Tool[] = [
       learnMore: "https://garak.ai",
       githubStars: 7566,
     updatedAt: "2026-04-20",
+    language: "Python",
+createdAt: "2025-01-01T00:00:00Z",
     },
   {
       id: "open-llm-vtuber",
@@ -1018,6 +1135,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/OpenLLM-VTuber/OpenLLM-VTuber",
       githubStars: 6929,
     updatedAt: "2026-04-20",
+    forks: 906,
+language: "Python",
+createdAt: "2023-11-24T04:55:43Z",
     },
     /* REMOVED: flux — 非 AI 工具 */
   {
@@ -1035,6 +1155,9 @@ export const tools: Tool[] = [
       learnMore: "https://modelcontextprotocol.io",
       githubStars: 6703,
     updatedAt: "2026-04-20",
+    forks: 740,
+language: "Go",
+createdAt: "2025-02-05T17:58:01Z",
     },
   {
       id: "seomachine",
@@ -1059,6 +1182,9 @@ export const tools: Tool[] = [
       learnMore: "https://seomachine.ai",
       githubStars: 6522,
     updatedAt: "2026-04-20",
+    forks: 898,
+language: "Python",
+createdAt: "2025-10-29T20:50:23Z",
     },
   {
       id: "desktop-commander-mcp",
@@ -1075,6 +1201,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/wonderwhy-er/DesktopCommanderMCP",
       githubStars: 5918,
     updatedAt: "2026-04-20",
+    forks: 694,
+language: "TypeScript",
+createdAt: "2024-12-04T08:26:08Z",
     },
   {
       id: "evolver",
@@ -1091,6 +1220,9 @@ export const tools: Tool[] = [
       learnMore: `https://github.com/EvoMap/evolver`,
       githubStars: 5832,
       updatedAt: "2026-04-19",
+    forks: 557,
+language: "JavaScript",
+createdAt: "2026-02-01T05:59:24Z",
     },
   {
       id: "mcp-playwright",
@@ -1107,6 +1239,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/executeautomation/mcp-playwright",
       githubStars: 5453,
     updatedAt: "2026-04-20",
+    forks: 494,
+language: "TypeScript",
+createdAt: "2024-12-03T18:43:20Z",
     },
     /* REMOVED: duplicate awesome-mcp-servers (appcypher, 5.4k stars) — punkpeye 版本保留 (85k stars) */
   {
@@ -1141,6 +1276,9 @@ export const tools: Tool[] = [
       learnMore: `https://github.com/lsdefine/GenericAgent`,
       githubStars: 4750,
       updatedAt: "2026-04-19",
+    forks: 512,
+language: "Python",
+createdAt: "2026-01-16T15:45:24Z",
     },
   {
       id: "mobile-mcp",
@@ -1157,6 +1295,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/mobile-next/mobile-mcp",
       githubStars: 4619,
     updatedAt: "2026-04-20",
+    forks: 404,
+language: "TypeScript",
+createdAt: "2025-03-28T16:21:06Z",
     },
   {
       id: "spec-workflow-mcp",
@@ -1173,6 +1314,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/Pimzino/spec-workflow-mcp",
       githubStars: 4133,
     updatedAt: "2026-04-19",
+    forks: 340,
+language: "TypeScript",
+createdAt: "2025-08-07T13:18:06Z",
     },
     /* REMOVED: behave — 非 AI 工具 */
   {
@@ -1207,6 +1351,8 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/zai-org/GLM-5",
       githubStars: 2990,
     updatedAt: "2026-04-20",
+    forks: 313,
+createdAt: "2026-02-09T08:17:02Z",
     },
   {
       id: "camofox-browser",
@@ -1231,6 +1377,9 @@ export const tools: Tool[] = [
       learnMore: "https://camofox.com",
       githubStars: 2818,
     updatedAt: "2026-04-20",
+    forks: 282,
+language: "JavaScript",
+createdAt: "2026-01-26T07:31:13Z",
     },
   {
       id: "mmx-cli",
@@ -1255,6 +1404,8 @@ export const tools: Tool[] = [
       useCase: "MiniMax 模型快速调用、多模态实验",
       learnMore: "https://platform.minimaxi.com",
       githubStars: 2800,
+    language: "TypeScript",
+createdAt: "2025-06-01T00:00:00Z",
     },
 {
       id: "microsoft-promptbench",
@@ -1279,6 +1430,8 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/microsoft/promptbench",
       githubStars: 2798,
     updatedAt: "2026-04-20",
+    language: "Python",
+createdAt: "2025-01-01T00:00:00Z",
     },
     /* REMOVED: awesome-eventstorming — 非 AI 工具 */
   {
@@ -1296,6 +1449,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/z-lab/dflash",
       githubStars: 1925,
     updatedAt: "2026-04-20",
+    forks: 135,
+language: "Python",
+createdAt: "2026-01-04T19:33:39Z",
     },
     /* REMOVED: clean-ts-api — 非 AI 工具 */
     /* REMOVED: protenix — 非 AI 工具 */
@@ -1315,6 +1471,8 @@ export const tools: Tool[] = [
       learnMore: `https://github.com/mannaandpoem/OpenManus`,
       githubStars: 422,
     updatedAt: "2026-04-20",
+    forks: 112,
+createdAt: "2025-06-21T07:39:30Z",
     },
   {
       id: "dive-into-llms",
