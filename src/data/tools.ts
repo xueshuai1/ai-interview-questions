@@ -142,29 +142,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/nicholasgriffintn/superpowers",
       githubStars: 160777,
     },
-  {
-      id: "everything-claude-code",
-      name: "Everything Claude Code",
-      category: "plugin",
-      description: "Claude Code 代理性能优化系统，155,893 stars，包含最佳实践、工作流模板、性能调优和扩展技能，Claude Code 用户必备",
-      url: "https://github.com/nicholasgriffintn/everything-claude-code",
-      tags: ["Claude Code", "性能优化", "最佳实践", "160k stars"],
-      price: "开源",
-      icon: "📦",
-      githubStars: 160656,
-      pros: [
-        "Claude Code 技巧大全",
-        "社区驱动",
-        "持续更新"
-      ],
-      cons: [
-        "非工具本身而是指南",
-        "内容质量参差",
-        "非官方维护"
-      ],
-      useCase: "学习 Claude Code 最佳实践",
-      learnMore: "https://github.com/nicholasgriffintn/everything-claude-code",
-    },
+    /* REMOVED: duplicate everything-claude-code (nicholasgriffintn) — affaan-m 版本保留 */
   {
       id: "github-copilot",
       name: "GitHub Copilot",
@@ -366,7 +344,7 @@ export const tools: Tool[] = [
 {
       id: "openhands",
       name: "OpenHands",
-      category: "cli",
+      category: "agent",
       description: "开源 AI 软件开发 Agent（前身为 OpenDevin），接收自然语言任务后自主完成编码、调试和测试全流程。支持多种 LLM 后端、Docker 沙箱隔离执行、Web UI 和 API 多种交互方式。71,000+ stars，是 SWE-bench 等编程基准测试中的热门开源方案",
       url: "https://github.com/OpenHands/OpenHands",
       tags: ["自主编程", "软件开发", "Docker", "71k stars"],
@@ -419,7 +397,7 @@ export const tools: Tool[] = [
   {
       id: "karpathy-skills",
       name: "Karpathy Skills (Andrej Karpathy)",
-      category: "framework",
+      category: "education",
       description: "基于 Andrej Karpathy 对 LLM 编程陷阱的观察总结，提取的 CLAUDE.md 最佳实践集合，31,300+ stars，单周增长 14,300+，GitHub Trending #1，包含 Claude Code 行为改进指南。涵盖 LLM 编程中的常见错误模式、调试技巧和最佳实践，是 AI 编程时代开发者的实用指南",
       url: "https://github.com/forrestchang/andrej-karpathy-skills",
       tags: ["Claude Code", "最佳实践", "Karpathy", "编程指南"],
@@ -435,7 +413,7 @@ export const tools: Tool[] = [
   {
       id: "claude-mem",
       name: "Claude-Mem (thedotmack)",
-      category: "agent",
+      category: "plugin",
       description: "Claude Code 自动记忆插件（GitHub 63,839 星），自动捕获编码会话中的所有操作，用 AI 压缩后注入后续会话，解决上下文丢失问题，支持长期记忆和智能检索。单周增长 14,556 星，是 2026 年增长最快的 Agent 记忆工具",
       url: "https://github.com/thedotmack/claude-mem",
       tags: ["开源", "记忆管理", "Claude Code", "上下文增强"],
@@ -528,29 +506,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/farion1231/cc-switch",
       githubStars: 47611,
     },
-  {
-      id: "jest",
-      name: "Jest",
-      category: "framework",
-      description: "最受欢迎的 JavaScript 测试框架，由 Meta 维护，支持 TDD 开发模式，单元测试、快照测试、Mock 系统一应俱全，45,300+ stars",
-      url: "https://github.com/jestjs/jest",
-      tags: ["JavaScript", "单元测试", "TDD", "45.3k stars"],
-      price: "开源",
-      icon: "🃏",
-      pros: [
-        "JavaScript 最流行测试框架",
-        "零配置开箱即用",
-        "快照测试和模拟强大"
-      ],
-      cons: [
-        "并行执行较慢",
-        "大型项目配置复杂",
-        "TypeScript 需额外配置"
-      ],
-      useCase: "JavaScript/TypeScript 单元测试、快照测试",
-      learnMore: "https://jestjs.io/docs",
-      githubStars: 45334,
-    },
+    /* REMOVED: jest — 非 AI 工具 */
   {
       id: "goose",
       name: "Goose (Block)",
@@ -642,44 +598,8 @@ export const tools: Tool[] = [
       learnMore: "https://llama-stack.readthedocs.io",
       githubStars: 26726,
     },
-  {
-      id: "openapi-generator",
-      name: "OpenAPI Generator",
-      category: "education",
-      description: "从 OpenAPI 规范自动生成 API 客户端 SDK、服务端 stub、文档和配置，规格驱动开发（SDD）的标杆工具，26,100+ stars",
-      url: "https://github.com/OpenAPITools/openapi-generator",
-      tags: ["SDD", "代码生成", "OpenAPI", "26.1k stars"],
-      price: "开源",
-      icon: "📐",
-      pros: [
-        "OpenAPI 规范代码生成",
-        "支持 50+ 语言框架",
-        "减少样板代码"
-      ],
-      cons: [
-        "生成代码质量一般需调整",
-        "大型 API 定义慢",
-        "配置选项复杂"
-      ],
-      useCase: "API 客户端/服务端代码自动生成",
-      learnMore: "https://openapi-generator.tech/docs",
-      githubStars: 26139,
-    },
-  {
-      id: "googleworkspace-cli",
-      name: "Google Workspace CLI",
-      category: "cli",
-      description: "Google 官方 CLI 工具，支持 Gmail、Calendar、Drive、Sheets 等 20+ Google 服务的命令行操作和 AI 集成。开发者可通过终端完成邮件收发、日程管理、文件上传下载、电子表格处理等日常办公任务，结合 AI 能力实现智能摘要生成和自动分类，是 Google Workspace 用户的终端效率利器",
-      url: "https://github.com/googleworkspace/cli",
-      tags: ["Google", "办公自动化", "多服务", "CLI"],
-      price: "开源",
-      icon: "📧",
-      pros: ["覆盖 20+ Google 服务一站式办公", "官方维护稳定可靠", "AI 集成提升办公效率", "终端操作适合自动化脚本"],
-      cons: ["仅限 Google 生态不支持其他平台", "OAuth 授权配置对新手不友好", "部分高级 API 需要额外权限", "终端操作不如 Web 界面直观"],
-      useCase: "Google Workspace 终端自动化、批量邮件和文件管理、办公流程脚本化",
-      learnMore: "https://github.com/googleworkspace/cli",
-      githubStars: 25071,
-    },
+    /* REMOVED: openapi-generator — 非 AI 工具 */
+    /* REMOVED: googleworkspace-cli — 非 AI 工具 */
   {
       id: "deerflow",
       name: "DeerFlow 2.0",
@@ -695,52 +615,8 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/microsoft/DeerFlow",
       githubStars: 24900,
     },
-  {
-      id: "learn-go-with-tests",
-      name: "Learn Go with Tests",
-      category: "education",
-      description: "通过测试驱动开发（TDD）学习 Go 语言的经典教程，TDD 最佳实践指南，每章从一个测试开始，23,600+ stars",
-      url: "https://github.com/quii/learn-go-with-tests",
-      tags: ["TDD", "Go 语言", "教程", "23.6k stars"],
-      price: "开源",
-      icon: "📖",
-      pros: [
-        "Go 语言 TDD 学习指南",
-        "测试驱动实践",
-        "免费开源"
-      ],
-      cons: [
-        "偏教程非工具",
-        "内容较基础",
-        "高级主题覆盖不足"
-      ],
-      useCase: "Go 语言入门、TDD 实践学习",
-      learnMore: "https://quii.gitbook.io/learn-go-with-tests",
-      githubStars: 23595,
-    },
-  {
-      id: "argo-cd",
-      name: "Argo CD",
-      category: "devops",
-      description: "Kubernetes 声明式持续部署工具，GitOps 方法论的事实标准实现，支持自动同步、回滚和健康检查，22,600+ stars",
-      url: "https://github.com/argoproj/argo-cd",
-      tags: ["GitOps", "Kubernetes", "CI/CD", "22.6k stars"],
-      price: "开源",
-      icon: "🚀",
-      pros: [
-        "GitOps 持续部署标杆",
-        "Kubernetes 原生支持",
-        "多集群管理"
-      ],
-      cons: [
-        "学习曲线陡峭",
-        "非 K8s 场景不支持",
-        "配置 YAML 较复杂"
-      ],
-      useCase: "Kubernetes GitOps 部署、多集群管理",
-      learnMore: "https://argo-cd.readthedocs.io",
-      githubStars: 22654,
-    },
+    /* REMOVED: learn-go-with-tests — 非 AI 工具 */
+    /* REMOVED: argo-cd — 非 AI 工具 */
   {
       id: "openviking",
       name: "OpenViking (Volcengine)",
@@ -825,22 +701,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/deep-tutor/deep-tutor",
       githubStars: 20328,
     },
-  {
-      id: "kronos",
-      name: "Kronos (shiyu-coder)",
-      category: "framework",
-      description: `Kronos 是专为金融市场设计的 Foundation Model，将时间序列预测与大语言模型能力结合，能够理解市场文本数据（新闻、财报、研报）并预测价格趋势。周增长 6,026 stars，总计 19,460 stars，是 2026 年 AI for Finance 领域最受关注的项目之一。采用混合架构：文本编码器处理金融文本，时间序列 Transformer 处理市场数据，两者通过交叉注意力融合。支持多市场（股票、期货、加密货币）、多时间粒度预测，并提供不确定性量化。Python 实现，提供完整训练/推理 Pipeline 和预训练模型`,
-      url: "https://github.com/shiyu-coder/Kronos",
-      tags: ["开源", "金融 AI", "Foundation Model", "时间序列", "预测"],
-      price: "开源",
-      icon: "📈",
-      pros: [`AI for Finance 领域最前沿的 Foundation Model`, `文本+时间序列双模态融合创新`, `覆盖多市场多时间粒度`, `开源 + 预训练模型可直接使用`, `周增 6k+ stars 社区增长极快`],
-      cons: [`金融预测本身具有不可控风险，模型输出不构成投资建议`, `训练数据量大，复现需要充足算力`, `仅支持 Python 生态，部署到生产需额外工程`, `新兴市场数据覆盖不足`],
-      useCase: `金融量化研究、市场趋势预测、AI 辅助投资决策、FinTech 产品原型`,
-      learnMore: `https://github.com/shiyu-coder/Kronos`,
-      githubStars: 19711,
-      updatedAt: "2026-04-19",
-    },
+    /* REMOVED: kronos — 非 AI 工具 */
   {
       id: "owl-camel",
       name: "OWL (CAMEL-AI)",
@@ -926,29 +787,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/multica-ai/multica",
       githubStars: 17207,
     },
-  {
-      id: "vitest",
-      name: "Vitest",
-      category: "framework",
-      description: "基于 Vite 的新一代极速测试框架，兼容 Jest API，支持 TDD 模式，TypeScript 原生支持，16,400+ stars",
-      url: "https://github.com/vitest-dev/vitest",
-      tags: ["TypeScript", "极速", "TDD", "16.4k stars"],
-      price: "开源",
-      icon: "⚡",
-      pros: [
-        "Vite 原生测试框架",
-        "极速执行",
-        "与 Vite 生态无缝集成"
-      ],
-      cons: [
-        "生态不如 Jest 成熟",
-        "部分 Jest 插件不兼容",
-        "大型项目经验较少"
-      ],
-      useCase: "Vite 项目单元测试、极速测试执行",
-      learnMore: "https://vitest.dev/guide",
-      githubStars: 16383,
-    },
+    /* REMOVED: vitest — 非 AI 工具 */
   {
       id: "copaw",
       name: "CoPaw",
@@ -987,75 +826,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/voxcpm/voxcpm",
       githubStars: 14978,
     },
-  {
-      id: "domain-driven-hexagon",
-      name: "Domain-Driven Hexagon",
-      category: "education",
-      description: "DDD + 六边形架构 + 整洁架构实战指南，含 TypeScript/Node.js 完整代码示例，领域驱动设计最佳实践，14,500+ stars",
-      url: "https://github.com/Sairyss/domain-driven-hexagon",
-      tags: ["DDD", "六边形架构", "整洁架构", "14.5k stars"],
-      price: "开源",
-      icon: "⬡",
-      pros: [
-        "DDD + 六边形架构指南",
-        "实战项目示例",
-        "清晰的分层设计"
-      ],
-      cons: [
-        "偏教程非工具",
-        "学习门槛高",
-        "仅 TypeScript"
-      ],
-      useCase: "学习 DDD 和六边形架构、复杂系统设计",
-      learnMore: "https://github.com/Sairyss/domain-driven-hexagon",
-      githubStars: 14561,
-    },
-  {
-      id: "pytest",
-      name: "pytest",
-      category: "framework",
-      description: "Python 最流行的测试框架，支持从小型单元测试到复杂功能测试，fixture 系统和插件生态强大，13,800+ stars",
-      url: "https://github.com/pytest-dev/pytest",
-      tags: ["Python", "测试框架", "TDD", "13.8k stars"],
-      price: "开源",
-      icon: "🐍",
-      pros: [
-        "Python 最流行测试框架",
-        "fixture 机制灵活",
-        "插件生态丰富"
-      ],
-      cons: [
-        "异步测试需额外插件",
-        "大型套件执行较慢",
-        "配置选项多易混乱"
-      ],
-      useCase: "Python 单元测试、集成测试",
-      learnMore: "https://docs.pytest.org",
-      githubStars: 13783,
-    },
-  {
-      id: "ai-trader",
-      name: "AI-Trader (HKUDS)",
-      category: "data",
-      description: "100% 全自动 Agent 原生交易系统（GitHub 13k 星），由 HKUDS 开发，与 AI Hedge Fund 形成互补，专注于自动化金融交易和量化策略",
-      url: "https://github.com/HKUDS/AI-Trader",
-      tags: ["开源", "量化金融", "Agent", "自动交易"],
-      price: "开源",
-      icon: "📈",
-      pros: [
-        "AI 量化交易 Agent",
-        "多策略支持",
-        "实时市场分析"
-      ],
-      cons: [
-        "交易风险高",
-        "回测不代表实盘",
-        "需专业知识"
-      ],
-      useCase: "AI 量化交易、自动化投资分析",
-      learnMore: "https://github.com/ai-trader/ai-trader",
-      githubStars: 13565,
-    },
+    /* REMOVED: domain-driven-hexagon — 非 AI 工具 */
+    /* REMOVED: pytest — 非 AI 工具 */
+    /* REMOVED: ai-trader — 非 AI 工具 */
   {
       id: "rowboat",
       name: "Rowboat (rowboatlabs)",
@@ -1105,7 +878,7 @@ export const tools: Tool[] = [
   {
       id: "aichat",
       name: "AIChat (sigoden)",
-      category: "agent",
+      category: "cli",
       description: "Rust 编写的全能 LLM CLI 工具，集成 Shell 助手、Chat-REPL 交互式对话、RAG 文档检索、AI 工具与 Agent 等多种模式。支持 OpenAI、Claude、Gemini、Ollama 等 20+ LLM 提供商，可配置多角色和自定义 Prompt。Rust 实现带来极快的启动速度和极低的资源占用，是终端用户和开发者高效使用 AI 的首选命令行工具",
       url: "https://github.com/sigoden/aichat",
       tags: ["CLI", "Rust", "RAG", "Shell 助手"],
@@ -1117,29 +890,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/sigoden/aichat",
       githubStars: 9865,
     },
-  {
-      id: "leantime",
-      name: "Leantime",
-      category: "education",
-      description: "面向非项目经理的敏捷项目管理工具，支持看板、冲刺、OKR、 retrospectives，兼顾 ADHD 用户需求，9,500+ stars",
-      url: "https://github.com/Leantime/leantime",
-      tags: ["敏捷", "看板", "Scrum", "9.5k stars"],
-      price: "开源",
-      icon: "📋",
-      pros: [
-        "开源项目管理平台",
-        "适合小团队",
-        "看板+甘特图"
-      ],
-      cons: [
-        "功能不如 Jira 丰富",
-        "生态较小",
-        "移动端体验一般"
-      ],
-      useCase: "小团队项目管理、敏捷开发看板",
-      learnMore: "https://docs.leantime.io",
-      githubStars: 9523,
-    },
+    /* REMOVED: leantime — 非 AI 工具 */
   {
       id: "personaplex",
       name: "PersonaPlex (NVIDIA)",
@@ -1155,29 +906,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/NVIDIA/personaplex",
       githubStars: 9481,
     },
-  {
-      id: "mac-cli",
-      name: "Mac CLI",
-      category: "cli",
-      description: "macOS 系统管理 CLI 工具集，自动化系统配置、应用安装、开发环境设置，9,000+ stars",
-      url: "https://github.com/guarinogabriel/Mac-CLI",
-      tags: ["macOS", "系统管理", "自动化", "9k stars"],
-      price: "开源",
-      icon: "🍎",
-      pros: [
-        "macOS 自动化 CLI",
-        "系统控制能力",
-        "脚本集成友好"
-      ],
-      cons: [
-        "仅 macOS 支持",
-        "功能较分散",
-        "文档较少"
-      ],
-      useCase: "macOS 系统自动化、终端脚本集成",
-      learnMore: "https://github.com/nickmango/mac-cli",
-      githubStars: 9058,
-    },
+    /* REMOVED: mac-cli — 非 AI 工具 */
   {
       id: "larksuite-cli",
       name: "飞书 CLI (LarkSuite)",
@@ -1247,29 +976,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/OpenLLM-VTuber/OpenLLM-VTuber",
       githubStars: 6929,
     },
-  {
-      id: "flux",
-      name: "Flux (GitOps)",
-      category: "devops",
-      description: "CNCF 毕业的 GitOps 工具集，与 Argo CD 齐名，Kubernetes 原生持续交付，支持多集群管理，6,900+ stars",
-      url: "https://github.com/fluxcd/flux",
-      tags: ["GitOps", "Kubernetes", "CNCF", "6.9k stars"],
-      price: "开源",
-      icon: "🌀",
-      pros: [
-        "CNCF GitOps 标准实现",
-        "Kubernetes 原生",
-        "轻量级"
-      ],
-      cons: [
-        "功能不如 ArgoCD 丰富",
-        "UI 较基础",
-        "学习文档分散"
-      ],
-      useCase: "Kubernetes GitOps 自动化部署",
-      learnMore: "https://fluxcd.io/docs",
-      githubStars: 6870,
-    },
+    /* REMOVED: flux — 非 AI 工具 */
   {
       id: "mcp-registry",
       name: "MCP Registry (modelcontextprotocol)",
@@ -1354,25 +1061,11 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/executeautomation/mcp-playwright",
       githubStars: 5453,
     },
-  {
-      id: "awesome-mcp-servers",
-      name: "Awesome MCP Servers",
-      category: "plugin",
-      description: "MCP 服务器精选合集，收录 500+ 个 MCP 服务器项目，涵盖数据库、API、开发工具、生产力工具、社交媒体、智能家居等各个领域。作为 MCP 生态的导航和发现入口，帮助开发者和用户快速找到所需的服务集成，5,400+ GitHub Star。社区持续更新和分类整理，是了解 MCP 工具生态全景的最佳入口",
-      url: "https://github.com/appcypher/awesome-mcp-servers",
-      tags: ["合集", "500+ 服务器", "生态", "5.4k stars"],
-      price: "开源",
-      icon: "📚",
-      pros: ["500+ 服务器覆盖全面", "分类清晰便于查找", "社区持续更新维护", "了解 MCP 生态全景的最佳入口"],
-      cons: ["仅收录列表无实际功能", "部分项目质量参差不齐", "更新依赖社区贡献", "缺少详细的比较和评测"],
-      useCase: "MCP 服务器发现与选型、生态调研、Agent 工具集成参考",
-      learnMore: "https://github.com/appcypher/awesome-mcp-servers",
-      githubStars: 5435,
-    },
+    /* REMOVED: duplicate awesome-mcp-servers (appcypher, 5.4k stars) — punkpeye 版本保留 (85k stars) */
   {
       id: "claude-karpathy-skills",
       name: "Andrej Karpathy Skills for Claude Code",
-      category: "agent",
+      category: "education",
       description: "基于 Andrej Karpathy 对 LLM 编码陷阱的观察总结，提炼为一份 CLAUDE.md 配置文件，可显著提升 Claude Code 的编码行为质量。Karpathy 总结了 LLM 在代码生成中最常见的错误模式——包括过度抽象、错误依赖、边界条件遗漏等——并针对性地设计了约束和指导规则。该项目由 multica-ai 整理发布，单周增长迅速，是 Claude Code 用户必装的配置文件。",
       url: "https://github.com/multica-ai/andrej-karpathy-skills",
       tags: ["开源", "Claude Code", "编码质量", "配置文件", "Karpathy"],
@@ -1384,29 +1077,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/multica-ai/andrej-karpathy-skills",
       githubStars: 5388,
     },
-  {
-      id: "cucumber-js",
-      name: "Cucumber.js",
-      category: "framework",
-      description: "JavaScript/Node.js 版本的 BDD 框架，用自然语言（Gherkin）编写可执行规范，Given-When-Then 模式，5,300+ stars",
-      url: "https://github.com/cucumber/cucumber-js",
-      tags: ["BDD", "Gherkin", "验收测试", "5.3k stars"],
-      price: "开源",
-      icon: "🥒",
-      pros: [
-        "Gherkin 自然语言场景",
-        "非技术人员可编写",
-        "跨语言支持"
-      ],
-      cons: [
-        "维护成本较高",
-        "执行速度较慢",
-        "调试困难"
-      ],
-      useCase: "BDD 验收测试、业务需求驱动测试",
-      learnMore: "https://cucumber.io/docs",
-      githubStars: 5312,
-    },
+    /* REMOVED: cucumber-js — 非 AI 工具 */
   {
       id: "generic-agent",
       name: "GenericAgent (lsdefine)",
@@ -1453,29 +1124,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/Pimzino/spec-workflow-mcp",
       githubStars: 4133,
     },
-  {
-      id: "behave",
-      name: "Behave (Python BDD)",
-      category: "framework",
-      description: "Python 的 BDD 框架，灵感来自 Ruby 版 Cucumber，支持 Gherkin 语法，行为驱动测试首选",
-      url: "https://github.com/behave/behave",
-      tags: ["BDD", "Python", "Gherkin", "行为驱动"],
-      price: "开源",
-      icon: "🐝",
-      pros: [
-        "Python BDD 框架",
-        "Gherkin 语法支持",
-        "易于集成 pytest"
-      ],
-      cons: [
-        "仅限 Python",
-        "生态不如 pytest",
-        "文档较少"
-      ],
-      useCase: "Python BDD 验收测试、行为驱动开发",
-      learnMore: "https://behave.readthedocs.io",
-      githubStars: 3474,
-    },
+    /* REMOVED: behave — 非 AI 工具 */
   {
       id: "minimax-m2-7",
       name: "MiniMax M2.7",
@@ -1491,29 +1140,7 @@ export const tools: Tool[] = [
       useCase: "中文 Agent 任务、自主编码、自进化 AI 研究",
       learnMore: "https://github.com/MiniMax-AI",
     },
-{
-      id: "fastapi-realworld",
-      name: "FastAPI RealWorld",
-      category: "education",
-      description: "用 FastAPI 实现的 RealWorld 示例应用，演示 TDD + 整洁架构最佳实践，完整的全栈开发参考，3,100+ stars",
-      url: "https://github.com/nsidnev/fastapi-realworld-example-app",
-      tags: ["TDD", "整洁架构", "FastAPI", "3.1k stars"],
-      price: "开源",
-      icon: "🐦",
-      pros: [
-        "FastAPI 实战项目示例",
-        "完整 CRUD API",
-        "最佳实践参考"
-      ],
-      cons: [
-        "偏示例非工具",
-        "功能较基础",
-        "不覆盖高级场景"
-      ],
-      useCase: "FastAPI 学习参考、API 项目模板",
-      learnMore: "https://github.com/nsidnev/fastapi-realworld-example-app",
-      githubStars: 3104,
-    },
+  /* REMOVED: fastapi-realworld — 非 AI 工具 */
   {
       id: "glm-5",
       name: "GLM-5 (智谱 AI)",
@@ -1532,7 +1159,7 @@ export const tools: Tool[] = [
   {
       id: "camofox-browser",
       name: "CamofFox Browser (jo-inc)",
-      category: "agent",
+      category: "data",
       description: "AI Agent 专用无头浏览器（GitHub 2.4k 星），专为 AI Agent 设计，可访问通常被屏蔽的网站，支持 28 种反检测机制，冷启动 <250ms",
       url: "https://github.com/jo-inc/camofox-browser",
       tags: ["开源", "浏览器自动化", "AI Agent", "反检测"],
@@ -1599,29 +1226,7 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/microsoft/promptbench",
       githubStars: 2798,
     },
-  {
-      id: "awesome-eventstorming",
-      name: "Awesome EventStorming",
-      category: "education",
-      description: "EventStorming 资源精选列表，DDD 领域建模的核心协作方法论，通过事件风暴探索业务领域，2,400+ stars",
-      url: "https://github.com/mariuszgil/awesome-eventstorming",
-      tags: ["EventStorming", "DDD", "领域建模", "协作"],
-      price: "开源",
-      icon: "🌪️",
-      pros: [
-        "Event Storming 资源大全",
-        "DDD 事件风暴实践",
-        "分类清晰"
-      ],
-      cons: [
-        "仅列表非工具",
-        "偏方法论",
-        "需配合其他工具"
-      ],
-      useCase: "学习 Event Storming、DDD 工作坊",
-      learnMore: "https://github.com/ardalis/awesome-eventstorming",
-      githubStars: 2374,
-    },
+    /* REMOVED: awesome-eventstorming — 非 AI 工具 */
   {
       id: "dflash",
       name: "DFlash (z-lab)",
@@ -1637,67 +1242,9 @@ export const tools: Tool[] = [
       learnMore: "https://github.com/z-lab/dflash",
       githubStars: 1925,
     },
-  {
-      id: "clean-ts-api",
-      name: "Clean TS API",
-      category: "education",
-      description: "Node.js + TypeScript API 实战，融合 TDD、整洁架构、设计模式和 SOLID 原则，完整项目示例，1,900+ stars",
-      url: "https://github.com/rmanguinho/clean-ts-api",
-      tags: ["TDD", "整洁架构", "SOLID", "TypeScript"],
-      price: "开源",
-      icon: "🏗️",
-      pros: [
-        "Clean Architecture TypeScript 实践",
-        "API 开发模板",
-        "代码质量高"
-      ],
-      cons: [
-        "偏教程非工具",
-        "学习门槛较高",
-        "社区较小"
-      ],
-      useCase: "Clean Architecture API 开发学习",
-      learnMore: "https://github.com/ArthurSarquis/clean-ts-api",
-      githubStars: 1914,
-    },
-  {
-      id: "protenix",
-      name: "Protenix (ByteDance)",
-      category: "framework",
-      description: "字节跳动开源的高精度生物分子结构预测工具，面向蛋白质折叠等科学计算场景，是 AI for Science 方向对标 AlphaFold 的开源实现。支持蛋白质结构预测、分子对接和动力学模拟，GitHub 1.8k stars，为科研机构和生物科技公司提供免费的 AI 驱动结构预测方案",
-      url: "https://github.com/bytedance/Protenix",
-      tags: ["开源", "字节跳动", "AI for Science", "蛋白质结构", "生物信息"],
-      price: "开源",
-      icon: "🧬",
-      pros: ["对标 AlphaFold 的开源替代", "字节跳动持续投入", "蛋白质预测精度较高", "免费供科研使用"],
-      cons: ["1.8k stars 生态较小", "计算资源需求大", "文档和教程较少", "仅聚焦蛋白质领域"],
-      useCase: "蛋白质结构预测、AI 辅助药物研发、生物信息学研究",
-      learnMore: "https://github.com/bytedance/Protenix",
-      githubStars: 1825,
-    },
-  {
-      id: "playwright-bdd",
-      name: "Playwright BDD",
-      category: "framework",
-      description: "Playwright 的 BDD 扩展，支持用 Gherkin 语法编写端到端测试场景，自然语言描述验收标准",
-      url: "https://github.com/vitalets/playwright-bdd",
-      tags: ["BDD", "E2E 测试", "Gherkin", "Playwright"],
-      price: "开源",
-      icon: "🎭",
-      pros: [
-        "Playwright BDD 测试",
-        "自然语言场景定义",
-        "跨浏览器支持"
-      ],
-      cons: [
-        "社区较小",
-        "文档不完善",
-        "学习门槛较高"
-      ],
-      useCase: "BDD 风格端到端测试、非技术人员参与测试",
-      learnMore: "https://playwright.dev",
-      githubStars: 662,
-    },
+    /* REMOVED: clean-ts-api — 非 AI 工具 */
+    /* REMOVED: protenix — 非 AI 工具 */
+    /* REMOVED: playwright-bdd — 非 AI 工具 */
   {
       id: "openmanus",
       name: "OpenManus",
@@ -2022,7 +1569,7 @@ export const tools: Tool[] = [
   {
     id: "openai-cookbook",
     name: "OpenAI Cookbook",
-    category: "llm",
+    category: "education",
     description: "OpenAI API 示例和指南，72,838+ stars。官方出品的实战教程合集，涵盖文本生成、Embedding、Function Calling、微调等核心 API 的最佳实践和代码示例",
     url: "https://github.com/openai/openai-cookbook",
     tags: ["OpenAI", "API教程", "实战示例", "官方文档"],
@@ -2142,7 +1689,7 @@ export const tools: Tool[] = [
   {
     id: "llm-app",
     name: "LLM App (Pathway)",
-    category: "agent",
+    category: "search",
     description: "RAG 和 AI 管道模板，59,967+ stars。Pathway 提供的实时 RAG（检索增强生成）解决方案，支持流式数据处理、实时更新知识库，适合构建生产级 AI 应用",
     url: "https://github.com/pathwaycom/llm-app",
     tags: ["RAG", "实时数据", "AI管道", "知识检索"],
@@ -2244,21 +1791,7 @@ export const tools: Tool[] = [
     learnMore: "https://github.com/RVC-Boss/GPT-SoVITS",
     githubStars: 56826,
   },
-  {
-    id: "mirofish",
-    name: "MiroFish",
-    category: "data",
-    description: "群体智能预测引擎，56,402+ stars。基于群体智慧的预测平台，聚合多个数据源和预测模型，提供金融市场、趋势预测等场景的智能决策支持",
-    url: "https://github.com/666ghj/mirofish",
-    tags: ["群体智能", "预测", "数据分析", "决策支持"],
-    price: "开源",
-    icon: "🐟",
-    pros: ["群体智慧聚合提升预测精度", "多模型融合方案", "开源透明可验证", "应用场景广泛"],
-    cons: ["预测精度受数据质量影响", "需要持续数据输入", "部分场景需要专业领域知识"],
-    useCase: "金融市场预测、趋势分析、群体决策辅助",
-    learnMore: "https://github.com/666ghj/mirofish",
-    githubStars: 56402,
-  },
+    /* REMOVED: mirofish — 非 AI 工具 */
   {
     id: "face_recognition",
     name: "Face Recognition",
@@ -2292,7 +1825,7 @@ export const tools: Tool[] = [
   {
     id: "gpt-engineer",
     name: "GPT Engineer",
-    category: "llm",
+    category: "cli",
     description: "AI 代码生成 CLI 平台，55,215+ stars。通过自然语言描述生成完整项目的 CLI 工具，支持从需求描述到代码实现的端到端自动化开发流程",
     url: "https://github.com/gpt-engineer-org/gpt-engineer",
     tags: ["代码生成", "CLI", "自动化开发", "LLM"],
@@ -2337,7 +1870,7 @@ export const tools: Tool[] = [
   {
     id: "learn-claude-code",
     name: "Learn Claude Code",
-    category: "agent",
+    category: "education",
     description: "Nano Claude Code-like Agent Harness，55,049+ stars。轻量级 Agent 框架，模拟 Claude Code 的工作方式，学习如何构建代码理解和操作的 AI Agent",
     url: "https://github.com/shareai-lab/learn-claude-code",
     tags: ["Agent 框架", "学习资源", "代码理解", "开源"],
@@ -2397,7 +1930,7 @@ export const tools: Tool[] = [
   {
     id: "oh-my-openagent",
     name: "Oh My OpenAgent",
-    category: "llm",
+    category: "agent",
     description: "高效 Agent 框架，52,967+ stars。轻量高效的 AI Agent 开发框架，提供简洁的 API 和丰富的工具集成，支持多模型、多技能的灵活编排",
     url: "https://github.com/code-yeongyu/oh-my-openagent",
     tags: ["Agent 框架", "高效", "多模型", "工具集成"],
@@ -2409,21 +1942,7 @@ export const tools: Tool[] = [
     learnMore: "https://github.com/code-yeongyu/oh-my-openagent",
     githubStars: 52967,
   },
-  {
-    id: "trendradar",
-    name: "TrendRadar",
-    category: "data",
-    description: "AI 舆情监测系统，52,777+ stars。基于 AI 的舆情监测和趋势分析平台，自动追踪社交媒体、新闻网站等多渠道信息，生成实时舆情报告和趋势预警",
-    url: "https://github.com/sansan0/trendradar",
-    tags: ["舆情监测", "趋势分析", "数据抓取", "报告生成"],
-    price: "开源",
-    icon: "📡",
-    pros: ["多渠道信息聚合", "自动化报告生成", "实时趋势预警", "开源可定制"],
-    cons: ["数据源需自行配置", "部分平台有反爬限制", "大规模部署需要资源"],
-    useCase: "品牌舆情监控、市场趋势分析、竞品动态追踪",
-    learnMore: "https://github.com/sansan0/trendradar",
-    githubStars: 52777,
-  },
+    /* REMOVED: trendradar — 非 AI 工具 */
   {
     id: "tradingagents",
     name: "TradingAgents",
@@ -2457,7 +1976,7 @@ export const tools: Tool[] = [
   {
     id: "llama-index",
     name: "LlamaIndex",
-    category: "agent",
+    category: "search",
     description: "文档 Agent 和 OCR 平台，48,716+ stars。领先的 RAG 框架，提供文档索引、数据检索、Agent 编排等完整能力，支持多模态文档理解和智能问答",
     url: "https://github.com/run-llama/llama_index",
     tags: ["RAG", "文档检索", "Agent", "知识库"],
@@ -2502,7 +2021,7 @@ export const tools: Tool[] = [
   {
     id: "claude-code-best-practice",
     name: "Claude Code Best Practice",
-    category: "llm",
+    category: "education",
     description: "Claude Code 最佳实践，46,808+ stars。系统性的 Claude Code 使用指南和最佳实践集合，涵盖提示词工程、工作流优化、工具使用等实战经验",
     url: "https://github.com/shanraisshan/claude-code-best-practice",
     tags: ["最佳实践", "Claude", "提示词工程", "工作流"],
@@ -2622,7 +2141,7 @@ export const tools: Tool[] = [
   {
     id: "aider",
     name: "Aider",
-    category: "llm",
+    category: "cli",
     description: "AI 终端结对编程工具，43,608+ stars。在终端中与 AI 协作编程，支持多种编程语言和大型代码库，自动编辑文件并跟踪变更",
     url: "https://github.com/Aider-AI/aider",
     tags: ["AI 编程", "终端工具", "结对编程", "代码生成"],
@@ -2649,21 +2168,7 @@ export const tools: Tool[] = [
     learnMore: "https://github.com/zhayujie/chatgpt-on-wechat",
     githubStars: 43545,
   },
-  {
-    id: "goose",
-    name: "Goose",
-    category: "agent",
-    description: "开源可扩展 AI Agent，42,788+ stars。由 Block 开发的通用 AI 代理框架，支持工具调用、代码执行和多步任务规划，强调安全性和可扩展性",
-    url: "https://github.com/block/goose",
-    tags: ["AI Agent", "开源", "工具调用", "自动化"],
-    price: "开源",
-    icon: "🪿",
-    pros: ["大厂出品质量有保障", "架构设计安全可控", "工具扩展灵活", "社区活跃"],
-    cons: ["相对年轻功能仍在完善", "文档不够全面", "复杂任务规划能力有限"],
-    useCase: "自动化工作流、代码生成、多步任务执行",
-    learnMore: "https://github.com/block/goose",
-    githubStars: 42788,
-  },
+    /* REMOVED: duplicate goose (second entry, 42788 stars) — Goose (Block) 版本保留 (42664 stars, 更详细) */
   {
     id: "gradio",
     name: "Gradio",
@@ -2724,21 +2229,7 @@ export const tools: Tool[] = [
     learnMore: "https://qlib.readthedocs.io",
     githubStars: 41008,
   },
-  {
-    id: "bettafish",
-    name: "BettaFish",
-    category: "data",
-    description: "多 Agent 舆情分析助手，40,531+ stars。基于多智能体协作的舆情分析平台，自动采集、分析和汇总网络舆情，提供智能洞察和报告生成",
-    url: "https://github.com/666ghj/bettafish",
-    tags: ["舆情分析", "多 Agent", "数据采集", "智能报告"],
-    price: "开源",
-    icon: "🐠",
-    pros: ["多 Agent 协同提高分析深度", "自动化流程减少人工", "报告生成直观", "可扩展数据源"],
-    cons: ["依赖模型 API 成本", "舆情场景定制化需求高", "实时性取决于采集频率"],
-    useCase: "品牌舆情监控、市场情报分析、社交媒体洞察",
-    learnMore: "https://github.com/666ghj/bettafish",
-    githubStars: 40531,
-  },
+    /* REMOVED: bettafish — 非 AI 工具 */
   {
     id: "nanobot",
     name: "NanoBot",
@@ -2757,7 +2248,7 @@ export const tools: Tool[] = [
   {
     id: "caveman",
     name: "Caveman",
-    category: "llm",
+    category: "plugin",
     description: "Claude Code token 优化技能，39,866+ stars。针对 Claude Code 的 token 使用优化方案，通过精简上下文和智能缓存策略，大幅降低 API 调用成本",
     url: "https://github.com/juliusbrussee/caveman",
     tags: ["Claude Code", "Token 优化", "成本控制", "效率工具"],
@@ -2787,7 +2278,7 @@ export const tools: Tool[] = [
   {
     id: "quivr",
     name: "Quivr",
-    category: "agent",
+    category: "search",
     description: "RAG 知识管理工具，39,116+ stars。开源检索增强生成平台，支持多种文档格式上传和智能检索，构建个人 AI 知识库，实现基于自有文档的智能问答",
     url: "https://github.com/QuivrHQ/quivr",
     tags: ["RAG", "知识管理", "文档问答", "向量搜索"],
@@ -2817,7 +2308,7 @@ export const tools: Tool[] = [
   {
     id: "mindsdb",
     name: "MindsDB",
-    category: "plugin",
+    category: "data",
     description: "AI 分析查询引擎，39,018+ stars。将 AI/ML 能力直接嵌入数据库，通过 SQL 即可进行预测分析和智能查询，支持多种数据源和 AI 模型集成",
     url: "https://github.com/mindsdb/mindsdb",
     tags: ["AI 查询", "SQL", "预测分析", "数据库集成"],
