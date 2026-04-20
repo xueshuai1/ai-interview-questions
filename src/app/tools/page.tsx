@@ -182,7 +182,7 @@ export default function ToolsPage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  type SortKey = "stars" | "newest";
+  type SortKey = "stars" | "newest" | "hottest";
   const [activeCategory, setActiveCategory] = useState(searchParams.get("cat") || "all");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
@@ -221,6 +221,12 @@ export default function ToolsPage() {
         if (!aDate) return 1;
         if (!bDate) return -1;
         return bDate.localeCompare(aDate);
+      });
+    } else if (sortBy === "hottest") {
+      result = [...result].sort((a, b) => {
+        const aDelta = (a as any).delta ?? 0;
+        const bDelta = (b as any).delta ?? 0;
+        return bDelta - aDelta;
       });
     }
     return result;
@@ -281,12 +287,33 @@ export default function ToolsPage() {
           <div className="flex items-center justify-between mb-6">
             <p className="text-sm text-slate-500">找到 <span className="text-brand-400 font-medium">{filteredTools.length}</span> 个工具</p>
             <div className="flex items-center gap-2">
-              <div className="lg:hidden">
-                <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => { setActiveCategory(key); handleFilterChange(); }} sortBy={sortBy} onSortChange={(sort) => { setSortBy(sort as SortKey); setCurrentPage(1); }} />
+              {/* Mobile: category + sort tabs */}
+              <div className="lg:hidden flex items-center gap-2">
+                <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => { setActiveCategory(key); handleFilterChange(); }} />
+                <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
+                  {([
+                    ["stars", "⭐ 热门"],
+                    ["newest", "🕐 最新"],
+                    ["hottest", "🔥 最火"],
+                  ] as [SortKey, string][]).map(([key, label]) => (
+                    <button
+                      key={key}
+                      onClick={() => { setSortBy(key); setCurrentPage(1); }}
+                      className={`px-2 py-1 rounded-md text-xs font-medium transition-all whitespace-nowrap ${
+                        sortBy === key
+                          ? "bg-brand-500/20 text-brand-300"
+                          : "text-slate-400 hover:text-white"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
               </div>
-              <div className="hidden lg:block">
+              {/* Desktop: sort select */}
+              <div className="hidden lg:flex items-center gap-2">
                 <select value={sortBy} onChange={(e) => { setSortBy(e.target.value as SortKey); setCurrentPage(1); }} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
-                  <option value="stars">⭐ 热门</option><option value="newest">🕐 最新</option>
+                  <option value="stars">⭐ 热门</option><option value="newest">🕐 最新</option><option value="hottest">🔥 最火</option>
                 </select>
               </div>
             </div>
