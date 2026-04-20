@@ -192,24 +192,22 @@ export default function ToolsPage() {
   const isInitialMount = useRef(true);
   const syncTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Reset page to 1 when category or sort changes
+  // Track previous category/sort to detect changes
   const prevCategoryRef = useRef(activeCategory);
   const prevSortRef = useRef(sortBy);
-  useEffect(() => {
-    if (prevCategoryRef.current !== activeCategory) {
-      setCurrentPage(1);
-      prevCategoryRef.current = activeCategory;
-    }
-  }, [activeCategory]);
-  useEffect(() => {
-    if (prevSortRef.current !== sortBy) {
-      setCurrentPage(1);
-      prevSortRef.current = sortBy;
-    }
-  }, [sortBy]);
 
-  // Debounced URL sync — prevents rapid router.replace during fast clicks
+  // Unified effect: detect category/sort changes → reset page → sync URL
   useEffect(() => {
+    const categoryChanged = prevCategoryRef.current !== activeCategory;
+    const sortChanged = prevSortRef.current !== sortBy;
+    prevCategoryRef.current = activeCategory;
+    prevSortRef.current = sortBy;
+
+    const needReset = categoryChanged || sortChanged;
+    const effectivePage = needReset ? 1 : currentPage;
+
+    if (needReset) setCurrentPage(1);
+
     if (isInitialMount.current) { isInitialMount.current = false; return; }
     if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
     syncTimerRef.current = setTimeout(() => {
@@ -217,12 +215,22 @@ export default function ToolsPage() {
       if (activeCategory !== "all") params.set("cat", activeCategory);
       if (searchQuery) params.set("q", searchQuery);
       if (sortBy !== "stars") params.set("sort", sortBy);
-      if (currentPage > 1) params.set("page", String(currentPage));
+      if (effectivePage > 1) params.set("page", String(effectivePage));
       const query = params.toString();
       router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    }, 400);
+    }, 300);
     return () => { if (syncTimerRef.current) clearTimeout(syncTimerRef.current); };
   }, [activeCategory, searchQuery, sortBy, currentPage, pathname, router]);
+
+  // Calculate effective page for rendering (handles async currentPage reset)
+  const prevCatForPageRef = useRef(activeCategory);
+  const prevSortForPageRef = useRef(sortBy);
+  const catOrSortChanged = prevCatForPageRef.current !== activeCategory || prevSortForPageRef.current !== sortBy;
+  if (catOrSortChanged) {
+    prevCatForPageRef.current = activeCategory;
+    prevSortForPageRef.current = sortBy;
+  }
+  const displayPage = catOrSortChanged ? 1 : currentPage;
 
   const filteredTools = useMemo(() => {
     let result = toolsWithPopularity.filter((t) => {
@@ -256,7 +264,7 @@ export default function ToolsPage() {
   }, [activeCategory, searchQuery, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredTools.length / TOOLS_PER_PAGE));
-  const safePage = Math.min(currentPage, totalPages);
+  const safePage = Math.min(displayPage, totalPages);
   const paginatedTools = filteredTools.slice((safePage - 1) * TOOLS_PER_PAGE, safePage * TOOLS_PER_PAGE);
 
   const categoryData = toolCategories.map((c) => ({
@@ -318,7 +326,7 @@ export default function ToolsPage() {
                   ] as [SortKey, string][]).map(([key, label]) => (
                     <button
                       key={key}
-                      onClick={() => { setSortBy(key); setCurrentPage(1); }}
+                      onClick={() => setSortBy(key)}
                       className={`px-2 py-1 rounded-md text-xs font-medium transition-all whitespace-nowrap ${
                         sortBy === key
                           ? "bg-brand-500/20 text-brand-300"
@@ -333,7 +341,7 @@ export default function ToolsPage() {
               </div>
               {/* Desktop: sort select */}
               <div className="hidden lg:flex items-center gap-2">
-                <select value={sortBy} onChange={(e) => { setSortBy(e.target.value as SortKey); setCurrentPage(1); }} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
+                <select value={sortBy} onChange={(e) => setSortBy(e.target.value as SortKey)} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
                   <option value="stars">⭐ Stars</option><option value="newest">🕐 最新</option><option value="hottest">🔥 最火</option>
                 </select>
               </div>
