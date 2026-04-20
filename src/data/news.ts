@@ -16,6 +16,88 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-324",
+    tag: "大模型",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "LLM 微调技术 2026：QLoRA 让消费级 GPU 微调 70B 模型，DPO 正在取代 RLHF 成为对齐标准",
+    summary: "2026 年 LLM 微调技术发生范式转变。QLoRA 将 70B 模型微调显存需求降至 16GB（RTX 4090 可运行），DPO/SimPO/ORPO 等直接偏好优化方法以 RLHF 1/10 的复杂度达到相当效果。参数高效微调 + 直接偏好优化已成为企业定制模型的标准流程。",
+    content: `## LLM 微调：从「大厂专属」到「人人可用」
+
+2026 年，LLM 微调技术发生了两个关键转变，让定制模型从大厂专利变成了开发者的日常工具。
+
+**转变一：QLoRA 让消费级 GPU 也能微调大模型**
+
+Dettmers et al. 提出的 QLoRA 技术将 4-bit 量化与 LoRA 结合，实现了惊人的显存压缩：
+- 65B 模型全量微调：~1300GB 显存（需要 16 张 A100）
+- QLoRA 微调：~16GB 显存（单张 RTX 4090）
+- 效果差异：< 0.5%
+
+配合 Unsloth 等优化工具，QLoRA 训练速度还能再提升 2 倍。
+
+**转变二：DPO 取代 RLHF 成为对齐标准**
+
+RLHF 需要训练奖励模型 + PPO 优化，步骤复杂且不稳定。DPO（Direct Preference Optimization）直接将偏好数据用于优化，无需奖励模型：
+- RLHF：3 个阶段（SFT → RM 训练 → PPO），需要 2 个模型
+- DPO：1 个阶段，只需要偏好数据
+
+SimPO 和 ORPO 等衍生方法进一步简化了流程，效果与 RLHF 相当甚至更好。
+
+**企业微调标准流程（2026）：**
+1. 收集 1000-5000 条高质量领域指令数据
+2. QLoRA 进行 SFT 指令微调
+3. 收集 2000-5000 条偏好对数据
+4. DPO 进行偏好对齐
+5. 在独立测试集上评估
+
+**对开发者的意义：**
+- 不再依赖 API 提供商的模型更新节奏，可以自己微调
+- 微调后的 LoRA 适配器仅几十 MB，方便分享和版本管理
+- DPO 让对齐从研究课题变成了工程实践`,
+    date: "2026-04-21",
+    source: "AI Master 知识库",
+    sourceUrl: "/knowledge/llm-017",
+    href: "/news/news-324",
+  },
+{
+    id: "news-323",
+    tag: "产品动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Claude Opus 4.7 发布：tokenizer 更新带来高分辨率图片支持，但成本增加 40%",
+    summary: "Anthropic 发布 Claude Opus 4.7，采用全新 tokenizer。相同文本输入 token 数增加 1.0-1.35x（系统提示词实测 +46%），图片支持分辨率从 ~1MP 提升至 ~3.75MP（2576px 长边）。价格与 Opus 4.6 相同，但因 token 膨胀实际成本增加约 40%。",
+    content: `## Claude Opus 4.7：更强的视觉，更高的成本
+
+**核心发布：**
+Anthropic 正式发布 Claude Opus 4.7，这是 Opus 系列自 4.6 以来的重大更新。
+
+**关键变化：**
+
+**1. 全新 tokenizer**
+- Opus 4.7 使用更新的 tokenizer，改进了文本处理方式
+- Simon Willison 实测：相同系统提示词，Opus 4.7 比 4.6 多消耗 46% 的 token
+- 对于 30 页 PDF 文档，token 倍率为 1.08x（低于文本场景）
+
+**2. 高分辨率图片支持**
+- 图片输入分辨率从 ~1MP 提升至 ~3.75MP（2576px 长边）
+- 3.7MB PNG 图片 token 消耗：Opus 4.7 是 4.6 的 3.01x
+- 注意：3x 增加完全来自更高分辨率处理，小图片（682x318）的 token 消耗几乎相同（314 vs 310）
+
+**3. 价格不变，但实际成本上涨**
+- Opus 4.7 定价与 4.6 相同：$5/M input，$25/M output
+- 但因 tokenizer 变化，相同输入的实际成本增加约 40%
+- 建议：高分辨率图片分析用 Opus 4.7，简单文本用 Sonnet 或 Haiku
+
+**影响分析：**
+- 对于高分辨率图片分析场景，Opus 4.7 的高分辨率支持可能直接改变技术方案选型
+- 对于文本密集型应用，建议评估 Opus 4.7 的 token 成本后再决定是否迁移
+- Anthropic 是目前唯一公开系统提示词历史的主流 AI 实验室，可追溯至 Claude 3
+
+**来源：** Simon Willison's Weblog / Anthropic 官方博客`,
+    date: "2026-04-21",
+    source: "Simon Willison / Anthropic",
+    sourceUrl: "https://simonwillison.net/2026/Apr/20/claude-token-counts/",
+    href: "/news/news-323",
+  },
+{
     id: "news-322",
     tag: "AI Agent",
     tagColor: "bg-blue-500/10 text-blue-300",
