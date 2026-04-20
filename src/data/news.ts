@@ -16,6 +16,77 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
   {
+    id: "news-318",
+    tag: "AI Agent",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Self-Evolving AI Agent 三强争霸：Hermes / GenericAgent / Evolver 代表三条技术路线",
+    summary: "2026 年 4 月，自我进化 AI Agent 成为最热门赛道。NousResearch Hermes Agent（103K 星）主打经验压缩与知识注入，GenericAgent（4.7K 星）以 3.3K 行种子代码实现技能树自生长，EvoMap Evolver（5.7K 星）提出 GEP 基因组进化协议。三条路线分别代表了从经验中学习、从需求中生长、从变异中进化的三种范式。",
+    content: `## Self-Evolving AI Agent：三大路线对比
+
+### NousResearch Hermes Agent（103K+ 星）
+核心理念是「The agent that grows with you」。通过 Experience Capture → Knowledge Compression → Skill Injection 的完整循环，让 Agent 在执行任务中持续积累经验、压缩为知识、并注入到后续任务中。
+
+### GenericAgent（4.7K 星）
+仅用 3.3K 行种子代码启动，通过技能树自生长机制，Agent 在遇到新需求时自动生成新技能模块。token 消耗比传统框架低 6 倍。
+
+### EvoMap Evolver（5.7K 星）
+提出 GEP（Genome Evolution Protocol），将 Agent 能力编码为基因组，通过变异、交叉、选择等生物进化机制持续优化 Agent 配置。
+
+**共同趋势：** 三个项目的共同点是 Agent 不再是静态工具，而是可以自主成长的有机体。这标志着 AI Agent 从「工具时代」迈入「伙伴时代」。`,
+    date: "2026-04-20",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-318",
+  },
+  {
+    id: "news-319",
+    tag: "AI 基础设施",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Kronos 金融大模型突破 19K 星：Foundation Model for the Language of Financial Markets",
+    summary: "shiyu-coder/Kronos 本周增长 4,455 星，总计 19,686 星。这是一个专为金融市场设计的 Foundation Model，将市场数据视为一种\"语言\"进行建模。与通用 LLM 不同，Kronos 在金融时间序列数据上专门训练，支持市场预测、风险分析和交易策略生成。",
+    content: `## Kronos：金融市场的 Foundation Model
+
+Kronos 的创新在于将金融市场数据视为一种"语言"，使用类似 LLM 的架构对金融时间序列进行建模。
+
+**核心特性：**
+- 专为金融市场设计的预训练模型
+- 支持市场趋势预测、风险评估、交易策略生成
+- 与传统量化模型相比，具有更强的模式识别能力
+
+**本周增长：** +4,455 stars，总计 19,686 stars
+**技术栈：** Python, PyTorch
+
+这标志着 AI 正在从通用领域向垂直专业领域深化——金融大模型将成为 2026 年的重要赛道。`,
+    date: "2026-04-20",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/shiyu-coder/Kronos",
+    href: "/news/news-319",
+  },
+  {
+    id: "news-320",
+    tag: "AI 产品",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Voicebox 开源语音合成工作室突破 21K 星：jamiepine 打造语音 AI 新标杆",
+    summary: "jamiepine/voicebox 本周增长 5,724 星，总计 21,401 星。这是一个开源的语音合成工作室，支持高质量文本转语音、声音克隆和语音编辑功能。在 VoxCPM（15K 星）和 Gemini 3.1 Flash TTS 的共同推动下，2026 年正成为语音 AI 爆发之年。",
+    content: `## Voicebox：开源语音合成工作室
+
+Voicebox 是一个全面的开源语音合成平台，功能覆盖：
+
+- **高质量 TTS**：自然流畅的文本转语音
+- **声音克隆**：少量样本即可克隆声音
+- **语音编辑**：直接编辑已有音频的内容和风格
+- **多语言支持**：支持多种语言和方言
+
+**本周增长：** +5,724 stars
+**技术栈：** TypeScript
+
+同期值得关注的语音 AI 项目还包括 OpenBMB VoxCPM（15K 星，tokenizer-free TTS）和 Google Gemini 3.1 Flash TTS（提示词控制语音风格）。语音 AI 正在从"能说话"走向"说得好"。`,
+    date: "2026-04-20",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/jamiepine/voicebox",
+    href: "/news/news-320",
+  },
+  {
     id: "news-316",
     tag: "AI 趋势",
     tagColor: "bg-purple-500/10 text-purple-300",
