@@ -177,28 +177,51 @@ function ToolCard({ tool }: { tool: Tool }) {
 
 const TOOLS_PER_PAGE = 20;
 
+type SortKey = "stars" | "newest" | "hottest";
+
 export default function ToolsPage() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  type SortKey = "stars" | "newest" | "hottest";
   const [activeCategory, setActiveCategory] = useState(searchParams.get("cat") || "all");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
   const [sortBy, setSortBy] = useState<SortKey>((searchParams.get("sort") as SortKey) || "stars");
 
   const isInitialMount = useRef(true);
+  const syncTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Reset page to 1 when category or sort changes
+  const prevCategoryRef = useRef(activeCategory);
+  const prevSortRef = useRef(sortBy);
+  useEffect(() => {
+    if (prevCategoryRef.current !== activeCategory) {
+      setCurrentPage(1);
+      prevCategoryRef.current = activeCategory;
+    }
+  }, [activeCategory]);
+  useEffect(() => {
+    if (prevSortRef.current !== sortBy) {
+      setCurrentPage(1);
+      prevSortRef.current = sortBy;
+    }
+  }, [sortBy]);
+
+  // Debounced URL sync — prevents rapid router.replace during fast clicks
   useEffect(() => {
     if (isInitialMount.current) { isInitialMount.current = false; return; }
-    const params = new URLSearchParams();
-    if (activeCategory !== "all") params.set("cat", activeCategory);
-    if (searchQuery) params.set("q", searchQuery);
-    if (sortBy !== "stars") params.set("sort", sortBy);
-    if (currentPage > 1) params.set("page", String(currentPage));
-    const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    if (syncTimerRef.current) clearTimeout(syncTimerRef.current);
+    syncTimerRef.current = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (activeCategory !== "all") params.set("cat", activeCategory);
+      if (searchQuery) params.set("q", searchQuery);
+      if (sortBy !== "stars") params.set("sort", sortBy);
+      if (currentPage > 1) params.set("page", String(currentPage));
+      const query = params.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
+    }, 400);
+    return () => { if (syncTimerRef.current) clearTimeout(syncTimerRef.current); };
   }, [activeCategory, searchQuery, sortBy, currentPage, pathname, router]);
 
   const filteredTools = useMemo(() => {
@@ -236,8 +259,6 @@ export default function ToolsPage() {
   const safePage = Math.min(currentPage, totalPages);
   const paginatedTools = filteredTools.slice((safePage - 1) * TOOLS_PER_PAGE, safePage * TOOLS_PER_PAGE);
 
-  const handleFilterChange = () => setCurrentPage(1);
-
   const categoryData = toolCategories.map((c) => ({
     key: c.key,
     icon: c.icon,
@@ -262,7 +283,7 @@ export default function ToolsPage() {
             <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <input type="text" placeholder="搜索工具、标签..." value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); handleFilterChange(); }} className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all" />
+            <input type="text" placeholder="搜索工具、标签..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="w-full pl-12 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-500/50 focus:ring-1 focus:ring-brand-500/25 transition-all" />
           </div>
         </div>
       </section>
@@ -273,7 +294,7 @@ export default function ToolsPage() {
             {categoryData.map((c) => {
               const isActive = activeCategory === c.key;
               return (
-                <button key={c.key} onClick={() => { setActiveCategory(c.key); handleFilterChange(); }} className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm border transition-all cursor-pointer ${isActive ? "bg-brand-500/15 border-brand-500/40 text-brand-300 shadow-sm shadow-brand-500/10" : "bg-white/5 border-white/10 text-slate-400 hover:border-brand-500/30 hover:text-white"}`}>
+                <button key={c.key} onClick={() => setActiveCategory(c.key)} className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-sm border transition-all cursor-pointer ${isActive ? "bg-brand-500/15 border-brand-500/40 text-brand-300 shadow-sm shadow-brand-500/10" : "bg-white/5 border-white/10 text-slate-400 hover:border-brand-500/30 hover:text-white"}`}>
                   <span>{c.icon}</span><span className="font-medium">{c.label}</span><span className="text-xs opacity-60">{c.count}</span>
                 </button>
               );
@@ -289,7 +310,7 @@ export default function ToolsPage() {
             <div className="flex items-center gap-2">
               {/* Mobile: category + sort tabs */}
               <div className="lg:hidden flex items-center gap-2">
-                <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => { setActiveCategory(key); handleFilterChange(); }} />
+                <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => setActiveCategory(key)} />
                 <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
                   {([
                     ["stars", "⭐ Stars"],
