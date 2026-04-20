@@ -1,38 +1,38 @@
 {
-  "fetchedAt": "2026-04-19T22:00:10.195Z",
+  "fetchedAt": "2026-04-20T04:00:09.864Z",
   "totalRepos": 87,
   "successCount": 77,
   "errors": {},
   "stars": {
     "n8n": {
-      "stars": 184736,
-      "forks": 56966,
+      "stars": 184755,
+      "forks": 56970,
       "language": "TypeScript",
       "createdAt": "2019-06-22T09:24:21Z",
-      "updatedAt": "2026-04-19T21:50:03Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 184701,
-      "delta": 35
+      "updatedAt": "2026-04-20T03:52:46Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 184736,
+      "delta": 19
     },
     "auto-gpt": {
-      "stars": 183569,
-      "forks": 46219,
+      "stars": 183573,
+      "forks": 46214,
       "language": "Python",
       "createdAt": "2023-03-16T09:21:07Z",
-      "updatedAt": "2026-04-19T21:10:02Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 183558,
-      "delta": 11
+      "updatedAt": "2026-04-20T03:17:02Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 183569,
+      "delta": 4
     },
     "ollama": {
-      "stars": 169444,
-      "forks": 15697,
+      "stars": 169464,
+      "forks": 15698,
       "language": "Go",
       "createdAt": "2023-06-26T19:39:32Z",
-      "updatedAt": "2026-04-19T21:26:18Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 169431,
-      "delta": 13
+      "updatedAt": "2026-04-20T03:40:51Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 169444,
+      "delta": 20
     },
     "everything-claude-code": {
       "stars": 160656,
@@ -40,19 +40,19 @@
       "language": "Python",
       "createdAt": "2025-04-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 160656,
       "delta": 0
     },
     "superpowers": {
-      "stars": 159848,
-      "forks": 13937,
+      "stars": 160234,
+      "forks": 13967,
       "language": "Shell",
       "createdAt": "2025-10-09T19:45:18Z",
-      "updatedAt": "2026-04-19T21:59:44Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 159641,
-      "delta": 207
+      "updatedAt": "2026-04-20T03:59:47Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 159848,
+      "delta": 386
     },
     "github-copilot": {
       "stars": 150000,
@@ -60,217 +60,217 @@
       "language": null,
       "createdAt": "2023-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 150000,
       "delta": 0
     },
     "langflow": {
-      "stars": 147125,
-      "forks": 8802,
+      "stars": 147134,
+      "forks": 8803,
       "language": "Python",
       "createdAt": "2023-02-08T22:28:03Z",
-      "updatedAt": "2026-04-19T21:21:39Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 147114,
-      "delta": 11
+      "updatedAt": "2026-04-20T03:59:41Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 147125,
+      "delta": 9
     },
     "dify": {
-      "stars": 138333,
-      "forks": 21686,
+      "stars": 138364,
+      "forks": 21688,
       "language": "TypeScript",
       "createdAt": "2023-04-12T07:40:24Z",
-      "updatedAt": "2026-04-19T21:57:43Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 138310,
-      "delta": 23
+      "updatedAt": "2026-04-20T03:52:08Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 138333,
+      "delta": 31
     },
     "langchain": {
-      "stars": 134077,
-      "forks": 22159,
+      "stars": 134109,
+      "forks": 22162,
       "language": "Python",
       "createdAt": "2022-10-17T02:58:36Z",
-      "updatedAt": "2026-04-19T21:57:50Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 134060,
-      "delta": 17
+      "updatedAt": "2026-04-20T03:55:05Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 134077,
+      "delta": 32
     },
     "open-webui": {
-      "stars": 132680,
-      "forks": 18836,
+      "stars": 132716,
+      "forks": 18842,
       "language": "Python",
       "createdAt": "2023-10-06T22:08:27Z",
-      "updatedAt": "2026-04-19T21:49:26Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 132646,
-      "delta": 34
+      "updatedAt": "2026-04-20T03:59:21Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 132680,
+      "delta": 36
     },
     "claude-code": {
-      "stars": 115873,
-      "forks": 19316,
+      "stars": 115979,
+      "forks": 19327,
       "language": "Shell",
       "createdAt": "2025-02-22T17:41:21Z",
-      "updatedAt": "2026-04-19T21:56:15Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 115798,
-      "delta": 75
+      "updatedAt": "2026-04-20T03:58:38Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 115873,
+      "delta": 106
     },
     "markitdown": {
-      "stars": 112570,
-      "forks": 7285,
+      "stars": 112799,
+      "forks": 7306,
       "language": "Python",
       "createdAt": "2024-11-13T19:56:40Z",
-      "updatedAt": "2026-04-19T21:58:34Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 112468,
-      "delta": 102
+      "updatedAt": "2026-04-20T03:59:34Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 112570,
+      "delta": 229
     },
     "firecrawl": {
-      "stars": 110814,
-      "forks": 7067,
+      "stars": 110882,
+      "forks": 7072,
       "language": "TypeScript",
       "createdAt": "2024-04-15T21:02:29Z",
-      "updatedAt": "2026-04-19T21:56:11Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 110758,
-      "delta": 56
-    },
-    "gemini-cli": {
-      "stars": 101791,
-      "forks": 13225,
-      "language": "TypeScript",
-      "createdAt": "2025-04-17T17:04:31Z",
-      "updatedAt": "2026-04-19T21:59:02Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 101763,
-      "delta": 28
+      "updatedAt": "2026-04-20T04:00:08Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 110814,
+      "delta": 68
     },
     "hermes-agent": {
-      "stars": 101919,
-      "forks": 14531,
+      "stars": 102787,
+      "forks": 14663,
       "language": "Python",
       "createdAt": "2025-07-22T22:22:28Z",
-      "updatedAt": "2026-04-19T21:57:51Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 101393,
-      "delta": 526
+      "updatedAt": "2026-04-20T03:59:57Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 101919,
+      "delta": 868
+    },
+    "gemini-cli": {
+      "stars": 101828,
+      "forks": 13226,
+      "language": "TypeScript",
+      "createdAt": "2025-04-17T17:04:31Z",
+      "updatedAt": "2026-04-20T03:55:09Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 101791,
+      "delta": 37
     },
     "whisper": {
-      "stars": 98040,
+      "stars": 98053,
       "forks": 12068,
       "language": "Python",
       "createdAt": "2022-09-16T20:02:54Z",
-      "updatedAt": "2026-04-19T21:51:19Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 98028,
-      "delta": 12
+      "updatedAt": "2026-04-20T03:56:42Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 98040,
+      "delta": 13
     },
     "browser-use": {
-      "stars": 88651,
+      "stars": 88731,
       "forks": 10164,
       "language": "Python",
       "createdAt": "2024-10-31T16:00:56Z",
-      "updatedAt": "2026-04-19T21:44:38Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 88593,
-      "delta": 58
+      "updatedAt": "2026-04-20T03:56:25Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 88651,
+      "delta": 80
     },
     "openhands": {
-      "stars": 71499,
-      "forks": 9000,
+      "stars": 71514,
+      "forks": 8999,
       "language": "Python",
       "createdAt": "2024-03-13T03:33:31Z",
-      "updatedAt": "2026-04-19T21:38:17Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 71489,
-      "delta": 10
+      "updatedAt": "2026-04-20T03:58:47Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 71499,
+      "delta": 15
     },
     "china-textbook": {
-      "stars": 70031,
-      "forks": 15653,
+      "stars": 70053,
+      "forks": 15661,
       "language": "Roff",
       "createdAt": "2020-01-05T04:11:06Z",
-      "updatedAt": "2026-04-19T21:50:22Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 70027,
-      "delta": 4
+      "updatedAt": "2026-04-20T03:52:15Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 70031,
+      "delta": 22
     },
     "crawl4ai": {
-      "stars": 64284,
+      "stars": 64294,
       "forks": 6585,
       "language": "Python",
       "createdAt": "2024-05-09T09:48:50Z",
-      "updatedAt": "2026-04-19T21:41:27Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 64273,
-      "delta": 11
+      "updatedAt": "2026-04-20T03:39:16Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 64284,
+      "delta": 10
     },
     "claude-mem": {
-      "stars": 63234,
-      "forks": 5297,
+      "stars": 63494,
+      "forks": 5324,
       "language": "TypeScript",
       "createdAt": "2025-08-31T20:50:03Z",
-      "updatedAt": "2026-04-19T21:59:07Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 63034,
-      "delta": 200
+      "updatedAt": "2026-04-20T03:58:26Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 63234,
+      "delta": 260
     },
     "karpathy-skills": {
-      "stars": 61064,
-      "forks": 5302,
+      "stars": 62291,
+      "forks": 5429,
       "language": "Python",
       "createdAt": "2026-01-27T03:53:13Z",
-      "updatedAt": "2026-04-19T22:00:10Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 59083,
-      "delta": 1981
+      "updatedAt": "2026-04-20T04:00:26Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 61064,
+      "delta": 1227
     },
     "autogen": {
-      "stars": 57214,
-      "forks": 8627,
+      "stars": 57217,
+      "forks": 8623,
       "language": "Python",
       "createdAt": "2023-08-18T11:43:45Z",
-      "updatedAt": "2026-04-19T21:50:52Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 57210,
-      "delta": 4
+      "updatedAt": "2026-04-20T03:16:02Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 57214,
+      "delta": 3
     },
     "ai-hedge-fund": {
-      "stars": 56333,
-      "forks": 9779,
+      "stars": 56399,
+      "forks": 9796,
       "language": "Python",
       "createdAt": "2024-11-29T16:30:01Z",
-      "updatedAt": "2026-04-19T21:48:26Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 56292,
-      "delta": 41
+      "updatedAt": "2026-04-20T03:59:09Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 56333,
+      "delta": 66
     },
     "mem-ai": {
-      "stars": 48106,
-      "forks": 6303,
+      "stars": 48168,
+      "forks": 6310,
       "language": "Python",
       "createdAt": "2026-04-05T01:12:07Z",
-      "updatedAt": "2026-04-19T21:53:24Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 48041,
-      "delta": 65
+      "updatedAt": "2026-04-20T03:55:12Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 48106,
+      "delta": 62
     },
     "cc-switch": {
-      "stars": 47200,
-      "forks": 3016,
+      "stars": 47341,
+      "forks": 3026,
       "language": "Rust",
       "createdAt": "2025-08-04T14:16:16Z",
-      "updatedAt": "2026-04-19T21:29:20Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 47172,
-      "delta": 28
+      "updatedAt": "2026-04-20T03:58:39Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 47200,
+      "delta": 141
     },
     "jest": {
       "stars": 45334,
       "forks": 6643,
       "language": "TypeScript",
       "createdAt": "2013-12-10T00:18:04Z",
-      "updatedAt": "2026-04-19T20:46:48Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T00:22:35Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 45334,
       "delta": 0
     },
@@ -280,39 +280,39 @@
       "language": "Rust",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 42664,
       "delta": 0
     },
     "awesome-claude-code": {
-      "stars": 39742,
-      "forks": 3286,
+      "stars": 39785,
+      "forks": 3292,
       "language": "Python",
       "createdAt": "2025-04-19T20:55:59Z",
-      "updatedAt": "2026-04-19T21:47:27Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 39701,
-      "delta": 41
+      "updatedAt": "2026-04-20T03:57:04Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 39742,
+      "delta": 43
     },
     "antigravity-skills": {
-      "stars": 33982,
-      "forks": 5621,
+      "stars": 34024,
+      "forks": 5625,
       "language": "Python",
       "createdAt": "2026-01-14T17:48:09Z",
-      "updatedAt": "2026-04-19T21:47:42Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 33949,
-      "delta": 33
+      "updatedAt": "2026-04-20T03:57:26Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 33982,
+      "delta": 42
     },
     "smolagents": {
-      "stars": 26732,
-      "forks": 2499,
+      "stars": 26736,
+      "forks": 2500,
       "language": "Python",
       "createdAt": "2024-12-05T11:28:04Z",
-      "updatedAt": "2026-04-19T15:50:42Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T01:16:06Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 26732,
-      "delta": 0
+      "delta": 4
     },
     "llama-stack": {
       "stars": 26726,
@@ -320,29 +320,29 @@
       "language": "Python",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 26726,
       "delta": 0
     },
     "openapi-generator": {
-      "stars": 26139,
-      "forks": 7497,
+      "stars": 26140,
+      "forks": 7496,
       "language": "Java",
       "createdAt": "2018-05-12T09:57:56Z",
-      "updatedAt": "2026-04-19T14:22:57Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T02:13:37Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 26139,
-      "delta": 0
+      "delta": 1
     },
     "googleworkspace-cli": {
-      "stars": 25048,
-      "forks": 1279,
+      "stars": 25059,
+      "forks": 1281,
       "language": "Rust",
       "createdAt": "2026-03-02T19:46:06Z",
-      "updatedAt": "2026-04-19T21:48:14Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 25034,
-      "delta": 14
+      "updatedAt": "2026-04-20T03:04:39Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 25048,
+      "delta": 11
     },
     "deerflow": {
       "stars": 24900,
@@ -350,7 +350,7 @@
       "language": "Python",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 24900,
       "delta": 0
     },
@@ -359,120 +359,120 @@
       "forks": 2933,
       "language": "Go",
       "createdAt": "2018-03-02T11:41:14Z",
-      "updatedAt": "2026-04-19T07:33:55Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T01:00:24Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 23595,
       "delta": 0
     },
     "argo-cd": {
-      "stars": 22648,
-      "forks": 7084,
+      "stars": 22650,
+      "forks": 7087,
       "language": "Go",
       "createdAt": "2018-02-09T11:12:01Z",
-      "updatedAt": "2026-04-19T20:04:22Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 22647,
-      "delta": 1
+      "updatedAt": "2026-04-20T03:11:44Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 22648,
+      "delta": 2
     },
     "openviking": {
-      "stars": 22586,
-      "forks": 1644,
+      "stars": 22598,
+      "forks": 1645,
       "language": "Python",
       "createdAt": "2026-01-05T07:11:17Z",
-      "updatedAt": "2026-04-19T21:59:26Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 22568,
-      "delta": 18
+      "updatedAt": "2026-04-20T04:00:03Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 22586,
+      "delta": 12
     },
     "voicebox": {
-      "stars": 21140,
-      "forks": 2430,
+      "stars": 21284,
+      "forks": 2441,
       "language": "TypeScript",
       "createdAt": "2026-01-25T12:27:03Z",
-      "updatedAt": "2026-04-19T21:59:24Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 20904,
-      "delta": 236
+      "updatedAt": "2026-04-20T03:59:39Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 21140,
+      "delta": 144
     },
     "promptfoo": {
-      "stars": 20295,
-      "forks": 1756,
+      "stars": 20312,
+      "forks": 1758,
       "language": "TypeScript",
       "createdAt": "2023-04-28T15:48:49Z",
-      "updatedAt": "2026-04-19T21:59:23Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 20284,
-      "delta": 11
+      "updatedAt": "2026-04-20T03:57:01Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 20295,
+      "delta": 17
     },
     "deep-tutor": {
-      "stars": 20100,
-      "forks": 2690,
+      "stars": 20210,
+      "forks": 2717,
       "language": "Python",
       "createdAt": "2025-12-28T15:35:54Z",
-      "updatedAt": "2026-04-19T21:55:05Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 20021,
-      "delta": 79
+      "updatedAt": "2026-04-20T03:59:31Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 20100,
+      "delta": 110
     },
     "owl-camel": {
-      "stars": 19670,
+      "stars": 19672,
       "forks": 2272,
       "language": "Python",
       "createdAt": "2025-03-03T15:42:51Z",
-      "updatedAt": "2026-04-19T18:15:04Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 19669,
-      "delta": 1
+      "updatedAt": "2026-04-20T02:51:35Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 19670,
+      "delta": 2
     },
     "kronos": {
-      "stars": 19579,
-      "forks": 3544,
+      "stars": 19645,
+      "forks": 3552,
       "language": "Python",
       "createdAt": "2025-07-01T02:54:32Z",
-      "updatedAt": "2026-04-19T21:48:18Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 19519,
-      "delta": 60
+      "updatedAt": "2026-04-20T03:58:47Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 19579,
+      "delta": 66
     },
     "google-adk": {
-      "stars": 19114,
-      "forks": 3259,
+      "stars": 19123,
+      "forks": 3260,
       "language": "Python",
       "createdAt": "2025-04-01T20:44:40Z",
-      "updatedAt": "2026-04-19T20:20:35Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 19111,
-      "delta": 3
+      "updatedAt": "2026-04-20T03:34:22Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 19114,
+      "delta": 9
     },
     "archon": {
-      "stars": 18925,
-      "forks": 2929,
+      "stars": 18967,
+      "forks": 2933,
       "language": "TypeScript",
       "createdAt": "2025-02-07T21:04:12Z",
-      "updatedAt": "2026-04-19T21:41:00Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 18890,
-      "delta": 35
+      "updatedAt": "2026-04-20T03:56:44Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 18925,
+      "delta": 42
     },
     "agent-skills": {
-      "stars": 17883,
-      "forks": 2245,
+      "stars": 17982,
+      "forks": 2247,
       "language": "Shell",
       "createdAt": "2026-02-15T20:20:26Z",
-      "updatedAt": "2026-04-19T22:00:07Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 17787,
-      "delta": 96
+      "updatedAt": "2026-04-20T04:00:27Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 17883,
+      "delta": 99
     },
     "multica": {
-      "stars": 16712,
-      "forks": 2073,
+      "stars": 16944,
+      "forks": 2092,
       "language": "TypeScript",
       "createdAt": "2026-01-13T17:59:46Z",
-      "updatedAt": "2026-04-19T21:56:49Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 16599,
-      "delta": 113
+      "updatedAt": "2026-04-20T04:00:12Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 16712,
+      "delta": 232
     },
     "vitest": {
       "stars": 16381,
@@ -480,9 +480,9 @@
       "language": "TypeScript",
       "createdAt": "2021-12-03T19:19:49Z",
       "updatedAt": "2026-04-19T20:24:35Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 16382,
-      "delta": -1
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 16381,
+      "delta": 0
     },
     "copaw": {
       "stars": 15604,
@@ -490,109 +490,109 @@
       "language": "Python",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 15604,
       "delta": 0
     },
     "voxcpm": {
-      "stars": 14826,
-      "forks": 1765,
+      "stars": 14889,
+      "forks": 1769,
       "language": "Python",
       "createdAt": "2025-09-16T03:41:49Z",
-      "updatedAt": "2026-04-19T21:41:06Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 14763,
+      "updatedAt": "2026-04-20T03:59:42Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 14826,
       "delta": 63
     },
     "domain-driven-hexagon": {
-      "stars": 14559,
+      "stars": 14561,
       "forks": 1536,
       "language": "TypeScript",
       "createdAt": "2020-11-29T16:04:22Z",
-      "updatedAt": "2026-04-19T20:23:33Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T03:21:30Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 14559,
-      "delta": 0
+      "delta": 2
     },
     "pytest": {
-      "stars": 13782,
-      "forks": 3095,
+      "stars": 13784,
+      "forks": 3096,
       "language": "Python",
       "createdAt": "2015-06-15T20:28:27Z",
-      "updatedAt": "2026-04-19T19:03:02Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 13779,
-      "delta": 3
+      "updatedAt": "2026-04-20T03:37:00Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 13782,
+      "delta": 2
     },
     "ai-trader": {
-      "stars": 13546,
-      "forks": 2291,
+      "stars": 13554,
+      "forks": 2293,
       "language": "Python",
       "createdAt": "2025-10-23T12:45:00Z",
-      "updatedAt": "2026-04-19T20:40:55Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 13538,
+      "updatedAt": "2026-04-20T03:40:56Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 13546,
       "delta": 8
     },
     "rowboat": {
-      "stars": 12867,
-      "forks": 1233,
+      "stars": 12879,
+      "forks": 1235,
       "language": "TypeScript",
       "createdAt": "2025-01-13T09:30:40Z",
-      "updatedAt": "2026-04-19T20:37:20Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 12857,
-      "delta": 10
+      "updatedAt": "2026-04-20T03:43:02Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 12867,
+      "delta": 12
     },
     "mcp-chrome": {
-      "stars": 11262,
-      "forks": 995,
+      "stars": 11263,
+      "forks": 994,
       "language": "TypeScript",
       "createdAt": "2025-06-09T09:07:06Z",
-      "updatedAt": "2026-04-19T19:23:07Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 11261,
+      "updatedAt": "2026-04-20T01:53:37Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 11262,
       "delta": 1
     },
     "openharness": {
-      "stars": 10437,
-      "forks": 1770,
+      "stars": 10475,
+      "forks": 1775,
       "language": "Python",
       "createdAt": "2026-04-01T15:37:13Z",
-      "updatedAt": "2026-04-19T21:26:58Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 10421,
-      "delta": 16
+      "updatedAt": "2026-04-20T03:50:15Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 10437,
+      "delta": 38
     },
     "aichat": {
-      "stars": 9864,
+      "stars": 9865,
       "forks": 686,
       "language": "Rust",
       "createdAt": "2023-03-03T00:29:39Z",
-      "updatedAt": "2026-04-19T12:49:50Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T00:49:08Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 9864,
-      "delta": 0
+      "delta": 1
     },
     "leantime": {
       "stars": 9521,
       "forks": 936,
       "language": "PHP",
       "createdAt": "2015-01-23T17:52:06Z",
-      "updatedAt": "2026-04-19T10:39:43Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T03:19:36Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 9521,
       "delta": 0
     },
     "personaplex": {
-      "stars": 9466,
+      "stars": 9473,
       "forks": 1334,
       "language": "Python",
       "createdAt": "2026-01-05T19:10:35Z",
-      "updatedAt": "2026-04-19T20:28:18Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 9457,
-      "delta": 9
+      "updatedAt": "2026-04-20T03:42:08Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 9466,
+      "delta": 7
     },
     "mac-cli": {
       "stars": 9057,
@@ -600,19 +600,19 @@
       "language": "Shell",
       "createdAt": "2015-12-07T02:40:42Z",
       "updatedAt": "2026-04-18T04:29:09Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 9057,
       "delta": 0
     },
     "larksuite-cli": {
-      "stars": 8228,
+      "stars": 8245,
       "forks": 532,
       "language": "Go",
       "createdAt": "2026-03-25T07:13:30Z",
-      "updatedAt": "2026-04-19T21:05:30Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 8221,
-      "delta": 7
+      "updatedAt": "2026-04-20T03:56:16Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 8228,
+      "delta": 17
     },
     "garak": {
       "stars": 7566,
@@ -620,19 +620,19 @@
       "language": "Python",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 7566,
       "delta": 0
     },
     "open-llm-vtuber": {
-      "stars": 6918,
-      "forks": 904,
+      "stars": 6925,
+      "forks": 906,
       "language": "Python",
       "createdAt": "2023-11-24T04:55:43Z",
-      "updatedAt": "2026-04-19T19:54:44Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 6917,
-      "delta": 1
+      "updatedAt": "2026-04-20T03:48:36Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 6918,
+      "delta": 7
     },
     "flux": {
       "stars": 6870,
@@ -640,29 +640,29 @@
       "language": "Go",
       "createdAt": "2016-07-07T10:55:13Z",
       "updatedAt": "2026-04-17T13:58:55Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 6870,
       "delta": 0
     },
     "mcp-registry": {
-      "stars": 6700,
+      "stars": 6701,
       "forks": 740,
       "language": "Go",
       "createdAt": "2025-02-05T17:58:01Z",
-      "updatedAt": "2026-04-19T19:22:17Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 6697,
-      "delta": 3
+      "updatedAt": "2026-04-20T01:17:12Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 6700,
+      "delta": 1
     },
     "seomachine": {
-      "stars": 6430,
+      "stars": 6443,
       "forks": 890,
       "language": "Python",
       "createdAt": "2025-10-29T20:50:23Z",
-      "updatedAt": "2026-04-19T20:13:37Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 6424,
-      "delta": 6
+      "updatedAt": "2026-04-20T03:53:12Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 6430,
+      "delta": 13
     },
     "desktop-commander-mcp": {
       "stars": 5916,
@@ -670,39 +670,49 @@
       "language": "TypeScript",
       "createdAt": "2024-12-04T08:26:08Z",
       "updatedAt": "2026-04-19T17:08:10Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 5915,
-      "delta": 1
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 5916,
+      "delta": 0
+    },
+    "evolver": {
+      "stars": 5659,
+      "forks": 545,
+      "language": "JavaScript",
+      "createdAt": "2026-02-01T05:59:24Z",
+      "updatedAt": "2026-04-20T04:01:02Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 5474,
+      "delta": 185
     },
     "mcp-playwright": {
       "stars": 5452,
-      "forks": 491,
+      "forks": 492,
       "language": "TypeScript",
       "createdAt": "2024-12-03T18:43:20Z",
       "updatedAt": "2026-04-19T18:47:37Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 5451,
-      "delta": 1
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 5452,
+      "delta": 0
     },
     "awesome-mcp-servers": {
-      "stars": 5422,
-      "forks": 1266,
+      "stars": 5428,
+      "forks": 1267,
       "language": null,
       "createdAt": "2024-11-28T23:53:45Z",
-      "updatedAt": "2026-04-19T21:24:55Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 5418,
-      "delta": 4
+      "updatedAt": "2026-04-20T03:03:31Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 5422,
+      "delta": 6
     },
-    "evolver": {
-      "stars": 5474,
-      "forks": 534,
-      "language": "JavaScript",
-      "createdAt": "2026-02-01T05:59:24Z",
-      "updatedAt": "2026-04-19T21:57:36Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 5345,
-      "delta": 129
+    "claude-karpathy-skills": {
+      "stars": 5388,
+      "forks": 0,
+      "language": null,
+      "createdAt": null,
+      "updatedAt": null,
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 5388,
+      "delta": 0
     },
     "cucumber-js": {
       "stars": 5311,
@@ -710,7 +720,7 @@
       "language": "TypeScript",
       "createdAt": "2011-05-27T21:27:17Z",
       "updatedAt": "2026-04-19T11:26:21Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 5311,
       "delta": 0
     },
@@ -720,19 +730,19 @@
       "language": "TypeScript",
       "createdAt": "2025-03-28T16:21:06Z",
       "updatedAt": "2026-04-19T18:59:42Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 4612,
-      "delta": 1
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 4613,
+      "delta": 0
     },
     "generic-agent": {
-      "stars": 4517,
-      "forks": 481,
+      "stars": 4628,
+      "forks": 491,
       "language": "Python",
       "createdAt": "2026-01-16T15:45:24Z",
-      "updatedAt": "2026-04-19T21:55:49Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 4441,
-      "delta": 76
+      "updatedAt": "2026-04-20T04:01:06Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 4517,
+      "delta": 111
     },
     "spec-workflow-mcp": {
       "stars": 4133,
@@ -740,39 +750,39 @@
       "language": "TypeScript",
       "createdAt": "2025-08-07T13:18:06Z",
       "updatedAt": "2026-04-19T08:34:38Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 4133,
       "delta": 0
     },
     "behave": {
-      "stars": 3473,
+      "stars": 3474,
       "forks": 661,
       "language": "Python",
       "createdAt": "2011-10-25T11:02:35Z",
-      "updatedAt": "2026-04-17T13:20:51Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T02:19:42Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 3473,
-      "delta": 0
+      "delta": 1
     },
     "fastapi-realworld": {
-      "stars": 3104,
+      "stars": 3105,
       "forks": 700,
       "language": "Python",
       "createdAt": "2019-01-28T23:47:19Z",
-      "updatedAt": "2026-04-19T04:04:40Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T03:25:44Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 3104,
-      "delta": 0
+      "delta": 1
     },
     "glm-5": {
-      "stars": 2973,
-      "forks": 312,
+      "stars": 2980,
+      "forks": 313,
       "language": null,
       "createdAt": "2026-02-09T08:17:02Z",
-      "updatedAt": "2026-04-19T20:45:27Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 2968,
-      "delta": 5
+      "updatedAt": "2026-04-20T03:26:12Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 2973,
+      "delta": 7
     },
     "mmx-cli": {
       "stars": 2800,
@@ -780,9 +790,19 @@
       "language": "TypeScript",
       "createdAt": "2025-06-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 2800,
       "delta": 0
+    },
+    "camofox-browser": {
+      "stars": 2811,
+      "forks": 282,
+      "language": "JavaScript",
+      "createdAt": "2026-01-26T07:31:13Z",
+      "updatedAt": "2026-04-20T03:41:42Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 2799,
+      "delta": 12
     },
     "microsoft-promptbench": {
       "stars": 2798,
@@ -790,19 +810,9 @@
       "language": "Python",
       "createdAt": "2025-01-01T00:00:00Z",
       "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 2798,
       "delta": 0
-    },
-    "camofox-browser": {
-      "stars": 2799,
-      "forks": 280,
-      "language": "JavaScript",
-      "createdAt": "2026-01-26T07:31:13Z",
-      "updatedAt": "2026-04-19T21:52:31Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 2788,
-      "delta": 11
     },
     "awesome-eventstorming": {
       "stars": 2374,
@@ -810,7 +820,7 @@
       "language": null,
       "createdAt": "2018-06-03T11:35:14Z",
       "updatedAt": "2026-04-18T08:31:42Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 2374,
       "delta": 0
     },
@@ -820,29 +830,29 @@
       "language": "TypeScript",
       "createdAt": "2020-01-24T17:51:41Z",
       "updatedAt": "2026-04-13T15:00:19Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 1914,
       "delta": 0
     },
     "dflash": {
-      "stars": 1890,
-      "forks": 131,
+      "stars": 1909,
+      "forks": 134,
       "language": "Python",
       "createdAt": "2026-01-04T19:33:39Z",
-      "updatedAt": "2026-04-19T21:48:33Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": 1882,
-      "delta": 8
+      "updatedAt": "2026-04-20T03:52:39Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
+      "previousStars": 1890,
+      "delta": 19
     },
     "protenix": {
-      "stars": 1824,
+      "stars": 1825,
       "forks": 262,
       "language": "Python",
       "createdAt": "2024-11-08T12:12:52Z",
-      "updatedAt": "2026-04-19T10:44:14Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "updatedAt": "2026-04-20T03:23:53Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 1824,
-      "delta": 0
+      "delta": 1
     },
     "playwright-bdd": {
       "stars": 662,
@@ -850,19 +860,9 @@
       "language": "TypeScript",
       "createdAt": "2023-03-30T10:22:23Z",
       "updatedAt": "2026-04-19T11:22:58Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 662,
       "delta": 0
-    },
-    "claude-karpathy-skills": {
-      "stars": 5388,
-      "forks": 0,
-      "language": null,
-      "createdAt": null,
-      "updatedAt": null,
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
-      "previousStars": null,
-      "delta": null
     },
     "openmanus": {
       "stars": 420,
@@ -870,7 +870,7 @@
       "language": null,
       "createdAt": "2025-06-21T07:39:30Z",
       "updatedAt": "2026-04-19T15:06:07Z",
-      "fetchedAt": "2026-04-19T22:00:10.195Z",
+      "fetchedAt": "2026-04-20T04:00:09.864Z",
       "previousStars": 420,
       "delta": 0
     }

@@ -62,7 +62,7 @@ export const tools: Tool[] = [
       ],
       useCase: "跨平台自动化工作流、API 集成",
       learnMore: "https://docs.n8n.io",
-      githubStars: 184736,
+      githubStars: 184755,
     },
   {
     id: "auto-gpt",
@@ -73,7 +73,7 @@ export const tools: Tool[] = [
     tags: ["自主Agent", "任务执行", "先驱项目"],
     price: "开源",
     icon: "🤖",
-    githubStars: 183569,
+    githubStars: 183573,
     pros: ["自主执行任务的先驱", "社区大、生态丰富", "支持多种 LLM"],
     cons: ["稳定性不如手动控制", "任务复杂时容易出错", "需要 API 费用"],
     useCase: "自主任务探索、AI Agent 能力研究、简单自动化",
@@ -88,7 +88,7 @@ export const tools: Tool[] = [
     tags: ["本地部署", "开源模型", "API"],
     price: "开源",
     icon: "🦙",
-    githubStars: 169444,
+    githubStars: 169464,
     pros: ["一键安装极简体验", "支持众多开源模型", "OpenAI 兼容 API", "本地运行数据隐私安全"],
     cons: ["需要较好 GPU 才能运行大模型", "显存要求高", "不如云端模型能力强"],
     useCase: "本地运行开源 LLM、离线 AI 开发、模型测试",
@@ -138,7 +138,7 @@ export const tools: Tool[] = [
       ],
       useCase: "Claude Code 功能增强、扩展工具集",
       learnMore: "https://github.com/nicholasgriffintn/superpowers",
-      githubStars: 159848,
+      githubStars: 160234,
     },
   {
       id: "github-copilot",
@@ -164,7 +164,7 @@ export const tools: Tool[] = [
     tags: ["可视化", "拖拽", "LangChain", "低代码"],
     price: "开源",
     icon: "🌊",
-    githubStars: 147125,
+    githubStars: 147134,
     pros: ["拖拽式界面直观", "与 LangChain 兼容", "适合原型和教学"],
     cons: ["复杂逻辑不够灵活", "可视化界面性能开销", "不适合生产级大规模管道"],
     useCase: "AI 工作流原型、教学演示、快速验证想法",
@@ -179,7 +179,7 @@ export const tools: Tool[] = [
     tags: ["可视化", "RAG", "企业级", "低代码"],
     price: "免费+付费",
     icon: "🔮",
-    githubStars: 138333,
+    githubStars: 138364,
     pros: ["可视化编排降低开发门槛", "内置 RAG 引擎和知识库管理", "支持自部署和数据安全", "企业级权限管理"],
     cons: ["相对重量级", "自部署需要一定运维成本", "高级功能需付费"],
     useCase: "企业 AI 应用快速开发、智能客服、知识库问答",
@@ -194,7 +194,7 @@ export const tools: Tool[] = [
     tags: ["RAG", "Agent", "链式编排", "生态最大"],
     price: "开源",
     icon: "⛓️",
-    githubStars: 134077,
+    githubStars: 134109,
     pros: ["生态最大、社区最活跃", "覆盖 RAG/Agent/Chain 全场景", "Python+JS 双语言"],
     cons: ["抽象层多、学习曲线陡", "有时过于重量级", "文档分散"],
     useCase: "LLM 应用开发、RAG 系统、AI Agent 构建",
@@ -209,7 +209,7 @@ export const tools: Tool[] = [
     tags: ["Web界面", "开源", "Ollama", "多模型"],
     price: "开源",
     icon: "💬",
-    githubStars: 132680,
+    githubStars: 132716,
     pros: ["开源免费", "支持多种后端", "界面美观功能丰富", "插件生态活跃"],
     cons: ["需要 Docker 部署", "配置有一定门槛", "插件质量参差不齐"],
     useCase: "本地 LLM Web 界面、多模型管理、个人 AI 助手",
@@ -224,7 +224,7 @@ export const tools: Tool[] = [
     tags: ["编码助手", "终端", "Anthropic", "Claude"],
     price: "免费+付费",
     icon: "🤖",
-    githubStars: 115873,
+    githubStars: 115979,
     pros: ["Anthropic 官方工具，深度集成 Claude 模型", "终端内直接使用，无需切换 IDE", "自动读取项目上下文", "编码能力强"],
     cons: ["需要 API 付费", "终端界面学习成本", "复杂项目可能需要 IDE 配合"],
     useCase: "AI 辅助编码、代码审查、Bug 修复",
@@ -251,7 +251,7 @@ export const tools: Tool[] = [
       ],
       useCase: "文档格式转换、内容预处理",
       learnMore: "https://github.com/microsoft/markitdown",
-      githubStars: 112570,
+      githubStars: 112799,
       updatedAt: "2026-04-19",
     },
   {
@@ -263,7 +263,7 @@ export const tools: Tool[] = [
     tags: ["爬虫", "API", "LLM数据源", "Markdown"],
     price: "免费+付费",
     icon: "🔥",
-    githubStars: 110814,
+    githubStars: 110882,
     pros: ["专为 LLM 设计", "自动处理 JS 渲染", "反爬能力强", "API 简单易用"],
     cons: ["免费额度有限", "大规模抓取需付费", "依赖外部服务"],
     useCase: "RAG 系统数据源、AI 训练数据收集、网站内容提取",
@@ -283,7 +283,7 @@ export const tools: Tool[] = [
       cons: ["项目较新稳定性待验证", "文档和社区建设初期", "持续学习机制安全性存疑", "生产环境使用经验少"],
       useCase: "可成长 AI Agent 研究、持续学习任务、Agent 能力演进",
       learnMore: "https://github.com/NousResearch/hermes-agent",
-      githubStars: 102374,
+      githubStars: 102787,
     },
   {
       id: "gemini-cli",
@@ -298,7 +298,7 @@ export const tools: Tool[] = [
       cons: ["仅支持 Gemini 模型", "终端交互不如 IDE 直观", "需要配置 API 密钥", "对非 Google 生态用户吸引力有限"],
       useCase: "终端编程辅助、代码快速生成、Gemini 开发者日常使用",
       learnMore: "https://github.com/google-gemini/gemini-cli",
-      githubStars: 101791,
+      githubStars: 101828,
     },
   {
       id: "whisper",
@@ -321,7 +321,7 @@ export const tools: Tool[] = [
       ],
       useCase: "语音转文字、字幕生成、多语言翻译",
       learnMore: "https://github.com/openai/whisper",
-      githubStars: 98040,
+      githubStars: 98053,
     },
   {
     id: "browser-use",
@@ -332,7 +332,7 @@ export const tools: Tool[] = [
     tags: ["浏览器自动化", "Web Agent", "Playwright"],
     price: "开源",
     icon: "🌐",
-    githubStars: 88651,
+    githubStars: 88731,
     pros: ["AI 控制浏览器的标准方案", "基于 Playwright 稳定", "支持复杂 Web 交互"],
     cons: ["需要理解浏览器交互模式", "复杂页面可能不稳定", "需要 AI 模型配合"],
     useCase: "Web 自动化、AI 网页操作、数据采集",
@@ -351,7 +351,7 @@ export const tools: Tool[] = [
       cons: ["复杂任务成功率不够稳定", "Docker 资源消耗较大", "对大型代码库处理能力有限", "需要较强的硬件配置"],
       useCase: "自动修复 GitHub Issue、自主软件开发、编程基准研究",
       learnMore: "https://github.com/OpenHands/OpenHands",
-      githubStars: 71499,
+      githubStars: 71514,
     },
   {
       id: "china-textbook",
@@ -374,7 +374,7 @@ export const tools: Tool[] = [
       ],
       useCase: "教育 AI 模型训练、中文教育研究",
       learnMore: "https://github.com/chenyangMl/china-textbook",
-      githubStars: 70031,
+      githubStars: 70053,
     },
   {
       id: "crawl4ai",
@@ -389,7 +389,7 @@ export const tools: Tool[] = [
       cons: ["相对较新，稳定性待验证", "大规模爬取需自行优化", "反爬对抗能力有限", "文档和示例较少"],
       useCase: "AI 数据采集、RAG 知识库构建、网页内容结构化提取",
       learnMore: "https://docs.crawl4ai.com",
-      githubStars: 64284,
+      githubStars: 64294,
     },
   {
       id: "claude-mem",
@@ -412,7 +412,7 @@ export const tools: Tool[] = [
       ],
       useCase: "Claude Code 跨会话记忆、个人助手",
       learnMore: "https://github.com/nicholasgriffintn/claude-mem",
-      githubStars: 63234,
+      githubStars: 63494,
     },
   {
       id: "karpathy-skills",
@@ -428,7 +428,7 @@ export const tools: Tool[] = [
       cons: ["偏重 Claude Code 生态", "内容更新依赖社区贡献", "非框架而是指南集合", "部分内容可能过时"],
       useCase: "LLM 辅助编程最佳实践学习、Claude Code 行为优化",
       learnMore: "https://github.com/forrestchang/andrej-karpathy-skills",
-      githubStars: 61064,
+      githubStars: 62291,
     },
   {
       id: "autogen",
@@ -444,7 +444,7 @@ export const tools: Tool[] = [
       cons: ["配置复杂", "非 Python 语言支持弱", "文档不够详细"],
       useCase: "多 Agent 代码协作、复杂调试任务、自动化编程",
       learnMore: "https://microsoft.github.io/autogen",
-      githubStars: 57214,
+      githubStars: 57217,
     },
   {
       id: "ai-hedge-fund",
@@ -467,7 +467,32 @@ export const tools: Tool[] = [
       ],
       useCase: "AI 量化投资、策略回测",
       learnMore: "https://github.com/virattt/ai-hedge-fund",
-      githubStars: 56333,
+      githubStars: 56399,
+    },
+  {
+      id: "ai-hedge-fund",
+      name: "AI Hedge Fund",
+      category: "agent",
+      description: `AI 对冲基金团队，56,362 stars，本周增长 4,458 stars。将多个 AI Agent 组织成一个完整的对冲基金团队——包括分析师、风险经理、交易员等角色，每个 Agent 有明确的职责和决策权限。Agent 之间通过结构化通信协作，最终产出投资建议。支持多数据源（市场数据、新闻、社交媒体情绪），是 AI + Finance + Multi-Agent 的交叉前沿项目。`,
+      url: "https://github.com/virattt/ai-hedge-fund",
+      tags: ["金融 AI", "多 Agent", "对冲基金", "投资决策"],
+      price: "开源",
+      icon: "💰",
+      pros: [
+        "完整的多 Agent 金融团队架构",
+        "角色分工清晰（分析师/风控/交易员）",
+        "支持多数据源融合分析",
+        "56K+ stars，社区活跃度高"
+      ],
+      cons: [
+        "仅供研究和教育用途，不建议实盘使用",
+        "金融决策需要人工最终审核",
+        "模型依赖 LLM，存在幻觉风险",
+        "历史回测不代表未来表现"
+      ],
+      useCase: "AI 投资策略研究、多 Agent 金融协作实验、量化分析学习",
+      learnMore: "https://github.com/virattt/ai-hedge-fund",
+      githubStars: 56399,
     },
   {
       id: "mem-ai",
@@ -482,7 +507,7 @@ export const tools: Tool[] = [
       cons: ["项目较新稳定性待验证", "记忆宫殿配置需要学习成本", "大规模知识库性能待测试", "社区和文档仍在完善中"],
       useCase: "Agent 长期记忆、跨会话上下文保持、个性化 AI 助手",
       learnMore: "https://github.com/MemPalace/mempalace",
-      githubStars: 48106,
+      githubStars: 48168,
     },
   {
       id: "cc-switch",
@@ -497,7 +522,7 @@ export const tools: Tool[] = [
       cons: ["仅管理切换不提供 AI 能力", "依赖被管理工具的正常安装", "部分工具兼容性问题偶有发生", "学习各工具本身仍需时间"],
       useCase: "多 AI 编程工具用户日常切换、开发环境统一管理、工具配置备份",
       learnMore: "https://github.com/farion1231/cc-switch",
-      githubStars: 47200,
+      githubStars: 47341,
     },
   {
       id: "jest",
@@ -558,7 +583,7 @@ export const tools: Tool[] = [
       ],
       useCase: "发现 Claude Code 插件和资源",
       learnMore: "https://github.com/nicholasgriffintn/awesome-claude-code",
-      githubStars: 39742,
+      githubStars: 39785,
     },
   {
       id: "antigravity-skills",
@@ -581,7 +606,7 @@ export const tools: Tool[] = [
       ],
       useCase: "AI 辅助编程技能学习",
       learnMore: "https://github.com/nicholasgriffintn/antigravity-skills",
-      githubStars: 33982,
+      githubStars: 34024,
     },
   {
       id: "smolagents",
@@ -596,7 +621,7 @@ export const tools: Tool[] = [
       cons: ["功能相对简单", "生产级能力有限", "文档和示例较少", "复杂任务支持不足"],
       useCase: "Agent 入门学习、快速原型开发、Hugging Face 生态实验",
       learnMore: "https://huggingface.co/docs/smolagents",
-      githubStars: 26732,
+      githubStars: 26736,
     },
   {
       id: "llama-stack",
@@ -634,7 +659,7 @@ export const tools: Tool[] = [
       ],
       useCase: "API 客户端/服务端代码自动生成",
       learnMore: "https://openapi-generator.tech/docs",
-      githubStars: 26139,
+      githubStars: 26140,
     },
   {
       id: "googleworkspace-cli",
@@ -649,7 +674,7 @@ export const tools: Tool[] = [
       cons: ["仅限 Google 生态不支持其他平台", "OAuth 授权配置对新手不友好", "部分高级 API 需要额外权限", "终端操作不如 Web 界面直观"],
       useCase: "Google Workspace 终端自动化、批量邮件和文件管理、办公流程脚本化",
       learnMore: "https://github.com/googleworkspace/cli",
-      githubStars: 25048,
+      githubStars: 25059,
     },
   {
       id: "deerflow",
@@ -710,7 +735,7 @@ export const tools: Tool[] = [
       ],
       useCase: "Kubernetes GitOps 部署、多集群管理",
       learnMore: "https://argo-cd.readthedocs.io",
-      githubStars: 22648,
+      githubStars: 22650,
     },
   {
       id: "openviking",
@@ -733,7 +758,7 @@ export const tools: Tool[] = [
       ],
       useCase: "自定义 AI Agent 构建、实验性项目",
       learnMore: "https://github.com/openviking/openviking",
-      githubStars: 22586,
+      githubStars: 22598,
     },
   {
       id: "voicebox",
@@ -748,7 +773,7 @@ export const tools: Tool[] = [
       cons: [`高质量克隆需要较好的 GPU`, `中文语音质量相对英文略逊`, `社区文档和教程较少`, `声音克隆涉及伦理和法律风险`],
       useCase: `播客/有声书自动化、游戏 NPC 配音、AI 语音助手、视频内容配音、无障碍朗读`,
       learnMore: `https://github.com/jamiepine/voicebox`,
-      githubStars: 21140,
+      githubStars: 21284,
     },
   {
       id: "promptfoo",
@@ -771,7 +796,7 @@ export const tools: Tool[] = [
       ],
       useCase: "LLM 安全评估、红队测试",
       learnMore: "https://www.promptfoo.dev/docs",
-      githubStars: 20295,
+      githubStars: 20312,
     },
   {
       id: "deep-tutor",
@@ -794,7 +819,7 @@ export const tools: Tool[] = [
       ],
       useCase: "AI 个性化教学、智能辅导",
       learnMore: "https://github.com/deep-tutor/deep-tutor",
-      githubStars: 20100,
+      githubStars: 20210,
     },
   {
       id: "owl-camel",
@@ -809,7 +834,7 @@ export const tools: Tool[] = [
       cons: ["多 Agent 调试和监控较复杂", "依赖 LLM API 成本高", "学习曲线较陡峭", "生产部署经验较少"],
       useCase: "复杂多步骤任务自动化、多模态数据分析、开源 Agent 研究",
       learnMore: "https://github.com/camel-ai/owl",
-      githubStars: 19670,
+      githubStars: 19672,
     },
   {
       id: "kronos",
@@ -824,8 +849,33 @@ export const tools: Tool[] = [
       cons: [`金融预测本身具有不可控风险，模型输出不构成投资建议`, `训练数据量大，复现需要充足算力`, `仅支持 Python 生态，部署到生产需额外工程`, `新兴市场数据覆盖不足`],
       useCase: `金融量化研究、市场趋势预测、AI 辅助投资决策、FinTech 产品原型`,
       learnMore: `https://github.com/shiyu-coder/Kronos`,
-      githubStars: 19579,
+      githubStars: 19645,
       updatedAt: "2026-04-19",
+    },
+  {
+      id: "kronos",
+      name: "Kronos",
+      category: "llm",
+      description: `Kronos 是专为金融市场设计的 Foundation Model（基础模型），将金融市场的「语言」作为建模对象。19,624 stars，本周增长 4,455 stars。与传统量化模型不同，Kronos 将价格序列、交易量、新闻情绪等多源数据统一建模，支持市场预测、风险评估和投资组合优化。Python 实现，提供预训练权重和 fine-tuning 脚本，是 AI + Finance 领域最前沿的开源项目。`,
+      url: "https://github.com/shiyu-coder/Kronos",
+      tags: ["金融 AI", "基础模型", "量化交易", "市场预测"],
+      price: "开源",
+      icon: "📈",
+      pros: [
+        "首创将金融市场作为语言建模",
+        "多源数据统一建模",
+        "提供预训练权重和 fine-tuning 脚本",
+        "AI + Finance 最前沿的开源项目"
+      ],
+      cons: [
+        "金融预测本身具有极高不确定性",
+        "需要大量金融领域专业知识",
+        "回测结果不代表实盘表现",
+        "社区仍在早期阶段"
+      ],
+      useCase: "市场趋势预测、风险评估、量化策略研究",
+      learnMore: "https://github.com/shiyu-coder/Kronos",
+      githubStars: 19645,
     },
   {
       id: "google-adk",
@@ -840,7 +890,7 @@ export const tools: Tool[] = [
       cons: ["相对较新，生态不如 LangChain", "主要支持 Python", "文档和社区仍在建设中", "非 Google 生态集成较少"],
       useCase: "Google 生态内 Agent 系统构建、企业级多智能体应用",
       learnMore: "https://google.github.io/adk-docs",
-      githubStars: 19114,
+      githubStars: 19123,
     },
   {
       id: "archon",
@@ -856,7 +906,7 @@ export const tools: Tool[] = [
       cons: ["学习曲线较陡", "相对较新，生态不成熟", "TypeScript-only 限制", "需要预先定义规范"],
       useCase: "规范化 AI 编程流程、确保代码质量一致性、团队协作开发",
       learnMore: "https://github.com/coleam00/Archon",
-      githubStars: 18925,
+      githubStars: 18967,
     },
   {
       id: "agent-skills",
@@ -879,7 +929,7 @@ export const tools: Tool[] = [
       ],
       useCase: "发现和复用 Agent 技能",
       learnMore: "https://github.com/nicholasgriffintn/agent-skills",
-      githubStars: 17883,
+      githubStars: 17982,
     },
   {
       id: "multica",
@@ -895,7 +945,7 @@ export const tools: Tool[] = [
       cons: ["生态仍在发展中", "托管方案依赖平台可用性", "Agent 能力边界有限", "文档和社区教程较少"],
       useCase: "开发团队 AI Agent 协作、任务分配管理、Agent 能力追踪",
       learnMore: "https://github.com/multica-ai/multica",
-      githubStars: 16826,
+      githubStars: 16944,
     },
   {
       id: "vitest",
@@ -956,7 +1006,7 @@ export const tools: Tool[] = [
       ],
       useCase: "语音合成实验、本地 TTS 部署",
       learnMore: "https://github.com/voxcpm/voxcpm",
-      githubStars: 14826,
+      githubStars: 14889,
     },
   {
       id: "domain-driven-hexagon",
@@ -979,7 +1029,7 @@ export const tools: Tool[] = [
       ],
       useCase: "学习 DDD 和六边形架构、复杂系统设计",
       learnMore: "https://github.com/Sairyss/domain-driven-hexagon",
-      githubStars: 14559,
+      githubStars: 14561,
     },
   {
       id: "pytest",
@@ -1002,7 +1052,7 @@ export const tools: Tool[] = [
       ],
       useCase: "Python 单元测试、集成测试",
       learnMore: "https://docs.pytest.org",
-      githubStars: 13782,
+      githubStars: 13784,
     },
   {
       id: "ai-trader",
@@ -1025,7 +1075,7 @@ export const tools: Tool[] = [
       ],
       useCase: "AI 量化交易、自动化投资分析",
       learnMore: "https://github.com/ai-trader/ai-trader",
-      githubStars: 13546,
+      githubStars: 13554,
     },
   {
       id: "rowboat",
@@ -1040,7 +1090,7 @@ export const tools: Tool[] = [
       cons: ["依赖 Google 生态（Gmail/Calendar/Drive）", "需要配置 API 密钥（Deepgram、ElevenLabs 等）", "相对较新，生态不如成熟产品", "Windows/Linux 版本可能不如 Mac 稳定"],
       useCase: "个人知识管理、会议准备、邮件起草、项目上下文追踪、语音备忘录智能整理",
       learnMore: "https://www.rowboatlabs.com/",
-      githubStars: 12867,
+      githubStars: 12879,
     },
   {
       id: "mcp-chrome",
@@ -1055,7 +1105,7 @@ export const tools: Tool[] = [
       cons: ["需要本地 Chrome 运行", "复杂网页交互偶有不稳定", "反爬网站可能阻断操作", "依赖 Chrome DevTools 协议"],
       useCase: "AI Agent 网页操作、自动化数据抓取、端到端浏览器测试",
       learnMore: "https://github.com/hangwin/mcp-chrome",
-      githubStars: 11262,
+      githubStars: 11263,
     },
   {
       id: "openharness",
@@ -1071,7 +1121,7 @@ export const tools: Tool[] = [
       cons: ["相对小众，社区较小", "文档不完善", "仅支持 Python", "需要配合其他 Harness 框架使用"],
       useCase: "Agent 行为分析、调试和可观测性、生产 Harness 监控",
       learnMore: "https://github.com/HKUDS/OpenHarness",
-      githubStars: 10437,
+      githubStars: 10475,
     },
   {
       id: "aichat",
@@ -1086,7 +1136,7 @@ export const tools: Tool[] = [
       cons: ["CLI 界面对非技术用户不友好", "配置多模型需要一定学习成本", "缺少 GUI 可视化", "RAG 功能相对基础"],
       useCase: "终端 AI 对话、Shell 命令辅助、本地文档检索问答",
       learnMore: "https://github.com/sigoden/aichat",
-      githubStars: 9864,
+      githubStars: 9865,
     },
   {
       id: "leantime",
@@ -1124,7 +1174,7 @@ export const tools: Tool[] = [
       cons: ["9.3k stars 生态不成熟", "对 NVIDIA 硬件依赖较强", "文档和社区较少", "配置复杂度较高"],
       useCase: "企业个性化 AI 助手、多模态交互应用、NVIDIA 生态集成",
       learnMore: "https://github.com/NVIDIA/personaplex",
-      githubStars: 9466,
+      githubStars: 9473,
     },
   {
       id: "mac-cli",
@@ -1170,7 +1220,7 @@ export const tools: Tool[] = [
       ],
       useCase: "飞书自动化操作、命令行管理飞书资源",
       learnMore: "https://open.feishu.cn",
-      githubStars: 8228,
+      githubStars: 8245,
     },
   {
       id: "garak",
@@ -1216,7 +1266,7 @@ export const tools: Tool[] = [
       ],
       useCase: "虚拟主播、AI 互动角色",
       learnMore: "https://github.com/OpenLLM-VTuber/OpenLLM-VTuber",
-      githubStars: 6918,
+      githubStars: 6925,
     },
   {
       id: "flux",
@@ -1254,7 +1304,7 @@ export const tools: Tool[] = [
       cons: ["生态相对早期工具数量有限", "依赖 Anthropic 主导方向", "社区贡献流程尚不完善", "注册和审核周期较长"],
       useCase: "MCP 服务器发现与发布、Agent 工具生态建设、MCP 标准推广",
       learnMore: "https://modelcontextprotocol.io",
-      githubStars: 6700,
+      githubStars: 6701,
     },
   {
       id: "seomachine",
@@ -1277,7 +1327,7 @@ export const tools: Tool[] = [
       ],
       useCase: "网站 SEO 优化、自动化 SEO 审计",
       learnMore: "https://seomachine.ai",
-      githubStars: 6430,
+      githubStars: 6443,
     },
   {
       id: "desktop-commander-mcp",
@@ -1307,7 +1357,7 @@ export const tools: Tool[] = [
       cons: [`进化周期较长，不适合需要快速响应的场景`, `群体进化消耗更多计算资源`, `JavaScript 生态在 AI/ML 领域工具链相对薄弱`, `文档和社区处于早期阶段`],
       useCase: `长期自主运行 Agent、A/B 测试 Agent 策略、多 Agent 协同进化实验、AI 游戏 NPC 进化`,
       learnMore: `https://github.com/EvoMap/evolver`,
-      githubStars: 5474,
+      githubStars: 5659,
       updatedAt: "2026-04-19",
     },
   {
@@ -1338,7 +1388,7 @@ export const tools: Tool[] = [
       cons: ["仅收录列表无实际功能", "部分项目质量参差不齐", "更新依赖社区贡献", "缺少详细的比较和评测"],
       useCase: "MCP 服务器发现与选型、生态调研、Agent 工具集成参考",
       learnMore: "https://github.com/appcypher/awesome-mcp-servers",
-      githubStars: 5422,
+      githubStars: 5428,
     },
   {
       id: "claude-karpathy-skills",
@@ -1379,6 +1429,22 @@ export const tools: Tool[] = [
       githubStars: 5311,
     },
   {
+      id: "generic-agent",
+      name: "GenericAgent (lsdefine)",
+      category: "framework",
+      description: `GenericAgent 是本周最受瞩目的自进化 AI Agent 项目——从 3.3K 行种子代码开始，自主生长技能树，以 6 倍更少的 token 消耗实现全系统控制。它不依赖预定义工具链，而是像生物进化一样逐步扩展能力：发现环境→尝试操作→验证效果→固化技能。采用 Python 实现，通过 LLM 驱动的元认知循环不断扩展自己的技能库，是 2026 年「自进化 Agent」方向的代表作。周增 3,218 stars，总计 4,404 stars`,
+      url: "https://github.com/lsdefine/GenericAgent",
+      tags: ["开源", "自进化 Agent", "技能树", "元认知", "Python"],
+      price: "开源",
+      icon: "🌱",
+      pros: [`自进化能力：从种子代码自主扩展技能，无需人工预定义工具链`, `Token 效率极高：6 倍低于同类 Agent 框架的消耗`, `技能树可视化：可观察和干预 Agent 的技能生长过程`, `全系统控制能力：能操控文件系统、网络、终端等完整计算环境`, `Python 实现，易于理解和二次开发`, `周增 3k+ stars 社区增长迅猛`],
+      cons: [`仍处于早期阶段，文档和示例较少`, `自进化过程的不可预测性可能带来安全风险`, `对 LLM API 质量依赖较高，需要较强的推理模型`, `大规模部署的生产级方案尚不成熟`],
+      useCase: `自主探索性 AI 研究、Agent 能力边界测试、AI 自主编程实验、教学演示自进化概念`,
+      learnMore: `https://github.com/lsdefine/GenericAgent`,
+      githubStars: 4628,
+      updatedAt: "2026-04-19",
+    },
+  {
       id: "mobile-mcp",
       name: "Mobile MCP (mobile-next)",
       category: "plugin",
@@ -1392,22 +1458,6 @@ export const tools: Tool[] = [
       useCase: "移动端 AI 自动化测试、手机远程控制、跨设备 Agent 任务",
       learnMore: "https://github.com/mobile-next/mobile-mcp",
       githubStars: 4613,
-    },
-  {
-      id: "generic-agent",
-      name: "GenericAgent (lsdefine)",
-      category: "framework",
-      description: `GenericAgent 是本周最受瞩目的自进化 AI Agent 项目——从 3.3K 行种子代码开始，自主生长技能树，以 6 倍更少的 token 消耗实现全系统控制。它不依赖预定义工具链，而是像生物进化一样逐步扩展能力：发现环境→尝试操作→验证效果→固化技能。采用 Python 实现，通过 LLM 驱动的元认知循环不断扩展自己的技能库，是 2026 年「自进化 Agent」方向的代表作。周增 3,218 stars，总计 4,404 stars`,
-      url: "https://github.com/lsdefine/GenericAgent",
-      tags: ["开源", "自进化 Agent", "技能树", "元认知", "Python"],
-      price: "开源",
-      icon: "🌱",
-      pros: [`自进化能力：从种子代码自主扩展技能，无需人工预定义工具链`, `Token 效率极高：6 倍低于同类 Agent 框架的消耗`, `技能树可视化：可观察和干预 Agent 的技能生长过程`, `全系统控制能力：能操控文件系统、网络、终端等完整计算环境`, `Python 实现，易于理解和二次开发`, `周增 3k+ stars 社区增长迅猛`],
-      cons: [`仍处于早期阶段，文档和示例较少`, `自进化过程的不可预测性可能带来安全风险`, `对 LLM API 质量依赖较高，需要较强的推理模型`, `大规模部署的生产级方案尚不成熟`],
-      useCase: `自主探索性 AI 研究、Agent 能力边界测试、AI 自主编程实验、教学演示自进化概念`,
-      learnMore: `https://github.com/lsdefine/GenericAgent`,
-      githubStars: 4517,
-      updatedAt: "2026-04-19",
     },
   {
       id: "spec-workflow-mcp",
@@ -1445,7 +1495,7 @@ export const tools: Tool[] = [
       ],
       useCase: "Python BDD 验收测试、行为驱动开发",
       learnMore: "https://behave.readthedocs.io",
-      githubStars: 3473,
+      githubStars: 3474,
     },
   {
       id: "minimax-m2-7",
@@ -1483,7 +1533,7 @@ export const tools: Tool[] = [
       ],
       useCase: "FastAPI 学习参考、API 项目模板",
       learnMore: "https://github.com/nsidnev/fastapi-realworld-example-app",
-      githubStars: 3104,
+      githubStars: 3105,
     },
   {
       id: "glm-5",
@@ -1498,7 +1548,30 @@ export const tools: Tool[] = [
       cons: ["英文生态不如 GPT-4", "推理速度较慢", "多模态能力有限"],
       useCase: "中文 NLP 任务、代码生成、本地部署",
       learnMore: "https://github.com/zai-org/GLM-5",
-      githubStars: 2973,
+      githubStars: 2980,
+    },
+  {
+      id: "camofox-browser",
+      name: "CamofFox Browser (jo-inc)",
+      category: "agent",
+      description: "AI Agent 专用无头浏览器（GitHub 2.4k 星），专为 AI Agent 设计，可访问通常被屏蔽的网站，支持 28 种反检测机制，冷启动 <250ms",
+      url: "https://github.com/jo-inc/camofox-browser",
+      tags: ["开源", "浏览器自动化", "AI Agent", "反检测"],
+      price: "开源",
+      icon: "🦊",
+      pros: [
+        "反指纹浏览器",
+        "隐私保护",
+        "自动化友好"
+      ],
+      cons: [
+        "学习门槛高",
+        "部分网站仍可能被拦截",
+        "配置复杂"
+      ],
+      useCase: "隐私浏览、爬虫自动化、反指纹检测",
+      learnMore: "https://camofox.com",
+      githubStars: 2811,
     },
   {
       id: "mmx-cli",
@@ -1538,29 +1611,6 @@ export const tools: Tool[] = [
       useCase: "Agent 多模态任务自动化、AI 工作流集成多模态能力",
       learnMore: "https://github.com/MiniMax-AI/MMX-CLI",
       githubStars: 2800,
-    },
-  {
-      id: "camofox-browser",
-      name: "CamofFox Browser (jo-inc)",
-      category: "agent",
-      description: "AI Agent 专用无头浏览器（GitHub 2.4k 星），专为 AI Agent 设计，可访问通常被屏蔽的网站，支持 28 种反检测机制，冷启动 <250ms",
-      url: "https://github.com/jo-inc/camofox-browser",
-      tags: ["开源", "浏览器自动化", "AI Agent", "反检测"],
-      price: "开源",
-      icon: "🦊",
-      pros: [
-        "反指纹浏览器",
-        "隐私保护",
-        "自动化友好"
-      ],
-      cons: [
-        "学习门槛高",
-        "部分网站仍可能被拦截",
-        "配置复杂"
-      ],
-      useCase: "隐私浏览、爬虫自动化、反指纹检测",
-      learnMore: "https://camofox.com",
-      githubStars: 2799,
     },
 {
       id: "microsoft-promptbench",
@@ -1644,7 +1694,7 @@ export const tools: Tool[] = [
       cons: ["1.3k stars 生态较小", "实现和集成门槛高", "对特定模型可能不兼容", "研究成果阶段，生产稳定性待验证"],
       useCase: "LLM 推理性能优化、高吞吐推理场景、学术研究",
       learnMore: "https://github.com/z-lab/dflash",
-      githubStars: 1890,
+      githubStars: 1909,
     },
   {
       id: "protenix",
@@ -1659,7 +1709,7 @@ export const tools: Tool[] = [
       cons: ["1.8k stars 生态较小", "计算资源需求大", "文档和教程较少", "仅聚焦蛋白质领域"],
       useCase: "蛋白质结构预测、AI 辅助药物研发、生物信息学研究",
       learnMore: "https://github.com/bytedance/Protenix",
-      githubStars: 1824,
+      githubStars: 1825,
     },
   {
       id: "playwright-bdd",
@@ -1698,55 +1748,5 @@ export const tools: Tool[] = [
       useCase: `自主任务执行、网页自动化、个人工作流编排`,
       learnMore: `https://github.com/mannaandpoem/OpenManus`,
       githubStars: 420,
-    },
-  {
-      id: "kronos",
-      name: "Kronos",
-      category: "llm",
-      description: `Kronos 是专为金融市场设计的 Foundation Model（基础模型），将金融市场的「语言」作为建模对象。19,624 stars，本周增长 4,455 stars。与传统量化模型不同，Kronos 将价格序列、交易量、新闻情绪等多源数据统一建模，支持市场预测、风险评估和投资组合优化。Python 实现，提供预训练权重和 fine-tuning 脚本，是 AI + Finance 领域最前沿的开源项目。`,
-      url: "https://github.com/shiyu-coder/Kronos",
-      tags: ["金融 AI", "基础模型", "量化交易", "市场预测"],
-      price: "开源",
-      icon: "📈",
-      pros: [
-        "首创将金融市场作为语言建模",
-        "多源数据统一建模",
-        "提供预训练权重和 fine-tuning 脚本",
-        "AI + Finance 最前沿的开源项目"
-      ],
-      cons: [
-        "金融预测本身具有极高不确定性",
-        "需要大量金融领域专业知识",
-        "回测结果不代表实盘表现",
-        "社区仍在早期阶段"
-      ],
-      useCase: "市场趋势预测、风险评估、量化策略研究",
-      learnMore: "https://github.com/shiyu-coder/Kronos",
-      githubStars: 19624,
-    },
-  {
-      id: "ai-hedge-fund",
-      name: "AI Hedge Fund",
-      category: "agent",
-      description: `AI 对冲基金团队，56,362 stars，本周增长 4,458 stars。将多个 AI Agent 组织成一个完整的对冲基金团队——包括分析师、风险经理、交易员等角色，每个 Agent 有明确的职责和决策权限。Agent 之间通过结构化通信协作，最终产出投资建议。支持多数据源（市场数据、新闻、社交媒体情绪），是 AI + Finance + Multi-Agent 的交叉前沿项目。`,
-      url: "https://github.com/virattt/ai-hedge-fund",
-      tags: ["金融 AI", "多 Agent", "对冲基金", "投资决策"],
-      price: "开源",
-      icon: "💰",
-      pros: [
-        "完整的多 Agent 金融团队架构",
-        "角色分工清晰（分析师/风控/交易员）",
-        "支持多数据源融合分析",
-        "56K+ stars，社区活跃度高"
-      ],
-      cons: [
-        "仅供研究和教育用途，不建议实盘使用",
-        "金融决策需要人工最终审核",
-        "模型依赖 LLM，存在幻觉风险",
-        "历史回测不代表未来表现"
-      ],
-      useCase: "AI 投资策略研究、多 Agent 金融协作实验、量化分析学习",
-      learnMore: "https://github.com/virattt/ai-hedge-fund",
-      githubStars: 56362,
     },
 ];
