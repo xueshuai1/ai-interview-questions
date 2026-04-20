@@ -292,7 +292,7 @@ export default function ToolsPage() {
                 <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => { setActiveCategory(key); handleFilterChange(); }} />
                 <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
                   {([
-                    ["stars", "⭐ 热门"],
+                    ["stars", "⭐ Stars"],
                     ["newest", "🕐 最新"],
                     ["hottest", "🔥 最火"],
                   ] as [SortKey, string][]).map(([key, label]) => (
@@ -313,7 +313,7 @@ export default function ToolsPage() {
               {/* Desktop: sort select */}
               <div className="hidden lg:flex items-center gap-2">
                 <select value={sortBy} onChange={(e) => { setSortBy(e.target.value as SortKey); setCurrentPage(1); }} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
-                  <option value="stars">⭐ 热门</option><option value="newest">🕐 最新</option><option value="hottest">🔥 最火</option>
+                  <option value="stars">⭐ Stars</option><option value="newest">🕐 最新</option><option value="hottest">🔥 最火</option>
                 </select>
               </div>
             </div>

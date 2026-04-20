@@ -1699,4 +1699,54 @@ export const tools: Tool[] = [
       learnMore: `https://github.com/mannaandpoem/OpenManus`,
       githubStars: 420,
     },
+  {
+      id: "kronos",
+      name: "Kronos",
+      category: "llm",
+      description: `Kronos 是专为金融市场设计的 Foundation Model（基础模型），将金融市场的「语言」作为建模对象。19,624 stars，本周增长 4,455 stars。与传统量化模型不同，Kronos 将价格序列、交易量、新闻情绪等多源数据统一建模，支持市场预测、风险评估和投资组合优化。Python 实现，提供预训练权重和 fine-tuning 脚本，是 AI + Finance 领域最前沿的开源项目。`,
+      url: "https://github.com/shiyu-coder/Kronos",
+      tags: ["金融 AI", "基础模型", "量化交易", "市场预测"],
+      price: "开源",
+      icon: "📈",
+      pros: [
+        "首创将金融市场作为语言建模",
+        "多源数据统一建模",
+        "提供预训练权重和 fine-tuning 脚本",
+        "AI + Finance 最前沿的开源项目"
+      ],
+      cons: [
+        "金融预测本身具有极高不确定性",
+        "需要大量金融领域专业知识",
+        "回测结果不代表实盘表现",
+        "社区仍在早期阶段"
+      ],
+      useCase: "市场趋势预测、风险评估、量化策略研究",
+      learnMore: "https://github.com/shiyu-coder/Kronos",
+      githubStars: 19624,
+    },
+  {
+      id: "ai-hedge-fund",
+      name: "AI Hedge Fund",
+      category: "agent",
+      description: `AI 对冲基金团队，56,362 stars，本周增长 4,458 stars。将多个 AI Agent 组织成一个完整的对冲基金团队——包括分析师、风险经理、交易员等角色，每个 Agent 有明确的职责和决策权限。Agent 之间通过结构化通信协作，最终产出投资建议。支持多数据源（市场数据、新闻、社交媒体情绪），是 AI + Finance + Multi-Agent 的交叉前沿项目。`,
+      url: "https://github.com/virattt/ai-hedge-fund",
+      tags: ["金融 AI", "多 Agent", "对冲基金", "投资决策"],
+      price: "开源",
+      icon: "💰",
+      pros: [
+        "完整的多 Agent 金融团队架构",
+        "角色分工清晰（分析师/风控/交易员）",
+        "支持多数据源融合分析",
+        "56K+ stars，社区活跃度高"
+      ],
+      cons: [
+        "仅供研究和教育用途，不建议实盘使用",
+        "金融决策需要人工最终审核",
+        "模型依赖 LLM，存在幻觉风险",
+        "历史回测不代表未来表现"
+      ],
+      useCase: "AI 投资策略研究、多 Agent 金融协作实验、量化分析学习",
+      learnMore: "https://github.com/virattt/ai-hedge-fund",
+      githubStars: 56362,
+    },
 ];
