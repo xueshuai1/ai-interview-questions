@@ -16,6 +16,32 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-343",
+    tag: "产品动态",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Claude Opus 4.7 更换 Tokenizer 导致 token 消耗暴涨 46%，实际使用成本上升",
+    summary: "Anthropic Claude Opus 4.7 首次更换 tokenizer，Simon Willison 实测发现纯文本 token 增长 1.46 倍、高分辨率图像增长 3.01 倍。在定价不变的前提下，实际使用成本上升约 40%。建议用户立即检查 API 账单并评估影响。",
+    content: `## Tokenizer 变革的影响\n\nClaude Opus 4.7 是 Claude 系列首次更换 tokenizer 的版本。\n\n**实测数据：**\n- 纯文本：1.46× token 增长\n- 高分辨率图片（3456×2234）：3.01× token 增长\n- 30 页 PDF（15MB）：1.08× token 增长\n\n**成本影响：** Opus 4.7 与 4.6 定价相同（输入 $5/M，输出 $25/M），但实际成本因 token 膨胀上升约 40%。企业用户月支出 $10,000 的场景下，额外增加约 $4,600/月。\n\n**建议：** 立即使用 token counting API 评估你的场景实际影响，考虑对高分辨率图像进行预处理降分辨率。`,
+    date: "2026-04-22 02:00",
+    source: "Simon Willison's Weblog / Anthropic",
+    sourceUrl: "https://simonwillison.net/2026/Apr/20/claude-token-counts/",
+    href: "/news/news-343"
+  },
+
+{
+    id: "news-344",
+    tag: "产品动态",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Moonshot Kimi 2.6 上线 OpenRouter：独特 HTML/JS 交互生成能力引关注",
+    summary: "Moonshot AI 的 Kimi 2.6 已在 OpenRouter 上线。Simon Willison 实测发现其独特能力：能生成包含完整 HTML+JavaScript UI 的可交互输出，而非简单的文本或代码片段。在 pelican riding bicycle 测试中构建了一个可控制动画参数的完整页面。",
+    content: `## Kimi 2.6 的独特之处\n\n**核心能力：**\n- 生成完整的 HTML + JavaScript 交互式页面\n- 不仅仅是代码片段，而是可直接运行的 UI\n- 在 Simon Willison 的 pelican 测试中，生成了带动画控制 UI 的页面\n\n**意义：** 这代表了 LLM 在「可交互输出」方向的重要进展。传统 LLM 输出文本/代码，Kimi 2.6 输出的是「可体验的产品」。\n\n**获取方式：** 已通过 OpenRouter 提供，模型 ID 为 moonshotai/kimi-k2.6。`,
+    date: "2026-04-22 02:00",
+    source: "Simon Willison's Weblog / OpenRouter",
+    sourceUrl: "https://simonwillison.net/2026/Apr/21/scosman/",
+    href: "/news/news-344"
+  },
+
+{
     id: "news-336",
     tag: "公司动态",
     tagColor: "bg-orange-500/10 text-orange-300",
