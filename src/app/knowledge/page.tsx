@@ -26,7 +26,7 @@ export default function KnowledgePage() {
   const spMode = (searchParams.get("mode") as "all" | "path") || savedMode || "all";
   const spCat = searchParams.get("cat") || "all";
   const spQ = searchParams.get("q") || "";
-  const spSort = (searchParams.get("sort") as SortKey) || "level-asc";
+  const spSort = (searchParams.get("sort") as SortKey) || "date-desc";
   const spPage = parseInt(searchParams.get("page") || "1") || 1;
 
   const [mode, setMode] = useState<"all" | "path">(spMode);
@@ -41,7 +41,7 @@ export default function KnowledgePage() {
     setMode(m);
     setActiveCategory(searchParams.get("cat") || "all");
     setSearchQuery(searchParams.get("q") || "");
-    setSortBy((searchParams.get("sort") as SortKey) || "level-asc");
+    setSortBy((searchParams.get("sort") as SortKey) || "date-desc");
     setCurrentPage(parseInt(searchParams.get("page") || "1") || 1);
   }, [searchParams]);
 
@@ -53,7 +53,7 @@ export default function KnowledgePage() {
       setMode((saved || p.get("mode") || "all") as "all" | "path");
       setActiveCategory(p.get("cat") || "all");
       setSearchQuery(p.get("q") || "");
-      setSortBy((p.get("sort") as SortKey) || "level-asc");
+      setSortBy((p.get("sort") as SortKey) || "date-desc");
       setCurrentPage(parseInt(p.get("page") || "1") || 1);
     };
     window.addEventListener('popstate', onPopState);
@@ -73,7 +73,7 @@ export default function KnowledgePage() {
     if (mode === "all") {
       if (activeCategory !== "all") params.set("cat", activeCategory);
       if (searchQuery) params.set("q", searchQuery);
-      if (sortBy !== "level-asc") params.set("sort", sortBy);
+      if (sortBy !== "date-desc") params.set("sort", sortBy);
       if (currentPage > 1) params.set("page", String(currentPage));
     }
 
@@ -262,10 +262,10 @@ export default function KnowledgePage() {
                 className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
               >
                 <option value="default">排序</option>
-                <option value="level-asc">难度 ↑</option>
-                <option value="level-desc">难度 ↓</option>
                 <option value="date-desc">时间最新</option>
                 <option value="date-asc">时间最早</option>
+                <option value="level-asc">难度 ↑</option>
+                <option value="level-desc">难度 ↓</option>
               </select>
               </div>
               <select
@@ -274,10 +274,10 @@ export default function KnowledgePage() {
                 className="lg:hidden px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer"
               >
                 <option value="default">排序</option>
-                <option value="level-asc">难度 ↑</option>
-                <option value="level-desc">难度 ↓</option>
                 <option value="date-desc">时间最新</option>
                 <option value="date-asc">时间最早</option>
+                <option value="level-asc">难度 ↑</option>
+                <option value="level-desc">难度 ↓</option>
               </select>
             </div>
           </div>
