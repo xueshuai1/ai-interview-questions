@@ -44,7 +44,7 @@ export const news: NewsItem[] = [
     date: "2026-04-21 06:00",
     source: "AI Master 知识库",
     sourceUrl: "https://github.com/modelcontextprotocol/specification",
-    href: "/article/mcp-001",
+    href: "/news/news-327",
   },
 {
     id: "news-328",
@@ -66,7 +66,7 @@ export const news: NewsItem[] = [
     date: "2026-04-21 08:00",
     source: "GitHub Trending",
     sourceUrl: "https://github.com/trending?since=weekly",
-    href: "/blog/blog-037",
+    href: "/news/news-328",
   },
 {
     id: "news-329",
@@ -90,7 +90,7 @@ GenericAgent 的核心理念是 Agent 应该像生物一样自我进化，而不
     date: "2026-04-21 08:05",
     source: "GitHub Trending",
     sourceUrl: "https://github.com/lsdefine/GenericAgent",
-    href: "/tools",
+    href: "/news/news-329",
   },
 {
     id: "news-330",
@@ -115,7 +115,7 @@ GenericAgent 的核心理念是 Agent 应该像生物一样自我进化，而不
     date: "2026-04-21 08:10",
     source: "GitHub Trending",
     sourceUrl: "https://github.com/forrestchang/andrej-karpathy-skills",
-    href: "/tools",
+    href: "/news/news-330",
   },
 {
     id: "news-326",
@@ -180,7 +180,7 @@ Simon Willison 升级了他的 Claude Token Counter 工具，新增多模型对�
     date: "2026-04-21 04:00",
     source: "AI Master 知识库 / GitHub Trending",
     sourceUrl: "https://github.com/virattt/ai-hedge-fund",
-    href: "/article/finance-001",
+    href: "/news/news-325",
   },
 {
     id: "news-324",
