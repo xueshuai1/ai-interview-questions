@@ -16,6 +16,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   const [panX, setPanX] = useState(0);
   const [panY, setPanY] = useState(0);
   const [isPanning, setIsPanning] = useState(false);
+  const [mouseHasDragged, setMouseHasDragged] = useState(false);
   const panStart = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const zoomElRef = useRef<HTMLDivElement>(null);
@@ -56,11 +57,13 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if (!showModal) return;
     setIsPanning(true);
+    setMouseHasDragged(false);
     panStart.current = { x: e.clientX - touchData.current.panX, y: e.clientY - touchData.current.panY };
   }, [showModal]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isPanning) return;
+    setMouseHasDragged(true);
     doPan(e.clientX - panStart.current.x, e.clientY - panStart.current.y);
   }, [isPanning]);
 
@@ -200,15 +203,15 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   return (
     <>
       <div className="relative group my-6">
-        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex">
+        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 md:transition-opacity md:duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100">
           <button onClick={handleDownload} disabled={!svgContent || dlStatus === 'loading'}
-            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex" title="下载 PNG">
+            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="下载 PNG">
             {dlStatus === 'loading' ? <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
               : dlStatus === 'done' ? <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
               : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}
           </button>
           <button onClick={handleZoom} disabled={!svgContent}
-            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex" title="放大查看">
+            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="放大查看">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" /></svg>
           </button>
         </div>
@@ -218,7 +221,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={() => { if (!touchData.current.hasDragged) setShowModal(false); }}>
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={() => { if (!mouseHasDragged && !touchData.current.hasDragged) setShowModal(false); }} onMouseDown={() => { setMouseHasDragged(false); touchData.current.hasDragged = false; }}>
           <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-slate-900/80 shrink-0">
             <span className="text-sm text-slate-400">双指缩放 · 双击放大 · 单指拖拽</span>
             <div className="flex items-center gap-2">

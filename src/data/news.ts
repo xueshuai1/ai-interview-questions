@@ -16,6 +16,42 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-344",
+    tag: "产品动态",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Kimi 2.6 登陆 OpenRouter：支持 HTML/JS 动态生成，引发关注",
+    summary: "Moonshot AI 的 Kimi 2.6 正式上线 OpenRouter 平台。该模型在代码生成场景中表现独特，能够直接输出包含 HTML 和 JavaScript 的完整可运行页面，而非纯文本回复。Simon Willison 实测了 Kimi 2.6 的 pelican 动画生成能力，结果令人印象深刻。",
+    content: `## Kimi 2.6 的核心特点\n\n**HTML/JS 动态生成能力：**\n- Kimi 2.6 在代码生成场景中可以直接输出包含 HTML、CSS、JavaScript 的完整可运行页面\n- 相比传统模型只能输出代码片段，Kimi 2.6 的生成物可直接在浏览器中运行\n- Simon Willison 测试了其 pelican 动画生成，结果是一个带 UI 控制按钮的 HTML 页面\n\n**OpenRouter 接入的意义：**\n- 开发者可以通过统一 API 接口访问 Kimi 2.6，无需单独注册 Moonshot 平台\n- OpenRouter 定价：输入 $1.50/M tokens，输出 $6.00/M tokens\n- 相比 GPT-4o 和 Claude Sonnet，Kimi 2.6 在代码生成场景的性价比突出\n\n**与其他模型的对比：**\n- Claude Opus 4.7：最强推理能力，但 token 成本高\n- GPT-4o：均衡型选手，适合通用场景\n- Kimi 2.6：代码生成性价比高，适合动态内容场景`,
+    date: "2026-04-22 03:00",
+    source: "Simon Willison's Weblog / OpenRouter",
+    sourceUrl: "https://simonwillison.net/2026/Apr/20/claude-token-counts/",
+    href: "/news/news-344"
+  },
+{
+    id: "news-345",
+    tag: "GitHub 趋势",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "n8n 突破 185K Stars：AI 工作流自动化平台持续领跑，新增 MCP 原生支持",
+    summary: "n8n（n8n-io/n8n）GitHub Stars 突破 185,000，成为 AI 工作流自动化领域的绝对领导者。最新版本已原生支持 MCP（Model Context Protocol），可与 Claude、GPT 等 LLM 深度集成，400+ 集成的生态使其成为企业 AI 自动化的首选方案。",
+    content: `## n8n 的核心优势\n\n**MCP 原生支持：**\n- n8n 最新版本已原生支持 MCP 协议，可作为 MCP Server 被 AI Agent 调用\n- 也可作为 MCP Client 调用外部 MCP 服务\n- 这意味着 AI Agent 可以直接通过 n8n 访问 400+ 集成服务\n\n**Fair-code 模式：**\n- 开源可自部署，同时提供云服务\n- 适合对数据隐私有要求的企业\n- 社区活跃度高，GitHub 57,000+ forks\n\n**典型应用场景：**\n- AI Agent 自动化工：让 Agent 通过 n8n 调用外部 API\n- 数据处理 Pipeline：自动收集、转换、输出数据\n- 通知与告警：AI 触发的智能工作流\n- CRM/ERP 集成：AI 与企业系统的桥梁`,
+    date: "2026-04-22 03:30",
+    source: "GitHub API / n8n.io",
+    sourceUrl: "https://github.com/n8n-io/n8n",
+    href: "/news/news-345"
+  },
+{
+    id: "news-346",
+    tag: "行业观察",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Headless AI 时代到来：Salesforce 推出 Headless 360，AI Agent 直接调用 API 成趋势",
+    summary: "Salesforce 正式发布 Headless 360，将 Salesforce、Agentforce 和 Slack 平台的所有功能暴露为 API 和 MCP 协议。Marc Benioff 表示：\"API is the UI\"。与此同时，Matt Webb 和 Brandur Leach 也预测 Headless 服务将成为 2026 年主流趋势，AI Agent 不再需要通过 GUI 操作服务。",
+    content: `## Headless AI 的范式转变\n\n**核心概念：** Headless AI 指的是不依赖 GUI，而是通过 API/MCP/CLI 直接暴露给 AI Agent 的服务模式。\n\n**行业动态：**\n- **Salesforce Headless 360**：整个平台暴露为 API + MCP + CLI\n- **Anthropic Claude**：原生支持 MCP 工具调用\n- **Matt Webb 预测**：Headless 服务将比 GUI 更快、更可靠\n- **Brandur Leach**：API 正在从\"成本中心\"变为\"核心销售向量\"\n\n**对 AI 开发者的影响：**\n1. 未来的 SaaS 竞争关键：是否提供 Agent 友好的 API\n2. 按人头定价的 SaaS 模式可能被颠覆\n3. AI Agent 将成为 B2B 软件的主要用户\n\n**技术栈：**\n- MCP（Model Context Protocol）成为 AI Agent 与服务的标准接口\n- REST API + GraphQL + gRPC + MCP 四层架构\n- AI-first 的 API 设计规范正在形成`,
+    date: "2026-04-22 04:00",
+    source: "Simon Willison's Weblog / Salesforce",
+    sourceUrl: "https://simonwillison.net/2026/Apr/19/headless-everything/",
+    href: "/news/news-346"
+  },
+{
     id: "news-343",
     tag: "产品动态",
     tagColor: "bg-purple-500/10 text-purple-300",
