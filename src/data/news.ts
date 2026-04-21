@@ -1506,5 +1506,157 @@ Google 在军事 AI 合作上的立场经历了戏剧性的变化：
     source: "Salesforce / Matt Webb",
     sourceUrl: "https://simonwillison.net/",
     href: "/news/news-078",
+  },
+{
+    id: "news-080",
+    title: "NousResearch Hermes Agent 一周暴涨 3 万星，自进化 AI Agent 引爆 GitHub Trending",
+    tag: "GitHub 趋势",
+    summary: "NousResearch 开源的自进化 AI Agent Hermes Agent 本周新增 30,630 stars，总星数突破 105K，成为 GitHub 本周最热 AI 项目。其核心创新是闭环学习系统：自动从经验中提取技能、持续自我优化。",
+    content: `**核心亮点：**
+- **闭环学习系统**：完成复杂任务后自动将执行路径抽象为可复用 Skill
+- **技能在使用中进化**：每次调用收集反馈，自动优化 Prompt 和参数
+- **长期记忆**：FTS5 全文检索 + LLM 跨会话摘要 + Honcho 用户画像建模
+- **多端接入**：Telegram / Discord / Slack / WhatsApp / Signal / CLI 统一网关
+- **极低部署成本**：$5 VPS 即可运行，支持 Docker / SSH / Modal / Daytona 等后端
+
+**技术架构：**
+- 支持任意 LLM：OpenAI / Claude / 国内模型（通义千问、Kimi、MiniMax 等）
+- 技能系统兼容 agentskills.io 开放标准
+- 支持 MCP 协议扩展，可连接任意 MCP Server
+- 内置 Cron 定时任务调度器
+- 支持子 Agent 并行化工作流
+
+**行业意义：**
+Hermes Agent 代表了 AI Agent 从"预设能力"向"自主进化"的范式转变，是 2026 年最值得关注的 AI 基础设施之一。
+
+**来源：** GitHub Trending / NousResearch
+**链接：** https://github.com/NousResearch/hermes-agent`,
+    date: "2026-04-21 10:00",
+    source: "GitHub Trending / NousResearch",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-080",
+  },
+{
+    id: "news-081",
+    title: "Claude-Mem 两周 64K 星：Claude Code 自动记忆插件成为开发者标配",
+    tag: "GitHub 趋势",
+    summary: "thedotmack 开源的 Claude-Mem 自动捕获 Claude Code 编码会话中的所有操作，AI 压缩后注入未来会话，两周狂揽 64,488 stars，本周新增 12,472 星。",
+    content: `**核心功能：**
+- **自动捕获**：无缝记录 Claude Code 会话中的文件变更、命令执行、对话历史
+- **AI 压缩**：用 Claude Agent SDK 将原始事件压缩为摘要、代码模式和经验教训
+- **智能注入**：基于语义相似度自动将相关历史经验注入当前会话上下文
+- **零配置**：安装即用，无需手动管理记忆
+
+**技术实现：**
+- 使用 Claude Agent SDK 进行会话内容压缩
+- 向量存储实现语义级记忆检索
+- 多层压缩策略：事件 → 关键决策 → 抽象经验
+
+**与 Hermes Agent 的对比：**
+- Claude-Mem 更轻量，专注编码场景；Hermes Agent 是通用 Agent 平台
+- 两者都采用"记忆驱动"进化路线，但 Claude-Mem 不做技能创建
+- Claude-Mem 可作为个人 Agent 的记忆增强模块
+
+**来源：** GitHub Trending
+**链接：** https://github.com/thedotmack/claude-mem`,
+    date: "2026-04-21 09:30",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-081",
+  },
+{
+    id: "news-082",
+    title: "GenericAgent 发布：3.3K 行种子代码生长出完整技能树，Token 消耗降 6 倍",
+    tag: "GitHub 趋势",
+    summary: "lsdefine 开源 GenericAgent，从极小种子代码出发，通过自主技能树扩展实现系统级控制能力，本周新增 3,914 stars 引起广泛关注。",
+    content: `**核心创新：**
+- **技能树生长机制**：从 3,300 行种子代码自动扩展出完整技能树
+- **能力评估 → 技能合成 → 验证固化** 三步循环
+- **Token 效率提升 6 倍**：仅加载相关技能分支，而非全量上下文
+
+**三大组件：**
+1. **能力发现器**：分析任务需求，判断现有技能覆盖度
+2. **技能合成器**：将新经验编译为结构化 Skill（名称、描述、触发条件、代码、依赖）
+3. **技能评估器**：通过测试用例验证新 Skill 有效性
+
+**应用场景：**
+- 长期自主工作流管理
+- 需要持续学习新领域的 Agent
+- 技能可复用性要求高的场景
+
+**来源：** GitHub Trending
+**链接：** https://github.com/lsdefine/GenericAgent`,
+    date: "2026-04-21 09:00",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-082",
+  },
+{
+    id: "news-083",
+    title: "Evolver：GEP 基因表达编程驱动的 AI Agent 自进化引擎",
+    tag: "GitHub 趋势",
+    summary: "EvoMap 开源 Evolver，基于 GEP（基因表达编程）实现 Agent 决策逻辑的遗传进化，基因组固定长度保证安全，表达树可变保证多样性，本周新增 4,032 stars。",
+    content: `**技术原理：**
+- **GEP（Gene Expression Programming）**：将 Agent 策略编码为固定长度基因组
+- **进化循环**：种群初始化 → 适应度评估 → 选择 → 交叉/变异 → 新一代
+- **双长度设计**：基因组固定长度（安全遗传）+ 表达树可变长度（行为多样）
+
+**对比其他路线：**
+- 记忆驱动路线擅长个人经验积累，但难以突破范式
+- 技能树路线擅长能力结构化扩展，但需要明确的合成逻辑
+- GEP 遗传进化路线擅长策略优化和全局搜索，特别适合游戏 AI、控制策略等场景
+
+**来源：** GitHub Trending / EvoMap
+**链接：** https://github.com/EvoMap/evolver`,
+    date: "2026-04-21 08:30",
+    source: "GitHub Trending / EvoMap",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-083",
+  },
+{
+    id: "news-084",
+    title: "Multica 开源托管 Agent 平台：将编码 Agent 变成真正的团队成员",
+    tag: "GitHub 趋势",
+    summary: "multica-ai 发布开源多 Agent 协作平台 Multica，支持任务分配、进度追踪、技能复用，本周新增 7,009 stars，总星数 17,797。",
+    content: `**核心能力：**
+- **任务分配**：将复杂项目拆解为子任务，分派给不同 Agent
+- **进度追踪**：实时监控各 Agent 工作进度和产出
+- **技能复用**：Agent 之间共享技能和知识，实现"团队智慧"
+- **自托管**：支持本地部署，数据完全可控
+
+**与现有方案对比：**
+- 相比 n8n 的可视化流程编排，Multica 更强调 Agent 间的自主协作
+- 相比 LangGraph 的开发框架，Multica 提供更完整的管理平台
+- 定位为"Agent 团队操作系统"
+
+**来源：** GitHub Trending
+**链接：** https://github.com/multica-ai/multica`,
+    date: "2026-04-21 08:00",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-084",
+  },
+{
+    id: "news-085",
+    title: "Voicebox 开源语音合成工作室：本周新增 5,936 星",
+    tag: "GitHub 趋势",
+    summary: "jamiepine 开源 Voicebox，一个功能完整的开源语音合成工作室，支持多说话人、情感控制、实时 TTS，本周新增 5,936 stars，总星数 21,813。",
+    content: `**核心功能：**
+- **多说话人合成**：支持自定义声线、音色混合
+- **情感控制**：可调节语速、音调、情感强度
+- **实时 TTS**：低延迟语音合成，适合对话式 AI
+- **Web 界面**：内置可视化工作室，支持波形编辑
+
+**技术栈：**
+- 基于 VITS 架构改进，支持流式推理
+- 支持 ONNX 导出，可部署到边缘设备
+- 兼容 OpenAI TTS API 格式，无缝替换
+
+**来源：** GitHub Trending
+**链接：** https://github.com/jamiepine/voicebox`,
+    date: "2026-04-21 07:30",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-085",
   }
 ];
