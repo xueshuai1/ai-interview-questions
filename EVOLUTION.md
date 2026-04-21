@@ -4,6 +4,21 @@
 
 ---
 
+## ⚠️ 教训：新闻 href 指向错误页面（2026-04-21）
+
+**问题：** Agent 生成新闻时把 href 写成了关联文章/工具页链接（如 `/tools`、`/article/mcp-001`），导致新闻列表点击跳转到无关页面。
+
+**根因：** Agent prompt 没有明确规范 href 格式，Agent 自作主张写了"相关链接"。
+
+**解决方案：**
+1. `validate-data.mjs` 新增校验：所有 news href 必须严格匹配 `/news/news-XXX`
+2. `unified-agent-prompt.txt` 添加铁律说明
+3. 验证机制在 prebuild 阶段自动运行，build 时自动拦截
+
+**铁律：永远不要在 news.ts 的 href 字段指向新闻详情页以外的任何页面。**
+
+---
+
 ## 🔴 进化诊断（2026-04-20）
 
 | 指标 | 数值 | 评价 |

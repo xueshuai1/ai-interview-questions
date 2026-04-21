@@ -237,6 +237,18 @@ export function generateMetadata({ params }: { params: { id: string } }) {
     title: `${article.title} - AI Master`,
     description: article.summary,
     keywords: article.tags.join(", "),
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.summary,
+      locale: "zh_CN",
+      siteName: "AI Master",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.summary,
+    },
   };
 }
 

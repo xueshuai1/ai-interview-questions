@@ -1,7 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { marked } from "marked";
 import { news } from "@/data/news";
 import Footer from "@/components/Footer";
@@ -33,6 +32,33 @@ function MarkdownContent({ content }: { content: string }) {
     />
     </div>
   );
+}
+
+export function generateStaticParams() {
+  return news.map((n) => ({ id: n.id }));
+}
+
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+  const item = news.find((n) => n.id === params.id);
+  if (!item) {
+    return { title: "AI 动态 - AI Master" };
+  }
+  return {
+    title: `${item.title} - AI Master`,
+    description: item.summary,
+    openGraph: {
+      type: "article",
+      title: item.title,
+      description: item.summary,
+      locale: "zh_CN",
+      siteName: "AI Master",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: item.title,
+      description: item.summary,
+    },
+  };
 }
 
 export default function NewsDetailPage({ params }: { params: { id: string } }) {

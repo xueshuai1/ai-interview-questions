@@ -1,9 +1,33 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { blogs } from "@/data/blogs";
 import BlogDetailContent from "@/components/BlogDetailContent";
 
 export function generateStaticParams() {
   return blogs.map((blog) => ({ id: blog.id }));
+}
+
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+  const post = blogs.find((b) => b.id === params.id);
+  if (!post) {
+    return { title: "博客 - AI Master" };
+  }
+  return {
+    title: `${post.title} - AI Master`,
+    description: post.summary,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.summary,
+      locale: "zh_CN",
+      siteName: "AI Master",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+    },
+  };
 }
 
 export default function BlogDetailPage({
