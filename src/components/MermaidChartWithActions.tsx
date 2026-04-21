@@ -19,13 +19,13 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   const panStart = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
   const zoomElRef = useRef<HTMLDivElement>(null);
-  const touchData = useRef({ zoom: 1, panX: 0, panY: 0 });
+  const touchData = useRef({ zoom: 1, panX: 0, panY: 0, hasDragged: false });
 
   const handleSvgReady = useCallback((svg: string) => setSvgContent(svg), []);
 
   useEffect(() => {
     if (showModal) {
-      touchData.current = { zoom: 1, panX: 0, panY: 0 };
+      touchData.current = { zoom: 1, panX: 0, panY: 0, hasDragged: false };
       setZoom(1); setPanX(0); setPanY(0);
     }
   }, [showModal]);
@@ -47,7 +47,9 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   const handleWheel = useCallback((e: React.WheelEvent) => {
     if (!showModal) return;
     e.preventDefault();
-    doZoom(touchData.current.zoom + (e.deltaY > 0 ? -0.1 : 0.1));
+    // Sensitivity coefficient: 0.003 per pixel of deltaY
+    const delta = -e.deltaY * 0.003;
+    doZoom(touchData.current.zoom + delta);
   }, [showModal]);
 
   // Mouse pan
@@ -74,6 +76,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   const doPan = (x: number, y: number) => {
     touchData.current.panX = x;
     touchData.current.panY = y;
+    touchData.current.hasDragged = true;
     if (zoomElRef.current) zoomElRef.current.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${touchData.current.zoom})`;
     setPanX(x);
     setPanY(y);
@@ -114,7 +117,8 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       if (t.length === 2) {
         e.preventDefault();
         const d = dist(t[0], t[1]);
-        doZoom(Math.max(0.25, Math.min(5, td.zoom * (d / initDist))));
+        const ratio = Math.pow(d / initDist, 0.6); // lower sensitivity
+        doZoom(Math.max(0.25, Math.min(5, td.zoom * ratio)));
         const mx = (t[0].clientX + t[1].clientX) / 2;
         const my = (t[0].clientY + t[1].clientY) / 2;
         doPan(td.panX + (mx - lastX), td.panY + (my - lastY));
@@ -127,6 +131,9 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
           doPan(td.panX + dx, td.panY + dy);
           lastX = t[0].clientX; lastY = t[0].clientY;
         }
+      } else if (t.length === 0) {
+        // all fingers lifted — reset dragged flag for next interaction
+        td.hasDragged = false;
       }
     };
 
@@ -135,6 +142,9 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       if (e.touches.length === 1) {
         lastX = e.touches[0].clientX;
         lastY = e.touches[0].clientY;
+      } else if (e.touches.length === 0) {
+        // all fingers lifted — reset dragged flag for next interaction
+        td.hasDragged = false;
       }
     };
 
@@ -183,14 +193,14 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   }, []);
 
   const handleZoom = useCallback(() => {
-    touchData.current = { zoom: 1, panX: 0, panY: 0 };
+    touchData.current = { zoom: 1, panX: 0, panY: 0, hasDragged: false };
     setZoom(1); setPanX(0); setPanY(0); setShowModal(true);
   }, []);
 
   return (
     <>
       <div className="relative group my-6">
-        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden md:flex">
+        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex">
           <button onClick={handleDownload} disabled={!svgContent || dlStatus === 'loading'}
             className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex" title="下载 PNG">
             {dlStatus === 'loading' ? <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
@@ -208,7 +218,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={() => setShowModal(false)}>
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={() => { if (!touchData.current.hasDragged) setShowModal(false); }}>
           <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-slate-900/80 shrink-0">
             <span className="text-sm text-slate-400">双指缩放 · 双击放大 · 单指拖拽</span>
             <div className="flex items-center gap-2">
@@ -219,7 +229,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
               <button onClick={() => doZoom(Math.min(5, touchData.current.zoom + 0.25))} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all" title="放大">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" /></svg>
               </button>
-              <button onClick={() => doZoom(1)} className="px-2.5 py-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all text-xs" title="重置">重置</button>
+              <button onClick={() => { touchData.current = { zoom: 1, panX: 0, panY: 0, hasDragged: false }; doZoom(1); }} className="px-2.5 py-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all text-xs" title="重置">重置</button>
               <button onClick={() => setShowModal(false)} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all ml-2" title="关闭">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>

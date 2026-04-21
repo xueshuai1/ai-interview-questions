@@ -120,8 +120,8 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
       {section.body && (
         <div className="prose prose-invert max-w-none text-base sm:text-lg mb-4 overflow-x-auto
           prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
-          prose-strong:text-white prose-strong:font-semibold
-          prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          prose-strong:text-white prose-strong:font-semibold prose-strong:bg-brand-500/10 prose-strong:px-1 prose-strong:rounded
+          prose-code:text-pink-300 prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
           prose-a:text-brand-400 hover:prose-a:underline
           [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
           [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:text-slate-300
@@ -153,7 +153,7 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
                     <CopyButton text={block.code} />
                   </div>
                 </div>
-                <pre className="p-4 overflow-x-auto text-sm">
+                <pre className="p-4 overflow-auto max-h-[400px] text-sm">
                   <code className="text-slate-300 font-mono whitespace-pre">{block.code}</code>
                 </pre>
               </div>

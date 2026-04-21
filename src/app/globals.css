@@ -32,6 +32,29 @@ body {
   min-height: 100vh;
 }
 
+/* Mermaid chart text wrapping & contrast */
+.mermaid-chart .node text {
+  fill: #e2e8f0 !important;
+}
+.mermaid-chart .edgeLabel {
+  fill: #e2e8f0 !important;
+}
+.mermaid-chart .cluster text {
+  fill: #e2e8f0 !important;
+}
+.mermaid-chart .label {
+  color: #e2e8f0 !important;
+}
+.mermaid-chart foreignObject {
+  overflow: visible;
+}
+.mermaid-chart .nodeLabel {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 200px;
+  white-space: normal;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;

@@ -43,7 +43,7 @@ function MarkdownContent({ content }: { content: string }) {
         prose-strong:text-white prose-strong:font-semibold
         prose-a:text-brand-400 prose-a:no-underline hover:prose-a:underline
         prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-        prose-pre:bg-slate-800/50 prose-pre:border prose-pre:border-white/10 prose-pre:p-4
+        prose-pre:bg-slate-800/50 prose-pre:border prose-pre:border-white/10 prose-pre:p-4 prose-pre:max-h-[400px] prose-pre:overflow-auto
         prose-ul:text-slate-300 prose-ol:text-slate-300
         prose-li:my-1
         [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2
@@ -158,18 +158,17 @@ export default function NewsDetailPage({ params }: { params: { id: string } }) {
                 <Link
                   key={n.id}
                   href={n.href}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all"
+                  className="group block p-5 rounded-xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all"
                 >
-                  <div className="flex items-center gap-4 mb-3 sm:mb-0">
-                    <span className={`px-3 py-1 ${n.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-sm font-medium`}>
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className={`shrink-0 px-3 py-1 ${n.tagColor || "bg-brand-500/10 text-brand-300"} rounded-full text-sm font-medium`}>
                       {n.tag}
                     </span>
-                    <h3 className="text-lg font-medium group-hover:text-brand-300 transition-colors">
-                      {n.title}
-                    </h3>
-
+                    <span className="shrink-0 text-slate-500 text-sm whitespace-nowrap">{n.date}</span>
                   </div>
-                  <span className="text-slate-500 text-sm">{n.date}</span>
+                  <h3 className="text-lg font-medium group-hover:text-brand-300 transition-colors">
+                    {n.title}
+                  </h3>
                 </Link>
               ))}
             </div>
