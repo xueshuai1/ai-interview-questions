@@ -16,6 +16,173 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-336",
+    tag: "公司动态",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Sergey Brin 内部 memo：所有 Gemini 工程师必须使用 AI 编码 Agent，Google 需在编码领域追赶 Anthropic",
+    summary: "Google 联合创始人 Brin 在发给 DeepMind 员工的备忘录中要求「每个 Gemini 工程师必须使用内部 Agent 完成复杂多步骤任务」，承认 Anthropic 在 AI 编码领域处于领先地位。Brin 认为追赶编码能力是构建自我改进 AI 的关键一步。",
+    content: `## Google 紧急追赶 AI 编码能力
+
+Google 联合创始人 Sergey Brin 在一份内部备忘录中要求 DeepMind 工程师必须使用内部 AI Agent 完成复杂多步骤任务。
+
+**关键信息：**
+- Anthropic 的 Claude Code 在 AI 编码竞赛中处于领先地位
+- Brin 认为编码能力是构建自我改进 AI 的基础
+- Google 创建突击小队改进编码模型
+- 要求所有 Gemini 工程师「必须」使用内部 Agent
+
+**背景：** OpenAI、Google、Anthropic 三家公司正在激烈竞争 AI 编码能力，Anthropic 的 Claude Code 目前被开发者广泛认为是最佳 AI 编码工具。`,
+    date: "2026-04-22 00:00",
+    source: "The Verge / The Information",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-336"
+  },
+
+{
+    id: "news-337",
+    tag: "产品动态",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Anthropic 发布 Claude Design：基于 Opus 4.7 的全新设计产品，可创建原型、营销材料和演示文稿",
+    summary: "Anthropic 推出 Claude Design，基于最新的 Opus 4.7 模型，允许用户创建设计方案、原型、营销材料和演示文稿。面向付费订阅用户提供研究预览版，标志着 Anthropic 从对话式 AI 向创意生产力工具扩展。",
+    content: `## Anthropic 进军设计领域
+
+Anthropic 发布 Claude Design，这是基于 Opus 4.7 模型的全新设计产品。
+
+**功能：**
+- 创建设计方案和原型
+- 生成营销材料
+- 制作演示文稿
+- 研究预览版面向付费用户
+
+**意义：** Anthropic 正在从纯对话式 AI 扩展到创意生产力工具领域，与 Canva、Figma 等传统设计工具形成竞争。Opus 4.7 的新 tokenizer 和视觉能力提升为设计场景提供了更好支持。`,
+    date: "2026-04-22 00:00",
+    source: "The Verge / Anthropic Blog",
+    sourceUrl: "https://www.anthropic.com/news",
+    href: "/news/news-337"
+  },
+
+{
+    id: "news-338",
+    tag: "产品动态",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Google Home 重新开放连续对话功能，Gemini 免订阅即可使用多轮对话",
+    summary: "Google 重新向 Early Access 用户开放 Google Home 设备的连续对话功能，用户无需再说「Hey Google」即可进行多轮追问。此前该功能被限制在需要付费订阅的 Gemini Live 中，现在免费可用，支持所有语言和地区。",
+    content: `## Google Home 连续对话重新免费开放
+
+Google 重新开放 Google Home 设备的连续对话（Continued Conversation）功能。
+
+**变化：**
+- 无需再说「Hey Google」即可多轮追问
+- Early Access 用户免费使用
+- 支持所有语言和地区
+- 此前该功能被限制在付费的 Gemini Live 中
+
+**意义：** Google 正在调整其 Gemini 战略，部分此前付费的功能重新免费开放，以与 Alexa、Siri 等竞争。`,
+    date: "2026-04-22 00:00",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence",
+    href: "/news/news-338"
+  },
+
+{
+    id: "news-339",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Anthropic 与白宫会面讨论 Mythos 网络安全模型，特朗普表示「双方进行了非常好的会谈」",
+    summary: "Anthropic 在白宫与美国政府讨论 Mythos 网络安全模型的合作可能。此前 Anthropic 曾因供应链风险被国防部排除，但 NSA 据报仍可访问 Mythos。Anthropic 的 Mythos 模型正被 Nvidia、Apple、JPMorgan 等大厂用于高危安全漏洞修复。",
+    content: `## Anthropic Mythos 模型进入政府视野
+
+Anthropic 与白宫就 Mythos 网络安全模型进行会谈。
+
+**关键信息：**
+- 特朗普称「双方进行了非常好的会谈」
+- NSA 据报可访问 Mythos，尽管被标记为供应链风险
+- Nvidia、Apple、JPMorgan Chase 等已在使用 Mythos
+- 用于修复高危安全漏洞
+
+**背景：** Mythos 是 Anthropic 的私密网络安全专用模型，已在企业级安全市场引发关注。`,
+    date: "2026-04-22 00:00",
+    source: "The Verge / CNBC",
+    sourceUrl: "https://www.cnbc.com/2026/04/21/trump-anthropic-department-defense-deal.html",
+    href: "/news/news-339"
+  },
+
+{
+    id: "news-340",
+    tag: "行业动态",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Google 发布 Gemma 4 系列：2B/4B/31B + 26B MoE 四款视觉开源模型，支持音频输入",
+    summary: "Google DeepMind 发布 Gemma 4 系列四款开源推理模型，均支持视觉输入。其中 E2B（2B 有效参数）和 E4B（4B）还支持音频输入，采用 Per-Layer Embeddings 技术最大化端侧部署效率。Google 称其达到「前所未有的 Intelligence-per-Parameter 水平」。",
+    content: `## Gemma 4：小模型也能有多模态
+
+Google DeepMind 发布 Gemma 4 系列开源模型。
+
+**模型规格：**
+- **E2B**（2B 有效参数）：支持图像+音频输入
+- **E4B**（4B 有效参数）：支持图像+音频输入
+- **31B**：全尺寸推理模型，支持视觉
+- **26B-A4B MoE**：混合专家模型
+
+**技术亮点：**
+- Per-Layer Embeddings（PLE）：每层独立嵌入表，最大化端侧效率
+- 原生视频和图像处理能力
+- 音频输入支持（小模型专属）
+- Apache 2.0 开源许可
+
+**意义：** 小模型多模态是 2026 年最热的研究方向，Gemma 4 将视觉+音频能力压缩到可在笔记本运行的规模。`,
+    date: "2026-04-22 00:00",
+    source: "Google AI Blog / Simon Willison's Weblog",
+    sourceUrl: "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+    href: "/news/news-340"
+  },
+
+{
+    id: "news-341",
+    tag: "行业动态",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "SimpleClosure 收购倒闭公司数据卖给 AI 训练：旧 Slack 消息、代码库成 RL 新金矿",
+    summary: "SimpleClosure 推出新工具，帮助倒闭企业出售旧代码、Slack 消息、邮件等工作空间数据给 AI 训练公司。Forbes 报道，这催生了「强化学习健身房」新产业——用真实企业数据构建模拟环境训练 AI Agent 在真实职场中导航。",
+    content: `## 倒闭公司的数据成了 AI 训练金矿
+
+Forbes 报道了一个新兴产业链。
+
+**核心事实：**
+- SimpleClosure 帮助倒闭企业出售内部数据
+- 包括旧代码、Slack 消息、邮件、工作空间信息
+- 买家是急需真实企业数据的 AI 训练公司
+- 催生「强化学习健身房」新产业
+
+**含义：** AI Agent 需要真实职场环境数据来训练决策能力，而倒闭公司的遗留数据恰好提供了这种「真实场景」素材。这引发了关于企业数据隐私和 AI 训练伦理的讨论。`,
+    date: "2026-04-22 00:00",
+    source: "Forbes / The Verge",
+    sourceUrl: "https://www.forbes.com/sites/annatong/2026/04/16/ais-new-training-data-your-old-work-slacks-and-emails/",
+    href: "/news/news-341"
+  },
+
+{
+    id: "news-342",
+    tag: "行业动态",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Samsung 发布 Project Luna AI 机器人：圆形屏幕+可旋转头部的设计新方向",
+    summary: "Samsung 展示 Project Luna——一个带有圆形屏幕和可旋转头部的 AI 机器人。由首席设计官 Mauro Porcini 主导，展示 Samsung 对未来家庭 AI 交互形态的设计理念。通过 YouTube Shorts 发布后引发关注。",
+    content: `## Samsung 的 AI 机器人长这样
+
+Samsung 通过 YouTube Shorts 展示 Project Luna 概念。
+
+**设计特征：**
+- 圆形 OLED 屏幕
+- 可旋转头部
+- 类似 AI OLED 唱片机设计理念
+- 面向家庭场景
+
+**意义：** Samsung 正在探索 AI 硬件的新形态，从手机/平板转向「有表情的 AI 伴侣」。这与 Apple、Google 的家庭 AI 战略形成差异化竞争。`,
+    date: "2026-04-22 00:00",
+    source: "Fast Company / The Verge",
+    sourceUrl: "https://www.fastcompany.com/91528033/samsung-shares-its-thesis-on-the-future-of-design-and-ai",
+    href: "/news/news-342"
+  },
+
+{
     id: "news-333",
     tag: "GitHub Trending",
     tagColor: "bg-green-500/10 text-green-300",
