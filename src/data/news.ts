@@ -47,6 +47,77 @@ export const news: NewsItem[] = [
     href: "/article/mcp-001",
   },
 {
+    id: "news-328",
+    tag: "开源趋势",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Voice AI 赛道爆发：Voicebox 单周 +5,936 星、VoxCPM2 多语言克隆、Omi Always-On AI 助手",
+    summary: "本周 GitHub Trending 上三个语音 AI 项目合计增长 15,000+ 星。Voicebox 成为最受欢迎的开源 TTS 工作室，VoxCPM2 以 Tokenizer-Free 架构实现高质量多语言语音克隆，Omi 展示 Always-On AI 助手的未来交互形态。Voice AI 正从可选功能变为核心能力。",
+    content: `## Voice AI 三大项目本周爆发
+
+**Voicebox**（jamiepine）：21,725 星，周增 5,936 星，定位为开源语音合成工作室，支持 VITS/Tortoise/Bark/Piper 等多模型切换。
+
+**VoxCPM2**（OpenBMB/清华）：15,085 星，周增 3,189 星，Tokenizer-Free TTS 架构，支持多语言原生处理和 10 秒样本语音克隆。
+
+**Omi**（BasedHardware）：11,626 星，周增 3,634 星，融合屏幕感知和对话感知的 Always-On AI 助手。
+
+这标志着 Voice AI 从单点技术创新走向完整生态建设。AI Master 已发布深度分析文章「Voice AI 全面爆发」，详见知识库。
+
+📖 完整文章：AI Master 博客 → "Voice AI 全面爆发：从 Voicebox 到 VoxCPM2，2026 年语音 AI 技术全景与实战"`,
+    date: "2026-04-21 08:00",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/blog/blog-037",
+  },
+{
+    id: "news-329",
+    tag: "开源工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "GenericAgent 自进化 Agent 框架周增 3,900+ 星：从种子代码自主构建技能树",
+    summary: "lsdefine/GenericAgent 本周增长 3,914 星，突破 5,000 星。该框架从 3,300 行种子代码开始自主构建技能树，实现全系统控制且 Token 消耗减少 6 倍，代表 Agent 从预编程向自进化的范式转变。",
+    content: `## GenericAgent：自进化 Agent 的新范式
+
+GenericAgent 的核心理念是 Agent 应该像生物一样自我进化，而不是依赖开发者预编程所有技能。
+
+**关键数据：**
+- GitHub Stars: 5,040（周增 3,914）
+- 种子代码：仅 3,300 行
+- Token 优化：比传统 Agent 减少 6 倍消耗
+- 能力：全系统控制
+
+**AI Master 工具站已收录** GenericAgent，可在「AI Agent」分类中查看详情。
+
+📖 完整分析：AI Master 博客 → 「AI Agent 的终极形态——自我进化」`,
+    date: "2026-04-21 08:05",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/lsdefine/GenericAgent",
+    href: "/tools",
+  },
+{
+    id: "news-330",
+    tag: "AI 工具",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Karpathy Skills 文件：一份 CLAUDE.md 显著提升 Claude Code 编码质量",
+    summary: "forrestchang/andrej-karpathy-skills 基于 Andrej Karpathy 对 LLM 编码缺陷的观察，提炼为一份 CLAUDE.md 配置增强文件。GitHub 4,010 星，周增 2,299 星，是 Claude Code 用户必备的优化配置。",
+    content: `## Karpathy Skills：让 Claude Code 更聪明
+
+这份 CLAUDE.md 文件总结了 Karpathy 观察到的 LLM 编码常见陷阱和最佳实践，包括：
+
+- 常见反模式识别
+- 代码审查模式
+- 边界条件处理
+- 错误修复策略
+
+配置方法：将 CLAUDE.md 放到项目根目录，Claude Code 会自动加载。
+
+**AI Master 工具站已收录**，可在「CLI 工具」分类中查看。
+
+📖 详情：[andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills)`,
+    date: "2026-04-21 08:10",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/forrestchang/andrej-karpathy-skills",
+    href: "/tools",
+  },
+{
     id: "news-326",
     tag: "产品动态",
     tagColor: "bg-orange-500/10 text-orange-300",

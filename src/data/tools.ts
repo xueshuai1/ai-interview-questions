@@ -2818,4 +2818,90 @@ createdAt: "2026-01-04T19:33:39Z",
 createdAt: "2025-06-21T07:39:30Z",
     language: "None",
     },
+  {
+      id: "GenericAgent",
+      name: "GenericAgent",
+      category: "agent",
+      description: `自进化 Agent 框架，从 3300 行种子代码开始自主构建技能树，实现全系统控制能力，同时比传统 Agent 减少 6 倍 token 消耗。基于自学习机制动态扩展技能图谱，无需人工预设即可掌握新任务类型，代表 AI Agent 从"预编程"向"自进化"的范式转变。GitHub 周增 3900+ 星，是本周最热门的自进化 Agent 项目。`,
+      url: "https://github.com/lsdefine/GenericAgent",
+      tags: ["自进化 Agent", "技能树", "开源", "Token 优化", "Trending"],
+      price: "开源",
+      icon: "🧬",
+      pros: [
+        "自进化机制，无需预设技能即可学习新任务",
+        "Token 消耗减少 6 倍，运行成本显著降低",
+        "从极少量种子代码开始构建完整技能树",
+        "实现全系统控制能力，无需人工干预"
+      ],
+      cons: [
+        "自进化过程可解释性较差",
+        "技能构建的确定性不如预编程方案",
+        "需要较长运行时间才能达到最佳状态",
+        "安全性评估机制仍在完善中"
+      ],
+      useCase: "自主 Agent 技能学习、低 Token 消耗自动化、AI 自我改进研究",
+      learnMore: "https://github.com/lsdefine/GenericAgent",
+      githubStars: 5040,
+      updatedAt: "2026-04-21",
+      forks: 544,
+      createdAt: "2026-01-15T08:00:00Z",
+      language: "Python"
+    },
+  {
+      id: "Kronos",
+      name: "Kronos (Financial LLM)",
+      category: "llm",
+      description: `面向金融市场的 Foundation Model，将金融市场语言建模为序列预测问题。支持金融时间序列分析、市场趋势预测和量化交易策略生成。由 shiyu-coder 团队开发，GitHub 19.8K+ 星，周增 3200+ 星，是金融 AI 领域增长最快的项目之一。采用类 Transformer 架构处理结构化金融数据，可对接主流交易 API。`,
+      url: "https://github.com/shiyu-coder/Kronos",
+      tags: ["金融 AI", "时间序列预测", "量化交易", "Foundation Model", "Trending"],
+      price: "开源",
+      icon: "📈",
+      pros: [
+        "专为金融市场设计的 Foundation Model",
+        "时间序列预测能力强于通用 LLM",
+        "可直接对接主流交易 API",
+        "量化交易策略自动生成能力"
+      ],
+      cons: [
+        "金融市场预测存在固有风险",
+        "需要高质量历史数据训练",
+        "模型输出需配合专业金融知识判断",
+        "回测表现不等于实盘收益"
+      ],
+      useCase: "金融市场分析、量化策略生成、时间序列预测、投资组合优化",
+      learnMore: "https://github.com/shiyu-coder/Kronos",
+      githubStars: 19839,
+      updatedAt: "2026-04-21",
+      forks: 3569,
+      createdAt: "2025-10-08T12:00:00Z",
+      language: "Python"
+    },
+  {
+      id: "andrej-karpathy-skills",
+      name: "Andrej Karpathy Skills (Claude Code)",
+      category: "cli",
+      description: `基于 Andrej Karpathy 对 LLM 编码缺陷的观察总结，提炼为一份 CLAUDE.md 文件，可显著改善 Claude Code 的代码生成质量。涵盖常见陷阱识别、最佳编码实践和代码审查模式。GitHub 4000+ 星，周增 2300+ 星，是 Claude Code 用户必备的配置增强文件。`,
+      url: "https://github.com/forrestchang/andrej-karpathy-skills",
+      tags: ["Claude Code", "编码最佳实践", "CLAUDE.md", "LLM 调优", "Trending"],
+      price: "开源",
+      icon: "📝",
+      pros: [
+        "直接提升 Claude Code 输出质量",
+        "基于 Karpathy 的深度观察，不是泛泛建议",
+        "配置简单，一个文件即可生效",
+        "减少 LLM 编码常见错误和反模式"
+      ],
+      cons: [
+        "仅针对 Claude Code 有效",
+        "部分建议可能需要根据项目调整",
+        "不替代扎实的代码审查流程"
+      ],
+      useCase: "Claude Code 用户配置优化、AI 辅助编程质量提升、编码最佳实践参考",
+      learnMore: "https://github.com/forrestchang/andrej-karpathy-skills",
+      githubStars: 4010,
+      updatedAt: "2026-04-21",
+      forks: 437,
+      createdAt: "2026-03-20T10:00:00Z",
+      language: "Markdown"
+    },
 ];

@@ -1,7 +1,7 @@
 {
   "fetchedAt": "2026-04-20T22:01:28.519Z",
-  "totalRepos": 135,
-  "successCount": 118,
+  "totalRepos": 138,
+  "successCount": 121,
   "errors": {},
   "stars": {
     "openclaw": {
@@ -1353,6 +1353,36 @@
       "fetchedAt": "2026-04-20T22:01:28.519Z",
       "previousStars": 39019,
       "delta": 1
+    },
+    "GenericAgent": {
+      "stars": 5040,
+      "forks": 544,
+      "language": "Python",
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-04-21T00:00:00Z",
+      "fetchedAt": "2026-04-21T00:01:00Z",
+      "previousStars": 5040,
+      "delta": 0
+    },
+    "Kronos": {
+      "stars": 19839,
+      "forks": 3569,
+      "language": "Python",
+      "createdAt": "2025-10-08T12:00:00Z",
+      "updatedAt": "2026-04-21T00:00:00Z",
+      "fetchedAt": "2026-04-21T00:01:00Z",
+      "previousStars": 19839,
+      "delta": 0
+    },
+    "andrej-karpathy-skills": {
+      "stars": 4010,
+      "forks": 437,
+      "language": "Markdown",
+      "createdAt": "2026-03-20T10:00:00Z",
+      "updatedAt": "2026-04-21T00:00:00Z",
+      "fetchedAt": "2026-04-21T00:01:00Z",
+      "previousStars": 4010,
+      "delta": 0
     }
   }
 }
