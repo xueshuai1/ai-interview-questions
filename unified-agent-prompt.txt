@@ -104,6 +104,13 @@ node scripts/check-tool-completeness.js <GITHUB_TOKEN>
 | 🟠 P1 | P0 bug / 网站不可用 | 用户打开就报错、白屏、导航失效 |
 | 🟡 P2 | QA 报告指出的 P1 问题 | 点击无反应、样式严重错乱 |
 | 🟢 P3 | 首页新闻更新 | 每天 2-5 条即可，不要花太多时间 |
+
+**🔴 新闻铁律（重要！）：**
+- 新闻必须是**外部真实事件**（论文发布、产品更新、行业大事件、政策变化）
+- 来源必须是**外部权威媒体/机构**（TechCrunch、The Verge、arXiv、OpenAI Blog、Anthropic Blog、Google AI Blog、Simon Willison 等）
+- ❌ **禁止**把「本站博客更新」「本站知识库新增」「本站工具收录」当新闻写
+- ❌ **禁止** source 字段写 "AI Master 博客"、"AI Master 知识库"、"AI Master 自主创作" 等站内来源
+- ✅ 如果写了新博客/知识库文章，可以在 news.ts 中用**外部视角**写一条（如："Anthropic 发布 Claude Opus 4.7" 而不是 "本站发布 Claude Opus 4.7 解读"）
 | 🟢 P3 | 内容优化 / 体验提升 | 页面排版优化、交互改进 |
 
 **新闻是最低优先级的事。知识库和工具集的持续进化才是核心价值。**
