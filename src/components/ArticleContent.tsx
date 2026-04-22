@@ -5,17 +5,13 @@ import { ArticleSection } from "@/data/knowledge";
 import { MarkdownBody } from "@/components/MarkdownBody";
 
 const codeBlockStyle = `
-  pre.code-block {
-    background: #1e1e2e;
+  div.code-block {
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
-    padding: 0;
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 400px;
+    overflow: hidden;
     margin: 16px 0;
   }
-  pre.code-block .code-header {
+  div.code-block .code-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,7 +21,15 @@ const codeBlockStyle = `
     font-size: 12px;
     color: #94a3b8;
   }
-  pre.code-block code {
+  div.code-block pre {
+    background: #1e1e2e;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 400px;
+  }
+  div.code-block pre code {
     display: block;
     padding: 16px;
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
@@ -104,7 +108,7 @@ function CodeBlock({ lang, code }: { lang: string; code: string }) {
   const langLabel = lang.charAt(0).toUpperCase() + lang.slice(1);
 
   return (
-    <pre className="code-block">
+    <div className="code-block">
       <div className="code-header">
         <span className="font-mono text-xs">{langLabel}</span>
         <button
@@ -114,8 +118,8 @@ function CodeBlock({ lang, code }: { lang: string; code: string }) {
           📋 复制
         </button>
       </div>
-      <code dangerouslySetInnerHTML={{ __html: highlighted }} />
-    </pre>
+      <pre><code dangerouslySetInnerHTML={{ __html: highlighted }} /></pre>
+    </div>
   );
 }
 

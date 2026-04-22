@@ -229,7 +229,7 @@ export function parseMarkdown(text: string): string {
     const { lang, code } = codeBlocks[index++];
     const highlighted = highlightCode(code, lang);
     const langLabel = lang ? (lang.charAt(0).toUpperCase() + lang.slice(1)) : "Code";
-    return `<pre class="code-block"><div class="code-header"><span class="lang-label font-mono text-xs">${langLabel}</span><button onclick="navigator.clipboard.writeText(this.closest('pre').querySelector('code').textContent);this.textContent='✅ 已复制';var b=this;setTimeout(()=>b.textContent='📋 复制',1500)" class="copy-btn text-xs text-slate-400 hover:text-white transition-colors cursor-pointer">📋 复制</button></div><code>${highlighted}</code></pre>`;
+    return `<div class="code-block"><div class="code-header"><span class="lang-label font-mono text-xs">${langLabel}</span><button onclick="navigator.clipboard.writeText(this.parentElement.nextElementSibling.textContent);this.textContent='✅ 已复制';var b=this;setTimeout(()=>b.textContent='📋 复制',1500)" class="copy-btn text-xs text-slate-400 hover:text-white transition-colors cursor-pointer">📋 复制</button></div><pre><code>${highlighted}</code></pre></div>`;
   });
 
   return result;
