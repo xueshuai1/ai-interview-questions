@@ -65,6 +65,51 @@ body {
   font-weight: 700;
 }
 
+/* ── Code block styles (for parseMarkdown-rendered code blocks) ── */
+pre.code-block {
+  background: #1e1e2e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 400px;
+  margin: 16px 0;
+}
+pre.code-block .code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: #94a3b8;
+}
+pre.code-block code {
+  display: block;
+  padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #cdd6f4;
+  tab-size: 4;
+}
+.token-keyword { color: #cba6f7; }
+.token-string { color: #a6e3a1; }
+.token-comment { color: #6c7086; font-style: italic; }
+.token-number { color: #fab387; }
+.token-function { color: #89b4fa; }
+.token-class { color: #f9e2af; }
+.token-operator { color: #89dceb; }
+.token-decorator { color: #f5c2e7; }
+.token-builtin { color: #f38ba8; }
+.token-parameter { color: #eba0ac; }
+.token-type { color: #89dceb; }
+.token-property { color: #89b4fa; }
+.token-boolean { color: #fab387; }
+.token-null { color: #fab387; }
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
