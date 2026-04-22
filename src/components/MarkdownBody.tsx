@@ -153,30 +153,18 @@ function escapeHtml(text: string): string {
     .replace(/>/g, "&gt;");
 }
 
-function renderHighlighted(tokens: Token[]): string {
+function highlightPython(code: string): string {
+  const tokens = tokenizePython(code);
   const typeClass: Record<TokenType, string> = {
-    comment: "token-comment",
-    string: "token-string",
-    keyword: "token-keyword",
-    number: "token-number",
-    decorator: "token-decorator",
-    builtin: "token-builtin",
-    type: "token-type",
-    function: "token-function",
-    operator: "token-operator",
-    plain: "",
+    comment: "token-comment", string: "token-string", keyword: "token-keyword",
+    number: "token-number", decorator: "token-decorator", builtin: "token-builtin",
+    type: "token-type", function: "token-function", operator: "token-operator", plain: "",
   };
-
   return tokens.map((t) => {
     const escaped = escapeHtml(t.text);
     const cls = typeClass[t.type];
     return cls ? `<span class="${cls}">${escaped}</span>` : escaped;
   }).join("");
-}
-
-function highlightPython(code: string): string {
-  const tokens = tokenizePython(code);
-  return renderHighlighted(tokens);
 }
 
 function highlightBash(code: string): string {
@@ -227,9 +215,10 @@ export function parseMarkdown(text: string): string {
   );
   result = result.replace(placeholderRe, () => {
     const { lang, code } = codeBlocks[index++];
-    const highlighted = highlightCode(code, lang);
     const langLabel = lang || "code";
-    return `<div class="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10"><div class="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400"><span class="font-mono">${langLabel}</span><div class="flex items-center gap-2"><button onclick="navigator.clipboard.writeText(this.closest('.rounded-xl').querySelector('code').textContent);this.textContent='✅ 已复制';var b=this;setTimeout(()=>b.textContent='📋 复制',1500)" class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer">📋 复制</button></div></div><pre class="p-4 overflow-x-auto overflow-y-auto max-h-[400px] text-sm"><code class="text-slate-300 font-mono whitespace-pre">${highlighted}</code></pre></div>`;
+    const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const svgCopy = '<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>';
+    return `<div class="space-y-4 my-6"><div class="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10"><div class="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400"><span class="font-mono">${langLabel}</span><div class="flex items-center gap-2"><button onclick="navigator.clipboard.writeText(this.closest('.space-y-4').querySelector('code').textContent);this.innerHTML='${svgCopy}已复制';var b=this;setTimeout(()=>b.innerHTML='${svgCopy}复制',1500)" class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/10" title="复制代码">${svgCopy}复制</button></div></div><pre class="p-4 overflow-x-auto overflow-y-auto max-h-[400px] text-sm"><code class="text-slate-300 font-mono whitespace-pre">${escaped}</code></pre></div></div>`;
   });
 
   return result;
