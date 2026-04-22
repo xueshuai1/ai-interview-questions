@@ -97,12 +97,12 @@ export const tools: Tool[] = [
       ],
       useCase: "跨平台自动化工作流、API 集成",
       learnMore: "https://docs.n8n.io",
-      githubStars: 185037,
-    updatedAt: "2026-04-20",
-    forks: 73614,
-language: "TypeScript",
-createdAt: "2025-11-24T10:16:47Z",
-    },
+      githubStars: 185064,
+    updatedAt: "2026-04-22",
+    forks: 57021,
+    language: "TypeScript",
+    createdAt: "2019-06-22T09:24:21Z"
+  },
   {
     id: "auto-gpt",
     name: "AutoGPT",
@@ -393,6 +393,35 @@ createdAt: "2023-03-16T09:21:07Z",
     forks: 19337,
     language: "Shell",
     createdAt: "2025-02-22T17:41:21Z"
+  },
+  {
+    id: "openai-codex",
+    name: "OpenAI Codex",
+    category: "cli",
+    description: `OpenAI 官方终端编码智能体，用 Rust 构建的轻量级 coding agent，直接在终端中运行。76,900+ stars，支持 GPT-4o/o3/o4mini 等多种模型。与 Claude Code 直接竞争，提供终端会话式编码体验——可以读取项目上下文、编写代码、运行测试、修复 Bug、提交 PR。支持沙箱模式安全执行代码，是 2026 年「Agentic Coding」领域的核心选手之一`,
+    url: "https://github.com/openai/codex",
+    tags: ["编码智能体", "终端", "OpenAI", "Rust", "Agentic Coding"],
+    price: "免费+付费",
+    icon: "🧬",
+    githubStars: 76905,
+    updatedAt: "2026-04-22",
+    pros: [
+      "OpenAI 官方出品，模型支持丰富（GPT-4o/o3/o4mini）",
+      "Rust 构建，性能优异，启动快速",
+      "沙箱模式保障代码执行安全",
+      "支持直接提交 GitHub PR",
+      "与 ChatGPT Plus/Pro/Team 套餐兼容"
+    ],
+    cons: [
+      "相对 Claude Code 较新，生态不如后者成熟",
+      "沙箱模式仅支持 macOS 和 Linux",
+      "需要 OpenAI API 或 ChatGPT 订阅"
+    ],
+    useCase: "AI 辅助编码、自动化代码修复、终端编程、PR 自动生成",
+    learnMore: "https://github.com/openai/codex",
+    forks: 10945,
+    language: "Rust",
+    createdAt: "2025-04-13T05:37:54Z"
   },
   {
       id: "markitdown",
