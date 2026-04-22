@@ -58,6 +58,13 @@ body {
   white-space: normal;
 }
 
+/* 文章强调文字 — 亮金色 */
+.prose strong,
+.prose-invert strong {
+  color: #fbbf24 !important;
+  font-weight: 700 !important;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;

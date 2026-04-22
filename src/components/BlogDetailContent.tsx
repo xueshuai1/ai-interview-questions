@@ -37,7 +37,7 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
       {section.body && (
         <div className="prose prose-invert max-w-none text-base sm:text-lg mb-4 overflow-x-auto
           prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
-          prose-strong:text-white prose-strong:font-semibold prose-strong:bg-brand-500/10 prose-strong:px-1 prose-strong:rounded
+          prose-strong:text-amber-400 prose-strong:font-bold prose-strong:bg-brand-500/10 prose-strong:px-1 prose-strong:rounded
           prose-code:text-pink-300 prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
           prose-a:text-brand-400 hover:prose-a:underline
           [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
@@ -100,7 +100,7 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
                 <tr key={ri} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                   {row.map((cell, ci) => (
                     <td key={ci} className="px-4 py-3 text-slate-300 prose prose-invert prose-sm max-w-none
-                      prose-strong:text-white prose-strong:font-semibold
+                      prose-strong:text-amber-400 prose-strong:font-bold
                       prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
                       [&_p]:my-0 [&_p]:inline" dangerouslySetInnerHTML={{ __html: marked.parse(cell) as string }} />
                   ))}
@@ -124,14 +124,14 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
 
       {section.tip && (
         <div className="my-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-sm prose prose-invert max-w-none
-          prose-strong:text-white prose-strong:font-semibold
+          prose-strong:text-amber-400 prose-strong:font-bold
           prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
           [&_p]:my-0 [&_p]:text-emerald-300" dangerouslySetInnerHTML={{ __html: `💡 ${marked.parse(section.tip) as string}` }} />
       )}
 
       {section.warning && (
         <div className="my-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-sm prose prose-invert max-w-none
-          prose-strong:text-white prose-strong:font-semibold
+          prose-strong:text-amber-400 prose-strong:font-bold
           prose-code:text-pink-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
           [&_p]:my-0 [&_p]:text-amber-300" dangerouslySetInnerHTML={{ __html: `⚠️ ${marked.parse(section.warning) as string}` }} />
       )}
