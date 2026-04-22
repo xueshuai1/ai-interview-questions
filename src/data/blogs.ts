@@ -30,8 +30,10 @@ import { blog as blog037 } from './blogs/blog-037';
 import { blog as blog038 } from './blogs/blog-038';
 import { blog as blog039 } from './blogs/blog-039';
 import { blog as blog040 } from './blogs/blog-040';
+import { blog as blog041 } from './blogs/blog-041';
 
 export const blogs: BlogPost[] = [
+  blog041,
   blog040,
   blog039,
   blog038,
