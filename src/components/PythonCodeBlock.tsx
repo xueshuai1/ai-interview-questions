@@ -1,6 +1,28 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
+
+// ── Python syntax highlighter (shared with article page) ──
+const PY_KW = new Set(['import','from','def','class','return','if','else','elif','for','while','try','except','with','as','yield','lambda','pass','break','continue','raise','in','not','and','or','is','True','False','None','self','super','global','nonlocal','assert','del','finally','async','await','print']);
+const PY_TYPES = new Set(['int','str','float','bool','list','dict','tuple','set','bytes','object','type','Optional','Any','Union','List','Dict','Callable','Iterable','Iterator','Generator','Sequence','Mapping','MutableMapping','Tuple','Set','FrozenSet','Deque','DefaultDict','OrderedDict','Counter','NamedTuple','TypeVar','Generic','Protocol','runtime_checkable','Final','ClassVar','Literal','TypedDict','Annotated','Self','Never','NoReturn']);
+const PY_BUILTINS = new Set(['torch','nn','math','os','sys','json','re','typing','collections','functools','itertools','pathlib','datatrove','trl','transformers','tiktoken','datasets']);
+
+function esc(s: string) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function highlightPy(code: string): string {
+  let i = 0; const tokens: string[] = [];
+  while (i < code.length) {
+    if (code[i] === '#') { let e = code.indexOf('\n', i); if (e === -1) e = code.length; tokens.push(`<span class='token-comment'>${esc(code.slice(i, e))}</span>`); i = e; continue; }
+    if (code.slice(i, i+3) === '"""' || code.slice(i, i+3) === "'''") { const q = code.slice(i, i+3); let e = code.indexOf(q, i+3); if (e === -1) e = code.length; else e += 3; tokens.push(`<span class='token-string'>${esc(code.slice(i, e))}</span>`); i = e; continue; }
+    if (code[i] === '"' || (code[i] === 'f' && code[i+1] === '"')) { const qi = code[i] === 'f' ? i+1 : i; let j = qi+1; while (j < code.length && code[j] !== '"') { if (code[j] === '\\') j++; j++; } tokens.push(`<span class='token-string'>${esc(code.slice(i, j+1))}</span>`); i = j+1; continue; }
+    if (code[i] === "'" || (code[i] === 'f' && code[i+1] === "'")) { const qi = code[i] === 'f' ? i+1 : i; let j = qi+1; while (j < code.length && code[j] !== "'") { if (code[j] === '\\') j++; j++; } tokens.push(`<span class='token-string'>${esc(code.slice(i, j+1))}</span>`); i = j+1; continue; }
+    if (/[a-zA-Z_]/.test(code[i])) { let j = i; while (j < code.length && /[\w]/.test(code[j])) j++; const w = code.slice(i, j); let k = j; while (k < code.length && code[k] === ' ') k++; if (code[k] === '(') { tokens.push(esc(code.slice(i, j))); i = j; continue; } if (PY_KW.has(w)) tokens.push(`<span class='token-keyword'>${esc(w)}</span>`); else if (PY_TYPES.has(w)) tokens.push(`<span class='token-type'>${esc(w)}</span>`); else if (PY_BUILTINS.has(w)) tokens.push(`<span class='token-builtin'>${esc(w)}</span>`); else tokens.push(esc(w)); i = j; continue; }
+    if (/\d/.test(code[i])) { let j = i; while (j < code.length && /[\d.]/.test(code[j])) j++; tokens.push(`<span class='token-number'>${esc(code.slice(i, j))}</span>`); i = j; continue; }
+    if (code[i] === '@') { let j = i+1; while (j < code.length && /\w/.test(code[j])) j++; tokens.push(`<span class='token-decorator'>${esc(code.slice(i, j))}</span>`); i = j; continue; }
+    tokens.push(esc(code[i])); i++;
+  }
+  return tokens.join('');
+}
 
 declare global {
   interface Window {
@@ -406,7 +428,7 @@ export default function PythonCodeBlock({ code, lang, filename, CopyButtonCompon
           </div>
         </div>
         <pre className="p-4 overflow-x-auto overflow-y-auto max-h-[400px] text-sm">
-          <code className="text-slate-300 font-mono whitespace-pre">{code}</code>
+          <code className="font-mono whitespace-pre" dangerouslySetInnerHTML={{ __html: highlightPy(code) }} />
         </pre>
       </div>
 

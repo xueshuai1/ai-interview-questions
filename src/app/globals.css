@@ -94,7 +94,7 @@ div.code-block pre code {
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 13px;
   line-height: 1.6;
-  color: #cdd6f4;
+  /* color inherited from token spans, not set here */
   tab-size: 4;
   white-space: pre;
 }
@@ -112,6 +112,14 @@ div.code-block pre code {
 .token-property { color: #89b4fa; }
 .token-boolean { color: #fab387; }
 .token-null { color: #fab387; }
+/* Override Tailwind prose code color for highlighted tokens */
+.prose code .token-keyword { color: #cba6f7; }
+.prose code .token-string { color: #a6e3a1; }
+.prose code .token-comment { color: #6c7086; font-style: italic; }
+.prose code .token-number { color: #fab387; }
+.prose code .token-function { color: #89b4fa; }
+.prose code .token-parameter { color: #eba0ac; }
+.prose code .token-builtin { color: #f38ba8; }
 
 @layer utilities {
   .scrollbar-hide {
