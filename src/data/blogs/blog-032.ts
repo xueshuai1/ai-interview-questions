@@ -20,8 +20,8 @@ const content: ArticleSection[] = [
     G -->|蛋白质预测| I["三维结构编码<br/>高精度预测"]
     G -->|药物发现| J["不确定性量化<br/>安全边界控制"]
     
-    classDef problem fill:#ef4444,stroke:#dc2626,color:#fff
-    classDef solution fill:#10b981,stroke:#059669,color:#fff
+    classDef problem fill:#b91c1c,stroke:#dc2626,color:#fff
+    classDef solution fill:#047857,stroke:#059669,color:#fff
     class C,D,E problem
     class H,I,J solution`,
   },
@@ -59,9 +59,9 @@ const content: ArticleSection[] = [
     B3 --> B
     B4 --> B
     
-    classDef input fill:#3b82f6,stroke:#2563eb,color:#fff
-    classDef core fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    classDef output fill:#10b981,stroke:#059669,color:#fff
+    classDef input fill:#1d4ed8,stroke:#2563eb,color:#fff
+    classDef core fill:#6d28d9,stroke:#7c3aed,color:#fff
+    classDef output fill:#047857,stroke:#059669,color:#fff
     class A,A1,A2,A3,A4 input
     class B,B1,B2,B3,B4,C,D core
     class E,F,G output`,
@@ -446,9 +446,9 @@ if __name__ == "__main__":
     
     G --> A
     
-    classDef ai fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    classDef validation fill:#3b82f6,stroke:#2563eb,color:#fff
-    classDef fail fill:#ef4444,stroke:#dc2626,color:#fff
+    classDef ai fill:#6d28d9,stroke:#7c3aed,color:#fff
+    classDef validation fill:#1d4ed8,stroke:#2563eb,color:#fff
+    classDef fail fill:#b91c1c,stroke:#dc2626,color:#fff
     class A ai
     class B,C,D,E,F validation
     class G fail`,

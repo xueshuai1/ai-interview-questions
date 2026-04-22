@@ -50,10 +50,10 @@ export const article: Article = {
     I --> K
     J --> K
     
-    classDef demand fill:#ef4444,stroke:#ef4444,color:#fff
-    classDef gpu fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef mem fill:#f59e0b,stroke:#f59e0b,color:#fff
-    classDef bottleneck fill:#dc2626,stroke:#dc2626,color:#fff
+    classDef demand fill:#b91c1c,stroke:\#dc2626,color:#fff
+    classDef gpu fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef mem fill:#b45309,stroke:\#d97706,color:#fff
+    classDef bottleneck fill:#991b1b,stroke:\#b91c1c,color:#fff
     classDef impact fill:#6b7280,stroke:#6b7280,color:#fff
     classDef result fill:#7c3aed,stroke:#7c3aed,color:#fff
     class A demand
@@ -226,14 +226,14 @@ HBM 的产能瓶颈不在 DRAM 晶圆制造，而在**先进封装**：
     F --> G["GPU + HBM 模组\nNVIDIA/AMD"]
     G --> H["AI 服务器\nCloud Providers"]
     
-    style A fill:#3b82f6,stroke:#3b82f6,color:#fff
+    style A fill:#1d4ed8,stroke:\#2563eb,color:#fff
     style B fill:#3730a3,stroke:#4f46e5,color:#f1f5f9
     style C fill:#3730a3,stroke:#4f46e5,color:#f1f5f9
     style D fill:#5b21b6,stroke:#7c3aed,color:#f1f5f9
     style E fill:#5b21b6,stroke:#7c3aed,color:#f1f5f9
-    style F fill:#ef4444,stroke:#ef4444,color:#fff
-    style G fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style H fill:#10b981,stroke:#10b981,color:#fff`,
+    style F fill:#b91c1c,stroke:\#dc2626,color:#fff
+    style G fill:#b45309,stroke:\#d97706,color:#fff
+    style H fill:#047857,stroke:\#059669,color:#fff`,
     },
     {
       title: "HBM 供应链产能模型",

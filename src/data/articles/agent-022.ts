@@ -40,10 +40,10 @@ export const article: Article = {
     E -->|"知识压缩"| F["能力更新"]
     F -->|"更强能力"| C
     
-    style A fill:#ff6b6b,color:#1e293b
-    style C fill:#51cf66,color:#1e293b
-    style D fill:#339af0,color:#1e293b
-    style E fill:#ffd43b,color:#1e293b
+    style A fill:#7f1d1d,color:#f1f5f9
+    style C fill:#064e3b,color:#f1f5f9
+    style D fill:#1e3a5f,color:#f1f5f9
+    style E fill:#78350f,color:#f1f5f9,color:#1e293b
     style F fill:#7c3aed,color:#f1f5f9`,
     },
     {
@@ -513,12 +513,12 @@ if __name__ == "__main__":
     K --> B
     L --> B
     
-    style A fill:#ffd43b,color:#1e293b
-    style B fill:#339af0,color:#1e293b
-    style C fill:#ff6b6b,color:#1e293b
+    style A fill:#78350f,color:#f1f5f9,color:#1e293b
+    style B fill:#1e3a5f,color:#f1f5f9
+    style C fill:#7f1d1d,color:#f1f5f9
     style J fill:#7c3aed,color:#f1f5f9
-    style K fill:#51cf66,color:#1e293b
-    style L fill:#ff6b6b,color:#1e293b`,
+    style K fill:#064e3b,color:#f1f5f9
+    style L fill:#7f1d1d,color:#f1f5f9`,
     },
     {
       title: "7. Python 实战：混合式 Self-Evolving Agent 完整实现",

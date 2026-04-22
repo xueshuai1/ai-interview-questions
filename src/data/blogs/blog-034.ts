@@ -37,8 +37,8 @@ const content: ArticleSection[] = [
     B -.->|"浏览器自动化<br/>慢且脆弱"| G
     F -->|"直接通信<br/>快且可靠"| H
     
-    style A fill:#f0ad4e,stroke:#ec971f,color:#fff
-    style E fill:#5cb85c,stroke:#4cae4c,color:#fff`,
+    style A fill:#b45309,stroke:#ec971f,color:#fff
+    style E fill:#047857,stroke:#4cae4c,color:#fff`,
   },
   {
     title: "二、为什么 'Headless Everything' 现在发生？",
@@ -399,8 +399,8 @@ Headless 趋势催生了新的创业方向：
     
     D -.->|"效率提升<br/>100-1000x"| H
     
-    style A fill:#f0ad4e,stroke:#ec971f,color:#fff
-    style E fill:#5cb85c,stroke:#4cae4c,color:#fff`,
+    style A fill:#b45309,stroke:#ec971f,color:#fff
+    style E fill:#047857,stroke:#4cae4c,color:#fff`,
   },
   {
     title: "八、对比：传统服务 vs Headless 服务",

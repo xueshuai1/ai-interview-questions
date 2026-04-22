@@ -185,7 +185,7 @@ for i, w in enumerate(model.coef_[0]):
 
     classDef root fill:#ff9800,color:#fff
     classDef internal fill:#4caf50,color:#fff
-    classDef leaf_yes fill:#2196f3,color:#fff
+    classDef leaf_yes fill:#1d4ed8,color:#fff
     classDef leaf_no fill:#9e9e9e,color:#fff
     class A root
     class B,C,G internal

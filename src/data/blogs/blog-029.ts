@@ -29,10 +29,10 @@ const content: ArticleSection[] = [
     G --> H
     H --> I["输出: 修改后的海报"]
 
-    classDef user fill:#f59e0b,stroke:#f59e0b,color:#fff
-    classDef ai fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef app fill:#10b981,stroke:#10b981,color:#fff
-    classDef output fill:#8b5cf6,stroke:#8b5cf6,color:#fff
+    classDef user fill:#b45309,stroke:\#d97706,color:#fff
+    classDef ai fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef app fill:#047857,stroke:\#059669,color:#fff
+    classDef output fill:#6d28d9,stroke:\#7c3aed,color:#fff
     class A user
     class B,C,D,E,F,G ai
     class H app
@@ -263,9 +263,9 @@ for action in actions:
     F --> G["审核 AI 输出"]
     F --> H["创意方向决策"]
     
-    style A fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style B fill:#10b981,stroke:#10b981,color:#fff
-    style H fill:#3b82f6,stroke:#3b82f6,color:#fff`,
+    style A fill:#b45309,stroke:\#d97706,color:#fff
+    style B fill:#047857,stroke:\#059669,color:#fff
+    style H fill:#1d4ed8,stroke:\#2563eb,color:#fff`,
     list: [
       "**执行时间压缩**：原本需要数小时的抠图、调色、排版工作，AI 可以在几分钟内完成",
       "**创意密度提升**：设计师可以在相同时间内探索更多创意方向，而非死磕一个方案的细节",
@@ -491,10 +491,10 @@ for i, r in enumerate(results):
     E --> H["用户角色: 操作者"]
     F --> I["用户角色: 管理者"]
     
-    style A fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style B fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style C fill:#10b981,stroke:#10b981,color:#fff
-    style F fill:#10b981,stroke:#10b981,color:#fff`,
+    style A fill:#b45309,stroke:\#d97706,color:#fff
+    style B fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style C fill:#047857,stroke:\#059669,color:#fff
+    style F fill:#047857,stroke:\#059669,color:#fff`,
     list: [
       "**设计领域**：Firefly AI 助手让设计师从执行者变为创意总监",
       "**营销领域**：seomachine 让 SEO 专员从内容写作者变为策略制定者",

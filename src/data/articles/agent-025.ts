@@ -47,14 +47,14 @@ Claude-Mem（thedotmack）在短短两周内狂揽 64,577 stars，单周增长 1
     F --> G["决策层\nDecision"]
     G --> H["行动输出\nAction"]
     
-    style A fill:#339af0,color:#1e293b
-    style B fill:#ffd43b,color:#1e293b
-    style C fill:#ff6b6b,color:#1e293b
-    style D fill:#ffd43b,color:#1e293b
-    style E fill:#51cf66,color:#1e293b
+    style A fill:#1e3a5f,color:#f1f5f9
+    style B fill:#78350f,color:#f1f5f9,color:#1e293b
+    style C fill:#7f1d1d,color:#f1f5f9
+    style D fill:#78350f,color:#f1f5f9,color:#1e293b
+    style E fill:#064e3b,color:#f1f5f9
     style F fill:#7c3aed,color:#f1f5f9
-    style G fill:#ff922b,color:#1e293b
-    style H fill:#339af0,color:#1e293b`,
+    style G fill:#78350f,color:#f1f5f9
+    style H fill:#1e3a5f,color:#f1f5f9`,
     },
     {
       title: "2. AI Agent 记忆系统的四层架构",
@@ -128,9 +128,9 @@ Claude-Mem 和 GenericAgent 的核心创新之一就是**程序记忆的自动�
     C -->|"模式归纳"| D
     D -.->|"指导决策"| A
     
-    style A fill:#ff6b6b,color:#1e293b
-    style B fill:#ffd43b,color:#1e293b
-    style C fill:#51cf66,color:#1e293b
+    style A fill:#7f1d1d,color:#f1f5f9
+    style B fill:#78350f,color:#f1f5f9,color:#1e293b
+    style C fill:#064e3b,color:#f1f5f9
     style D fill:#7c3aed,color:#f1f5f9`,
     },
     {
@@ -874,11 +874,11 @@ if __name__ == "__main__":
     E --> I["核心：对话历史 + RAG"]
     F --> J["核心：四层架构 + 安全隔离"]
     
-    style A fill:#339af0,color:#1e293b
-    style B fill:#ffd43b,color:#1e293b
-    style C fill:#ff6b6b,color:#1e293b
-    style D fill:#ffd43b,color:#1e293b
-    style E fill:#51cf66,color:#1e293b
+    style A fill:#1e3a5f,color:#f1f5f9
+    style B fill:#78350f,color:#f1f5f9,color:#1e293b
+    style C fill:#7f1d1d,color:#f1f5f9
+    style D fill:#78350f,color:#f1f5f9,color:#1e293b
+    style E fill:#064e3b,color:#f1f5f9
     style F fill:#7c3aed,color:#f1f5f9`,
     },
   ],

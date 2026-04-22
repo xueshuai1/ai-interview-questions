@@ -28,9 +28,9 @@ export const article: Article = {
     B -.->|能力不足| J["用户转向专业工具"]
     C -.->|生态迁移| K["垂直工作空间崛起"]
     
-    style A fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style D fill:#10b981,stroke:#10b981,color:#fff
-    style E fill:#3b82f6,stroke:#3b82f6,color:#fff`,
+    style A fill:#b45309,stroke:\#d97706,color:#fff
+    style D fill:#047857,stroke:\#059669,color:#fff
+    style E fill:#1d4ed8,stroke:\#2563eb,color:#fff`,
     },
     {
       title: "为什么通用 Agent 不够用？",
@@ -84,7 +84,7 @@ export const article: Article = {
     O --> P["GA4 数据反馈"]
     P --> A
     
-    classDef step fill:#3b82f6,stroke:#3b82f6,color:#fff
+    classDef step fill:#1d4ed8,stroke:\#2563eb,color:#fff
     class A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P step`,
       code: [{
         lang: "python",
@@ -301,10 +301,10 @@ class EEATEvaluator:
     L --> M["策略优化"]
     M --> D
     
-    style B fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style D fill:#10b981,stroke:#10b981,color:#fff
-    style F fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style H fill:#ef4444,stroke:#ef4444,color:#fff
+    style B fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style D fill:#047857,stroke:\#059669,color:#fff
+    style F fill:#b45309,stroke:\#d97706,color:#fff
+    style H fill:#b91c1c,stroke:\#dc2626,color:#fff
     style K fill:#5b21b6,stroke:#7c3aed,color:#f1f5f9`,
       code: [{
         lang: "python",
@@ -452,7 +452,7 @@ class AgentTrader:
     D -.->|反馈| E
     E -.->|更新| A
     
-    classDef layer fill:#3b82f6,stroke:#3b82f6,color:#fff
+    classDef layer fill:#1d4ed8,stroke:\#2563eb,color:#fff
     class A,B,C,D,E layer`,
       list: [
         "**领域知识层**：每个垂直 Agent 都有自己的「专业知识库」，包含行业规则、最佳实践、领域术语。这是与通用 Agent 最本质的区别",

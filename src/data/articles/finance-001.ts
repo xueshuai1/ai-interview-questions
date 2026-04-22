@@ -85,8 +85,8 @@ export const article: Article = {
     style B1 fill:#4f46e5,stroke:#6366f1,color:#fff
     style B2 fill:#7c3aed,stroke:#8b5cf6,color:#fff
     style B3 fill:#2563eb,stroke:#3b82f6,color:#fff
-    style C1 fill:#dc2626,stroke:#ef4444,color:#fff
-    style C2 fill:#059669,stroke:#10b981,color:#fff`,
+    style C1 fill:#991b1b,stroke:#ef4444,color:#fff
+    style C2 fill:#047857,stroke:#10b981,color:#fff`,
     },
     {
       title: "3. 核心 Agent 角色深度解析",
@@ -559,8 +559,8 @@ if __name__ == "__main__":
     E -->|通过| F["交易计划"]
     E -->|不通过| G["调整/拒绝"]
     
-    style B fill:#dc2626,stroke:#ef4444,color:#fff
-    style E fill:#dc2626,stroke:#ef4444,color:#fff`,
+    style B fill:#991b1b,stroke:#ef4444,color:#fff
+    style E fill:#991b1b,stroke:#ef4444,color:#fff`,
     },
     {
       title: "6. 对比分析：多 Agent vs 传统量化 vs 人类基金经理",
@@ -599,7 +599,7 @@ if __name__ == "__main__":
     style C fill:#4f46e5,stroke:#6366f1,color:#fff
     style D fill:#7c3aed,stroke:#8b5cf6,color:#fff
     style E fill:#2563eb,stroke:#3b82f6,color:#fff
-    style F fill:#059669,stroke:#10b981,color:#fff`,
+    style F fill:#047857,stroke:#10b981,color:#fff`,
     },
     {
       title: "8. 总结与行动建议",

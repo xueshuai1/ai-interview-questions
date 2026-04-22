@@ -16,9 +16,9 @@ const content: ArticleSection[] = [
     D --> E["第三阶段\n自主执行"]
     E -->|"你说→它做"| F["AI 完成\n全流程"]
 
-    classDef phase1 fill:#94a3b8,stroke:#64748b,color:#fff
-    classDef phase2 fill:#f59e0b,stroke:#d97706,color:#fff
-    classDef phase3 fill:#10b981,stroke:#059669,color:#fff
+    classDef phase1 fill:#475569,stroke:#64748b,color:#fff
+    classDef phase2 fill:#b45309,stroke:#d97706,color:#fff
+    classDef phase3 fill:#047857,stroke:#059669,color:#fff
     class A,B phase1
     class C,D phase2
     class E,F phase3`,
@@ -299,10 +299,10 @@ print(react_code)`,
     E3 --> E4["流程执行"]
     E4 --> F
 
-    classDef user fill:#f59e0b,stroke:#f59e0b,color:#fff
-    classDef codex fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef claude fill:#10b981,stroke:#10b981,color:#fff
-    classDef google fill:#8b5cf6,stroke:#8b5cf6,color:#fff
+    classDef user fill:#b45309,stroke:\#d97706,color:#fff
+    classDef codex fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef claude fill:#047857,stroke:\#059669,color:#fff
+    classDef google fill:#6d28d9,stroke:\#7c3aed,color:#fff
     class A,B user
     class C,C1,C2,C3,C4,C5 codex
     class D,D1,D2,D3,D4 claude

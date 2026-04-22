@@ -30,7 +30,7 @@ export const article: Article = {
     D --> D3[分步执行]
     D --> D4[自我修正]
     D --> D5[全流程闭环]
-    style D fill:#4ade80,color:#1e293b,stroke:#16a34a,stroke-width:3px
+    style D fill:#064e3b,color:#f1f5f9,stroke:#16a34a,stroke-width:3px
     style D1 fill:#14532d
     style D2 fill:#14532d
     style D3 fill:#14532d
@@ -412,8 +412,8 @@ if __name__ == "__main__":
     E --> E2[表单填写]
     F --> F1[REST 调用]
     F --> F2[GraphQL 查询]
-    style B fill:#fbbf24,color:#1e293b,stroke:#f59e0b,stroke-width:3px
-    style A fill:#60a5fa,color:#1e293b
+    style B fill:#78350f,color:#f1f5f9,stroke:#f59e0b,stroke-width:3px
+    style A fill:#1e3a5f,color:#f1f5f9
     style C fill:#14532d
     style D fill:#14532d
     style E fill:#14532d

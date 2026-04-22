@@ -35,10 +35,10 @@ const content: ArticleSection[] = [
     
     K --> L["生产代码"]
     
-    classDef user fill:#f59e0b,stroke:#f59e0b,color:#fff
-    classDef ai fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef design fill:#10b981,stroke:#10b981,color:#fff
-    classDef code fill:#8b5cf6,stroke:#8b5cf6,color:#fff
+    classDef user fill:#b45309,stroke:\#d97706,color:#fff
+    classDef ai fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef design fill:#047857,stroke:\#059669,color:#fff
+    classDef code fill:#6d28d9,stroke:\#7c3aed,color:#fff
     class A,F,G user
     class B,C ai
     class D,H,I,J design
@@ -336,10 +336,10 @@ class CodeHandoffSpec:
     C --> K["Claude Code"]
     C --> L["Claude Pro/Max/Team/Enterprise"]
     
-    style B fill:#ef4444,stroke:#ef4444,color:#fff
-    style C fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style D fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style E fill:#10b981,stroke:#10b981,color:#fff`,
+    style B fill:#b91c1c,stroke:\#dc2626,color:#fff
+    style C fill:#b45309,stroke:\#d97706,color:#fff
+    style D fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style E fill:#047857,stroke:\#059669,color:#fff`,
     warning: "Anthropic 的双轨模型策略引发一个重要思考：当 AI 能力强大到可能危害社会时，AI 公司是否有责任限制其公开可用性？这是一个没有标准答案的伦理问题。Anthropic 选择了保守路线，但这可能为未来的 AI 安全治理树立先例。",
   },
   {
@@ -356,10 +356,10 @@ class CodeHandoffSpec:
     B -->|订阅收入| C["2026<br/>全栈产品公司"]
     C -->|Design + Code + Labs| D["未来<br/>AI 操作系统?"]
     
-    style A fill:#94a3b8,stroke:#94a3b8,color:#fff
-    style B fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style C fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style D fill:#ef4444,stroke:#ef4444,color:#fff`,
+    style A fill:#475569,stroke:\#64748b,color:#fff
+    style B fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style C fill:#b45309,stroke:\#d97706,color:#fff
+    style D fill:#b91c1c,stroke:\#dc2626,color:#fff`,
     table: {
       headers: ["公司", "最新年化收入", "增长速度", "IPO 状态", "核心产品"],
       rows: [
@@ -398,9 +398,9 @@ class CodeHandoffSpec:
     C1 --> F["代表: Midjourney<br/>DALL-E / Stable Diffusion"]
     D1 --> G["代表: Claude Design<br/>Adobe Firefly AI 助手"]
     
-    style B1 fill:#94a3b8,stroke:#94a3b8,color:#fff
-    style C1 fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style D1 fill:#f59e0b,stroke:#f59e0b,color:#fff`,
+    style B1 fill:#475569,stroke:\#64748b,color:#fff
+    style C1 fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style D1 fill:#b45309,stroke:\#d97706,color:#fff`,
   },
 ];
 

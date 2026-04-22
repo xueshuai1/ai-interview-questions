@@ -53,8 +53,8 @@ Claude Opus 4.7 支持 200K token 上下文，GPT-4o 支持 128K token，但这�
     G --> H[大量冗余信息]
     H --> I[关键经验被淹没]
     
-    style F fill:#ff6b6b,color:#1e293b
-    style I fill:#ff6b6b,color:#1e293b`,
+    style F fill:#7f1d1d,color:#f1f5f9
+    style I fill:#7f1d1d,color:#f1f5f9`,
   },
   {
     title: "二、Claude-Mem 深度解析：自动捕获 + AI 压缩",
@@ -276,7 +276,7 @@ MemPalace 的核心技术是 **AAAK（Adaptive Abstract Anchor Key）** 压缩�
     I --> J[获取记忆]
     
     style A fill:#6c5ce7,color:#fff
-    style H fill:#00b894,color:#fff
+    style H fill:#047857,color:#fff
     style G fill:#92400e`,
     code: [
       {
@@ -486,8 +486,8 @@ if __name__ == "__main__":
     C5 --> Z
     
     style A2 fill:#6c5ce7,color:#fff
-    style B2 fill:#00b894,color:#fff
-    style C2 fill:#fd79a8,color:#fff`,
+    style B2 fill:#047857,color:#fff
+    style C2 fill:#be185d,color:#fff`,
   },
   {
     title: "六、实战：构建一个混合型 Agent 记忆系统",
@@ -733,8 +733,8 @@ if __name__ == "__main__":
     end
     
     style B4 fill:#6c5ce7,color:#fff
-    style B5 fill:#00b894,color:#fff
-    style B7 fill:#fd79a8,color:#fff`,
+    style B5 fill:#047857,color:#fff
+    style B7 fill:#be185d,color:#fff`,
   },
   {
     title: "八、开发者行动指南",

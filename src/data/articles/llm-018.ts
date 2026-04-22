@@ -61,8 +61,8 @@ Claude 系列一直使用 BPE 算法。Opus 4.7 的新 Tokenizer 在以下几个
     F -.->|理解较粗糙| H["推理准确度\nBaseline"]
     G -.->|理解更精细| I["推理准确度\n+15-20%"]
     
-    style E fill:#f59e0b,color:#1e293b
-    style I fill:#10b981,color:#1e293b`
+    style E fill:#78350f,color:#f1f5f9
+    style I fill:#064e3b,color:#f1f5f9`
     },
     {
       title: "3. 实际成本影响：数学分析与对比",
@@ -114,9 +114,9 @@ Anthropic 给出的范围是 1.0-1.35 倍，但实际测试显示：
     C1 --> G["优化建议:\n引导用户简洁输入"]
     E1 --> H["优化建议:\n预处理压缩图片"]
     
-    style B fill:#ef4444,color:#1e293b
+    style B fill:#7f1d1d,color:#f1f5f9
     style B1 fill:#7f1d1d
-    style F fill:#10b981,color:#1e293b`
+    style F fill:#064e3b,color:#f1f5f9`
     },
     {
       title: "4. 图像处理能力飞跃：从 682px 到 2576px",

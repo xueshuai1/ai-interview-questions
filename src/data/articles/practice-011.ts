@@ -41,10 +41,10 @@ export const article: Article = {
     B -.->|手动串联| K["用户在不同平台间切换"]
     G -.->|自动编排| L["一条命令完成全流程"]
     
-    style A fill:#f59e0b,stroke:#f59e0b,color:#fff
-    style F fill:#10b981,stroke:#10b981,color:#fff
-    style K fill:#ef4444,stroke:#ef4444,color:#fff
-    style L fill:#3b82f6,stroke:#3b82f6,color:#fff`,
+    style A fill:#b45309,stroke:\#d97706,color:#fff
+    style F fill:#047857,stroke:\#059669,color:#fff
+    style K fill:#b91c1c,stroke:\#dc2626,color:#fff
+    style L fill:#1d4ed8,stroke:\#2563eb,color:#fff`,
     },
     {
       title: "为什么工作流比工具更重要？",
@@ -84,7 +84,7 @@ export const article: Article = {
     C --> D["🟢 编排层\n工作流引擎/Agent 编排\n工具调用/条件判断"]
     D --> E["🔵 应用层\nSEO 内容工厂\n设计自动化\n多平台发布"]
     
-    classDef layer fill:#3b82f6,stroke:#3b82f6,color:#fff
+    classDef layer fill:#1d4ed8,stroke:\#2563eb,color:#fff
     class A,B,C,D,E layer`,
     },
     {

@@ -188,7 +188,7 @@ def groupwise_int4_quantize(weight: torch.Tensor,
     D -->|"存储 + 推理"| E["反量化恢复"]
     E -->|"乘回 scale"| F["近似 FP32"]
     style D fill:#14532d
-    style F fill:#FFD700,color:#1e293b`,
+    style F fill:#78350f,color:#f1f5f9,color:#1e293b`,
             tip: "对 LLM 做量化时，优先使用逐通道（per-channel）量化而非逐张量（per-tensor）量化——逐通道的精度损失通常只有逐张量的 1/3 到 1/5，因为每层不同通道的权重分布差异很大。",
             warning: "直接对 Embedding 层和 LM Head 做量化会导致显著的精度下降。这两个层对数值精度极为敏感，建议保持 FP16 不变，只量化中间的 Linear 层。"
         },

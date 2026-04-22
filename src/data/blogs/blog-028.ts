@@ -28,8 +28,8 @@ const content: ArticleSection[] = [
     F --> I
     G --> I
     I --> J[返回结构化结果]
-    style D fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style I fill:#10b981,stroke:#10b981,color:#fff`,
+    style D fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style I fill:#047857,stroke:\#059669,color:#fff`,
   },
   {
     title: "技术架构深度解析：Skills 是如何工作的",
@@ -179,9 +179,9 @@ competitor_skill = Skill(
     D -.返回结果.-> B
     
     style A fill:#5b21b6,stroke:#7c3aed,color:#f1f5f9
-    style B fill:#3b82f6,stroke:#3b82f6,color:#fff
-    style C fill:#10b981,stroke:#10b981,color:#fff
-    style D fill:#f59e0b,stroke:#f59e0b,color:#fff`,
+    style B fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    style C fill:#047857,stroke:\#059669,color:#fff
+    style D fill:#b45309,stroke:\#d97706,color:#fff`,
   },
   {
     title: "与主流竞品对比：Chrome AI Skills 的独特优势",

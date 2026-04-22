@@ -262,7 +262,7 @@ class PlanAndExecuteAgent:
     C -->|否| E[输出最终结果]
     
     style B fill:#f9a825,color:#000
-    style D fill:#ef5350,color:#fff`,
+    style D fill:#b91c1c,color:#fff`,
   },
   {
     title: "Reflection 的四种模式",
@@ -531,9 +531,9 @@ print(team.get_summary())`,
     K -->|是| L[多 Agent 协作]
     
     style C fill:#4caf50,color:#000
-    style G fill:#2196f3,color:#fff
+    style G fill:#1d4ed8,color:#fff
     style I fill:#ff9800,color:#000
-    style L fill:#f44336,color:#fff`,
+    style L fill:#b91c1c,color:#fff`,
   },
   {
     title: "实战案例：用多 Agent 构建知识图谱",

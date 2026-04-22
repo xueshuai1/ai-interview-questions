@@ -42,9 +42,9 @@ const content: ArticleSection[] = [
     end
     
     style A fill:#3730a3,stroke:#6366f1,color:#f1f5f9
-    style B fill:#10b981,stroke:#34d399,color:#fff
-    style C fill:#f59e0b,stroke:#fbbf24,color:#fff
-    style D fill:#ef4444,stroke:#f87171,color:#fff`,
+    style B fill:#047857,stroke:#34d399,color:#fff
+    style C fill:#b45309,stroke:#fbbf24,color:#fff
+    style D fill:#b91c1c,stroke:#f87171,color:#fff`,
   },
   {
     title: "二、Hermes Agent：107K 星背后的多 Agent 群体进化",
@@ -328,9 +328,9 @@ Evolver（EvoMap/evolver）采用了最接近生物进化论的方案。它将 A
     C --> G3
     C --> G4
     
-    style A fill:#f59e0b,stroke:#fbbf24,color:#fff
-    style C fill:#ef4444,stroke:#f87171,color:#fff
-    style D fill:#10b981,stroke:#34d399,color:#fff`,
+    style A fill:#b45309,stroke:#fbbf24,color:#fff
+    style C fill:#b91c1c,stroke:#f87171,color:#fff
+    style D fill:#047857,stroke:#34d399,color:#fff`,
     code: [{ lang: "python", filename: "evolver_gep.py", code: `"""
 Evolver GEP (Genome Evolution Protocol) 最小实现
 展示基因组编码 + 进化循环的核心逻辑
@@ -628,8 +628,8 @@ if __name__ == "__main__":
     end
     
     style A fill:#3730a3,stroke:#6366f1,color:#f1f5f9
-    style I fill:#10b981,stroke:#34d399,color:#fff
-    style O fill:#f59e0b,stroke:#fbbf24,color:#fff`,
+    style I fill:#047857,stroke:#34d399,color:#fff
+    style O fill:#b45309,stroke:#fbbf24,color:#fff`,
   },
   {
     title: "七、自进化 Agent 的风险与伦理考量",

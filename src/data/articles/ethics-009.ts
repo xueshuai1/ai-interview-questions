@@ -52,9 +52,9 @@ export const article: Article = {
     D --> D2["AI 生成内容\n权利归属"]
     D --> D3["深度伪造\n肖像权保护"]
 
-    classDef env fill:#16a34a,stroke:#16a34a,color:#fff
-    classDef product fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef ip fill:#f59e0b,stroke:#f59e0b,color:#fff
+    classDef env fill:#15803d,stroke:\#16a34a,color:#fff
+    classDef product fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef ip fill:#b45309,stroke:\#d97706,color:#fff
     class B,B1,B2,B3 env
     class C,C1,C2,C3 product
     class D,D1,D2,D3 ip`,
@@ -544,9 +544,9 @@ graph LR
     N --> O["更新模型"]
     O --> A
 
-    classDef dev fill:#3b82f6,stroke:#3b82f6,color:#fff
-    classDef test fill:#f59e0b,stroke:#f59e0b,color:#fff
-    classDef deploy fill:#10b981,stroke:#10b981,color:#fff
+    classDef dev fill:#1d4ed8,stroke:\#2563eb,color:#fff
+    classDef test fill:#b45309,stroke:\#d97706,color:#fff
+    classDef deploy fill:#047857,stroke:\#059669,color:#fff
     class A,B dev
     class C,D,E,F,G,H,J test
     class K,L,M,N,O,I deploy`,

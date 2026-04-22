@@ -33,8 +33,8 @@ export const article: Article = {
     
     A3 -.->|"进化方向"| B3
     
-    classDef general fill:#6366f1,stroke:#4f46e5,color:#fff
-    classDef vertical fill:#10b981,stroke:#059669,color:#fff
+    classDef general fill:#4338ca,stroke:#4f46e5,color:#fff
+    classDef vertical fill:#047857,stroke:#059669,color:#fff
     class A1,A2,A3 general
     class B1,B2,B3 vertical`,
     },

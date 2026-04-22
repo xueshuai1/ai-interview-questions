@@ -55,7 +55,7 @@ RLVR 优化的目标函数是 P(y|x)——给定输入 x，生成正确答案 y 
     style A fill:#1a1a2e,color:#eee
     style B fill:#16213e,color:#eee
     style C fill:#0f3460,color:#eee
-    style D fill:#e94560,color:#fff`,
+    style D fill:#b91c1c,color:#fff`,
         },
         {
             title: "负样本强化：让模型学会不走错路",

@@ -208,8 +208,8 @@ print(f"多头参数量: {multi_head_params:,} (相同，但表达能力更强)"
     C --> W["W_o 线性变换"]
     W --> Y["输出"]
     
-    style C fill:#f59e0b,color:#1e293b
-    style W fill:#10b981,color:#1e293b`,
+    style C fill:#78350f,color:#f1f5f9
+    style W fill:#064e3b,color:#f1f5f9`,
       },
       {
         title: "4. Transformer 整体架构",

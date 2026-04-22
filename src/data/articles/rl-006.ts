@@ -427,7 +427,7 @@ def parallel_rollout(agent, envs, num_steps=128):
     F --> G["PPO 更新"]
     G --> A
     style E fill:#1e3a5f,stroke:#333
-    style G fill:#c2410c,stroke:#333`,
+    style G fill:#78350f,stroke:#9a3412`,
             tip: "保持总样本数（num_envs * rollout_steps）在 2048~8192 范围内，这是 PPO 论文推荐的经验值。",
             warning: "并行环境数过多会导致经验之间的相关性降低，梯度方差增大反而不利于训练。"
         },
@@ -545,7 +545,7 @@ def parallel_rollout(agent, envs, num_steps=128):
     H -->|"Yes"| I["下一轮 rollout"]
     H -->|"No"| J["训练结束"]
     I --> B
-    style E fill:#c2410c,stroke:#333
+    style E fill:#78350f,stroke:#9a3412
     style J fill:#14532d,stroke:#333`,
             tip: "使用 learning rate 线性衰减：lr = init_lr * (1 - progress)，能显著提升最终性能。",
             warning: "过大的 n_epochs（>20）会导致过拟合到当前 batch，策略失去泛化能力。"

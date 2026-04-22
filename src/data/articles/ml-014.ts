@@ -233,10 +233,10 @@ for s in result:
     C --> F["L3: gain=2.0"]
     C --> G["R3: gain=2.0"]
 
-    style A fill:#ff6b6b,color:#1e293b
-    style B fill:#ffd93d,color:#1e293b
-    style C fill:#6bcb77,color:#1e293b
-    style D fill:#4d96ff,color:#1e293b
+    style A fill:#7f1d1d,color:#f1f5f9
+    style B fill:#78350f,color:#f1f5f9,color:#1e293b
+    style C fill:#064e3b,color:#f1f5f9
+    style D fill:#1e3a5f,color:#f1f5f9
     style E fill:#374151
     style F fill:#374151
     style G fill:#374151`,
