@@ -203,7 +203,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
   return (
     <>
       <div className="relative group my-6">
-        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 md:transition-opacity md:duration-200 opacity-100 md:opacity-0 md:group-hover:opacity-100">
+        <div className="absolute top-2 right-2 z-10 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <button onClick={handleDownload} disabled={!svgContent || dlStatus === 'loading'}
             className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="下载 PNG">
             {dlStatus === 'loading' ? <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>
@@ -211,7 +211,7 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
               : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>}
           </button>
           <button onClick={handleZoom} disabled={!svgContent}
-            className="p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="放大查看">
+            className="hidden md:p-1.5 p-1.5 rounded-md bg-slate-800/80 border border-white/10 text-slate-400 hover:text-white hover:bg-slate-700 transition-all disabled:opacity-30 disabled:cursor-not-allowed" title="放大查看">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" /></svg>
           </button>
         </div>
@@ -221,19 +221,18 @@ export default function MermaidChartWithActions({ chart }: MermaidChartWithActio
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={() => { if (!mouseHasDragged && !touchData.current.hasDragged) setShowModal(false); }} onMouseDown={() => { setMouseHasDragged(false); touchData.current.hasDragged = false; }}>
-          <div className="flex items-center justify-between px-6 py-3 border-b border-white/10 bg-slate-900/80 shrink-0">
-            <span className="text-sm text-slate-400">双指缩放 · 双击放大 · 单指拖拽</span>
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col overflow-hidden" style={{ overscrollBehavior: 'none' }} onClick={(e) => { if (e.target === e.currentTarget && !mouseHasDragged && !touchData.current.hasDragged) setShowModal(false); }} onMouseDown={() => { setMouseHasDragged(false); touchData.current.hasDragged = false; }}>
+          <div className="flex items-center justify-end px-6 py-3 border-b border-white/10 bg-slate-900/80 shrink-0" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-2">
-              <button onClick={() => doZoom(Math.max(0.25, touchData.current.zoom - 0.25))} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all" title="缩小">
+              <button onClick={(e) => { e.stopPropagation(); doZoom(Math.max(0.25, touchData.current.zoom - 0.25)); }} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all" title="缩小">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" /></svg>
               </button>
               <span className="text-sm text-white font-mono w-12 text-center">{Math.round(zoom * 100)}%</span>
-              <button onClick={() => doZoom(Math.min(5, touchData.current.zoom + 0.25))} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all" title="放大">
+              <button onClick={(e) => { e.stopPropagation(); doZoom(Math.min(5, touchData.current.zoom + 0.25)); }} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all" title="放大">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" /></svg>
               </button>
-              <button onClick={() => { touchData.current = { zoom: 1, panX: 0, panY: 0, hasDragged: false }; doZoom(1); }} className="px-2.5 py-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all text-xs" title="重置">重置</button>
-              <button onClick={() => setShowModal(false)} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all ml-2" title="关闭">
+              <button onClick={(e) => { e.stopPropagation(); touchData.current = { zoom: 1, panX: 0, panY: 0, hasDragged: false }; doZoom(1); }} className="px-2.5 py-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all text-xs" title="重置">重置</button>
+              <button onClick={(e) => { e.stopPropagation(); setShowModal(false); }} className="p-1.5 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-all ml-2" title="关闭">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
