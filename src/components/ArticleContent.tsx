@@ -6,10 +6,11 @@ import { MarkdownBody } from "@/components/MarkdownBody";
 
 const codeBlockStyle = `
   div.code-block {
-    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 12px;
     overflow: hidden;
     margin: 16px 0;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255,255,255,0.1);
   }
   div.code-block .code-header {
     display: flex;
@@ -17,26 +18,24 @@ const codeBlockStyle = `
     justify-content: space-between;
     padding: 8px 16px;
     background: rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    font-size: 12px;
+    font-size: 14px;
     color: #94a3b8;
   }
   div.code-block pre {
-    background: #1e1e2e;
-    padding: 0;
+    background: transparent;
+    padding: 16px;
     margin: 0;
     overflow-x: auto;
     overflow-y: auto;
     max-height: 400px;
   }
   div.code-block pre code {
-    display: block;
-    padding: 16px;
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
     font-size: 13px;
     line-height: 1.6;
     color: #cdd6f4;
     tab-size: 4;
+    white-space: pre;
   }
   /* Catppuccin Mocha inspired syntax highlighting */
   .token-keyword { color: #cba6f7; }
