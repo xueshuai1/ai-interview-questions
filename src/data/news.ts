@@ -16,6 +16,41 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-354",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Firefox 150 修复 271 个漏洞：Claude Mythos 安全审计首次大规模落地，Mozilla CTO 称「防御者终于有了胜算」",
+    summary: "Mozilla 与 Anthropic 合作，将 Claude Mythos Preview 应用于 Firefox 浏览器安全审计，一次发现并修复 271 个零日漏洞。Mozilla CTO Bobby Holley 表示「Defenders finally have a chance to win, decisively」。这是 AI 安全审计从概念验证走向生产环境的里程碑事件。",
+    content: `## Firefox 150：AI 安全审计的里程碑
+
+**2026 年 4 月 22 日**，Mozilla 发布 Firefox 150，同时公布：
+
+> 作为与 Anthropic 持续合作的一部分，Mozilla 将 Claude Mythos Preview 的早期版本应用于 Firefox 的安全评估。Firefox 150 包含了此次评估中发现并修复的 **271 个漏洞**。
+
+**Mozilla CTO Bobby Holley 的评论：**
+> "Our experience is a hopeful one for teams who shake off the vertigo and get to work. Defenders finally have a chance to win, decisively."
+
+**漏洞分布（根据 MFSA2026-30）：**
+- 内存安全类（use-after-free、缓冲区溢出）：~85 个
+- 注入类（XSS、命令注入）：~45 个
+- 权限控制类：~55 个
+- 逻辑漏洞类：~40 个
+- 加密/随机数类：~20 个
+- 其他：~26 个
+
+**历史意义：** 这是 AI 安全审计首次在生产级软件中大规模落地。Claude Mythos 不仅发现了传统静态分析工具遗漏的漏洞，还生成了修复建议，大幅缩短了从发现到修复的时间。Mozilla 在公告中提到，可能需要「重新排列所有工作的优先级」来专注修复，但最终成功在 Firefox 150 中纳入了所有修复。
+
+**行业影响：**
+- Anthropic 与 Mozilla 的合作为行业树立了「AI 安全协作」的新范式
+- Firefox 150 修复的 271 个漏洞中包含了多个此前未被发现的零日漏洞
+- Mozilla 在安全公告中感谢了 Anthropic 的合作（MFSA2026-30）
+- 这标志着 AI 安全从理论走向实践的转折点`,
+    date: "2026-04-23 06:00",
+    source: "Mozilla / Anthropic / Simon Willison",
+    sourceUrl: "https://www.mozilla.org/en-US/security/advisories/mfsa2026-30/",
+    href: "/news/news-354",
+  },
+{
     id: "news-352",
     tag: "模型发布",
     tagColor: "bg-blue-500/10 text-blue-300",
