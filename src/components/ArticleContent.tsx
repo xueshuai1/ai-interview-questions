@@ -6,8 +6,37 @@ import { ArticleSection } from "@/data/knowledge";
 
 marked.setOptions({ breaks: true, gfm: true });
 
+function renderCodeBlock(code: string, lang: string): string {
+  const escaped = code
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  const highlighted = highlightCode(escaped, lang);
+  const langLabel = lang ? (lang.charAt(0).toUpperCase() + lang.slice(1)) : "Code";
+  const copyId = `copy-${Math.random().toString(36).slice(2, 10)}`;
+  return `
+    <pre class="code-block">
+      <div class="code-header">
+        <span class="font-mono text-xs">${langLabel}</span>
+        <button onclick="navigator.clipboard.writeText(this.closest('pre').querySelector('code').textContent);this.textContent='✅ 已复制';setTimeout(()=>this.textContent='📋 复制',1500)" class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer" id="${copyId}">
+          📋 复制
+        </button>
+      </div>
+      <code>${highlighted}</code>
+    </pre>`;
+}
+
 function MarkdownBody({ text }: { text: string }) {
-  const html = marked.parse(text) as string;
+  // Custom renderer for fenced code blocks → use our CodeBlock style
+  const renderer = new marked.Renderer();
+  const origCode = renderer.code.bind(renderer);
+  renderer.code = function(token) {
+    const lang = (token as any).lang || "";
+    const code = (token as any).text || "";
+    return renderCodeBlock(code, lang);
+  };
+
+  const html = marked.parse(text, { renderer }) as string;
   return (
     <div
       className="prose prose-invert max-w-none
