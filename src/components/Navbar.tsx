@@ -11,9 +11,9 @@ interface NavLink {
 const navLinks: NavLink[] = [
   { label: "首页", href: "/" },
   { label: "知识库", href: "/knowledge" },
-  { label: "GitHub AI 精选", href: "/tools" },
-  { label: "AI博客", href: "/blog" },
-  { label: "最新AI动态", href: "/news" },
+  { label: "AI 工具", href: "/tools" },
+  { label: "技术博客", href: "/blog" },
+  { label: "AI 资讯", href: "/news" },
   { label: "关于", href: "/about" },
 ];
 
