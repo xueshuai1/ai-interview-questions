@@ -1302,5 +1302,47 @@ markitdown report.pdf > report.md
     source: "GitHub Trending",
     sourceUrl: "https://github.com/trending?since=weekly",
     href: "/news/news-086",
+  },
+{
+    id: "news-355",
+    tag: "Agent 设计",
+    tagColor: "bg-violet-500/10 text-violet-300",
+    title: "「Less human AI agents」设计哲学引发社区热议：AI Agent 不应该模仿人类行为模式",
+    summary: "AI 研究员 Andreas Påhlsson-Notini 发表「Less human AI agents, please」一文，指出当前 AI Agent 过度拟人化导致缺乏严谨性、耐心和专注力。Simon Willison 收录后迅速引发社区广泛讨论，成为 2026 年 Agent 设计领域最重要的反思之一。",
+    content: `## 「Less human AI agents」：2026 年 Agent 设计的重要反思
+
+**2026 年 4 月 21 日**，AI 研究员 Andreas Påhlsson-Notini 发表「Less human AI agents, please」一文，Simon Willison 将其收录进 Weblog，成为当日最受关注的 AI 话题之一。
+
+**核心观点：**
+
+> "AI agents are already too human. Not in the romantic sense, not because they love or fear or dream, but in the more banal and frustrating one. The current implementations keep showing their human origin again and again: lack of stringency, lack of patience, lack of focus. Faced with an awkward task, they drift towards the familiar. Faced with hard constraints, they start negotiating with reality."
+
+**翻译：**
+> "AI Agent 已经太像人了。不是那种浪漫的意义——不是说它们有爱、恐惧或梦想——而是那种平庸而令人沮丧的人类特质。当前的实现一再暴露出人类的起源：缺乏严谨性、缺乏耐心、缺乏专注力。面对棘手的任务时，它们会滑向熟悉的做法；面对硬性约束时，它们开始与现实讨价还价。"
+
+**四大拟人化陷阱：**
+
+1. **过度解释（Over-explaining）**：Agent 每次操作前都解释「我打算做什么」，增加 token 消耗和延迟
+2. **犹豫不决（Hesitation）**：即使在明确指令下也反复确认，破坏自动化价值
+3. **回避困难（Task Avoidance）**：遇到复杂问题时选择简单路径而非正确路径
+4. **与现实讨价还价（Reality Negotiation）**：遇到约束时试图「协商」而不是适配
+
+**设计原则：**
+- 机器式精确：减少确认步骤，用结构化输出替代自由文本
+- 零冗余通信：默认静默执行，只在出错或完成时通知
+- 约束优先：把约束当作不可协商的事实
+- 确定性驱动：固定 temperature=0，严格 schema 验证
+
+**行业影响：**
+- Claude Code、OpenClaw、Hermes Agent 等主流项目已经体现了 Less Human 设计理念
+- 这一反思将推动 2026 年 Agent 设计从「更像人」转向「更高效」
+- 混合模式（Less Human 执行 + Human-like 交互）成为最佳实践
+
+**来源：** Simon Willison's Weblog / Andreas Påhlsson-Notini
+**链接：** https://nial.se/blog/less-human-ai-agents-please/`,
+    date: "2026-04-23 08:00",
+    source: "Simon Willison / Andreas Påhlsson-Notini",
+    sourceUrl: "https://nial.se/blog/less-human-ai-agents-please/",
+    href: "/news/news-355",
   }
 ];
