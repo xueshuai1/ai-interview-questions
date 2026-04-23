@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { articles } from "@/data/knowledge";
 import ArticleCard from "@/components/ArticleCard";
 
@@ -156,8 +156,16 @@ const allRoutes: RouteDef[] = [
 ];
 
 export default function LearningPathSection() {
-  const [activeRoute, setActiveRoute] = useState<string>("fast");
+  const savedRoute = typeof window !== 'undefined' ? sessionStorage.getItem('lp-route') : null;
+  const [activeRoute, setActiveRoute] = useState<string>(savedRoute || "fast");
   const [expandedPhases, setExpandedPhases] = useState<Set<string>>(new Set());
+
+  // Persist route to sessionStorage so it survives navigation to article and back
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('lp-route', activeRoute);
+    }
+  }, [activeRoute]);
 
   const route = allRoutes.find(r => r.id === activeRoute) || fastRoute;
 
