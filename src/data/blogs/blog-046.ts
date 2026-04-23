@@ -76,8 +76,8 @@ Qwen3.6-27B 选择回归 Dense 架构，是一次深思熟虑的战略转向。D
     B4 -.性能对比.-> C
     C --> D[Qwen3.6-27B ✅ 胜出]
     
-    style D fill:#c8e6c9
-    style B4 fill:#e1f5fe
+    style D fill:#064e3b
+    style B4 fill:#1e3a5f
     style A7 fill:#ffebee`,
     table: {
       headers: ["特性", "Qwen3.5-397B-A17B (MoE)", "Qwen3.6-27B (Dense)", "提升/变化"],
@@ -448,9 +448,9 @@ Simon 用 Qwen3.6-27B 完成了两个著名的「鹈鹕骑自行车」测试：
     I --> J[代码修复]
     J --> F
     
-    style H fill:#c8e6c9
-    style B fill:#e1f5fe
-    style I fill:#fff3e0`,
+    style H fill:#064e3b
+    style B fill:#1e3a5f
+    style I fill:#92400e`,
     table: {
       headers: ["能力维度", "Qwen3.6-27B", "Claude Sonnet 4.6", "GPT-4o", "Llama-3.3-70B"],
       rows: [

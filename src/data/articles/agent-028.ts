@@ -60,9 +60,9 @@ export const article: Article = {
     Audit --> Genes[基因胶囊库]
     Genes --> Growth
 
-    style Seed fill:#e1f5fe
-    style Growth fill:#c8e6c9
-    style Selection fill:#fff9c4
+    style Seed fill:#1e3a5f
+    style Growth fill:#064e3b
+    style Selection fill:#713f12
     style Audit fill:#f3e5f5`
     },
     {
@@ -129,7 +129,7 @@ GenericAgent 最大的优势是**可解释性**——每次新技能的生成都
     C1 --> C1a[沙盒执行]
     C2 --> C2a[权限管理]
 
-    classDef active fill:#c8e6c9;
+    classDef active fill:#064e3b;
     classDef inactive fill:#ffcdd2;
     class A1a,B1a,C1a active;
     class A2a,B2a,C2a active;`
