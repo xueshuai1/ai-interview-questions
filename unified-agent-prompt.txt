@@ -213,10 +213,10 @@ grep 'title:' src/data/blogs/blog-*.ts | grep -i "关键词"
 - ✅ 必须使用深色（800-900 色阶）：`#991b1b` `#92400e` `#064e3b` `#3730a3` `#581c87` `#1e3a5f`
 - 完整配色表：`docs/MERMAID-COLORS.md`
 
-**2. 代码块必须提取到 code: 字段**
-- 代码不能嵌入 body 的 `\`\`\`` 中
-- 每个 section 的代码必须提取为 `code: [{ lang: "xxx", code: `...` }]`
-- 写完后运行：`node scripts/extract-code.js <文件路径>` 自动提取
+**2. 代码块保留在 body 中**
+- ✅ 代码块直接嵌入 body 的 `\`\`\`lang ... \`\`\`` 中
+- ❌ 禁止运行 extract-code.js — 该脚本有 bug 会破坏 body 文本
+- 渲染器会自动识别 body 中的代码块并语法高亮
 
 **3. 发布前校验**
 - 每写完文章必须运行：`node scripts/validate-article.mjs <文件路径>`

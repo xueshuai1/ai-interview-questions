@@ -32,23 +32,16 @@
 完整配色表见 `docs/MERMAID-COLORS.md`
 
 ### 代码块格式
-**文章中的代码块必须提取到 `code:` 字段，不能嵌入 body 中：**
+**代码块直接嵌入 body 中，不要提取：**
 ```
-// ❌ 错误：代码嵌在 body 里
 body: `...文字...
 \`\`\`python
 print('hello')
 \`\`\`
 ...文字...`
-
-// ✅ 正确：代码独立为 code 字段
-body: `...文字...`,
-code: [
-  { lang: "python", code: `print('hello')` }
-]
 ```
 
-写完后运行 `node scripts/extract-code.js <文件路径>` 自动提取。
+❌ **禁止运行 extract-code.js** — 该脚本有 bug，会破坏 body 文本
 
 ### 发布前必做校验
 每写完一篇文章，**必须**通过校验才能提交：
