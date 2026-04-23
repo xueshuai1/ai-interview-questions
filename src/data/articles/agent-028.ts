@@ -112,7 +112,7 @@ GenericAgent 的核心创新是将 Agent 的能力组织为一棵**技能树（S
 ### 架构优势
 
 GenericAgent 最大的优势是**可解释性**——每次新技能的生成都有明确的触发原因和验证过程，你可以查看完整的进化日志，理解 Agent 是如何一步步获得某个能力的。`,
-      mermaid: `tree-beta
+      mermaid: `graph TD
     Root[根技能] --> A[文件操作]
     Root --> B[网络请求]
     Root --> C[代码执行]
