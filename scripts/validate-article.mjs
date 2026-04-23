@@ -128,9 +128,12 @@ function getSafeAlternative(badColor) {
 const VALID_MERMAID_TYPES = new Set([
   'graph TD', 'graph LR', 'graph BT', 'graph RL',
   'flowchart TD', 'flowchart LR', 'flowchart BT', 'flowchart RL',
-  'sequenceDiagram', 'pie', 'gantt', 'stateDiagram-v2',
+  'sequenceDiagram', 'pie', 'stateDiagram-v2',
   'classDiagram', 'erDiagram', 'journey', 'quadrantChart', 'mindmap',
 ]);
+
+// 慎用类型（会警告但不报错）
+const CAUTION_MERMAID_TYPES = new Set(['gantt']);
 
 function checkMermaidTypes(content, filePath) {
   const errors = [];
@@ -142,11 +145,15 @@ function checkMermaidTypes(content, filePath) {
     const lineNum = (content.substring(0, match.index).match(/\n/g) || []).length + 1;
     if (!VALID_MERMAID_TYPES.has(type)) {
       const suggestion = type.startsWith('graph') || type.startsWith('flowchart') ? 'graph TD' : 'graph TD';
+      const isCaution = CAUTION_MERMAID_TYPES.has(type);
       errors.push({
         file: filePath,
-        type: 'invalid_mermaid_type',
+        type: isCaution ? 'mermaid_type_warning' : 'invalid_mermaid_type',
         line: lineNum,
-        message: `Mermaid 类型 "${type}" 不合法，会渲染为空白块。建议使用: ${suggestion}`,
+        severity: isCaution ? 'warning' : 'error',
+        message: isCaution 
+          ? `Mermaid 类型 "${type}" 不推荐用于中文内容，会导致文字重叠和截断。建议使用: graph TD 或 graph LR`
+          : `Mermaid 类型 "${type}" 不合法，会渲染为空白块。建议使用: ${suggestion}`,
       });
     }
   }
@@ -258,6 +265,7 @@ if (targetFile) {
 }
 
 let allErrors = [];
+let allWarnings = [];
 let checkedCount = 0;
 
 for (const filePath of filesToCheck) {
@@ -276,8 +284,14 @@ for (const filePath of filesToCheck) {
   allErrors.push(...mermaidErrors.map(e => ({ ...e, severity: 'error' })));
   
   // 2. Mermaid 类型检查
-  const mermaidTypeErrors = checkMermaidTypes(content, relPath);
-  allErrors.push(...mermaidTypeErrors.map(e => ({ ...e, severity: 'error' })));
+  const mermaidTypeResults = checkMermaidTypes(content, relPath);
+  for (const e of mermaidTypeResults) {
+    if (e.severity === 'warning') {
+      allWarnings.push(e);
+    } else {
+      allErrors.push(e);
+    }
+  }
   
   // 3. 基本格式检查（含 garbled body 检测）
   const formatErrors = checkBasicFormat(content, relPath);
@@ -286,21 +300,17 @@ for (const filePath of filesToCheck) {
 
 // ===== 输出结果 =====
 
-if (allErrors.length === 0) {
+if (allErrors.length === 0 && allWarnings.length === 0) {
   console.log(`✅ 文章校验通过（检查了 ${checkedCount} 个文件）`);
   process.exit(0);
 }
 
-// 按严重性分类
-const errors = allErrors.filter(e => e.severity === 'error');
-const warnings = allErrors.filter(e => e.severity === 'warning');
-
-if (errors.length > 0) {
-  console.error(`\n❌ 发现 ${errors.length} 个错误：\n`);
+if (allErrors.length > 0) {
+  console.error(`\n❌ 发现 ${allErrors.length} 个错误：\n`);
   
   // 按文件分组
   const byFile = {};
-  for (const e of errors) {
+  for (const e of allErrors) {
     if (!byFile[e.file]) byFile[e.file] = [];
     byFile[e.file].push(e);
   }
@@ -312,6 +322,8 @@ if (errors.length > 0) {
         console.error(`  L${e.line}: ❌ ${e.message}`);
       } else if (e.type === 'invalid_mermaid_type') {
         console.error(`  L${e.line}: ❌ ${e.message}`);
+      } else if (e.type === 'mermaid_type_warning') {
+        console.error(`  L${e.line}: ⚠️ ${e.message}`);
       } else if (e.line && e.fill) {
         console.error(`  L${e.line}: fill:${e.fill} + color:${e.text} → 对比度 ${e.ratio}:1 < 4.5:1`);
         console.error(`    💡 建议：将 fill:${e.fill} 改为 fill:${e.suggestion}（同色系深色）`);
@@ -323,18 +335,18 @@ if (errors.length > 0) {
   }
 }
 
-if (warnings.length > 0) {
-  console.warn(`\n⚠️ ${warnings.length} 个警告：\n`);
-  for (const w of warnings) {
+if (allWarnings.length > 0) {
+  console.warn(`\n⚠️ ${allWarnings.length} 个警告：\n`);
+  for (const w of allWarnings) {
     console.warn(`  ${w.file}: ${w.message}`);
   }
 }
 
-console.error('\n💡 修复指南：');
-console.error('  1. Mermaid 配色 → 使用 docs/MERMAID-COLORS.md 中的安全配色表');
-console.error('  2. Mermaid 类型 → 只能使用 graph TD/LR、sequenceDiagram、pie 等合法类型');
-console.error('  3. 代码块未提取 → 检查 code: 数组和 title 字段');
-console.error('  4. 格式问题 → 参考 src/data/knowledge.ts 中的 Article 类型定义');
-console.error('');
-
-process.exit(1);
+// 只有错误才阻止提交，警告只是提醒
+if (allErrors.length > 0) {
+  process.exit(1);
+} else {
+  // 只有警告，允许通过
+  console.log('\n✅ 无阻断性错误，可以提交（请留意上述警告）');
+  process.exit(0);
+}
