@@ -63,7 +63,7 @@ export const article: Article = {
     style Seed fill:#1e3a5f
     style Growth fill:#064e3b
     style Selection fill:#713f12
-    style Audit fill:#f3e5f5`
+    style Audit fill:#581c87`
     },
     {
       title: "二、GenericAgent：技能树生长架构",

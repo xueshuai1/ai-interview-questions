@@ -209,14 +209,14 @@ grep 'title:' src/data/blogs/blog-*.ts | grep -i "关键词"
 ### 🔴 文章格式铁律（写入前必读！）
 
 **1. Mermaid 图表配色**
-- ❌ 禁止使用浅色（400-500 色阶）：`#ef4444` `#f59e0b` `#10b981` `#6366f1` `#8b5cf6` `#ec4899`
+- ❌ 禁止使用浅色（400-500 色阶）和 Material Design 浅色：`#ef4444` `#f59e0b` `#10b981` `#6366f1` `#8b5cf6` `#ec4899` `#f3e5f5` `#e1f5fe` `#c8e6c9` `#fff3e0`
 - ✅ 必须使用深色（800-900 色阶）：`#991b1b` `#92400e` `#064e3b` `#3730a3` `#581c87` `#1e3a5f`
 - 完整配色表：`docs/MERMAID-COLORS.md`
 
-**2. 代码块必须同时放在 body 和 code: 字段**
-- 代码块既要写在 body 中（作为 markdown `\`\`\`lang ... \`\`\`` 用于阅读），
-- 也要提取到 section 的 `code: [{ lang: "xxx", code: `...` }]` 数组中（用于渲染器语法高亮+复制按钮）
-- body 中的代码块和 code: 字段的内容必须一致
+**2. 代码块必须提取到 code: 数组**
+- ❌ 代码不能嵌在 body 的 `\`\`\`lang ... \`\`\`` 中（MarkdownBody 不会渲染语法高亮）
+- ✅ 代码必须放在 section 的 `code: [{ lang: "xxx", code: `...` }]` 数组中
+- body 中用「（见代码块 N）」引用代码
 - ❌ 禁止运行 extract-code.js — 该脚本有 bug 会破坏 body 文本
 
 **3. 发布前校验**
