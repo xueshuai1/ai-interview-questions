@@ -1344,5 +1344,87 @@ markitdown report.pdf > report.md
     source: "Simon Willison / Andreas Påhlsson-Notini",
     sourceUrl: "https://nial.se/blog/less-human-ai-agents-please/",
     href: "/news/news-355",
-  }
+  },
+{
+    id: "news-356",
+    tag: "行业趋势",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "Claude Code 定价风波终局：Anthropic 试探性提价后迅速撤回，OpenAI 借机抢占市场",
+    summary: "Anthropic 4 月 22 日悄悄将 Claude Code 从 Pro 计划移除（仅 Max $100/月可用），引发社区强烈反弹后数小时内撤回。OpenAI Codex 工程师借机宣布 Codex 将继续在 FREE 和 PLUS（$20）计划中可用。这一事件暴露了 AI 编码工具市场的定价敏感性和信任危机。",
+    content: `## Claude Code 定价风波：从试探到撤回的全程回顾
+
+**事件时间线：**
+- **4 月 22 日上午**：Anthropic 静默更新 claude.com/pricing 页面，将 Claude Code 从 Pro 计划（$20/月）功能列表中移除，改为仅 Max 计划（$100/月）可用
+- **数小时内**：Reddit、Hacker News、Twitter 全面「起火」，Simon Willison 写长文分析
+- **OpenAI 反击**：Codex 工程师 Thibault Sottiaux 发推：「Codex 将继续在 FREE 和 PLUS（$20）计划中可用。我们有足够的算力和高效模型来支持。」
+- **4 月 22 日下午**：Anthropic 增长负责人 Amol Avasare 发推澄清：「对约 2% 新用户做小测试」
+- **数小时后**：Internet Archive 快照显示定价页面已恢复原状
+
+**Simon Willison 的深度分析：**
+> "我不打算向数据新闻记者教授依赖 $100/月订阅的课程。"
+
+**关键数据：**
+- 受影响用户：约 2% 的新 Prosumer 用户
+- 价格变化：$20/月 → $100/月（5 倍涨幅）
+- 撤回时间：数小时内
+
+**深远影响：**
+1. **信任危机**：透明定价是 Anthropic 的重要资产，静默提价损害了用户信任
+2. **竞争格局**：OpenAI 借机巩固低价策略，Codex 在 $20 档位的定位更加稳固
+3. **行业信号**：编码 Agent 的算力消耗远超预期，所有提供商都面临成本压力
+
+**与 GitHub Copilot 的联动：**
+就在同一天，GitHub 也宣布 Copilot Individual 计划调整，暂停新注册、收紧用量限制。两件事同时发生，反映出整个 AI 编码工具行业正在经历「算力成本 vs 定价策略」的重新校准。
+
+**策略建议：**
+- 对于团队用户：Anthropic 的 Max 计划（$100-200/月）包含 Claude Code，适合重度用户
+- 对于个人开发者：OpenAI Codex 的 $20 PLUS 计划目前是性价比最高的编码 Agent 选择
+- 观望策略：Claude Code 的定价策略可能在未来数月继续调整，建议密切关注`,
+    date: "2026-04-23 09:00",
+    source: "Simon Willison / Anthropic / OpenAI",
+    sourceUrl: "https://simonwillison.net/2026/Apr/22/claude-code-confusion/",
+    href: "/news/news-356",
+  },
+{
+    id: "news-357",
+    tag: "AI Agent",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "2026 年 GitHub Trending 周报（4/23）：自进化 Agent 霸榜，GenericAgent 与 Evolver 代表两大进化路线",
+    summary: "本周 GitHub Trending 被自进化 AI Agent 项目霸榜：GenericAgent（3.3K 行种子代码自主生长技能树，token 消耗减少 6 倍）、Evolver（GEP 基因组进化引擎，可审计的进化轨迹）分别代表技能树生长和基因组进化两大路线。NousResearch Hermes Agent 突破 110K 星，单周增长 22,083 星，2026 年增长最快的 AI Agent 项目。",
+    content: `## 2026 年第 17 周 GitHub AI Trending 周报
+
+**🔥 本周增长 TOP 5：**
+
+1. **NousResearch/hermes-agent**：110,855 stars（+22,083/周）——「与你一同成长的 Agent」，2026 年 GitHub 增长最快的 AI Agent 项目
+2. **thedotmack/claude-mem**：65,855 stars（+8,739/周）——Claude Code 自动记忆插件，AI 驱动的上下文压缩和注入
+3. **lsdefine/GenericAgent**：5,949 stars（+4,216/周）——自进化 Agent，3.3K 行种子代码生长完整技能树，6 倍 token 效率提升
+4. **EvoMap/evolver**：6,544 stars（+638/周）——GEP 基因组进化引擎，基因+胶囊+事件三要素实现可审计进化
+5. **jamiepine/voicebox**：22,491 stars（+4,495/周）——开源 AI 语音工作室，支持声音克隆和实时流式输出
+
+**📊 值得关注的项目：**
+- **Lordog/dive-into-llms**：33,735 stars——《动手学大模型》中文教程，Jupyter Notebook 实现
+- **virattt/ai-hedge-fund**：57,050 stars——AI 对冲基金团队
+- **multica-ai/multica**：19,488 stars——开源托管 Agent 平台，将编码 Agent 变为真正的团队成员
+- **BasedHardware/omi**：11,984 stars——随身 AI 硬件，能看屏幕、听对话、给建议
+- **openai/openai-agents-python**：24,652 stars——OpenAI 官方多 Agent 工作流框架
+
+**📈 趋势分析：**
+
+**自进化 Agent 成为 2026 年主旋律**
+本周 Trending 前三席中有两个是自进化 Agent 项目，分别代表两种技术路线：
+- **技能树路线**（GenericAgent）：从种子代码开始，通过元认知循环自主扩展能力
+- **基因组路线**（Evolver）：将能力编码为基因，通过群体竞争和交叉繁殖进化
+
+这两条路线的共同特点是：Agent 不再依赖人工编程更新能力，而是在与环境交互中自主进化。
+
+**AI 编码工具定价战持续升级**
+Claude Code 定价风波 + GitHub Copilot 计划调整，反映出整个行业在算力成本和用户增长之间的艰难平衡。OpenAI Codex 的低价策略（$20 可用）正在成为差异化竞争优势。
+
+**开源语音 AI 崛起**
+Voicebox（jamiepine）以开源身份在 TTS 领域异军突起，支持声音克隆、实时流式、SSML 标记语言，为商业 TTS 服务提供了强有力的开源替代方案。`,
+    date: "2026-04-23 10:00",
+    source: "GitHub Trending / Simon Willison",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-357",
+  },
 ];
