@@ -29,7 +29,7 @@ interface RouteDef {
   phases: PhaseDef[];
 }
 
-const MAX_SHOW = 4;
+const MAX_SHOW = 6;
 
 // ==================== 路线定义 ====================
 
