@@ -206,6 +206,22 @@ grep 'title:' src/data/blogs/blog-*.ts | grep -i "关键词"
 - 像维基百科条目一样详实，不是简单的摘要
 - 每次运行至少要新增或大幅改进 1-2 条知识条目
 
+### 🔴 文章格式铁律（写入前必读！）
+
+**1. Mermaid 图表配色**
+- ❌ 禁止使用浅色（400-500 色阶）：`#ef4444` `#f59e0b` `#10b981` `#6366f1` `#8b5cf6` `#ec4899`
+- ✅ 必须使用深色（800-900 色阶）：`#991b1b` `#92400e` `#064e3b` `#3730a3` `#581c87` `#1e3a5f`
+- 完整配色表：`docs/MERMAID-COLORS.md`
+
+**2. 代码块必须提取到 code: 字段**
+- 代码不能嵌入 body 的 `\`\`\`` 中
+- 每个 section 的代码必须提取为 `code: [{ lang: "xxx", code: `...` }]`
+- 写完后运行：`node scripts/extract-code.js <文件路径>` 自动提取
+
+**3. 发布前校验**
+- 每写完文章必须运行：`node scripts/validate-article.mjs <文件路径>`
+- 校验不通过 = 禁止提交，根据报错修复
+
 ---
 
 ## 📝 老文章更新机制
@@ -269,6 +285,13 @@ npm run build
 
 - 有问题就回去修，修完再回到步骤 4
 - 没问题就继续
+
+### 5.5. 🔴 文章校验（如果新增了/修改了文章，必须执行）
+```bash
+node scripts/validate-article.mjs src/data/articles/你的文章.ts
+```
+- 校验不通过 → 根据报错修复（配色问题参考 docs/MERMAID-COLORS.md，代码块问题运行 extract-code.js）
+- 校验通过 → 继续
 
 ### 6. 提交并推送
 ```bash

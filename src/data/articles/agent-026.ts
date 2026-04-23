@@ -51,10 +51,10 @@ export const article: Article = {
     B --> N["生成最终\n回答"]
     N --> O["经验写入\n长期记忆"]
 
-    style B fill:#6366f1,stroke:#4f46e5,color:#fff
-    style C fill:#10b981,stroke:#059669,color:#fff
-    style D fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style E fill:#f59e0b,stroke:#d97706,color:#fff`,
+    style B fill:#4338ca,stroke:#4338ca,color:#fff
+    style C fill:#047857,stroke:#047857,color:#fff
+    style D fill:#6d28d9,stroke:#6d28d9,color:#fff
+    style E fill:#92400e,stroke:#b45309,color:#fff`,
     },
     {
       title: "二、Agent 的核心架构设计",
