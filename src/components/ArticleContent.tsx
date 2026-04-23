@@ -102,14 +102,14 @@ function highlightCode(code: string, lang: string): string {
   }
 }
 
-function CodeBlock({ lang, code }: { lang: string; code: string }) {
+function CodeBlock({ lang, code, title }: { lang: string; code: string; title?: string }) {
   const highlighted = highlightCode(code, lang);
   const langLabel = lang.charAt(0).toUpperCase() + lang.slice(1);
 
   return (
     <div className="code-block">
       <div className="code-header">
-        <span className="font-mono text-xs">{langLabel}</span>
+        <span className="font-mono text-xs">{langLabel}{title ? ` · ${title}` : ''}</span>
         <button
           onClick={() => navigator.clipboard.writeText(code)}
           className="text-xs text-slate-400 hover:text-white transition-colors"
@@ -290,7 +290,7 @@ export default function ArticleContent({
 
           {section.code &&
             section.code.map((block, j) => (
-              <CodeBlock key={j} lang={block.lang} code={block.code} />
+              <CodeBlock key={j} lang={block.lang} code={block.code} title={block.title} />
             ))}
 
           {section.table && <ContentTable table={section.table} />}

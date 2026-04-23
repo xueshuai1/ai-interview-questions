@@ -166,9 +166,9 @@ Agent 的行为应该尽可能可预测。
 
 ### 场景 1：代码生成任务
 
-**Human-like Agent 的输出：**（见代码块 1）
+**Human-like Agent 的输出：**（见下方 Human-like 对话示例代码）
 
-**Less Human Agent 的输出：**（见代码块 2）
+**Less Human Agent 的输出：**（见下方结构化 JSON 输出代码）
 
 ### 场景 2：数据处理任务
 
@@ -181,10 +181,11 @@ Agent 的行为应该尽可能可预测。
 **Human-like Agent：**
 > "哎呀，我遇到了一个问题。看起来 API 返回了一个错误。让我想想怎么办...也许我们可以重试？或者换一种方法？你觉得我们应该怎么做？"
 
-**Less Human Agent：**（见代码块 3）`,
+**Less Human Agent：**（见下方结构化错误处理代码）`,
       code: [
         {
           lang: "text",
+          title: "Human-like 对话示例",
           code: `好的，我来帮你创建一个用户认证系统。首先，我需要考虑几个关键方面：安全性、可扩展性、用户体验等。
 
 让我先分析一下需求...我觉得使用 JWT 是个不错的选择，因为它...
@@ -197,6 +198,7 @@ Agent 的行为应该尽可能可预测。
         },
         {
           lang: "json",
+          title: "Less Human 结构化输出",
           code: `{
   "task": "user_authentication_system",
   "implementation": "JWT",
@@ -209,6 +211,7 @@ Agent 的行为应该尽可能可预测。
         },
         {
           lang: "json",
+          title: "结构化错误处理",
           code: `{"error": "API_TIMEOUT", "retry": 3, "fallback": "cached_data", "status": "recovered"}`,
         },
       ],
@@ -232,14 +235,15 @@ Agent 的行为应该尽可能可预测。
 
 ### 实现 1：零冗余 Agent 核心
 
-（见代码块 1）
+（见下方代码：LessHumanAgent 完整实现）
 
 ### 实现 2：带约束验证的执行管道
 
-（见代码块 2）`,
+（见下方代码：约束验证器实现）`,
       code: [
         {
           lang: "python",
+          title: "LessHumanAgent 完整实现",
           code: `import json
 import time
 from typing import Any, Optional
@@ -342,6 +346,7 @@ if __name__ == "__main__":
         },
         {
           lang: "python",
+          title: "约束验证器实现",
           code: `from enum import Enum
 from dataclasses import dataclass
 from typing import Protocol
@@ -491,7 +496,7 @@ n8n 的工作流引擎是 Less Human 理念的极致体现：
 
 ### 混合模式：根据场景切换
 
-最实用的方案是**混合模式**——同一个 Agent 系统根据任务类型自动切换行为模式：（见代码块）
+最实用的方案是**混合模式**——同一个 Agent 系统根据任务类型自动切换行为模式：（见下方代码：AdaptiveAgent 自适应路由）
 
 ### 关键原则：模式切换应该是透明的
 
@@ -503,6 +508,7 @@ n8n 的工作流引擎是 Less Human 理念的极致体现：
       code: [
         {
           lang: "python",
+          title: "AdaptiveAgent 自适应路由",
           code: `from enum import Enum
 
 class AgentMode(Enum):
