@@ -292,7 +292,7 @@ export default function ToolsPage() {
               <div className="lg:hidden flex items-center gap-2">
                 <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
                   {([
-                    ["stars", "⭐ Stars"],
+                    ["stars", "⭐ 最多"],
                     ["newest", "🕐 最新"],
                     ["hottest", "🔥 最火"],
                   ] as [SortKey, string][]).map(([key, label]) => (
@@ -311,11 +311,25 @@ export default function ToolsPage() {
                 </div>
                 <CategoryFilter categories={categoryData} activeCategory={activeCategory} onChange={(key) => setActiveCategory(key)} />
               </div>
-              {/* Desktop: sort select */}
-              <div className="hidden lg:flex items-center gap-2">
-                <select value={sortBy} onChange={(e) => setSortBy(e.target.value as SortKey)} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-sm text-slate-400 focus:outline-none focus:border-brand-500/50 appearance-none cursor-pointer">
-                  <option value="stars">⭐ Stars</option><option value="newest">🕐 最新</option><option value="hottest">🔥 最火</option>
-                </select>
+              {/* Desktop: sort tabs */}
+              <div className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 rounded-lg p-0.5">
+                {([
+                  ["stars", "⭐ 最多"],
+                  ["newest", "🕐 最新"],
+                  ["hottest", "🔥 最火"],
+                ] as [SortKey, string][]).map(([key, label]) => (
+                  <button
+                    key={key}
+                    onClick={() => setSortBy(key)}
+                    className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all whitespace-nowrap ${
+                      sortBy === key
+                        ? "bg-brand-500/20 text-brand-300"
+                        : "text-slate-400 hover:text-white"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
