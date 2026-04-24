@@ -16,6 +16,59 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-373",
+    tag: "框架发布",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "OpenAI Agents Python SDK 正式发布：轻量级多 Agent 工作流框架两周突破 25K 星",
+    summary: 'OpenAI 官方发布 Agents Python SDK，提供 Handoff 委托、Guardrails 安全防护、Sandbox Agent 沙箱执行和 Realtime Voice Agent 实时语音等核心能力。与 CrewAI、LangGraph 等第三方框架相比，OpenAI Agents SDK 以极简 API 和内置生产级特性快速成为 2026 年最受关注的 Agent 框架。',
+    content: `## OpenAI Agents Python SDK：轻量但强大的多 Agent 工作流框架
+
+**2026 年 4 月**，OpenAI 正式发布 Agents Python SDK（openai/openai-agents-python），两周内突破 **25,000 stars**，成为 GitHub AI 趋势榜首。
+
+### 核心能力
+
+- **Handoff 委托机制**：Agent 在运行时自主决定将任务委托给更专业的 Agent，类似人类工作中的 "转接给专家"
+- **Guardrails 安全防护**：可配置的输入/输出验证层，防止提示注入和敏感信息泄露
+- **Sandbox Agent**（v0.14.0）：在隔离容器中安全执行代码，支持文件系统操作和命令运行
+- **Realtime Voice Agent**：基于 gpt-realtime-1.5 的实时语音 Agent，支持全双工对话
+- **Sessions 会话管理**：自动管理跨 Agent 运行的对话历史
+- **Tracing 追踪系统**：内置 Agent 运行的追踪和调试能力
+- **Human in the Loop**：内置人工介入机制
+
+### 技术特点
+
+OpenAI Agents SDK 采用分层模块化设计，支持 OpenAI Responses API、Chat Completions API，并通过 LiteLLM/any-llm 兼容 100+ 其他 LLM。安装只需 \`pip install openai-agents\`。
+
+### 与主流框架对比
+
+| 框架 | Stars | 核心范式 | 内置安全 | 沙箱执行 |
+|------|-------|----------|----------|----------|
+| OpenAI Agents SDK | 25,000 | Handoff 委托 | ✅ | ✅ |
+| CrewAI | 27,000 | 角色驱动 | ❌ | ⚠️ |
+| LangGraph | 30,000 | 有状态图 | ❌ | ❌ |
+| AutoGen 3.0 | 28,000 | 群聊协商 | ❌ | ❌ |
+| multica | 20,500 | 任务看板 | ⚠️ | ✅ |
+
+### 快速开始
+
+\`\`\`python
+from agents import Agent, Runner
+
+agent = Agent(
+    name="Assistant",
+    instructions="你是一个有帮助的助手。"
+)
+result = Runner.run_sync(agent, "Hello!")
+print(result.final_output)
+\`\`\`
+
+更多信息：[GitHub 仓库](https://github.com/openai/openai-agents-python) | [官方文档](https://openai.github.io/openai-agents-python/)`,
+    date: "2026-04-25",
+    source: "GitHub",
+    sourceUrl: "https://github.com/openai/openai-agents-python",
+    href: "/news/news-373",
+},
+{
     id: "news-371",
     tag: "模型发布",
     tagColor: "bg-blue-500/10 text-blue-300",
