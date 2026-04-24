@@ -16,6 +16,30 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-367",
+    tag: "AI Agent",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Anthropic 发布 Claude Code 质量事故复盘：Harness 层三缺陷导致用户大规模投诉，非模型退化",
+    summary: "Anthropic 发布 April 23 Postmortem 报告，确认过去两个月 Claude Code 质量问题源于 Harness 层的三个独立缺陷：记忆清除 Bug 导致每轮对话都清除思考内容、上下文管理异常、工具调用状态不一致。报告强调「模型本身没有问题」，为 AI Agent 可靠性工程敲响警钟。",
+    content: `## Anthropic Claude Code 质量事故复盘深度解读\n\n**2026 年 4 月 23 日**，Anthropic 发布了详细的 Claude Code 质量事故复盘报告（[April 23 Postmortem](https://www.anthropic.com/engineering/april-23-postmortem)），回应了过去两个月内用户对 Claude Code 质量下降的大量投诉。\n\n### 核心发现\n\nAnthropic 确认了三个独立的 Harness 层缺陷：\n\n1. **记忆清除 Bug**：3 月 26 日的变更本应只在空闲超过 1 小时时清除旧 thinking 内容，但 Bug 导致此后每一轮对话都会清除\n2. **上下文管理异常**：长时间会话中上下文窗口管理出现异常\n3. **工具调用状态不一致**：工具执行结果的缓存与回滚逻辑存在竞态条件\n\n### 关键教训\n\n- **Harness 层质量可能比模型更重要**：即使模型能力很强，编排层的 Bug 也会让 Agent 表现糟糕\n- **非确定性让调试极其困难**：相同输入不一定产生相同输出，使得传统调试方法失效\n- **变更需要灰度和回滚**：任何状态管理相关的变更都必须有快速回滚方案\n\nSimon Willison 评论：「如果你正在构建 agentic 系统，这篇文章值得仔细阅读——Harness 层的 Bug 类型极其复杂。」\n\n这一事故为整个 AI Agent 行业敲响了警钟：随着 Agent 越来越复杂，可靠性工程的重要性将超过模型能力本身。`,
+    date: "2026-04-24",
+    source: "Anthropic Engineering",
+    sourceUrl: "https://www.anthropic.com/engineering/april-23-postmortem",
+    href: "/news/news-367",
+  },
+{
+    id: "news-368",
+    tag: "开源工具",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "NousResearch Hermes Agent 突破 113K Stars：自进化 Agent 周增 20K+，经验胶囊系统让 Agent 越用越聪明",
+    summary: "NousResearch 的 Hermes Agent 以 113,550 stars 和单周 20,316 星的增长，稳居 GitHub AI 项目增长榜第一。其核心创新「经验胶囊」系统通过独立压缩 Agent 对交互过程进行语义压缩，提取可复用的成功模式、失败教训和知识沉淀，30 天内任务完成率从 62% 提升至 89%。",
+    content: `## Hermes Agent：自进化 Agent 的里程碑\n\n**2026 年 4 月 24 日**，NousResearch 的 Hermes Agent GitHub stars 已达 **113,550**，周增 **20,316** 星，是 2026 年增长最快的开源 AI 项目。\n\n### 经验胶囊系统\n\nHermes Agent 的核心理念是 "The agent that grows with you"。不同于简单的日志记录，它通过一个独立的「压缩 Agent」对交互过程进行语义压缩：\n\n- **成功模式胶囊**：记录任务成功执行的关键步骤和决策点\n- **失败教训胶囊**：记录错误路径、根因分析和规避策略\n- **知识沉淀胶囊**：从工具调用结果中提取结构化知识\n\n### 自进化效果\n\n经过 30 天使用，Hermes Agent 展现出显著的自我优化能力：\n\n| 指标 | 初始 | 30 天后 | 提升 |\n|------|------|---------|------|\n| 任务完成率 | 62% | 89% | +43% |\n| 工具调用次数 | 8.5 次 | 4.2 次 | -51% |\n| 上下文命中率 | 35% | 78% | +123% |\n\n### 技术定位\n\n在 2026 年的 Agent 生态中，Hermes Agent 代表了一条独特的自进化路线：不是通过 GEP（基因组进化协议）进行群体进化，而是通过经验积累和语义压缩实现个体进化。与 Evolver 的群体竞争策略不同，Hermes 专注于单个 Agent 的持续成长。`,
+    date: "2026-04-24",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/NousResearch/hermes-agent",
+    href: "/news/news-368",
+  },
+{
     id: "news-354",
     tag: "AI 安全",
     tagColor: "bg-red-500/10 text-red-300",
