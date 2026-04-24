@@ -4,8 +4,9 @@
  * 
  * 检查项：
  * 1. Mermaid 配色对比度（WCAG AA ≥ 4.5:1）
- * 2. 代码块是否提取到 code: 字段
- * 3. 基本格式完整性
+ * 2. body 中不能有 \`\`\`python 代码块（必须提取到 section.code）
+ * 3. Mermaid 类型合法性
+ * 4. 基本格式完整性
  * 
  * 用法：
  *   node scripts/validate-article.mjs                    # 全量检查
@@ -121,8 +122,50 @@ function getSafeAlternative(badColor) {
 }
 
 // ===== 代码块检查 =====
-// 注意：body 中嵌入代码块（\`\`\`）是合法的格式，不报错
-// 只检查是否有 extract-code.js 导致的 garbled text（在 checkBasicFormat 中）
+// 🔴 核心规则：Python 代码块必须放在 section.code 数组中，不能嵌在 body 里！
+// body 里的 \`\`\`python 经 marked.parse 后只有基础 <pre><code>，没有高亮/复制/运行按钮
+
+function checkCodeBlocksInBody(content, filePath) {
+  const errors = [];
+  
+  // 在 body 模板字符串内查找 \`\`\`python（转义形式 \`\`\`python）
+  const lines = content.split('\n');
+  let inBody = false;
+  let escapedBacktickCount = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    if (line.includes('body: `')) {
+      inBody = true;
+    }
+    
+    if (inBody) {
+      // 检测 \`\`\`python 或 \`\`\`python（带或不带转义）
+      if (line.includes('```python') || line.includes('\\`\\`\\`python')) {
+        errors.push({
+          file: filePath,
+          type: 'python_code_in_body',
+          line: i + 1,
+          message: 'Python 代码块嵌在 body 中！必须提取到 section.code 数组，否则没有语法高亮和运行按钮。'
+        });
+      }
+      
+      // 检测 body 结束（行以 \`, 结尾且不在嵌套中）
+      const trimmed = line.trimEnd();
+      if (trimmed.endsWith('`,') || (trimmed.endsWith('`') && !trimmed.includes(': `'))) {
+        // 确保不是 code: ` 或其他字段
+        if (!line.trim().startsWith('code:') && !line.trim().startsWith('mermaid:') && 
+            !line.trim().startsWith('table:') && !line.trim().startsWith('warning:') &&
+            !line.trim().startsWith('tip:') && !line.trim().startsWith('list:')) {
+          inBody = false;
+        }
+      }
+    }
+  }
+  
+  return errors;
+}
 
 // ===== Mermaid 类型检查 =====
 const VALID_MERMAID_TYPES = new Set([
@@ -293,7 +336,11 @@ for (const filePath of filesToCheck) {
     }
   }
   
-  // 3. 基本格式检查（含 garbled body 检测）
+  // 3. 代码块嵌入检查（body 中的 \`\`\`python 必须提取到 section.code）
+  const codeBlockErrors = checkCodeBlocksInBody(content, relPath);
+  allErrors.push(...codeBlockErrors.map(e => ({ ...e, severity: 'error' })));
+
+  // 4. 基本格式检查（含 garbled body 检测）
   const formatErrors = checkBasicFormat(content, relPath);
   allErrors.push(...formatErrors.map(e => ({ ...e, severity: 'error' })));
 }
@@ -319,6 +366,8 @@ if (allErrors.length > 0) {
     console.error(`📄 ${file}:`);
     for (const e of fileErrors) {
       if (e.type === 'garbled_body') {
+        console.error(`  L${e.line}: ❌ ${e.message}`);
+      } else if (e.type === 'python_code_in_body') {
         console.error(`  L${e.line}: ❌ ${e.message}`);
       } else if (e.type === 'invalid_mermaid_type') {
         console.error(`  L${e.line}: ❌ ${e.message}`);
