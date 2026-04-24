@@ -73,10 +73,11 @@ GPT-5.5 的命名方式延续了 OpenAI 的".5"惯例（类似于 GPT-3.5 之于
 
 GPT-5.5 代表了**封闭模型的极致优化路线**——通过海量数据和计算资源，在特定任务上做到最好。而 Qwen3.6-27B 则代表了**开源模型的效率革命**——用更少的参数和计算资源，达到接近旗舰模型的效果。
 
-这两种路线各有优劣：
-
-\`\`\`python
-# 方案一：使用 GPT-5.5 API（闭源旗舰）
+这两种路线各有优劣：`,
+      code: [
+        {
+          lang: 'python',
+          code: `# 方案一：使用 GPT-5.5 API（闭源旗舰）
 import openai
 
 client = openai.OpenAI(api_key="sk-...")
@@ -87,8 +88,9 @@ response = client.chat.completions.create(
 )
 # 优点：最强编码能力，稳定可靠
 # 缺点：每次调用有成本，数据离开本地，依赖 API 可用性
-# 成本预估：~$0.05-0.15/千 tokens（假设定价）
-`,
+# 成本预估：~$0.05-0.15/千 tokens（假设定价）`
+        }
+      ],
       table: {
         headers: ["维度", "GPT-5.5（闭源）", "Qwen3.6-27B（开源）", "Claude Opus 4.7（闭源）"],
         rows: [
@@ -109,10 +111,11 @@ response = client.chat.completions.create(
 
 ### Codex API 接入方案
 
-虽然 OpenAI 尚未正式开放 GPT-5.5 的公共 API，但 Codex 已经提供了一套可编程的接口：
-
-\`\`\`python
-import requests
+虽然 OpenAI 尚未正式开放 GPT-5.5 的公共 API，但 Codex 已经提供了一套可编程的接口：`,
+      code: [
+        {
+          lang: 'python',
+          code: `import requests
 import json
 
 # 注意：以下接口可能随 OpenAI 政策变化而调整
@@ -154,8 +157,9 @@ def codex_generate(prompt: str, model: str = "gpt-5.5") -> str:
 result = codex_generate(
     "创建一个 Python FastAPI 后端，包含用户注册、登录和 JWT 认证"
 )
-print(result)
-`,
+print(result)`
+        }
+      ],
       warning: "Codex 的 API 接入方式属于'半官方'渠道，可能随时被 OpenAI 调整或限制。对于生产环境，建议等待正式 API 发布。"
     },
     {
@@ -164,10 +168,11 @@ print(result)
 
 ### 完整实战案例：构建一个数据分析 Pipeline
 
-以下是一个完整的 Python 脚本，演示如何用 GPT-5.5 的思维方式构建数据分析工作流：
-
-\`\`\`python
-"""
+以下是一个完整的 Python 脚本，演示如何用 GPT-5.5 的思维方式构建数据分析工作流：`,
+      code: [
+        {
+          lang: 'python',
+          code: `"""
 数据分析 Pipeline - 模拟 GPT-5.5 的 Agentic 编码思维
 展示从数据加载、清洗、分析到可视化的完整流程
 """
@@ -293,15 +298,15 @@ pipeline.add_step(PipelineStep("detect_outliers", detect_outliers, "异常值检
 pipeline.add_step(PipelineStep("compute_stats", compute_statistics, "分组统计", ["load_data"]))
 
 results = pipeline.run()
-print(f"\\n🎉 Pipeline 完成，共 {len(results)} 个输出")
-\`\`\`
-
-这个 Pipeline 展示了 GPT-5.5 风格编码的几个关键特征：
-
-1. **结构化设计**：使用 dataclass 和 Enum 确保类型安全
-2. **依赖管理**：自动处理步骤间的依赖关系
-3. **错误恢复**：包含异常处理和进度报告
-4. **可扩展性**：添加新步骤只需一行代码`
+print(f"\\n🎉 Pipeline 完成，共 {len(results)} 个输出")`
+        }
+      ],
+      list: [
+        "**结构化设计**：使用 dataclass 和 Enum 确保类型安全",
+        "**依赖管理**：自动处理步骤间的依赖关系",
+        "**错误恢复**：包含异常处理和进度报告",
+        "**可扩展性**：添加新步骤只需一行代码"
+      ]
     },
     {
       title: "五、GPT-5.5 的行业影响与竞争格局",
@@ -313,10 +318,8 @@ print(f"\\n🎉 Pipeline 完成，共 {len(results)} 个输出")
 2. **Agent 算力成本焦虑**：无论是 Claude Code 还是 GitHub Copilot，都在承认 Agent 工作流的算力消耗远超预期
 3. **开源模型的压力**：Qwen3.6-27B 以 27B 参数在编程基准上超越 397B MoE 旗舰，对闭源模型形成了实质性竞争
 
-### GPT-5.5 面临的挑战
-
-\`\`\`mermaid
-mindmap
+### GPT-5.5 面临的挑战`,
+      mermaid: `mindmap
   root((GPT-5.5))
     优势
       编码精准度
@@ -335,25 +338,24 @@ mindmap
     威胁
       算力成本失控
       监管收紧
-      开源社区追赶
-\`\`\`
-
-### 对开发者的建议
-
-| 场景 | 推荐方案 | 理由 |
-|------|---------|------|
-| 追求最强编码效果 | GPT-5.5 via Codex | 当前编码能力天花板 |
-| 成本敏感 | Qwen3.6-27B 本地部署 | 零 API 成本，16.8GB 即可运行 |
-| 数据隐私要求高 | Qwen3.6-27B / 开源方案 | 数据完全不出本地 |
-| 团队协作编码 | 等待 GPT-5.5 API + OpenAI Agents 框架 | 官方多 Agent 编排支持 |
-| 教学/学习 | Qwen3.6-27B | 免费、可离线、可调试 |
-
-### 总结
-
-GPT-5.5 是 OpenAI 在 2026 年 AI 编码工具竞争中的关键落子。它代表了闭源模型在特定任务上的极致优化，但也面临着开源模型效率革命和定价压力的双重挑战。
-
-对于开发者来说，**多模型策略**正在成为标配——在需要最强效果时使用 GPT-5.5，在日常开发和成本敏感场景中使用开源模型。这种混合使用模式，恰好也是多 Agent 编排框架（如 OpenAI Agents Python）天然支持的。`,
+      开源社区追赶`,
+      table: {
+        headers: ["场景", "推荐方案", "理由"],
+        rows: [
+          ["追求最强编码效果", "GPT-5.5 via Codex", "当前编码能力天花板"],
+          ["成本敏感", "Qwen3.6-27B 本地部署", "零 API 成本，16.8GB 即可运行"],
+          ["数据隐私要求高", "Qwen3.6-27B / 开源方案", "数据完全不出本地"],
+          ["团队协作编码", "等待 GPT-5.5 API + OpenAI Agents 框架", "官方多 Agent 编排支持"],
+          ["教学/学习", "Qwen3.6-27B", "免费、可离线、可调试"],
+        ]
+      },
       tip: "建议关注 GPT-5.5 正式 API 的开放时间。一旦 API 可用，可以将其集成到现有的多 Agent 系统中，与其他工具（如 Hermes Agent、claude-mem）协同工作。"
+    },
+    {
+      title: "总结",
+      body: `GPT-5.5 是 OpenAI 在 2026 年 AI 编码工具竞争中的关键落子。它代表了闭源模型在特定任务上的极致优化，但也面临着开源模型效率革命和定价压力的双重挑战。
+
+对于开发者来说，**多模型策略**正在成为标配——在需要最强效果时使用 GPT-5.5，在日常开发和成本敏感场景中使用开源模型。这种混合使用模式，恰好也是多 Agent 编排框架（如 OpenAI Agents Python）天然支持的。`
     },
   ],
   date: "2026-04-24",
