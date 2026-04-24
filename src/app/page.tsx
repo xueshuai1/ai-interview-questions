@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import BreathingBadge from "@/components/BreathingBadge";
 import { LAST_UPDATE_TIME } from "@/data/update-time";
 import { news } from "@/data/news";
 import { blogs } from "@/data/blogs";
@@ -95,10 +96,7 @@ export default function Home() {
 
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <div className="inline-flex flex-col items-center gap-3 mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full">
-              <span className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
-              <span className="text-sm text-brand-300">AI Master · 精通人工智能</span>
-            </div>
+            <BreathingBadge />
             <div className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-4 px-4 py-2.5 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
               <div className="flex items-center gap-2">
                 <span className="text-base">🤖</span>
