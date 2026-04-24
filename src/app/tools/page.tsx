@@ -175,7 +175,7 @@ function ToolCard({ tool }: { tool: Tool }) {
   );
 }
 
-const TOOLS_PER_PAGE = 20;
+const TOOLS_PER_PAGE = 21;
 
 type SortKey = "stars" | "newest" | "hottest";
 
