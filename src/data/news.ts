@@ -16,6 +16,168 @@ export interface NewsItem {
 
 export const news: NewsItem[] = [
 {
+    id: "news-371",
+    tag: "模型发布",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "DeepSeek V4 双模型齐发：V4-Pro 逼近前沿、V4-Flash 极致性价比，中国 AI 再次震惊世界",
+    summary: 'DeepSeek 今日正式发布 V4 系列首发模型——DeepSeek-V4-Pro 和 V4-Flash。V4-Pro 在多项基准测试中逼近 GPT-5.5/Claude Opus 4.7 水平，而 V4-Flash 以极低价格提供接近旗舰模型的能力。这是 DeepSeek 自 V3.2 以来最重要的发布，标志着中国开源 AI 已进入全球第一梯队。',
+    content: `## DeepSeek V4：中国 AI 的里程碑式发布
+
+**2026 年 4 月 24 日**，中国 AI 实验室 DeepSeek 正式发布 V4 系列的首批两款预览模型：DeepSeek-V4-Pro 和 DeepSeek-V4-Flash。
+
+### 发布背景
+
+DeepSeek 上一次重大模型发布是 2025 年 12 月的 V3.2 系列（含 V3.2 Speciale）。时隔 4 个月，V4 系列的到来引发了全球 AI 社区的高度关注。
+
+### 两款模型定位
+
+| 模型 | 定位 | 对标竞品 | 核心优势 |
+|------|------|----------|----------|
+| V4-Pro | 旗舰级推理模型 | GPT-5.5, Claude Opus 4.7 | 复杂推理、代码生成、数学 |
+| V4-Flash | 极速推理模型 | GPT-4.1, Gemini 2.5 Flash | 低延迟、高性价比、高吞吐 |
+
+### V4-Pro：逼近前沿的推理能力
+
+DeepSeek-V4-Pro 是 DeepSeek 目前的旗舰模型，在多项基准测试中表现惊人：
+
+- **代码生成**：在 HumanEval 和 MBPP 等编程基准上接近 GPT-5.5 水平
+- **数学推理**：在 MATH 和 GSM8K 上超越上一代 V3.2 Speciale 约 8-12%
+- **通用知识**：MMLU 分数逼近 Claude Opus 4.7
+- **中文能力**：在 C-Eval 和 CMMLU 上保持显著优势
+
+### V4-Flash：极致性价比的推理引擎
+
+DeepSeek-V4-Flash 的定位是 "fast and cheap"——在保持接近旗舰模型能力的同时，将推理成本降低一个数量级。
+
+\`\`\`python
+from openai import OpenAI
+
+# V4-Pro：适合复杂任务
+pro_client = OpenAI(
+    base_url="https://api.deepseek.com/v1",
+    api_key="sk-..."
+)
+pro_response = pro_client.chat.completions.create(
+    model="deepseek-chat-v4-pro",
+    messages=[{"role": "user", "content": "分析这段代码的架构问题并给出重构方案"}],
+    temperature=0.1
+)
+# 成本：~$0.02-0.05/千 tokens
+
+# V4-Flash：适合日常任务
+flash_client = OpenAI(
+    base_url="https://api.deepseek.com/v1",
+    api_key="sk-..."
+)
+flash_response = flash_client.chat.completions.create(
+    model="deepseek-chat-v4-flash",
+    messages=[{"role": "user", "content": "总结这篇论文的核心贡献"}],
+    temperature=0.7
+)
+# 成本：~$0.002-0.005/千 tokens（约 Pro 的 1/10）
+\`\`\`
+
+### 技术亮点
+
+DeepSeek V4 系列延续了 DeepSeek 在 MoE 架构上的技术优势：
+
+1. **更精细的专家路由**：V4 采用了更智能的 token-level 路由策略，每个 token 激活的专家数量更少但更精准
+2. **训练效率提升**：据 DeepSeek 论文，V4 的训练效率比 V3.2 提升了约 30%
+3. **上下文窗口扩展**：V4-Pro 支持 256K 上下文，V4-Flash 支持 128K
+
+### 对行业的影响
+
+DeepSeek V4 的发布进一步加剧了 2026 年 AI 模型市场的竞争：
+
+- **价格战继续**：V4-Flash 的定价策略可能迫使其他厂商跟进降价
+- **开源 vs 闭源**：DeepSeek 的 API 价格远低于 OpenAI/Anthropic，但性能接近
+- **中国 AI 崛起**：从 V3 的"价格屠夫"到 V4 的"性能挑战者"，DeepSeek 正在从跟随者变为引领者
+
+### 与 GPT-5.5 同日发布
+
+值得注意的是，DeepSeek V4 与 OpenAI GPT-5.5 几乎同时发布（相差不到 24 小时）。这并非巧合——两家公司的发布节奏反映了 AI 模型市场的竞争白热化。
+
+Simon Willison 在博客中同时报道了这两个发布，将 DeepSeek V4 形容为 "almost on the frontier, a fraction of the price"（逼近前沿，价格却只是零头）。
+
+### 实战建议
+
+对于开发者来说，DeepSeek V4 提供了新的选择：
+
+- **日常开发**：V4-Flash 性价比极高，适合代码补全、文档生成等任务
+- **复杂推理**：V4-Pro 可作为 GPT-5.5 的平替，尤其在中文场景下优势明显
+- **混合策略**：简单任务用 Flash，复杂任务用 Pro，实现成本与效果的最优平衡`,
+    date: "2026-04-24 16:00",
+    source: "DeepSeek / Simon Willison",
+    sourceUrl: "https://simonwillison.net/2026/Apr/24/deepseek-v4/",
+    href: "/news/news-371",
+  },
+{
+    id: "news-372",
+    tag: "行业动态",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "SQLite 生态爆发：honker 实现 Kafka 级消息队列，LiteParse 浏览器内解析 PDF，SQLite 成为 AI 时代的数据基石",
+    summary: '本周 SQLite 生态迎来两大重要发布：russellromney/honker 用 Rust 扩展为 SQLite 添加 NOTIFY/LISTEN 语义和 Kafka 级流式处理；LlamaIndex 的 LiteParse 实现浏览器内 PDF 文本提取。SQLite 正从嵌入式数据库升级为 AI 时代的全栈数据基础设施。',
+    content: `## SQLite 在 AI 时代的新角色
+
+**2026 年 4 月**，SQLite 生态迎来了令人瞩目的发展——这个仅有 15 万行代码的数据库引擎，正在 AI 时代扮演越来越重要的角色。
+
+### honker：SQLite 的消息队列革命
+
+russellromney 开源的 honker 是一个 Rust SQLite 扩展，为 SQLite 添加了 Postgres NOTIFY/LISTEN 语义和 Kafka 级流式处理能力。
+
+\`\`\`python
+import honker
+
+# 打开数据库并创建队列
+db = honker.open("app.db")
+emails = db.queue("emails")
+
+# 生产者：入队任务
+emails.enqueue({"to": "alice@example.com", "subject": "Hello"})
+
+# 消费者：处理任务
+async for job in emails.claim("worker-1"):
+    send(job.payload)
+    job.ack()
+
+# 流式处理（Kafka 风格）
+stream = db.stream("user-events")
+with db.transaction() as tx:
+    tx.execute("UPDATE users SET name=? WHERE id=?", [name, uid])
+    stream.publish({"user_id": uid, "change": "name"}, tx=tx)
+
+async for event in stream.subscribe(consumer="dashboard"):
+    await push_to_browser(event)
+\`\`\`
+
+honker 的核心创新：
+- **事务性 Outbox 模式**：确保消息只在事务成功提交后入队
+- **WAL 模式轮询**：Worker 可每 1ms 轮询 .db-wal 文件，实现近实时处理
+- **20+ 自定义 SQL 函数**：包括 notify() 和 honker_stream_read_since() 等
+
+### LiteParse：浏览器内 PDF 解析
+
+LlamaIndex 的 LiteParse 原本是一个 Node.js CLI 工具，用于从 PDF 中提取文本。现在有人将其改造为完全在浏览器中运行的版本。
+
+这意味着：
+- **零后端依赖**：PDF 解析完全在客户端完成
+- **隐私保护**：敏感文档无需上传到服务器
+- **即时处理**：无网络延迟，用户体验更好
+
+### 为什么 SQLite 在 AI 时代如此重要？
+
+1. **边缘 AI 推理**：本地运行 LLM（如 llama.cpp）需要高效的数据存储
+2. **Agent 记忆**：AI Agent 需要持久化存储对话历史和知识
+3. **RAG 检索**：向量数据库之外，传统的关系型查询仍然重要
+4. **低成本部署**：SQLite 零配置、零运维，适合各种规模的 AI 应用
+
+Simon Willison 在博客中特别提到，Bluesky 的 For You Feed 服务就是用 Go + SQLite 在自家客厅的游戏 PC 上运行的，月成本仅 $30，却能服务 72,000 用户。`,
+    date: "2026-04-24 16:01",
+    source: "Simon Willison / LlamaIndex",
+    sourceUrl: "https://simonwillison.net/2026/Apr/24/honker/",
+    href: "/news/news-372",
+  },
+{
     id: "news-367",
     tag: "AI Agent",
     tagColor: "bg-red-500/10 text-red-300",
