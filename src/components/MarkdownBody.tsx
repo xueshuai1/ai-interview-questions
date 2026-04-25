@@ -42,7 +42,6 @@ function tokenizePython(code: string): Token[] {
   let i = 0;
 
   while (i < code.length) {
-    // Comment: # to end of line
     if (code[i] === "#") {
       let end = code.indexOf("\n", i);
       if (end === -1) end = code.length;
@@ -51,7 +50,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Triple-quoted string
     if ((code.slice(i, i + 3) === '"""' || code.slice(i, i + 3) === "'''")) {
       const q = code.slice(i, i + 3);
       let end = code.indexOf(q, i + 3);
@@ -62,7 +60,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Double-quoted string (possibly f-string)
     if (code[i] === '"' || (code[i] === "f" && code[i + 1] === '"')) {
       const isF = code[i] === "f";
       const start = isF ? i : i;
@@ -77,7 +74,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Single-quoted string (possibly f-string)
     if (code[i] === "'" || (code[i] === "f" && code[i + 1] === "'")) {
       const isF = code[i] === "f";
       const start = isF ? i : i;
@@ -92,7 +88,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Decorator
     if (code[i] === "@") {
       let j = i + 1;
       while (j < code.length && /\w/.test(code[j])) j++;
@@ -101,7 +96,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Number
     if (/\d/.test(code[i])) {
       let j = i;
       while (j < code.length && /[\d.]/.test(code[j])) j++;
@@ -110,13 +104,11 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Word (keyword, type, builtin, function call, or plain)
     if (/[a-zA-Z_]/.test(code[i])) {
       let j = i;
       while (j < code.length && /[\w]/.test(code[j])) j++;
       const word = code.slice(i, j);
 
-      // Check if followed by ( → function call
       let k = j;
       while (k < code.length && code[k] === " ") k++;
       if (code[k] === "(") {
@@ -138,7 +130,6 @@ function tokenizePython(code: string): Token[] {
       continue;
     }
 
-    // Anything else: plain character
     tokens.push({ type: "plain", text: code[i], start: i, end: i + 1 });
     i++;
   }
@@ -168,7 +159,6 @@ function highlightPython(code: string): string {
 }
 
 function highlightBash(code: string): string {
-  // Apply parameter highlighting BEFORE wrapping to avoid matching inside HTML tags
   return escapeHtml(code)
     .replace(/(--?\w[\w-]*)/g, '\x00PARAM:$1\x00')
     .replace(/\b(pip|vllm|npm|npx|yarn|apt|brew|curl|wget|docker|git|python|node|cd|ls|mkdir|rm|cp|mv|cat|echo|export|source|sudo|chmod|chown)\b/g,
@@ -194,6 +184,7 @@ function highlightCode(code: string, lang: string): string {
 // ── Parse markdown: extract code blocks, parse rest, reassemble ──
 
 const CODE_PLACEHOLDER = "\x00CODEBLOCK\x00";
+const MERMAID_PLACEHOLDER = "\x00MERMAIDBLOCK\x00";
 
 export function parseMarkdown(text: string): string {
   // Step 1: Extract fenced code blocks and replace with placeholders
@@ -202,25 +193,43 @@ export function parseMarkdown(text: string): string {
     const language = (lang || "").trim();
     const cleanCode = code.replace(/\n$/, "");
     codeBlocks.push({ lang: language, code: cleanCode });
+    // Mermaid blocks → separate placeholder → rendered as charts client-side
+    if (language === "mermaid") {
+      return "\n" + MERMAID_PLACEHOLDER + "\n";
+    }
     return "\n" + CODE_PLACEHOLDER + "\n";
   });
 
   // Step 2: Parse the remaining markdown
   const html = marked.parse(processed) as string;
 
-  // Step 3: Replace placeholders with highlighted code blocks
+  // Step 3: Replace code block placeholders with highlighted code blocks
   let result = html;
   let index = 0;
-  const placeholderRe = new RegExp(
+  const codePH = new RegExp(
     "<p>\\s*" + CODE_PLACEHOLDER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*<\\/p>",
     "g"
   );
-  result = result.replace(placeholderRe, () => {
+  result = result.replace(codePH, () => {
     const { lang, code } = codeBlocks[index++];
     const langLabel = lang || "code";
     const highlighted = highlightCode(code, lang);
     const svgCopy = '<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>';
     return `<div class="space-y-4 my-6"><div class="rounded-xl overflow-hidden bg-slate-900/80 border border-white/10"><div class="flex items-center justify-between px-4 py-2 bg-white/5 text-sm text-slate-400"><span class="font-mono">${langLabel}</span><div class="flex items-center gap-2"><button onclick="navigator.clipboard.writeText(this.closest('.space-y-4').querySelector('code').textContent);this.innerHTML='${svgCopy}已复制';var b=this;setTimeout(()=>b.innerHTML='${svgCopy}复制',1500)" class="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-all duration-200 text-slate-400 hover:text-white hover:bg-white/10" title="复制代码">${svgCopy}复制</button></div></div><pre class="p-4 overflow-x-auto overflow-y-auto max-h-[400px] text-sm"><code class="text-slate-300 font-mono whitespace-pre">${highlighted}</code></pre></div></div>`;
+  });
+
+  // Step 4: Replace mermaid placeholders with chart containers (rendered client-side)
+  let mermaidIndex = 0;
+  const mermaidPH = new RegExp(
+    "<p>\\s*" + MERMAID_PLACEHOLDER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*<\\/p>",
+    "g"
+  );
+  result = result.replace(mermaidPH, () => {
+    const { code: chart } = codeBlocks[index++];
+    // Store raw chart in data attribute for client-side rendering
+    const safeChart = chart.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const containerId = `mdm-${mermaidIndex++}`;
+    return `<div class="mermaid-container my-6 p-6 rounded-xl bg-white/5 border border-white/10" data-mermaid="${safeChart}" id="${containerId}"><div class="flex justify-center items-center min-h-[60px]"><div class="mermaid-chart"></div><span class="text-xs text-slate-500 ml-2">图表渲染中...</span></div></div>`;
   });
 
   return result;

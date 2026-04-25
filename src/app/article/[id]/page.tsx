@@ -11,6 +11,9 @@ import PythonCodeBlock from "@/components/PythonCodeBlock";
 import ArticleTocSidebar from "@/components/ArticleTocSidebar";
 import { marked } from "marked";
 import { parseMarkdown } from "@/components/MarkdownBody";
+import dynamic from "next/dynamic";
+
+const BodyMermaidRenderer = dynamic(() => import("@/components/BodyMermaidRenderer").then(m => ({ default: m.BodyMermaidRenderer })), { ssr: false });
 
 marked.setOptions({ breaks: true, gfm: true });
 
@@ -408,6 +411,9 @@ export default function ArticlePage({ params }: { params: { id: string } }) {
                 );
               })}
               </article>
+
+              {/* Render mermaid charts embedded in body markdown */}
+              <BodyMermaidRenderer />
 
               <div className="mt-12 pt-8 border-t border-white/5">
                 <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-4">标签</h3>

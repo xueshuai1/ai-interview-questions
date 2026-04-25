@@ -110,17 +110,23 @@ const sourceChecks = [
     pass: () => source.includes('const highlighted = highlightCode(code, lang)')
   },
   {
-    name: 'parseMarkdown 的 placeholder 替换返回的是 highlighted 变量',
+    name: 'parseMarkdown 中 mermaid 代码块有独立占位符（不会渲染为代码框）',
+    pass: () => source.includes('MERMAID_PLACEHOLDER') && source.includes('language === "mermaid"')
+  },
+  {
+    name: 'parseMarkdown 的 mermaid 占位符替换为 .mermaid-container 图表容器',
+    pass: () => source.includes('mermaid-container') && source.includes('data-mermaid')
+  },
+  {
+    name: '文章页使用 BodyMermaidRenderer 客户端渲染 mermaid 图表',
     pass: () => {
-      // 找到 placeholderRe 替换块，检查里面用了 highlighted 而不是 escaped
-      const lines = source.split('\n');
-      let inPlaceholderReplace = false;
-      for (const line of lines) {
-        if (line.includes('placeholderRe')) inPlaceholderReplace = true;
-        if (inPlaceholderReplace && line.includes('highlighted}')) return true;
-        if (inPlaceholderReplace && line.includes('return result')) break;
+      // Check the article page imports and uses BodyMermaidRenderer
+      try {
+        const articlePage = readFileSync('src/app/article/[id]/page.tsx', 'utf-8');
+        return articlePage.includes('BodyMermaidRenderer');
+      } catch {
+        return false;
       }
-      return false;
     }
   },
   {
