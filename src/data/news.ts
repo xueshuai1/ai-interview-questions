@@ -2185,4 +2185,109 @@ MemPalace 支持 Model Context Protocol (MCP)，可以与 Claude Desktop、Curso
     sourceUrl: "https://github.com/MemPalace/mempalace",
     href: "/news/news-378",
   },
+  {
+    id: "news-379",
+    tag: "AI Agent",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Career-Ops：AI 驱动求职全流程自动化系统 39K stars",
+    summary: 'Career-Ops 是基于 Claude Code 构建的求职自动化系统，提供 14 种技能模式覆盖简历、职位匹配、面试准备全流程。Go Dashboard + PDF 报告生成，周增 5K+ stars 增长迅猛。',
+    content: `## Career-Ops：AI 求职自动化
+
+**Career-Ops**（github.com/santifer/career-ops）是一个将求职全流程自动化的 AI 工具，基于 Claude Code 构建，提供 14 种专业技能模式。它的核心价值在于：让 AI 处理求职中最耗时的环节——搜索职位、匹配简历、生成求职信、准备面试材料。
+
+### 核心能力
+
+- **14 种技能模式**：简历分析、职位匹配、求职信生成、面试问答准备、薪资谈判建议、行业研究、公司背景调查、技能差距分析等
+- **Go Dashboard**：高效的批量处理界面，支持同时处理数十个职位申请
+- **PDF 报告生成**：自动生成专业的求职分析报告和面试准备材料
+- **批量处理**：一次提交多个职位，AI 并行处理匹配和材料生成
+
+\`\`\`python
+# Career-Ops 技能模式示例
+from career_ops import CareerOps
+
+agent = CareerOps(mode="resume_optimizer")
+result = agent.process("resume.pdf")
+print(result.score)  # 简历评分
+print(result.suggestions)  # 改进建议
+\`\`\`
+
+**39,253 stars，周增 5,000+ stars**`,
+    date: "2026-04-25 08:30",
+    source: "GitHub Trending",
+    sourceUrl: "https://github.com/santifer/career-ops",
+    href: "/news/news-379",
+  },
+  {
+    id: "news-380",
+    tag: "AI 基础设施",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "DeepGEMM：DeepSeek 开源 FP8 GEMM 高性能内核库",
+    summary: 'DeepSeek 发布 DeepGEMM——专为 FP8 精度设计的 GEMM 内核库，提供细粒度缩放能力。在 FP8 成为推理主流格式的当下，它是高性能推理栈的关键基础设施。',
+    content: `## DeepGEMM：FP8 推理的底层加速器
+
+**DeepGEMM**（github.com/deepseek-ai/DeepGEMM）是 DeepSeek 开源的 FP8 GEMM（通用矩阵乘法）内核库。在大模型推理中，FP8 量化已成为主流精度格式——它在几乎不损失精度的前提下将显存占用和计算量减半。DeepGEMM 正是为这一场景而生的底层加速器。
+
+### 技术亮点
+
+- **细粒度缩放（Fine-grained Scaling）**：比传统 per-tensor 量化精度高得多，接近 BF16 的精度
+- **CUDA 内核级优化**：直接从 GPU 指令层面优化 FP8 计算，榨干硬件性能
+- **DeepSeek 实战验证**：在 DeepSeek 自身推理服务中经过大规模验证
+- **开源 FP8 生态补充**：填补了高质量开源 FP8 GEMM 库的空白
+
+\`\`\`python
+# DeepGEMM 使用示例
+import deepgemm
+import torch
+
+# FP8 矩阵乘法
+a = torch.randn(4096, 4096, dtype=torch.float8_e4m3fn, device='cuda')
+b = torch.randn(4096, 4096, dtype=torch.float8_e4m3fn, device='cuda')
+c = deepgemm.matmul_fp8(a, b)  # 细粒度缩放 FP8 GEMM
+\`\`\`
+
+**6,998 stars，周增 605 stars**`,
+    date: "2026-04-25 08:45",
+    source: "GitHub",
+    sourceUrl: "https://github.com/deepseek-ai/DeepGEMM",
+    href: "/news/news-380",
+  },
+  {
+    id: "news-381",
+    tag: "AI Agent",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "GenericAgent 周增 3,536 星：自进化 Agent 的代表作持续领跑",
+    summary: 'GenericAgent 本周新增 3,536 stars，总计 6,889 stars。它从 3.3K 行种子代码开始自主生长技能树，以 6 倍更少的 token 消耗实现全系统控制，是 2026 年自进化 Agent 方向最值得关注的项目。',
+    content: `## GenericAgent：自进化 Agent 的里程碑
+
+**GenericAgent**（github.com/lsdefine/GenericAgent）是自进化 AI Agent 的代表作。它不依赖预定义的工具链，而是从 3,300 行种子代码开始，像生物进化一样自主扩展能力：发现环境→尝试操作→验证效果→固化技能。
+
+### 核心机制
+
+- **技能树自主生长**：Agent 自主发现新技能并组织为层次化的技能树
+- **元认知循环**：通过 LLM 驱动的反思循环，不断评估和改进自身能力
+- **6 倍 Token 效率**：相比同类 Agent 框架，token 消耗降低 6 倍
+- **全系统控制**：可操控文件系统、网络、终端等完整计算环境
+
+### 与 Evolver 的路线差异
+
+GenericAgent 走的是「技能树生长」路线——单个 Agent 不断扩展自己的能力；而 Evolver（同期周增 3,759 stars）走的是「GEP 基因组进化」路线——用群体进化策略产生更优 Agent 变体。两者代表了自进化 Agent 的两种核心范式。
+
+\`\`\`python
+# GenericAgent 技能发现示例
+from generic_agent import Agent
+
+agent = Agent(seed_code="./seed")
+agent.explore_environment()  # 发现可用工具和环境
+agent.try_operation("read_file")  # 尝试操作
+if agent.verify_effect():  # 验证效果
+    agent.consolidate_skill("file_operations")  # 固化技能
+\`\`\`
+
+**6,889 stars，周增 3,483 stars**`,
+    date: "2026-04-25 09:00",
+    source: "GitHub Trending Weekly",
+    sourceUrl: "https://github.com/trending?since=weekly",
+    href: "/news/news-381",
+  },
 ];
