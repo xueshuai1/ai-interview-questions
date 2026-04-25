@@ -195,6 +195,9 @@ graph LR
 | 2026-04-23 | agent-028 tree-beta 空白块 | 非法 mermaid 类型 | 改为 graph TD | validator 拦截 |
 | 2026-04-23 | self-evolving-agent 甘特图重叠 | 中文标签过长 | 改为 graph LR | 禁止 gantt 中文内容 |
 | 2026-04-23 | Prompt 指令矛盾 | 步骤 5.5 让运行 extract-code.js 但铁律禁止 | 删除矛盾指令 | 定期检查 Prompt 一致性 |
+| 2026-04-25 | prompt-003 mermaid 渲染为代码框 | parseMarkdown 把 mermaid 当成普通代码块高亮 | mermaid 独立占位符 → .mermaid-container 图表容器 + BodyMermaidRenderer 客户端渲染 | validate-article 拦截 + validate-rendering 检查 |
+| 2026-04-25 | agent-029 bash 代码无高亮 | parseMarkdown 的 placeholder 替换只 escapeHtml 不调 highlightCode | 改为调用 highlightCode(code, lang) | validate-rendering 检查 highlightCode 调用 |
+| 2026-04-25 | bash 高亮产生嵌套 span | highlightBash 先替换命令再替换参数，参数 regex 匹配到已生成的 class 名 | 参数替换改用 \x00PARAM 占位符，先标记后还原 | validate-rendering 检查嵌套 span |
 
 ---
 
