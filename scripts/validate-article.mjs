@@ -287,7 +287,7 @@ function getAllTsFiles(dir) {
       const fullPath = join(dir, entry.name);
       if (entry.isDirectory()) {
         results = results.concat(getAllTsFiles(fullPath));
-      } else if (entry.name.endsWith('.ts')) {
+      } else if (entry.name.endsWith('.ts') && !entry.name.endsWith('-types.ts')) {
         results.push(fullPath);
       }
     }

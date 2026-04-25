@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # 获取本次提交中变更的 .ts 文章文件（只检查有变动的）
-CHANGED_ARTICLES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^src/data/(articles|blogs)/.*\.ts$' || true)
+CHANGED_ARTICLES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^src/data/(articles|blogs)/.*\.ts$' | grep -v 'blog-types.ts' || true)
 
 if [ -n "$CHANGED_ARTICLES" ]; then
   echo "🔍 校验变动文章（$CHANGED_ARTICLES）..."

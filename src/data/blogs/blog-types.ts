@@ -12,6 +12,7 @@ export interface ArticleSection {
 export interface BlogPost {
   id: string;
   title: string;
+  category?: string;
   summary: string;
   content: ArticleSection[];
   date: string;
