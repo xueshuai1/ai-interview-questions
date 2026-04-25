@@ -128,10 +128,8 @@ function getSafeAlternative(badColor) {
 function checkCodeBlocksInBody(content, filePath) {
   const errors = [];
   
-  // 在 body 模板字符串内查找 \`\`\`python（转义形式 \`\`\`python）
   const lines = content.split('\n');
   let inBody = false;
-  let escapedBacktickCount = 0;
   
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -141,20 +139,22 @@ function checkCodeBlocksInBody(content, filePath) {
     }
     
     if (inBody) {
-      // 检测 \`\`\`python 或 \`\`\`python（带或不带转义）
-      if (line.includes('```python') || line.includes('\\`\\`\\`python')) {
+      // Detect any code block in body: python, bash, mermaid, json, etc.
+      const codeBlockMatch = line.match(/```([a-zA-Z]+)/);
+      if (codeBlockMatch) {
+        const lang = codeBlockMatch[1];
         errors.push({
           file: filePath,
-          type: 'python_code_in_body',
+          type: 'code_block_in_body',
           line: i + 1,
-          message: 'Python 代码块嵌在 body 中！必须提取到 section.code 数组，否则没有语法高亮和运行按钮。'
+          language: lang,
+          message: `${lang} 代码块嵌在 body 中！必须提取到 section.code（或 section.mermaid）数组，否则不会正确渲染。`
         });
       }
       
-      // 检测 body 结束（行以 \`, 结尾且不在嵌套中）
+      // 检测 body 结束
       const trimmed = line.trimEnd();
       if (trimmed.endsWith('`,') || (trimmed.endsWith('`') && !trimmed.includes(': `'))) {
-        // 确保不是 code: ` 或其他字段
         if (!line.trim().startsWith('code:') && !line.trim().startsWith('mermaid:') && 
             !line.trim().startsWith('table:') && !line.trim().startsWith('warning:') &&
             !line.trim().startsWith('tip:') && !line.trim().startsWith('list:')) {
