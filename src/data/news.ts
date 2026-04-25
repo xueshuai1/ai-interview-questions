@@ -2517,4 +2517,16 @@ DeepGEMM 的核心创新是 **per-token + per-channel 双维度细粒度缩放**
     sourceUrl: "https://github.com/deepseek-ai/DeepGEMM",
     href: "/news/news-389",
   },
+  {
+    id: "news-390",
+    tag: "AI 工程化",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Anthropic 发布 Claude Code 质量危机事后分析：三个 harness 缺陷导致两个月用户感知退化",
+    summary: 'Anthropic 于 4 月 23 日发布详细事后分析，确认 Claude Code 过去两个月的质量下降确有其事——根因在 harness 层而非模型本身。三个独立缺陷（上下文截断错误、工具重试死循环、提示词版本漂移）叠加造成用户体验严重恶化。AI Master 同步发布 35 分钟深度文章「Claude Code 质量危机深度分析」，从端到端评测、CI 质量门禁、自动化回归检测到用户反馈闭环，全面覆盖 AI 编程助手可靠性工程实践。含 3 个 Mermaid 图 + 3 个 Python 可运行代码 + 3 个对比表格。',
+    content: `## Claude Code 质量危机：一次深刻的行业教训\n\n**2026 年 4 月 23 日**，Anthropic 在官方博客发布了详细的事后分析报告，承认过去两个月内 Claude Code 用户反馈的「质量下降」确有其事。\n\n### 三个根因\n\n1. **上下文窗口管理缺陷**——截断阈值错误调整，导致关键文件信息在长对话中被截断\n2. **工具调用编排逻辑回归**——重试逻辑引入边界条件 bug，导致死循环和超时\n3. **系统提示词版本漂移**——不同实例加载不同版本提示词，行为不一致\n\n### 为什么内部评测没发现\n\n传统评测（SWE-bench、HumanEval）只关注单次代码生成质量，不测试：\n- 多轮对话的上下文保持\n- 工具调用链的可靠性\n- 多实例行为一致性\n- 长时间会话的稳定性\n\n### AI Master 深度文章\n\n知识库新增「Claude Code 质量危机深度分析」——涵盖端到端会话评测框架、CI 质量门禁架构、自动化回归检测管道、用户反馈闭环设计。35 分钟深度阅读。\n\n**来源：** Anthropic Engineering Blog + Simon Willison + AI Master\n**链接：** https://www.anthropic.com/engineering/april-23-postmortem`,
+    date: "2026-04-26 02:01",
+    source: "Anthropic + AI Master",
+    sourceUrl: "https://www.anthropic.com/engineering/april-23-postmortem",
+    href: "/news/news-390",
+  },
 ];
