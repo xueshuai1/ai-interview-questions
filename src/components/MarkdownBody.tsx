@@ -191,12 +191,41 @@ function highlightBash(code: string): string {
   return processed;
 }
 
+function highlightJson(code: string): string {
+  const escaped = escapeHtml(code);
+  const strings: string[] = [];
+  let processed = escaped.replace(/("[^"]*")\s*:/g, (_m, s) => {
+    strings.push(s);
+    return `ZKEY${strings.length - 1}Z:`;
+  });
+  processed = processed
+    .replace(/\b(true|false|null)\b/g, '<span class="token-keyword">$1</span>')
+    .replace(/(?<=[^\d])(\d+\.?\d*)(?=[^\d"])/g, '<span class="token-number">$1</span>');
+  strings.forEach((s, i) => { processed = processed.replace(`ZKEY${i}Z`, `<span class="token-keyword">${s}</span>`); });
+  return processed;
+}
+
 function highlightYaml(code: string): string {
-  return escapeHtml(code)
-    .replace(/(#.*)/g, '<span class="token-comment">$1</span>')
-    .replace(/("[^"]*"|'[^']*')/g, '<span class="token-string">$1</span>')
+  const escaped = escapeHtml(code);
+  const comments: string[] = [];
+  const strings: string[] = [];
+  let processed = escaped
+    .replace(/("[^"]*"|'[^']*')/g, (_m, s) => {
+      strings.push(s);
+      return `ZSTR${strings.length - 1}Z`;
+    })
+    .replace(/(#.*)/g, (_m, c) => {
+      comments.push(c);
+      return `ZCMT${comments.length - 1}Z`;
+    });
+  
+  processed = processed
     .replace(/\b(true|false|yes|no|null|none)\b/gi, '<span class="token-keyword">$1</span>')
-    .replace(/(\d+\.?\d*)/g, '<span class="token-number">$1</span>');
+    .replace(/(?<=[^\d])(\d+\.?\d*)(?=[^\d"])/g, '<span class="token-number">$1</span>');
+  
+  comments.forEach((c, i) => { processed = processed.replace(`ZCMT${i}Z`, `<span class="token-comment">${c}</span>`); });
+  strings.forEach((s, i) => { processed = processed.replace(`ZSTR${i}Z`, `<span class="token-string">${s}</span>`); });
+  return processed;
 }
 
 function highlightCode(code: string, lang: string): string {
@@ -212,11 +241,7 @@ function highlightCode(code: string, lang: string): string {
     case "yml":
       return highlightYaml(code);
     case "json":
-      return escapeHtml(code)
-        .replace(/("[^"]*")\s*:/g, '<span class="token-keyword">$1</span>:')
-        .replace(/:\s*("[^"]*")/g, ': <span class="token-string">$1</span>')
-        .replace(/\b(true|false|null)\b/g, '<span class="token-keyword">$1</span>')
-        .replace(/(\d+\.?\d*)/g, '<span class="token-number">$1</span>');
+      return highlightJson(code);
     case "typescript":
     case "ts":
     case "javascript":

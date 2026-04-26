@@ -49,14 +49,20 @@ function highlightBash(code: string): string {
 
 function highlightDockerfile(code: string): string {
   const escaped = escapeHtml(code);
+  const strings: string[] = [];
+  const comments: string[] = [];
   let result = escaped
-    .replace(/("[^"]*"|'[^']*')/g, '\x00STR:$1\x00')
-    .replace(/(#.*)/g, '\x00CMT:$1\x00')
-    .replace(/\b(FROM|WORKDIR|COPY|RUN|EXPOSE|CMD|ENTRYPOINT|ENV|ARG|ADD|USER|VOLUME|LABEL|MAINTAINER|HEALTHCHECK|ONBUILD|STOPSIGNAL|SHELL|AS)\b/g, '\x00KW:$1\x00');
-  return result
-    .replace(/\x00STR:(.*?)\x00/g, "<span class='token-string'>$1</span>")
-    .replace(/\x00CMT:(.*?)\x00/g, "<span class='token-comment'>$1</span>")
-    .replace(/\x00KW:(.*?)\x00/g, "<span class='token-keyword'>$1</span>");
+    .replace(/("[^"]*"|'[^']*')/g, (_m, s) => {
+      strings.push(s); return `ZSTR${strings.length - 1}Z`;
+    })
+    .replace(/(#.*)/g, (_m, c) => {
+      comments.push(c); return `ZCMT${comments.length - 1}Z`;
+    })
+    .replace(/\b(FROM|WORKDIR|COPY|RUN|EXPOSE|CMD|ENTRYPOINT|ENV|ARG|ADD|USER|VOLUME|LABEL|MAINTAINER|HEALTHCHECK|ONBUILD|STOPSIGNAL|SHELL|AS)\b/g,
+      '<span class="token-function">$1</span>');
+  comments.forEach((c, i) => { result = result.replace(`ZCMT${i}Z`, `<span class='token-comment'>${c}</span>`); });
+  strings.forEach((s, i) => { result = result.replace(`ZSTR${i}Z`, `<span class='token-string'>${s}</span>`); });
+  return result;
 }
 
 function highlightText(code: string): string {
