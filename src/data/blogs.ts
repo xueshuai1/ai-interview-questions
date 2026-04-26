@@ -45,8 +45,10 @@ import { default as blog052 } from './blogs/blog-052';
 import { default as blog053 } from './blogs/blog-053';
 import { default as blog054 } from './blogs/blog-054';
 import { blog as blog055 } from './blogs/blog-055';
+import { default as blog056 } from './blogs/blog-056';
 
 export const blogs: BlogPost[] = [
+  blog056,
   blog055,
   blog053,
   blog054,
