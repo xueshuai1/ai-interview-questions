@@ -147,6 +147,14 @@ const sourceChecks = [
     }
   },
   {
+    name: 'parseMarkdown 代码块不使用内联 onclick（防止 SVG 双引号破坏 HTML 属性）',
+    pass: () => !source.includes('onclick=') && source.includes('copy-btn')
+  },
+  {
+    name: 'parseMarkdown 使用 .copy-btn class + 事件委托',
+    pass: () => source.includes('.copy-btn') && source.includes('addEventListener')
+  },
+  {
     name: 'MarkdownBody highlightYaml 使用安全占位符',
     pass: () => {
       const yamlFunc = source.match(/function highlightYaml[\s\S]*?^}/m);
