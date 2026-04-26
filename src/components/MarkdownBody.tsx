@@ -196,12 +196,12 @@ function highlightJson(code: string): string {
   const strings: string[] = [];
   let processed = escaped.replace(/("[^"]*")\s*:/g, (_m, s) => {
     strings.push(s);
-    return `ZKEY${strings.length - 1}Z:`;
+    return `YK${String.fromCharCode(65 + strings.length - 1)}Y:`;
   });
   processed = processed
     .replace(/\b(true|false|null)\b/g, '<span class="token-keyword">$1</span>')
-    .replace(/(?<=[^\d])(\d+\.?\d*)(?=[^\d"])/g, '<span class="token-number">$1</span>');
-  strings.forEach((s, i) => { processed = processed.replace(`ZKEY${i}Z`, `<span class="token-keyword">${s}</span>`); });
+    .replace(/(?<=[^\dA-Za-z])(\d+\.?\d*)(?=[^\d"A-Za-z])/g, '<span class="token-number">$1</span>');
+  strings.forEach((s, i) => { processed = processed.replace(`YK${String.fromCharCode(65 + i)}Y`, `<span class="token-keyword">${s}</span>`); });
   return processed;
 }
 
@@ -212,19 +212,19 @@ function highlightYaml(code: string): string {
   let processed = escaped
     .replace(/("[^"]*"|'[^']*')/g, (_m, s) => {
       strings.push(s);
-      return `ZSTR${strings.length - 1}Z`;
+      return `YS${String.fromCharCode(65 + strings.length - 1)}Y`;
     })
     .replace(/(#.*)/g, (_m, c) => {
       comments.push(c);
-      return `ZCMT${comments.length - 1}Z`;
+      return `YC${String.fromCharCode(65 + comments.length - 1)}Y`;
     });
   
   processed = processed
     .replace(/\b(true|false|yes|no|null|none)\b/gi, '<span class="token-keyword">$1</span>')
-    .replace(/(?<=[^\d])(\d+\.?\d*)(?=[^\d"])/g, '<span class="token-number">$1</span>');
+    .replace(/(?<=[^\dA-Za-z])(\d+\.?\d*)(?=[^\d"A-Za-z])/g, '<span class="token-number">$1</span>');
   
-  comments.forEach((c, i) => { processed = processed.replace(`ZCMT${i}Z`, `<span class="token-comment">${c}</span>`); });
-  strings.forEach((s, i) => { processed = processed.replace(`ZSTR${i}Z`, `<span class="token-string">${s}</span>`); });
+  comments.forEach((c, i) => { processed = processed.replace(`YC${String.fromCharCode(65 + i)}Y`, `<span class="token-comment">${c}</span>`); });
+  strings.forEach((s, i) => { processed = processed.replace(`YS${String.fromCharCode(65 + i)}Y`, `<span class="token-string">${s}</span>`); });
   return processed;
 }
 
