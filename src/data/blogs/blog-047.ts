@@ -862,7 +862,7 @@ OpenAI 的 GPT-5.5 Prompting Guide 是一个非常有价值的资源。建议所
     
     style G fill:#1e3a5f,color:#fff`,
   },
-];
+],
 };
 
 export default blog;
