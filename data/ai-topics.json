@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-04-27T18:04:25.379Z",
+  "lastUpdated": "2026-04-27T22:12:45.067Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -2108,6 +2108,246 @@
       "url": "https://github.com/topics/model-context-protocol-servers",
       "minStars": 2000,
       "description": "（自动发现）model-context-protocol-servers"
+    },
+    {
+      "topic": "r",
+      "url": "https://github.com/topics/r",
+      "minStars": 5000,
+      "description": "（自动发现）r"
+    },
+    {
+      "topic": "html",
+      "url": "https://github.com/topics/html",
+      "minStars": 2000,
+      "description": "（自动发现）html"
+    },
+    {
+      "topic": "coreml",
+      "url": "https://github.com/topics/coreml",
+      "minStars": 5000,
+      "description": "（自动发现）coreml"
+    },
+    {
+      "topic": "ide",
+      "url": "https://github.com/topics/ide",
+      "minStars": 5000,
+      "description": "（自动发现）ide"
+    },
+    {
+      "topic": "gpt-3",
+      "url": "https://github.com/topics/gpt-3",
+      "minStars": 3000,
+      "description": "（自动发现）gpt-3"
+    },
+    {
+      "topic": "omo",
+      "url": "https://github.com/topics/omo",
+      "minStars": 5000,
+      "description": "（自动发现）omo"
+    },
+    {
+      "topic": "multiagent-systems",
+      "url": "https://github.com/topics/multiagent-systems",
+      "minStars": 5000,
+      "description": "（自动发现）multiagent-systems"
+    },
+    {
+      "topic": "aiagentframework",
+      "url": "https://github.com/topics/aiagentframework",
+      "minStars": 3000,
+      "description": "（自动发现）aiagentframework"
+    },
+    {
+      "topic": "multi-agents",
+      "url": "https://github.com/topics/multi-agents",
+      "minStars": 3000,
+      "description": "（自动发现）multi-agents"
+    },
+    {
+      "topic": "agentic-coding",
+      "url": "https://github.com/topics/agentic-coding",
+      "minStars": 3000,
+      "description": "（自动发现）agentic-coding"
+    },
+    {
+      "topic": "claude-code-agents",
+      "url": "https://github.com/topics/claude-code-agents",
+      "minStars": 5000,
+      "description": "（自动发现）claude-code-agents"
+    },
+    {
+      "topic": "distributed-training",
+      "url": "https://github.com/topics/distributed-training",
+      "minStars": 5000,
+      "description": "（自动发现）distributed-training"
+    },
+    {
+      "topic": "langchain4j",
+      "url": "https://github.com/topics/langchain4j",
+      "minStars": 5000,
+      "description": "（自动发现）langchain4j"
+    },
+    {
+      "topic": "azure-openai",
+      "url": "https://github.com/topics/azure-openai",
+      "minStars": 5000,
+      "description": "（自动发现）azure-openai"
+    },
+    {
+      "topic": "litellm",
+      "url": "https://github.com/topics/litellm",
+      "minStars": 5000,
+      "description": "（自动发现）litellm"
+    },
+    {
+      "topic": "openai-proxy",
+      "url": "https://github.com/topics/openai-proxy",
+      "minStars": 5000,
+      "description": "（自动发现）openai-proxy"
+    },
+    {
+      "topic": "image",
+      "url": "https://github.com/topics/image",
+      "minStars": 5000,
+      "description": "（自动发现）image"
+    },
+    {
+      "topic": "agency-agents",
+      "url": "https://github.com/topics/agency-agents",
+      "minStars": 5000,
+      "description": "（自动发现）agency-agents"
+    },
+    {
+      "topic": "chatgpt-on-wechat",
+      "url": "https://github.com/topics/chatgpt-on-wechat",
+      "minStars": 5000,
+      "description": "（自动发现）chatgpt-on-wechat"
+    },
+    {
+      "topic": "linkai",
+      "url": "https://github.com/topics/linkai",
+      "minStars": 5000,
+      "description": "（自动发现）linkai"
+    },
+    {
+      "topic": "models",
+      "url": "https://github.com/topics/models",
+      "minStars": 5000,
+      "description": "（自动发现）models"
+    },
+    {
+      "topic": "agentic-code",
+      "url": "https://github.com/topics/agentic-code",
+      "minStars": 5000,
+      "description": "（自动发现）agentic-code"
+    },
+    {
+      "topic": "coding-agents",
+      "url": "https://github.com/topics/coding-agents",
+      "minStars": 5000,
+      "description": "（自动发现）coding-agents"
+    },
+    {
+      "topic": "heterogeneous-training",
+      "url": "https://github.com/topics/heterogeneous-training",
+      "minStars": 5000,
+      "description": "（自动发现）heterogeneous-training"
+    },
+    {
+      "topic": "gpt-5",
+      "url": "https://github.com/topics/gpt-5",
+      "minStars": 5000,
+      "description": "（自动发现）gpt-5"
+    },
+    {
+      "topic": "chat",
+      "url": "https://github.com/topics/chat",
+      "minStars": 3000,
+      "description": "（自动发现）chat"
+    },
+    {
+      "topic": "chinese-language",
+      "url": "https://github.com/topics/chinese-language",
+      "minStars": 5000,
+      "description": "（自动发现）chinese-language"
+    },
+    {
+      "topic": "english-language",
+      "url": "https://github.com/topics/english-language",
+      "minStars": 5000,
+      "description": "（自动发现）english-language"
+    },
+    {
+      "topic": "agentic-skills",
+      "url": "https://github.com/topics/agentic-skills",
+      "minStars": 5000,
+      "description": "（自动发现）agentic-skills"
+    },
+    {
+      "topic": "ts",
+      "url": "https://github.com/topics/ts",
+      "minStars": 5000,
+      "description": "（自动发现）ts"
+    },
+    {
+      "topic": "mlx",
+      "url": "https://github.com/topics/mlx",
+      "minStars": 5000,
+      "description": "（自动发现）mlx"
+    },
+    {
+      "topic": "interactive-learning",
+      "url": "https://github.com/topics/interactive-learning",
+      "minStars": 5000,
+      "description": "（自动发现）interactive-learning"
+    },
+    {
+      "topic": "yaml",
+      "url": "https://github.com/topics/yaml",
+      "minStars": 5000,
+      "description": "（自动发现）yaml"
+    },
+    {
+      "topic": "agents-sdk",
+      "url": "https://github.com/topics/agents-sdk",
+      "minStars": 3000,
+      "description": "（自动发现）agents-sdk"
+    },
+    {
+      "topic": "multi-agents-collaboration",
+      "url": "https://github.com/topics/multi-agents-collaboration",
+      "minStars": 5000,
+      "description": "（自动发现）multi-agents-collaboration"
+    },
+    {
+      "topic": "agentscope",
+      "url": "https://github.com/topics/agentscope",
+      "minStars": 5000,
+      "description": "（自动发现）agentscope"
+    },
+    {
+      "topic": "agentscope-runtime",
+      "url": "https://github.com/topics/agentscope-runtime",
+      "minStars": 5000,
+      "description": "（自动发现）agentscope-runtime"
+    },
+    {
+      "topic": "c",
+      "url": "https://github.com/topics/c",
+      "minStars": 5000,
+      "description": "（自动发现）c"
+    },
+    {
+      "topic": "background-agents",
+      "url": "https://github.com/topics/background-agents",
+      "minStars": 5000,
+      "description": "（自动发现）background-agents"
+    },
+    {
+      "topic": "headless-browser",
+      "url": "https://github.com/topics/headless-browser",
+      "minStars": 5000,
+      "description": "（自动发现）headless-browser"
     }
   ]
 }
