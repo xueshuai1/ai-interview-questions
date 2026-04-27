@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-04-20T18:50:00.000Z",
+  "lastUpdated": "2026-04-27T17:43:02.692Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -314,6 +314,468 @@
       "url": "https://github.com/topics/anthropic",
       "minStars": 2000,
       "description": "Anthropic 生态"
+    },
+    {
+      "topic": "agentic-ai",
+      "url": "https://github.com/topics/agentic-ai",
+      "minStars": 3000,
+      "description": "Agentic AI（智能体 AI）"
+    },
+    {
+      "topic": "agents",
+      "url": "https://github.com/topics/agents",
+      "minStars": 2000,
+      "description": "AI Agents（智能体）"
+    },
+    {
+      "topic": "autonomous-agents",
+      "url": "https://github.com/topics/autonomous-agents",
+      "minStars": 5000,
+      "description": "自主智能体"
+    },
+    {
+      "topic": "gpt",
+      "url": "https://github.com/topics/gpt",
+      "minStars": 2000,
+      "description": "GPT 模型生态"
+    },
+    {
+      "topic": "gpt-oss",
+      "url": "https://github.com/topics/gpt-oss",
+      "minStars": 3000,
+      "description": "GPT 开源模型"
+    },
+    {
+      "topic": "llms",
+      "url": "https://github.com/topics/llms",
+      "minStars": 2000,
+      "description": "LLMs（大语言模型）"
+    },
+    {
+      "topic": "ai-agents",
+      "url": "https://github.com/topics/ai-agents",
+      "minStars": 2000,
+      "description": "AI Agents（AI 智能体）"
+    },
+    {
+      "topic": "ai-art",
+      "url": "https://github.com/topics/ai-art",
+      "minStars": 5000,
+      "description": "AI 艺术创作"
+    },
+    {
+      "topic": "diffusion",
+      "url": "https://github.com/topics/diffusion",
+      "minStars": 5000,
+      "description": "扩散模型"
+    },
+    {
+      "topic": "image-generation",
+      "url": "https://github.com/topics/image-generation",
+      "minStars": 5000,
+      "description": "图像生成"
+    },
+    {
+      "topic": "chatgpt",
+      "url": "https://github.com/topics/chatgpt",
+      "minStars": 2000,
+      "description": "ChatGPT 生态"
+    },
+    {
+      "topic": "chatgpt-prompts",
+      "url": "https://github.com/topics/chatgpt-prompts",
+      "minStars": 5000,
+      "description": "ChatGPT 提示词"
+    },
+    {
+      "topic": "gpt-4",
+      "url": "https://github.com/topics/gpt-4",
+      "minStars": 2000,
+      "description": "GPT-4 生态"
+    },
+    {
+      "topic": "prompts",
+      "url": "https://github.com/topics/prompts",
+      "minStars": 5000,
+      "description": "提示词工程"
+    },
+    {
+      "topic": "prompts-chat",
+      "url": "https://github.com/topics/prompts-chat",
+      "minStars": 5000,
+      "description": "Prompts Chat 社区"
+    },
+    {
+      "topic": "pretrained-models",
+      "url": "https://github.com/topics/pretrained-models",
+      "minStars": 5000,
+      "description": "预训练模型"
+    },
+    {
+      "topic": "pytorch-transformers",
+      "url": "https://github.com/topics/pytorch-transformers",
+      "minStars": 5000,
+      "description": "PyTorch Transformers"
+    },
+    {
+      "topic": "agent",
+      "url": "https://github.com/topics/agent",
+      "minStars": 2000,
+      "description": "AI Agent（智能体）"
+    },
+    {
+      "topic": "multiagent",
+      "url": "https://github.com/topics/multiagent",
+      "minStars": 3000,
+      "description": "多智能体系统"
+    },
+    {
+      "topic": "agentic-framework",
+      "url": "https://github.com/topics/agentic-framework",
+      "minStars": 5000,
+      "description": "智能体框架"
+    },
+    {
+      "topic": "agentic-workflow",
+      "url": "https://github.com/topics/agentic-workflow",
+      "minStars": 3000,
+      "description": "智能体工作流"
+    },
+    {
+      "topic": "genai",
+      "url": "https://github.com/topics/genai",
+      "minStars": 5000,
+      "description": "生成式 AI（GenAI）"
+    },
+    {
+      "topic": "cursorai",
+      "url": "https://github.com/topics/cursorai",
+      "minStars": 5000,
+      "description": "Cursor AI 生态"
+    },
+    {
+      "topic": "system-prompts",
+      "url": "https://github.com/topics/system-prompts",
+      "minStars": 5000,
+      "description": "System Prompt 设计"
+    },
+    {
+      "topic": "trae-ai",
+      "url": "https://github.com/topics/trae-ai",
+      "minStars": 5000,
+      "description": "Trae AI 生态"
+    },
+    {
+      "topic": "windsurf-ai",
+      "url": "https://github.com/topics/windsurf-ai",
+      "minStars": 5000,
+      "description": "Windsurf AI 生态"
+    },
+    {
+      "topic": "deepagents",
+      "url": "https://github.com/topics/deepagents",
+      "minStars": 5000,
+      "description": "Deep Agents（深度智能体）"
+    },
+    {
+      "topic": "llm-ui",
+      "url": "https://github.com/topics/llm-ui",
+      "minStars": 5000,
+      "description": "LLM 用户界面"
+    },
+    {
+      "topic": "llm-webui",
+      "url": "https://github.com/topics/llm-webui",
+      "minStars": 5000,
+      "description": "LLM Web 界面"
+    },
+    {
+      "topic": "hermes-agent",
+      "url": "https://github.com/topics/hermes-agent",
+      "minStars": 5000,
+      "description": "Hermes Agent 生态"
+    },
+    {
+      "topic": "ai-crawler",
+      "url": "https://github.com/topics/ai-crawler",
+      "minStars": 5000,
+      "description": "AI 爬虫"
+    },
+    {
+      "topic": "ai-scraping",
+      "url": "https://github.com/topics/ai-scraping",
+      "minStars": 5000,
+      "description": "AI 数据采集"
+    },
+    {
+      "topic": "html-to-markdown",
+      "url": "https://github.com/topics/html-to-markdown",
+      "minStars": 5000,
+      "description": "HTML 转 Markdown"
+    },
+    {
+      "topic": "generativeai",
+      "url": "https://github.com/topics/generativeai",
+      "minStars": 5000,
+      "description": "生成式 AI"
+    },
+    {
+      "topic": "language-model",
+      "url": "https://github.com/topics/language-model",
+      "minStars": 2000,
+      "description": "语言模型"
+    },
+    {
+      "topic": "semantic-search",
+      "url": "https://github.com/topics/semantic-search",
+      "minStars": 5000,
+      "description": "语义搜索"
+    },
+    {
+      "topic": "transformers",
+      "url": "https://github.com/topics/transformers",
+      "minStars": 2000,
+      "description": "Transformers 架构"
+    },
+    {
+      "topic": "embeddings",
+      "url": "https://github.com/topics/embeddings",
+      "minStars": 3000,
+      "description": "向量嵌入"
+    },
+    {
+      "topic": "ai-deep-fake",
+      "url": "https://github.com/topics/ai-deep-fake",
+      "minStars": 5000,
+      "description": "AI Deepfake"
+    },
+    {
+      "topic": "ai-face",
+      "url": "https://github.com/topics/ai-face",
+      "minStars": 5000,
+      "description": "AI 人脸技术"
+    },
+    {
+      "topic": "ai-webcam",
+      "url": "https://github.com/topics/ai-webcam",
+      "minStars": 5000,
+      "description": "AI 摄像头"
+    },
+    {
+      "topic": "neural-networks",
+      "url": "https://github.com/topics/neural-networks",
+      "minStars": 5000,
+      "description": "神经网络"
+    },
+    {
+      "topic": "ai-tools",
+      "url": "https://github.com/topics/ai-tools",
+      "minStars": 5000,
+      "description": "AI 工具链"
+    },
+    {
+      "topic": "opencv",
+      "url": "https://github.com/topics/opencv",
+      "minStars": 5000,
+      "description": "OpenCV 视觉库"
+    },
+    {
+      "topic": "machine-learning-algorithms",
+      "url": "https://github.com/topics/machine-learning-algorithms",
+      "minStars": 5000,
+      "description": "机器学习算法"
+    },
+    {
+      "topic": "machinelearning",
+      "url": "https://github.com/topics/machinelearning",
+      "minStars": 5000,
+      "description": "机器学习"
+    },
+    {
+      "topic": "machinelearning-python",
+      "url": "https://github.com/topics/machinelearning-python",
+      "minStars": 5000,
+      "description": "Python 机器学习"
+    },
+    {
+      "topic": "ml",
+      "url": "https://github.com/topics/ml",
+      "minStars": 5000,
+      "description": "ML（机器学习）"
+    },
+    {
+      "topic": "llm-app",
+      "url": "https://github.com/topics/llm-app",
+      "minStars": 5000,
+      "description": "LLM 应用"
+    },
+    {
+      "topic": "inference",
+      "url": "https://github.com/topics/inference",
+      "minStars": 5000,
+      "description": "模型推理"
+    },
+    {
+      "topic": "llm-serving",
+      "url": "https://github.com/topics/llm-serving",
+      "minStars": 5000,
+      "description": "LLM 服务化部署"
+    },
+    {
+      "topic": "model-serving",
+      "url": "https://github.com/topics/model-serving",
+      "minStars": 5000,
+      "description": "模型服务化"
+    },
+    {
+      "topic": "ai4science",
+      "url": "https://github.com/topics/ai4science",
+      "minStars": 5000,
+      "description": "AI for Science"
+    },
+    {
+      "topic": "paddleocr-vl",
+      "url": "https://github.com/topics/paddleocr-vl",
+      "minStars": 5000,
+      "description": "PaddleOCR 视觉语言版"
+    },
+    {
+      "topic": "pdf-extractor-rag",
+      "url": "https://github.com/topics/pdf-extractor-rag",
+      "minStars": 5000,
+      "description": "PDF 提取 + RAG"
+    },
+    {
+      "topic": "agent-collaboration",
+      "url": "https://github.com/topics/agent-collaboration",
+      "minStars": 5000,
+      "description": "智能体协作"
+    },
+    {
+      "topic": "agent-harness",
+      "url": "https://github.com/topics/agent-harness",
+      "minStars": 5000,
+      "description": "Agent Harness（智能体操控）"
+    },
+    {
+      "topic": "openai-api",
+      "url": "https://github.com/topics/openai-api",
+      "minStars": 3000,
+      "description": "OpenAI API 生态"
+    },
+    {
+      "topic": "ai-runtime",
+      "url": "https://github.com/topics/ai-runtime",
+      "minStars": 5000,
+      "description": "AI 运行时环境"
+    },
+    {
+      "topic": "ai-sandboxes",
+      "url": "https://github.com/topics/ai-sandboxes",
+      "minStars": 5000,
+      "description": "AI 沙箱"
+    },
+    {
+      "topic": "claude-ai",
+      "url": "https://github.com/topics/claude-ai",
+      "minStars": 5000,
+      "description": "Claude AI 生态"
+    },
+    {
+      "topic": "instruction-tuning",
+      "url": "https://github.com/topics/instruction-tuning",
+      "minStars": 5000,
+      "description": "指令微调"
+    },
+    {
+      "topic": "rlhf",
+      "url": "https://github.com/topics/rlhf",
+      "minStars": 5000,
+      "description": "RLHF（人类反馈强化学习）"
+    },
+    {
+      "topic": "ai-memory",
+      "url": "https://github.com/topics/ai-memory",
+      "minStars": 5000,
+      "description": "AI 记忆系统"
+    },
+    {
+      "topic": "claude-agent-sdk",
+      "url": "https://github.com/topics/claude-agent-sdk",
+      "minStars": 5000,
+      "description": "Claude Agent SDK"
+    },
+    {
+      "topic": "claude-agents",
+      "url": "https://github.com/topics/claude-agents",
+      "minStars": 5000,
+      "description": "Claude Agents 生态"
+    },
+    {
+      "topic": "metagpt",
+      "url": "https://github.com/topics/metagpt",
+      "minStars": 5000,
+      "description": "MetaGPT 生态"
+    },
+    {
+      "topic": "multi-agent",
+      "url": "https://github.com/topics/multi-agent",
+      "minStars": 5000,
+      "description": "多智能体"
+    },
+    {
+      "topic": "chatbots",
+      "url": "https://github.com/topics/chatbots",
+      "minStars": 5000,
+      "description": "聊天机器人"
+    },
+    {
+      "topic": "chatgpt-4",
+      "url": "https://github.com/topics/chatgpt-4",
+      "minStars": 5000,
+      "description": "ChatGPT-4 生态"
+    },
+    {
+      "topic": "chatgpt-api",
+      "url": "https://github.com/topics/chatgpt-api",
+      "minStars": 5000,
+      "description": "ChatGPT API"
+    },
+    {
+      "topic": "chatgpt-free",
+      "url": "https://github.com/topics/chatgpt-free",
+      "minStars": 5000,
+      "description": "免费 ChatGPT"
+    },
+    {
+      "topic": "chatgpt4",
+      "url": "https://github.com/topics/chatgpt4",
+      "minStars": 5000,
+      "description": "ChatGPT4"
+    },
+    {
+      "topic": "gpt-4o",
+      "url": "https://github.com/topics/gpt-4o",
+      "minStars": 5000,
+      "description": "GPT-4o 生态"
+    },
+    {
+      "topic": "gpt4",
+      "url": "https://github.com/topics/gpt4",
+      "minStars": 5000,
+      "description": "GPT4 生态"
+    },
+    {
+      "topic": "gpt4-api",
+      "url": "https://github.com/topics/gpt4-api",
+      "minStars": 5000,
+      "description": "GPT4 API"
+    },
+    {
+      "topic": "openai-chatgpt",
+      "url": "https://github.com/topics/openai-chatgpt",
+      "minStars": 5000,
+      "description": "OpenAI ChatGPT 生态"
     }
   ]
 }
