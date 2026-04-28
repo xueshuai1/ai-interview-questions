@@ -71,7 +71,7 @@ export const article: Article = {
     },
     {
       title: "3.2 AI-Trader — Agent 原生金融交易系统",
-      body: "**AI-Trader**（13,400 Stars，港大 HKUDS 开发）代表了垂直化 Agent 在金融领域的应用。与 seomachine 不同，这是一个完全自动化的交易系统——Agent 自主完成分析、决策、执行、风控全流程。\n\n**核心特点**：\n\n1. **100% Agent 原生**：不是「人类辅助 AI」，而是「AI 自主决策」。Agent 拥有完整的市场数据接入、策略引擎、风险控制模块。\n\n2. **与 ai-hedge-fund 互补**：两者同属 Agent 金融生态，但 AI-Trader 更强调全自动执行，ai-hedge-fund（54.8K Stars）侧重策略回测和组合管理。\n\n3. **实时决策循环**：\n\n```\n数据采集 → 信号生成 → 策略评估 → 风险控制 → 执行下单 → 绩效追踪\n    ↑                                                        |\n    └──────────────── 反馈学习 ←─────────────────────────────┘\n```",
+      body: "**AI-Trader**（13,400 Stars，港大 HKUDS 开发）代表了垂直化 Agent 在金融领域的应用。与 seomachine 不同，这是一个完全自动化的交易系统——Agent 自主完成分析、决策、执行、风控全流程。\n\n**核心特点**：\n\n1. **100% Agent 原生**：不是「人类辅助 AI」，而是「AI 自主决策」。Agent 拥有完整的市场数据接入、策略引擎、风险控制模块。\n\n2. **与 ai-hedge-fund 互补**：两者同属 Agent 金融生态，但 AI-Trader 更强调全自动执行，ai-hedge-fund（54.8K Stars）侧重策略回测和组合管理。\n\n3. **实时决策循环**：\n\n| 阶段 | 说明 |\n|------|------|\n| 数据采集 | 获取市场实时数据 |\n| 信号生成 | Agent 生成交易信号 |\n| 策略评估 | 评估信号有效性 |\n| 风险控制 | 检查风控阈值 |\n| 执行下单 | 通过则执行交易 |\n| 绩效追踪 | 记录并反馈学习 |",
       mermaid: `graph LR
     A[市场数据] --> B[信号生成 Agent]
     B --> C[策略评估 Agent]
