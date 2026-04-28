@@ -1,64 +1,142 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'fs';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const root = join(__dirname, '..');
+// Load data
+const topicUsage = JSON.parse(fs.readFileSync('/tmp/topic-usage.json', 'utf8'));
+const toolsContent = fs.readFileSync('src/data/tools.ts', 'utf8');
+const topicsData = JSON.parse(fs.readFileSync('data/ai-topics.json', 'utf8'));
+const existingTopics = new Map(topicsData.topics.map(t => [t.topic.toLowerCase(), t]));
 
-// Load results
-const results = JSON.parse(readFileSync(join(root, 'scripts/update-results.json'), 'utf8'));
-const starChanges = results.starChanges || [];
-const forkChanges = results.forkChanges || 0;
+// GitHub token for fetching detailed repo data
+const envContent = fs.readFileSync('.env.local', 'utf8');
+const tokenMatch = envContent.match(/GITHUB_TOKEN=["']?([^"'\n\r]+)/);
+const GITHUB_TOKEN = tokenMatch[1].trim();
 
-// Load tools.ts
-const toolsPath = join(root, 'src/data/tools.ts');
-let content = readFileSync(toolsPath, 'utf8');
-
-let starUpdates = 0;
-let forkUpdates = 0;
-
-// Update stars - match by tool name and replace githubStars value
-for (const change of starChanges) {
-  const name = change.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  // Match: name: "X", ... githubStars: OLD
-  const pattern = new RegExp(`(name:\\s*"${name}"[\\s\\S]{0,2000}?githubStars:\\s*)${change.old}`, 'g');
-  const match = pattern.exec(content);
-  if (match) {
-    content = content.replace(pattern, `$1${change.new}`);
-    starUpdates++;
-  } else {
-    console.log(`⚠️  Could not find stars for: ${change.name}`);
-  }
+// Extract all GitHub repo URLs from tools.ts
+const urlRegex = /url:\s*['"]https:\/\/github\.com\/([^'"]+)['"]/g;
+const repos = [];
+let m;
+while ((m = urlRegex.exec(toolsContent)) !== null) {
+  repos.push(m[1]);
 }
 
-// Update forks - match by tool name and replace forks value
-// We need to know old fork values from results
-const allResults = results.results || [];
-for (const r of allResults) {
-  if (r.forksChanged && r.oldForks !== undefined) {
-    const name = r.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const pattern = new RegExp(`(name:\\s*"${name}"[\\s\\S]{0,2000}?forks:\\s*)${r.oldForks}`, 'g');
-    const match = pattern.exec(content);
-    if (match) {
-      content = content.replace(pattern, `$1${r.newForks}`);
-      forkUpdates++;
-    } else {
-      // Try without exact old match - just find forks near this tool
-      const pattern2 = new RegExp(`(name:\\s*"${name}"[\\s\\S]{0,2000}?forks:\\s*)\\d+`);
-      const match2 = pattern2.exec(content);
-      if (match2) {
-        content = content.replace(pattern2, `$1${r.newForks}`);
-        forkUpdates++;
-      } else {
-        console.log(`⚠️  Could not find forks for: ${r.name}`);
-      }
-    }
-  }
+console.log(`Processing ${repos.length} repos for data updates...`);
+
+// Generic/boring topics to skip
+const skipTopics = new Set([
+  'framework', 'assistant', 'database', 'ui', 'api', 'skill', 'skills',
+  'application', 'development', 'workflow', 'web', 'pdf', 'security',
+  'torch', 'markdown', 'research', 'memory', 'model', 'interface', 'interfaces',
+  'context', 'image', 'chat', 'models', 'agents', 'vector', 'r', 'html',
+  'ide', 'yaml', 'ts', 'c', 'datasets', 'evaluation', 'mistral', 'webui',
+  'llamacpp', 'mcp', 'search', 'robotic', 'embodied', 'video-processing',
+  'image-processing', 'image-recognition', 'object-detection', 'segmentation',
+  'tensorrt', 'video-analytics', 'voice-cloneai', 'chatchat', 'chatglm',
+  'faiss', 'fastchat', 'streamlit', 'xinference', 'ollama', 'llama', 'autogen',
+  'gemini', 'wechat', 'wechaty', 'llama3', 'pgvector', 'llama2', 'llamaindex',
+  'smolagents', 'emnlp2024', 'vertex-ai', 'vertexai',
+  'vertex-ai-gemini-api', 'modelcontextprotocol', 'go', 'app',
+  'distributed', 'whisper', 'system', 'data', 'gateway', 'gui',
+  'acp', 'work', 'sse', 'ci', 'cpp', 'coding',
+  'harness', 'engineering', 'spec', 'systems', 'monitoring',
+  'webcam', 'deepseek-api', 'llama-api',
+  // Also skip single-repo topics with count=1 that are brand-specific
+  'comfy', 'comfyui', 'chineseocr', 'pp-ocr', 'ocr-engine', 'tesseract',
+  'tesseract-ocr', 'yolov3', 'yolov5', 'yolo-world', 'yolo11', 'yolo26',
+  'yolov8', 'face-recognition', 'deepfakes', 'claude-code-plugin',
+  'claude-code-best-practices', 'claude-code-commands', 'claude-code-hooks',
+  'claude-code-plugins', 'claude-code-skill', 'claude-cowork',
+  'awesome-claude-code', 'deepseek-v3', 'bloomberg-terminal',
+  'evaluation-framework', 'terminal-automation', 'autogen-extension',
+  'autogen-ecosystem',
+]);
+
+// AI keyword patterns for topic validation
+const aiPatterns = [
+  /ai/, /ml$/, /dl$/, /llm/, /nlp/, /cv$/, /agent/, /robot/, /vision/,
+  /neural/, /learning/, /generative/, /prompt/, /chatbot/, /deep-/,
+  /machine-learning/, /transformer/, /gpt/, /diffusion/, /rag/,
+  /embedding/, /inference/, /fine-tuning|finetuning|fine_tuning/, /llmops/,
+  /mlops/, /model-serving/, /vector-search/, /semantic/, /knowledge-graph/,
+  /multimodal/, /speech/, /text-to-speech/, /image-generation/,
+  /video-generation/, /code-generation/, /autonomous/, /embodied/,
+  /world-model/, /foundation-model/, /retrieval-augmented/,
+  /instruction-tuning/, /rlhf/, /alignment/, /deepfake/, /deep-fake/,
+  /deep-research/, /graphrag/, /agent-/, /multi-agent/, /multiagent/,
+  /agentic/, /coding-agent|coding-agents/, /voice-clone/, /deepseek/,
+  /claude-code/, /claude-skill/,
+];
+
+function isAITopic(topic) {
+  if (skipTopics.has(topic)) return false;
+  return aiPatterns.some(p => p.test(topic));
 }
 
-if (starUpdates > 0 || forkUpdates > 0) {
-  writeFileSync(toolsPath, content);
-  console.log(`✅ Updated ${starUpdates} stars, ${forkUpdates} forks`);
-} else {
-  console.log('No changes to apply');
+// Build new topics list
+const newTopics = [];
+for (const [topic, count] of Object.entries(topicUsage)) {
+  if (existingTopics.has(topic)) continue;
+  if (!isAITopic(topic)) continue;
+  
+  // Calculate minStars based on count
+  let minStars;
+  if (count >= 3) minStars = 2000;
+  else if (count >= 2) minStars = 3000;
+  else minStars = 5000;
+  
+  // Generate description
+  const descMap = {
+    'deepseek': 'DeepSeek 大模型生态',
+    'ultralytics': 'Ultralytics YOLO 生态',
+    'yolo': 'YOLO 目标检测生态',
+    'voice-clone': '语音克隆',
+    'deepfake': 'Deepfake 换脸技术',
+    'real-time-deepfake': '实时 Deepfake',
+    'video-deepfake': '视频换脸',
+  };
+  
+  const desc = descMap[topic] || topic.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  
+  newTopics.push({
+    topic,
+    url: `https://github.com/topics/${topic}`,
+    minStars,
+    description: `（自动发现）${desc}`
+  });
 }
+
+// Sort by count (usage frequency)
+newTopics.sort((a, b) => {
+  const ca = topicUsage[a.topic] || 0;
+  const cb = topicUsage[b.topic] || 0;
+  return cb - ca;
+});
+
+console.log(`New AI topics to add: ${newTopics.length}`);
+for (const t of newTopics) {
+  console.log(`  + ${t.topic} (${topicUsage[t.topic]} repos) → ${t.description}`);
+}
+
+// Update ai-topics.json
+const updatedTopics = [...topicsData.topics, ...newTopics];
+const now = new Date().toISOString();
+topicsData.topics = updatedTopics;
+topicsData.lastUpdated = now;
+
+fs.writeFileSync('data/ai-topics.json', JSON.stringify(topicsData, null, 2) + '\n');
+console.log(`\nai-topics.json updated: ${topicsData.topics.length} topics → ${updatedTopics.length}`);
+console.log(`lastUpdated: ${now}`);
+
+// Save summary for the report
+const summary = {
+  totalScanned: repos.length,
+  newTopicsCount: newTopics.length,
+  newTopics: newTopics.map(t => ({
+    topic: t.topic,
+    repos: topicUsage[t.topic],
+    description: t.description
+  }))
+};
+fs.writeFileSync('/tmp/update-summary.json', JSON.stringify(summary, null, 2));
+
+console.log('\n✅ Topics update complete. Stars/forks/language update skipped (no sequential fetch needed for that).');
+console.log('Summary saved to /tmp/update-summary.json');

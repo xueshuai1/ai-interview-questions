@@ -194,36 +194,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              为什么选择 <span className="text-gradient">AI Master</span>
-            </h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              一站式 AI 学习平台，覆盖从入门到进阶的所有需求
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((f) => (
-              <Link
-                key={f.title}
-                href={f.href || "#"}
-                className="group block p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5"
-              >
-                <div className="text-4xl mb-4">{f.icon}</div>
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-brand-300 transition-colors">
-                  {f.title}
-                </h3>
-                <p className="text-slate-400 leading-relaxed">{f.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Blog Preview Section */}
       <section id="blog" className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -288,6 +258,36 @@ export default function Home() {
                   {item.title}
                 </h3>
                 <p className="text-slate-400 text-xs leading-relaxed line-clamp-2">{item.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+              为什么选择 <span className="text-gradient">AI Master</span>
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              一站式 AI 学习平台，覆盖从入门到进阶的所有需求
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <Link
+                key={f.title}
+                href={f.href || "#"}
+                className="group block p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-brand-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-brand-500/5"
+              >
+                <div className="text-4xl mb-4">{f.icon}</div>
+                <h3 className="text-xl font-semibold mb-2 group-hover:text-brand-300 transition-colors">
+                  {f.title}
+                </h3>
+                <p className="text-slate-400 leading-relaxed">{f.desc}</p>
               </Link>
             ))}
           </div>

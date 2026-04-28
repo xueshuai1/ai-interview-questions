@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-04-27T22:12:45.067Z",
+  "lastUpdated": "2026-04-28T16:21:09.283Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -2348,6 +2348,60 @@
       "url": "https://github.com/topics/headless-browser",
       "minStars": 5000,
       "description": "（自动发现）headless-browser"
+    },
+    {
+      "topic": "voice-clone",
+      "url": "https://github.com/topics/voice-clone",
+      "minStars": 3000,
+      "description": "（自动发现）voice clone"
+    },
+    {
+      "topic": "deep-fake",
+      "url": "https://github.com/topics/deep-fake",
+      "minStars": 5000,
+      "description": "（自动发现）deep fake"
+    },
+    {
+      "topic": "deepfake",
+      "url": "https://github.com/topics/deepfake",
+      "minStars": 5000,
+      "description": "（自动发现）deepfake"
+    },
+    {
+      "topic": "deepfake-webcam",
+      "url": "https://github.com/topics/deepfake-webcam",
+      "minStars": 5000,
+      "description": "（自动发现）deepfake webcam"
+    },
+    {
+      "topic": "real-time-deepfake",
+      "url": "https://github.com/topics/real-time-deepfake",
+      "minStars": 5000,
+      "description": "（自动发现）real time deepfake"
+    },
+    {
+      "topic": "realtime-deepfake",
+      "url": "https://github.com/topics/realtime-deepfake",
+      "minStars": 5000,
+      "description": "（自动发现）realtime deepfake"
+    },
+    {
+      "topic": "video-deepfake",
+      "url": "https://github.com/topics/video-deepfake",
+      "minStars": 5000,
+      "description": "（自动发现）video deepfake"
+    },
+    {
+      "topic": "semantic-kernel",
+      "url": "https://github.com/topics/semantic-kernel",
+      "minStars": 5000,
+      "description": "（自动发现）semantic kernel"
+    },
+    {
+      "topic": "deep-face-swap",
+      "url": "https://github.com/topics/deep-face-swap",
+      "minStars": 5000,
+      "description": "（自动发现）deep face swap"
     }
   ]
 }
