@@ -10,17 +10,17 @@ import CategoryFilter from "@/components/CategoryFilter";
 
 const NEWS_PER_PAGE = 9;
 
-// 统一取最近3天新闻的逻辑
-function getLast3DaysNews() {
+// 统一取最近 2 周新闻的逻辑
+function getLast2WeeksNews() {
   const now = new Date();
-  const threeDaysAgo = new Date(now);
-  threeDaysAgo.setDate(now.getDate() - 2);
-  threeDaysAgo.setHours(0, 0, 0, 0);
+  const twoWeeksAgo = new Date(now);
+  twoWeeksAgo.setDate(now.getDate() - 13);
+  twoWeeksAgo.setHours(0, 0, 0, 0);
 
   return news.filter((n) => {
     const datePart = n.date.split(" ")[0];
     const d = new Date(datePart + "T00:00:00");
-    return d >= threeDaysAgo;
+    return d >= twoWeeksAgo;
   });
 }
 
@@ -62,8 +62,8 @@ export default function NewsPage() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // 统一使用最近3天的数据，和首页统计保持一致
-  const recentNews = useMemo(() => getLast3DaysNews(), []);
+  // 统一使用最近 2 周的数据，和首页统计保持一致
+  const recentNews = useMemo(() => getLast2WeeksNews(), []);
 
   const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get("page") || "1") || 1);
   const [activeTag, setActiveTag] = useState(searchParams.get("tag") || "全部");
@@ -126,7 +126,7 @@ export default function NewsPage() {
           </p>
           {recentNews.length > 0 && (
             <p className="text-sm text-slate-500 mt-3">
-              最近 3 天共 <span className="text-brand-400 font-medium">{recentNews.length}</span> 条动态
+              最近 2 周共 <span className="text-brand-400 font-medium">{recentNews.length}</span> 条动态
             </p>
           )}
         </div>
