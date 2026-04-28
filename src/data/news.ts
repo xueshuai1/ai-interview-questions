@@ -779,7 +779,7 @@ Symphony 的发布可能成为 AI Agent 领域的「HTTP 协议」——为多 A
     date: "2026-04-28 12:00",
     source: "TechCrunch",
     sourceUrl: "https://techcrunch.com/2026/04/27/openai-could-be-making-a-phone-with-ai-agents-replacing-apps/",
-    href: "/news/news-435",
+    href: "/news/news-436",
   },
   {
     id: "news-437",
