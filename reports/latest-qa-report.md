@@ -1,38 +1,18 @@
-⏰ 写入时间：2026-04-28 11:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-04-28 15:00 (Asia/Shanghai)
 ## QA 结果
-
-**脚本扫描**：通过 1257 / 失败 7 / 警告 0
-- 失败 7 项均为误报：6 项 Mermaid 配色（设计选择，非 bug）+ 1 项表格 `<br>`（合理用法）
-
-**Browser 验证**：
-- 首页 ✅ — 统计数字正常（250+教程/188+工具/60+博客），最新动态更新正常，博客预览正常
-- 知识库 ✅ — 单页 CSR 渲染，标题/加载正常
-- 工具页 ✅ — CSR 渲染正常
-- 博客页 ✅ — SSG 静态生成正常，文章详情页 SSR 渲染正常（验证 blog-079）
-- 控制台 ✅ — 无 JS 错误
-
+脚本：通过 1266 / 失败 6 / 警告 0
+Browser：首页✅ 知识库✅ 工具页✅ 博客页✅（Build 产物验证通过，dev server 不稳定改用静态产物验证）
 ## 发现问题
-
-**P0（阻断）**：0 个
-**P1（重要）**：0 个
-**P2（建议）**：0 个（7 个失败项均为误报）
-
-## 优化工作
-
-- 修复 QA 扫描脚本误报：
-  - 剥离 `` ``` `` 代码块
-  - 剥离 `mermaid:` 模板字面量（含 `<br/>`）
-  - 剥离 `code:` 模板字面量（含 React JSX）
-  - 剥离 `<pre>` ASCII 图表块
-  - 跳过 `-types.ts` 类型定义文件
-- 误报从 32 项降至 7 项（剩余均为设计选择，非 bug）
-
-## Build & TypeScript
-
-- `npm run build` ✅
-- `npx tsc --noEmit` ✅
-
+P0（阻断）：0 个
+P1（重要）：1 个 → 已修复（blog-035 未转义 HTML <br> 标签、缺少 category 字段、mermaid 方向 TB→TD）
+P2（建议）：6 个 → 已知 Mermaid 浅色配色问题（aieng-010/014, finance-001, blog-030/039/075）
+## 修复详情
+1. blog-035.ts：<br> 替换为中文括号格式
+2. blog-035.ts：graph TB → graph TD（validator 要求）
+3. blog-035.ts：补充 category: "agent" 字段
+4. validate-article.mjs：兼容 content,  shorthand 写法
+## 构建验证
+Build ✅（exit 0）
+TypeScript ✅（tsc --noEmit exit 0）
 ## 上轮遗留
-
-- 研究员还需要关注：无
+- 研究员还需要关注：6 个 Mermaid 浅色配色问题可批量修复（替换浅色 fill 为深色主题色）
