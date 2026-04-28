@@ -304,9 +304,12 @@ export function generateMetadata({ params }: { params: { id: string } }) {
     return { title: "文章不存在 - AI Master" };
   }
   return {
-    title: `${article.title} - AI Master`,
+    title: `${article.title}`,
     description: article.summary,
     keywords: article.tags.join(", "),
+    alternates: {
+      canonical: `https://www.ai-master.cc/article/${article.id}`,
+    },
     openGraph: {
       type: "article",
       title: article.title,

@@ -14,8 +14,12 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
   const item = news.find((n) => n.id === params.id);
   if (!item) return {};
   return {
-    title: `${item.title} - AI Master`,
+    title: `${item.title}`,
     description: item.summary,
+    keywords: item.tag,
+    alternates: {
+      canonical: `https://www.ai-master.cc/news/${item.id}`,
+    },
     openGraph: {
       type: "article",
       title: item.title,

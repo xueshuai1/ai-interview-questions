@@ -13,8 +13,12 @@ export function generateMetadata({ params }: { params: { id: string } }): Metada
     return { title: "博客 - AI Master" };
   }
   return {
-    title: `${post.title} - AI Master`,
+    title: `${post.title}`,
     description: post.summary,
+    keywords: post.tags.join(", "),
+    alternates: {
+      canonical: `https://www.ai-master.cc/blog/${post.id}`,
+    },
     openGraph: {
       type: "article",
       title: post.title,

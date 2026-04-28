@@ -1,0 +1,8 @@
+# AI Master - AI 学习与实践平台
+# https://www.ai-master.cc
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.ai-master.cc/sitemap.xml
