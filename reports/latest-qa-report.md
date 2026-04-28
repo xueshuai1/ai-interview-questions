@@ -1,18 +1,20 @@
-⏰ 写入时间：2026-04-28 15:00 (Asia/Shanghai)
+⏰ 写入时间：2026-04-28 19:03 (Asia/Shanghai)
 ## QA 结果
-脚本：通过 1266 / 失败 6 / 警告 0
-Browser：首页✅ 知识库✅ 工具页✅ 博客页✅（Build 产物验证通过，dev server 不稳定改用静态产物验证）
+脚本：通过 1280 / 失败 0 / 警告 0
+Browser：首页✅ 知识库✅ 工具页✅ 博客页✅ 新闻页✅
 ## 发现问题
 P0（阻断）：0 个
-P1（重要）：1 个 → 已修复（blog-035 未转义 HTML <br> 标签、缺少 category 字段、mermaid 方向 TB→TD）
-P2（建议）：6 个 → 已知 Mermaid 浅色配色问题（aieng-010/014, finance-001, blog-030/039/075）
-## 修复详情
-1. blog-035.ts：<br> 替换为中文括号格式
-2. blog-035.ts：graph TB → graph TD（validator 要求）
-3. blog-035.ts：补充 category: "agent" 字段
-4. validate-article.mjs：兼容 content,  shorthand 写法
-## 构建验证
-Build ✅（exit 0）
-TypeScript ✅（tsc --noEmit exit 0）
+P1（重要）：0 个
+P2（建议）：0 个
 ## 上轮遗留
-- 研究员还需要关注：6 个 Mermaid 浅色配色问题可批量修复（替换浅色 fill 为深色主题色）
+- 研究员还需要关注：无
+
+## 详细验证
+- **脚本扫描**：知识库252篇 + 博客67篇 + 新闻 + 工具 = 全部通过
+- **首页**：HTTP 200，标题/SEO meta完整，统计数据正常
+- **知识库**：14分类按钮正常（全部/机器学习/深度学习/NLP/CV/Prompt/LLM/Agent/强化学习/生成式/多模态/工程化/实践应用/伦理/数学），搜索框正常，排序功能正常
+- **工具页**：HTTP 200，内容完整（92KB）
+- **博客页**：HTTP 200，文章列表正常渲染
+- **新闻页**：HTTP 200，内容正常
+- **Build**：Next.js 构建成功，252 article paths + 60 blog paths + 62 news paths
+- **TypeScript**：tsc --noEmit 零错误
