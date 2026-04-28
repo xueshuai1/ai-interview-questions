@@ -71,6 +71,7 @@ import { blog as practice014 } from './blogs/blog-075';
 import { blog as worldModel001 } from './blogs/blog-079';
 import { blog as cohereMergeAA } from './blogs/blog-081';
 import { blog as claudeDeleteIncident } from './blogs/blog-082';
+import { blog as zhinet001 } from './blogs/blog-083';
 
 export const blogs: BlogPost[] = [
   blog059,
@@ -136,4 +137,5 @@ export const blogs: BlogPost[] = [
   worldModel001,
   cohereMergeAA,
   claudeDeleteIncident,
+  zhinet001,
 ];
