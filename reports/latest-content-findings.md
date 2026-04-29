@@ -1,32 +1,26 @@
-⏰ 写入时间：2026-04-29 04:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-04-29 08:00 (Asia/Shanghai)
 ## 本轮发现
-
-🔥 热点（15 条，已选 15 条写入 news.ts news-477~news-491）：
-1. [OpenAI 登陆 AWS] GPT-5.5/Codex/Managed Agents 正式接入 AWS → 适合：行业/博客
-2. [OpenAI Symphony] 开源 Agent 编排规范，推动多 Agent 互操作 → 适合：Agent 知识库
-3. [Musk v. Altman 庭审] 世纪诉讼开庭，Musk 出庭作证，AGI 时间表成焦点 → 适合：博客/行业分析
-4. [David Silver 融资 11 亿] 打造无需人类数据的自主学习 AI → 适合：LLM 知识库
-5. [中国禁止 Meta 收购 Manus] 划定 AI 主权红线 → 适合：政策分析
-6. [Cohere 合并 Aleph Alpha] 欧洲 AI 巨头崛起 → 适合：行业
-7. [Anthropic 封禁企业账号] AI Agent 9 秒删库跑路事件 → 适合：Agent 安全
-8. [DeepSeek 增资] 梁文锋持股从 1%→34% → 适合：行业/LLM
-9. [Pask 主动智能体] NUS/NTU 发布流式意图检测+永久记忆框架 → 适合：Agent 知识库
-10. [GenericAgent 自进化] GitHub Trending 热门，3300 行代码实现技能树生长 → 适合：开源项目
-11. [OpenAI AI 手机] 用 Agent 取代 App 的构想 → 适合：行业/应用
-12. [talkie-1930 复古模型] 1930 年前文本训练的纯素食 AI → 适合：LLM 伦理/博客
-13. [自进化 Agent 上下文优化] 30K 上下文+Token 消耗降 90% → 适合：Agent 知识库
-14. [Hinton AI 安全警告] 4.8 万亿市场仅 1% 关注安全 → 适合：行业/政策
-15. [Microsoft VibeVoice] MIT 开源语音识别+说话人分离 → 适合：工具
-
-🆕 新工具（3 个）：
-1. [GenericAgent] 自进化 Agent 框架，3300 行代码技能树 - github.com/lsdefine/GenericAgent
-2. [talkie-1930] 1930 年代复古 LLM，Apache 2.0 - huggingface.co
-3. [VibeVoice] 微软开源语音识别，内置说话人分离 - github.com/microsoft/VibeVoice
-
+🔥 热点（15 条，已选 15 条写入 news.ts）：
+1. [OpenAI 发布 GPT-5.5] 旗舰模型发布，同步接入 ChatGPT + Codex → 适合：博客/知识库
+2. [OpenAI × AWS] GPT 模型和 Codex 全面接入 AWS，结束微软独家 → 适合：行业分析
+3. [微软-OpenAI 重新谈判] 结束独家排他协议，多云时代开启 → 适合：行业分析
+4. [OpenAI Symphony] 开源代理编排规范，定义多 Agent 协作标准 → 适合：知识库
+5. [Musk v. Altman 庭审] 创始之争进入关键阶段，法庭审理股权和历史邮件 → 适合：博客
+6. [中国否决 Meta 收购 Manus] 20 亿美元交易被反垄断否决 → 适合：行业分析
+7. [David Silver 融资 11 亿] 打造无需人类数据的自主学习 AI → 适合：知识库
+8. [Lovable 移动端] Vibe Coding App 上架 iOS + Android → 适合：博客
+9. [谷歌 × 五角大楼] 扩展 AI 服务接棒 Anthropic 拒绝后 → 适合：行业分析
+10. [YouTube AI 搜索] 测试智能引导答案取代纯视频列表 → 适合：博客
+11. [Talkie-13B] 1930 年前文本训练的复古模型，Apache 2.0 开源 → 适合：知识库
+12. [OpenAI 硬件观] 硬件终点仍是手机，但需为未来模型设计 → 适合：行业分析
+13. [自进化 Agent 突破] 30K 上下文即可，Token 消耗下降 90% → 适合：知识库
+14. [中文视觉模型反超] 豆包总榜第一，国内全面超越海外 → 适合：行业分析
+15. [OpenAI 业绩未达标] 用户数和收入目标均未达成 → 适合：行业分析
+🆕 新工具（0 个）：
+（本轮主要为新闻更新，未收录新工具）
 💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：Agent 安全最佳实践（基于删库事件）
-2. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排规范对比（Symphony vs 其他）
-3. KNOWLEDGE-BASE-PLAN.md 待补：AI 主权与地缘政治专题
-4. KNOWLEDGE-BASE-PLAN.md 待补：自进化 Agent 技术解析
-5. KNOWLEDGE-BASE-PLAN.md 待补：纯素食 AI 模型（vegan AI）伦理专题
+1. KNOWLEDGE-BASE-PLAN.md 待补：[GPT-5.5 技术细节] 系统卡内容需要深入分析
+2. KNOWLEDGE-BASE-PLAN.md 待补：[Symphony 编排规范] 开源规范的具体实现方式
+3. KNOWLEDGE-BASE-PLAN.md 待补：[Agent 自进化] 30K 上下文方法的技术原理
+4. KNOWLEDGE-BASE-PLAN.md 待补：[AI 军事合作] Anthropic vs Google 的军方合作政策对比
+5. KNOWLEDGE-BASE-PLAN.md 待补：[Vibe Coding 生态] Lovable、Cursor 等工具横向对比

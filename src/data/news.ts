@@ -2278,5 +2278,397 @@ VibeVoice 提供了一站式的语音转文本解决方案。
     source: "Simon Willison's Blog",
     sourceUrl: "https://simonwillison.net/2026/Apr/27/VibeVoice/",
     href: "/news/news-491",
-  }
+  },
+{
+    id: "news-492",
+    tag: "大语言模型",
+    title: "OpenAI 发布旗舰模型 GPT-5.5，同步接入 ChatGPT 和 Codex",
+    summary: 'OpenAI 于 4 月 23 日发布 GPT-5.5 旗舰模型，并同步推出系统卡和生物安全漏洞赏金计划。这是 OpenAI 迄今为止最强的语言模型，在编程、推理和多模态能力上均有显著提升。',
+    content: `## GPT-5.5：OpenAI 最新旗舰模型
+
+**2026 年 4 月 23 日**，OpenAI 正式发布 GPT-5.5，这是其迄今为止最强大的语言模型。
+
+### 核心更新
+- **同步发布**：GPT-5.5 已接入 ChatGPT 和 Codex 产品线
+- **系统卡**：同步发布 GPT-5.5 System Card，详细说明安全对齐方法
+- **漏洞赏金**：设立 GPT-5.5 生物安全漏洞赏金计划
+- **能力提升**：在编程、逻辑推理、多模态理解方面均有显著改进
+
+### 安全承诺
+OpenAI 强调 GPT-5.5 的训练过程中加入了更强的安全对齐措施，
+包括新的红队测试框架和生物安全评估流程。
+
+**来源：** OpenAI Blog
+**链接：** https://openai.com/index/introducing-gpt-5-5/`,
+    date: "2026-04-29 08:00",
+    source: "OpenAI Blog",
+    sourceUrl: "https://openai.com/index/introducing-gpt-5-5/",
+    href: "/news/news-492",
+  },
+{
+    id: "news-493",
+    tag: "行业",
+    title: "OpenAI 与亚马逊达成扩展合作，GPT 模型和 Codex 全面接入 AWS",
+    summary: 'OpenAI 宣布与亚马逊达成深度合作关系，将其最新 AI 模型、Codex 工具和托管代理全面接入 Amazon Bedrock 平台。这是在结束与微软独家合作后的首个重大合作伙伴关系。',
+    content: `## OpenAI × AWS：前沿模型落地企业基础设施
+
+**2026 年 4 月 28 日**，OpenAI 宣布与 Amazon 达成扩展合作协议。
+
+### 合作内容
+- **Amazon Bedrock 托管代理**：OpenAI 模型可通过 Bedrock Managed Agents 调用
+- **Codex 接入**：OpenAI 的代码生成工具集成到 AWS 开发者生态
+- **全线模型**：最新 GPT-5.5 及其他前沿模型均可通过 AWS API 调用
+
+### 行业影响
+- 这是 OpenAI 结束微软独家合作后的首个重大合作
+- AWS CEO Matt Garman 表示「OpenAI 的重心将转向 AWS」
+- 分析认为这标志着 AI 基础设施竞争进入新阶段
+
+**来源：** OpenAI Blog + TechCrunch + The Verge
+**链接：** https://openai.com/index/openai-on-aws/`,
+    date: "2026-04-29 08:00",
+    source: "OpenAI Blog + TechCrunch + The Verge",
+    sourceUrl: "https://openai.com/index/openai-on-aws/",
+    href: "/news/news-493",
+  },
+{
+    id: "news-494",
+    tag: "行业",
+    title: "微软与 OpenAI 重新谈判合作条款，结束独家排他协议",
+    summary: 'OpenAI 与微软于 4 月 27 日宣布重新谈判合作条款，正式结束此前的独家排他协议。这一变化为 OpenAI 与其他云服务商（如 AWS）的合作打开了大门。',
+    content: `## 微软-OpenAI 合作关系进入新阶段
+
+**2026 年 4 月 27 日**，OpenAI 和微软共同宣布「合作关系的下一阶段」。
+
+### 关键变化
+- **结束独家排他**：OpenAI 不再仅限于 Azure 平台
+- **保持战略合作**：微软仍然是 OpenAI 的重要投资方和合作伙伴
+- **多云时代**：OpenAI 可以同时服务 AWS、Azure 等多个云平台
+
+### 背景分析
+这一决定发生在 OpenAI 寻求更大规模部署的背景下。
+随着 AI 模型训练和推理需求激增，单一云平台已无法满足需要。
+
+**来源：** OpenAI Blog + TechCrunch
+**链接：** https://openai.com/index/next-phase-of-microsoft-partnership/`,
+    date: "2026-04-29 08:00",
+    source: "OpenAI Blog + TechCrunch",
+    sourceUrl: "https://openai.com/index/next-phase-of-microsoft-partnership/",
+    href: "/news/news-494",
+  },
+{
+    id: "news-495",
+    tag: "Agent",
+    title: "OpenAI 发布 Symphony：开源编排规范，定义 AI 代理协作标准",
+    summary: 'OpenAI 发布了 Symphony，一个开源的 AI 代理编排规范。该规范旨在为多代理系统提供标准化的编排方式，推动整个行业的发展。',
+    content: `## Symphony：AI 代理编排的开源标准
+
+**2026 年 4 月 27 日**，OpenAI 在工程博客上发布了 Symphony 开源规范。
+
+### 什么是 Symphony
+- **编排规范**：定义多 AI 代理之间的协作和调度方式
+- **开源开放**：任何人都可以基于该规范构建自己的代理系统
+- **行业标准**：OpenAI 希望推动社区形成统一的代理编排标准
+
+### 技术意义
+随着 AI 代理（Agent）从单一模型向多代理协作演进，
+需要一个标准化的方式来定义代理之间的通信、任务分配和结果整合。
+Symphony 正是为了解决这一问题而诞生。
+
+**来源：** OpenAI Engineering Blog
+**链接：** https://openai.com/index/open-source-codex-orchestration-symphony/`,
+    date: "2026-04-29 08:00",
+    source: "OpenAI Engineering Blog",
+    sourceUrl: "https://openai.com/index/open-source-codex-orchestration-symphony/",
+    href: "/news/news-495",
+  },
+{
+    id: "news-496",
+    tag: "行业",
+    title: "马斯克 vs 奥特曼庭审继续：OpenAI 创始人的法庭对决进入关键阶段",
+    summary: 'Elon Musk 与 Sam Altman 就 OpenAI 控制权的诉讼进入庭审阶段。Musk 在作证中强调自己只想「拯救人类」，而双方围绕早期股权分配和 OpenAI 发展方向的争论仍在继续。',
+    content: `## OpenAI 庭审：马斯克与奥特曼的创始之争
+
+**2026 年 4 月 28 日**，Musk v. Altman 案庭审进入第二天。
+
+### 庭审焦点
+- **Musk 作证**：声称自己只想「拯救人类」，强调 OpenAI 应坚持非营利使命
+- **股权争议**：双方就早期四创始人均分股权方案展开辩论
+- **历史邮件**：法庭阅读了 Musk 与 Jensen Huang 等科技大佬的往来邮件
+- **ICO 提案**：Musk 透露早期曾考虑发行加密货币融资，但他认为「听起来像骗局」而否决
+
+### 各方观点
+- The Verge 报道称 Musk 在庭上「显得琐碎而非有备而来」
+- 法官 YGR 警告 OpenAI 不要在案件名称起源问题上采取前后矛盾的立场
+
+**来源：** The Verge + 新浪 + 凤凰网
+**链接：** https://www.theverge.com/tech/917225/sam-altman-elon-musk-openai-lawsuit`,
+    date: "2026-04-29 08:00",
+    source: "The Verge + 新浪 + 凤凰网",
+    sourceUrl: "https://www.theverge.com/tech/917225/sam-altman-elon-musk-openai-lawsuit",
+    href: "/news/news-496",
+  },
+{
+    id: "news-497",
+    tag: "政策",
+    title: "中国否决 Meta 20 亿美元收购 Manus 交易，反垄断审查持续收紧",
+    summary: '经过数月的反垄断调查，中国正式否决了 Meta 以 20 亿美元收购 AI 公司 Manus 的交易。这是 AI 领域跨国并购面临监管阻力的最新案例。',
+    content: `## 中国否决 Meta 收购 Manus
+
+**2026 年 4 月 27 日**，TechCrunch 报道中国已正式否决 Meta 对 Manus 的收购。
+
+### 事件详情
+- **交易金额**：20 亿美元
+- **审查时长**：数月
+- **否决原因**：反垄断监管担忧
+
+### 后续动态
+- 凤凰网报道称「消息称 Meta 正为撤销收购 Manus 做准备」
+- 央视谈及中方禁止 Manus 并购案的立场
+- 这标志着 AI 领域跨国并购面临越来越严格的监管审查
+
+**来源：** TechCrunch + 凤凰网
+**链接：** https://techcrunch.com/2026/04/27/china-vetoes-metas-2b-manus-deal-after-months-long-probe/`,
+    date: "2026-04-29 08:00",
+    source: "TechCrunch + 凤凰网",
+    sourceUrl: "https://techcrunch.com/2026/04/27/china-vetoes-metas-2b-manus-deal-after-months-long-probe/",
+    href: "/news/news-497",
+  },
+{
+    id: "news-498",
+    tag: "Agent",
+    title: "DeepMind 联合创始人 David Silver 融资 11 亿美元，打造无需人类数据的 AI 学习系统",
+    summary: 'DeepMind 联合创始人、AlphaGo 核心开发者 David Silver 新创公司融资 11 亿美元，目标构建一种不需要人类标注数据就能自主学习的 AI 系统。',
+    content: `## David Silver 的 11 亿美元 AI 愿景
+
+**2026 年 4 月 27 日**，TechCrunch 报道 David Silver 的新公司完成巨额融资。
+
+### 关键信息
+- **融资规模**：11 亿美元，是 AI 领域近期最大的融资之一
+- **核心技术**：不依赖人类标注数据的自主学习系统
+- **创始人背景**：David Silver 是 DeepMind 联合创始人，AlphaGo 核心开发者
+
+### 技术方向
+当前 AI 系统严重依赖人类标注数据进行训练。
+Silver 的目标是构建能够从环境中自主学习、无需人类干预的 AI 系统，
+这被视为通向 AGI 的重要路径之一。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/27/deepminds-david-silver-just-raised-1-1b-to-build-an-ai-that-learns-without-human-data/`,
+    date: "2026-04-29 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/27/deepminds-david-silver-just-raised-1-1b-to-build-an-ai-that-learns-without-human-data/",
+    href: "/news/news-498",
+  },
+{
+    id: "news-499",
+    tag: "应用",
+    title: "Lovable 推出 Vibe Coding 手机 App，上架 iOS 和 Android 双平台",
+    summary: 'AI 编程平台 Lovable 正式发布移动端应用，支持 iOS 和 Android 双平台。用户可以在手机上通过自然语言描述需求，AI 自动生成应用。',
+    content: `## Lovable 移动端：Vibe Coding 装进口袋
+
+**2026 年 4 月 28 日**，Lovable 正式发布其移动端 App。
+
+### 功能特点
+- **双平台**：同时上架 App Store 和 Google Play
+- **Vibe Coding**：通过自然语言描述生成应用
+- **移动优先**：为手机屏幕优化的开发体验
+
+### 市场意义
+Lovable 是最早将「Vibe Coding」概念商业化的公司之一。
+移动端上线意味着 AI 编程正从桌面走向移动设备，
+让非技术用户也能随时随地创建应用。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/28/lovable-launches-its-vibe-coding-app-on-ios-and-android/`,
+    date: "2026-04-29 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/28/lovable-launches-its-vibe-coding-app-on-ios-and-android/",
+    href: "/news/news-499",
+  },
+{
+    id: "news-500",
+    tag: "政策",
+    title: "谷歌向五角大楼扩展 AI 服务，此前 Anthropic 拒绝了军方合作请求",
+    summary: '美国国防部确认与谷歌达成 AI 合作协议。此前 Anthropic 曾拒绝五角大楼的合作请求，谷歌成为主要替代供应商。国防部表示过度依赖单一供应商「不是好事」。',
+    content: `## 谷歌接棒 Anthropic，为五角大楼提供 AI 服务
+
+**2026 年 4 月 28 日**，TechCrunch 和凤凰网报道谷歌与美国国防部达成合作。
+
+### 背景
+- **Anthropic 拒绝**：此前 Anthropic 拒绝与五角大楼合作
+- **谷歌接棒**：谷歌确认扩展对国防部的 AI 服务
+- **军方表态**：美国国防部表示「过度依赖单一供应商不是好事」
+
+### 行业影响
+AI 公司的军事合作选择正成为行业焦点。
+Anthropic 因拒绝军方合作获得了部分用户的好感，
+但也因此面临市场份额流失的风险。
+
+**来源：** TechCrunch + 凤凰网
+**链接：** https://techcrunch.com/2026/04/28/google-expands-pentagons-access-to-its-ai-after-anthropics-refusal/`,
+    date: "2026-04-29 08:00",
+    source: "TechCrunch + 凤凰网",
+    sourceUrl: "https://techcrunch.com/2026/04/28/google-expands-pentagons-access-to-its-ai-after-anthropics-refusal/",
+    href: "/news/news-500",
+  },
+{
+    id: "news-501",
+    tag: "应用",
+    title: "YouTube 测试 AI 搜索功能：观看视频时可获得智能引导答案",
+    summary: 'YouTube 正在测试一项新的 AI 搜索功能，用户搜索内容时会显示 AI 生成的引导式答案，而非仅返回视频列表。',
+    content: `## YouTube AI 搜索：从视频列表到智能答案
+
+**2026 年 4 月 28 日**，TechCrunch 报道 YouTube 正在测试 AI 搜索功能。
+
+### 功能描述
+- **引导式答案**：搜索时 AI 会生成结构化的答案，而非仅列出视频
+- **视频整合**：答案中嵌入相关视频片段作为参考
+- **测试阶段**：目前仅面向部分用户开放
+
+### 意义
+YouTube 是全球第二大搜索引擎，
+其 AI 搜索功能的推出标志着视频搜索正在从「关键词匹配」
+向「语义理解+智能回答」转变。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/28/youtube-is-testing-an-ai-powered-search-feature-that-shows-guided-answers/`,
+    date: "2026-04-29 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/28/youtube-is-testing-an-ai-powered-search-feature-that-shows-guided-answers/",
+    href: "/news/news-501",
+  },
+{
+    id: "news-502",
+    tag: "大语言模型",
+    title: "Talkie-13B：用 1930 年前文本训练的复古语言模型，Apache 2.0 开源",
+    summary: '由 GPT 和 Whisper 前核心研究人员打造的 Talkie-13B 语言模型发布，使用 1930 年前的英语文本训练，完全规避版权问题，采用 Apache 2.0 许可证开源。',
+    content: `## Talkie-13B：穿越回 1930 年的 AI 模型
+
+**2026 年 4 月 28 日**，Simon Willison 博客介绍了 Talkie 项目。
+
+### 技术特点
+- **训练数据**：2600 亿 token 的 1930 年前英语文本
+- **模型规模**：130 亿参数
+- **许可证**：Apache 2.0 完全开源
+- **研究团队**：Nick Levine、David Duvenaud、Alec Radford（GPT/GPT-2/Whisper 核心作者）
+
+### 创新之处
+训练数据全部在版权保护期之前（美国版权截止日为 1931 年 1 月 1 日），
+这使得模型可以完全开源且无版权争议。
+项目还发布了指令微调版本，支持对话交互。
+
+**来源：** Simon Willison's Blog
+**链接：** https://simonwillison.net/2026/Apr/28/talkie-1930/`,
+    date: "2026-04-29 08:00",
+    source: "Simon Willison's Blog",
+    sourceUrl: "https://simonwillison.net/2026/Apr/28/talkie-1930/",
+    href: "/news/news-502",
+  },
+{
+    id: "news-503",
+    tag: "应用",
+    title: "OpenAI 硬件负责人闭门分享：硬件终点仍是智能手机，但需要为未来模型设计",
+    summary: 'OpenAI 硬件负责人在一次闭门分享中表示，AI 硬件的最终形态仍是智能手机，但必须「为模型将要去的方向设计硬件，而不是为今天的模型」。',
+    content: `## OpenAI 硬件观：为未来模型设计
+
+**2026 年 4 月 29 日**，36 氪报道了 OpenAI 硬件负责人的闭门分享内容。
+
+### 核心观点
+- **终点仍是手机**：AI 硬件的终极形态仍然是智能手机
+- **前瞻性设计**：「你必须为模型将要去的方向设计硬件，而不是为今天的模型」
+- **Agent 取代 App**：TechCrunch 报道称 OpenAI 正在探索用 AI 代理取代传统手机应用
+
+### 行业解读
+OpenAI 的硬件思路反映了 AI 公司从纯软件向软硬结合的转型。
+随着多模态模型和实时交互能力增强，
+专用硬件可能成为 AI 体验差异化的关键。
+
+**来源：** 36 氪 + TechCrunch
+**链接：** https://36kr.com/p/3786425127345155`,
+    date: "2026-04-29 08:00",
+    source: "36 氪 + TechCrunch",
+    sourceUrl: "https://36kr.com/p/3786425127345155",
+    href: "/news/news-503",
+  },
+{
+    id: "news-504",
+    tag: "Agent",
+    title: "通用自进化 Agent 新突破：30K 上下文即可实现，Token 消耗下降近 90%",
+    summary: '研究人员提出了一种通用自进化 Agent 新方法，仅需 30K 上下文即可实现 Agent 的持续学习和进化，Token 消耗量比现有方案下降近 90%。',
+    content: `## 自进化 Agent：更少上下文，更多能力
+
+**2026 年 4 月 29 日**，36 氪报道了一项 Agent 自进化技术的突破。
+
+### 技术要点
+- **上下文需求**：仅需 30K 上下文窗口
+- **效率提升**：Token 消耗下降近 90%
+- **核心方法**：将上下文信息密度最大化，让 Agent 在有限上下文中持续学习进化
+
+### 意义
+当前 AI Agent 面临的主要瓶颈是上下文窗口的限制和 Token 成本。
+这项突破意味着 Agent 可以在更低的成本下实现更持久的学习和自适应能力，
+对大规模 Agent 部署具有重要意义。
+
+**来源：** 36 氪
+**链接：** https://36kr.com/p/3786342762159107`,
+    date: "2026-04-29 08:00",
+    source: "36 氪",
+    sourceUrl: "https://36kr.com/p/3786342762159107",
+    href: "/news/news-504",
+  },
+{
+    id: "news-505",
+    tag: "大语言模型",
+    title: "中文视觉大模型榜单更新：豆包斩获总榜第一，国内模型全面反超海外",
+    summary: '最新中文视觉大模型评测结果显示，豆包视觉模型斩获总榜第一，国内主要模型在各项指标上全面反超海外模型。',
+    content: `## 中文视觉大模型：国内反超海外
+
+**2026 年 4 月 29 日**，凤凰网科技报道了最新的中文视觉大模型评测结果。
+
+### 评测结果
+- **总榜第一**：豆包视觉模型登顶
+- **全面反超**：国内主要模型在多项指标上超越海外模型
+- **竞争格局**：中文视觉大模型领域呈现百花齐放的态势
+
+### 行业背景
+视觉大模型是当前 AI 竞争最激烈的赛道之一。
+随着多模态能力的快速提升，
+视觉理解正在成为 AI 产品的核心竞争力。
+国内模型在本土化场景和中文理解方面具有天然优势。
+
+**来源：** 凤凰网
+**链接：** https://tech.ifeng.com/c/8si87eH38zY`,
+    date: "2026-04-29 08:00",
+    source: "凤凰网",
+    sourceUrl: "https://tech.ifeng.com/c/8si87eH38zY",
+    href: "/news/news-505",
+  },
+{
+    id: "news-506",
+    tag: "行业",
+    title: "OpenAI 被曝业绩未达标：赚钱赶不上花钱，用户数和收入目标均未达成",
+    summary: '据新浪和凤凰网报道，OpenAI 内部财务数据显示，公司赚钱速度远赶不上烧钱速度，用户数和收入目标都未能按计划达成。',
+    content: `## OpenAI 业绩承压：高速增长下的隐忧
+
+**2026 年 4 月 29 日**，多家媒体报道了 OpenAI 的财务表现。
+
+### 关键数据
+- **收入未达标**：用户数和收入目标均未按计划达成
+- **烧钱速度**：花钱速度远超收入增长速度
+- **市场反应**：消息传出后引发行业关注
+
+### 背景分析
+OpenAI 正面临「增长 vs 盈利」的经典困境：
+一方面需要持续投入研发保持技术领先，
+另一方面巨大的算力成本让盈利变得困难。
+与此同时，开源模型的快速追赶也压缩了其定价空间。
+
+**来源：** 新浪 + 凤凰网
+**链接：** https://finance.sina.com.cn/world/2026-04-29/doc-inhwceip1186641.shtml`,
+    date: "2026-04-29 08:00",
+    source: "新浪 + 凤凰网",
+    sourceUrl: "https://finance.sina.com.cn/world/2026-04-29/doc-inhwceip1186641.shtml",
+    href: "/news/news-506",
+  },
 ];
