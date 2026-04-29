@@ -64,3 +64,4 @@
 - talkie-1930：1930 年前历史文本训练模型
 - Neurable BCI：脑机接口走向消费级
 - AI Infra 创业爆发：多起超亿美元融资
+- [01:18] 791a9175 — PM阶段2: 知识库[agent-038 Agent编排标准]+博客[blog-090 AI Infra创业爆发], 深度校验通过, Build+TS全通过, 已推送
