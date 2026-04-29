@@ -211,6 +211,16 @@ function checkMermaidArrowSyntax(content, filePath) {
           message: `Mermaid 连线语法错误：发现「.- >」（带空格），应为「->」。这会导致节点渲染为空白块。`,
         });
       }
+      // 匹配 % 注释符（mermaid 中 % 是注释标记，会导致解析错误）
+      const percentComment = line.match(/(?<!(?:\{[^}]*)|\\)(?<!(?:%))(?<!")%+(?!"|})(?!>)/);
+      if (line.includes('%') && !line.includes('％')) {
+        errors.push({
+          file: filePath,
+          type: 'mermaid_percent_comment',
+          line: lineStartIdx + i,
+          message: `Mermaid 中包含 % 字符 — 在 mermaid 中 % 是注释标记，会导致解析错误。请改用全角 ％。`,
+        });
+      }
     }
   }
   return errors;
