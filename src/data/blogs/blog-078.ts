@@ -485,6 +485,16 @@ David Silver 正在赌的是：这个原则不仅适用于围棋，也适用于 
 
 **来源：** TechCrunch、DeepMind 研究论文、Simon Willison Blog
 **链接：** https://techcrunch.com/2026/04/27/deepmind-david-silver-1-billion/`,
+        mermaid: `graph TD
+    A[符号 AI] --> B[统计学习]
+    B --> C[深度学习]
+    C --> D[预训练+微调]
+    D --> E[RLHF 对齐]
+    E --> F[纯自监督学习]
+    
+    classDef era fill:#374151,stroke:#1f2937,color:#fff
+    
+    class A,B,C,D,E,F era`,
     },
   ],
 };

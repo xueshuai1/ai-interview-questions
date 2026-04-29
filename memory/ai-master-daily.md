@@ -20,3 +20,9 @@
 - 推送: ✅ main
 - [11:00] 20cc9d3c — QA 验证1312项, 修复17个Mermaid对比度P2(ai-security-009/agent-033/dl-019/infra-001/ml-001/blog-067/blog-074), Build+TS全通过, HTTP 7页全200
 - [12:00] 3c25ae88 — 研究员: 收集12来源(国外6+国内6), 更新新闻12条(news-507~518), 缺口4项
+
+### 2026-04-29 14:00 开发
+- 集成 agent-035（自主学习AI原理）+ blog-087（Meta收购Manus被否）
+- 修复 blog-087: mermaid代码块→field, %→全角％, 补author字段, content格式修正
+- bug-hash 4个全部✅, Build+TS全通过
+- commit: a92b88d3
