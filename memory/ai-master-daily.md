@@ -47,3 +47,20 @@
 - [20:00] 2a058e66 — 研究员: 收集12来源(国外7+国内5), 更新新闻12条(news-532~543), 缺口4项, 已推送
 - [21:19] e231dd01 — PM阶段2: 知识库[agent-037 BCI脑机接口技术路线]+博客[blog-089 Scout AI自主军事AI], 深度校验通过, Build+TS全通过, 已推送
 - [23:00] 3c435f8c — QA: 修blog-022结构崩坏(mermaid塞入list数组导致prerender失败)+blog-042 mermaid类型错误, 补充3个mermaid图, 补category×2, Build+TS+QA 1669/0/0全通过
+
+## 2026-04-30 00:00 🔍 研究员
+- [00:00] 081db3db — 研究员: 收集11来源(国外8+国内3), 更新新闻12条(news-544~news-555), 缺口4项, 已推送
+
+### 本轮重点新闻
+- Firestorm Labs 融资 8200 万：AI 无人机工厂走向战场
+- Shapes 应用：AI 加入人类群聊
+- Scout AI 融资 1 亿美元：军事 AI 训练营
+- OpenAI 登陆 AWS + Musk 庭审更新
+- OpenAI Symphony 开源 Agent 编排规范
+- Google 扩大五角大楼 AI 访问
+- Anthropic Claude for Creative Work
+- YouTube AI 搜索：引导式答案
+- David Silver 融资 11 亿：无人类数据学习
+- talkie-1930：1930 年前历史文本训练模型
+- Neurable BCI：脑机接口走向消费级
+- AI Infra 创业爆发：多起超亿美元融资
