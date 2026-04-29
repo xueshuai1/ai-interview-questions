@@ -23,6 +23,24 @@ export const blog: BlogPost = {
 当前主流的 AI Agent 虽然能通过工具调用和记忆完成复杂任务，但它们并没有一个真正的「世界模型」。它们更像是「超级记忆 + 检索系统」，而不是「理解者」。
 
 这篇论文尝试回答：如果让 Agent 拥有世界模型，会发生什么？`,
+      mermaid: `graph TD
+    A[感知输入] --> B[状态编码]
+    B --> C[世界模型\n状态空间 S]
+    C --> D{内心模拟}
+    D --> E[预测结果]
+    D --> F[反事实推理]
+    D --> G[多步规划]
+    E --> H[决策输出]
+    F --> H
+    G --> H
+    H --> I[执行动作]
+    I -.反馈.-> C
+    
+    classDef core fill:#374151,stroke:#1f2937,color:#fff
+    classDef process fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    
+    class A,B,C,H,I core
+    class D,E,F,G process`,
     },
     {
       title: "一、什么是世界模型？从人类到机器的映射",
@@ -35,6 +53,25 @@ export const blog: BlogPost = {
 **机器世界模型的演进**
 
 机器世界模型经历了三个阶段：规则驱动的物理模型（1980s）、数据驱动的神经网络模型（2010s）、以及如今的 Agentic World Model —— 将世界模型与 Agent 架构深度融合。`,
+      mermaid: `graph TD
+    A[规则驱动模型\n1980s] --> B[神经网络模型\n2010s]
+    B --> C[Agentic World Model\n2026]
+    
+    A1[物理规则] --> A
+    A2[预定义约束] --> A
+    
+    B1[数据训练] --> B
+    B2[模式识别] --> B
+    
+    C1[内心模拟] --> C
+    C2[反事实推理] --> C
+    C3[多步规划] --> C
+    
+    classDef era fill:#374151,stroke:#1f2937,color:#fff
+    classDef feature fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    
+    class A,B,C era
+    class A1,A2,B1,B2,C1,C2,C3 feature`,
       code: [
         {
           lang: "python",
@@ -79,6 +116,48 @@ Agentic World Model 引入了一个持续运行的内心模拟器：
 Agentic 流程：感知 → 更新世界模型 → 在模型中模拟多个计划 → 选择最优计划 → 执行 → 更新模型
 
 关键区别：Agent 在实际行动之前，先在内心模型中「预演」多个可能的方案，然后选择最优的那个。`,
+      mermaid: `graph LR
+    subgraph 传统 LLM Agent
+    P1[感知] --> R1[记忆检索]
+    R1 --> L1[LLM 推理]
+    L1 --> T1[工具调用]
+    T1 --> O1[观察结果]
+    end
+    
+    subgraph Agentic World Model
+    P2[感知] --> W[世界模型]
+    W --> S[内心模拟]
+    S --> E[评估方案]
+    E --> D[最优选择]
+    D --> A[执行]
+    end
+    
+    classDef traditional fill:#374151,stroke:#1f2937,color:#fff
+    classDef agentic fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    
+    class P1,R1,L1,T1,O1 traditional
+    class P2,W,S,E,D,A agentic`,
+      mermaid: `graph LR
+    subgraph 传统 Agent
+    P1[感知] --> M1[记忆检索]
+    M1 --> R1[LLM 推理]
+    R1 --> T1[工具调用]
+    T1 --> O1[观察结果]
+    end
+    
+    subgraph Agentic World Model
+    P2[感知] --> W[更新世界模型]
+    W --> S[内心模拟]
+    S --> D[选择最优计划]
+    D --> E[执行动作]
+    E --> W
+    end
+    
+    classDef traditional fill:#374151,stroke:#1f2937,color:#fff
+    classDef agentic fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    
+    class P1,M1,R1,T1,O1 traditional
+    class P2,W,S,D,E agentic`,
       table: {
         headers: ["维度", "传统 LLM Agent", "Agentic World Model"],
         rows: [

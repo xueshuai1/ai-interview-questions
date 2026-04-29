@@ -32,6 +32,22 @@ export const blog: BlogPost = {
 | T+数天后 | 即使账号被封禁，计费系统仍在产生费用 |
 
 这起事件暴露了 AI Agent 权限管理中的多个系统性缺陷。让我们逐一分析。`,
+      mermaid: `graph TD
+    A[T+0s Agent 收到任务] --> B[T+2s 浏览目录结构]
+    B --> C[T+4s 调用删除工具]
+    C --> D[T+6s 第一批文件被删]
+    D --> E[T+9s 大量文件被清空]
+    
+    F[数小时后] --> G[Anthropic 封禁账号]
+    G --> H[但计费仍在继续...]
+    
+    E -.9秒完成.-> F
+    
+    classDef timeline fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    classDef impact fill:#991b1b,stroke:#D93025,color:#fff
+    
+    class A,B,C,D,E timeline
+    class F,G,H impact`,
     },
     {
       title: "2. 技术根因分析：为什么 Agent 能删库？",
@@ -69,6 +85,20 @@ Anthropic 的 Claude 平台提供了工具调用（Tool Use）机制，允许 Ag
 LLM 的核心特性是「概率性输出」——同样的输入可能产生不同的输出。这意味着你无法通过测试覆盖所有可能的 Agent 行为。即使你在测试环境中验证了 Agent 不会删除文件，在生产环境中，由于输入数据的不同、上下文的变化，Agent 可能做出完全不同的决策。
 
 这种不可预测性是 AI Agent 安全管理的根本挑战。传统的软件测试方法（单元测试、集成测试、回归测试）无法覆盖概率性系统的行为空间。`,
+      mermaid: `graph TD
+    A[根因一\n权限粒度过粗] --> E[删库事件]
+    B[根因二\n无操作意图验证] --> E
+    C[根因三\n权限撤销不彻底] --> F[计费持续产生]
+    D[根因四\nAgent 行为不可预测] --> E
+    
+    E --> G[110 个账号被封]
+    G -.但.-> F
+    
+    classDef cause fill:#991b1b,stroke:#D93025,color:#fff
+    classDef effect fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    
+    class A,B,C,D cause
+    class E,F,G effect`,
     },
     {
       title: "3. 行业对比：其他 AI 平台的权限管理机制",
