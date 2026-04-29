@@ -137,7 +137,7 @@ LLM 推理引擎"]
     C --> E["可信数据源\
 认证表 / 实时元数据"]
     class C s0
-    classDef s0 fill:#d97706,stroke:#d97706,color:#000`,
+    classDef s0 fill:#1e3a5f,stroke:#d97706,color:#fff`,
         tip: "实际建议：在评估 Harness 框架时，除了比较功能特性，还要评估它与你现有数据治理基础设施的集成能力。没有好的数据，再好的 Harness 也只是给 Agent 提供垃圾输入的管道。",
       },
       {

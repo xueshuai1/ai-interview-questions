@@ -650,7 +650,7 @@ else:
     class F s1
     class D s0
     classDef s0 fill:#1e3a5f,color:#fff
-    classDef s1 fill:#ffd43b,color:#000
+    classDef s1 fill:#1e3a5f,color:#fff
     classDef s2 fill:#1e3a5f,color:#fff`,
     code: [
       {

@@ -285,7 +285,7 @@ function checkBasicFormat(content, filePath) {
   
   // 检查每个 section 是否有 title 和 body
   const sectionCount = (content.match(/title:\s*["']/g) || []).length;
-  const bodyCount = (content.match(/body:\s*`/g) || []).length;
+  const bodyCount = (content.match(/body:\s*[`"']/g) || []).length;
   if (sectionCount > 0 && bodyCount === 0) {
     errors.push({ file: filePath, type: 'missing_body', message: `有 ${sectionCount} 个 section title 但无 body 字段` });
   }

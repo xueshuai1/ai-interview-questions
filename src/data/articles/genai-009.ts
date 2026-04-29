@@ -94,8 +94,8 @@ Flow Matching 是 2026 年最热门的技术方向之一。相比扩散模型的
     class B s1
     class A s0
     classDef s0 fill:#7f1d1d,color:#f1f5f9
-    classDef s1 fill:#ffa94d,color:#1e293b
-    classDef s2 fill:#78350f,color:#f1f5f9,color:#1e293b
+    classDef s1 fill:#1e3a5f,color:#fff
+    classDef s2 fill:#78350f,color:#f1f5f9,color:#fff
     classDef s3 fill:#064e3b,color:#f1f5f9
     classDef s4 fill:#1e3a5f
     classDef s5 fill:#4c1d95

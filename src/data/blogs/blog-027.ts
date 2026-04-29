@@ -262,7 +262,7 @@ class PlanAndExecuteAgent:
     C -->|否| E[输出最终结果]
     class D s1
     class B s0
-    classDef s0 fill:#f9a825,color:#000
+    classDef s0 fill:#1e3a5f,color:#fff
     classDef s1 fill:#b91c1c,color:#fff`,
   },
   {
@@ -539,9 +539,9 @@ print(team.get_summary())`,
     class I s2
     class G s1
     class C s0
-    classDef s0 fill:#4caf50,color:#000
+    classDef s0 fill:#1e3a5f,color:#fff
     classDef s1 fill:#1d4ed8,color:#fff
-    classDef s2 fill:#ff9800,color:#000
+    classDef s2 fill:#1e3a5f,color:#fff
     classDef s3 fill:#b91c1c,color:#fff`,
   },
   {
@@ -634,5 +634,6 @@ export const blog: BlogPost = {
     summary: "2026 年，AI Agent 已经从概念走向生产级应用。本文系统梳理 Agent 架构的演进脉络：从最基础的 ReAct 模式，到 Plan-and-Execute、Tool-Use、Reflection，再到多 Agent 协作的 Swarm、Hierarchical 架构。附带每种模式的 Python 实现代码和 Mermaid 架构图。",
     tags: ["AI Agent", "架构模式", "ReAct", "多 Agent", "Agent 编排", "LLM 应用"],
     author: "AI Master",
+    category: "ai-analysis",
     content,
 };

@@ -459,7 +459,7 @@ if __name__ == "__main__":
     classDef s0 fill:#1e3a5f,stroke:#1e3a5f,color:#fff
     classDef s1 fill:#047857,stroke:#047857,color:#fff
     classDef s2 fill:#dc2626,stroke:#dc2626,color:#fff
-    classDef s3 fill:#d97706,stroke:#d97706,color:#000
+    classDef s3 fill:#1e3a5f,stroke:#d97706,color:#fff
     classDef s4 fill:#7c3aed,stroke:#7c3aed,color:#fff`,
     },
     {

@@ -77,7 +77,7 @@ const content: ArticleSection[] = [
     classDef s0 fill:#1e3a5f
     classDef s1 fill:#2d5a27
     classDef s2 fill:#5a2d82
-    classDef s3 fill:#8b6914
+    classDef s3 fill:#713f12
     classDef s4 fill:#1a5276`,
   },
   {
@@ -559,5 +559,6 @@ export const blog: BlogPost = {
   date: "2026-04-22",
   author: "AI Master",
   tags: ["推测解码", "推理加速", "DFlash", "LLM 优化", "Speculative Decoding"],
+  category: "ai-analysis",
   readTime: 30,
 };
