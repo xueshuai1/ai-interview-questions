@@ -629,10 +629,10 @@ for s, loss in results.items():
             mermaid: `graph TD
     A["CIFAR-10 数据集"] --> B["VGG8 网络"]
     B --> C{"初始化方案?"}
-    C -->|"He"| D["Epoch 1: 2.15\nEpoch 20: 0.45\n精度: 87.3%"]
-    C -->|"Xavier"| E["Epoch 1: 2.32\nEpoch 20: 0.58\n精度: 83.1%"]
-    C -->|"正交"| F["Epoch 1: 2.18\nEpoch 20: 0.47\n精度: 86.8%"]
-    C -->|"全零"| G["Epoch 1: 2.30\nEpoch 20: 2.30\n精度: 10.0%"]
+    C -->|"He"| D["Epoch 1: 2.15\nEpoch 20: 0.45\n精度: 87.3％"]
+    C -->|"Xavier"| E["Epoch 1: 2.32\nEpoch 20: 0.58\n精度: 83.1％"]
+    C -->|"正交"| F["Epoch 1: 2.18\nEpoch 20: 0.47\n精度: 86.8％"]
+    C -->|"全零"| G["Epoch 1: 2.30\nEpoch 20: 2.30\n精度: 10.0％"]
     D --> H["✅ 最佳选择\nReLU 网络首选"]
     F --> H
     E --> I["⚠️ 适合 Tanh"]

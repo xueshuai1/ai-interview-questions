@@ -55,6 +55,19 @@ function checkMermaidArrows(content, file) {
   }
 }
 
+/** 检查 Mermaid 中的 % 注释符（2026-04-29 增强 — blog-084 控制台报错事故） */
+function checkMermaidPercent(content, file) {
+  const mermaidBlocks = content.matchAll(/mermaid:\s*`([\s\S]*?)`/g);
+  for (const block of mermaidBlocks) {
+    const lines = block[1].split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (/(?<!\\)%/.test(lines[i])) {
+        results.fail.push(`❌ ${file}: Mermaid 中包含 % 字符 L${i + 1} — mermaid 中 % 是注释标记，会导致解析错误。请改用全角 ％`);
+      }
+    }
+  }
+}
+
 function checkRegex(file, ruleName, regex, message, stripCode = false) {
   let content = readFileSync(join(ROOT, file), 'utf8');
   if (stripCode) content = stripCodeBlocks(content);
@@ -100,6 +113,7 @@ for (const file of articleFiles) {
   checkRegex(file, 'Mermaid 浅色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
   checkClassDefContrast(content, file);
   checkMermaidArrows(content, file);
+  checkMermaidPercent(content, file);
   checkRegex(file, 'HTML 标签', /<br[^>]*>|<\/br>|<p[^>]*>|<\/p>|<div[^>]*>|<\/div>/, '发现未转义 HTML 标签', true);
   checkRequired(file, content);
 }
@@ -119,6 +133,7 @@ for (const file of blogFiles) {
   checkRegex(file, 'Mermaid 浅色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
   checkClassDefContrast(content, file);
   checkMermaidArrows(content, file);
+  checkMermaidPercent(content, file);
   checkRegex(file, 'HTML 标签', /<br[^>]*>|<\/br>|<p[^>]*>|<\/p>|<div[^>]*>|<\/div>/, '发现未转义 HTML 标签', true);
   checkRequired(file, content);
 }

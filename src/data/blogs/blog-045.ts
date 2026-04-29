@@ -123,7 +123,7 @@ Mythos 首先需要理解整个 Firefox 代码库（约 1500 万行 C++/Rust/Jav
 **阶段 4：漏洞验证与报告**
 - 为每个发现的漏洞生成 PoC（概念验证代码）
 - 生成详细的技术报告，包括影响分析和建议修复方案`,
-    mermaid: `graph TB
+    mermaid: `graph TD TB
     A[Firefox 代码库<br/>1500万行代码] --> B[阶段1: 代码理解]
     B --> B1[调用图构建]
     B --> B2[数据流图构建]

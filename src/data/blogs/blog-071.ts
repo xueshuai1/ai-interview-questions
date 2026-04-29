@@ -42,12 +42,12 @@ V4-Pro 的定价为 **$1.74/$3.48**，是所有前沿大模型中最低的，仅
     A[DeepSeek V3.2] -->|685B MoE| B[基线性能]
     B --> C[1M 上下文基准]
     
-    D[DeepSeek V4-Pro] -->|1.6T MoE / 49B 激活| E[27% FLOPs vs V3.2]
-    E --> F[10% KV Cache vs V3.2]
+    D[DeepSeek V4-Pro] -->|1.6T MoE / 49B 激活| E[27％ FLOPs vs V3.2]
+    E --> F[10％ KV Cache vs V3.2]
     F --> G[$1.74/M 输入定价]
     
-    H[DeepSeek V4-Flash] -->|284B MoE / 13B 激活| I[10% FLOPs vs V3.2]
-    I --> J[7% KV Cache vs V3.2]
+    H[DeepSeek V4-Flash] -->|284B MoE / 13B 激活| I[10％ FLOPs vs V3.2]
+    I --> J[7％ KV Cache vs V3.2]
     J --> K[$0.14/M 输入定价]
     
     G -.仅为.-> L[$5/M GPT-5.5]
@@ -87,9 +87,9 @@ V4-Pro 的定价为 **$1.74/$3.48**，是所有前沿大模型中最低的，仅
     C -->|V4-Pro| E[精准路由 49B 激活]
     C -->|V4-Flash| F[精准路由 13B 激活]
     
-    D --> G[100% FLOPs + 100% KV Cache]
-    E --> H[27% FLOPs + 10% KV Cache]
-    F --> I[10% FLOPs + 7% KV Cache]
+    D --> G[100％ FLOPs + 100％ KV Cache]
+    E --> H[27％ FLOPs + 10％ KV Cache]
+    F --> I[10％ FLOPs + 7％ KV Cache]
     
     H --> J[高质量输出]
     I --> K[高速输出]`,

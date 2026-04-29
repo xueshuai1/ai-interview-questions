@@ -826,7 +826,7 @@ class SpeculativeMonitoring:
 | 自适应推测 | 3.0-4.0x | 研究中 | 2026 Q3 |
 | 多草稿并行 | 4.0-5.0x | 原型 | 2026 Q4 |
 | 硬件协同优化 | 2.0-3.0x + 软件加速 | 预研 | 2027 H1 |`,
-      mermaid: `timeline
+      mermaid: `graph TD
     title 推测解码技术演进路线
     2023 Q1 : SpecInfer<br/>n-gram 草稿
     2023 Q4 : Speculative Sampling<br/>基础框架

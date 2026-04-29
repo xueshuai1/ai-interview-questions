@@ -55,8 +55,8 @@ export const article: Article = {
     D --> E[生成推理步骤 2]
     E --> F[生成推理步骤 3]
     F --> G[得出结论]
-    C --> H[准确率: ~60%]
-    G --> I[准确率: ~90%]
+    C --> H[准确率: ~60％]
+    G --> I[准确率: ~90％]
     
     style B fill:#7c2d12,stroke:#333
     style H fill:#7f1d1d,stroke:#333

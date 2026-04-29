@@ -77,6 +77,12 @@
 - ❌ **禁止使用 `.- >`（中间带空格）** — 会导致连线断裂、节点渲染为空白块
 - ✅ **连线箭头必须是 `->` 连续字符**，如 `A --> B`、`A -.标注.-> B`
 - ❌ **禁止** `.- >`、`. - >`、`. -  >` 等任何带空格变体
+- ✅ **虚线标注箭头格式**：`A -.text.-> B`（注意 `.` 在 text 前后都要有）
+
+**🔴 % 符号铁律（2026-04-29 blog-084 控制台报错事故新增）：**
+- ❌ **禁止在 mermaid 块中使用 `%` 字符** — mermaid 中 `%` 是注释标记，会导致整行解析错误
+- ✅ **必须使用全角 `％`** 代替半角 `%`，如 `15-25％` 而非 `15-25%`
+- ❌ **`\%` 转义无效** — JS 模板字面量不识别 `\%`，会静默丢掉反斜杠，mermaid 仍然看到 `%`
 
 **✅ 正确示例（必须用 classDef）：**
 ```
@@ -223,8 +229,9 @@ graph LR
 | 2026-04-28 | aieng-021 Mermaid 渲染为空白块/黑块 | 使用 `style X fill:#1e3a5f` 语法（深色填充在深色主题下不可见） | 改用 `classDef` + `class` 语法 | validate-rendering 拦截 style 语法、validate-article 拦截 |
 | 2026-04-28 | aieng-021 Python 代码渲染为代码框 | 代码嵌在 body 的 `\`\`\`python` 中，MarkdownBody 当成代码块渲染 | 提取到 `code: []` 数组 | validate-article 已拦截，但 AI 仍违反 → 加强 Prompt 强调 |
 | 2026-04-28 | aieng-021 页面出现多处空白块 | Mermaid 图表使用了不合法的 style 语法 + 空 body 段落 | 修复 Mermaid 语法 + 删除空段落 | validate-rendering 新增空白块检查 |
-| 2026-04-29 | blog-085 classDef 对比度不足 | classDef 使用 `#8AB4F8`/`#E8EAED` 等浅色填充 + 白字对比度不足 | 改用 `#4285F4`/`#D2E3FC` 深色 | validate-article 拦截 classDef 对比度 + qa-scan 拦截 |
 | 2026-04-29 | blog-084 mermaid 连线语法错误 | 连线 `.- >` 带空格导致渲染为空白块 | 改为 `->` | validate-article 拦截连线语法 + qa-scan 拦截 |
+| 2026-04-29 | blog-085 classDef 对比度不足 | classDef 使用 `#8AB4F8`/`#E8EAED` 等浅色填充 + 白字对比度不足 | 改用 `#4285F4`/`#D2E3FC` 深色 | validate-article 拦截 classDef 对比度 + qa-scan 拦截 |
+| 2026-04-29 | blog-084 mermaid % 注释符报错 | mermaid 中 `%` 是注释标记，导致箭头行解析失败 | 改用全角 `％` | validate-article 拦截 % 字符 + qa-scan 拦截 |
 
 ---
 

@@ -441,8 +441,8 @@ class MAEForward:
             },
             mermaid: `graph TD
   A[输入图像 224x224] --> B[Patch Embedding 14x14]
-  B --> C[随机遮蔽 75%]
-  C --> D[可见 Patch 25%]
+  B --> C[随机遮蔽 75％]
+  C --> D[可见 Patch 25％]
   D --> E[ViT Encoder]
   E --> F[CLS Token 特征]
   F --> G[Linear 映射到 Decoder]

@@ -20,9 +20,9 @@ export const article: Article = {
 
 2024-2025 年是 LLM 量化技术爆发的年份。GPTQ、AWQ、SmoothQuant、bitsandbytes 的 NF4 格式、以及 llama.cpp 的 K-quants 体系，构成了一个完整的量化工具链。理解它们的区别和适用场景，是每个 AI 工程师的必修课。`,
             mermaid: `graph LR
-    A["FP16 全精度 14GB (7B模型)"] -->|"INT8 量化"| B["INT8 7GB (~99%精度)"]
-    B -->|"INT4 量化"| C["INT4 GPTQ 3.5GB (~95%精度)"]
-    C -->|"INT2 量化"| D["INT2/1-bit 1.75GB (~85%精度)"]
+    A["FP16 全精度 14GB (7B模型)"] -->|"INT8 量化"| B["INT8 7GB (~99％精度)"]
+    B -->|"INT4 量化"| C["INT4 GPTQ 3.5GB (~95％精度)"]
+    C -->|"INT2 量化"| D["INT2/1-bit 1.75GB (~85％精度)"]
     
     style A fill:#0c4a6e
     style B fill:#7c2d12

@@ -185,7 +185,7 @@ def check_safety(text: str) -> float:
           ["RAG 检索", "召回率、Top-K 命中率、上下文质量", "召回率 < 70%", "专用 RAG 监控"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     subgraph "AI 可观测性架构"
         A[LLM 推理服务] --> B[Observation SDK]
         C[RAG 检索服务] --> B
@@ -539,11 +539,11 @@ class AlertRouter:
     A->>K: 查询历史经验
     K-->>A: 返回相似案例
     A->>A: 根因分析 + 制定方案
-    alt 置信度 > 80%
+    alt 置信度 > 80％
         A->>S: 自动执行修复
         S-->>A: 执行结果
         A->>K: 记录经验
-    else 置信度 < 80%
+    else 置信度 < 80％
         A->>N: 通知人工确认
         N-->>A: 人工决策
         A->>S: 执行修复

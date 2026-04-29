@@ -718,8 +718,8 @@ if len(noise_features) > 0:
     B --> C["K-距离图选 eps"]
     C --> D["运行 DBSCAN"]
     D --> E{"噪声比例合理?"}
-    E -->|太高(>30%)| F["增大 eps 或减小 min_samples"]
-    E -->|太低(=0%)| G["减小 eps 或增大 min_samples"]
+    E -->|太高(>30％)| F["增大 eps 或减小 min_samples"]
+    E -->|太低(=0％)| G["减小 eps 或增大 min_samples"]
     E -->|合理| H["分析聚类结果"]
     H --> I["PCA 可视化"]
     H --> J["噪声点分析"]

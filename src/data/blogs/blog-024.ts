@@ -38,7 +38,7 @@ Glasswing 计划的独特之处在于它的**协作防御**模式：
         "**自主发现数千个高危漏洞**：涵盖所有主流操作系统和 Web 浏览器",
         "**17 年历史的 FreeBSD 远程代码执行漏洞**：Mythos 自主发现并编写了完整利用代码",
       ],
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     subgraph Anthropic
         M[Claude Mythos Preview]
     end

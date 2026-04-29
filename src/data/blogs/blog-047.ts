@@ -434,7 +434,7 @@ for detail in ["low", "auto", "high", "original"]:
         B["你是 AI 编程助手。 提供清晰、准确的 代码解释和示例。"]
     end
     
-    A -->|精简 80%| B
+    A -->|精简 80％| B
     B --> C["更好的理解"]
     B --> D["更少的冲突"]
     B --> E["更低的 token 成本"]

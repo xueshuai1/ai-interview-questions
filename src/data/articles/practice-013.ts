@@ -24,7 +24,7 @@ GitHub 宣布：暂停 Pro/Pro+/Student 新用户注册；引入基于 token 消
 在 Claude Code 定价风波的第二天，OpenAI Codex 团队明确宣布：Codex 将继续对免费用户和 ChatGPT Plus 用户开放，不会效仿 Anthropic 的涨价策略。
 
 这三件事揭示了一个核心趋势：**AI Agent 工作流的算力需求正在指数级增长，商业公司正在重新评估定价模型以应对成本压力。**`,
-      mermaid: `timeline
+      mermaid: `graph TD
     title AI 编程助手定价时间线
     2024 Q3 : GitHub Copilot\n$10/月（Pro）
     2025 Q1 : Claude Code 上线\n$20/月（Pro）
@@ -84,7 +84,7 @@ Anthropic 在 Opus 4.7 中引入了更新的 tokenizer，导致相同输入的 t
 据估算，一个典型的 1 小时编码 session，AI Agent 消耗的 tokens 约为：
 - 传统 LLM 对话：~50K tokens
 - AI 编码 Agent：~500K-2M tokens（高 10-40 倍）`,
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A[用户输入编程任务] --> B[Agent 分析需求]
     B --> C[读取项目文件\n~200K tokens]
     C --> D[搜索相关代码\n~50K tokens]
@@ -497,10 +497,10 @@ if __name__ == "__main__":
     D --> E[混合策略成为主流\n本地+云端智能路由]
     E --> F[2026 Q4]
     F --> G[本地部署普及\n消费级 GPU 可运行\n14B-32B 编码模型]
-    F --> H[Agent 效率提升\n推测解码降低\n50% token 消耗]
+    F --> H[Agent 效率提升\n推测解码降低\n50％ token 消耗]
     G --> I[2027]
     H --> I
-    I --> J[开源方案占据\n30%+ 市场份额]
+    I --> J[开源方案占据\n30％+ 市场份额]
     
     style B fill:#90EE90
     style E fill:#FFD700

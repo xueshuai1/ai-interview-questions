@@ -99,7 +99,7 @@ def profile_inference(model_name: str, prompt: str,
     A["推理请求"] --> B["Prefill 阶段"]
     B -->|"计算密集型\nGPU 利用率高"| C["首 Token 延迟"]
     C --> D["Decode 阶段"]
-    D -->|"内存带宽瓶颈\nGPU 利用率 < 30%"| E["逐 Token 生成"]
+    D -->|"内存带宽瓶颈\nGPU 利用率 < 30％"| E["逐 Token 生成"]
     E --> F["KV Cache 增长"]
     F --> G{达到最大长度?}
     G -->|否| D
@@ -532,7 +532,7 @@ def sft_student_model(student_path: str,
     E --> G["小模型 (1-7B)"]
     F --> G
     G --> H["推理加速 5-10x"]
-    H --> I["精度保持 85-95%"]`,
+    H --> I["精度保持 85-95％"]`,
             tip: "蒸馏时的 temperature 参数是关键超参数：T=1.5-3.0 通常效果最好。T 太小，soft label 趋近 hard label，丢失信息；T 太大，概率分布过于均匀，信号淹没在噪声中。",
             warning: "蒸馏数据的质量比数量更重要——用 10 万条 GPT-4 生成的高质量数据训练的小模型，通常比用 100 万条混合质量数据训练的效果更好。数据清洗（过滤低质量、不一致的回答）不可跳过。"
         },

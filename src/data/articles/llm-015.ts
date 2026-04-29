@@ -29,9 +29,9 @@ export const article: Article = {
 
 2025-2026 年是 LLM 推理加速技术爆发的年份。vLLM 的 PagedAttention、NVIDIA 的 TensorRT-LLM、推测解码（Speculative Decoding）、连续批处理（Continuous Batching）等技术，构成了一个完整的推理加速工具链。理解它们的原理和适用场景，是每个 AI 工程师的必修课。`,
       mermaid: `flowchart LR
-    A["用户 Prompt"] --> B["预填充阶段 Compute-bound GPU 利用率 70-90%"]
+    A["用户 Prompt"] --> B["预填充阶段 Compute-bound GPU 利用率 70-90％"]
     B --> C["KV Cache 初始化"]
-    C --> D["解码阶段 Memory-bound GPU 利用率 10-30%"]
+    C --> D["解码阶段 Memory-bound GPU 利用率 10-30％"]
     D --> E["Token 1"]
     E --> F["Token 2"]
     F --> G["..."]

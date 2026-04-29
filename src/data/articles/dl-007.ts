@@ -566,9 +566,9 @@ plt.savefig("optimizer_comparison.png", dpi=150)` },
     A["ResNet-18 + CIFAR-10\n统一配置"] --> B["SGD+Momentum"]
     A --> C["Adam"]
     A --> D["AdamW"]
-    B --> E["87% 测试精度\n收敛慢"]
-    C --> F["86% 测试精度\n收敛快"]
-    D --> G["89% 测试精度\n收敛快"]
+    B --> E["87％ 测试精度\n收敛慢"]
+    C --> F["86％ 测试精度\n收敛快"]
+    D --> G["89％ 测试精度\n收敛快"]
     E -. "调参充分" .-> H["最佳泛化"]
     G -. "默认配置" .-> I["最佳性价比"]
     style I fill:#14532d`,

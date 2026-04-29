@@ -1018,7 +1018,7 @@ AI Agent 安全评估不是一个「功能」，而是一个**持续的系统工
 Anthropic 的 Glasswing 计划（40+ 企业联合防御）和 AISafetyBenchExplorer 论文（127 个基准的系统分析）都在传递同一个信号：**AI Agent 安全不再是「可做可不做」的选项，而是生产部署的必要条件。**
 
 建立你的 Agent 安全评估体系，从今天开始。`,
-      mermaid: `timeline
+      mermaid: `graph TD
     title AI Agent 安全评估演进路线
     2024 Q1-Q4 : LLM 内容安全为主
                : OWASP LLM Top 10 发布

@@ -731,7 +731,7 @@ def train_and_evaluate(env, agent: QLearningAgent,
     C --> D["epsilon 从 0.3 衰减到 0.01"]
     D --> E["Q 表收敛到 Q*"]
     E --> F["评估: 关闭探索"]
-    F --> G["成功率 >= 70%"]
+    F --> G["成功率 >= 70％"]
     G --> H["提取最优策略"]
     H --> I["可视化策略网格"]
 

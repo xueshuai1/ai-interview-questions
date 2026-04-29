@@ -549,7 +549,7 @@ Chrome AI Skills 不是桌面级 Agent（如 Cursor、Claude Desktop），它不
 **5. 操作系统级整合**
 
 Chrome AI Skills 和 Codex 的升级预示着一个更大的趋势：AI 内容创作工作流将不再局限于浏览器或特定应用，而是成为操作系统的原生能力。你可以用自然语言告诉系统「帮我写一篇关于 AI 工作流的文章并发布到所有渠道」，系统自动完成所有环节。`,
-      mermaid: `timeline
+      mermaid: `graph TD
     title AI 内容创作工作流的演进路线
 
     2024 : 单点工具爆发

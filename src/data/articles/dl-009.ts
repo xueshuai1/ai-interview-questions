@@ -230,7 +230,7 @@ for drop_rate in [0.0, 0.3, 0.5]:
     D --> E["输出层 无 Dropout"]
     
     subgraph "训练时"
-        F["随机选择 50% 神经元置零"]
+        F["随机选择 50％ 神经元置零"]
     end
     
     subgraph "推理时"
@@ -498,7 +498,7 @@ for mode in ["Pre-LN", "Post-LN"]:
             ["Transformer 适用性", "差（需固定 batch）", "极好（标准配置）", "LN 是 Transformer 的标准"],
           ],
         },
-        mermaid: `graph TB
+        mermaid: `graph TD TB
     subgraph "Batch Normalization"
         direction LR
         A1["样本1 [c1, c2, c3]"] --> BN

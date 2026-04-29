@@ -282,7 +282,7 @@ print(f"\\n输入形状: {x.shape} → 输出形状: {out.shape}")`,
             ["每头维度", "64", "64", "注意力细粒度"],
           ],
         },
-        mermaid: `graph TB
+        mermaid: `graph TD TB
     A["输入嵌入 + 位置嵌入"] --> B["LayerNorm"]
     B --> C["Multi-Head Self-Attention"]
     C --> D["残差连接 +"]
@@ -447,11 +447,11 @@ for rate in [0.05, 0.10, 0.15, 0.25, 0.50]:
           ],
         },
         mermaid: `graph TD
-    A["输入文本"] --> B["随机选择 15% token"]
+    A["输入文本"] --> B["随机选择 15％ token"]
     B --> C{"随机数 roll"}
-    C -->|"80%"| D["替换为 [MASK]"]
-    C -->|"10%"| E["替换为随机词"]
-    C -->|"10%"| F["保持原词不变"]
+    C -->|"80％"| D["替换为 [MASK]"]
+    C -->|"10％"| E["替换为随机词"]
+    C -->|"10％"| F["保持原词不变"]
     D --> G["BERT 编码器"]
     E --> G
     F --> G

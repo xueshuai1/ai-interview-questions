@@ -694,7 +694,7 @@ class Trainer:
     A["Micro-batch 1"] --> B["Forward"]
     B --> C["Backward"]
     C --> D["梯度累加到 .grad"]
-    D --> E{step % 4 == 0?}
+    D --> E{step ％ 4 == 0?}
     E -->|否| F["Micro-batch 2"]
     F --> G["Forward"]
     G --> H["Backward"]

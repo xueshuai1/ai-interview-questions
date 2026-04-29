@@ -229,7 +229,7 @@ class ResilientSession:
             Guard->>Harness: 转发请求
             Harness->>Context: 加载上下文
             Context->>Context: 检查 token 预算
-            alt 超过 80% 预算
+            alt 超过 80％ 预算
                 Context->>Context: 压缩上下文
             end
             Context->>Model: 带上下文的请求

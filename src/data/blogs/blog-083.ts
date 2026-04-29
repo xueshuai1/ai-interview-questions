@@ -389,7 +389,7 @@ print(f"年市场规模: {annual_api_calls * avg_cost_per_call:,.0f} 元")`
     A --> A2["Agent 平台产品化"]
 
     B --> B1["微信 Agent 化"]
-    B --> B2["渗透率突破20%"]
+    B --> B2["渗透率突破20％"]
 
     C --> C1["超级Agent平台出现"]
     C --> C2["千亿美元市场"]

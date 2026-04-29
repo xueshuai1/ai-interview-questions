@@ -141,7 +141,7 @@ export const article: Article = {
                     ["Full Rollout", "100%", "24h", "全量稳定性", "回滚到 50%"]
                 ]
             },
-            mermaid: `graph LR\n    A[新模型通过 A/B] --> B[Canary 1%]\n    B --> C{监控 24h}\n    C -->|"OK"| D[Canary 5%]\n    C -->|"Alert"| E[立即回滚]\n    D --> F{监控 24h}\n    F -->|"OK"| G[Canary 25%]\n    F -->|"Alert"| H[回滚到 1%]\n    G --> I{监控 48h}\n    I -->|"OK"| J[Canary 50%]\n    I -->|"Alert"| K[回滚到 5%]\n    J --> L{监控 48h}\n    L -->|"OK"| M[Full 100%]\n    L -->|"Alert"| N[回滚到 25%]`,
+            mermaid: `graph LR\n    A[新模型通过 A/B] --> B[Canary 1％]\n    B --> C{监控 24h}\n    C -->|"OK"| D[Canary 5％]\n    C -->|"Alert"| E[立即回滚]\n    D --> F{监控 24h}\n    F -->|"OK"| G[Canary 25％]\n    F -->|"Alert"| H[回滚到 1％]\n    G --> I{监控 48h}\n    I -->|"OK"| J[Canary 50％]\n    I -->|"Alert"| K[回滚到 5％]\n    J --> L{监控 48h}\n    L -->|"OK"| M[Full 100％]\n    L -->|"Alert"| N[回滚到 25％]`,
             tip: "灰度发布的每个阶段都应该有明确的退出标准（success criteria）和回滚触发条件，提前写好 Runbook。",
             warning: "不要在非工作时间推进灰度阶段，万一出问题需要团队快速响应。选择工作日的上午推进新阶段。"
         },

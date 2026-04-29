@@ -283,7 +283,7 @@ class CodeHandoffSpec:
     mermaid: `gantt
     title 传统设计流程 vs Claude Design 工作流
     dateFormat  HH:mm
-    axisFormat  %H:%M
+    axisFormat  ％H:％M
     
     section 传统流程
     需求简报           :a1, 09:00, 1h

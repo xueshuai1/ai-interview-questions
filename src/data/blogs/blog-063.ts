@@ -223,7 +223,7 @@ class SeedAgent:
     subgraph "验证阶段"
       F --> G["技能注册 status=DISCOVERING"]
       G --> H["多次执行测试"]
-      H --> I{"成功率 ≥ 80%？"}
+      H --> I{"成功率 ≥ 80％？"}
       I -->|是| J["status=ACTIVE"]
       I -->|否| K["status=DEPRECATED"]
     end

@@ -257,9 +257,9 @@ agentic_task_with_updates(
     New-->>Dev: 新输出集
     Dev->>Eval: 对比分析
     Eval-->>Dev: 差异报告
-    alt 差异 < 5%
+    alt 差异 < 5％
         Dev->>New: 直接切换 + 调优 Prompt
-    else 差异 > 5%
+    else 差异 > 5％
         Dev->>Dev: 重建 Prompt 栈
         Dev->>New: 从最小 Prompt 开始
     end

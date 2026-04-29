@@ -135,7 +135,7 @@ print(result)
   {
     title: "第二阶段：Plan-and-Execute — 学会规划",
     body: "ReAct 是\"边想边做\"，Plan-and-Execute 是**先想清楚整个计划，再一步步执行**：",
-    mermaid: `graph TB
+    mermaid: `graph TD TB
     A[用户请求] --> B[Planner: 生成执行计划]
     B --> C{计划是否完整?}
     C -->|否| D[Re-planner: 调整计划]
@@ -343,7 +343,7 @@ Revised: [修正后的回答，如无修改则保持原样]"""
   {
     title: "第四阶段：多 Agent 协作 — 团队作战",
     body: "当任务复杂度超过单个 Agent 的能力时，就需要**多 Agent 协作**——每个 Agent 专注一个领域，像团队一样工作。",
-    mermaid: `graph TB
+    mermaid: `graph TD TB
     subgraph "多 Agent 架构"
         Orchestrator["🎯 编排器\\n(理解任务、分配工作)"]
         
@@ -585,7 +585,7 @@ print(kg_orchestrator.get_summary())`,
   },
   {
     title: "总结与展望",
-    mermaid: `timeline
+    mermaid: `graph TD
     title Agent 架构演进时间线
     2022 Q4 : ReAct 提出<br/>基础推理+行动循环
     2023 Q1 : Plan-and-Execute<br/>学会规划

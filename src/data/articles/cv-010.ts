@@ -296,7 +296,7 @@ print(f"Flow shape: {flow_stacked.shape}")  # (20, 224, 224)`,
           ["融合策略", "加权平均概率", "空间:时间 ≈ 1:2", "无需训练"],
         ],
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["视频"] --> B["RGB 帧"]
     A --> C["光流计算"]
     B --> D["空间流 CNN\n(ResNet/VGG)"]
@@ -542,7 +542,7 @@ class UCF101Dataset(Dataset):
     A --> C["预训练 Video Transformer"]
     B --> D["微调 UCF101"]
     C --> D
-    D --> E["98%+ 准确率"]
+    D --> E["98％+ 准确率"]
 
     subgraph "迁移学习范式"
       F["大规模数据预训练"]

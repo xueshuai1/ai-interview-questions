@@ -35,7 +35,7 @@ Simon Willison 等资深开发者通过实测发现，Opus 4.7 的 tokenizer 在
     A["输入文本: 'Anthropic发布了Claude Opus 4.7'"] --> B["Opus 4.6 Tokenizer"]
     A --> C["Opus 4.7 Tokenizer"]
     B --> D["12个tokens"]
-    C --> E["16个tokens (+33%)"]
+    C --> E["16个tokens (+33％)"]
     D --> F["更粗粒度合并"]
     E --> G["更细粒度保留"]
     G --> H["语义理解更精确"]
@@ -52,13 +52,13 @@ Simon Willison 等资深开发者通过实测发现，Opus 4.7 的 tokenizer 在
     body: `Opus 4.7 的定价与 4.6 相同：输入 $5/百万 tokens，输出 $25/百万 tokens。但由于 token 通胀，实际成本会显著增加。
 
 以下是三种典型场景的成本对比分析：`,
-    mermaid: `graph TB
+    mermaid: `graph TD TB
     A["典型使用场景"] --> B["简单问答"]
     A --> C["长文档分析"]
     A --> D["多模态图片理解"]
-    B --> E["成本增加 ~30%"]
-    C --> F["成本增加 ~8-15%"]
-    D --> G["成本增加 ~200-300%"]
+    B --> E["成本增加 ~30％"]
+    C --> F["成本增加 ~8-15％"]
+    D --> G["成本增加 ~200-300％"]
     E --> H["影响较小<br/>日常对话"]
     F --> I["影响中等<br/>RAG场景"]
     G --> J["影响极大<br/>需要优化策略"]`,

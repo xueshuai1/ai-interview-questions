@@ -241,9 +241,9 @@ plot_decision_boundary(bagging, X_test, y_test, "Bagging (50 棵树)")`,
             },
             mermaid: `graph LR
     A["训练集 D"] --> B["Bootstrap 采样"]
-    B --> C["D1 (63.2% 样本)"]
-    B --> D["D2 (63.2% 样本)"]
-    B --> E["DN (63.2% 样本)"]
+    B --> C["D1 (63.2％ 样本)"]
+    B --> D["D2 (63.2％ 样本)"]
+    B --> E["DN (63.2％ 样本)"]
     C --> F["模型 M1"]
     D --> G["模型 M2"]
     E --> H["模型 MN"]
