@@ -32,7 +32,11 @@ export const article: Article = {
                     ["条件一致性", "生成结果与文本/条件匹配", "CLIP Score, R-precision"]
                 ]
             },
-            mermaid: "graph LR\n    A[\"生成模型输出\"] --> B[\"特征提取器\"]\n    B --> C[\"统计量计算\"]\n    C --> D[\"距离/分数度量\"]\n    D --> E[\"最终评分\"]",
+            mermaid: `graph LR
+    A["生成模型输出"] --> B["特征提取器"]
+    B --> C["统计量计算"]
+    C --> D["距离/分数度量"]
+    D --> E["最终评分"]`,
             tip: "选择评估指标时，应根据具体任务场景决定，单一指标无法全面反映生成模型性能",
             warning: "不要仅依赖单一指标来评估模型，质量与多样性需要综合权衡"
         },
@@ -59,7 +63,11 @@ export const article: Article = {
                     ["适用场景", "快速初步评估生成质量"]
                 ]
             },
-            mermaid: "graph TD\n    A[\"生成图像 x\"] --> B[\"Inception 预测 p(y|x)\"]\n    B --> C[\"边缘分布 p(y)\"]\n    C --> D[\"KL(p(y|x) || p(y))\"]\n    D --> E[\"exp(E[KL]) = IS\"]",
+            mermaid: `graph TD
+    A["生成图像 x"] --> B["Inception 预测 p(y|x)"]
+    B --> C["边缘分布 p(y)"]
+    C --> D["KL(p(y|x) || p(y))"]
+    D --> E["exp(E[KL]) = IS"]`,
             tip: "IS 的标准做法是使用 50000 张生成图像分 10 组计算，取均值和标准差作为最终结果",
             warning: "IS 不包含与真实数据的比较，可能出现生成了高质量但完全偏离真实分布的图像却得到高分的情况"
         },
@@ -86,7 +94,12 @@ export const article: Article = {
                     ["100+", "较差，模式崩溃或质量低"]
                 ]
             },
-            mermaid: "graph LR\n    A[\"真实图像\"] --> C[\"Inception 特征\"]\n    B[\"生成图像\"] --> C\n    C --> D[\"N(mu, sigma)\"]\n    D --> E[\"Fréchet 距离\"]\n    E --> F[\"FID 分数\"]",
+            mermaid: `graph LR
+    A["真实图像"] --> C["Inception 特征"]
+    B["生成图像"] --> C
+    C --> D["N(mu, sigma)"]
+    D --> E["Fréchet 距离"]
+    E --> F["FID 分数"]`,
             tip: "FID 计算时应确保真实图像和生成图像数量一致，且至少使用 5000 张图像以获得稳定结果",
             warning: "矩阵平方根计算在协方差矩阵接近奇异时会数值不稳定，需检查特征维度是否远小于样本数量"
         },
@@ -112,7 +125,14 @@ export const article: Article = {
                     ["R-Precision", "图文检索精度", "[0, 1]", "越高越好"]
                 ]
             },
-            mermaid: "graph TD\n    A[\"文本提示\"] --> B[\"CLIP 文本编码器\"]\n    C[\"生成图像\"] --> D[\"CLIP 图像编码器\"]\n    B --> E[\"文本特征向量\"]\n    D --> F[\"图像特征向量\"]\n    E --> G[\"余弦相似度\"]\n    F --> G\n    G --> H[\"CLIP Score\"]",
+            mermaid: `graph TD
+    A["文本提示"] --> B["CLIP 文本编码器"]
+    C["生成图像"] --> D["CLIP 图像编码器"]
+    B --> E["文本特征向量"]
+    D --> F["图像特征向量"]
+    E --> G["余弦相似度"]
+    F --> G
+    G --> H["CLIP Score"]`,
             tip: "建议使用多个不同的文本提示集进行评估，包括简单描述和复杂场景，以获得更全面的 CLIP Score",
             warning: "CLIP Score 高不代表图像质量好，可能生成模糊但语义相关的图像也得到高分，必须与 FID 配合使用"
         },
@@ -138,7 +158,13 @@ export const article: Article = {
                     ["完全失败", "低", "低", "模型未收敛或训练不当"]
                 ]
             },
-            mermaid: "graph TD\n    A[\"真实数据分布\"] --> B[\"真实流形 M_real\"]\n    C[\"生成数据分布\"] --> D[\"生成分布流形 M_fake\"]\n    B --> E[\"Precision = M_fake 落入 M_real 比例\"]\n    D --> F[\"Recall = M_real 被 M_fake 覆盖比例\"]\n    E --> G[\"质量评估\"]\n    F --> H[\"多样性评估\"]",
+            mermaid: `graph TD
+    A["真实数据分布"] --> B["真实流形 M_real"]
+    C["生成数据分布"] --> D["生成分布流形 M_fake"]
+    B --> E["Precision = M_fake 落入 M_real 比例"]
+    D --> F["Recall = M_real 被 M_fake 覆盖比例"]
+    E --> G["质量评估"]
+    F --> H["多样性评估"]`,
             tip: "K 值的选择会影响结果，较小的 K 对异常值更敏感，较大的 K 估计更平滑但计算成本更高，建议 K=3 到 5",
             warning: "Precision 和 Recall 计算在高维特征空间中对距离度量敏感，确保特征已归一化且维度适当"
         },
@@ -165,7 +191,13 @@ export const article: Article = {
                     ["FID/IS 自动指标", "低", "中", "快速迭代优化"]
                 ]
             },
-            mermaid: "graph LR\n    A[\"人工评估设计\"] --> B[\"选择评估者\"]\n    B --> C[\"制定评分标准\"]\n    C --> D[\"收集评分数据\"]\n    D --> E[\"统计分析\"]\n    E --> F[\"与自动指标对比\"]\n    F --> G[\"校准自动指标\"]",
+            mermaid: `graph LR
+    A["人工评估设计"] --> B["选择评估者"]
+    B --> C["制定评分标准"]
+    C --> D["收集评分数据"]
+    D --> E["统计分析"]
+    E --> F["与自动指标对比"]
+    F --> G["校准自动指标"]`,
             tip: "进行人工评估时应确保评估者数量充足，建议至少 20 名评估者，并使用 Cohen Kappa 系数评估评分者间一致性",
             warning: "人工评估结果受评估者文化背景和经验影响，跨文化比较时需要特别谨慎，建议在报告评估结果时注明评估者构成"
         },
@@ -192,7 +224,13 @@ export const article: Article = {
                     ["SSIM", "StructuralSimilarityIndexMeasure", "data_range: 数据范围", "极低"]
                 ]
             },
-            mermaid: "graph TD\n    A[\"训练循环\"] --> B[\"生成样本\"]\n    B --> C[\"torchmetrics 更新\"]\n    C --> D[\"compute 指标\"]\n    D --> E[\"TensorBoard 记录\"]\n    E --> F[\"检查最佳模型\"]\n    F --> G[\"保存 checkpoint\"]",
+            mermaid: `graph TD
+    A["训练循环"] --> B["生成样本"]
+    B --> C["torchmetrics 更新"]
+    C --> D["compute 指标"]
+    D --> E["TensorBoard 记录"]
+    E --> F["检查最佳模型"]
+    F --> G["保存 checkpoint"]`,
             tip: "使用 torchmetrics 时调用 reset() 方法很重要，否则指标会在多个 epoch 之间累积导致结果错误",
             warning: "FID 计算需要较大内存存储协方差矩阵，2048 维特征约 32MB，在显存有限的情况下可以分批更新或使用较小的 feature 维度"
         }

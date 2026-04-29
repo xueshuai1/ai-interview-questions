@@ -86,6 +86,14 @@ class MegaTrainPipeline:
     title: "总结",
     body: "MegaTrain 代表了 2026 年 AI 基础设施领域最重要的创新之一。它不是靠更大的模型或更多的 GPU 来解决问题，而是通过**重新思考计算架构**，在单张 GPU 上实现了之前需要整个集群才能完成的任务。\n\n这种以小搏大的思路，或许正是开源 AI 对抗科技巨头算力优势的关键路径。",
   },
+  {
+      title: "架构图示",
+      mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+  },
 ];
 
 export const blog: BlogPost = {

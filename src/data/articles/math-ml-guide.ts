@@ -58,6 +58,22 @@ export const article: Article = {
 
 如果编程基础为零，建议先花一周学 Python 基础。`,
             tip: "💡 速成路线的学习者可以跳过数学部分，直接学 Prompt → LLM 应用 → Agent。等需要深入时再回来补基础。"
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

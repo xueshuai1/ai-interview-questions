@@ -40,6 +40,22 @@ export const article: Article = {
 
 > **2026 年最重要的部分：Transformer。** 它是 GPT、Claude、Gemini 的共同基础。`,
             tip: "💡 用 PyTorch 搭建一个简单的神经网络，亲手跑一次训练流程，比看十篇教程都管用。"
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

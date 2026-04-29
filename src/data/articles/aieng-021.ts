@@ -1475,5 +1475,21 @@ timeline
 
 Agentic Engineering 的核心不在于使用哪个框架，而在于**系统化的工程思维**。无论是 ReAct、Plan-and-Solve 还是 Multi-Agent，都是为了解决同一个问题：**如何让 AI 系统可靠地完成复杂任务**。掌握本文介绍的原则和实践，你将能够构建出生产级的 AI Agent 系统。`,
     },
+    {
+        title: "架构图示 1",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
+    {
+        title: "架构图示 2",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
   ],
 };

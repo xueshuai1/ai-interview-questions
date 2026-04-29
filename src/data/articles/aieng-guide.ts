@@ -52,6 +52,22 @@ export const article: Article = {
 | 实验管理 | MLflow / W&B | 追踪训练实验 |
 | 监控 | 自定义 | 数据漂移、性能监控 |`,
             tip: "💡 初学者从 FastAPI + Docker 开始就够了，不需要一上来就学 Kubernetes。"
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

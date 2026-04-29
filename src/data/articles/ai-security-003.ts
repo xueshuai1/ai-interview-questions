@@ -322,6 +322,22 @@ while True:
 
 对于 AI 从业者和安全专业人士来说，Mythos 事件传递的核心信息是：**准备迎接 AI 驱动的网络安全新时代。这不是未来，这已经是现在。**`,
       tip: "建议：所有技术团队都应该开始学习 AI 安全相关知识，建立 AI 驱动的安全防护能力。Anthropic 发布的 Agentic Coding Trends Report 和 Project Glasswing 的技术白皮书是很好的起点。"
-    }
+    },
+    {
+        title: "架构图示 1",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
+    {
+        title: "架构图示 2",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
   ]
 };

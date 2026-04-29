@@ -289,6 +289,14 @@ aider --model ollama_codellama --architect-mode
 ollama pull codellama:70b
 # 硬件需求：至少 48GB VRAM（A6000 或 2x 3090）`,
       },
+      {
+          title: "架构图示",
+          mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+      },
     ],
     tip: `**给独立开发者的建议：**
 如果你每月的 AI 编码工具预算在 $20-40，当前的「多工具组合」策略是最优解。

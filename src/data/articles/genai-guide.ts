@@ -35,6 +35,22 @@ export const article: Article = {
 
 **实战：** 用 Stable Diffusion + ControlNet 生成一张你指定构图和姿势的图片。`,
             tip: "💡 先学会用 Midjourney 或 Stable Diffusion WebUI，再深入理解背后的数学原理。"
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

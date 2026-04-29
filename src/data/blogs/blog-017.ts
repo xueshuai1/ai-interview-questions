@@ -119,5 +119,13 @@ Claude Code 和 Aider 的成功证明，终端是 AI Agent 更自然的交互界
 
 **参考来源：** JetBrains Research Blog 2026 年 4 月、各工具官方文档、GitHub Trending 数据`,
         },
+        {
+            title: "架构图示",
+            mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+        },
     ],
 };

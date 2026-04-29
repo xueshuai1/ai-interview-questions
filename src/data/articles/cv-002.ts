@@ -49,7 +49,13 @@ print(f"Pixel-wise CE Loss: {loss.item():.4f}")`
                     ["全景分割", "语义图 + 实例ID", "✅ 部分", "全景场景理解"],
                 ],
             },
-            mermaid: "graph TD\n  A[图像分割] --> B[语义分割]\n  A --> C[实例分割]\n  A --> D[全景分割]\n  B --> E[FCN / U-Net / DeepLab]\n  C --> F[Mask R-CNN / SOLO]\n  D --> G[Panoptic FPN]",
+            mermaid: `graph TD
+  A[图像分割] --> B[语义分割]
+  A --> C[实例分割]
+  A --> D[全景分割]
+  B --> E[FCN / U-Net / DeepLab]
+  C --> F[Mask R-CNN / SOLO]
+  D --> G[Panoptic FPN]`,
             tip: "学习建议：先掌握语义分割（FCN → U-Net → DeepLab），再进阶到实例分割（Mask R-CNN），最后理解全景分割如何统一两者。",
             warning: "常见陷阱：混淆语义分割和实例分割的输出格式——前者是单张 H×W 的类别图，后者是多张二值掩码。",
         },
@@ -113,7 +119,12 @@ class SimpleFCN(nn.Module):
                     ["FCN-8s", "pool5 + pool4 + pool3", "8", "最精细"],
                 ],
             },
-            mermaid: "graph LR\n  A[输入图像] --> B[Conv + Pool 堆叠]\n  B --> C[1x1 Conv 分类]\n  C --> D[转置卷积上采样]\n  D --> E[分割输出]\n  B -.跳级连接.-> D",
+            mermaid: `graph LR
+  A[输入图像] --> B[Conv + Pool 堆叠]
+  B --> C[1x1 Conv 分类]
+  C --> D[转置卷积上采样]
+  D --> E[分割输出]
+  B -.跳级连接.-> D`,
             tip: "理解转置卷积时，不要把它等同于\"真正的逆卷积\"——它只是学习到的上采样操作，输出尺寸由 kernel_size、stride、padding 共同决定。",
             warning: "常见陷阱：FCN-32s 直接上采样 32 倍会导致棋盘伪影（checkerboard artifacts），实际工程中优先使用 FCN-8s 或 bilinear 初始化转置卷积权重。",
         },
@@ -192,7 +203,18 @@ class UNet(nn.Module):
                     ["输出边界质量", "优秀（跳跃连接保留细节）", "较粗糙"],
                 ],
             },
-            mermaid: "graph TD\n  A[输入 572x572] --> E1[Conv 64]\n  E1 --> E2[Conv 128]\n  E2 --> E3[Conv 256]\n  E3 --> B[Bottleneck 512]\n  B --> D3[Up 256 + Concat]\n  D3 --> D2[Up 128 + Concat]\n  D2 --> D1[Up 64 + Concat]\n  D1 --> Out[输出 388x388]\n  E1 -.skip.-> D1\n  E2 -.skip.-> D2\n  E3 -.skip.-> D3",
+            mermaid: `graph TD
+  A[输入 572x572] --> E1[Conv 64]
+  E1 --> E2[Conv 128]
+  E2 --> E3[Conv 256]
+  E3 --> B[Bottleneck 512]
+  B --> D3[Up 256 + Concat]
+  D3 --> D2[Up 128 + Concat]
+  D2 --> D1[Up 64 + Concat]
+  D1 --> Out[输出 388x388]
+  E1 -.skip.-> D1
+  E2 -.skip.-> D2
+  E3 -.skip.-> D3`,
             tip: "U-Net 的原始论文中使用的是 valid 卷积（无 padding），导致输出尺寸小于输入。现代实现多用 same padding 保持尺寸一致。",
             warning: "常见陷阱：拼接（concat）前需确保编码器特征图与解码器上采样后的尺寸一致，可能需要裁剪或 padding。",
         },
@@ -265,7 +287,19 @@ class ASPP(nn.Module):
                     ["v3+ (2018)", "编码器-解码器", "Xception-65", "89.0%"],
                 ],
             },
-            mermaid: "graph TD\n  A[输入特征] --> B[1x1 Conv]\n  A --> C[Atrous Conv r=6]\n  A --> D[Atrous Conv r=12]\n  A --> E[Atrous Conv r=18]\n  A --> F[Global Avg Pool → 1x1]\n  B --> G[Concat]\n  C --> G\n  D --> G\n  E --> G\n  F -.Upsample.-> G\n  G --> H[1x1 Fuse Conv]\n  H --> I[输出]",
+            mermaid: `graph TD
+  A[输入特征] --> B[1x1 Conv]
+  A --> C[Atrous Conv r=6]
+  A --> D[Atrous Conv r=12]
+  A --> E[Atrous Conv r=18]
+  A --> F[Global Avg Pool → 1x1]
+  B --> G[Concat]
+  C --> G
+  D --> G
+  E --> G
+  F -.Upsample.-> G
+  G --> H[1x1 Fuse Conv]
+  H --> I[输出]`,
             tip: "理解空洞卷积的关键：膨胀率 r 越大，感受野越大，但过大时会出现\"网格效应\"（gridding effect）——相邻像素不再相连。ASPP 用多个不同 r 值混合缓解此问题。",
             warning: "常见陷阱：大膨胀率（r ≥ 12）在特征图较小时，空洞卷积核的有效权重可能超出特征图边界，导致大量零填充。DeepLab v3+ 采用 ImagePool 分支缓解此问题。",
         },
@@ -334,7 +368,16 @@ print(f"高置信度实例: {keep.sum().item()} 个")`
                     ["解耦策略", "—", "分类和掩码独立预测"],
                 ],
             },
-            mermaid: "graph TD\n  A[输入图像] --> B[ResNet-FPN 特征金字塔]\n  B --> C[RPN 区域建议]\n  C --> D[RoI Align]\n  D --> E[Cls Head]\n  D --> F[BBox Head]\n  D --> G[Mask Head]\n  E --> H[类别 + 分数]\n  F --> I[边界框]\n  G --> J[像素掩码]",
+            mermaid: `graph TD
+  A[输入图像] --> B[ResNet-FPN 特征金字塔]
+  B --> C[RPN 区域建议]
+  C --> D[RoI Align]
+  D --> E[Cls Head]
+  D --> F[BBox Head]
+  D --> G[Mask Head]
+  E --> H[类别 + 分数]
+  F --> I[边界框]
+  G --> J[像素掩码]`,
             tip: "Mask R-CNN 的关键设计哲学：分类和掩码是解耦的（decouposed）——每个类别的掩码独立预测，不通过 softmax 竞争，这避免了同类实例间的掩码混淆。",
             warning: "常见陷阱：RoI Align 的采样点数（sampling_ratio）设置过小会导致掩码精度下降。默认值 2 在大多数场景下够用，但对小物体建议设为 4。",
         },
@@ -413,7 +456,15 @@ print(f"Mean Dice: {dices.mean().item():.4f}")`
                     ["mAP@[.5:.95]", "多阈值AP平均", "[0,1]", "实例分割(COCO)", "低"],
                 ],
             },
-            mermaid: "graph LR\n  A[预测掩码] --> B{逐像素对比}\n  B --> C[TP 真正例]\n  B --> D[FP 假正例]\n  B --> E[FN 假反例]\n  C --> F[IoU = TP/(TP+FP+FN)]\n  D --> F\n  E --> F\n  F --> G[mIoU = mean(IoU)]",
+            mermaid: `graph LR
+  A[预测掩码] --> B{逐像素对比}
+  B --> C[TP 真正例]
+  B --> D[FP 假正例]
+  B --> E[FN 假反例]
+  C --> F[IoU = TP/(TP+FP+FN)]
+  D --> F
+  E --> F
+  F --> G[mIoU = mean(IoU)]`,
             tip: "评估时务必使用 mIoU 而非 Pixel Accuracy——在类别不平衡的数据集上，Pixel Accuracy 会严重高估模型性能。医学分割中 Dice 系数更常用。",
             warning: "常见陷阱：IoU 计算中，如果某个类别在真实标签中不存在（union=0），应跳过该类别或返回 1.0，避免除零错误。",
         },
@@ -564,7 +615,15 @@ if __name__ == "__main__":
                     ["批大小", "4 (GPU 显存受限)", "梯度积累可等效增大"],
                 ],
             },
-            mermaid: "graph TD\n  A[数据集加载] --> B[数据增强]\n  B --> C[ResNet-50 特征提取]\n  C --> D[ASPP 多尺度融合]\n  D --> E[解码器恢复分辨率]\n  E --> F[像素级分类输出]\n  F --> G{CE + Dice Loss}\n  G --> H[AdamW 优化]\n  H --> C",
+            mermaid: `graph TD
+  A[数据集加载] --> B[数据增强]
+  B --> C[ResNet-50 特征提取]
+  C --> D[ASPP 多尺度融合]
+  D --> E[解码器恢复分辨率]
+  E --> F[像素级分类输出]
+  F --> G{CE + Dice Loss}
+  G --> H[AdamW 优化]
+  H --> C`,
             tip: "实战建议：先用预训练权重（weights=\"DEFAULT\"）做迁移学习，比从零训练收敛快 5-10 倍。显存不足时用梯度累积（gradient accumulation）等效增大 batch size。",
             warning: "常见陷阱：数据增强时忘记用相同随机种子处理图像和掩码，导致图像和标签错位！务必在 transform 前设置相同的 seed。",
         },

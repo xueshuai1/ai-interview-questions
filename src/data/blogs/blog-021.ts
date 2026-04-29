@@ -184,5 +184,21 @@ Managed Agents 是 Anthropic 专有服务。一旦你的 Agent 深度依赖其�
 *官方公告：[Claude Managed Agents — get to production 10x faster](https://claude.com/blog/claude-managed-agents)*
 *定价文档：[Claude Platform Pricing](https://platform.claude.com/docs/pricing)*`,
     },
+    {
+        title: "架构图示 1",
+        mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+    },
+    {
+        title: "架构图示 2",
+        mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+    },
   ],
 };

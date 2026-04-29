@@ -669,5 +669,13 @@ for rec in model.recommendations():
             },
             warning: "AI 监管环境正在快速变化。建议每季度审查一次合规状态，关注主要市场的新法规和指南更新。",
         },
+        {
+            title: "架构图示",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ],
 };

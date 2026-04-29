@@ -585,7 +585,23 @@ graph TD
 4. **研究探索**：Hermes Agent + OpenAI Agents Python（互补）
 
 > **一句话总结：** 2026 年的 AI 竞争已经从"谁的模型更强"转向了"谁的 Agent 系统更聪明"。记忆、上下文和编排——这三者的组合，决定了 Agent 系统的上限。`
-  }
+  },
+  {
+      title: "架构图示 1",
+      mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+  },
+  {
+      title: "架构图示 2",
+      mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+  },
 ];
 
 export const blog: BlogPost = {

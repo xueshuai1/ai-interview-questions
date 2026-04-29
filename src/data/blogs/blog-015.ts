@@ -49,6 +49,22 @@ const content: ArticleSection[] = [
     title: "结语",
     body: "Agent 评测不是学术研究的花架子，而是 AI 安全落地的基础设施。当 Agent 开始为医疗诊断提供建议、为法律案件进行分析、为金融决策提供依据时，**它有多靠谱比它有多聪明重要一万倍。**\n\nMiroEval、ViGoR-Bench 和 Act Wisely 为我们指明了方向：评测需要多维度、重过程、动态化。期待更多研究加入这场 Agent 评测的范式革命。",
   },
+  {
+      title: "架构图示 1",
+      mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+  },
+  {
+      title: "架构图示 2",
+      mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+  },
 ];
 
 export const blog: BlogPost = {

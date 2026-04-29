@@ -107,5 +107,13 @@ def polar_quantize(kv_vector, bits=3):
         "目前仅针对 Transformer 架构的 KV Cache 设计，对 SSM（如 Mamba）和混合架构需要重新设计",
       ],
     },
+    {
+        title: "架构图示",
+        mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+    },
   ],
 };

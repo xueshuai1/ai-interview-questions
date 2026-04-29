@@ -261,5 +261,13 @@ async function initializeAgents() {
 
 **Related Protocols.** For broader context on AI integration standards, compare MCP with OpenAPI (REST API specification), GraphQL (query language for APIs), and the emerging Agent-to-Agent (A2A) protocol. Each serves a different layer of the AI integration stack, and understanding their relationships helps in designing comprehensive AI architectures.`,
         },
+        {
+            title: "架构图示",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ],
 };

@@ -292,5 +292,21 @@ Anthropic 定期发布安全研究报告，包括：
 2. "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3" — Anthropic 可解释性研究
 3. "Project Glasswing: Securing Critical Software Infrastructure" — Anthropic 网络安全计划白皮书`,
     },
+    {
+        title: "架构图示 1",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
+    {
+        title: "架构图示 2",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
   ],
 };

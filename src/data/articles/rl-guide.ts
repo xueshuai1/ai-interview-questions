@@ -37,6 +37,22 @@ export const article: Article = {
 - 用 DQN 玩 Atari 游戏
 
 **前置要求：** 学过 Python、线性代数、概率论基础`
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

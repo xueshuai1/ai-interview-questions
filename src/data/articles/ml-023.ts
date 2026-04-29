@@ -324,5 +324,13 @@ def continual_training_loop(world_model, task_dataloaders, ewc_lambda=100.0, epo
 
 **Industry Reports.** Demis Hassabis's keynote at NeurIPS 2025 on "The Path to AGI Through World Models and Memory." The MIT Technology Review's "10 Breakthrough Technologies 2026" featured world models and mechanistic interpretability as key technologies. Stanford HAI's 2026 AI Index Report includes a comprehensive analysis of world model progress and deployment readiness.`,
         },
+        {
+            title: "架构图示",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ],
 };

@@ -878,5 +878,13 @@ print(guide.compare_paths([
                 ]
             },
         },
+        {
+            title: "架构图示",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ],
 };

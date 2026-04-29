@@ -55,6 +55,22 @@ export const article: Article = {
 
 > **核心原则：先跑起来，再优化。** 先用 API 完成 MVP，发现性能瓶颈后再考虑 RAG 或微调。`,
             tip: "💡 推荐先用 OpenAI 或 Anthropic 的 API 跑通第一个应用，再深入 RAG 和微调。"
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

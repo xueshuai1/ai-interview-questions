@@ -41,6 +41,22 @@ export const article: Article = {
 
 **2026 年的 NLP ≈ 大语言模型应用。** 所以学完 NLP 基础后，直接跳到 LLM 章节。`,
             tip: "💡 用 Hugging Face 的 pipeline 跑一个情感分析，5 行代码，感受一下 NLP 的力量。",
-        }
+        },
+        {
+            title: "架构图示 1",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
+        {
+            title: "架构图示 2",
+            mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+        },
     ]
 };

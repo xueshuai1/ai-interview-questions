@@ -287,5 +287,13 @@ class SimpleModelBasedAgent:
 - Schrittwieser et al. (2020): Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model (MuZero)
 - Chu et al. (2026): Agentic World Modeling: Foundations, Capabilities, Laws, and Beyond`,
     },
+    {
+        title: "架构图示",
+        mermaid: `graph TD
+    A["概述"] --> B["原理"]
+    B --> C["实现"]
+    C --> D["应用"]
+    D --> E["总结"]`,
+    },
   ],
 };

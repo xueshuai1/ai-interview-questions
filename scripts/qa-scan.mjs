@@ -70,6 +70,11 @@ function checkMermaidPercent(content, file) {
 
 /** 检查文章是否包含至少 2 个 Mermaid 图表（2026-04-29 用户指示） */
 function checkMermaidCount(content, file) {
+  // 跳过类型定义文件
+  if (file.endsWith('-types.ts')) {
+    results.pass.push(`✅ ${file}: 类型定义文件，跳过 Mermaid 检查`);
+    return;
+  }
   const mermaidMatches = content.match(/mermaid:\s*`/g);
   const count = mermaidMatches ? mermaidMatches.length : 0;
   if (count < 2) {

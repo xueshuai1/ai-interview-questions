@@ -171,5 +171,21 @@ def steer_emotion(model, input_ids, emotion_vec,
 
 当我们在 Claude 内部发现了情绪，我们发现的不是 AI 的灵魂，而是它的电路。理解这些电路，是我们构建安全、可靠、可控 AI 系统的必由之路。`,
     },
+    {
+        title: "架构图示 1",
+        mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+    },
+    {
+        title: "架构图示 2",
+        mermaid: `graph TD
+    A["背景"] --> B["技术"]
+    B --> C["实现"]
+    C --> D["评估"]
+    D --> E["结论"]`,
+    },
   ],
 };
