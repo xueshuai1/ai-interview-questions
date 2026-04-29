@@ -74,6 +74,7 @@ import { blog as claudeDeleteIncident } from './blogs/blog-082';
 import { blog as zhinet001 } from './blogs/blog-083';
 import { blog as aiDisruptsOutsourcing } from './blogs/blog-084';
 import { blog as openaiOnAWS } from './blogs/blog-085';
+import { blog as openaiEndsMicrosoftExclusivity } from './blogs/blog-086';
 
 export const blogs: BlogPost[] = [
   blog059,
@@ -142,4 +143,5 @@ export const blogs: BlogPost[] = [
   zhinet001,
   aiDisruptsOutsourcing,
   openaiOnAWS,
+  openaiEndsMicrosoftExclusivity,
 ];
