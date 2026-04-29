@@ -21,6 +21,40 @@ function stripCodeBlocks(content) {
     .replace(/table:\s*\{[\s\S]*?\},?\s*\n\s*\}/g, '') // table 块（单元格中可能有 <br>）
 }
 
+/** 检查 Mermaid classDef 对比度（2026-04-29 增强 — blog-085 事故） */
+function checkClassDefContrast(content, file) {
+  const lines = content.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line.startsWith('classDef ')) continue;
+    const fillMatch = line.match(/fill:([#][0-9a-fA-F]+)/i);
+    if (!fillMatch) continue;
+    const fillColor = fillMatch[1].toLowerCase();
+    // 检查是否使用了浅色（亮度 > 0.5 的颜色）
+    const hex = fillColor.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16) / 255;
+    const g = parseInt(hex.substring(2, 4), 16) / 255;
+    const b = parseInt(hex.substring(4, 6), 16) / 255;
+    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+    if (luminance > 0.4) {
+      results.fail.push(`❌ ${file}: Mermaid classDef 对比度不足 — fill:${fillColor} 过浅（亮度 ${(luminance * 100).toFixed(0)}%），文字不可读。应使用 800-900 色阶深色`);
+    }
+  }
+}
+
+/** 检查 Mermaid 连线语法（2026-04-29 增强 — blog-084 事故） */
+function checkMermaidArrows(content, file) {
+  const mermaidBlocks = content.matchAll(/mermaid:\s*`([\s\S]*?)`/g);
+  for (const block of mermaidBlocks) {
+    const lines = block[1].split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (/\. -\s+>/.test(lines[i])) {
+        results.fail.push(`❌ ${file}: Mermaid 连线语法错误 L${i + 1} — 发现「.- >」（带空格），应为「->」，会导致渲染为空白块`);
+      }
+    }
+  }
+}
+
 function checkRegex(file, ruleName, regex, message, stripCode = false) {
   let content = readFileSync(join(ROOT, file), 'utf8');
   if (stripCode) content = stripCodeBlocks(content);
@@ -63,7 +97,9 @@ console.log(`共 ${articleFiles.length} 篇文章\n`);
 for (const file of articleFiles) {
   const content = readFileSync(join(ROOT, file), 'utf8');
   checkRegex(file, '代码块格式', /```/, 'body 中发现 ``` 代码块');
-  checkRegex(file, 'Mermaid 配色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
+  checkRegex(file, 'Mermaid 浅色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
+  checkClassDefContrast(content, file);
+  checkMermaidArrows(content, file);
   checkRegex(file, 'HTML 标签', /<br[^>]*>|<\/br>|<p[^>]*>|<\/p>|<div[^>]*>|<\/div>/, '发现未转义 HTML 标签', true);
   checkRequired(file, content);
 }
@@ -80,7 +116,9 @@ console.log(`共 ${blogFiles.length} 篇博客\n`);
 for (const file of blogFiles) {
   const content = readFileSync(join(ROOT, file), 'utf8');
   checkRegex(file, '代码块格式', /```/, 'body 中发现 ``` 代码块');
-  checkRegex(file, 'Mermaid 配色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
+  checkRegex(file, 'Mermaid 浅色', /#ef4444|#f59e0b|#10b981|#6366f1|#8b5cf6|#ec4899|#06b6d4|#84cc16/, '发现浅色 Mermaid 配色');
+  checkClassDefContrast(content, file);
+  checkMermaidArrows(content, file);
   checkRegex(file, 'HTML 标签', /<br[^>]*>|<\/br>|<p[^>]*>|<\/p>|<div[^>]*>|<\/div>/, '发现未转义 HTML 标签', true);
   checkRequired(file, content);
 }

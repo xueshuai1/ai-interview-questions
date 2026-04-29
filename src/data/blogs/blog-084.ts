@@ -171,10 +171,10 @@ AI 的影响：AI 在测试环节的表现尤为突出——**自动生成测试
     D --> E[测试部署]
     E --> F[交付运维]
     
-    B -.替代 15-25%.- > B1[AI 需求理解]
-    C -.替代 25-35%.- > C1[AI 架构生成]
-    D -.替代 40-60%.- > D1[AI 编码]
-    E -.替代 30-45%.- > E1[AI 测试/部署]
+    B -.替代 15-25%-> B1[AI 需求理解]
+    C -.替代 25-35%-> C1[AI 架构生成]
+    D -.替代 40-60%-> D1[AI 编码]
+    E -.替代 30-45%-> E1[AI 测试/部署]
     
     B1 --> C1
     C1 --> D1
@@ -183,9 +183,9 @@ AI 的影响：AI 在测试环节的表现尤为突出——**自动生成测试
     F1[传统外包: 12 周, 10 人] --> G[交付]
     F2[AI 增强: 4 周, 2 人] --> G
     
-    classDef traditional fill:#80868B,stroke:#5f6368
-    classDef ai fill:#8AB4F8,stroke:#1A73E8
-    classDef impact fill:#F28B82,stroke:#D93025
+    classDef traditional fill:#374151,stroke:#1f2937,color:#fff
+    classDef ai fill:#1e3a8a,stroke:#1A73E8,color:#fff
+    classDef impact fill:#991b1b,stroke:#D93025,color:#fff
     
     class B,C,D,E,F1 traditional
     class B1,C1,D1,E1,F2 ai`,

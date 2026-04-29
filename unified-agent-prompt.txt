@@ -68,9 +68,15 @@
 **🔴 语法铁律：**
 - ❌ **禁止使用 `style X fill:...` 语法** — 会导致渲染为空白块/黑块（aieng-021 事故）
 - ✅ **必须使用 `classDef` + `class` 语法** — 详见下方示例
-- ❌ **禁止使用浅色**（400-500 色阶）和 Material Design 浅色：`#ef4444` `#f59e0b` `#10b981` `#6366f1` `#8b5cf6` `#ec4899` `#f3e5f5` `#e1f5fe` `#c8e6c9` `#fff3e0`
+- ❌ **禁止使用浅色**（400-500 色阶）和 Material Design 浅色：`#ef4444` `#f59e0b` `#10b981` `#6366f1` `#8b5cf6` `#ec4899` `#f3e5f5` `#e1f5fe` `#c8e6c9` `#fff3e0` `#8AB4F8` `#E8EAED` `#F28B82`
 - ✅ **必须使用深色**（800-900 色阶）+ 白字 `color:#fff`：`#991b1b` `#92400e` `#064e3b` `#3730a3` `#581c87` `#1e3a5f`
+- ✅ **classDef 填充色亮度不得超过 0.4**（亮度 = 0.2126*R + 0.7152*G + 0.0722*B），否则文字不可读
 - 完整配色表：`docs/MERMAID-COLORS.md`
+
+**🔴 连线语法铁律（2026-04-29 blog-084 事故新增）：**
+- ❌ **禁止使用 `.- >`（中间带空格）** — 会导致连线断裂、节点渲染为空白块
+- ✅ **连线箭头必须是 `->` 连续字符**，如 `A --> B`、`A -.标注.-> B`
+- ❌ **禁止** `.- >`、`. - >`、`. -  >` 等任何带空格变体
 
 **✅ 正确示例（必须用 classDef）：**
 ```
@@ -217,6 +223,8 @@ graph LR
 | 2026-04-28 | aieng-021 Mermaid 渲染为空白块/黑块 | 使用 `style X fill:#1e3a5f` 语法（深色填充在深色主题下不可见） | 改用 `classDef` + `class` 语法 | validate-rendering 拦截 style 语法、validate-article 拦截 |
 | 2026-04-28 | aieng-021 Python 代码渲染为代码框 | 代码嵌在 body 的 `\`\`\`python` 中，MarkdownBody 当成代码块渲染 | 提取到 `code: []` 数组 | validate-article 已拦截，但 AI 仍违反 → 加强 Prompt 强调 |
 | 2026-04-28 | aieng-021 页面出现多处空白块 | Mermaid 图表使用了不合法的 style 语法 + 空 body 段落 | 修复 Mermaid 语法 + 删除空段落 | validate-rendering 新增空白块检查 |
+| 2026-04-29 | blog-085 classDef 对比度不足 | classDef 使用 `#8AB4F8`/`#E8EAED` 等浅色填充 + 白字对比度不足 | 改用 `#4285F4`/`#D2E3FC` 深色 | validate-article 拦截 classDef 对比度 + qa-scan 拦截 |
+| 2026-04-29 | blog-084 mermaid 连线语法错误 | 连线 `.- >` 带空格导致渲染为空白块 | 改为 `->` | validate-article 拦截连线语法 + qa-scan 拦截 |
 
 ---
 

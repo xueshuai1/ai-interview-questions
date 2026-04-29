@@ -3,10 +3,11 @@
  * 文章发布前校验脚本
  * 
  * 检查项：
- * 1. Mermaid 配色对比度（WCAG AA ≥ 4.5:1）
+ * 1. Mermaid 配色对比度（WCAG AA ≥ 4.5:1）— 覆盖 style 和 classDef 两种语法
  * 2. body 中不能有 \`\`\`python 代码块（必须提取到 section.code）
  * 3. Mermaid 类型合法性
- * 4. 基本格式完整性
+ * 4. Mermaid 连线语法（禁止 .- > 带空格，必须 ->）
+ * 5. 基本格式完整性
  * 
  * 用法：
  *   node scripts/validate-article.mjs                    # 全量检查
@@ -72,27 +73,48 @@ function checkMermaidColors(content, filePath) {
   const lines = content.split('\n');
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
-    if (!line.startsWith('style ')) continue;
 
-    const fillMatch = line.match(/fill:([#][0-9a-fA-F]+)/i);
-    if (!fillMatch) continue;
+    // 检查 style X fill:... 语法（已禁止，但保留检查）
+    if (line.startsWith('style ')) {
+      const fillMatch = line.match(/fill:([#][0-9a-fA-F]+)/i);
+      if (!fillMatch) continue;
+      const fillColor = fillMatch[1].toLowerCase();
+      const colorMatch = line.match(/color:([#][0-9a-fA-F]+)/i);
+      const textColor = colorMatch ? colorMatch[1].toLowerCase() : DEFAULT_TEXT;
+      const cr = contrastRatio(fillColor, textColor);
+      if (cr < MIN_CONTRAST) {
+        const suggestion = getSafeAlternative(fillColor);
+        errors.push({
+          line: i + 1,
+          file: filePath,
+          fill: fillColor,
+          text: textColor,
+          ratio: cr.toFixed(2),
+          suggestion,
+        });
+      }
+      continue;
+    }
 
-    const fillColor = fillMatch[1].toLowerCase();
-    const colorMatch = line.match(/color:([#][0-9a-fA-F]+)/i);
-    const textColor = colorMatch ? colorMatch[1].toLowerCase() : DEFAULT_TEXT;
-    const cr = contrastRatio(fillColor, textColor);
-
-    if (cr < MIN_CONTRAST) {
-      // 推荐替代色
-      const suggestion = getSafeAlternative(fillColor);
-      errors.push({
-        line: i + 1,
-        file: filePath,
-        fill: fillColor,
-        text: textColor,
-        ratio: cr.toFixed(2),
-        suggestion,
-      });
+    // 检查 classDef fill:... 语法（2026-04-29 增强）
+    if (line.startsWith('classDef ')) {
+      const fillMatch = line.match(/fill:([#][0-9a-fA-F]+)/i);
+      if (!fillMatch) continue;
+      const fillColor = fillMatch[1].toLowerCase();
+      const colorMatch = line.match(/color:([#][0-9a-fA-F]+)/i);
+      const textColor = colorMatch ? colorMatch[1].toLowerCase() : DEFAULT_TEXT;
+      const cr = contrastRatio(fillColor, textColor);
+      if (cr < MIN_CONTRAST) {
+        const suggestion = getSafeAlternative(fillColor);
+        errors.push({
+          line: i + 1,
+          file: filePath,
+          fill: fillColor,
+          text: textColor,
+          ratio: cr.toFixed(2),
+          suggestion,
+        });
+      }
     }
   }
   return errors;
@@ -164,6 +186,33 @@ function checkCodeBlocksInBody(content, filePath) {
     }
   }
   
+  return errors;
+}
+
+// ===== Mermaid 连线语法检查（2026-04-29 新增）=====
+// blog-084 事故：.- > 带空格导致渲染为空白块
+function checkMermaidArrowSyntax(content, filePath) {
+  const errors = [];
+  // 在 mermaid 块内查找 .- > 或 .- - > 等带空格的连线语法
+  const mermaidBlocks = content.matchAll(/mermaid:\s*`([\s\S]*?)`/g);
+  for (const block of mermaidBlocks) {
+    const mermaidContent = block[1];
+    const lineStartIdx = block.index + content.substring(0, block.index).split('\n').length;
+    const lines = mermaidContent.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // 匹配 .- > 或 .- -> 或 .- - > 等带空格的错误语法
+      const badArrow = line.match(/\. -\s+>/);
+      if (badArrow) {
+        errors.push({
+          file: filePath,
+          type: 'mermaid_arrow_syntax',
+          line: lineStartIdx + i,
+          message: `Mermaid 连线语法错误：发现「.- >」（带空格），应为「->」。这会导致节点渲染为空白块。`,
+        });
+      }
+    }
+  }
   return errors;
 }
 
@@ -322,11 +371,15 @@ for (const filePath of filesToCheck) {
   const relPath = relative(join(__dirname, '../src/data'), filePath);
   checkedCount++;
   
-  // 1. Mermaid 配色检查
+  // 1. Mermaid 配色检查（覆盖 style 和 classDef 两种语法）
   const mermaidErrors = checkMermaidColors(content, relPath);
   allErrors.push(...mermaidErrors.map(e => ({ ...e, severity: 'error' })));
+
+  // 2. Mermaid 连线语法检查（.- > 空格问题）
+  const arrowErrors = checkMermaidArrowSyntax(content, relPath);
+  allErrors.push(...arrowErrors.map(e => ({ ...e, severity: 'error' })));
   
-  // 2. Mermaid 类型检查
+  // 3. Mermaid 类型检查
   const mermaidTypeResults = checkMermaidTypes(content, relPath);
   for (const e of mermaidTypeResults) {
     if (e.severity === 'warning') {
@@ -336,11 +389,11 @@ for (const filePath of filesToCheck) {
     }
   }
   
-  // 3. 代码块嵌入检查（body 中的 \`\`\`python 必须提取到 section.code）
+  // 4. 代码块嵌入检查（body 中的 \`\`\`python 必须提取到 section.code）
   const codeBlockErrors = checkCodeBlocksInBody(content, relPath);
   allErrors.push(...codeBlockErrors.map(e => ({ ...e, severity: 'error' })));
 
-  // 4. 基本格式检查（含 garbled body 检测）
+  // 5. 基本格式检查（含 garbled body 检测）
   const formatErrors = checkBasicFormat(content, relPath);
   allErrors.push(...formatErrors.map(e => ({ ...e, severity: 'error' })));
 }
