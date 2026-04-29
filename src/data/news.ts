@@ -4164,8 +4164,8 @@ Anthropic 正从"安全 AI"定位扩展到"创意 AI"，
     id: "news-554",
     tag: "行业",
     tagColor: "bg-blue-500/10 text-blue-300",
-    title: "BCI 初创 Neurable 计划授权其"读心"技术用于消费级可穿戴设备",
-    summary: "脑机接口公司 Neurable 计划将其脑电波解读技术授权给消费级可穿戴设备厂商，让"读心"技术走向大众市场。",
+    title: 'BCI 初创 Neurable 计划授权其"读心"技术用于消费级可穿戴设备',
+    summary: '脑机接口公司 Neurable 计划将其脑电波解读技术授权给消费级可穿戴设备厂商，让"读心"技术走向大众市场。',
     content: `## Neurable：让脑机接口走进可穿戴设备
 
 **2026 年 4 月 28 日**，TechCrunch 报道了 BCI 公司 Neurable 的新动向。
