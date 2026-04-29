@@ -23,7 +23,7 @@ export default function MermaidChart({ chart, onSvgReady }: MermaidChartProps) {
           theme: 'dark',
           securityLevel: 'loose',
           fontFamily: 'system-ui, -apple-system, sans-serif',
-          suppressErrorRendering: true,
+          suppressErrorRendering: false,
           themeVariables: {
             fontSize: '16px',
             // 统一亮色文字，确保深色背景下清晰可读
@@ -74,11 +74,14 @@ export default function MermaidChart({ chart, onSvgReady }: MermaidChartProps) {
           setSvg(svg);
           onSvgReady?.(svg);
         }
-      } catch (err) {
-        // Silently fail — suppressErrorRendering prevents bomb icon
+      } catch (err: any) {
+        // Show error message so QA can catch syntax issues
         console.error('MermaidChart render failed:', err);
         if (mounted) {
-          setError('');
+          const msg = err?.message || String(err);
+          // Truncate long messages for display
+          const shortMsg = msg.length > 200 ? msg.substring(0, 200) + '...' : msg;
+          setError(`图表渲染失败: ${shortMsg}`);
           setSvg('');
         }
       }
