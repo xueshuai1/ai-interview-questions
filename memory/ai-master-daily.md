@@ -26,3 +26,9 @@
 - 修复 blog-087: mermaid代码块→field, %→全角％, 补author字段, content格式修正
 - bug-hash 4个全部✅, Build+TS全通过
 - commit: a92b88d3
+
+### 2026-04-29 15:00 QA
+- 修复 P0: blog-078.ts TS 编译错误（body 模板未闭合，mermaid 嵌入 body 内）
+- 修复 P1: blog-084.ts mermaid 半角 % → 全角％（4处，上轮漏修）
+- QA 扫描 1320/0/0, Build+TS 全通过, HTTP 7页面全200
+- commit: 6f8afdcc
