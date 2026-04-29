@@ -39,3 +39,8 @@
 - npm run build + tsc --noEmit 全通过
 - bug-hash 5个全部✅, 无需修复
 - commit: e694048c
+### 2026-04-29 19:00 QA
+- 发现 P0: agent-036 未在 knowledge.ts 注册 → /article/agent-036 返回404 → 已修复
+- 发现 P1: blog-088 未在 blogs.ts 注册 → 无法访问 → 已修复
+- QA 扫描 1328/0/0, Build+TS 全通过, HTTP 全页面200
+- commit: 5dbc99f2
