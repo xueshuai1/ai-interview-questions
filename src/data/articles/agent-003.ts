@@ -318,7 +318,7 @@ def react_search(problem, max_steps=6):
                     ["最佳场景", "数学、逻辑推理", "复杂规划、创作", "多跳问答、Agent 任务"],
                 ]
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     subgraph "推理方法谱系"
         A["纯推理"] --> B["CoT 思维链"]
         B --> C["ToT 思维树"]

@@ -861,7 +861,7 @@ if __name__ == "__main__":
 - 如果你在做**生产级应用** → 考虑 Zep 等专用记忆服务，或者自建完整的四层架构
 
 记忆不是 Agent 的「附加功能」，而是 Agent 的「灵魂」。一个有记忆的 Agent，每次交互都在成长；一个没有记忆的 Agent，永远在原地踏步。`,
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["选择记忆方案"] --> B{"使用场景？"}
     
     B -->|"个人助手 / 编码辅助"| C["Claude-Mem 风格\n自动捕获 + AI 压缩"]

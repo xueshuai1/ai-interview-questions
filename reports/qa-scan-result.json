@@ -1313,18 +1313,6 @@
     "✅ tools.ts: validate-tools.mjs 通过",
     "✅ tools.ts: 工具名无括号"
   ],
-  "fail": [
-    "❌ src/data/articles/agent-033.ts: Mermaid classDef 对比度不足 — fill:#8ab4f8 过浅（亮度 69%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/agent-033.ts: Mermaid classDef 对比度不足 — fill:#e8eaed 过浅（亮度 92%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/agent-033.ts: Mermaid classDef 对比度不足 — fill:#f28b82 过浅（亮度 63%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/dl-019.ts: Mermaid classDef 对比度不足 — fill:#ff9800 过浅（亮度 64%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/infra-001.ts: Mermaid classDef 对比度不足 — fill:#6b7280 过浅（亮度 45%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/ml-001.ts: Mermaid classDef 对比度不足 — fill:#ff9800 过浅（亮度 64%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/ml-001.ts: Mermaid classDef 对比度不足 — fill:#4caf50 过浅（亮度 58%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/ml-001.ts: Mermaid classDef 对比度不足 — fill:#9e9e9e 过浅（亮度 62%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/articles/ml-001.ts: Mermaid classDef 对比度不足 — fill:#ff9800 过浅（亮度 64%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/blogs/blog-067.ts: Mermaid classDef 对比度不足 — fill:#f8f9fa 过浅（亮度 98%），文字不可读。应使用 800-900 色阶深色",
-    "❌ src/data/blogs/blog-074.ts: Mermaid classDef 对比度不足 — fill:#ffcdd2 过浅（亮度 85%），文字不可读。应使用 800-900 色阶深色"
-  ],
+  "fail": [],
   "warn": []
 }

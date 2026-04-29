@@ -300,7 +300,7 @@ for name, model in [("Ordered", model_ordered), ("Plain", model_plain)]:
                     ["LightGBM", "中等（leaf-wise 更易过拟合）", "最快", "大规模数据"],
                 ]
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     A["训练开始"] --> B{"选择 Boosting 模式"}
     B -->|"Ordered"| C["排列数据"]
     B -->|"Plain"| D["全量训练"]

@@ -130,7 +130,7 @@ GenericAgent 最大的优势是**可解释性**——每次新技能的生成都
     C2 --> C2a[权限管理]
 
     classDef active fill:#064e3b;
-    classDef inactive fill:#ffcdd2;
+    classDef inactive fill:#b91c1c;
     class A1a,B1a,C1a active;
     class A2a,B2a,C2a active;`
     },

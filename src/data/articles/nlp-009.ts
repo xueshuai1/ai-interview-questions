@@ -360,7 +360,7 @@ probabilistic_cky(["the", "cat", "chased", "the", "dog"], pcfg, lex)`,
                     ["Beam Search CKY", "O(n³b|G|)", "O(nb|G|)", "b 为 beam 宽度，节省内存"],
                 ],
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     A["CKY 表格填充"] --> B["span=1 填充对角线"]
     B --> C["span=2 宽度为2的跨度"]
     C --> D["span=3 宽度为3的跨度"]

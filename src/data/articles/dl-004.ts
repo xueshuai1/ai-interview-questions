@@ -183,7 +183,7 @@ print(f"单头参数量: {single_head_params:,}")
 print(f"多头参数量: {multi_head_params:,} (相同，但表达能力更强)")`,
           },
         ],
-        mermaid: `graph TB
+        mermaid: `graph TD TB
     X["输入 X"] --> Q["W_q → Q"]
     X --> K["W_k → K"]
     X --> V["W_v → V"]
@@ -279,7 +279,7 @@ class TransformerDecoderLayer(nn.Module):
         return x`,
           },
         ],
-        mermaid: `graph TB
+        mermaid: `graph TD TB
     subgraph "编码器 (Encoder × N)"
         A["输入 Embedding"] --> B["位置编码"]
         B --> C["Multi-Head Self-Attention"]

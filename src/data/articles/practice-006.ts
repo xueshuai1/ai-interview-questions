@@ -89,7 +89,7 @@ def medical_metrics(y_true: np.ndarray, y_pred: np.ndarray,
           ["生理监测", "时序模型, 异常检测", "ECG, EEG, 血氧", "88%-96%"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["医疗数据源"] --> B["影像数据"]
     A --> C["电子病历"]
     A --> D["基因组数据"]
@@ -311,7 +311,7 @@ class EHRTransformer(nn.Module):
           ["药物相互作用", "处方+文献", "相互作用类型", "知识图谱+LLM"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["电子病历原文"] --> B["文本预处理"]
     B --> C["分词与标准化"]
     C --> D["预训练语言模型"]
@@ -559,7 +559,7 @@ def predict_drug_sensitivity(model, gene_data, drug_data, scaler):
           ["启动子预测", "基因组序列", "卷积+注意力", "基因工程"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["患者样本"] --> B["全基因组测序"]
     B --> C["变异检测\nDeepVariant"]
     C --> D["变异注释"]
@@ -656,7 +656,7 @@ class DPSGDTrainer:
           ["ISO 13485", "质量管理", "全生命周期管理", "模型版本追溯"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["原始医疗数据"] --> B["匿名化处理"]
     B --> C["差分隐私训练"]
     C --> D["联邦学习聚合"]
@@ -818,7 +818,7 @@ def train_epoch(model, dataloader, criterion, optimizer, device):
           ["可解释性", "Grad-CAM", "最后一层卷积", "定位病灶区域"]
         ]
       },
-      mermaid: `graph TB
+      mermaid: `graph TD TB
     A["X 光影像\nChestX-ray14"] --> B["预处理\nResize+归一化"]
     B --> C["数据增强\n翻转/仿射/调色"]
     C --> D["EfficientNet-B0\n迁移学习"]

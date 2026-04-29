@@ -463,7 +463,7 @@ print(f"跨模态输出形状: {output.shape}")`
                     ["BLIP-2", "ViT-g", "OPT/FlanT5", "Q-Former 桥接", "~85.0%+"],
                 ],
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     A["输入图像"] --> B["Patch 分割 16x16"]
     B --> C["线性投影 + 位置编码"]
     D["输入问题"] --> E["词嵌入 + 位置编码"]

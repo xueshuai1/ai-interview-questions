@@ -188,7 +188,7 @@ class DecisionTreeClassifier:
 随机森林通过两种随机性来确保树之间的多样性：Bootstrap 采样（有放回抽样），每棵树使用不同的训练子集；特征随机选择，在每个分裂点只从随机选择的 k 个特征中寻找最佳分裂。
 
 这种设计使得随机森林几乎不会过拟合（随着树的数量增加，泛化误差收敛到一个下界）、不需要剪枝、对异常值鲁棒、可以并行训练。而且它天然支持特征重要性评估。`,
-        mermaid: `graph TB
+        mermaid: `graph TD TB
     A["原始训练集"] --> B["Bootstrap 采样 1"]
     A --> C["Bootstrap 采样 2"]
     A --> D["Bootstrap 采样 N"]

@@ -231,7 +231,7 @@ class CTDE_Mixer(nn.Module):
                     ["信用分配", "全局奖励 + 个体贡献", "所有 Q_i 值", "分解奖励信号"],
                 ]
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     subgraph Training
         S["全局状态 s"] --> M["混合网络"]
         Q1["Q1(o1,a1)"] --> M

@@ -54,7 +54,7 @@ export const article: Article = {
     classDef gpu fill:#1d4ed8,stroke:\#2563eb,color:#fff
     classDef mem fill:#b45309,stroke:\#d97706,color:#fff
     classDef bottleneck fill:#991b1b,stroke:\#b91c1c,color:#fff
-    classDef impact fill:#6b7280,stroke:#6b7280,color:#fff
+    classDef impact fill:#1f2937,stroke:#1f2937,color:#fff
     classDef result fill:#7c3aed,stroke:#7c3aed,color:#fff
     class A demand
     class B gpu

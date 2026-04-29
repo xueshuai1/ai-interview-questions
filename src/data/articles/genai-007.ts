@@ -86,7 +86,7 @@ export const article: Article = {
                     ["StyleGAN", "自适应风格注入", "细粒度可控性", "Karras 2019"]
                 ]
             },
-            mermaid: `graph TB\n    A["随机噪声 z"] --> B["生成器 G"]\n    B --> C["假样本 G(z)"]\n    D["真实数据 x"] --> E["判别器 D"]\n    C --> E\n    E --> F["真/假判断"]\n    F -->|"梯度"| G["更新 D"]\n    F -->|"梯度"| H["更新 G"]\n    G --> E\n    H --> B`,
+            mermaid: `graph TD TB\n    A["随机噪声 z"] --> B["生成器 G"]\n    B --> C["假样本 G(z)"]\n    D["真实数据 x"] --> E["判别器 D"]\n    C --> E\n    E --> F["真/假判断"]\n    F -->|"梯度"| G["更新 D"]\n    F -->|"梯度"| H["更新 G"]\n    G --> E\n    H --> B`,
             tip: "WGAN-GP 是目前最稳定的 GAN 训练范式，建议作为 GAN 入门首选。",
             warning: "GAN 训练需要仔细监控判别器损失，判别器过强会导致生成器梯度消失。"
         },

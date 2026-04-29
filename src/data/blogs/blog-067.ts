@@ -68,7 +68,7 @@ class SimpleRAGMemory:
     style C fill:#1e3a5f
     style D fill:#1e3a5f
     style E fill:#1e3a5f
-    classDef simple fill:#f8f9fa,stroke:#333
+    classDef simple fill:#374151,stroke:#333
     class A,C,D,E simple`,
     },
     {

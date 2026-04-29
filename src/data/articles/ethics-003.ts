@@ -357,7 +357,7 @@ fl.client.start_numpy_client(server_address="0.0.0.0:8080",
                     ["个性化 FL", "保留客户端特异性", "异构数据场景", "中"]
                 ]
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     A["中央服务器"] -->|"下发全局模型"| B["客户端 1"]
     A -->|"下发全局模型"| C["客户端 2"]
     A -->|"下发全局模型"| D["客户端 N"]
@@ -657,7 +657,7 @@ class DPFedAvgClient(fl.client.NumPyClient):
                     ["TF Encrypted", "隐私保护推理", "TensorFlow", "MPC, DP"]
                 ]
             },
-            mermaid: `graph TB
+            mermaid: `graph TD TB
     A["隐私保护 ML 技术栈"] --> B["差分隐私 DP"]
     A --> C["联邦学习 FL"]
     A --> D["安全多方计算 MPC"]
