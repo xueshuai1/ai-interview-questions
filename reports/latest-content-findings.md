@@ -1,26 +1,23 @@
-⏰ 写入时间：2026-04-29 12:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-04-29 16:00 (Asia/Shanghai)
 ## 本轮发现
-
-🔥 热点（12 条，已选 12 条写入 news.ts：news-507~news-518）：
-1. [DeepMind David Silver 融资 11 亿美元] 打造无需人类数据的自主学习 AI → 适合：知识库、博客
-2. [腾讯 ima 发布知识 Agent copilot] 企业知识管理进入 AI Agent 时代 → 适合：知识库
-3. [英伟达谷歌联手投资欧洲最大 AI 种子轮] 欧洲 AI 创业热潮 → 适合：博客
-4. [Meta 20 亿美元收购 Manus 被中国叫停] 地缘政治下的 AI 投资风险 → 适合：行业分析
-5. [12 小时攻克 42 年难题] AI 离 AGI 又近一步 → 适合：知识库
-6. [马斯克起诉 OpenAI 开庭] 科技伦理与资本合规边界受拷问 → 适合：行业分析
-7. [OpenAI 开源 Symphony 编排规范] AI Agent 编排统一标准 → 适合：知识库
-8. [Codex 系统提示词泄露] 禁止提及哥布林、浣熊等生物 → 适合：博客
-9. [商汤获 32 亿港元融资] AI 龙头盈利魔咒难破 → 适合：行业分析
-10. [talkie-13B 复古语言模型] 用 1930 年前文本训练，Alec Radford 参与 → 适合：博客
-11. [人形机器人进入决赛年] 智元宇树争第一 → 适合：行业分析
-12. [黄仁勋：Token 工厂是 AI 终极形态] 深度访谈 → 适合：知识库
-
+🔥 热点（13 条，已选 13 条写入 news.ts news-519~news-531）：
+1. [Anthropic 年收入突破 300 亿] AI 霸主换人，营收超越 OpenAI → 适合：博客/行业分析
+2. [NVIDIA 多模态全能模型] 智能体效率 9 倍于竞品 → 适合：知识库（芯片/模型）
+3. [腾讯 ima 知识 Agent Copilot] 文档 AI 原子组件化 → 适合：知识库（Agent）
+4. [Kimi K2.6 设计能力超越 Claude Design] 国产大模型垂直能力追赶 → 适合：博客
+5. [OpenAI 模型上架 AWS] 从微软独家走向多云战略 → 适合：行业分析
+6. [Anthropic Claude for Creative Work] AI 创意协作新品 → 适合：知识库（应用）
+7. [David Silver 融资 11 亿美元] 无需人类数据的自主学习 AI → 适合：知识库（原理）
+8. [摩尔线程首季盈利] 7006 万补助背后的商业化挑战 → 适合：行业分析
+9. [EA 85% 质检由 AI 完成] 游戏行业 AI 渗透加速 → 适合：博客
+10. [iOS 27 AI 照片编辑] Apple Intelligence 四大功能补齐差距 → 适合：博客
+11. [YouTube AI 搜索] 从链接列表到直接回答 → 适合：知识库（应用）
+12. [Ghostty 逃离 GitHub] AI 流量压垮平台 → 适合：博客/行业分析
+13. [中国 AI 数据量 199.48EB] 同比增长 42.86% → 适合：行业分析
 🆕 新工具（0 个）：
-- 本轮未发现新的值得收录的开源工具（已有的 openclaw/n8n 等已收录）
-
+本轮聚焦新闻动态，未收录新工具
 💡 知识缺口（4 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排标准（Symphony 规范详细解读）
-2. KNOWLEDGE-BASE-PLAN.md 待补：自主学习 AI（David Silver 研究方向）
-3. KNOWLEDGE-BASE-PLAN.md 待补：人形机器人技术栈对比（智元 vs 宇树）
-4. KNOWLEDGE-BASE-PLAN.md 待补：AI 基础设施演进（Token 工厂概念深入分析）
+1. KNOWLEDGE-BASE-PLAN.md 待补：[芯片] NVIDIA 多模态模型技术细节
+2. KNOWLEDGE-BASE-PLAN.md 待补：[Agent] 腾讯知识 Agent 架构解析
+3. KNOWLEDGE-BASE-PLAN.md 待补：[自主学习] David Silver 项目的技术路线
+4. KNOWLEDGE-BASE-PLAN.md 待补：[AI质检] EA 85% 质检的 AI 方案拆解
