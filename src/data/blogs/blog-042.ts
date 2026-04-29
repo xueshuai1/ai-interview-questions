@@ -291,7 +291,8 @@ ollama pull codellama:70b
       },
       {
           title: "架构图示",
-          mermaid: `graph TD
+          lang: "mermaid",
+          code: `graph TD
     A["背景"] --> B["技术"]
     B --> C["实现"]
     C --> D["评估"]
@@ -303,6 +304,16 @@ ollama pull codellama:70b
 不要把所有鸡蛋放在一个篮子里——分散使用 Codex、Claude Code 和开源工具，可以避免任何单一厂商定价变化对你的影响。`,
   },
   {
+      title: "定价策略对比",
+      mermaid: `graph TD
+    A["AI 编码工具定价"] --> B["订阅制"]
+    A --> C["用量制"]
+    A --> D["混合制"]
+    B --> B1["Copilot $20/月"]
+    C --> C1["Codex $200/月无限"]
+    D --> D1["Claude Code 用量+订阅"]`,
+    },
+    {
     title: "结语：定价透明才是核心诉求",
     body: `这次定价风波给所有 AI 厂商上了一课：
 
@@ -334,6 +345,7 @@ const blog: BlogPost = {
   content,
   date: "2026-04-22",
   author: "奥利奥",
+  category: "industry-analysis",
   tags: ["AI 编码", "Claude Code", "GitHub Copilot", "OpenAI Codex", "定价", "Agentic Coding", "成本优化", "SaaS 定价"],
   readTime: 25,
 };
