@@ -421,15 +421,48 @@ for (const filePath of filesToCheck) {
   allErrors.push(...formatErrors.map(e => ({ ...e, severity: 'error' })));
 }
 
+// ===== Mermaid 语法深度校验（2026-04-30 新增）=====
+// 调用 validate-mermaid-syntax.mjs 捕获 "Syntax error in text" 类错误
+let mermaidSyntaxErrors = [];
+try {
+  const mermaidCheckArgs = targetFile ? targetFile : '';
+  execSync(`node scripts/validate-mermaid-syntax.mjs ${mermaidCheckArgs}`,
+    { cwd: join(__dirname, '..'), encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
+} catch (e) {
+  // validate-mermaid-syntax.mjs 输出已包含在 stderr 中
+  // 解析其输出，提取错误
+  const errLines = (e.stderr || '').split('\n');
+  let currentFile = '';
+  for (const line of errLines) {
+    const fileMatch = line.match(/^📄\s+(.+):$/);
+    if (fileMatch) { currentFile = fileMatch[1]; continue; }
+    const errMatch = line.match(/L(\d+):\s*❌\s*\[(\w+)\]\s*(.+)/);
+    if (errMatch && currentFile) {
+      mermaidSyntaxErrors.push({
+        file: currentFile,
+        line: parseInt(errMatch[1]),
+        type: errMatch[2],
+        severity: 'error',
+        message: errMatch[3],
+      });
+    }
+  }
+  // 如果没有解析到结构化错误，至少输出原始信息
+  if (mermaidSyntaxErrors.length === 0 && e.stderr) {
+    console.error(e.stderr);
+  }
+}
+
 // ===== 输出结果 =====
 
-if (allErrors.length === 0 && allWarnings.length === 0) {
+if (allErrors.length === 0 && allWarnings.length === 0 && mermaidSyntaxErrors.length === 0) {
   console.log(`✅ 文章校验通过（检查了 ${checkedCount} 个文件）`);
   process.exit(0);
 }
 
-if (allErrors.length > 0) {
-  console.error(`\n❌ 发现 ${allErrors.length} 个错误：\n`);
+const totalErrors = allErrors.length + mermaidSyntaxErrors.length;
+if (totalErrors > 0) {
+  console.error(`\n❌ 发现 ${totalErrors} 个错误：\n`);
   
   // 按文件分组
   const byFile = {};
@@ -460,6 +493,23 @@ if (allErrors.length > 0) {
   }
 }
 
+// 输出 Mermaid 语法错误（独立分组）
+if (mermaidSyntaxErrors.length > 0) {
+  console.error(`\n🔍 Mermaid 语法错误 (${mermaidSyntaxErrors.length} 个)：\n`);
+  const byFile = {};
+  for (const e of mermaidSyntaxErrors) {
+    if (!byFile[e.file]) byFile[e.file] = [];
+    byFile[e.file].push(e);
+  }
+  for (const [file, fileErrors] of Object.entries(byFile)) {
+    console.error(`📄 ${file}:`);
+    for (const e of fileErrors) {
+      console.error(`  L${e.line}: ❌ [${e.type}] ${e.message}`);
+    }
+    console.error('');
+  }
+}
+
 if (allWarnings.length > 0) {
   console.warn(`\n⚠️ ${allWarnings.length} 个警告：\n`);
   for (const w of allWarnings) {
@@ -468,7 +518,7 @@ if (allWarnings.length > 0) {
 }
 
 // 只有错误才阻止提交，警告只是提醒
-if (allErrors.length > 0) {
+if (totalErrors > 0) {
   process.exit(1);
 } else {
   // 只有警告，允许通过

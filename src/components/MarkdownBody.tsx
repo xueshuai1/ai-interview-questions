@@ -330,6 +330,10 @@ export function parseMarkdown(text: string): string {
     return `<div class="mermaid-container my-6 p-6 rounded-xl bg-white/5 border border-white/10" data-mermaid="${safeChart}" id="${containerId}"><div class="flex justify-center items-center min-h-[60px]"><div class="mermaid-chart"></div><span class="text-xs text-slate-500 ml-2">图表渲染中...</span></div></div>`;
   });
 
+  // Step 5: Wrap <table> in overflow-x-auto container for mobile responsiveness
+  result = result.replace(/<table/g, '<div class="overflow-x-auto"><table')
+    .replace(/<\/table>/g, '</table></div>');
+
   return result;
 }
 
