@@ -4236,4 +4236,440 @@ AI 的竞争正在从"模型层"下沉到"基础设施层"。
     sourceUrl: "https://36kr.com/p/3787679275441413",
     href: "/news/news-555",
   },
+  {
+    id: "news-556",
+    tag: "AI 应用",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Microsoft Copilot 付费用户突破 2000 万：企业级 AI 助手规模化落地里程碑",
+    summary: "微软宣布 Copilot 付费用户超过 2000 万，并确认用户确实在日常使用中。这是企业级 AI 助手从早期采用走向大规模落地的关键里程碑，表明 AI 编码和办公助手已进入主流企业市场。",
+    content: `## Microsoft Copilot：2000 万付费用户的里程碑
+
+**2026 年 4 月 29 日**，微软在财报电话会议上宣布 Copilot 付费用户超过 2000 万。
+
+### 核心数据
+
+- **2000 万+ 付费用户**：企业和个人用户持续增长
+- **真实使用**：微软确认用户「确实在使用」，而非仅仅购买
+- **企业级渗透**：从技术团队向全公司范围扩展
+
+### 与 OpenAI 新合作的关系
+
+就在前一天（4 月 28 日），OpenAI 宣布将模型、Codex 和托管 Agent 服务接入 AWS。微软作为 OpenAI 的最大投资者，其 Copilot 产品的增长直接受益于 OpenAI 模型的持续迭代。
+
+### Satya Nadella 的表态
+
+微软 CEO Satya Nadella 表示已准备好「充分利用」与 OpenAI 的新合作协议，显示出微软对深化 AI 产品整合的决心。
+
+### 行业意义
+
+2000 万付费用户意味着 AI 助手已经跨越了早期采用者阶段，进入了主流市场。这对整个 AI 工具行业是一个积极信号——企业愿意为 AI 生产力工具付费。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/29/microsoft-says-it-has-over-20m-paid-copilot-users-and-they-really-are-using-it/`,
+    date: "2026-04-30 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/29/microsoft-says-it-has-over-20m-paid-copilot-users-and-they-really-are-using-it/",
+    href: "/news/news-556",
+  },
+  {
+    id: "news-557",
+    tag: "行业",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "Google Cloud 季度收入突破 200 亿美元：但增长受限于算力产能瓶颈",
+    summary: "Google Cloud 在 Q1 2026 季度收入突破 200 亿美元大关，但公司明确表示增长受到算力产能的限制。这反映了整个 AI 行业面临的共同挑战——需求远超供给，算力基础设施成为 AI 增长的核心瓶颈。",
+    content: `## Google Cloud 200 亿美元：增长受限的烦恼
+
+**2026 年 4 月 29 日**，Google 财报显示 Google Cloud 季度收入突破 200 亿美元。
+
+### 核心数据
+
+- **季度收入 > $200 亿**：Google Cloud 历史性突破
+- **产能受限增长**：公司明确表示增长受到算力产能约束
+- **AI 驱动**：AI 工作负载是增长的主要引擎
+
+### 同时期其他亮点
+
+- Google 消费者 AI 订阅获得「史上最强季度」
+- Google Q1 新增 2500 万订阅（YouTube + Google One 驱动）
+- Google Search 查询量创「历史新高」
+
+### 行业意义
+
+Google Cloud 的产能受限增长反映了整个 AI 行业的共同困境：
+1. **GPU/TPU 短缺**：AI 算力需求远超供应
+2. **数据中心建设周期长**：从规划到运营需要数年
+3. **能源限制**：AI 数据中心的电力需求巨大
+
+Anthropic 此前也表示增长受算力约束，Google 的证实进一步说明这是全行业问题。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/29/google-cloud-surpasses-20b-but-says-growth-was-capacity-constrained/`,
+    date: "2026-04-30 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/29/google-cloud-surpasses-20b-but-says-growth-was-capacity-constrained/",
+    href: "/news/news-557",
+  },
+  {
+    id: "news-558",
+    tag: "AI 应用",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Google Gemini 新功能：可直接生成并下载文件，支持 PDF/Docx/Excel/Markdown 等格式",
+    summary: "Google Gemini 推出文件生成功能，用户可以直接在 Gemini 中生成并下载文件，无需再导出到 Google Docs。支持 Workspace 应用格式（Drive/Docs/Sheets）以及 PDF、Docx、Excel、CSV、LaTeX、TXT、RTF 和 Markdown 格式。",
+    content: `## Gemini 文件生成：AI 助手的「办公软件」时代
+
+**2026 年 4 月 29 日**，Google 推出 Gemini 文件生成功能。
+
+### 支持格式
+
+- **Workspace 格式**：Google Drive / Docs / Sheets
+- **办公格式**：PDF、.docx、.xlsx、.csv
+- **开发者格式**：LaTeX、纯文本 (TXT)、Markdown (MD)
+- **富文本**：Rich Text Format (RTF)
+
+### 使用方式
+
+所有 Gemini 用户均可使用，直接在对话中请求生成文件并下载，无需额外操作。
+
+### 意义
+
+这标志着 AI 助手从「聊天工具」向「生产力工具」的转变。用户不再需要复制粘贴 AI 生成的内容，而是直接获得可用的文件。这对办公自动化和内容创作是重大提升。
+
+**来源：** Google Blog + The Verge
+**链接：** https://blog.google/innovation-and-ai/products/gemini-app/generate-files-in-gemini/`,
+    date: "2026-04-30 08:00",
+    source: "Google Blog + The Verge",
+    sourceUrl: "https://blog.google/innovation-and-ai/products/gemini-app/generate-files-in-gemini/",
+    href: "/news/news-558",
+  },
+  {
+    id: "news-559",
+    tag: "开源项目",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "OpenAI 正式登陆 AWS：模型、Codex 和托管 Agent 全部上线，Amazon 已开放新产品",
+    summary: "OpenAI 于 4 月 28 日宣布将 GPT 模型、Codex 编码 Agent 和托管 Agent 服务正式接入 AWS。Amazon 已立即在 AWS 上开放了新的 OpenAI 产品，为企业客户提供一站式 AI 服务。",
+    content: `## OpenAI on AWS：云端 AI 服务的重大扩展
+
+**2026 年 4 月 28 日**，OpenAI 宣布正式接入 AWS。
+
+### 接入内容
+
+- **OpenAI 模型**：GPT-5.5 等旗舰模型
+- **Codex**：AI 编码 Agent
+- **托管 Agent（Managed Agents）**：企业级自主 AI Agent 服务
+
+### Amazon 的响应
+
+Amazon 已在 AWS 上立即开放新的 OpenAI 产品，企业客户可以直接通过 AWS 控制台使用。
+
+### 与微软合作新阶段的关系
+
+就在宣布 AWS 接入的同一天（4 月 27 日），OpenAI 也宣布了与微软合作的「新阶段」。这意味着 OpenAI 正在从「Microsoft 独家」走向「多云战略」。
+
+### 行业影响
+
+OpenAI 接入 AWS 是企业 AI 市场的重大事件：
+1. **降低集成门槛**：已有 AWS 基础设施的企业无需额外迁移
+2. **多云竞争**：Microsoft Azure 不再是 OpenAI 的唯一云入口
+3. **企业采纳加速**：AWS 庞大的企业客户群将直接受益
+
+**来源：** OpenAI + TechCrunch
+**链接：** https://openai.com/index/openai-on-aws/`,
+    date: "2026-04-30 08:00",
+    source: "OpenAI + TechCrunch",
+    sourceUrl: "https://openai.com/index/openai-on-aws/",
+    href: "/news/news-559",
+  },
+  {
+    id: "news-560",
+    tag: "生成式 AI",
+    tagColor: "bg-pink-500/10 text-pink-300",
+    title: "Runway CEO：AI 视频只是前传，世界模型才是下一代方向",
+    summary: "Runway CEO Cristobal Valenzuela 在 Equity 播客中表示，当前 AI 视频生成只是「前传」，真正的下一代技术是「世界模型」——能够理解和模拟物理世界的 AI 系统。这预示着 AI 将从内容生成走向对现实世界的深层理解。",
+    content: `## Runway CEO 的远见：从 AI 视频到世界模型
+
+**2026 年 4 月 29 日**，Runway CEO Cristobal Valenzuela 接受 Equity 播客采访。
+
+### 核心观点
+
+- **AI 视频是「前传」**：当前的文生视频/图生视频只是起点
+- **世界模型是未来**：能够理解和模拟物理世界的 AI 系统
+- **从生成到理解**：AI 不仅要能生成内容，还要能理解世界运行规律
+
+### 什么是世界模型？
+
+世界模型（World Models）是一种能够学习并模拟环境运行规律的 AI 系统。与当前的生成模型不同，世界模型不仅能生成逼真的内容，还能理解物理规律、因果关系和时间连续性。
+
+### Runway 的定位
+
+作为 AI 视频生成领域的领导者（Gen-3 Alpha 等产品），Runway 对未来方向的判断具有重要参考价值。
+
+### 行业趋势
+
+从「生成内容」到「理解世界」是 AI 进化的自然路径。这与 David Silver 的「无需人类数据的自主学习」方向（news-413）有理念上的呼应——两者都指向 AI 对世界更深层的理解能力。
+
+**来源：** TechCrunch (Equity 播客)
+**链接：** https://techcrunch.com/podcast/equity-podcast-runway-ceo-cristobal-valenzuela-ai-video-world-models/`,
+    date: "2026-04-30 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/podcast/equity-podcast-runway-ceo-cristobal-valenzuela-ai-video-world-models/",
+    href: "/news/news-560",
+  },
+  {
+    id: "news-561",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "Anthropic 发布职业替代研究：精确绘制 AI 正在替代的工作类型，点名 10 大高危职业",
+    summary: "Anthropic 发布研究，精确分析了当前 AI 正在替代哪些工作。研究点名了 10 大高危职业类别，但指出某些群体暂时安全。这为 AI 对就业市场的影响提供了首个精确的量化分析。",
+    content: `## AI 替代工作：Anthropic 的精确地图
+
+**2026 年 4 月 30 日**，据 AI 前线报道，Anthropic 发布职业替代研究。
+
+### 研究方法
+
+Anthropic 利用 Claude 模型的能力，系统评估了不同职业被 AI 替代的风险等级。
+
+### 核心发现
+
+- **精确风险映射**：不是笼统的「AI 将取代 X% 的工作」，而是精确到具体职业
+- **10 大高危职业**：研究点名了最容易被替代的职业类别
+- **安全区**：某些职业群体暂时安全，但边界在缩小
+
+### 行业意义
+
+1. **政策参考**：为 AI 就业影响政策提供数据基础
+2. **个人规划**：帮助职场人士评估自身职业的 AI 风险
+3. **企业决策**：指导企业 AI 投资的优先级
+
+### 背景
+
+Anthropic 此前已发布「81,000 人想要什么」的大规模用户调研（3 月 18 日），职业替代研究是其 AI 社会影响研究的延续。
+
+**来源：** AI 前线 / Anthropic
+**链接：** https://36kr.com/p/3787708896206080`,
+    date: "2026-04-30 08:00",
+    source: "AI 前线 / Anthropic",
+    sourceUrl: "https://36kr.com/p/3787708896206080",
+    href: "/news/news-561",
+  },
+  {
+    id: "news-562",
+    tag: "大语言模型",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "DeepSeek V4 正式开源：视觉能力大升级，终于「开眼」了",
+    summary: "DeepSeek V4 正式开源发布，新增视觉理解能力，被形容为「那个看不见世界的鲸鱼，现在终于睁开眼了」。V4 系列此前已发布 Pro 和 Flash 双版本，此次开源将进一步降低高性能 LLM 的使用门槛。",
+    content: `## DeepSeek V4 开源：视觉能力大升级
+
+**2026 年 4 月 30 日**，据爱范儿报道，DeepSeek V4 正式开源。
+
+### 核心升级
+
+- **视觉能力**：V4 新增视觉理解，从纯文本模型升级为多模态模型
+- **开源发布**：代码和模型权重全面开放
+- **双版本**：此前已发布 V4-Pro 和 V4-Flash
+
+### 技术意义
+
+此前 DeepSeek V4 在文本基准测试中已逼近 GPT-5.5 水平，但缺少视觉能力。新增视觉理解后，V4 成为真正的全能型开源模型。
+
+### 性价比
+
+- V4-Pro API 价格约为 GPT-5.5 的 1/10
+- V4-Flash 每百万 token 不到 $0.1
+- 开源后可免费自部署
+
+### 行业影响
+
+DeepSeek V4 的开源将推动开源 LLM 生态的又一次飞跃，特别是在多模态应用领域。
+
+**来源：** 爱范儿 / DeepSeek
+**链接：** https://36kr.com/p/3788474106715144`,
+    date: "2026-04-30 08:00",
+    source: "爱范儿 / DeepSeek",
+    sourceUrl: "https://36kr.com/p/3788474106715144",
+    href: "/news/news-562",
+  },
+  {
+    id: "news-563",
+    tag: "AI 芯片",
+    tagColor: "bg-sky-500/10 text-sky-300",
+    title: "英伟达发布全模态大模型：一个模型搞定文本、视觉、语音，吞吐量同类 9 倍",
+    summary: "英伟达发布全模态大模型，支持文本、视觉、语音的统一处理，吞吐量达到同类模型的 9 倍。这是英伟达从芯片向模型层延伸的重要一步。",
+    content: `## 英伟达全模态大模型：从芯片到模型的全面布局
+
+**2026 年 4 月 30 日**，据智东西报道，英伟达发布全模态大模型。
+
+### 核心能力
+
+- **全模态**：一个模型同时处理文本、视觉、语音
+- **超高效**：吞吐量达到同类模型的 9 倍
+- **实时处理**：几秒钟搞定黄仁勋 3 分钟演讲的转换
+
+### 英伟达的战略意图
+
+英伟达从 GPU 芯片霸主向 AI 全栈提供商转型：
+1. **芯片层**：GPU/推理芯片保持领先地位
+2. **框架层**：CUDA 生态是行业标准
+3. **模型层**：全模态大模型展示技术实力
+
+### 与具身智能的关系
+
+36 氪同日报道「银河通用拉着英伟达，把人形机器人最大的谎言拆穿了」——英伟达正在从芯片到具身智能的全链条布局。
+
+**来源：** 智东西 / 英伟达
+**链接：** https://36kr.com/p/3787677070417161`,
+    date: "2026-04-30 08:00",
+    source: "智东西 / 英伟达",
+    sourceUrl: "https://36kr.com/p/3787677070417161",
+    href: "/news/news-563",
+  },
+  {
+    id: "news-564",
+    tag: "AI 工具",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "Altman 投资的 Warp 终端开源：15 小时 Star 数飙到 3.5 万，开源是延长软件寿命的最佳方式",
+    summary: "Altman 投资的 AI 终端工具 Warp 宣布开源，15 小时内 GitHub Star 数飙到 3.5 万。Warp 拥有近百万活跃开发者，是 AI 编程赛道的重要玩家。开源被认为延长软件寿命的最佳方式。",
+    content: `## Warp 开源：AI 终端的开源革命
+
+**2026 年 4 月 30 日**，据 InfoQ 报道，Warp 终端宣布开源。
+
+### 核心数据
+
+- **15 小时 3.5 万 Star**：GitHub 增长速度惊人
+- **近百万活跃开发者**：庞大的用户基础
+- **Altman 投资**：OpenAI CEO Sam Altman 是投资者
+
+### 为什么开源？
+
+「开源是延长软件寿命的最佳方式。」
+
+在 AI 编程赛道白热化之际（Cursor、Claude Code、Gemini CLI 激烈竞争），Warp 选择通过开源来：
+1. **社区驱动**：吸引开发者贡献
+2. **透明化**：建立用户信任
+3. **生态扩展**：插件和自定义能力
+
+### 竞争格局
+
+AI 终端/编码工具市场竞争激烈：
+- **Cursor**：AI IDE 领导者
+- **Claude Code**：Anthropic 的编码 Agent
+- **Gemini CLI**：Google 的终端 AI Agent
+- **Warp**：开源 AI 终端新玩家
+
+**来源：** InfoQ
+**链接：** https://36kr.com/p/3787635096329472`,
+    date: "2026-04-30 08:00",
+    source: "InfoQ",
+    sourceUrl: "https://36kr.com/p/3787635096329472",
+    href: "/news/news-564",
+  },
+  {
+    id: "news-565",
+    tag: "AI 工具",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "Simon Willison 发布 LLM 0.32a0：重大向后兼容重构，Python 依赖管理迎来 lockfiles 时代",
+    summary: "Simon Willison 发布 LLM 0.32a0 alpha 版本，进行了重大的向后兼容重构。同时 pip 26.1 发布，新增 lockfiles 和依赖冷却功能，Python 生态的依赖管理进入新阶段。",
+    content: `## LLM 0.32a0 + pip 26.1：Python AI 工具链的重大升级
+
+**2026 年 4 月 29 日**，Simon Willison 发布 LLM 0.32a0。
+
+### LLM 0.32a0 核心变化
+
+- **重大向后兼容重构**：为未来的功能扩展奠定基础
+- **Alpha 版本**：欢迎社区测试和反馈
+- **LLM CLI**：命令行调用任何 LLM 的瑞士军刀
+
+### pip 26.1 新功能
+
+Simon Willison 同日报道了 pip 26.1 的重要更新：
+1. **Lockfiles**：pip lock 命令生成 pylock.toml 依赖锁定文件
+2. **依赖冷却**：--uploaded-prior-to 选项可指定使用 N 天前发布的版本
+3. **安全改进**：防止供应链攻击
+4. **Python 3.9 支持终止**：跟随 EOL 节奏
+
+### 实际意义
+
+对于使用 LLM CLI 的开发者：
+- lockfiles 确保可复现的环境
+- 依赖冷却防止恶意包注入
+- LLM 0.32 重构后更稳定、更可扩展
+
+**来源：** Simon Willison's Weblog
+**链接：** https://simonwillison.net/2026/Apr/29/llm/`,
+    date: "2026-04-30 08:00",
+    source: "Simon Willison's Weblog",
+    sourceUrl: "https://simonwillison.net/2026/Apr/29/llm/",
+    href: "/news/news-565",
+  },
+  {
+    id: "news-566",
+    tag: "行业",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    title: "Parallel Web Systems 5 个月内估值翻倍至 20 亿美元：AI 基础设施持续受资本追捧",
+    summary: "Parallel Web Systems 在上一轮融资仅 5 个月后估值达到 20 亿美元，成为 AI 基础设施领域又一只独角兽。这延续了 AI Infra 赛道半年内多起超亿美元融资的火爆趋势。",
+    content: `## Parallel Web Systems：5 个月翻倍的 AI Infra 独角兽
+
+**2026 年 4 月 29 日**，Parallel Web Systems 估值达到 20 亿美元。
+
+### 融资速度
+
+- **5 个月翻倍**：从上一次融资到现在的估值增长
+- **$20 亿估值**：正式进入独角兽行列
+- **AI Infra 赛道**：基础设施层持续受资本追捧
+
+### 行业背景
+
+这与 36 氪同日报道的「AI Infra 创业机会爆发」趋势一致——半年内多家 AI Infra 公司获得单笔超亿美元融资。
+
+### 资本逻辑
+
+投资者看好 AI 基础设施层的原因：
+1. **确定性**：无论哪个模型胜出，都需要基础设施
+2. **规模化**：AI 算力需求持续爆炸式增长
+3. **护城河**：基础设施一旦建立，迁移成本高
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/29/parallel-web-systems-hits-2b-valuation-five-months-after-its-last-big-raise/`,
+    date: "2026-04-30 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/29/parallel-web-systems-hits-2b-valuation-five-months-after-its-last-big-raise/",
+    href: "/news/news-566",
+  },
+  {
+    id: "news-567",
+    tag: "AI 论文",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "arXiv 新论文：递归多智能体系统 + 可扩展推理架构，Compound AI Systems 生产部署研究发布",
+    summary: "arXiv 发布多篇重要论文，包括递归多智能体系统（Recursive Multi-Agent Systems）、长期知识合成的知识状态编排架构 ADEMA，以及 Compound AI Systems 在生产环境中的可扩展推理架构研究。",
+    content: `## arXiv AI 前沿：多智能体系统与推理架构
+
+**2026 年 4 月 29 日**，arXiv 发布多篇重要论文。
+
+### Recursive Multi-Agent Systems (2604.25917)
+
+- **作者**：Xiyuan Yang, Jingrui He, James Zou 等（UIUC、MIT 等）
+- **核心**：递归结构的多智能体系统框架
+- **36 页深度研究**：涵盖计算语言、机器学习交叉领域
+
+### ADEMA (2604.25849)
+
+- **核心**：面向长期知识合成的知识状态编排架构
+- **LLM Agent 驱动**：多 Agent 协作完成复杂知识任务
+
+### 可扩展推理架构 (2604.25724)
+
+- **作者**：Srikanta Prasad S V, Utkarsh Arora
+- **收录**：ACM CAIS 2026 会议
+- **核心**：Compound AI Systems 在生产环境中的部署研究
+
+### 研究趋势
+
+这三篇论文的共同方向是：**如何构建可扩展、可生产部署的多智能体系统**。这反映了 AI 研究从单模型向多系统协作的范式转移。
+
+**来源：** arXiv
+**链接：** https://arxiv.org/abs/2604.25917`,
+    date: "2026-04-30 08:00",
+    source: "arXiv",
+    sourceUrl: "https://arxiv.org/abs/2604.25917",
+    href: "/news/news-567",
+  },
 ];
