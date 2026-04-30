@@ -113,3 +113,20 @@
 - 联发科：AI 芯片需求加速增长
 - 出门问问 CodeBanana AI 协作平台
 - [01:17] 3da19ac1 — PM阶段: 知识库[ai-chip-china-001 中国AI芯片生态全景]+博客[blog-096 星际之门转向分析]，Build+TS全通过，深度校验通过
+
+## 2026-05-01 04:00 🔍 研究员
+- [04:00] 45b43eeb — 研究员: 扫描12来源(国外8+国内4), 更新新闻12条(news-616~627), 缺口4项, 已推送
+
+### 本轮重点新闻
+- Anthropic 9000 亿美元估值融资 500 亿
+- Musk 承认 xAI 用 OpenAI 模型训练 Grok
+- Stripe AI Agent 数字钱包 Link
+- 微软 Copilot 2000 万付费用户
+- GPT-5.5 哥布林迷恋 + OpenAI 解释
+- OpenAI 高级账户安全 + Yubico 合作
+- Gemini AI 进入数百万辆汽车
+- Claude Security 企业代码扫描
+- Zig 反 LLM 政策 + Bun 4x 提速
+- DeepSeek 视觉原语思考范式
+- 国产 GPU 三强对比（寒武纪/摩尔线程/沐曦）
+- LLM 0.32 重大重构
