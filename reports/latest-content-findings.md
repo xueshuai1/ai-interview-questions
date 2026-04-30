@@ -1,26 +1,32 @@
-⏰ 写入时间：2026-04-30 12:00 (Asia/Shanghai)
+⏰ 写入时间：2026-04-30 16:00 (Asia/Shanghai)
 
 ## 本轮发现
 
-🔥 热点（12 条，已选 12 条写入 news.ts news-568~news-579）：
-1. [Anthropic 500 亿融资 9000 亿估值] AI 资本竞赛白热化 → 适合：博客/知识库
-2. [软银机器人公司+数据中心] $1000 亿 IPO 目标 → 适合：行业趋势分析
-3. [微软 Copilot 2000 万付费用户] AI 助手成为企业刚需 → 适合：行业趋势分析
-4. [Google Cloud $200 亿但算力受限] 供给侧成瓶颈 → 适合：芯片/算力分析
-5. [NVIDIA 全模态大模型 9 倍吞吐] 多模态工程化落地 → 适合：技术博客
-6. [DeepSeek V4-Pro/Flash 双版本+视觉] 补齐多模态拼图 → 适合：模型对比分析
-7. [红杉 AI 大会 2026] 工作方式根本性改变 → 适合：行业趋势
-8. [哈萨比斯谈 AGI] 持续学习与记忆是关键 → 适合：知识库
-9. [Anthropic×NEC 日本 AI 团队] 亚太市场扩张 → 适合：行业趋势
-10. [Zig 最严格 AI 禁令] 开源社区新范式 → 适合：伦理/开源博客
-11. [豆包盯上电商] AI 助手帮你花钱 → 适合：应用分析
-12. [Sam Altman×AWS CEO] 云与 AI 深度融合 → 适合：行业趋势
+🔥 热点（18 条，已选 12 条写入 news.ts news-580~591）：
+1. [Anthropic 9000 亿美元估值融资] 拟融资 500 亿美元 → 适合：博客/知识库
+2. [微软 Q3 AI 收入 123% 增长] AI 年化收入飙涨，Copilot 2000 万付费用户 → 适合：行业分析
+3. [Google Cloud 突破 200 亿美元] 增长受限于算力，Gemini 用户 3.5 亿 → 适合：算力瓶颈分析
+4. [Musk 出庭 OpenAI 诉讼] 证词矛盾，每周工作 100 小时 → 适合：深度分析
+5. [David Silver 融资 11 亿美元] 构建无需人类数据的 AI → 适合：技术知识库
+6. [中国禁止 Meta 收购 Manus] 长达数月调查后禁止 → 适合：地缘政治分析
+7. [Zig 全面禁止 LLM 贡献] Bun 4 倍性能提升无法合入 → 适合：开源社区讨论
+8. [DeepSeek V4-Pro + V4-Flash 双版本] 补齐多模态能力 → 适合：模型对比
+9. [OpenAI Symphony 开源编排规范] Agent 工程标准化 → 适合：技术知识库
+10. [Claude Design 发布] AI 视觉创作工具 → 适合：产品评测
+11. [Google 搜索创历史新高] Gemini 用户 3.5 亿 → 适合：行业分析
+12. [SoftBank 机器人建数据中心] 目标 1000 亿美元 IPO → 适合：行业趋势
+13. [Runway CEO 谈世界模型] AI 视频只是前传 → 适合：技术知识库
+14. [OpenAI 发布 GPT-5.5 "哥布林"解释] 正经研究复盘 → 适合：趣味分析
+15. [微软第三财季营收 829 亿] AI 成印钞机 → 适合：财务分析
+16. [宇树发布双臂机器人] 2.69 万元起，桌面/工业方案 → 适合：具身智能
+17. [Figure 每小时产 1 台机器人] 生产效率大幅提升 → 适合：产业链分析
+18. [追觅 AI 具身智能洗护机器人 Z1] 物理 AI 时代到来 → 适合：产品评测
 
 🆕 新工具（0 个）：
-- 本轮未发现值得关注的新开源工具
+本轮未发现值得关注的新开源工具
 
 💡 知识缺口（4 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：[具身智能评估体系] — 36 氪多次报道，需要系统性知识库文章
-2. KNOWLEDGE-BASE-PLAN.md 待补：[世界模型] — 为什么突然成显学？需要深度解析
-3. KNOWLEDGE-BASE-PLAN.md 待补：[AI 助手电商化] — 豆包/Amazon/Google 都在做，需要应用层分析
-4. KNOWLEDGE-BASE-PLAN.md 待补：[开源 AI 禁令趋势] — Zig 禁令引发的讨论，需要伦理分析
+1. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排与 Symphony 规范（基于 OpenAI Symphony 发布）
+2. KNOWLEDGE-BASE-PLAN.md 待补：世界模型（World Models）技术栈（基于 Runway CEO 访谈）
+3. KNOWLEDGE-BASE-PLAN.md 待补：AI 基础设施自动化（基于 SoftBank 机器人建数据中心）
+4. KNOWLEDGE-BASE-PLAN.md 待补：开源社区 AI 治理（基于 Zig 反 LLM 政策讨论）

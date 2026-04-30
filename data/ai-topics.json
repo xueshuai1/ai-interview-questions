@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-04-30T04:12:30.535Z",
+  "lastUpdated": "2026-04-30T16:00:00.000Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -2402,6 +2402,18 @@
       "url": "https://github.com/topics/deep-face-swap",
       "minStars": 5000,
       "description": "（自动发现）deep face swap"
+    },
+    {
+      "topic": "workflow-automation",
+      "url": "https://github.com/topics/workflow-automation",
+      "minStars": 2000,
+      "description": "工作流自动化（含 AI）"
+    },
+    {
+      "topic": "brain-computer-interface",
+      "url": "https://github.com/topics/brain-computer-interface",
+      "minStars": 500,
+      "description": "脑机接口"
     }
   ]
 }
