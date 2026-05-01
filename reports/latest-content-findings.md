@@ -1,38 +1,22 @@
-⏰ 写入时间：2026-05-02 00:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-05-02 04:00 (Asia/Shanghai)
 ## 本轮发现
-
 🔥 热点（13 条，已选 13 条写入 news.ts）：
-1. [Anthropic 9000 亿美元估值融资] 两周内可能完成巨额融资 → 适合：博客（AI 估值泡沫分析）
-2. [Musk v. OpenAI 庭审] Musk 承认 xAI 用 OpenAI 模型训练 Grok → 适合：知识库（AI 知识产权争议）
-3. [Google Gemini 进入汽车] 数百万辆车载 AI 助手 → 适合：博客（AI 车载生态竞争）
-4. [苹果 Q2 财报超预期] AI 驱动 Mac 需求暴涨 17% → 适合：知识库（AI 硬件需求分析）
-5. [OpenAI Symphony 开源规范] Codex Multi-Agent 编排标准 → 适合：博客（Agent 编排标准之争）
-6. [五角大楼机密 AI 合作] OpenAI/Google/Nvidia 入选，Anthropic 落选 → 适合：知识库（AI 军事应用伦理）
-7. [DeepSeek 视觉原语思考] 多模态新范式开源 → 适合：博客（多模态技术演进）
-8. [Stripe Link 支持 AI Agent 支付] Agent 自主消费基础设施 → 适合：知识库（AI Agent 经济生态）
-9. [软银 AI 机器人建数据中心] 目标 1000 亿美元 IPO → 适合：博客（AI 基础设施自动化）
-10. [微软 Copilot 2000 万付费用户] 真实活跃度验证 → 适合：知识库（企业级 AI 落地数据）
-11. [OpenAI 模型登陆 AWS] 多云策略扩展 → 适合：博客（云厂商 AI 竞争格局）
-12. [英国 AISI 评估 GPT-5.5] 网络能力与 Mythos 相当 → 适合：知识库（AI 安全评估体系）
-13. [OpenAI 限制 Cyber 访问] 此前批评 Anthropic 限制 Mythos → 适合：博客（AI 安全模型可及性争议）
-
+1. [五角大楼 AI 协议] 国防部与 OpenAI/Google/Nvidia/AWS/Microsoft 签机密网络 AI 协议，Anthropic 被排除 → 适合：知识库（AI与国防）
+2. [Anthropic 9000亿估值] 潜在融资轮两周内完成，Claude 下载量激增 100% vs ChatGPT 卸载 413% → 适合：博客（AI 竞争格局）
+3. [Legora 法律 AI] 估值 56 亿，与 Harvey 竞争加剧 → 适合：知识库（垂直行业 AI）
+4. [Google Gemini 车载] 进入数百万辆汽车，车载 AI 竞争升级 → 适合：博客（AI + 出行）
+5. [OpenAI 账户安全] 高级安全功能 + Yubico 硬件密钥合作 → 适合：知识库（AI 安全）
+6. [Musk v. Altman] 马斯克承认 xAI 用 OpenAI 模型训练 Grok → 适合：博客（AI 诉讼全景）
+7. [OpenAI Symphony] 开源 Agent 编排规范发布 → 适合：知识库（Agent 标准之争）
+8. [Meta 商业 AI] 每周 1000 万次商业对话 → 适合：博客（企业 AI 规模化）
+9. [Anthropic+NEC] 建设日本最大 AI 工程人才队伍 → 适合：知识库（AI 全球化）
+10. [DeepSeek 视觉原语] 多模态技术范式公布，Thinking With Visual Primitives → 适合：知识库（多模态技术）
+11. [Stonebraker 批判 AI Agent] 图灵奖得主：Agent 绕不开数据库老问题 → 适合：博客（AI 基础设施反思）
+12. [国产 GPU 对比] 寒武纪盈利 10 亿、摩尔线程首盈、沐曦仍亏 → 适合：知识库（中国 AI 芯片）
+13. [苹果 AI Mac 需求] AI 热潮带动 Mac 供不应求 → 适合：博客（AI + 硬件）
 🆕 新工具（0 个）：
-（本轮未发现值得关注的新开源工具）
-
 💡 知识缺口（4 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：[AI 知识产权/开源协议] Musk v. OpenAI 案对行业的影响
-2. KNOWLEDGE-BASE-PLAN.md 待补：[AI 安全评估] AISI/NIST/EU AI Act 框架对比
-3. KNOWLEDGE-BASE-PLAN.md 待补：[AI Agent 经济] Agent 支付/消费基础设施全景
-4. KNOWLEDGE-BASE-PLAN.md 待补：[多模态技术范式] 从视觉对齐到视觉原语的演进路线
-
-## 上轮建议完成情况
-- ✅ 基于本轮发现写博客：AI Agent 与数据库基础设施的关系 → PM 阶段已执行（blog-095）
-- ✅ 扫描 12 来源 → 本轮覆盖 10 来源
-- ✅ 新闻持续更新 → 本轮新增 13 条
-
-## 本轮新增建议（供 PM 阶段参考）
-1. 写博客：Anthropic 9000 亿估值 vs OpenAI — AI 估值泡沫分析
-2. 写知识库：Musk v. OpenAI 案对 AI 知识产权的行业影响
-3. 写博客：AI Agent 支付基础设施 — Stripe Link 与 Agent 经济
-4. 写知识库：AI 多模态技术演进 — 从视觉对齐到视觉原语
+1. KNOWLEDGE-BASE-PLAN.md 待补：AI 与国防安全（五角大楼 AI 协议延伸）
+2. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排标准全景（Symphony vs MCP vs A2A 对比）
+3. KNOWLEDGE-BASE-PLAN.md 待补：AI 安全评估体系（OpenAI 高级安全功能 + AISI 评估方法）
+4. 博客建议：Musk v. Altman 诉讼全景分析（从 2015 到 2026 的完整时间线）
