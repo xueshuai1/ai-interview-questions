@@ -139,3 +139,4 @@
 - [09:00] d34f6eca — PM阶段: 知识库[china-llm-scale-001 中国大模型训练规模对比: DeepSeek V4/LongCat/百度/阿里]+博客[blog-098 Stripe Link AI Agent数字钱包自主消费]，深度校验通过，Build+TS全通过，已推送
 | 2026-05-01 10:00 | 🛠️ 开发 | 验证china-llm-scale-001+blog-098,0 bug,全✅,commit 96419083 |
 c4b4aa01 — QA: 脚本1759/0/0, Build+TS全通过, 所有路由200, 压力测试通过, P2建议2个
+- [12:00] dafd7f2c — 研究员: 扫描12来源(国外7+国内5), 更新新闻13条(news-640~652), 缺口4项, 已推送
