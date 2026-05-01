@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-04-30T10:29:52.696Z",
+  "lastUpdated": "2026-05-01T16:18:12.238Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -2582,6 +2582,30 @@
       "url": "https://github.com/topics/terminal-automation",
       "minStars": 5000,
       "description": "终端自动化"
+    },
+    {
+      "topic": "no-code",
+      "url": "https://github.com/topics/no-code",
+      "minStars": 2000,
+      "description": "（自动发现）no code"
+    },
+    {
+      "topic": "low-code",
+      "url": "https://github.com/topics/low-code",
+      "minStars": 2000,
+      "description": "（自动发现）low code"
+    },
+    {
+      "topic": "tts-model",
+      "url": "https://github.com/topics/tts-model",
+      "minStars": 3000,
+      "description": "（自动发现）tts model"
+    },
+    {
+      "topic": "microsoft-for-beginners",
+      "url": "https://github.com/topics/microsoft-for-beginners",
+      "minStars": 3000,
+      "description": "（自动发现）microsoft for beginners"
     }
   ]
 }
