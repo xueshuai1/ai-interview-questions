@@ -134,3 +134,4 @@
 
 ## 2026-05-01 06:00 🛠️ 开发
 - [06:00] 50b7e35f — 开发阶段: 验证ai-agent-payment-001+blog-097集成,QA 1749/0/0,bug-hash清零,Build+TS全通过,无需代码变更
+- [07:00] 8c4b392f — QA 验证 1749/0/0, 修复 ai-000.ts 中 /roadmap 死链→/knowledge, 11路由全200, Build+TS全通过
