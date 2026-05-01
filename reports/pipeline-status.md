@@ -1,5 +1,4 @@
 | 2026-05-01 18:00 | 🛠️ 开发 | 修4 bug(blog-098/099/100+ai-distillation-001未注册), bug-hash清零, Build+TS全通过, commit 272ac03f | ✅ |
-| 2026-04-29 11:00 | 🧪 QA | 通过1312/失败0/P2修复17个 | ✅ |
 | 2026-04-29 12:00 | 🔍 研究员 | 扫描12来源(国外6+国内6), 新闻12条(news-507~518), 工具0个, 缺口4项, commit 3c25ae88 | ✅ |
 | 2026-04-29 14:00 | 🛠️ 开发 | 集成agent-035+blog-087, 修mermaid%+author+content格式, bug-hash 4个全部✅, Build+TS全通过, commit a92b88d3 | ✅ |
 | 2026-04-29 15:00 | 🧪 QA | 通过1320/失败0/P0已修复1(blog-078 TS编译)+P1已修复1(blog-084 mermaid%), Build+TS全通过, 7页面HTTP全200 | ✅ |
@@ -46,3 +45,4 @@
 | 2026-05-01 13:00 | 📝 PM | 知识库[apple-ai-001]+博客[blog-099] | ✅ |
 | 2026-05-01 14:00 | 🛠️ 开发 | 验证apple-ai-001+blog-099集成,QA 0 bug,bug-hash清零,Build+TS全通过,commit 96673c64 | ✅ |
 | 2026-05-01 15:00 | 🧪 QA | 通过1769/失败0/P0已修2(apple-ai-001+china-llm-scale-001未注册→404), Build+TS全通过, 全路由200, commit 8608b090 | ✅ |
+| 2026-05-01 19:00 | 🧪 QA | 通过1779/失败0/P1已修复1(blog-100 Mermaid浅色3处→深色), Build+TS全通过, 5路由全200, commit 900064be | ✅ |
