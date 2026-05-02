@@ -1,25 +1,30 @@
-⏰ 写入时间：2026-05-02 12:00 (Asia/Shanghai)
+⏰ 写入时间：2026-05-02 16:00 (Asia/Shanghai)
 ## 本轮发现
-🔥 热点（13 条，已写入 news.ts news-716~news-728）：
-1. [Meta 收购机器人公司 Assured] 人形机器人赛道加速 → 适合：博客/知识库
-2. [马斯克承认 xAI 蒸馏 OpenAI 模型] Musk v. Altman 关键证词 → 适合：博客
-3. [五角大楼与 Nvidia/Microsoft/AWS 签署 AI 协议] 军事 AI 部署 → 适合：知识库
-4. [OpenAI GPT-5.5 网络安全评估] UK AISI 评估 GPT-5.5 vs Mythos → 适合：知识库
-5. [奥斯卡新规：AI 作品不能获奖] 好莱坞对 AI 内容划红线 → 适合：博客
-6. [Anthropic 估值冲刺 9000 亿美元] 融资两周内完成 → 适合：博客
-7. [苹果 AI 驱动 Mac 需求超预期] MacBook Neo 供不应求 → 适合：博客
-8. [法律 AI Legora 估值 56 亿美元] 与 Harvey 竞争白热化 → 适合：知识库
-9. [阿里开源 page-agent] GitHub 17500+ 星 → 适合：工具推荐
-10. [Codex CLI 0.128.0 /goal 自主循环] 编程 Agent 自主能力升级 → 适合：博客
-11. [OpenAI Symphony 开源编排规范] Agent 标准化三足鼎立 → 适合：知识库
-12. [杭州为具身智能机器人立法] 中国首个地方性法规 → 适合：知识库
-13. [DeepSeek 视觉原语多模态范式] Thinking with Visual Primitives → 适合：知识库
-🆕 新工具（2 个）：
-1. [page-agent] 阿里开源网页 GUI Agent，自然语言控制界面 → https://github.com/alibaba/page-agent
-2. [Codex CLI /goal] OpenAI Codex CLI 0.128.0 自主循环模式 → https://github.com/openai/codex
+🔥 热点（12 条，已选 12 条写入 news.ts）：
+1. [英国 AISI 评估 GPT-5.5 网络能力] 发现漏洞能力与 Claude Mythos 相当但已全面开放 → 适合：安全博客/AI 治理
+2. [Codex CLI 0.128.0 新增 /goal] 自主循环模式正式登陆 OpenAI 官方工具 → 适合：工具评测博客
+3. [Meta 收购人形机器人 ARI] 加速具身智能布局，与美国机器人初创合作 → 适合：具身智能知识库
+4. [五角大楼与 Nvidia/Microsoft/AWS 签 AI 协议] Anthropic 因拒绝军方条款被排除 → 适合：AI 政策/国防 AI 知识库
+5. [Replit CEO 谈 Cursor $600B 交易] AI 编码工具整合加速，Replit 选择独立 → 适合：AI 工具竞争格局博客
+6. [奥斯卡新规：只有人类才能得表演奖] AI 生成内容被排除 → 适合：AI 与创意产业博客
+7. [Microsoft Word AI Agent 面向律师] 自动审查法律文档 → 适合：法律 AI 知识库
+8. [Musk 庭审翻车：承认 xAI 蒸馏 OpenAI] Musk v. Altman 关键转折 → 适合：Musk 诉讼时间线更新
+9. [Altman 实验：仅用上世纪数据训练 AI 也能写 Python] 挑战训练数据认知 → 适合：模型训练方法论
+10. [Zig 创始人：能识别 LLM 辅助代码] AI 编程有「数字气味」→ 适合：开源社区 AI 伦理博客
+11. [苹果 App 误打包 Claude.md] 大公司 Vibe Coding 翻车 → 适合：AI 开发安全最佳实践
+12. [AI 抢内存条导致手机涨价] DRAM 供需失衡 → 适合：AI 基础设施/供应链分析
+
+🆕 新工具（0 个）：
+- 本轮以行业新闻为主，未发现新的独立开源工具
+
 💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：军事 AI 部署与安全评估框架（五角大楼协议 + UK AISI）
-2. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排标准对比（Symphony vs MCP vs A2A）
-3. KNOWLEDGE-BASE-PLAN.md 待补：法律 AI 行业全景（Legora/Harvey/微软 Word Agent）
-4. KNOWLEDGE-BASE-PLAN.md 待补：具身智能机器人法规与技术趋势
-5. BLOG-PLAN.md 待补：马斯克 v. Altman 全景回顾（从 2015 到 2026）
+1. KNOWLEDGE-BASE-PLAN.md 待补：[AI 国防基础设施与治理] — 五角大楼 AI 协议 + Anthropic 拒绝军方条款
+2. KNOWLEDGE-BASE-PLAN.md 待补：[AI 编码工具竞争格局 2026] — Cursor/Replit/Codex CLI/Claude Code/Gemini CLI 全面对比
+3. KNOWLEDGE-BASE-PLAN.md 待补：[具身智能全球政策对比] — 杭州立法 + Meta 收购 + 全球监管趋势
+4. KNOWLEDGE-BASE-PLAN.md 待补：[AI 供应链影响分析] — DRAM 涨价 + AI 芯片 + 数据中心能源
+5. KNOWLEDGE-BASE-PLAN.md 待补：[AI 安全评估方法论] — UK AISI 评估框架 + GPT-5.5/Mythos 对比
+
+## PM 阶段建议
+- 优先：基于本轮发现写知识库「AI 国防基础设施与治理」或「AI 编码工具竞争格局」
+- 可配合写博客：「Musk v. Altman 庭审最新进展」或「开源社区的 AI 伦理之争」
+- AI 安全类新闻积累充足，可写「全球 AI 安全评估框架对比」
