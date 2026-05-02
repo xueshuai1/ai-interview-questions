@@ -1,30 +1,25 @@
-⏰ 写入时间：2026-05-02 16:00 (Asia/Shanghai)
+⏰ 写入时间：2026-05-03 00:00 (Asia/Shanghai)
 ## 本轮发现
-🔥 热点（12 条，已选 12 条写入 news.ts）：
-1. [英国 AISI 评估 GPT-5.5 网络能力] 发现漏洞能力与 Claude Mythos 相当但已全面开放 → 适合：安全博客/AI 治理
-2. [Codex CLI 0.128.0 新增 /goal] 自主循环模式正式登陆 OpenAI 官方工具 → 适合：工具评测博客
-3. [Meta 收购人形机器人 ARI] 加速具身智能布局，与美国机器人初创合作 → 适合：具身智能知识库
-4. [五角大楼与 Nvidia/Microsoft/AWS 签 AI 协议] Anthropic 因拒绝军方条款被排除 → 适合：AI 政策/国防 AI 知识库
-5. [Replit CEO 谈 Cursor $600B 交易] AI 编码工具整合加速，Replit 选择独立 → 适合：AI 工具竞争格局博客
-6. [奥斯卡新规：只有人类才能得表演奖] AI 生成内容被排除 → 适合：AI 与创意产业博客
-7. [Microsoft Word AI Agent 面向律师] 自动审查法律文档 → 适合：法律 AI 知识库
-8. [Musk 庭审翻车：承认 xAI 蒸馏 OpenAI] Musk v. Altman 关键转折 → 适合：Musk 诉讼时间线更新
-9. [Altman 实验：仅用上世纪数据训练 AI 也能写 Python] 挑战训练数据认知 → 适合：模型训练方法论
-10. [Zig 创始人：能识别 LLM 辅助代码] AI 编程有「数字气味」→ 适合：开源社区 AI 伦理博客
-11. [苹果 App 误打包 Claude.md] 大公司 Vibe Coding 翻车 → 适合：AI 开发安全最佳实践
-12. [AI 抢内存条导致手机涨价] DRAM 供需失衡 → 适合：AI 基础设施/供应链分析
+🔥 热点（12 条，已选 12 条写入 news.ts news-741~752）：
+1. [Meta 收购机器人公司] 加码人形 AI 战略 → 适合：博客/知识库
+2. [五角大楼 AI 签约] Nvidia+微软+AWS 部署机密 AI，Anthropic 缺席 → 适合：博客
+3. [Stripe Link 支持 AI 代理] AI 代理可自主购物支付 → 适合：博客/知识库
+4. [Oscars 新规] 只有人类能获得表演奖，AI 剧本不得参评 → 适合：博客
+5. [微软 Word AI 代理] 面向法律行业自动化文档处理 → 适合：知识库
+6. [Codex CLI /goal] 自主循环执行直到目标完成 → 适合：知识库/博客
+7. [GPT-5.5 网络能力评估] UK AISI 评估：与 Mythos 相当但已公开 → 适合：博客
+8. [OpenAI 上 AWS] 模型+Codex+Managed Agents 登陆 AWS → 适合：知识库
+9. [Gemini 上车] Google AI 助手进入数百万辆汽车 → 适合：博客
+10. [DeepSeek 视觉原语] 从"看清楚"到"看明白"的多模态新范式 → 适合：知识库
+11. [Anthropic+NEC] 建设日本最大 AI 工程人才队伍 → 适合：知识库
+12. [硅谷中美具身智能交流] 机器人进入真实世界越早越好 → 适合：博客
 
 🆕 新工具（0 个）：
-- 本轮以行业新闻为主，未发现新的独立开源工具
+- 本轮未发现显著新开源工具（GitHub trending 以成熟项目为主）
 
 💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：[AI 国防基础设施与治理] — 五角大楼 AI 协议 + Anthropic 拒绝军方条款
-2. KNOWLEDGE-BASE-PLAN.md 待补：[AI 编码工具竞争格局 2026] — Cursor/Replit/Codex CLI/Claude Code/Gemini CLI 全面对比
-3. KNOWLEDGE-BASE-PLAN.md 待补：[具身智能全球政策对比] — 杭州立法 + Meta 收购 + 全球监管趋势
-4. KNOWLEDGE-BASE-PLAN.md 待补：[AI 供应链影响分析] — DRAM 涨价 + AI 芯片 + 数据中心能源
-5. KNOWLEDGE-BASE-PLAN.md 待补：[AI 安全评估方法论] — UK AISI 评估框架 + GPT-5.5/Mythos 对比
-
-## PM 阶段建议
-- 优先：基于本轮发现写知识库「AI 国防基础设施与治理」或「AI 编码工具竞争格局」
-- 可配合写博客：「Musk v. Altman 庭审最新进展」或「开源社区的 AI 伦理之争」
-- AI 安全类新闻积累充足，可写「全球 AI 安全评估框架对比」
+1. KNOWLEDGE-BASE-PLAN.md 待补：[行业] AI 代理自主支付/交易生态（Stripe Link + AI Agent 钱包）
+2. KNOWLEDGE-BASE-PLAN.md 待补：[政策] AI 在影视/娱乐行业的监管与规则（Oscars 新规 + 虚拟演员）
+3. KNOWLEDGE-BASE-PLAN.md 待补：[行业] 国防 AI 竞争格局（五角大楼合同 + Anthropic 缺席 + 政治影响）
+4. KNOWLEDGE-BASE-PLAN.md 待补：[技术] 多模态视觉推理（DeepSeek Visual Primitives vs 高分辨率路线）
+5. KNOWLEDGE-BASE-PLAN.md 待补：[行业] AI 驱动硬件成本上涨（DRAM/HBM 供需 + 手机/PC 涨价趋势）
