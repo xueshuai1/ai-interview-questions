@@ -7380,4 +7380,332 @@ AI 模型规模持续扩大——从 DeepSeek V4 的 512 专家 MoE 架构到 GP
     sourceUrl: "https://36kr.com/p/3791556962972417",
     href: "/news/news-740",
   },
+  {
+    id: "news-741",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Meta 收购机器人公司，加码人形 AI 战略",
+    summary: "Meta 宣布收购一家人形机器人初创公司，进一步扩展其在具身智能领域的布局。此次收购标志着 Meta 从社交网络向 AI 硬件和机器人领域的战略延伸。",
+    content: `## Meta 的机器人版图
+
+**2026 年 5 月 1 日**，据 TechCrunch 报道，Meta 收购一家人形机器人初创公司，以强化其人形 AI  ambitions。
+
+### 收购背景
+
+- Meta 近年来在 AI 领域持续投入，从 LLaMA 开源模型到 FAIR 研究实验室
+- 人形机器人赛道正在成为科技巨头的新战场——Figure AI、Tesla Optimus、Boston Dynamics
+- 此次收购将补充 Meta 在物理世界 AI 方面的能力空白
+
+### 行业意义
+
+Meta 的入局意味着人形机器人赛道竞争将进一步加剧。结合其在计算机视觉、多模态理解和 LLM 方面的积累，Meta 有可能在人形 AI 领域形成独特优势。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/`,
+    date: "2026-05-03 00:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/",
+    href: "/news/news-741",
+  },
+  {
+    id: "news-742",
+    tag: "政策",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "五角大楼与 Nvidia、微软、AWS 签约，在机密网络部署 AI",
+    summary: "美国国防部与 Nvidia、微软和 AWS 签署协议，将在机密网络上部署 AI 能力。值得注意的是，Anthropic 此前是国防部处理机密信息的首选合作伙伴，但本轮合作中未被纳入。",
+    content: `## 国防 AI 新布局
+
+**2026 年 5 月 1 日**，据 TechCrunch 和 The Verge 报道，五角大楼与 Nvidia、微软、AWS 签署了在机密网络上部署 AI 的协议。
+
+### 协议内容
+
+- **Nvidia**：提供 AI 硬件和芯片支持
+- **微软**：Azure 政府云服务 + AI 模型
+- **AWS**：AWS GovCloud + AI 推理服务
+- **Anthropic 缺席**：此前 DoD 使用 Anthropic 处理机密信息，但本轮合作未包含 Anthropic
+
+### 政治背景
+
+此前美国国防部长 Pete Hegseth 在参议院军事委员会听证会上公开批评 Anthropic CEO Dario Amodei，称其为"意识形态狂热者"，这可能影响了 Anthropic 在国防合同中的地位。
+
+**来源：** TechCrunch + The Verge
+**链接：** https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/`,
+    date: "2026-05-03 00:00",
+    source: "TechCrunch + The Verge",
+    sourceUrl: "https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/",
+    href: "/news/news-742",
+  },
+  {
+    id: "news-743",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Stripe 发布 Link 数字钱包，支持 AI 代理自主购物",
+    summary: "Stripe 更新其 Link 数字钱包功能，新增对自主 AI 代理的支持。这意味着 AI Agent 可以直接使用 Link 钱包完成电商交易，无需人类介入支付环节。",
+    content: `## AI 代理也能买东西了
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道，Stripe 更新了其 Link 数字钱包，使其支持自主 AI 代理使用。
+
+### 核心功能
+
+- **AI 代理直接支付**：自主 AI 代理可以使用 Link 钱包完成电商交易
+- **无需人类介入**：支付流程完全自动化，从选择商品到付款
+- **安全机制**：内置限额和风控，防止 AI 代理过度消费
+
+### 行业影响
+
+这标志着 AI Agent 从"信息处理"走向"实际交易"。当 AI 代理能够自主完成支付时，其应用场景将大幅扩展——从购物、订阅到服务采购。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/stripe-link-digital-wallet-ai-agents-shopping/`,
+    date: "2026-05-03 00:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/stripe-link-digital-wallet-ai-agents-shopping/",
+    href: "/news/news-743",
+  },
+  {
+    id: "news-744",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Oscars 新规：只有人类才能获得表演类奖项，AI 生成剧本不得参评",
+    summary: "美国电影艺术与科学学院发布第 99 届奥斯卡金像奖规则更新，明确规定只有人类演员才能获得表演类奖项提名，AI 生成的剧本也不得参评编剧奖。这是奥斯卡首次针对 AI 生成内容制定明确规则。",
+    content: `## 奥斯卡向 AI 说不
+
+**2026 年 5 月 1 日**，据 The Verge 报道，奥斯卡主办方发布了第 99 届奥斯卡金像奖的新规。
+
+### 核心规则
+
+- **表演类奖项**：只有"在电影法律账单中署名且由人类经同意实际表演"的角色才有资格
+- **编剧奖**：剧本必须"由人类创作"，AI 生成的剧本不得参评
+- **灰色地带**：如果对电影中 AI 的使用有疑问，学院可以"要求提供更多关于 AI 使用性质和人类创作程度的信息"
+
+### 背景
+
+此前已有 AI 生成的虚拟演员 Tilly Norwood 引发争议，多家电影公司开始探索用 AI 生成角色。奥斯卡此举旨在保护人类演员的权益，同时为 AI 在影视中的使用划定边界。
+
+**来源：** The Verge + The Hollywood Reporter
+**链接：** https://www.theverge.com/ai-artificial-intelligence/922602/the-organization-behind-the-oscars-says-that-only-humans-can-get-acting-awards`,
+    date: "2026-05-03 00:00",
+    source: "The Verge + The Hollywood Reporter",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence/922602/the-organization-behind-the-oscars-says-that-only-humans-can-get-acting-awards",
+    href: "/news/news-744",
+  },
+  {
+    id: "news-745",
+    tag: "应用",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "微软推出 Word AI 代理，面向法律行业提供自动化文档处理",
+    summary: "微软宣布在 Word 中推出新的 AI 代理功能，专门面向法律行业。该代理可以自动审查合同、起草法律文件、检查合规性，试图让律师群体信任 AI 辅助工作。",
+    content: `## 微软的 AI 律师助理
+
+**2026 年 5 月 1 日**，据 The Verge 报道，微软在 Word 中推出了面向法律行业的新 AI 代理功能。
+
+### 功能亮点
+
+- **合同审查**：自动识别合同中的风险条款和不公平条款
+- **文件起草**：根据模板和法律规范自动起草法律文件
+- **合规检查**：检查文档是否符合相关法律法规要求
+- **信任建设**：微软特别强调让律师群体"信任"这一新 AI 代理
+
+### 行业竞争
+
+法律 AI 赛道竞争日益激烈——Legora 估值已达 56 亿美元（news-735），Harvey 也在快速扩张。微软此举意味着传统软件巨头正式入局法律 AI。
+
+**来源：** The Verge
+**链接：** https://www.theverge.com/news/921944/microsoft-word-legal-agent-ai`,
+    date: "2026-05-03 00:00",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/news/921944/microsoft-word-legal-agent-ai",
+    href: "/news/news-745",
+  },
+  {
+    id: "news-746",
+    tag: "开源项目",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "Codex CLI 0.128.0 新增 /goal 命令：支持自主循环执行直到目标完成",
+    summary: "OpenAI 的 Codex CLI 在 0.128.0 版本中引入了 /goal 命令——设置目标后，Codex 会持续循环执行，直到自行评估目标已完成或配置的 Token 预算耗尽。这是 OpenAI 版 'Ralph Loop'。",
+    content: `## Codex 的自主循环模式
+
+**2026 年 4 月 30 日**，据 Simon Willison 博客报道，OpenAI Codex CLI 0.128.0 新增了 /goal 功能。
+
+### 实现机制
+
+- **/goal 命令**：设置目标后，Codex 持续循环执行任务
+- **自动评估**：Codex 自行评估目标是否完成
+- **预算限制**：可配置 Token 预算上限，防止无限循环
+- **核心模板**：主要通过 goals/continuation.md 和 goals/budget_limit.md 两个提示词模板实现
+
+### Ralph Loop 效应
+
+这一功能类似于 ghuntley 提出的 Ralph Loop 概念——让 AI 代理持续工作直到目标达成。此前 Claude Code 等工具也已有类似机制，OpenAI 的加入意味着自主循环编码正成为行业标配。
+
+**来源：** Simon Willison's Weblog + GitHub
+**链接：** https://simonwillison.net/2026/Apr/30/codex-goals/`,
+    date: "2026-05-03 00:00",
+    source: "Simon Willison + GitHub",
+    sourceUrl: "https://simonwillison.net/2026/Apr/30/codex-goals/",
+    href: "/news/news-746",
+  },
+  {
+    id: "news-747",
+    tag: "AI 安全",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "英国 AISI 评估 GPT-5.5 网络安全能力：与 Claude Mythos 相当，但已全面可用",
+    summary: "英国 AI 安全研究所（AISI）发布对 OpenAI GPT-5.5 网络安全能力的评估报告，发现其发现安全漏洞的能力与 Anthropic Claude Mythos 相当。关键区别在于：GPT-5.5 已面向公众可用，而 Mythos 仍受限访问。",
+    content: `## GPT-5.5 的网络安全能力
+
+**2026 年 4 月 30 日**，据 Simon Willison 引用英国 AISI 报告，GPT-5.5 的网络安全能力得到官方评估。
+
+### 评估要点
+
+- **漏洞发现能力**：与 Claude Mythos 相当，均能高效识别安全漏洞
+- **关键区别**：GPT-5.5 已面向全球用户开放，而 Mythos 仅限受控访问
+- **此前评估**：AISI 此前曾评估过 Claude Mythos 的网络能力，发布了详细报告
+
+### 安全隐患
+
+一个具有强大网络攻击能力的 AI 模型面向公众可用，这一事实引发了安全社区的广泛关注。此前 OpenAI 因限制 Anthropic Mythos 访问而受到批评，但随后自己也限制了 Cyber 功能的访问。
+
+**来源：** UK AISI + Simon Willison
+**链接：** https://www.aisi.gov.uk/blog/our-evaluation-of-openais-gpt-5-5-cyber-capabilities`,
+    date: "2026-05-03 00:00",
+    source: "UK AISI + Simon Willison",
+    sourceUrl: "https://www.aisi.gov.uk/blog/our-evaluation-of-openais-gpt-5-5-cyber-capabilities",
+    href: "/news/news-747",
+  },
+  {
+    id: "news-748",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "OpenAI 模型、Codex 和 Managed Agents 正式上线 AWS",
+    summary: "OpenAI 宣布其模型 API、Codex 编程代理和 Managed Agents 正式登陆 AWS 云平台。这标志着 OpenAI 在减少对微软独家依赖方面迈出重要一步。",
+    content: `## OpenAI 拥抱 AWS
+
+**2026 年 4 月 28 日**，OpenAI 官方宣布其服务正式上线 AWS。
+
+### 上线内容
+
+- **OpenAI 模型**：GPT-5.5 等模型可通过 AWS 调用
+- **Codex**：OpenAI 的编程代理工具在 AWS 上可用
+- **Managed Agents**：托管 AI 代理服务于 AWS 部署
+
+### 战略意义
+
+结合 OpenAI 此前与微软合作关系的"下一阶段"调整（news-731），这一举动进一步确认了 OpenAI 正在从微软独家合作向多云战略转型。Amazon 同时也是 Anthropic 的最大投资者之一（5GW 算力合作）。
+
+**来源：** OpenAI
+**链接：** https://openai.com/index/openai-on-aws/`,
+    date: "2026-05-03 00:00",
+    source: "OpenAI + 新浪科技",
+    sourceUrl: "https://openai.com/index/openai-on-aws/",
+    href: "/news/news-748",
+  },
+  {
+    id: "news-749",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Google Gemini AI 助手将进入数百万辆汽车，车载 AI 竞争白热化",
+    summary: "Google 宣布其 Gemini AI 助手将嵌入数百万辆汽车中。车载 AI 助手赛道正在成为科技巨头的新战场，Google 借助 Gemini 与车载系统深度整合。",
+    content: `## Gemini 上车了
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道，Google Gemini AI 助手将进入数百万辆汽车。
+
+### 部署计划
+
+- **规模**：数百万辆汽车将搭载 Gemini AI 助手
+- **功能**：语音交互、导航优化、车辆诊断、娱乐推荐
+- **合作方**：预计与多家汽车制造商达成合作
+
+### 赛道竞争
+
+车载 AI 正在成为新的必争之地——Apple CarPlay 也在整合 Siri Intelligence，Tesla 有自研车载 AI。Google 凭借 Gemini 的多模态能力和 Android Automotive 生态，有优势快速铺开。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/googles-gemini-ai-assistant-is-hitting-the-road-in-millions-of-vehicles/`,
+    date: "2026-05-03 00:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/googles-gemini-ai-assistant-is-hitting-the-road-in-millions-of-vehicles/",
+    href: "/news/news-749",
+  },
+  {
+    id: "news-750",
+    tag: "大语言模型",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "DeepSeek 开源「Thinking With Visual Primitives」：让 AI 看得明白而非只是看得清楚",
+    summary: "DeepSeek 提出并开源了「Thinking With Visual Primitives」多模态新范式。不同于 OpenAI、Google、Anthropic 都在比谁看得更清楚（更高分辨率），DeepSeek 的研究方向是让 AI 理解视觉内容——用视觉原语进行推理。",
+    content: `## 从"看清楚"到"看明白"
+
+**2026 年 Week 18**，据机器之心报道，DeepSeek 提出了新的多模态范式。
+
+### 核心理念
+
+- **当前趋势**：各大公司都在提高模型视觉分辨率（看更清楚的图）
+- **DeepSeek 方向**：让 AI 用视觉原语（visual primitives）进行思考和推理
+- **本质区别**：不是"看得更清楚"，而是"看得更明白"
+
+### 技术意义
+
+这代表了多模态 AI 从感知向认知的转变。就像人类不单纯依赖高分辨率视觉来理解世界，而是依赖视觉概念和抽象——DeepSeek 试图让 AI 模型也能建立这种视觉认知能力。
+
+**来源：** 机器之心
+**链接：** https://www.jiqizhixin.com/`,
+    date: "2026-05-03 00:00",
+    source: "机器之心",
+    sourceUrl: "https://www.jiqizhixin.com/",
+    href: "/news/news-750",
+  },
+  {
+    id: "news-751",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Anthropic 与 NEC 合作建设日本最大 AI 工程人才队伍",
+    summary: "Anthropic 宣布与日本 NEC 公司合作，共同建设日本最大的 AI 工程人才队伍。这是 Anthropic 在亚太市场的重要扩展，结合此前与 Google、Broadcom 的算力合作以及悉尼办公室的开设。",
+    content: `## Anthropic 的亚太战略
+
+**2026 年 4 月 24 日**，据 Anthropic 官方消息，公司与 NEC 合作推进日本 AI 工程人才建设。
+
+### 合作内容
+
+- **人才建设**：与 NEC 合作培养日本最大规模的 AI 工程人才队伍
+- **技术赋能**：基于 Claude 平台提供 AI 工程能力
+- **亚太扩展**：结合此前悉尼办公室开设（news-732），Anthropic 正加速亚太布局
+
+### 行业格局
+
+Anthropic 在亚太的加速扩展与其算力基础设施投入相呼应——此前与 Amazon 扩展合作高达 5GW 新算力、与 Google 和 Broadcom 合作多 GW 级下一代计算。日本市场的 AI 人才储备将成为其亚太地区战略的重要一环。
+
+**来源：** Anthropic
+**链接：** https://www.anthropic.com/news/anthropic-nec`,
+    date: "2026-05-03 00:00",
+    source: "Anthropic",
+    sourceUrl: "https://www.anthropic.com/news/anthropic-nec",
+    href: "/news/news-751",
+  },
+  {
+    id: "news-752",
+    tag: "应用",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "硅谷中美具身智能公司交流：机器人进入真实世界越早越好",
+    summary: "36 氪报道了一场在硅谷举行的中美具身智能公司交流会，探讨了机器人从实验室走向真实世界的 4 个关键解法。核心共识是：机器人进入真实世界，越早越好。",
+    content: `## 具身智能：从实验室到真实世界
+
+**2026 年 5 月 2 日**，据 36 氪报道，硅谷中美具身智能公司进行了一场深度交流。
+
+### 4 个关键问题
+
+- **感知与理解**：机器人在非结构化环境中的视觉理解和场景理解
+- **运动与控制**：复杂地形下的稳定运动和操作
+- **安全与可靠**：与人类共处时的安全边界和故障处理
+- **规模化部署**：从原型到量产的制造和成本挑战
+
+### 核心共识
+
+"机器人进入真实世界，越早越好"——这意味着不要等完美了再部署，而是在真实环境中快速迭代。这一理念与软件开发中的"尽早发布"原则一致。
+
+**来源：** 36 氪
+**链接：** https://36kr.com/p/3792155815304450`,
+    date: "2026-05-03 00:00",
+    source: "36 氪",
+    sourceUrl: "https://36kr.com/p/3792155815304450",
+    href: "/news/news-752",
+  },
 ];
