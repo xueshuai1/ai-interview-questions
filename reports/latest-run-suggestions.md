@@ -1,18 +1,17 @@
-⏰ 写入时间：2026-04-30 20:00 (Asia/Shanghai)
+⏰ 写入时间：2026-05-02 09:26 (Asia/Shanghai)
 
 # 下次建议
 
 ## 优先执行（1-2 条，最重要）
-1. 基于本轮发现写博客：AI Agent 与数据库基础设施的关系（图灵奖得主观点延伸）
-2. 基于本轮发现写知识库：自监督学习/强化学习范式（David Silver 新项目方向）
+1. 基于本轮发现写知识库：中国 AI 算力基础设施全景（Anthropic 5GW + Google/Broadcom + 软银数据中心 + DeepSeekV4 万亿 Token）
+2. 基于本轮发现写博客：AI 编程工具竞争格局（Replit vs Cursor vs Copilot vs Codex CLI /goal 自主循环）
 
-## 可延后执行（其余建议）
-1. 写知识库文章：中国 AI 芯片生态全景（寒武纪/摩尔线程/沐曦 + 昇腾）
-2. 写博客：开源社区与 AI 伦理之争（Zig 反 LLM 政策行业影响）
-3. 修复历史文章中可能存在的 HTML 标签残留问题（持续 P2）
+## 可延后执（其余建议）
+1. 写知识库文章：AI 在多模态创作的落地（Claude Design + ChatGPT Images + DeepSeek 视觉原语）
+2. 写博客：AI 垂直行业应用——法律 AI 的崛起（Legora/Harvey/微软 Word Agent 三线并行）
+3. 写博客：用户用脚投票——ChatGPT 卸载 vs Claude 增长背后的产品逻辑
 
 ## 已完成的建议（上轮建议本轮已执行）
 - ✅ 扫描 12 来源（国外 7 个 + 国内 5 个）
-- ✅ 新增 12 条新闻（news-592~news-603）
-- ✅ Build 通过 + TypeScript 检查通过 + 推送成功
-- ✅ 覆盖 Anthropic 融资/Zig 反 LLM/微软 Copilot/David Silver/DeepSeek V4 等重大新闻
+- ✅ 新增 12 条新闻（news-704~news-715）
+- ✅ 覆盖 Meta 机器人收购 / Codex CLI /goal / 奥斯卡 AI 禁令 / Claude Opus 4.7 等重大新闻

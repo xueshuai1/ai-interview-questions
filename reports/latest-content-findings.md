@@ -1,22 +1,24 @@
-⏰ 写入时间：2026-05-02 04:00 (Asia/Shanghai)
+⏰ 写入时间：2026-05-02 09:26 (Asia/Shanghai)
+
 ## 本轮发现
-🔥 热点（13 条，已选 13 条写入 news.ts）：
-1. [五角大楼 AI 协议] 国防部与 OpenAI/Google/Nvidia/AWS/Microsoft 签机密网络 AI 协议，Anthropic 被排除 → 适合：知识库（AI与国防）
-2. [Anthropic 9000亿估值] 潜在融资轮两周内完成，Claude 下载量激增 100% vs ChatGPT 卸载 413% → 适合：博客（AI 竞争格局）
-3. [Legora 法律 AI] 估值 56 亿，与 Harvey 竞争加剧 → 适合：知识库（垂直行业 AI）
-4. [Google Gemini 车载] 进入数百万辆汽车，车载 AI 竞争升级 → 适合：博客（AI + 出行）
-5. [OpenAI 账户安全] 高级安全功能 + Yubico 硬件密钥合作 → 适合：知识库（AI 安全）
-6. [Musk v. Altman] 马斯克承认 xAI 用 OpenAI 模型训练 Grok → 适合：博客（AI 诉讼全景）
-7. [OpenAI Symphony] 开源 Agent 编排规范发布 → 适合：知识库（Agent 标准之争）
-8. [Meta 商业 AI] 每周 1000 万次商业对话 → 适合：博客（企业 AI 规模化）
-9. [Anthropic+NEC] 建设日本最大 AI 工程人才队伍 → 适合：知识库（AI 全球化）
-10. [DeepSeek 视觉原语] 多模态技术范式公布，Thinking With Visual Primitives → 适合：知识库（多模态技术）
-11. [Stonebraker 批判 AI Agent] 图灵奖得主：Agent 绕不开数据库老问题 → 适合：博客（AI 基础设施反思）
-12. [国产 GPU 对比] 寒武纪盈利 10 亿、摩尔线程首盈、沐曦仍亏 → 适合：知识库（中国 AI 芯片）
-13. [苹果 AI Mac 需求] AI 热潮带动 Mac 供不应求 → 适合：博客（AI + 硬件）
+🔥 热点（18 条，已选 12 条写入 news.ts，news-704~715）：
+1. [Meta 收购机器人初创] Meta 加码人形 AI 机器人 → 适合：博客（AI 硬件趋势）
+2. [Codex CLI /goal] 自主循环模式对标 Ralph Loop → 适合：知识库（Agent 编排）
+3. [奥斯卡 AI 禁令] 只有人类才能获表演奖 → 适合：博客（AI 与伦理）
+4. [Replit CEO 访谈] 谈 Cursor 交易、对抗苹果 → 适合：博客（开发者工具竞争）
+5. [DeepSeekV4 + LongCat 破万亿] 中国 AI 进入大规模训练阶段 → 适合：知识库（中国 AI 规模）
+6. [微软 Word AI 代理] 专为律师处理文档 → 适合：博客（AI 垂直行业应用）
+7. [GPT之父实验] 仅用上世纪数据训练 AI 也会写 Python → 适合：知识库（scaling law 讨论）
+8. [Anthropic + Amazon 5GW] 算力合作大幅扩展 → 适合：知识库（AI 基础设施）
+9. [X AI 广告平台] 全面重建 → 适合：博客（AI 商业化）
+10. [ChatGPT 卸载 413% / Claude 下载 100%] 用户偏好转移 → 适合：博客（AI 市场竞争）
+11. [Claude Opus 4.7] 编码/Agent/视觉全面升级 → 适合：知识库（模型对比）
+12. [Claude Design] Anthropic Labs 视觉创作工具 → 适合：博客（AI 设计工具）
+
 🆕 新工具（0 个）：
+
 💡 知识缺口（4 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：AI 与国防安全（五角大楼 AI 协议延伸）
-2. KNOWLEDGE-BASE-PLAN.md 待补：Agent 编排标准全景（Symphony vs MCP vs A2A 对比）
-3. KNOWLEDGE-BASE-PLAN.md 待补：AI 安全评估体系（OpenAI 高级安全功能 + AISI 评估方法）
-4. 博客建议：Musk v. Altman 诉讼全景分析（从 2015 到 2026 的完整时间线）
+1. KNOWLEDGE-BASE-PLAN.md 待补：中国 AI 算力基础设施全景（Anthropic 5GW + Google/Broadcom + 软银数据中心）
+2. KNOWLEDGE-BASE-PLAN.md 待补：AI 编程工具竞争格局（Replit vs Cursor vs Copilot vs Codex CLI）
+3. KNOWLEDGE-BASE-PLAN.md 待补：AI 在多模态创作的落地（Claude Design + ChatGPT Images + 视觉原语）
+4. KNOWLEDGE-BASE-PLAN.md 待补：AI 垂直行业应用（法律 AI / 医疗 AI / 汽车 AI）
