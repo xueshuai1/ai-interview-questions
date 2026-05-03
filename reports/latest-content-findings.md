@@ -1,25 +1,32 @@
-⏰ 写入时间：2026-05-03 00:00 (Asia/Shanghai)
-## 本轮发现
-🔥 热点（12 条，已选 12 条写入 news.ts news-741~752）：
-1. [Meta 收购机器人公司] 加码人形 AI 战略 → 适合：博客/知识库
-2. [五角大楼 AI 签约] Nvidia+微软+AWS 部署机密 AI，Anthropic 缺席 → 适合：博客
-3. [Stripe Link 支持 AI 代理] AI 代理可自主购物支付 → 适合：博客/知识库
-4. [Oscars 新规] 只有人类能获得表演奖，AI 剧本不得参评 → 适合：博客
-5. [微软 Word AI 代理] 面向法律行业自动化文档处理 → 适合：知识库
-6. [Codex CLI /goal] 自主循环执行直到目标完成 → 适合：知识库/博客
-7. [GPT-5.5 网络能力评估] UK AISI 评估：与 Mythos 相当但已公开 → 适合：博客
-8. [OpenAI 上 AWS] 模型+Codex+Managed Agents 登陆 AWS → 适合：知识库
-9. [Gemini 上车] Google AI 助手进入数百万辆汽车 → 适合：博客
-10. [DeepSeek 视觉原语] 从"看清楚"到"看明白"的多模态新范式 → 适合：知识库
-11. [Anthropic+NEC] 建设日本最大 AI 工程人才队伍 → 适合：知识库
-12. [硅谷中美具身智能交流] 机器人进入真实世界越早越好 → 适合：博客
+⏰ 写入时间：2026-05-04 04:07 (Asia/Shanghai)
 
-🆕 新工具（0 个）：
-- 本轮未发现显著新开源工具（GitHub trending 以成熟项目为主）
+# 本轮发现（研究员 04:00 轮）
 
-💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：[行业] AI 代理自主支付/交易生态（Stripe Link + AI Agent 钱包）
-2. KNOWLEDGE-BASE-PLAN.md 待补：[政策] AI 在影视/娱乐行业的监管与规则（Oscars 新规 + 虚拟演员）
-3. KNOWLEDGE-BASE-PLAN.md 待补：[行业] 国防 AI 竞争格局（五角大楼合同 + Anthropic 缺席 + 政治影响）
-4. KNOWLEDGE-BASE-PLAN.md 待补：[技术] 多模态视觉推理（DeepSeek Visual Primitives vs 高分辨率路线）
-5. KNOWLEDGE-BASE-PLAN.md 待补：[行业] AI 驱动硬件成本上涨（DRAM/HBM 供需 + 手机/PC 涨价趋势）
+## 扫描来源
+- **国外 (8)**：TechCrunch AI、The Verge AI、OpenAI Blog、Anthropic News、Simon Willison、GitHub Trending、Hacker News、CNBC
+- **国内 (4)**：36 氪 AI、新浪科技、极客公园、机器之心
+- **搜索补充**：Tavily Search（Harvard ER Study、AI Podcasting、Anthropic Opus 4.7、Symphony）
+
+## 🔥 热点（14 条，已选 12 条写入 news.ts news-753~news-764）
+
+1. [哈佛 ER 诊断研究] AI 在急诊诊断中超越医生 67% vs 50-55%，发表于 Science → 适合：博客/知识库
+2. [AI 播客大泛滥] Inception Point AI 每周 3000 集，39% 新播客为 AI 生成 → 适合：博客
+3. [SAG-AFTRA AI 协议] 新四年协议含 AI 保护条款，继编剧工会后 → 适合：知识库
+4. [AI 奉承行为] 斯坦福 Science 研究：AI 附和率比人类高 49% → 适合：博客/知识库
+5. [Legora 56 亿估值] 法律 AI 与 Harvey 竞争白热化 → 适合：知识库
+6. [苹果 Mac AI 税] 砍掉丐版 Mac mini，AI 成标配 → 适合：博客
+7. [OpenAI 限制 Cyber] 此前嘲讽 Anthropic 限制 Mythos，如今自己做同样的事 → 适合：博客
+8. [Anthropic 9000 亿估值] 融资两周内完成，超越 OpenAI → 适合：知识库
+9. [OpenAI on AWS] 模型+Codex+托管代理正式登陆 AWS → 适合：博客
+10. [中文税] AI 大模型中文更费 Token 的语言公平问题 → 适合：博客
+11. [OpenAI 账户安全] 高级安全功能+Yubico 硬件密钥 → 适合：知识库
+12. [微软×OpenAI 新阶段] 多云战略持续推进 → 适合：知识库
+
+## 🆕 新工具（0 个）
+- 本轮未发现值得收录的新开源工具
+
+## 💡 知识缺口（4 项）
+1. KNOWLEDGE-BASE-PLAN.md 待补：AI 医疗诊断临床验证路径（基于哈佛 ER 研究）
+2. KNOWLEDGE-BASE-PLAN.md 待补：AI 内容创作伦理与监管全景（播客+好莱坞 AI 协议）
+3. KNOWLEDGE-BASE-PLAN.md 待补：AI 公司估值竞赛与资本格局（Anthropic 9000 亿 vs OpenAI）
+4. 博客待写：AI 奉承行为——斯坦福研究揭示的"讨好陷阱"
