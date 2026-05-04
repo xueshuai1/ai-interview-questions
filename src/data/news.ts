@@ -9062,5 +9062,394 @@ Anthropic 正在从「通用 AI 助手」走向「垂直专业工具」：
     source: "Anthropic",
     sourceUrl: "https://www.anthropic.com/news/claude-for-creative-work",
     href: "/news/news-794",
-  }
+  },
+{
+    id: "news-795",
+    tag: "AI 版权",
+    tagColor: "bg-pink-500/10 text-pink-300",
+    title: "「This is fine」原作者起诉 AI 初创公司 Artisan：经典迷因被擅自用于 AI 招聘广告",
+    summary: '经典网络迷因「This is fine」的创作者 KC Green 发现 AI 初创公司 Artisan 擅自将他的作品用于地铁广告——狗狗坐在火堆中说「My pipeline is on fire」，推销 AI BDR 助手 Ava。Green 明确表示「这是被偷的，就像 AI 偷的那样」，呼吁粉丝涂鸦抗议。',
+    content: `## AI 版权争议再升级：经典迷因被盗用
+
+**2026 年 5 月 3 日**，据 TechCrunch 报道，「This is fine」创作者 KC Green 指控 AI 初创公司 Artisan 盗用其作品。
+
+### 事件经过
+
+Artisan 是一家以「停止雇佣人类」广告牌闻名的 AI 初创公司。他们在地铁站投放了一则广告，使用了 KC Green 的经典迷因「This is fine」——一只拟人化狗狗坐在火堆中微笑。
+
+但广告中的狗狗说变成了「My pipeline is on fire」，并附有「Hire Ava the AI BDR」的推销信息。
+
+### 创作者回应
+
+Green 在 Bluesky 上表示：
+- 「我越来越多人告诉我这件事」
+- 「这不是我同意的任何事」
+- 「这是被偷的，就像 AI 偷的那样」
+- 呼吁粉丝「请去涂鸦」
+
+### 行业背景
+
+这是 AI 版权争议的又一个标志性案例。从艺术家到漫画创作者，越来越多的内容创作者发现自己的作品被 AI 公司用于训练和商业用途，而没有任何授权或补偿。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/",
+    href: "/news/news-795",
+  },
+{
+    id: "news-796",
+    tag: "AI 医疗",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "哈佛研究：AI 在急诊诊断中准确率超过两位人类医生",
+    summary: '哈佛医学院新研究评估了大语言模型在多种医疗场景下的表现，包括真实的急诊病例。至少有一个 AI 模型在急诊诊断中的准确率超过了两位人类医生，为 AI 辅助医疗诊断提供了强有力的实证支持。',
+    content: `## AI 医疗诊断：哈佛的实证研究
+
+**2026 年 5 月 3 日**，据 TechCrunch 报道，哈佛医学院发布了一项关于大语言模型在医疗场景下表现的新研究。
+
+### 核心发现
+
+研究评估了 LLM 在多种医疗场景中的表现，包括：
+- **真实急诊病例**：至少有一个 AI 模型在急诊诊断中准确率超过两位人类医生
+- **多场景测试**：涵盖不同医疗环境和病例类型
+- **辅助诊断潜力**：AI 可作为医生的第二意见，提高诊断准确性
+
+### 行业意义
+
+这是 AI 医疗领域又一个里程碑式的实证研究。随着越来越多的高质量研究发布，AI 辅助医疗正在从「概念验证」走向「临床实践」。
+
+### 需要注意的
+
+AI 诊断仍需人类医生审核，特别是在涉及生命安全的急诊场景中。AI 的价值在于提供第二意见和减少人为疏忽。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/",
+    href: "/news/news-796",
+  },
+{
+    id: "news-797",
+    tag: "AI 版权",
+    tagColor: "bg-pink-500/10 text-pink-300",
+    title: "奥斯卡新规：AI 生成的演员和剧本不再具有奖项资格",
+    summary: '第 99 届奥斯卡金像奖规则明确规定，只有由人类表演者出演且经同意的角色才能获得表演类奖项提名，剧本也必须由人类创作。如果影片中使用生成式 AI 引发争议，学院可要求提供更多关于 AI 使用性质和人类创作程度的信息。',
+    content: `## 奥斯卡：只有人类才能获奖
+
+**2026 年 5 月 1 日**，据 The Verge 报道，奥斯卡主办方发布第 99 届学院奖规则。
+
+### 核心规定
+
+- **表演奖项**：「只有在影片法律演员表中列名且由人类表演者经同意表演的角色才会被考虑」
+- **编剧奖项**：参选剧本必须是「人类创作」
+- **AI 使用声明**：如果对生成式 AI 的使用产生疑问，学院可「要求提供更多关于 AI 使用性质和人类创作程度的信息」
+
+### 背景
+
+此前已有 AI 生成演员「Tilly Norwood」试图参与电影制作。奥斯卡新规明确排除了这类情况。
+
+### 行业影响
+
+这是好莱坞对 AI 生成内容的最新限制。此前编剧工会已与制片方达成包含加强 AI 保护的四年协议，现在演员工会也跟进。
+
+**来源：** The Verge
+**链接：** https://www.theverge.com/entertainment/922602/the-organization-behind-the-oscars-says-that-only-humans-can-get-acting-awards`,
+    date: "2026-05-04 20:00",
+    source: "The Verge",
+    sourceUrl: "https://www.theverge.com/entertainment/922602/the-organization-behind-the-oscars-says-that-only-humans-can-get-acting-awards",
+    href: "/news/news-797",
+  },
+{
+    id: "news-798",
+    tag: "具身智能",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "Meta 收购机器人初创公司，加码人形 AI 雄心",
+    summary: 'Meta 宣布收购一家人形机器人初创公司，旨在加强其在人形 AI 领域的布局。此次收购表明 Meta 不仅在社交媒体和 VR 领域发力，还在积极探索 AI 实体化（Embodied AI）方向，与 Figure AI、Tesla Optimus 等形成竞争。',
+    content: `## Meta 的人形 AI 野心
+
+**2026 年 5 月 1 日**，据 TechCrunch 报道，Meta 收购一家人形机器人初创公司。
+
+### 战略意义
+
+- **具身智能布局**：Meta 正在从纯软件 AI 向「AI + 物理世界」扩展
+- **人形机器人竞争**：与 Figure AI、Tesla Optimus、Boston Dynamics 等形成直接竞争
+- **AI 基础设施延伸**：结合 Meta 的 LLM 能力和硬件工程实力
+
+### 行业背景
+
+具身智能（Embodied AI）是 2026 年最热的 AI 赛道之一。多家公司正将 AI 模型与物理机器人结合，从工业场景走向家庭和商业应用。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/",
+    href: "/news/news-798",
+  },
+{
+    id: "news-799",
+    tag: "AI 投资",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "Anthropic 潜在 $9000 亿+ 估值融资轮或两周内完成",
+    summary: '据 TechCrunch 独家报道，Anthropic 正在进行潜在估值超 $9000 亿的融资轮，可能在两周内完成。这将使 Anthropic 成为全球最有价值的 AI 公司之一，超越当前的行业纪录。',
+    content: `## Anthropic 冲刺 $9000 亿
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道，Anthropic 正在进行大规模融资。
+
+### 核心信息
+
+- **潜在估值**：$9000 亿+，将刷新 AI 公司估值纪录
+- **时间表**：可能在两周内完成
+- **投资方**：预计包括现有投资者和新的战略投资者
+
+### 行业影响
+
+如果 Anthropic 以 $9000 亿+ 估值完成融资，这将：
+1. 进一步巩固 AI 行业「大者恒大」的格局
+2. 为 Claude 生态的持续扩展提供充足资金
+3. 加剧与 OpenAI、Google 之间的竞争
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/anthropic-potential-900b-valuation-round-could-happen-within-two-weeks/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/anthropic-potential-900b-valuation-round-could-happen-within-two-weeks/",
+    href: "/news/news-799",
+  },
+{
+    id: "news-800",
+    tag: "AI 硬件",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "Apple 对 AI 驱动的 Mac 需求感到意外：M 系列芯片 Mac 销量激增",
+    summary: '据 TechCrunch 报道，Apple 对 AI 驱动的 Mac 需求感到惊讶。随着 Apple Intelligence 功能的持续完善，搭载 M 系列芯片的 Mac 销量显著增长，用户因 AI 功能而购买 Mac 的比例远超 Apple 预期。',
+    content: `## Apple 的 AI 惊喜
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道，Apple 对 Mac 的 AI 驱动需求感到意外。
+
+### 核心发现
+
+- **AI 驱动购买**：用户因 Apple Intelligence 功能而购买 Mac 的比例超出预期
+- **M 系列芯片优势**：Apple Silicon 的 NPU 为端侧 AI 提供了强大支持
+- **需求激增**：AI 功能成为 Mac 增长的重要驱动力
+
+### 行业意义
+
+这是「端侧 AI」商业化的一个重要信号。当消费者因为 AI 功能而购买硬件时，AI 真正成为了产品的核心竞争力。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/apple-was-surprised-by-ai-driven-demand-for-macs/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/apple-was-surprised-by-ai-driven-demand-for-macs/",
+    href: "/news/news-800",
+  },
+{
+    id: "news-801",
+    tag: "AI 政策",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "五角大楼与 Nvidia、Microsoft、AWS 签署协议：在机密网络部署 AI",
+    summary: '五角大楼与 Nvidia、Microsoft 和 AWS 签署协议，在机密网络上部署 AI 系统。这标志着美国军方在 AI 军事化方面迈出重要一步，将 AI 技术引入最高安全级别的网络环境。',
+    content: `## 五角大楼的 AI 军事化
+
+**2026 年 5 月 1 日**，据 TechCrunch 报道，五角大楼签署多项 AI 部署协议。
+
+### 合作方
+
+- **Nvidia**：提供 AI 计算硬件和软件平台
+- **Microsoft**：提供 Azure 政府云和 AI 服务
+- **AWS**：提供 AWS GovCloud 和 AI 能力
+
+### 意义
+
+- **机密 AI 部署**：AI 将在最高安全级别的网络中运行
+- **多方合作**：三大科技巨头同时参与，说明 AI 军事化已成行业共识
+- **地缘影响**：AI 军事化可能引发新一轮军备竞赛
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/",
+    href: "/news/news-801",
+  },
+{
+    id: "news-802",
+    tag: "AI 内容",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "AI 播客大爆发：39% 的新播客可能是 AI 生成的，行业被「AI 垃圾」淹没",
+    summary: '据 Bloomberg 和 Podcast Index 数据，在过去 9 天内创建了 10,871 个新播客 feed，其中约 4,243 个（39%）可能是 AI 生成的。Inception Point AI 每周发布 3,000 集 AI 播客，低质量 AI 内容正在淹没播客平台。',
+    content: `## AI 内容冲击：播客被「AI slop」淹没
+
+**2026 年 5 月 3 日**，据 The Verge 和 Bloomberg 报道。
+
+### 数据
+
+- **39% 新播客为 AI 生成**：Podcast Index 统计过去 9 天的数据
+- **Inception Point AI**：每周发布 3,000 集 AI 播客
+- **10,871 个新 feed**：9 天内创建，其中 4,243 个可能由 AI 生成
+
+### 行业影响
+
+- **平台被淹没**：低质量 AI 内容让听众难以发现优质播客
+- **创作者困境**：人类创作者面临 AI 生成内容的价格竞争
+- **监管讨论**：平台是否需要标注 AI 生成内容
+
+这与 AI 音乐涌入流媒体服务的趋势一致——AI 正在大规模生成内容，而平台尚未准备好应对。
+
+**来源：** The Verge / Bloomberg
+**链接：** https://www.theverge.com/ai-artificial-intelligence/922854/its-not-just-music-ai-is-threating-to-overtake-human-podcasters-too`,
+    date: "2026-05-04 20:00",
+    source: "The Verge / Bloomberg",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence/922854/its-not-just-music-ai-is-threating-to-overtake-human-podcasters-too",
+    href: "/news/news-802",
+  },
+{
+    id: "news-803",
+    tag: "行业",
+    tagColor: "bg-violet-500/10 text-violet-300",
+    title: "SAG-AFTRA 与制片方达成四年新协议：新增 AI 保护条款",
+    summary: '美国演员工会 SAG-AFTRA 与制片方达成新的四年协议，包含增强的 AI 保护条款、工会养老基金的大幅注资、以及提高流媒体残金。继编剧工会之后，演员工会也成功争取到了针对 AI 的法律保护。',
+    content: `## 好莱坞工会的 AI 防线
+
+**2026 年 5 月 3 日**，据 Deadline 和 The Verge 报道。
+
+### 协议要点
+
+- **AI 保护条款**：限制制片方使用 AI 替代人类演员
+- **养老基金**：工会养老基金获得大幅注资
+- **流媒体分成**：提高流媒体内容的演员残金
+- **四年期限**：比通常的协议更长
+
+### 背景
+
+一个月前，编剧工会（Writers Guild）已与制片方达成包含加强 AI 保护的四年协议。现在演员工会跟进，好莱坞两大工会都完成了新一轮 AI 保护谈判。
+
+**来源：** The Verge / Deadline
+**链接：** https://www.theverge.com/entertainment/922830/sag-aftra-reaches-a-four-year-deal-with-the-studios-with-new-ai-guardrails`,
+    date: "2026-05-04 20:00",
+    source: "The Verge / Deadline",
+    sourceUrl: "https://www.theverge.com/entertainment/922830/sag-aftra-reaches-a-four-year-deal-with-the-studios-with-new-ai-guardrails",
+    href: "/news/news-803",
+  },
+{
+    id: "news-804",
+    tag: "AI 安全",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "OpenAI 限制 Cyber 能力访问：此前曾嘲讽 Anthropic 限制 Mythos",
+    summary: 'OpenAI 在其 GPT-5.5 网络安全能力评估发布后不久，便开始限制公众对网络安全功能的访问。此前 OpenAI 曾公开嘲讽 Anthropic 限制 Claude Mythos 的网络安全能力，如今自己采取了同样的做法。',
+    content: `## OpenAI 的「回旋镖」
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道。
+
+### 事件经过
+
+1. **UK AISI 评估**：英国 AI 安全研究所评估了 GPT-5.5 的网络安全能力，发现与 Claude Mythos 相当
+2. **OpenAI 此前嘲讽**：OpenAI 曾公开批评 Anthropic 限制 Mythos 的网络安全能力
+3. **如今自己也限制**：OpenAI 随后开始限制 GPT-5.5 的网络安全功能访问
+
+### 行业讨论
+
+AI 公司面临一个两难困境：
+- **安全研究人员**需要测试模型的网络安全能力以评估风险
+- **恶意使用者**可能利用这些能力进行攻击
+- **公开嘲讽同行**后自己也采取相同措施，被业界视为「回旋镖」
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/after-dissing-anthropic-for-limiting-mythos-openai-restricts-access-to-cyber-too/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/after-dissing-anthropic-for-limiting-mythos-openai-restricts-access-to-cyber-too/",
+    href: "/news/news-804",
+  },
+{
+    id: "news-805",
+    tag: "AI 行业",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    title: "马斯克作证：xAI 使用 OpenAI 模型训练了 Grok",
+    summary: '在 Musk v. Altman 庭审中，Elon Musk 作证承认 xAI 使用 OpenAI 模型训练了 Grok。这一证词与 Musk 此前起诉 OpenAI「背叛使命」的立场形成鲜明对比——他一边起诉 OpenAI，一边使用 OpenAI 的技术。',
+    content: `## Musk v. Altman：庭审戏剧性转折
+
+**2026 年 4 月 30 日**，据 TechCrunch 和 36 氪报道。
+
+### 庭审要点
+
+- **Musk 承认**：xAI 使用 OpenAI 模型训练了 Grok
+- **矛盾立场**：Musk 起诉 OpenAI「背叛使命」，但自己使用 OpenAI 技术
+- **更多证据**：庭审还披露了 Tesla 捐赠车辆等早期 OpenAI 内部邮件
+
+### 行业意义
+
+这场庭审正在揭示 AI 行业早期发展的内幕。从 2015 年的邮件到最新的技术使用证据，都在为 AI 行业的竞争格局提供关键背景。
+
+**来源：** TechCrunch / 36 氪
+**链接：** https://techcrunch.com/2026/04/30/elon-musk-testifies-that-xai-trained-grok-on-openai-models/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch / 36 氪",
+    sourceUrl: "https://techcrunch.com/2026/04/30/elon-musk-testifies-that-xai-trained-grok-on-openai-models/",
+    href: "/news/news-805",
+  },
+{
+    id: "news-806",
+    tag: "AI 投资",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "法律 AI 初创 Legora 估值达 $56 亿，与 Harvey 的竞争白热化",
+    summary: '法律 AI 初创公司 Legora 估值达到 $56 亿，与竞争对手 Harvey 的竞争日趋激烈。法律 AI 正在成为 AI 垂直应用领域最受关注的赛道之一。',
+    content: `## 法律 AI 双雄争霸
+
+**2026 年 4 月 30 日**，据 TechCrunch 报道。
+
+### Legora 的崛起
+
+- **$56 亿估值**：法律 AI 领域的最高估值之一
+- **与 Harvey 竞争**：两家法律 AI 公司正面竞争
+- **赛道热度**：法律 AI 正在成为 AI 垂直应用的标杆赛道
+
+### 法律 AI 的价值
+
+法律服务是 AI 最能发挥价值的领域之一——大量文档处理、法律研究、合同审查等工作天然适合 LLM。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/legal-ai-startup-legora-hits-5-6b-valuation-and-its-battle-with-harvey-just-got-hotter/`,
+    date: "2026-05-04 20:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/legal-ai-startup-legora-hits-5-6b-valuation-and-its-battle-with-harvey-just-got-hotter/",
+    href: "/news/news-806",
+  },
+{
+    id: "news-807",
+    tag: "大语言模型",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "AI 大模型的「中文税」：为什么中文比英文更费 Token",
+    summary: '极客公园深度报道揭示了大语言模型中的「中文税」现象——中文比英文消耗更多 token。根因在于模型不是中性的，它内置了语言偏好，tokenizer 对中文字符的处理效率低于英文，导致中文用户的推理成本更高。',
+    content: `## 中文税：LLM 的语言偏见
+
+**2026 年 5 月 3 日**，据 36 氪转载极客公园报道。
+
+### 核心问题
+
+- **中文更费 Token**：相同内容，中文输入的 token 数量显著高于英文
+- **Tokenizer 效率差异**：主流 LLM 的 tokenizer 基于英文优化，中文字符需要更多 token 编码
+- **成本影响**：中文用户的 API 调用成本高于英文用户
+
+### 深层原因
+
+> 「模型不是中性的，它内置了语言偏好。」
+
+- **训练数据偏差**：LLM 训练数据中英文占比远高于中文
+- **分词算法设计**：BPE 等分词算法对英文更友好
+- **商业影响**：中国企业和开发者在 LLM 使用上面临额外的「语言税」
+
+### 行业讨论
+
+这是一个被广泛忽视但影响深远的问题。随着中国 AI 行业的发展，tokenizer 的中文优化可能成为国产模型的一个重要竞争优势。
+
+**来源：** 极客公园 / 36 氪
+**链接：** https://36kr.com/p/3793050208984071`,
+    date: "2026-05-04 20:00",
+    source: "极客公园 / 36 氪",
+    sourceUrl: "https://36kr.com/p/3793050208984071",
+    href: "/news/news-807",
+  },
 ];
