@@ -8071,5 +8071,389 @@ AI 公司的估值竞赛正在加速：
     source: "OpenAI",
     sourceUrl: "https://openai.com/index/next-phase-of-microsoft-partnership/",
     href: "/news/news-764",
+  },
+  {
+    id: "news-765",
+    tag: "AI 医疗",
+    tagColor: "bg-emerald-500/10 text-emerald-300",
+    title: "哈佛大学研究：AI 在急诊室诊断准确率超过两名人类医生",
+    summary: "哈佛医学院一项新研究显示，AI 系统在急诊室场景下提供的诊断建议比两名人类医生更准确。这项研究为 AI 在临床决策支持中的应用提供了强有力的实证依据。",
+    content: `## AI 诊断超越人类医生：哈佛实证研究
+
+**2026 年 5 月 3 日**，TechCrunch 报道了哈佛医学院的一项最新研究。
+
+### 研究概要
+- **场景**：急诊室诊断
+- **对比**：AI 系统 vs 两名人类医生
+- **结果**：AI 诊断准确率更高
+
+### 行业意义
+急诊室是医疗决策压力最大的场景之一，需要在有限时间内做出准确判断。AI 在此场景下超越人类医生，表明：
+1. AI 临床决策支持系统已具备实用价值
+2. 医疗行业对 AI 的接受度将加速提升
+3. 「AI + 医生」协作模式可能成为急诊室标准流程
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/03/in-harvard-study-ai-offered-more-accurate-diagnoses-than-emergency-room-doctors/",
+    href: "/news/news-765",
+  },
+  {
+    id: "news-766",
+    tag: "行业并购",
+    tagColor: "bg-indigo-500/10 text-indigo-300",
+    title: "Meta 收购机器人初创公司，加速人形 AI 布局",
+    summary: "Meta 收购了一家机器人初创公司，以加强其人形 AI 和机器人领域的技术实力。这是 Meta 在具身智能领域的最新布局，显示其人形机器人 ambitions 正在加速推进。",
+    content: `## Meta 进军机器人领域：收购加速具身智能
+
+**2026 年 5 月 1 日**，TechCrunch 报道了 Meta 的机器人收购消息。
+
+### 收购背景
+- Meta 此前已组建了人形机器人研究团队
+- 此次收购将进一步增强其在硬件和机器人控制方面的能力
+- 与 Anthropic、Google 等公司的具身智能布局形成竞争
+
+### 行业格局
+人形机器人正在成为 AI 巨头的下一个战略方向：
+- Meta：通过收购 + 内部团队快速推进
+- Google：DeepMind 在机器人学习方面长期投入
+- Tesla：Optimus 人形机器人持续迭代
+- Figure AI：专注通用人形机器人
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/01/meta-buys-robotics-startup-to-bolster-its-humanoid-ai-ambitions/",
+    href: "/news/news-766",
+  },
+  {
+    id: "news-767",
+    tag: "AI 军事",
+    tagColor: "bg-red-500/10 text-red-300",
+    title: "五角大楼与 Nvidia、Microsoft、AWS 签署机密网络 AI 部署协议",
+    summary: "美国国防部（五角大楼）与 Nvidia、Microsoft 和 AWS 签署协议，将 AI 技术部署到机密网络上。这标志着 AI 在美国军事基础设施中的深度整合正在加速。",
+    content: `## AI 进入五角大楼机密网络
+
+**2026 年 5 月 1 日**，TechCrunch 报道了五角大楼与三大科技公司的 AI 合作协议。
+
+### 合作内容
+- **Nvidia**：提供 AI 算力和模型部署能力
+- **Microsoft**：Azure 云服务支持机密 AI 工作负载
+- **AWS**：云端 AI 基础设施
+
+### 战略意义
+1. 机密网络意味着最高安全级别的 AI 应用
+2. 三大科技巨头同时参与，显示军方 AI 投入的规模化
+3. 此前 Anthropic 拒绝与五角大楼无限制合作，Google 填补了这一空白
+
+### 行业背景
+AI 军事应用正从研究走向实战部署，但也引发了伦理和安全方面的广泛讨论。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/01/pentagon-inks-deals-with-nvidia-microsoft-and-aws-to-deploy-ai-on-classified-networks/",
+    href: "/news/news-767",
+  },
+  {
+    id: "news-768",
+    tag: "AI 版权",
+    tagColor: "bg-pink-500/10 text-pink-300",
+    title: "「This is fine」漫画创作者起诉 AI 公司盗用其作品",
+    summary: "知名网络漫画「This is fine」（一只狗坐在燃烧的房间里）的创作者起诉一家 AI 公司未经授权使用其作品进行 AI 模型训练。这是 AI 版权纠纷的又一标志性案件。",
+    content: `## 「This is fine」创作者反击 AI 盗用
+
+**2026 年 5 月 3 日**，TechCrunch 报道了这起 AI 版权诉讼。
+
+### 案件要点
+- **作品**：「This is fine」——互联网最知名的表情包之一
+- **被告**：一家 AI 公司
+- **指控**：未经许可使用作品训练 AI 模型
+
+### 行业背景
+这是 AI 版权争议的又一起重要案例。此前已有：
+- 艺术家集体起诉 Midjourney 和 Stable Diffusion
+- Getty Images 起诉 Stability AI
+- 作家群体起诉 OpenAI
+
+随着 AI 训练数据的版权审查越来越严格，这类诉讼可能成为行业常态。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/05/03/this-is-fine-creator-says-ai-startup-stole-his-art/",
+    href: "/news/news-768",
+  },
+  {
+    id: "news-769",
+    tag: "AI 娱乐",
+    tagColor: "bg-purple-500/10 text-purple-300",
+    title: "AI 生成的演员和剧本不再有资格参与奥斯卡评选",
+    summary: "美国电影艺术与科学学院（奥斯卡主办方）宣布，AI 生成的演员表演和剧本将不再具备奥斯卡参选资格。这是对 AI 在娱乐行业应用边界的重要界定。",
+    content: `## 奥斯卡对 AI 说「不」
+
+**2026 年 5 月 2 日**，TechCrunch 报道了奥斯卡的最新政策。
+
+### 新规内容
+- **AI 表演**：AI 生成的演员表演不具备参选资格
+- **AI 剧本**：完全由 AI 生成的剧本不再 eligible
+- **人类创作优先**：只有人类主导的创作才能参与评选
+
+### 行业背景
+- SAG-AFTRA（演员工会）此前已与制片厂达成四年协议，包含新的 AI 保护条款
+- 编剧工会（WGA）也在 4 月达成了包含 AI 保护条款的协议
+- 奥斯卡此举进一步强化了娱乐行业的人类创作保护线
+
+### 深层讨论
+AI 在娱乐行业的角色边界正在被逐步划定：可以用于辅助，但不能替代人类创作者的核心贡献。
+
+**来源：** TechCrunch + The Verge
+**链接：** https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch + The Verge",
+    sourceUrl: "https://techcrunch.com/2026/05/02/ai-generated-actors-and-scripts-are-now-ineligible-for-oscars/",
+    href: "/news/news-769",
+  },
+  {
+    id: "news-770",
+    tag: "行业",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "苹果对 AI 驱动的 Mac 需求感到意外：Mac 出货量大幅增长",
+    summary: "TechCrunch 报道，苹果对 AI 驱动的 Mac 需求增长感到意外。AI 工作负载正在推动 Mac 的换机潮，尤其是搭载 Apple Silicon 的机型在 AI 推理场景中表现出色。",
+    content: `## AI 推动 Mac 换机潮
+
+**2026 年 4 月 30 日**，TechCrunch 报道了苹果的最新市场表现。
+
+### 核心发现
+- **意外增长**：AI 工作负载成为 Mac 需求增长的新驱动力
+- **Apple Silicon 优势**：M 系列芯片的 NPU 在本地 AI 推理中表现出色
+- **换机周期**：企业和开发者因 AI 需求加速换机
+
+### 行业意义
+1. AI 正在重塑个人电脑的购买逻辑
+2. 端侧 AI 能力（NPU）成为 PC 竞争的新维度
+3. Apple 在 AI 硬件上的布局开始收获市场回报
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/apple-was-surprised-by-ai-driven-demand-for-macs/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/apple-was-surprised-by-ai-driven-demand-for-macs/",
+    href: "/news/news-770",
+  },
+  {
+    id: "news-771",
+    tag: "AI 内容",
+    tagColor: "bg-orange-500/10 text-orange-300",
+    title: "AI 生成的播客正在淹没流媒体平台：39% 新节目疑似 AI 生成",
+    summary: "Bloomberg 和 The Verge 报道，AI 生成的播客内容正在大量涌入流媒体平台。数据显示，在过去 9 天内新增的播客节目中，约 39% 可能是 AI 生成的。一家名为 Inception Point AI 的公司每周发布 3000 集节目。",
+    content: `## AI 播客洪水：39% 新节目是 AI 生成
+
+**2026 年 5 月 4 日**，The Verge 引用 Bloomberg 数据报道了 AI 播客泛滥现象。
+
+### 数据触目惊心
+- **39%**：过去 9 天内新增播客节目中约 39% 可能为 AI 生成
+- **10,871**：9 天内新增的播客 Feed 总数
+- **4,243**：其中约 4,243 个可能为 AI 生成
+- **Inception Point AI**：每周发布 3,000 集节目
+
+### 平台态度
+- 流媒体平台不会禁止 AI 内容
+- 但也不会主动推广
+- 低质量 AI 内容正在淹没真正的人类创作者
+
+### 更深层的影响
+这与 AI 音乐涌入流媒体的趋势如出一辙——AI 内容生产的低成本正在改变内容生态的平衡。如何区分和筛选高质量内容，将成为平台和用户的共同挑战。
+
+**来源：** The Verge + Bloomberg + Podcast Index
+**链接：** https://www.theverge.com/ai-artificial-intelligence/922854/its-not-just-music-ai-is-threating-to-overtake-human-podcasters-too`,
+    date: "2026-05-04 08:00",
+    source: "The Verge + Bloomberg + Podcast Index",
+    sourceUrl: "https://www.theverge.com/ai-artificial-intelligence/922854/its-not-just-music-ai-is-threating-to-overtake-human-podcasters-too",
+    href: "/news/news-771",
+  },
+  {
+    id: "news-772",
+    tag: "行业",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "苹果官方 App 误打包 Claude.md 文件：大公司也在 Vibe Coding？",
+    summary: "36 氪和量子位报道，苹果官方 App 中意外打包了 Claude.md 文件，暴露了其内部使用定制版 Claude 模型的痕迹。这一事件引发了关于大公司是否在使用 AI 编程工具（Vibe Coding）的讨论。",
+    content: `## 苹果 Vibe Coding 翻车现场
+
+**2026 年 5 月 2 日**，36 氪和量子位报道了苹果 App 误打包 Claude.md 文件事件。
+
+### 事件经过
+- 苹果官方发布的 App 中包含了 Claude.md 配置文件
+- 该文件暴露了苹果内部正在运行定制版 Claude 模型
+- Claude.md 是 Claude Code 的指令文件，用于定义 AI 编程助手的行为
+
+### 行业讨论
+- 大公司也在用 AI 编程工具（Vibe Coding）
+- 苹果此前对 AI 态度相对保守，此举暗示内部已在深度使用
+- 这也提醒开发者：AI 生成的代码需要仔细审查后再发布
+
+### 背景
+Vibe Coding（用 AI 自然语言编程）正在从个人开发者蔓延到大公司内部。
+
+**来源：** 36 氪 + 量子位
+**链接：** https://36kr.com/p/3791662444911617`,
+    date: "2026-05-04 08:00",
+    source: "36 氪 + 量子位",
+    sourceUrl: "https://36kr.com/p/3791662444911617",
+    href: "/news/news-772",
+  },
+  {
+    id: "news-773",
+    tag: "AI 融资",
+    tagColor: "bg-green-500/10 text-green-300",
+    title: "法律 AI 初创公司 Legora 估值达 56 亿美元，与 Harvey 的竞争升温",
+    summary: "法律 AI 公司 Legora 完成新一轮融资，估值达到 56 亿美元。其与竞争对手 Harvey 在法律 AI 赛道的竞争正在加剧，反映出 AI 在法律行业的商业化加速。",
+    content: `## Legora：56 亿美元的法律 AI 独角兽
+
+**2026 年 4 月 30 日**，TechCrunch 报道了 Legora 的最新估值。
+
+### 公司概况
+- **估值**：56 亿美元
+- **赛道**：法律 AI
+- **竞争对手**：Harvey（同样是法律 AI 头部公司）
+
+### 法律 AI 赛道
+法律行业是 AI 商业化落地最成功的领域之一：
+- 合同审查、法律研究、尽职调查等环节 AI 替代率高
+- 大型律所已开始规模化部署 AI 工具
+- Legora 和 Harvey 的竞争推动行业能力快速迭代
+
+### 行业意义
+56 亿美元的估值表明，资本市场对垂直 AI（Vertical AI）的信心正在增强——不仅仅是通用大模型，行业专用 AI 同样有巨大价值。
+
+**来源：** TechCrunch
+**链接：** https://techcrunch.com/2026/04/30/legal-ai-startup-legora-hits-5-6b-valuation-and-its-battle-with-harvey-just-got-hotter/`,
+    date: "2026-05-04 08:00",
+    source: "TechCrunch",
+    sourceUrl: "https://techcrunch.com/2026/04/30/legal-ai-startup-legora-hits-5-6b-valuation-and-its-battle-with-harvey-just-got-hotter/",
+    href: "/news/news-773",
+  },
+  {
+    id: "news-774",
+    tag: "AI 行业",
+    tagColor: "bg-violet-500/10 text-violet-300",
+    title: "硅谷大厂的 AI「含金量」开始分级：财报透底，腾讯阿里还差几步？",
+    summary: "36 氪发文分析硅谷科技巨头的 AI 商业化「含金量」——从财报数据看，各公司在 AI 收入、算力投入和实际应用效果上开始出现明显分化。同时对比了腾讯、阿里的 AI 进展。",
+    content: `## 硅谷 AI 含金量分级：财报见真章
+
+**2026 年 5 月 3 日**，36 氪发文深度分析硅谷大厂的 AI 真实水平。
+
+### 核心发现
+从最新财报来看，硅谷大厂的 AI 商业化正在分化：
+- **Google Cloud**：季度收入突破 200 亿美元，但受限于算力产能
+- **Microsoft Copilot**：2000 万 + 付费用户，确认「确实在用」
+- **Meta**：AI 推荐系统驱动广告收入增长
+- **Amazon**：AWS 上 AI 工作负载快速增长
+
+### 中美对比
+- 腾讯：ima 知识 Agent、混元大模型持续迭代
+- 阿里：通义千问在企业市场渗透率提升
+- 差距：美国大厂在 AI 收入规模上仍领先，但中国公司在特定场景（如电商 AI、支付 AI）有优势
+
+**来源：** 36 氪
+**链接：** https://36kr.com/p/3792866879085830`,
+    date: "2026-05-04 08:00",
+    source: "36 氪",
+    sourceUrl: "https://36kr.com/p/3792866879085830",
+    href: "/news/news-774",
+  },
+  {
+    id: "news-775",
+    tag: "AI 出行",
+    tagColor: "bg-blue-500/10 text-blue-300",
+    title: "假期出游被 AI 坑了？六个真实的 AI 旅行规划踩坑故事",
+    summary: "定焦 One 发文分享了六个用户使用 AI 做旅行攻略的真实踩坑故事。从推荐不存在的景点到安排不合理的行程，AI 旅行规划在实际应用中暴露出诸多问题。",
+    content: `## AI 旅行规划：理想丰满，现实骨感
+
+**2026 年 5 月 3 日**，定焦 One 分享了六个 AI 旅行规划的真实案例。
+
+### 典型踩坑场景
+1. **不存在的景点**：AI 推荐了已经关闭或不存在的景点
+2. **时间不合理**：行程安排过于紧凑，实际无法完成
+3. **交通信息过时**：推荐的交通路线已变更
+4. **价格偏差大**：AI 提供的价格与实际差距显著
+5. **个性化不足**：推荐千篇一律，缺乏针对个人偏好的定制
+6. **紧急情况无帮助**：旅行中遇到问题时 AI 无法及时响应
+
+### 行业启示
+AI 旅行规划的核心挑战：
+- 实时数据更新：景点、交通、价格信息需要实时同步
+- 本地知识深度：AI 对目的地的理解可能不够深入
+- 个性化与可靠性之间的平衡
+
+**来源：** 定焦 One + 36 氪
+**链接：** https://36kr.com/p/3792852142923008`,
+    date: "2026-05-04 08:00",
+    source: "定焦 One + 36 氪",
+    sourceUrl: "https://36kr.com/p/3792852142923008",
+    href: "/news/news-775",
+  },
+  {
+    id: "news-776",
+    tag: "AI 人才",
+    tagColor: "bg-yellow-500/10 text-yellow-300",
+    title: "百亿公司 CTO 不干了，集体转身去 Anthropic 当工程师",
+    summary: "36 氪报道，多位百亿市值公司的高管放弃 CTO 职位，选择加入 Anthropic 担任普通工程师。这一人才流动趋势反映了 AI 行业对顶尖技术人才的强大吸引力。",
+    content: `## CTO 转行做工程师：Anthropic 的人才吸引力
+
+**2026 年 5 月 3 日**，36 氪和机器之心报道了这一人才流动现象。
+
+### 现象分析
+- **CTO → 工程师**：高管放弃管理岗位，选择技术一线
+- **目标公司**：Anthropic 成为首选
+- **驱动力**：Claude 技术栈的吸引力 + AI 行业前景
+
+### 深层原因
+1. **技术挑战**：Anthropic 在 AI 安全和对齐方面的研究代表了行业最前沿
+2. **影响力**：在大模型公司做工程师的实际影响力可能超过在传统公司做 CTO
+3. **行业趋势**：AI 正在重塑技术人才的职业路径选择
+
+### 行业信号
+顶尖人才流向 AI 核心公司，将进一步加速 AI 技术突破，同时也可能削弱传统科技公司的技术领导力。
+
+**来源：** 36 氪 + 机器之心
+**链接：** https://36kr.com/p/3793138446179585`,
+    date: "2026-05-04 08:00",
+    source: "36 氪 + 机器之心",
+    sourceUrl: "https://36kr.com/p/3793138446179585",
+    href: "/news/news-776",
+  },
+  {
+    id: "news-777",
+    tag: "AI 算力",
+    tagColor: "bg-cyan-500/10 text-cyan-300",
+    title: "又一算力独角兽冲击 IPO，估值已站上 500 亿元门槛",
+    summary: "36 氪报道，一家算力独角兽公司正准备冲击 IPO，其估值已超过 500 亿元人民币。这反映了 AI 算力基础设施领域的资本化进程正在加速。",
+    content: `## 算力独角兽 IPO：500 亿估值的背后
+
+**2026 年 5 月 2 日**，36 氪报道了算力行业的新 IPO 动态。
+
+### 核心信息
+- **估值**：超过 500 亿元人民币
+- **业务**：AI 算力基础设施（GPU 集群、算力服务等）
+- **阶段**：冲击 IPO
+
+### 行业背景
+AI 算力正在成为资本市场最关注的赛道之一：
+- 全球 AI 算力需求持续爆发
+- 中国算力基础设施公司迎来资本化窗口
+- 从「卖算力」到「卖服务」的商业模式演进
+
+**来源：** 36 氪
+**链接：** https://36kr.com/p/3791796527602951`,
+    date: "2026-05-04 08:00",
+    source: "36 氪",
+    sourceUrl: "https://36kr.com/p/3791796527602951",
+    href: "/news/news-777",
   }
 ];
