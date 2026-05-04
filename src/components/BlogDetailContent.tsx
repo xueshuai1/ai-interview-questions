@@ -46,6 +46,18 @@ function ArticleSectionContent({ section, headingId }: { section: ArticleSection
           [&_p]:break-words [&_p]:whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: marked.parse(section.body) as string }} />
       )}
 
+      {section.body2 && (
+        <div className="prose prose-invert max-w-none text-base sm:text-lg mb-4 overflow-x-auto
+          prose-p:text-slate-300 prose-p:leading-relaxed prose-p:my-3
+          prose-strong:text-amber-400 prose-strong:font-bold prose-strong:bg-brand-500/10 prose-strong:px-1 prose-strong:rounded
+          prose-code:text-pink-300 prose-code:bg-white/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+          prose-a:text-brand-400 hover:prose-a:underline
+          [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:text-slate-300
+          [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:space-y-1.5 [&_ol]:text-slate-300
+          [&_li]:leading-relaxed
+          [&_p]:break-words [&_p]:whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: marked.parse(section.body2) as string }} />
+      )}
+
       {section.code && section.code.length > 0 && (
         <div className="space-y-4 my-6">
           {section.code.map((block, idx) => {
