@@ -1,12 +1,8 @@
-⏰ 写入时间：2026-05-04 10:07 (Asia/Shanghai)
-🐛 修复：0 个 bug（本轮无新 bug）
+⏰ 写入时间：2026-05-04 14:00 (Asia/Shanghai)
+🐛 修复：3 个 bug
+  - b1: blog-111 导出名不一致（`blog` vs `blog111`）→ build 编译失败，alias 导入修复
+  - b2: blog-111 未注册到 blogs.ts 索引 → 补 import + 导出
+  - b3: llm-020 未注册到 knowledge.ts 索引 → 补 import + 导出
 ✨ 新增：0 个功能
 🔧 优化：0 项
-已知问题：无（P2 /roadmap 为历史遗留，不影响生产）
-
-## 验证内容
-- ✅ Build 通过
-- ✅ TypeScript 编译通过
-- ✅ QA 扫描 1874/0/0
-- ✅ PM 新文章（ai-infra-001 + blog-110）集成正常
-- ✅ 推送部署成功 commit 05700619
+已知问题：无
