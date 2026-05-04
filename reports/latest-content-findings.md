@@ -1,20 +1,21 @@
-⏰ 写入时间：2026-05-04 12:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-05-04 16:00 (Asia/Shanghai)
 ## 本轮发现
-🔥 热点（5 条，已选 5 条写入 news.ts）：
-1. [DeepSeek 首次外部融资] 估值超 3000 亿人民币，V4 研发期间仅 10 人离职，梁文锋留住 97% 员工 → 适合：博客/知识库（中国 AI 融资生态）
-2. [Musk v. Altman 案 YouTube 音频直播] 下周庭审可通过 YouTube 实时收听 → 适合：博客（AI 法律里程碑）
-3. [马斯克法庭 AI 公司排名] Anthropic 第一，OpenAI 第二，xAI 垫底，自曝 xAI 只有 OpenAI 十分之一 → 适合：博客（AI 竞争格局分析）
-4. [Anthropic 融资 48 小时配额] 早期投资人跳过本轮等 IPO，年收入实际接近 400 亿美元 → 适合：知识库（AI 融资趋势）
-5. [高通重新定义自己] AI 时代寻求参与下一代计算平台搭建 → 适合：博客（芯片行业转型）
-
-🆕 新工具（0 个）：
-无
-
-💡 知识缺口（0 项）：
-本轮覆盖 DeepSeek 融资、Musk v. Altman 庭审、Anthropic 融资、高通战略，暂无新增缺口
-
-## 来源覆盖
-- 国外：GitHub Trending、Simon Willison Blog、OpenAI Blog、TechCrunch、The Verge、Anthropic News、arXiv
-- 国内：36 氪、机器之心、量子位、新智元
-- 本次新增：5 条（news-778 ~ news-782）
+🔥 热点（12 条，已选 12 条写入 news.ts news-783~794）：
+1. [OpenAI Symphony] 开源 AI Agent 编排规范 → 适合：知识库(agent编排)
+2. [OpenAI on AWS] 模型+Codex+Managed Agents 全面上线 Bedrock → 适合：博客(cloud-AI战略)
+3. [哈佛 AI 急诊诊断] AI 准确率超过两名人类医生 → 适合：知识库(AI医疗)
+4. [奥斯卡新规] AI 生成演员和剧本无资格参评 → 适合：博客(AI版权风暴)
+5. [Meta 收购 ARI] 人形机器人创业公司 → 适合：知识库(具身智能)
+6. [五角大楼 AI] Nvidia/Microsoft/AWS 签署机密网络部署协议 → 适合：博客(国防AI)
+7. [AI 音频冲击] 39% 新播客可能 AI 生成，音乐涌入流媒体 → 适合：博客(AI创作者生态)
+8. [Cursor 600亿收购] SpaceX 谈判中，Replit 宁愿不卖 → 适合：知识库(AI编码工具)
+9. [This is fine 版权] 漫画创作者指控 AI 公司 Artisan 盗用 → 适合：博客(AI版权)
+10. [AI 中文税] 中文比英文更费 Token → 适合：博客(模型公平性)
+11. [CTO→Anthropic 工程师] 百亿公司高管集体转身 → 适合：博客(AI人才)
+12. [Claude for Creative Work] Anthropic 面向创意工作者的专业工具 → 适合：知识库(AI应用)
+🆕 新工具（0 个）：本轮侧重行业新闻，无新开源工具
+💡 知识缺口（4 项）：
+1. KNOWLEDGE-BASE-PLAN.md 待补：[AI 医疗诊断] 哈佛急诊 AI 研究方法论
+2. KNOWLEDGE-BASE-PLAN.md 待补：[具身智能] Meta/ARI/FigureAI/Optimus 人形机器人全景
+3. KNOWLEDGE-BASE-PLAN.md 待补：[AI 音频生态] 音乐/播客 AI 生成内容治理框架
+4. KNOWLEDGE-BASE-PLAN.md 待补：[AI 编码工具竞争] Cursor vs Replit vs Copilot vs Claude Code vs Gemini CLI
