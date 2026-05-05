@@ -1,0 +1,71 @@
+{
+  "reposScanned": 165,
+  "starsUpdated": 156,
+  "forksUpdated": 120,
+  "langUpdated": 0,
+  "dateUpdated": 23,
+  "newTopicsCount": 32,
+  "totalTopics": 517,
+  "starChanges": [
+    {
+      "repo": "TauricResearch/TradingAgents",
+      "old": 67835,
+      "new": 68481,
+      "delta": 646
+    },
+    {
+      "repo": "forrestchang/andrej-karpathy-skills",
+      "old": 111925,
+      "new": 112555,
+      "delta": 630
+    },
+    {
+      "repo": "NousResearch/hermes-agent",
+      "old": 132907,
+      "new": 133332,
+      "delta": 425
+    },
+    {
+      "repo": "farion1231/cc-switch",
+      "old": 59162,
+      "new": 59443,
+      "delta": 281
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "old": 28038,
+      "new": 28319,
+      "delta": 281
+    },
+    {
+      "repo": "obra/superpowers",
+      "old": 178458,
+      "new": 178718,
+      "delta": 260
+    },
+    {
+      "repo": "affaan-m/everything-claude-code",
+      "old": 173385,
+      "new": 173555,
+      "delta": 170
+    },
+    {
+      "repo": "juliusbrussee/caveman",
+      "old": 53884,
+      "new": 54050,
+      "delta": 166
+    },
+    {
+      "repo": "thedotmack/claude-mem",
+      "old": 72079,
+      "new": 72199,
+      "delta": 120
+    },
+    {
+      "repo": "openclaw/openclaw",
+      "old": 368356,
+      "new": 368463,
+      "delta": 107
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-05-04T04:23:16.905Z",
+  "lastUpdated": "2026-05-05T10:15:54.420Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -2912,6 +2912,198 @@
       "url": "https://github.com/topics/openai-codex",
       "minStars": 5000,
       "description": "（自动发现）openai-codex（AI 相关）"
+    },
+    {
+      "topic": "anti-bot",
+      "url": "https://github.com/topics/anti-bot",
+      "minStars": 5000,
+      "description": "（自动发现）anti-bot"
+    },
+    {
+      "topic": "antigravity-ide",
+      "url": "https://github.com/topics/antigravity-ide",
+      "minStars": 5000,
+      "description": "（自动发现）antigravity-ide"
+    },
+    {
+      "topic": "assistant-chat-bots",
+      "url": "https://github.com/topics/assistant-chat-bots",
+      "minStars": 5000,
+      "description": "（自动发现）assistant-chat-bots"
+    },
+    {
+      "topic": "auto-quant",
+      "url": "https://github.com/topics/auto-quant",
+      "minStars": 5000,
+      "description": "（自动发现）auto-quant"
+    },
+    {
+      "topic": "bot-detection",
+      "url": "https://github.com/topics/bot-detection",
+      "minStars": 5000,
+      "description": "（自动发现）bot-detection"
+    },
+    {
+      "topic": "c-plus-plus",
+      "url": "https://github.com/topics/c-plus-plus",
+      "minStars": 5000,
+      "description": "（自动发现）c-plus-plus"
+    },
+    {
+      "topic": "claude-3",
+      "url": "https://github.com/topics/claude-3",
+      "minStars": 5000,
+      "description": "（自动发现）claude-3"
+    },
+    {
+      "topic": "claude-cowork",
+      "url": "https://github.com/topics/claude-cowork",
+      "minStars": 5000,
+      "description": "（自动发现）claude-cowork"
+    },
+    {
+      "topic": "claude-skills",
+      "url": "https://github.com/topics/claude-skills",
+      "minStars": 3000,
+      "description": "（自动发现）claude-skills"
+    },
+    {
+      "topic": "dall-e",
+      "url": "https://github.com/topics/dall-e",
+      "minStars": 5000,
+      "description": "（自动发现）dall-e"
+    },
+    {
+      "topic": "discord-bot",
+      "url": "https://github.com/topics/discord-bot",
+      "minStars": 5000,
+      "description": "（自动发现）discord-bot"
+    },
+    {
+      "topic": "investment-research",
+      "url": "https://github.com/topics/investment-research",
+      "minStars": 5000,
+      "description": "（自动发现）investment-research"
+    },
+    {
+      "topic": "llama-api",
+      "url": "https://github.com/topics/llama-api",
+      "minStars": 5000,
+      "description": "（自动发现）llama-api"
+    },
+    {
+      "topic": "long-term-memory",
+      "url": "https://github.com/topics/long-term-memory",
+      "minStars": 3000,
+      "description": "（自动发现）long-term-memory"
+    },
+    {
+      "topic": "memory",
+      "url": "https://github.com/topics/memory",
+      "minStars": 2000,
+      "description": "（自动发现）memory"
+    },
+    {
+      "topic": "memory-engine",
+      "url": "https://github.com/topics/memory-engine",
+      "minStars": 5000,
+      "description": "（自动发现）memory-engine"
+    },
+    {
+      "topic": "memory-management",
+      "url": "https://github.com/topics/memory-management",
+      "minStars": 5000,
+      "description": "（自动发现）memory-management"
+    },
+    {
+      "topic": "memory-system",
+      "url": "https://github.com/topics/memory-system",
+      "minStars": 3000,
+      "description": "（自动发现）memory-system"
+    },
+    {
+      "topic": "multi-speaker-tts",
+      "url": "https://github.com/topics/multi-speaker-tts",
+      "minStars": 5000,
+      "description": "（自动发现）multi-speaker-tts"
+    },
+    {
+      "topic": "nous-research",
+      "url": "https://github.com/topics/nous-research",
+      "minStars": 5000,
+      "description": "（自动发现）nous-research"
+    },
+    {
+      "topic": "ollama-webui",
+      "url": "https://github.com/topics/ollama-webui",
+      "minStars": 5000,
+      "description": "（自动发现）ollama-webui"
+    },
+    {
+      "topic": "openmemory",
+      "url": "https://github.com/topics/openmemory",
+      "minStars": 5000,
+      "description": "（自动发现）openmemory"
+    },
+    {
+      "topic": "research",
+      "url": "https://github.com/topics/research",
+      "minStars": 2000,
+      "description": "（自动发现）research"
+    },
+    {
+      "topic": "research-paper",
+      "url": "https://github.com/topics/research-paper",
+      "minStars": 5000,
+      "description": "（自动发现）research-paper"
+    },
+    {
+      "topic": "scikit-learn",
+      "url": "https://github.com/topics/scikit-learn",
+      "minStars": 5000,
+      "description": "（自动发现）scikit-learn"
+    },
+    {
+      "topic": "scikit-learn-python",
+      "url": "https://github.com/topics/scikit-learn-python",
+      "minStars": 5000,
+      "description": "（自动发现）scikit-learn-python"
+    },
+    {
+      "topic": "self-evolving",
+      "url": "https://github.com/topics/self-evolving",
+      "minStars": 3000,
+      "description": "（自动发现）self-evolving"
+    },
+    {
+      "topic": "self-hosted",
+      "url": "https://github.com/topics/self-hosted",
+      "minStars": 2000,
+      "description": "（自动发现）self-hosted"
+    },
+    {
+      "topic": "slack-bot",
+      "url": "https://github.com/topics/slack-bot",
+      "minStars": 5000,
+      "description": "（自动发现）slack-bot"
+    },
+    {
+      "topic": "supermemory",
+      "url": "https://github.com/topics/supermemory",
+      "minStars": 5000,
+      "description": "（自动发现）supermemory"
+    },
+    {
+      "topic": "telegram-bot",
+      "url": "https://github.com/topics/telegram-bot",
+      "minStars": 5000,
+      "description": "（自动发现）telegram-bot"
+    },
+    {
+      "topic": "trae-ide",
+      "url": "https://github.com/topics/trae-ide",
+      "minStars": 5000,
+      "description": "（自动发现）trae-ide"
     }
   ]
 }
