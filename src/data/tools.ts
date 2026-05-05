@@ -3924,8 +3924,7 @@ createdAt: "2025-01-01T00:00:00Z",
       learnMore: "https://github.com/Fincept-Corporation/FinceptTerminal",
       githubStars: 19745,
     forks: 2648,
-    language: "Python",    updatedAt: "2026-05-03",
+    language: "Python",
       updatedAt: "2026-05-03"
-
     }
 ];
