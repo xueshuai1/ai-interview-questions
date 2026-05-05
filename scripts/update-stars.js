@@ -1,12 +1,16 @@
 #!/usr/bin/env node
-// Script: Update GitHub stars, forks, language for tools in tools.ts
-// and discover new AI topics from repo topics.
+/**
+ * 批量更新 tools.ts 中的 GitHub stars、forks、language
+ * 同时收集 topics 用于 ai-topics.json 自生长
+ * 
+ * 修复：使用 Authorization header 而非 ?access_token= 查询参数（已废弃）
+ */
 
 const fs = require('fs');
 const path = require('path');
 
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-if (!GITHUB_TOKEN) {
+const TOKEN = process.env.GITHUB_TOKEN;
+if (!TOKEN) {
   console.error('GITHUB_TOKEN not set');
   process.exit(1);
 }
@@ -14,7 +18,7 @@ if (!GITHUB_TOKEN) {
 const TOOLS_PATH = path.join(__dirname, '..', 'src', 'data', 'tools.ts');
 const TOPICS_PATH = path.join(__dirname, '..', 'data', 'ai-topics.json');
 
-// AI-related keywords for topic filtering
+// AI 相关关键词
 const AI_KEYWORDS = [
   'ai', 'ml', 'dl', 'llm', 'nlp', 'cv', 'agent', 'robot', 'robots', 'robotics',
   'vision', 'language', 'neural', 'learning', 'generative', 'prompt', 'chatbot',
@@ -23,285 +27,572 @@ const AI_KEYWORDS = [
   'vector-search', 'semantic-search', 'knowledge-graph', 'multimodal', 'speech',
   'text-to-speech', 'image-generation', 'video-generation', 'code-generation',
   'autonomous', 'embodied-ai', 'world-models', 'foundation-models',
-  'large-language-models', 'retrieval-augmented', 'instruction-tuning', 'rlhf',
-  'alignment'
+  'large-language-models', 'retrieval-augmented', 'instruction-tuning',
+  'rlhf', 'alignment'
 ];
 
 function extractReposFromToolsTS(content) {
-  const repos = [];
-  // Match tools with GitHub URLs in the form: url: "https://github.com/owner/repo"
   const urlRegex = /url:\s*["']https:\/\/github\.com\/([^"']+)["']/g;
+  const repos = [];
   let match;
   while ((match = urlRegex.exec(content)) !== null) {
-    const repo = match[1].trim();
-    if (!repos.includes(repo)) {
-      repos.push(repo);
+    const full = match[1];
+    const parts = full.split('/').filter(Boolean);
+    if (parts.length >= 2) {
+      repos.push(`${parts[0]}/${parts[1]}`);
     }
   }
-  return repos;
+  return [...new Set(repos)];
 }
 
-function extractToolNames(content) {
-  const tools = [];
-  const nameRegex = /name:\s*["']([^"']+)["']/g;
-  let match;
-  while ((match = nameRegex.exec(content)) !== null) {
-    tools.push(match[1]);
+function extractExistingStars(content) {
+  const starsMap = {};
+  const lines = content.split('\n');
+  let currentRepo = null;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const urlMatch = line.match(/url:\s*["']https:\/\/github\.com\/([^"']+)["']/);
+    if (urlMatch) {
+      const parts = urlMatch[1].split('/').filter(Boolean);
+      if (parts.length >= 2) {
+        currentRepo = `${parts[0]}/${parts[1]}`;
+      }
+    }
+    if (currentRepo) {
+      const starsMatch = line.match(/githubStars:\s*(\d+)/);
+      const forksMatch = line.match(/forks:\s*(\d+)/);
+      const langMatch = line.match(/language:\s*["']([^"']+)["']/);
+      
+      if (starsMatch || forksMatch || langMatch) {
+        if (!starsMap[currentRepo]) {
+          starsMap[currentRepo] = { oldStars: null, oldForks: null, oldLanguage: null };
+        }
+        if (starsMatch) starsMap[currentRepo].oldStars = parseInt(starsMatch[1]);
+        if (forksMatch) starsMap[currentRepo].oldForks = parseInt(forksMatch[1]);
+        if (langMatch) starsMap[currentRepo].oldLanguage = langMatch[1];
+      }
+    }
+    if (line.includes('id:') && line.includes('"') && !line.includes('url:')) {
+      currentRepo = null;
+    }
   }
-  return tools;
+  return starsMap;
 }
 
-function extractGitHubStars(content) {
-  const stars = {};
-  const regex = /githubStars:\s*(\d+)/g;
-  let match;
-  // We need to map stars to tools by tracking position
-  // Instead, let's use a simpler approach: extract tool blocks
-  return stars;
-}
-
-async function fetchRepo(repo, retries = 2) {
-  for (let i = 0; i <= retries; i++) {
-    try {
-      const url = `https://api.github.com/repos/${repo}?access_token=${GITHUB_TOKEN}`;
-      const res = await fetch(url, {
-        headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'User-Agent': 'ai-master-stars-updater'
-        }
-      });
-      
-      if (res.status === 403 && res.headers.get('x-ratelimit-remaining') === '0') {
-        const resetTime = parseInt(res.headers.get('x-ratelimit-reset') || '0') * 1000;
-        const waitMs = resetTime - Date.now();
-        if (waitMs > 0 && waitMs < 300000) {
-          console.log(`Rate limited, waiting ${Math.ceil(waitMs/1000)}s...`);
-          await new Promise(r => setTimeout(r, waitMs));
-          continue;
-        } else {
-          console.error(`Rate limit exceeded, reset at ${new Date(resetTime).toISOString()}`);
-          return null;
-        }
+async function fetchRepo(repo) {
+  const url = `https://api.github.com/repos/${repo}`;
+  try {
+    const resp = await fetch(url, {
+      headers: {
+        'Authorization': `token ${TOKEN}`,
+        'User-Agent': 'ai-master-site-bot/1.0',
+        'Accept': 'application/vnd.github.v3+json'
       }
-      
-      if (res.status === 404) {
-        console.log(`  ⚠️  Repo not found: ${repo}`);
-        return null;
-      }
-      
-      if (!res.ok) {
-        console.log(`  ⚠️  HTTP ${res.status} for ${repo}`);
-        if (i < retries) {
-          await new Promise(r => setTimeout(r, 2000));
-          continue;
-        }
-        return null;
-      }
-      
-      return await res.json();
-    } catch (e) {
-      console.log(`  ⚠️  Error fetching ${repo}: ${e.message}`);
-      if (i < retries) {
-        await new Promise(r => setTimeout(r, 2000));
-        continue;
-      }
+    });
+    if (resp.status === 404) {
+      console.log(`  ⚠️  404: ${repo}`);
       return null;
     }
-  }
-  return null;
-}
-
-function sleep(ms) {
-  return new Promise(r => setTimeout(r, ms));
-}
-
-function isAITopic(topic) {
-  const t = topic.toLowerCase();
-  return AI_KEYWORDS.some(kw => {
-    if (kw.includes('-')) {
-      return t === kw || t.includes(kw);
+    if (resp.status === 403) {
+      const body = await resp.text();
+      console.log(`  ⛔ Rate limited: ${repo} - ${body.substring(0, 100)}`);
+      return null;
     }
-    // For single-word keywords, match exact or as part of hyphenated word
-    return t === kw || t.includes(`-${kw}`) || t.includes(`${kw}-`) || t.includes(`-${kw}-`);
-  });
+    if (resp.status !== 200) {
+      const body = await resp.text();
+      console.log(`  ⚠️  HTTP ${resp.status}: ${repo} - ${body.substring(0, 100)}`);
+      return null;
+    }
+    return await resp.json();
+  } catch (e) {
+    console.log(`  ❌ Error: ${repo} - ${e.message}`);
+    return null;
+  }
 }
 
-function parseDateISO(isoStr) {
-  if (!isoStr) return '';
-  return isoStr.split('T')[0];
+function isAIKeyword(topic) {
+  const lower = topic.toLowerCase();
+  return AI_KEYWORDS.some(kw => lower === kw || lower.includes(kw) || kw.includes(lower));
+}
+
+function normalizeTopic(topic) {
+  return topic.toLowerCase().replace(/\s+/g, '-');
 }
 
 async function main() {
-  console.log('🔍 Reading tools.ts...');
-  const toolsContent = fs.readFileSync(TOOLS_PATH, 'utf-8');
+  console.log('🔍 读取 tools.ts...');
+  const toolsContent = fs.readFileSync(TOOLS_PATH, 'utf8');
   const repos = extractReposFromToolsTS(toolsContent);
-  console.log(`Found ${repos.length} GitHub repos`);
-
+  const existingStars = extractExistingStars(toolsContent);
+  
+  console.log(`📋 找到 ${repos.length} 个 GitHub 仓库`);
+  
   // Load existing topics
-  const topicsData = JSON.parse(fs.readFileSync(TOPICS_PATH, 'utf-8'));
+  console.log('📋 读取 ai-topics.json...');
+  const topicsData = JSON.parse(fs.readFileSync(TOPICS_PATH, 'utf8'));
   const existingTopics = new Set(topicsData.topics.map(t => t.topic.toLowerCase()));
-  console.log(`Existing topics: ${existingTopics.size}`);
-
-  const results = [];
-  const allTopics = new Set();
+  
+  console.log(`📋 已有 ${existingTopics.size} 个 AI Topic`);
+  
+  // Fetch all repos sequentially
+  const results = {};
+  let successCount = 0;
+  let failCount = 0;
+  let consecutiveFails = 0;
   
   for (let i = 0; i < repos.length; i++) {
     const repo = repos[i];
-    console.log(`[${i+1}/${repos.length}] Fetching ${repo}...`);
-    
+    process.stdout.write(`  [${i + 1}/${repos.length}] ${repo}... `);
     const data = await fetchRepo(repo);
-    if (!data) {
-      results.push({ repo, error: true });
-      continue;
+    if (data) {
+      results[repo] = data;
+      successCount++;
+      consecutiveFails = 0;
+      console.log(`⭐ ${data.stargazers_count.toLocaleString()} | 🍴 ${data.forks_count} | 📅 ${data.pushed_at?.substring(0, 10)} | 🏷️ ${(data.topics || []).length}`);
+    } else {
+      failCount++;
+      consecutiveFails++;
+      console.log('');
+      
+      // If 10+ consecutive failures, likely rate limited - stop
+      if (consecutiveFails >= 5) {
+        console.log(`  ⛔ 连续 ${consecutiveFails} 次失败，可能限流，停止请求`);
+        break;
+      }
     }
-    
-    const stars = data.stargazers_count;
-    const pushedAt = parseDateISO(data.pushed_at);
-    const forks = data.forks_count;
-    const language = data.language;
-    const repoTopics = (data.topics || []).map(t => t.toLowerCase());
-    
-    repoTopics.forEach(t => allTopics.add(t));
-    
-    results.push({
-      repo,
-      stars,
-      pushedAt,
-      forks,
-      language: language || null,
-      topics: repoTopics,
-      error: false
-    });
-    
-    // Rate limit protection: 1s between requests
-    if (i < repos.length - 1) {
-      await sleep(1000);
-    }
+    // Rate limit protection: 1.5 second delay
+    await new Promise(r => setTimeout(r, 1500));
   }
-
-  // Analyze results
-  console.log('\n📊 Analysis:');
   
-  // Count stars changes, forks changes, language changes
-  let starsChanges = [];
-  let forksUpdates = 0;
-  let languageUpdates = 0;
-  let allRepoTopics = [];
-
-  for (const r of results) {
-    if (r.error) continue;
-    allRepoTopics.push(...r.topics);
+  console.log(`\n📊 成功获取 ${successCount}/${repos.length} 个仓库`);
+  
+  // Analyze changes
+  let starsUpdated = 0;
+  let forksUpdated = 0;
+  let languageUpdated = 0;
+  const starChanges = [];
+  const topicUsageCount = {};
+  
+  for (const [repo, data] of Object.entries(results)) {
+    const old = existingStars[repo] || {};
+    const newStars = data.stargazers_count || 0;
+    const newForks = data.forks_count || 0;
+    const newLanguage = data.language || null;
+    
+    if (old.oldStars !== null && newStars !== old.oldStars) {
+      starsUpdated++;
+      starChanges.push({
+        repo,
+        old: old.oldStars,
+        new: newStars,
+        delta: newStars - old.oldStars
+      });
+    }
+    
+    if (old.oldForks !== null && newForks !== old.oldForks && newForks > 0) {
+      forksUpdated++;
+    }
+    
+    if (old.oldLanguage && newLanguage && old.oldLanguage !== newLanguage) {
+      languageUpdated++;
+    }
+    
+    // Collect topics
+    if (data.topics && data.topics.length > 0) {
+      for (const topic of data.topics) {
+        const normalized = normalizeTopic(topic);
+        if (!topicUsageCount[normalized]) {
+          topicUsageCount[normalized] = { count: 0, repos: [] };
+        }
+        topicUsageCount[normalized].count++;
+        topicUsageCount[normalized].repos.push(repo);
+      }
+    }
   }
-
+  
   // Find new AI topics
-  const uniqueTopics = [...new Set(allRepoTopics)];
-  const newAITopics = [];
-  
-  for (const topic of uniqueTopics) {
+  const allNewTopics = [];
+  for (const [topic, info] of Object.entries(topicUsageCount)) {
     if (existingTopics.has(topic)) continue;
-    if (isAITopic(topic)) {
-      // Count how many repos use this topic
-      const usageCount = allRepoTopics.filter(t => t === topic).length;
-      // Find max stars among repos using this topic
-      const maxStars = Math.max(
-        ...results.filter(r => !r.error && r.topics.includes(topic)).map(r => r.stars)
-      );
-      
-      // Skip if only 1 repo uses it and stars < 1000
-      if (usageCount === 1 && maxStars < 1000) continue;
-      
-      // Determine minStars based on usage
-      let minStars;
-      if (usageCount >= 3) minStars = 2000;
-      else if (usageCount >= 2) minStars = 3000;
-      else minStars = 5000;
-      
-      // Generate description
-      const desc = generateDescription(topic);
-      
-      newAITopics.push({
+    
+    if (isAIKeyword(topic)) {
+      allNewTopics.push({
         topic,
         url: `https://github.com/topics/${topic}`,
-        minStars,
-        description: desc,
-        usageCount
+        repos: info.repos,
+        count: info.count,
+        maxStars: Math.max(...info.repos.map(r => (results[r]?.stargazers_count) || 0))
       });
     }
   }
-
-  console.log(`Stars changes: ${starsChanges.length}`);
-  console.log(`Forks updates: ${forksUpdates}`);
-  console.log(`Language updates: ${languageUpdates}`);
-  console.log(`New AI topics found: ${newAITopics.length}`);
   
-  // Output results as JSON for the next step
-  const output = {
-    results: results.map(r => ({
-      repo: r.repo,
-      stars: r.stars,
-      pushedAt: r.pushedAt,
-      forks: r.forks,
-      language: r.language,
-      topics: r.topics,
-      error: r.error
-    })),
-    newAITopics,
-    allTopics: uniqueTopics.length,
-    existingTopicsCount: existingTopics.size
-  };
+  // Filter out very cold topics
+  const validNewTopics = allNewTopics.filter(t => {
+    if (t.count === 1 && t.maxStars < 1000) return false;
+    return true;
+  });
   
-  fs.writeFileSync('/tmp/stars-update-results.json', JSON.stringify(output, null, 2));
-  console.log('\n✅ Results saved to /tmp/stars-update-results.json');
-}
-
-function generateDescription(topic) {
+  // Descriptions mapping
   const descriptions = {
-    'agentic-coding': 'Agentic 编程（AI 自主编码）',
+    'self-evolving': '自进化 AI 系统',
+    'self-evolution': '自进化机制',
+    'ai-coding': 'AI 编程辅助',
+    'agentic-coding': 'Agentic 编程',
+    'coding-agents': '编程智能体',
     'agentic-code': 'Agentic 代码生成',
-    'coding-agents': '编码智能体',
-    'agentic-skills': '智能体技能',
-    'background-agents': '后台智能体',
+    'deepresearch': '深度研究自动化',
+    'deep-research': '深度研究',
+    'browser-automation': '浏览器自动化',
+    'task-automation': '任务自动化',
+    'context-engineering': '上下文工程',
+    'agent-memory': 'Agent 记忆系统',
+    'llm-memory': 'LLM 记忆管理',
+    'memory-agent': '记忆 Agent',
+    'agent-development': 'Agent 开发',
+    'agent-skills': 'Agent 技能',
+    'autonomous-agent': '自主 Agent',
+    'multi-agent-systems': '多智能体系统',
     'agents-sdk': 'Agents SDK',
+    'multi-agents-collaboration': '多 Agent 协作',
     'agentscope': 'AgentScope 框架',
     'agentscope-runtime': 'AgentScope 运行时',
-    'multi-agents-collaboration': '多智能体协作',
-    'claude-code-agents': 'Claude Code 智能体',
+    'background-agents': '后台 Agent',
+    'codex-cli': 'Codex CLI',
+    'voice-clone': '声音克隆',
+    'distributed-training': '分布式训练',
+    'model-parallelism': '模型并行',
+    'langchain4j': 'LangChain Java 版',
+    'azure-openai': 'Azure OpenAI',
+    'litellm': 'LiteLLM 生态',
+    'openai-proxy': 'OpenAI 代理',
+    'multi-agents': '多智能体',
+    'aiagentframework': 'AI Agent 框架',
+    'claude-code-agents': 'Claude Code Agent',
+    'agency-agents': 'Agency Agent',
+    'chatgpt-on-wechat': 'ChatGPT 微信',
+    'linkai': 'LinkAI 生态',
+    'gpt-5': 'GPT-5 生态',
+    'chinese-language': '中文语言处理',
+    'interactive-learning': '交互式学习',
+    'mlx': 'Apple MLX 框架',
+    'long-term-memory': '长期记忆',
+    'memory-system': '记忆系统',
+    'memory-engine': '记忆引擎',
+    'supermemory': 'SuperMemory 生态',
+    'nous-research': 'NousResearch 生态',
+    'ollama-webui': 'Ollama WebUI',
+    'openmemory': 'OpenMemory 项目',
+    'claude-code-best-practices': 'Claude Code 最佳实践',
+    'claude-code-commands': 'Claude Code 命令',
+    'code-execution': '代码执行',
+    'code-interpreter': '代码解释器',
+    'harness': 'AI Harness 框架',
+    'remote-mcp-server': '远程 MCP 服务',
+    'anti-bot': '反机器人检测',
+    'claude-3': 'Claude 3 生态',
+    'claude-cowork': 'Claude 协作',
+    'claude-skills': 'Claude 技能',
+    'dall-e': 'DALL-E 生态',
+    'discord-bot': 'Discord 机器人',
+    'investment-research': '投资研究',
+    'llama-api': 'Llama API',
+    'multi-speaker-tts': '多说话人语音合成',
+    'self-hosted': '自托管',
+    'slack-bot': 'Slack 机器人',
+    'telegram-bot': 'Telegram 机器人',
+    'trae-ide': 'Trae IDE',
+    'scikit-learn': 'scikit-learn 生态',
+    'research-paper': '研究论文',
+    'memory-management': '记忆管理',
+    'deep-face-swap': '深度换脸',
+    'semantic-kernel': '语义内核',
+    'real-time-deepfake': '实时深度伪造',
+    'realtime-deepfake': '实时深度伪造',
+    'video-deepfake': '视频深度伪造',
+    'deepfakes': '深度伪造',
+    'deepfake-webcam': '深度伪造摄像头',
+    'creative-tools': '创意工具',
+    'image2image': '图生图',
+    'text2image': '文生图',
+    'wan-video': 'Wan 视频生成',
+    'image-to-video': '图生视频',
+    'vector-index': '向量索引',
+    'enterprise-search': '企业搜索',
+    'hybrid-search': '混合搜索',
+    'search-as-you-type': '即时搜索',
+    'typo-tolerance': '容错搜索',
+    'code-free': '无代码开发',
+    'quant-models': '量化模型',
+    'image-classification': '图像分类',
+    'yolo-world': 'YOLO-World 目标检测',
+    'deepface': 'DeepFace 人脸识别',
+    'gigapixel-images': '十亿像素图像',
+    'image-upscaling': '图像超分辨率',
+    'torchaudio': 'TorchAudio 音频处理',
+    'image-search': '图像搜索',
+    'nearest-neighbor-search': '最近邻搜索',
+    'vector-similarity': '向量相似度',
+    'vector-store': '向量存储',
+    'code-analysis': '代码分析',
+    'web-search': '网络搜索',
+    'text-generation': '文本生成',
+    'audio-generation': '音频生成',
+    'job-search': '求职搜索',
+    'model-hub': '模型中心',
+    'codegenerator': '代码生成器',
+    'big-model': '大模型',
+    'torch': 'Torch 框架',
+    'no-code': '无代码',
+    'low-code': '低代码',
+    'low-code-platform': '低代码平台',
+    'tts-model': 'TTS 模型',
+    'developer-tools': '开发者工具',
+    'deepseek-api': 'DeepSeek API',
+    'workflow-automation': '工作流自动化',
+    'chat-ui': 'AI 对话界面',
+    'multi-model': '多模型统一接入',
+    'multi-platform': '跨平台支持',
+    'deepseek-v3': 'DeepSeek V3',
+    'autogen-ecosystem': 'AutoGen 生态扩展',
+    'copilot-chat': 'Copilot 聊天',
+    'codebase-generation': '代码库生成',
+    'codegen': '代码生成',
+    'claude-code-hooks': 'Claude Code 钩子',
+    'claude-code-plugins': 'Claude Code 插件',
+    'claude-code-skill': 'Claude Code 技能',
+    'context-mode': '上下文模式',
+    'claude-code-plugin': 'Claude Code 插件',
+    'tokens': 'Token 优化',
+    'awesome-claude-code': 'Awesome Claude Code',
+    'codex-skills': 'Codex 技能',
+    'context-database': '上下文数据库',
+    'code-search': '语义代码搜索',
+    'terminal-automation': '终端自动化',
+    'brain-computer-interface': '脑机接口',
+    'opencode': 'OpenCode 开源项目',
+    'cli-tool': 'CLI 工具',
+    'desktop-automation': '桌面自动化',
+    'headless-browser': '无头浏览器',
+    'computer-use-agent': '计算机使用 Agent',
+    'gui-agents': 'GUI 智能体',
+    'agent-computer-interface': 'Agent 计算机界面',
+    'mllm': '多模态大语言模型',
+    'embodied': '具身智能',
+    'robotic': '机器人技术',
+    'reinforcement-learning-algorithms': '强化学习算法',
+    'search-engine': '搜索引擎',
+    'sentence-embeddings': '句子嵌入',
+    'txtai': 'TxtAI 生态',
+    'text-semantic-similarity': '文本语义相似度',
+    'chat-gpt': 'ChatGPT 生态',
+    'chatgpt3': 'ChatGPT-3 生态',
+    'chatgpt35-turbo': 'ChatGPT-3.5 Turbo',
+    'claude': 'Claude AI 生态',
+    'mcp-gateway': 'MCP 网关',
+    'model-router': '模型路由',
+    'image-processing': '图像处理',
+    'spatial-ai': '空间 AI',
+    'in-context-reinforcement-learning': '上下文内强化学习',
+    'memory-retrieval': '记忆检索',
+    'mistral': 'Mistral 生态',
+    'webui': 'Web UI',
+    'retrieval-systems': '检索系统',
+    'robot-learning': '机器人学习',
+    'multimodal-learning': '多模态学习',
+    'speech-processing': '语音处理',
+    'agent-infrastructure': 'Agent 基础设施',
+    'ai-infrastructure': 'AI 基础设施',
+    'context-retrieval': '上下文检索',
+    'search-api': '搜索 API',
+    'firecrawl-ai': 'Firecrawl AI',
+    'ai-native': 'AI 原生',
+    'model-context-protocol-servers': 'MCP 服务器',
+    'coreml': 'Apple CoreML',
+    'ide': '集成开发环境',
+    'omo': 'OmO 生态',
+    'multiagent-systems': '多智能体系统',
     'distributed-training': '分布式训练',
     'langchain4j': 'LangChain Java 版',
-    'azure-openai': 'Azure OpenAI 服务',
-    'litellm': 'LiteLLM 代理',
-    'openai-proxy': 'OpenAI 代理',
-    'agency-agents': 'Agency 智能体',
-    'chatgpt-on-wechat': 'ChatGPT 接入微信',
-    'linkai': 'LinkAI 平台',
-    'models': 'AI 模型',
-    'gpt-5': 'GPT-5 生态',
-    'chat': 'AI 对话',
-    'chinese-language': '中文语言处理',
-    'english-language': '英文语言处理',
-    'ts': 'TypeScript AI 项目',
-    'mlx': 'Apple MLX 框架',
-    'interactive-learning': '交互式学习',
-    'yaml': 'YAML 配置（AI）',
-    'c': 'C 语言 AI 项目',
-    'headless-browser': '无头浏览器（AI 驱动）',
-    'voice-clone': '声音克隆',
-    'deep-fake': 'Deepfake 技术',
-    'deepfake': 'Deepfake 技术',
-    'deepfake-webcam': 'Deepfake 摄像头',
-    'real-time-deepfake': '实时 Deepfake',
-    'realtime-deepfake': '实时 Deepfake',
-    'video-deepfake': '视频 Deepfake',
-    'semantic-kernel': 'Semantic Kernel 框架',
-    'deep-face-swap': 'Deep Face Swap',
+    'openai-codex': 'OpenAI Codex 生态',
+    'antigravity-ide': '反重力 IDE',
+    'assistant-chat-bots': '助手聊天机器人',
+    'auto-quant': '自动量化',
+    'bot-detection': '机器人检测',
+    'research': '学术研究',
+    'memory': '记忆系统',
+    'deepfake': '深度伪造',
+    'realtime-deepfake': '实时深度伪造',
+    'video-deepfake': '视频深度伪造',
+    'image-search': '图像搜索',
+    'nearest-neighbor-search': '最近邻搜索',
+    'vector-similarity': '向量相似度',
+    'vector-store': '向量存储',
+    'code-execution': '代码执行',
+    'code-interpreter': '代码解释器',
+    'harness': 'AI Harness',
+    'self-evolution': '自进化',
+    'code-free': '无代码开发',
+    'quant-models': '量化模型',
+    'image2image': '图生图',
+    'text2image': '文生图',
+    'image-classification': '图像分类',
+    'yolo-world': 'YOLO-World',
+    'deepface': 'DeepFace',
+    'deepfakes': '深度伪造',
+    'gigapixel-images': '超高分辨率图像',
+    'image-upscaling': '图像超分辨率',
+    'topaz': 'Topaz 图像处理',
+    'torchaudio': 'TorchAudio',
+    'creative-tools': '创意工具',
+    'image-to-video': '图生视频',
+    'wan-video': 'Wan 视频生成',
+    'vector-index': '向量索引',
+    'app-search': '应用搜索',
+    'enterprise-search': '企业搜索',
+    'full-text-search': '全文搜索',
+    'fuzzy-search': '模糊搜索',
+    'hybrid-search': '混合搜索',
+    'search-as-you-type': '即时搜索',
+    'site-search': '站内搜索',
+    'typo-tolerance': '容错搜索',
+    'claude-code-best-practices': 'Claude Code 最佳实践',
+    'claude-code-commands': 'Claude Code 命令',
+    'remote-mcp-server': '远程 MCP 服务器',
+    'anti-bot': '反机器人',
+    'dall-e': 'DALL-E',
+    'discord-bot': 'Discord 机器人',
+    'llama-api': 'Llama API',
+    'multi-speaker-tts': '多说话人 TTS',
+    'slack-bot': 'Slack 机器人',
+    'telegram-bot': 'Telegram 机器人',
+    'scikit-learn-python': 'scikit-learn Python',
+    'research-paper': '研究论文',
+    'memory-management': '记忆管理',
+    'memory-system': '记忆系统',
+    'deep-face-swap': '深度换脸',
+    'semantic-kernel': '语义内核',
+    'deepfake-webcam': '深度伪造摄像头',
   };
   
-  if (descriptions[topic]) return descriptions[topic];
+  // Update tools.ts
+  let newContent = toolsContent;
+  let toolsModified = false;
   
-  // Generic description from topic name
-  const parts = topic.split('-').map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
-  return `${parts}（AI 相关）`;
+  for (const [repo, data] of Object.entries(results)) {
+    const old = existingStars[repo] || {};
+    const newStars = data.stargazers_count || 0;
+    const newForks = data.forks_count || 0;
+    const newLanguage = data.language || null;
+    
+    if (old.oldStars !== null && newStars !== old.oldStars) {
+      const oldStr = `githubStars: ${old.oldStars}`;
+      const newStr = `githubStars: ${newStars}`;
+      if (newContent.includes(oldStr)) {
+        newContent = newContent.replace(oldStr, newStr);
+        toolsModified = true;
+      }
+    }
+    
+    if (old.oldForks !== null && newForks !== old.oldForks && newForks > 0) {
+      const oldFStr = `forks: ${old.oldForks}`;
+      const newFStr = `forks: ${newForks}`;
+      if (newContent.includes(oldFStr)) {
+        newContent = newContent.replace(oldFStr, newFStr);
+        toolsModified = true;
+      }
+    }
+    
+    if (old.oldLanguage && newLanguage && old.oldLanguage !== newLanguage) {
+      const oldLStr = `language: "${old.oldLanguage}"`;
+      const newLStr = `language: "${newLanguage}"`;
+      if (newContent.includes(oldLStr)) {
+        newContent = newContent.replace(oldLStr, newLStr);
+        toolsModified = true;
+      }
+    }
+  }
+  
+  if (toolsModified) {
+    fs.writeFileSync(TOOLS_PATH, newContent, 'utf8');
+    console.log('✅ tools.ts 已更新');
+  } else {
+    console.log('ℹ️  tools.ts 无变化');
+  }
+  
+  // Update ai-topics.json
+  const newTopicEntries = validNewTopics.map(t => {
+    let minStars = 5000;
+    if (t.count >= 3) minStars = 2000;
+    else if (t.count >= 2) minStars = 3000;
+    else minStars = 5000;
+    
+    const desc = descriptions[t.topic] || `（自动发现）${t.topic}`;
+    
+    return {
+      topic: t.topic,
+      url: t.url,
+      minStars,
+      description: desc
+    };
+  });
+  
+  if (newTopicEntries.length > 0) {
+    topicsData.topics.push(...newTopicEntries);
+    topicsData.lastUpdated = new Date().toISOString();
+    fs.writeFileSync(TOPICS_PATH, JSON.stringify(topicsData, null, 2), 'utf8');
+    console.log(`✅ ai-topics.json 已更新，新增 ${newTopicEntries.length} 个 Topic`);
+  } else {
+    console.log('ℹ️  未发现新的 AI Topic');
+  }
+  
+  // Summary
+  console.log('\n📊 ===== 更新摘要 =====');
+  console.log(`扫描仓库: ${repos.length} 个`);
+  console.log(`成功获取: ${successCount} 个`);
+  console.log(`Stars 更新: ${starsUpdated} 个`);
+  console.log(`Forks 更新: ${forksUpdated} 个`);
+  console.log(`Language 更新: ${languageUpdated} 个`);
+  console.log(`收集 Topics: ${Object.keys(topicUsageCount).length} 个`);
+  console.log(`新增 AI Topics: ${validNewTopics.length} 个`);
+  
+  if (starChanges.length > 0) {
+    console.log('\n📈 Stars 变化:');
+    starChanges.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+    for (const c of starChanges.slice(0, 10)) {
+      const arrow = c.delta > 0 ? '↑' : '↓';
+      console.log(`  ${c.repo}: ${c.old.toLocaleString()} → ${c.new.toLocaleString()} (${arrow}${Math.abs(c.delta)})`);
+    }
+  }
+  
+  if (validNewTopics.length > 0) {
+    console.log('\n🔍 新增 AI Topics:');
+    for (const t of validNewTopics) {
+      const desc = descriptions[t.topic] || t.topic;
+      console.log(`  ${t.topic} — ${desc} (${t.count} 个仓库使用)`);
+    }
+  }
+  
+  const output = {
+    reposScanned: repos.length,
+    reposFetched: successCount,
+    starsUpdated,
+    forksUpdated,
+    languageUpdated,
+    topicsCollected: Object.keys(topicUsageCount).length,
+    newTopicsCount: validNewTopics.length,
+    toolsModified,
+    starChanges: starChanges.slice(0, 10),
+    newTopics: validNewTopics.map(t => ({
+      topic: t.topic,
+      description: descriptions[t.topic] || t.topic,
+      count: t.count
+    })),
+    lastUpdated: new Date().toISOString()
+  };
+  
+  fs.writeFileSync(path.join(__dirname, 'update-summary.json'), JSON.stringify(output, null, 2));
+  console.log('\n✅ 完成');
 }
 
 main().catch(e => {
