@@ -1,6 +1,6 @@
 {
   "description": "AI 相关 GitHub Topics 库 — 用于发现优秀 AI 项目",
-  "lastUpdated": "2026-05-05T10:15:54.420Z",
+  "lastUpdated": "2026-05-05T23:25:05.131Z",
   "minStarsThreshold": 5000,
   "topics": [
     {
@@ -3104,6 +3104,36 @@
       "url": "https://github.com/topics/trae-ide",
       "minStars": 5000,
       "description": "（自动发现）trae-ide"
+    },
+    {
+      "topic": "vibe-coding",
+      "url": "https://github.com/topics/vibe-coding",
+      "minStars": 2000,
+      "description": "（自动发现）vibe-coding"
+    },
+    {
+      "topic": "coding",
+      "url": "https://github.com/topics/coding",
+      "minStars": 5000,
+      "description": "（自动发现）coding"
+    },
+    {
+      "topic": "coding-assistant",
+      "url": "https://github.com/topics/coding-assistant",
+      "minStars": 2000,
+      "description": "（自动发现）coding-assistant"
+    },
+    {
+      "topic": "coding-assistants",
+      "url": "https://github.com/topics/coding-assistants",
+      "minStars": 5000,
+      "description": "（自动发现）coding-assistants"
+    },
+    {
+      "topic": "speaker-encodings",
+      "url": "https://github.com/topics/speaker-encodings",
+      "minStars": 5000,
+      "description": "（自动发现）speaker-encodings"
     }
   ]
 }
