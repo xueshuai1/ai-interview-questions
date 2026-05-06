@@ -1,5 +1,5 @@
-⏰ 写入时间：2026-05-06 22:04 (Asia/Shanghai)
-🐛 修复：1 个 bug（blog-125 第8节 body 模板字面量未闭合 → build 失败）
-✨ 新增：0 个功能
+⏰ 写入时间：2026-05-07 02:02 (Asia/Shanghai)
+🐛 修复：0 个 bug（上轮 QA 0 bug）
+✨ 新增：注册 3 篇新文章 — agent-046（AI Agent安全治理）+ infra-002（AI算力与能源）+ blog-126（SSA架构挑战Transformer）
 🔧 优化：0 项
 已知问题：无
