@@ -14,7 +14,7 @@ export interface NewsItem {
   href: string;
 }
 
-export const news: NewsItem[] = [
+export const news = [
 {
     id: "news-389",
     tag: "LLM 推理",
@@ -12155,8 +12155,7 @@ DeepSeek 的多模态策略不同于其他公司——不追求更高的分辨�
     sourceUrl: "https://36kr.com/p/3793050208984071",
     href: "/news/news-896",
   },
-,
-  {
+{
     id: "news-897",
     tag: "大语言模型",
     title: "OpenAI 发布 GPT-5.5 Instant，取代 GPT-5.3 Instant 成为 ChatGPT 默认模型",
@@ -12422,4 +12421,4 @@ DeepSeek 的多模态策略不同于其他公司——不追求更高的分辨�
     sourceUrl: "https://techcrunch.com/2026/05/05/paypal-says-its-becoming-a-technology-company-again-that-means-ai/",
     href: "/news/news-910",
   }
-];
+] as NewsItem[];
