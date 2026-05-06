@@ -1,26 +1,29 @@
-⏰ 写入时间：2026-05-07 00:00 (Asia/Shanghai)
-## 本轮发现
-🔥 热点（14 条，已选 14 条写入 news.ts news-939~news-952）：
-1. [Google AI 搜索引入 Reddit 专家建议] AI Overviews 直接引用论坛第一手经验 → 适合：博客/知识库
-2. [苹果 2.5 亿美元和解 Siri AI 延迟诉讼] AI 产品宣传合规风险升级 → 适合：博客
-3. [Genesis AI 全栈机器人] Khosla 支持，从感知到行动完整闭环 → 适合：知识库
-4. [Anthropic AI 员工手册：失控率 54%→7%] Agent 安全新方法 → 适合：知识库
-5. [13 人团队 SSA 架构挑战 Transformer] 算力降千倍，成本仅 Opus 5% → 适合：博客+知识库
-6. [Adobe PDF AI Agent] 文档处理进入对话时代 → 适合：博客
-7. [AI 热潮推三星破 1 万亿美元] HBM 芯片需求驱动 → 适合：博客
-8. [Anthropic x 亚马逊 250 亿刀算力大单] 5GW 能耗 → 适合：知识库
-9. [美军部署超 10 万 AI Agent] 算法铁幕 → 适合：博客
-10. [Anthropic 联创预测：2028 年 AI 自己造 AI 概率 60%] → 适合：博客+知识库
-11. [OpenAI B2B Signals] 企业 AI 竞争优势路径 → 适合：知识库
-12. [白宫考虑 AI 模型审查机制] 网络安全风险 → 适合：博客
-13. [微软 OpenAI 2019 合同曝光：AGI 正式定义] → 适合：知识库
-14. [Match Group 缩减招聘投 AI] AI 替代人力真实案例 → 适合：博客
+⏰ 写入时间：2026-05-07 04:00 (Asia/Shanghai)
 
-🆕 新工具（0 个）：
-（本轮未发现值得收录的新开源工具）
+## 本轮发现
+
+🔥 热点（14 条，已选 14 条写入 news.ts）：
+1. [GPT-5.5 Instant 发布] OpenAI 新默认模型，更智能更清晰更个性化 → 适合：博客/知识库
+2. [ChatGPT Futures Class of 2026] OpenAI 首次以 Futures 形式预告产品演进 → 适合：博客
+3. [Claude Opus 4.7 发布] 编码/Agent/视觉全面升级 → 适合：知识库
+4. [Anthropic + SpaceX 算力合作] Claude 使用限制翻倍 → 适合：博客
+5. [Anthropic 金融 Agent] AI 进入合规敏感的金融核心场景 → 适合：知识库
+6. [Claude "Dreaming"] Agent 自我审查与自主改进新范式 → 适合：博客/知识库
+7. [Musk v. Altman 庭审] Mira Murati 当庭作证称无法信任 Altman → 适合：博客追踪系列
+8. [DeepSeek 450 亿美元估值] 中国 AI 明星的资本时刻 → 适合：博客
+9. [SpaceX Terafab 芯片工厂] 1190 亿美元投资，AI 延伸至半导体制造 → 适合：知识库
+10. [SAP 11.6 亿美元收购德国 AI 实验室] 传统软件巨头 AI 转型 → 适合：博客
+11. [ElevenLabs 引入贝莱德等新投资者] AI 语音赛道主流化 → 适合：博客
+12. [宾州起诉 Character.AI] 聊天机器人冒充医生 → 适合：知识库（AI 安全/伦理）
+13. [Google AI 搜索引入 Reddit 内容] AI 搜索更「有人味」 → 适合：博客
+14. [IBM Granite 4.1 开源模型] Apache 2.0 许可，3B/8B/30B 三档 → 适合：知识库
+
+🆕 新工具（2 个）：
+1. [nodetool] Visual Builder for AI Workflows and Agents - https://github.com/nodetool-ai/nodetool
+2. [frontman-ai/frontman] AI agent that lives in your framework/browser - https://github.com/frontman-ai/frontman
 
 💡 知识缺口（4 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：SSA 状态空间架构深度解读（对比 Transformer 的技术优势）
-2. KNOWLEDGE-BASE-PLAN.md 待补：AI Agent 安全治理框架（Anthropic 员工手册方法延伸）
-3. KNOWLEDGE-BASE-PLAN.md 待补：具身智能全景（Genesis AI + 波士顿动力 + 人形机器人赛道）
-4. KNOWLEDGE-BASE-PLAN.md 待补：AI 算力与能源（Anthropic 5GW + 核电站 + AI 能耗问题）
+1. KNOWLEDGE-BASE-PLAN.md 待补：[AI Agent 金融合规应用] — Anthropic 金融 Agent 发布，需要补充金融 AI Agent 知识库
+2. KNOWLEDGE-BASE-PLAN.md 待补：[AI 安全伦理与监管] — Character.AI 诉讼、宾州起诉事件频发
+3. KNOWLEDGE-BASE-PLAN.md 待补：[AI Agent 自我学习机制] — Claude Dreaming 功能揭示 Agent 自主改进新方向
+4. KNOWLEDGE-BASE-PLAN.md 待补：[AI 搜索技术全景] — Google AI 搜索升级 + Reddit 内容整合

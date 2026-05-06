@@ -21,7 +21,7 @@ const cutoffStr = `${cutoff.getFullYear()}-${String(cutoff.getMonth()+1).padStar
 const content = readFileSync(newsFile, 'utf-8');
 
 // 找到数组内容范围
-const arrMarker = 'export const news: NewsItem[] = [';
+const arrMarker = 'export const news = [';
 const arrStartIdx = content.indexOf(arrMarker);
 const arrEndIdx = content.lastIndexOf('];');
 if (arrStartIdx === -1 || arrEndIdx === -1) {
