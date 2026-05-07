@@ -1,27 +1,25 @@
-⏰ 写入时间：2026-05-07 12:00 (Asia/Shanghai)
-
+⏰ 写入时间：2026-05-07 16:00 (Asia/Shanghai)
 ## 本轮发现
-
-🔥 热点（13 条，已写入 news-967~news-979）：
-1. [xAI 解散] 马斯克官宣 xAI 解散，22 万张 GPU 租给 Anthropic → 适合：博客/知识库
-2. [国内 AGI Infra 融资] 7 亿元国内最大原生 AGI Infra 融资 → 适合：知识库
-3. [腾讯 Hy3] 混元 Hy3 Preview 上线两周 Token 调用增 10 倍 → 适合：博客
-4. [SWE-Bench 0%] 新基准测试 AI 工程智能，Claude/GPT/Gemini 全灭 → 适合：深度博客
-5. [千问语音输入] 千问电脑端上线语音输入法 → 适合：应用分析
-6. [Anthropic 金融 Agent] 推出金融服务业专用 AI Agent → 适合：知识库
-7. [Match Group AI 替岗] Tinder 母公司放缓招聘转向 AI → 适合：行业博客
-8. [Kimi 20 亿美元融资] 月之暗面新一轮融资接近收尾 → 适合：行业分析
-9. [豆包定价权] 豆包收费模式引发行业热议 → 适合：深度博客
-10. [AI 裁员征税] 经济学家建议对 AI 裁员企业征税 → 适合：政策知识库
-11. [Genesis AI 全栈机器人] Khosla 支持的全栈机器人 demo → 适合：技术博客
-12. [PayPal AI 转型] PayPal 宣布回归科技公司定位 → 适合：行业分析
-13. [白宫 AI 审查] 考虑设立 AI 模型审查机制 → 适合：政策知识库
-
-🆕 新工具（0 个）：本轮未发现值得收录的新工具
-
+🔥 热点（14 条，已写入 news-980~993）：
+1. [AI 经济五位架构师警告] 繁荣背后隐患浮现 → 适合：博客
+2. [xAI 正式解散] 22 万张 GPU 租给 Anthropic，马斯克转型算力商 → 适合：知识库
+3. [OpenAI MRC 超算网络协议] 联合五大芯片厂开源 → 适合：知识库
+4. [三星市值破万亿] AI 热潮推动半导体暴涨 → 适合：博客
+5. [SAP 11.6 亿美元收购] 18 个月德国 AI 实验室 + NemoClaw → 适合：博客
+6. [苹果 2.5 亿和解 Siri 诉讼] AI 功能延迟引发法律后果 → 适合：博客
+7. [Claude Dreaming 功能] AI 在梦境中自主进化 → 适合：知识库
+8. [OpenAI 前董事作证] AI 模型制造更像炼金术 → 适合：博客
+9. [43% 美国人归咎数据中心] AI 能耗引公众焦虑 → 适合：博客
+10. [SpaceX 1190 亿美元芯片厂] Terafab 计划 → 适合：知识库
+11. [国内最大 AGI Infra 融资 7 亿] 基础设施成新价值锚点 → 适合：知识库
+12. [宇树 UniStore 应用商店开放] 具身智能的 App Store 时刻 → 适合：博客
+13. [宇树 G1 韩国受戒] AI 伦理话题热议 → 适合：博客
+14. [OpenAI 首款手机] 2027 年量产 → 适合：博客
+🆕 新工具（0 个）：
+- 本轮未发现新的开源工具项目
 💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：[AI 工程智能] SWE-Bench 新基准解读与 AI 编程能力差距分析
-2. KNOWLEDGE-BASE-PLAN.md 待补：[AI 政策] AI 就业影响与政府监管框架（白宫审查 + 裁员征税）
-3. KNOWLEDGE-BASE-PLAN.md 待补：[中国 AI 融资] DeepSeek/Kimi/AGI Infra 融资全景与估值逻辑
-4. BLOG-PLAN.md 待补：xAI 解散深度分析——从 GPU 军备竞赛到算力租赁商业模式的转变
-5. BLOG-PLAN.md 待补：豆包收费后的中国 AI 商业化格局——定价权、用户留存与平台梦
+1. KNOWLEDGE-BASE-PLAN.md 待补：xAI 解散与算力租赁商业模式分析
+2. KNOWLEDGE-BASE-PLAN.md 待补：Claude Dreaming 功能深度解读（接 blog-128 后续）
+3. KNOWLEDGE-BASE-PLAN.md 待补：MRC 超算网络协议技术解析
+4. KNOWLEDGE-BASE-PLAN.md 待补：AI 能源消耗与可持续发展
+5. KNOWLEDGE-BASE-PLAN.md 待补：具身智能应用生态全景
