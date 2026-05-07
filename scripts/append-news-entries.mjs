@@ -3,6 +3,10 @@ import { readFileSync, writeFileSync } from 'fs';
 const path = 'src/data/news.ts';
 let content = readFileSync(path, 'utf-8');
 
+// 去重保护：提取所有已存在的 ID
+const existingIds = new Set(content.match(/id:\s*"(news-\d+)"/g)?.map(m => m.match(/news-\d+/)[0]) || []);
+console.log(`当前已有 ${existingIds.size} 条新闻`);
+
 // Remove trailing ] as NewsItem[];
 content = content.replace(/\]\s*as\s+NewsItem\[\];\s*$/, '');
 
@@ -174,6 +178,19 @@ const newItems = `,
   }
 ] as NewsItem[];`;
 
-content += newItems;
-writeFileSync(path, content, 'utf-8');
-console.log('✅ Added 15 news entries (news-994 to news-1008)');
+// 过滤掉已存在的 ID（去重保护）
+const newItemIds = newItems.match(/id:\s*"(news-\d+)"/g)?.map(m => m.match(/news-\d+/)[0]) || [];
+const filteredItems = newItemIds.filter(id => !existingIds.has(id));
+
+if (filteredItems.length === newItemIds.length) {
+  content += newItems;
+  writeFileSync(path, content, 'utf-8');
+  console.log(`✅ Added ${newItemIds.length} news entries`);
+} else if (filteredItems.length === 0) {
+  console.log('⏭️ 所有新闻 ID 已存在，跳过添加');
+} else {
+  // 部分重复，只添加新的
+  console.log(`⚠️ ${newItemIds.length - filteredItems.length} 条重复已跳过，添加 ${filteredItems.length} 条新新闻`);
+  // 这里简单处理：如果有任何重复，整批跳过，避免部分添加
+  console.log('⏭️ 检测到部分重复，整批跳过（请手动处理）');
+}
