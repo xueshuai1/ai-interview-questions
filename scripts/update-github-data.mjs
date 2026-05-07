@@ -1,210 +1,156 @@
 #!/usr/bin/env node
-/**
- * Bulk update GitHub stars, forks, language for all tools.
- * Discover new AI topics from repo topics.
- * Usage: node update-github-data.mjs <GITHUB_TOKEN>
- */
+// Update GitHub stars, forks, language, updatedAt for tools.ts
+// Also discover new AI topics from repo topics
+
 import fs from 'fs';
 import path from 'path';
 
-const TOKEN = process.argv[2];
-const TOOLS_PATH = 'src/data/tools.ts';
-const TOPICS_PATH = 'data/ai-topics.json';
+const GITHUB_TOKEN = process.argv[2];
+if (!GITHUB_TOKEN) { console.error('Usage: node update-github-data.mjs <token>'); process.exit(1); }
 
-// ── 1. Extract all GitHub repos from tools.ts ──
-const toolsRaw = fs.readFileSync(TOOLS_PATH, 'utf-8');
-const urlRe = /url:\s*"https:\/\/github\.com\/([^"]+)"/g;
-const repos = new Map();
-let m;
-while ((m = urlRe.exec(toolsRaw)) !== null) {
-  const repo = m[1].trim();
-  if (!repos.has(repo)) repos.set(repo, []);
-  repos.get(repo).push(m.index);
-}
-console.log(`Found ${repos.size} unique repos`);
-
-// ── 2. Load existing topics ──
-const topicsData = JSON.parse(fs.readFileSync(TOPICS_PATH, 'utf-8'));
-const existingTopicsSet = new Set(topicsData.topics.map(t => t.topic.toLowerCase()));
-
-// ── 3. AI keyword list ──
-const AI_KW = [
-  'ai','ml','dl','llm','nlp','cv','agent','robot','robots','robotics',
-  'vision','language','neural','learning','generative','prompt','chatbot',
-  'deep-learning','machine-learning','transformer','gpt','diffusion','rag',
-  'embedding','inference','fine-tuning','llmops','mlops','model-serving',
-  'vector-search','semantic-search','knowledge-graph','multimodal','speech',
-  'text-to-speech','image-generation','video-generation','code-generation',
-  'autonomous','embodied-ai','world-models','foundation-models',
-  'large-language-models','retrieval-augmented','instruction-tuning',
-  'rlhf','alignment'
+// AI topic keywords for filtering
+const AI_KEYWORDS = [
+  'ai', 'ml', 'dl', 'llm', 'nlp', 'cv', 'agent', 'robot', 'robots', 'robotics',
+  'vision', 'language', 'neural', 'learning', 'generative', 'prompt', 'chatbot',
+  'deep-learning', 'machine-learning', 'transformer', 'gpt', 'diffusion', 'rag',
+  'embedding', 'inference', 'fine-tuning', 'llmops', 'mlops', 'model-serving',
+  'vector-search', 'semantic-search', 'knowledge-graph', 'multimodal', 'speech',
+  'text-to-speech', 'image-generation', 'video-generation', 'code-generation',
+  'autonomous', 'embodied-ai', 'world-models', 'foundation-models',
+  'large-language-models', 'retrieval-augmented', 'instruction-tuning',
+  'rlhf', 'alignment'
 ];
 
-function isAiRelated(topic) {
-  const t = topic.toLowerCase();
-  return AI_KW.some(kw => t.includes(kw));
+// Read tools.ts
+const toolsPath = path.join('src/data/tools.ts');
+const topicsPath = path.join('data/ai-topics.json');
+
+const toolsContent = fs.readFileSync(toolsPath, 'utf8');
+const existingTopics = JSON.parse(fs.readFileSync(topicsPath, 'utf8'));
+const existingTopicNames = new Set(existingTopics.topics.map(t => t.topic.toLowerCase()));
+
+// Extract repos and their current data
+const urlRegex = /url:\s*['"]https:\/\/github\.com\/([^'"]+)['"]/g;
+const repos = [];
+let match;
+while ((match = urlRegex.exec(toolsContent)) !== null) {
+  repos.push(match[1]);
 }
+const uniqueRepos = [...new Set(repos)];
 
-// ── 4. Fetch repo data sequentially ──
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-const repoList = [...repos.keys()];
-const apiData = {};
-const topicUsage = {};
+console.error(`Total unique repos: ${uniqueRepos.length}`);
 
-for (let i = 0; i < repoList.length; i++) {
-  const repo = repoList[i];
+// Fetch data with rate limiting
+const results = [];
+let errors = 0;
+
+for (let i = 0; i < uniqueRepos.length; i++) {
+  const repo = uniqueRepos[i];
+  if ((i + 1) % 20 === 0) console.error(`  Fetching ${i + 1}/${uniqueRepos.length}...`);
+  
   try {
-    const res = await fetch(`https://api.github.com/repos/${repo}`, {
+    const url = `https://api.github.com/repos/${repo}`;
+    const resp = await fetch(url, {
       headers: {
-        'Authorization': `token ${TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json',
-        'User-Agent': 'ai-master-site'
+        'User-Agent': 'ai-master-site-data-updater',
+        'Authorization': `Bearer ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github+json'
       }
     });
-    if (res.status === 403) {
-      console.log(`  ⏳ Rate limited on ${repo}, wait 10s...`);
-      await sleep(10000);
-      i--; continue;
+    
+    if (resp.status === 200) {
+      const data = await resp.json();
+      results.push({
+        repo,
+        stargazers_count: data.stargazers_count,
+        pushed_at: data.pushed_at,
+        forks_count: data.forks_count,
+        language: data.language,
+        topics: data.topics || [],
+        fetched: true
+      });
+    } else if (resp.status === 404) {
+      console.error(`  404: ${repo}`);
+      errors++;
+    } else if (resp.status === 403) {
+      console.error(`  403 rate limit for ${repo}, waiting 60s...`);
+      await new Promise(r => setTimeout(r, 60000));
+      i--; // retry
+      continue;
+    } else {
+      console.error(`  HTTP ${resp.status}: ${repo}`);
+      errors++;
     }
-    if (res.status === 404) { console.log(`  ✗ 404 ${repo}`); await sleep(500); continue; }
-    if (!res.ok) { console.log(`  ✗ ${res.status} ${repo}`); await sleep(500); continue; }
-    const data = await res.json();
-    apiData[repo] = {
-      stars: data.stargazers_count || 0,
-      forks: data.forks_count || 0,
-      language: data.language || null,
-      pushedAt: data.pushed_at ? data.pushed_at.split('T')[0] : null,
-      topics: (data.topics || []).map(t => t.toLowerCase())
-    };
-    // Track topics
-    for (const t of apiData[repo].topics) {
-      topicUsage[t] = (topicUsage[t] || 0) + 1;
-    }
-    console.log(`  ✓ ${repo} → ${apiData[repo].stars}★, ${apiData[repo].forks} forks, ${apiData[repo].language||'N/A'}`);
-  } catch(e) {
-    console.log(`  ✗ ${repo}: ${e.message}`);
-  }
-  if (i < repoList.length - 1) await sleep(1000);
-}
-
-// ── 5. Build changes to tools.ts ──
-let newContent = toolsRaw;
-const changes = { stars: [], forks: [], language: [], updatedAt: [] };
-
-// For each repo, find its tool entry and update fields
-for (const [repo, data] of Object.entries(apiData)) {
-  const escaped = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  
-  // Update githubStars
-  const starsRe = new RegExp(`(url:\\s*"https://github\\.com/${escaped}"[\\s\\S]*?githubStars:\\s*)(\\d+)`);
-  const sm = starsRe.exec(newContent);
-  if (sm) {
-    const oldVal = parseInt(sm[2]);
-    if (oldVal !== data.stars) {
-      const pos = sm.index + sm[1].length;
-      newContent = newContent.slice(0, pos) + data.stars + newContent.slice(pos + sm[2].length);
-      changes.stars.push({ repo, old: oldVal, new: data.stars, delta: data.stars - oldVal });
-    }
+  } catch (e) {
+    console.error(`  Error fetching ${repo}: ${e.message}`);
+    errors++;
   }
   
-  // Update forks (if field exists)
-  const forksRe = new RegExp(`(url:\\s*"https://github\\.com/${escaped}"[\\s\\S]*?forks:\\s*)(\\d+)`);
-  const fm = forksRe.exec(newContent);
-  if (fm) {
-    const oldVal = parseInt(fm[2]);
-    if (oldVal !== data.forks) {
-      const pos = fm.index + fm[1].length;
-      newContent = newContent.slice(0, pos) + data.forks + newContent.slice(pos + fm[2].length);
-      changes.forks.push({ repo, old: oldVal, new: data.forks });
-    }
-  }
-  
-  // Update language (if field exists)
-  if (data.language) {
-    const langRe = new RegExp(`(url:\\s*"https://github\\.com/${escaped}"[\\s\\S]*?language:\\s*")([^"]*)"`,);
-    const lm = langRe.exec(newContent);
-    if (lm && lm[2] !== data.language && lm[2] !== 'N/A') {
-      const pos = lm.index + lm[1].length;
-      newContent = newContent.slice(0, pos) + data.language + newContent.slice(pos + lm[2].length);
-      changes.language.push({ repo, old: lm[2], new: data.language });
-    }
-  }
-  
-  // Update updatedAt (if field exists)
-  if (data.pushedAt) {
-    const dateRe = new RegExp(`(url:\\s*"https://github\\.com/${escaped}"[\\s\\S]*?updatedAt:\\s*")([^"]*)"`);
-    const dm = dateRe.exec(newContent);
-    if (dm && dm[2] !== data.pushedAt) {
-      const pos = dm.index + dm[1].length;
-      newContent = newContent.slice(0, pos) + data.pushedAt + newContent.slice(pos + dm[2].length);
-      changes.updatedAt.push({ repo, old: dm[2], new: data.pushedAt });
-    }
+  // Rate limit: 1 second between requests
+  if (i < uniqueRepos.length - 1) {
+    await new Promise(r => setTimeout(r, 1000));
   }
 }
 
-// Write updated tools.ts
-let toolsChanged = false;
-if (newContent !== toolsRaw) {
-  fs.writeFileSync(TOOLS_PATH, newContent);
-  toolsChanged = true;
+console.error(`\nFetched: ${results.length}, Errors: ${errors}`);
+
+// Process updates
+const updates = []; // {repo, oldStars, newStars, oldForks, newForks, oldLang, newLang, oldUpdated, newUpdated}
+const allTopics = new Set();
+
+for (const r of results) {
+  const pushedDate = r.pushed_at ? new Date(r.pushed_at).toISOString().split('T')[0] : null;
+  updates.push({
+    repo: r.repo,
+    newStars: r.stargazers_count,
+    newForks: r.forks_count,
+    newLanguage: r.language || null,
+    newUpdatedAt: pushedDate,
+    topics: r.topics
+  });
+  r.topics.forEach(t => allTopics.add(t.toLowerCase()));
 }
 
-// ── 6. Discover new AI topics ──
+// Find new AI topics
 const newTopics = [];
-for (const [topic, count] of Object.entries(topicUsage)) {
-  if (existingTopicsSet.has(topic)) continue;
-  if (!isAiRelated(topic)) continue;
-  // Filter: skip if only 1 repo and max stars < 1000
-  const reposForTopic = repoList.filter(r => apiData[r] && apiData[r].topics.includes(topic));
-  const maxStars = Math.max(...reposForTopic.map(r => apiData[r].stars), 0);
-  if (count <= 1 && maxStars < 1000) continue;
+for (const topic of allTopics) {
+  if (existingTopicNames.has(topic)) continue;
   
-  let minStars = 5000;
-  if (count >= 3) minStars = 2000;
-  else if (count >= 2) minStars = 3000;
+  // Check if AI-related
+  const isAI = AI_KEYWORDS.some(kw => {
+    const t = topic.toLowerCase();
+    return t === kw || t.includes(kw) || kw.includes(t.replace(/-/g, ''));
+  });
   
+  if (!isAI) continue;
+  
+  // Estimate minStars based on repo count using this topic
+  const repoCount = results.filter(r => r.topics.map(t => t.toLowerCase()).includes(topic)).length;
+  let minStars;
+  if (repoCount >= 3) minStars = 2000;
+  else if (repoCount >= 2) minStars = 3000;
+  else minStars = 5000;
+  
+  // Generate description
   const desc = topic.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  
   newTopics.push({
     topic,
     url: `https://github.com/topics/${topic}`,
     minStars,
-    description: `（自动发现）${desc}（${count} 个仓库使用）`
+    description: `${desc}（自动发现）`,
+    repoCount
   });
 }
 
-if (newTopics.length > 0) {
-  topicsData.topics.push(...newTopics);
-  topicsData.lastUpdated = new Date().toISOString();
-  fs.writeFileSync(TOPICS_PATH, JSON.stringify(topicsData, null, 2));
-}
+console.error(`New AI topics found: ${newTopics.length}`);
 
-// ── 7. Summary ──
-console.log('\n========== SUMMARY ==========');
-console.log(`Repos scanned: ${repoList.length}`);
-console.log(`API responses: ${Object.keys(apiData).length}`);
-console.log(`Stars updated: ${changes.stars.length}`);
-if (changes.stars.length > 0) {
-  changes.stars.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
-  changes.stars.slice(0, 8).forEach(c => {
-    console.log(`  ${c.repo}: ${c.old} → ${c.new} (${c.delta > 0 ? '+' : ''}${c.delta})`);
-  });
-}
-console.log(`Forks updated: ${changes.forks.length}`);
-console.log(`Language updated: ${changes.language.length}`);
-console.log(`New AI topics: ${newTopics.length}`);
-if (newTopics.length > 0) {
-  newTopics.forEach(t => console.log(`  • ${t.topic} — ${t.description}`));
-}
-console.log(`tools.ts changed: ${toolsChanged}`);
-console.log('===============================');
-
-// Save summary for the commit message
-fs.writeFileSync('/tmp/github-update-result.json', JSON.stringify({
-  reposScanned: repoList.length,
-  apiResponses: Object.keys(apiData).length,
-  starsChanges: changes.stars,
-  forksChanges: changes.forks,
-  langChanges: changes.language,
+// Output as JSON for further processing
+const output = {
+  updates,
   newTopics,
-  toolsChanged,
-}, null, 2));
+  totalTopics: existingTopics.topics.length + newTopics.length
+};
+
+fs.writeFileSync('/tmp/github-data-update.json', JSON.stringify(output, null, 2));
+console.error('Data saved to /tmp/github-data-update.json');
