@@ -1,25 +1,28 @@
-⏰ 写入时间：2026-05-07 16:00 (Asia/Shanghai)
+⏰ 写入时间：2026-05-07 20:00 (Asia/Shanghai)
 ## 本轮发现
-🔥 热点（14 条，已写入 news-980~993）：
-1. [AI 经济五位架构师警告] 繁荣背后隐患浮现 → 适合：博客
-2. [xAI 正式解散] 22 万张 GPU 租给 Anthropic，马斯克转型算力商 → 适合：知识库
-3. [OpenAI MRC 超算网络协议] 联合五大芯片厂开源 → 适合：知识库
-4. [三星市值破万亿] AI 热潮推动半导体暴涨 → 适合：博客
-5. [SAP 11.6 亿美元收购] 18 个月德国 AI 实验室 + NemoClaw → 适合：博客
-6. [苹果 2.5 亿和解 Siri 诉讼] AI 功能延迟引发法律后果 → 适合：博客
-7. [Claude Dreaming 功能] AI 在梦境中自主进化 → 适合：知识库
-8. [OpenAI 前董事作证] AI 模型制造更像炼金术 → 适合：博客
-9. [43% 美国人归咎数据中心] AI 能耗引公众焦虑 → 适合：博客
-10. [SpaceX 1190 亿美元芯片厂] Terafab 计划 → 适合：知识库
-11. [国内最大 AGI Infra 融资 7 亿] 基础设施成新价值锚点 → 适合：知识库
-12. [宇树 UniStore 应用商店开放] 具身智能的 App Store 时刻 → 适合：博客
-13. [宇树 G1 韩国受戒] AI 伦理话题热议 → 适合：博客
-14. [OpenAI 首款手机] 2027 年量产 → 适合：博客
+🔥 热点（15 条，已写入 news-994~news-1008）：
+1. [Anthropic Code w/ Claude 2026] Claude 学会"做梦"自我进化，Agent 任务完成率暴涨 6 倍 → 适合：博客（Claude Dreaming 深度解读）/知识库（Agent 自主进化机制）
+2. [DeepSeek 首轮融资] 国家队领投估值 450 亿美元 → 适合：博客（中国 AI 估值体系重塑）
+3. [xAI 并入 SpaceX] 更名为 SpaceXAI，马斯克 AI 帝国成型 → 适合：博客（马斯克 AI 商业版图全景）
+4. [Musk v. Altman 庭审] Brockman 证词揭秘 OpenAI 分裂内幕 → 适合：博客（OpenAI 治理危机追踪）
+5. [OpenAI MRC 协议] 五大巨头联合发布超算网络协议 → 适合：知识库（AI 基础设施架构）
+6. [AI 咖啡店伦理争议] Simon Willison 批评无人监督 AI 影响真实世界 → 适合：博客（AI 伦理边界讨论）
+7. [Anthropic 金融 AI 智能体] 10 个专业 Agent 覆盖金融核心场景 → 适合：知识库（AI+金融应用指南）
+8. [SAP 11.6 亿美元收购] 18 个月德国 AI 实验室 → 适合：博客（传统软件巨头 AI 转型）
+9. [三星市值破 1 万亿] AI 芯片需求推动 → 适合：知识库（AI 芯片产业链分析）
+10. [Apple 2.5 亿美元和解] Siri AI 功能延迟诉讼 → 适合：博客（Apple AI 战略转变）
+11. [月之暗面 20 亿美元融资] 估值约 1400 亿元 → 适合：博客（中国大模型融资潮）
+12. [腾讯混元 Hy3] 上线两周 Token 调用量暴增 10 倍 → 适合：知识库（国产大模型对比）
+13. [半导体板块暴涨] AMD 飙升 6800 亿 + 英伟达 218 亿投资光纤 → 适合：博客（AI 芯片投资指南）
+14. [AgentTrust 安全框架] arXiv 论文提出运行时安全评估 → 适合：知识库（AI Agent 安全框架）
+15. [ElevenLabs 新投资者] BlackRock + 好莱坞明星入场 → 适合：博客（AI 语音技术趋势）
+
 🆕 新工具（0 个）：
-- 本轮未发现新的开源工具项目
+本轮以新闻为主，未发现突出的新开源工具
+
 💡 知识缺口（5 项）：
-1. KNOWLEDGE-BASE-PLAN.md 待补：xAI 解散与算力租赁商业模式分析
-2. KNOWLEDGE-BASE-PLAN.md 待补：Claude Dreaming 功能深度解读（接 blog-128 后续）
-3. KNOWLEDGE-BASE-PLAN.md 待补：MRC 超算网络协议技术解析
-4. KNOWLEDGE-BASE-PLAN.md 待补：AI 能源消耗与可持续发展
-5. KNOWLEDGE-BASE-PLAN.md 待补：具身智能应用生态全景
+1. KNOWLEDGE-BASE-PLAN.md 待补：Agent 自主进化机制（Claude Dreaming 技术原理）
+2. KNOWLEDGE-BASE-PLAN.md 待补：AI Agent 安全框架全景（AgentTrust/DTap 等）
+3. KNOWLEDGE-BASE-PLAN.md 待补：AI 基础设施架构（MRC 协议 + GPU 集群网络）
+4. KNOWLEDGE-BASE-PLAN.md 待补：AI 伦理与治理（AI 自主经营实验的边界）
+5. KNOWLEDGE-BASE-PLAN.md 待补：中国大模型融资全景（DeepSeek/月之暗面/智谱等对比）
